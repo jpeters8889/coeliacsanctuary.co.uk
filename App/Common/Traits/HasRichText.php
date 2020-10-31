@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Coeliac\Common\Traits;
+
+use function in_array;
+use Illuminate\Database\Eloquent\Model;
+
+/** @mixin Model */
+trait HasRichText
+{
+    public function getRichTextAttribute()
+    {
+        return array_merge([
+            '@context' => $this->richTextContext(),
+            '@type' => $this->richTextType(),
+        ], $this->toRichText());
+    }
+
+    protected function richTextContext(): string
+    {
+        return 'http://schema.org';
+    }
+
+    abstract protected function richTextType(): string;
+
+    abstract protected function toRichText(): array;
+
+    protected function formatTimeToIso($time): string
+    {
+        $bits = explode(' ', $time);
+
+        if (count($bits) === 4) {
+            return "PT{$bits[0]}H{$bits[2]}M";
+        }
+
+        if (count($bits) === 2) {
+            $unit = 'M';
+
+            if (in_array($bits[1], ['Hour', 'Hours'])) {
+                $unit = 'H';
+            }
+
+            return "PT{$bits[0]}{$unit}";
+        }
+
+        return 'PT';
+    }
+}

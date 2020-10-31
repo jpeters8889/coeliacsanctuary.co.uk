@@ -1,0 +1,20 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+
+    paths:
+        - App
+
+    # The level 8 is the highest level
+    level: 5
+
+    ignoreErrors:
+        - '#Anonymous function has an unused use \$router.#'
+
+    excludes_analyse:
+        - ./*/*/*Blueprint.php
+        - ./*/*/*Feed.php
+
+    checkMissingIterableValueType: false
+    noUnnecessaryCollectionCall: false

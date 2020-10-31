@@ -1,0 +1,38 @@
+.tooltip {
+    @apply block z-50 shadow-xl;
+}
+
+.tooltip .tooltip-inner {
+    @apply rounded px-8 py-1 font-semibold;
+}
+
+.tooltip[x-placement^="top"] {
+    @apply mb-2;
+}
+
+.tooltip[x-placement^="bottom"] {
+    @apply mt-2;
+}
+
+.tooltip[x-placement^="left"] {
+    @apply mr-2;
+}
+
+.tooltip.popover .popover-inner {
+    @apply bg-blue p-6 rounded shadow;
+}
+
+.tooltip.popover .popover-arrow {
+    border-width: 8px;
+}
+
+.tooltip[aria-hidden='true'] {
+    @apply invisible opacity-0;
+    transition: opacity .15s, visibility .15s;
+}
+
+.tooltip[aria-hidden='false'] {
+    @apply visible opacity-100;
+
+    transition: opacity .15s;
+}

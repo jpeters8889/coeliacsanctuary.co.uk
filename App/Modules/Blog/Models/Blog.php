@@ -1,0 +1,124 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Coeliac\Modules\Blog\Models;
+
+use Carbon\Carbon;
+use Coeliac\Common\Traits\ClearsCache;
+use Laravel\Scout\Searchable;
+use Coeliac\Base\Models\BaseModel;
+use Coeliac\Common\Traits\Linkable;
+use Coeliac\Common\Traits\Imageable;
+use Coeliac\Common\Traits\HasRichText;
+use Coeliac\Common\Comments\Commentable;
+use Coeliac\Common\Contracts\HasComments;
+use Coeliac\Common\Traits\ArchitectModel;
+use Coeliac\Common\Traits\DisplaysImages;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+/**
+ * @property string $title
+ * @property Collection<BlogTag> $tags
+ * @property mixed $meta_description
+ * @property mixed $meta_keywords
+ * @property mixed $id
+ * @property mixed $link
+ * @property mixed $live
+ * @property Carbon $created_at
+ * @method transform(array $array)
+ */
+class Blog extends BaseModel implements HasComments
+{
+    use ArchitectModel;
+    use ClearsCache;
+    use Commentable;
+    use DisplaysImages;
+    use HasRichText;
+    use Imageable;
+    use Linkable;
+    use Searchable;
+
+    protected $appends = ['main_image'];
+
+    protected $hidden = ['images'];
+
+    public function getScoutKey()
+    {
+        return $this->id;
+    }
+
+    protected function linkRoot()
+    {
+        return 'blog';
+    }
+
+    public function toSearchableArray(): array
+    {
+        return $this->transform([
+            'title' => $this->title,
+//            'body' => $this->body,
+            'description' => $this->description,
+            'metaTags' => explode(',', $this->meta_tags),
+            'tags' => $this->tags->pluck('tag'),
+        ]);
+    }
+
+    public function shouldBeSearchable(): bool
+    {
+        return $this->live === 1;
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            BlogTag::class,
+            'blog_assigned_tags',
+            'blog_id',
+            'tag_id'
+        )->withTimestamps();
+    }
+
+    protected function richTextType(): string
+    {
+        return 'NewsArticle';
+    }
+
+    protected function toRichText(): array
+    {
+        return [
+            'mainEntityOfPage' => [
+                '@type' => 'WebPage',
+                '@id' => 'https://www.coeliacsanctuary.co.uk',
+            ],
+            'headline' => $this->title,
+            'image' => $this->main_image,
+            'datePublished' => $this->created_at->format('c'),
+            'dateModified' => $this->updated_at->format('c'),
+            'author' => [
+                '@type' => 'Person',
+                'name' => 'Alison Wheatley',
+            ],
+            'publisher' => [
+                '@type' => 'Organization',
+                'name' => 'Coeliac Sanctuary',
+                'logo' => [
+                    '@type' => 'ImageObject',
+                    'url' => 'https://www.coeliacsanctuary.co.uk/assets/svg/logo.svg',
+                ],
+            ],
+            'description' => $this->meta_description,
+        ];
+    }
+
+    protected static function usesImages(): bool
+    {
+        return true;
+    }
+
+    protected function cacheKey(): string
+    {
+        return 'blogs';
+    }
+}

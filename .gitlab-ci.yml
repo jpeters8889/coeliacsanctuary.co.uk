@@ -1,0 +1,26 @@
+image: php:7.4
+
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+
+  before_script:
+    - apt-get update
+    - apt-get install -y git zip unzip
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    - php -r "unlink('composer-setup.php');"
+
+  script:
+    - cp .env.example .env
+    - composer install --no-ansi --no-interaction --no-progress --no-suggest
+    - php vendor/bin/phpunit
+
+deploy:
+  stage: deploy
+
+  script:
+    echo "deploy"

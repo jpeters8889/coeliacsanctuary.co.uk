@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Coeliac\Base\Console;
+
+use Illuminate\Console\Scheduling\Schedule;
+use Coeliac\Modules\Shop\Console\CloseBaskets;
+use Coeliac\Base\Console\Commands\ImportCommand;
+use Coeliac\Base\Console\Commands\ClearPublicDirectories;
+use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+
+class Kernel extends ConsoleKernel
+{
+    protected $commands = [
+        ClearPublicDirectories::class,
+        CloseBaskets::class,
+        ImportCommand::class,
+    ];
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('coeliac:shopCloseBaskets')->everyMinute();
+        $schedule->command('coeliac:clear_public_dirs')->daily();
+
+        $schedule->command('horizon:snapshot')->everyFiveMinutes();
+
+        $schedule->command('mailcoach:calculate-statistics')->everyMinute();
+        $schedule->command('mailcoach:send-scheduled-campaigns')->everyMinute();
+        $schedule->command('mailcoach:send-campaign-summary-mail')->hourly();
+        $schedule->command('mailcoach:send-email-list-summary-mail')->mondays()->at('9:00');
+        $schedule->command('mailcoach:delete-old-unconfirmed-subscribers')->daily();
+        $schedule->command('mailcoach:cleanup-processed-feedback')->hourly();
+    }
+}

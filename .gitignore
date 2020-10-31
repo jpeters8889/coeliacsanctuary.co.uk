@@ -1,0 +1,34 @@
+#Editor Specific
+/.idea
+_ide_helper.php
+
+# Packages / Framework
+/node_modules
+/vendor
+.env
+
+# Custom
+/public/cs-adm-uploads/*
+/public/imports
+/public/assets/js/*
+/public/assets/css/*
+/public/assets/mix-manifest.json
+/public/public
+/storage/app/tests/*
+/tests/storage/*
+
+.git-old
+
+# PHPUnit
+.phpunit.result.cache
+
+#PHP CS / CS Fixer
+\.php_cs
+phpcs.xml
+\.php_cs\.cache
+
+#PHP MD
+phpmd.xml
+
+# Except...
+!.gitkeep

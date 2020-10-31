@@ -1,0 +1,56 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Coeliac\Modules\Shop\PostcodeLookup\GetAddress;
+
+use Exception;
+use Illuminate\Support\Collection;
+use Coeliac\Modules\Shop\PostcodeLookup\Parser as ParserContract;
+
+class Parser implements ParserContract
+{
+    public function parse($response, $postcode): Collection
+    {
+        if (!$response->addresses) {
+            throw new Exception('No results');
+        }
+
+        return (new Collection($response->addresses))->transform(function ($address) use ($postcode) {
+            return $this->processAddress($address, $postcode);
+        })->sortBy('house_number')->values();
+    }
+
+    private function processAddress($address, $postcode): array
+    {
+        $parts = (new Collection(explode(',', $address)))
+            ->reject(static function ($part) {
+                return $part === ' ';
+            })
+            ->transform(static function ($part) {
+                return trim($part);
+            });
+
+        $result = $this->addressArray($postcode, $parts);
+
+        $result['friendly'] = implode(', ', array_filter($result));
+        $result['house_number'] = (int) explode(' ', $result['address_1'])[0];
+
+        return $result;
+    }
+
+    private function addressArray($postcode, Collection $parts): array
+    {
+        $county = $parts->pop();
+        $town = $parts->pop();
+
+        return [
+            'address_1' => $parts->shift(),
+            'address_2' => $parts->shift() ?: null,
+            'address_3' => $parts->implode(', ') ?: null,
+            'town' => $town,
+            'county' => $county,
+            'postcode' => strtoupper($postcode),
+        ];
+    }
+}

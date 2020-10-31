@@ -1,0 +1,15 @@
+<?php
+
+$rules = [
+    '@Symfony' => true,
+    'array_syntax' => ['syntax' => 'short'],
+    'no_empty_comment' => false,
+    'ordered_imports' => [ 'sort_algorithm' => 'length' ],
+    'phpdoc_trim_consecutive_blank_line_separation' => true,
+    'phpdoc_var_annotation_correct_order' => true,
+    'yoda_style' => false,
+];
+
+return PhpCsFixer\Config::create()
+    ->setRiskyAllowed(true)
+    ->setRules($rules);

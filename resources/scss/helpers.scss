@@ -1,0 +1,21 @@
+@responsive {
+    .bg-blue-gradient {
+        background: linear-gradient(to bottom right, #80CCFC 0%, #addaf9 100%);
+    }
+
+    .bg-blue-gradient-30 {
+        background: linear-gradient(to bottom right, rgb(128, 204, 252, .3) 0%, rgb(173, 218, 249, .3) 100%);
+    }
+}
+
+.transition-bg {
+    transition: background 0.5s ease;
+}
+
+.transition-color {
+    transition: color 0.5s ease;
+}
+
+.transition-height {
+    transition: height 0.5s ease;
+}

@@ -1,0 +1,41 @@
+.main-body {
+    a {
+        transition: color 0.5s ease;
+        display: inline!important;
+        font-weight: 600;
+        color: #80CCFC;
+
+        &:hover {
+            color: #666;
+        }
+    }
+
+    p {
+        @apply mb-4;
+    }
+
+    ul:not(.list-none) {
+        @apply list-disc list-inside pl-4 mb-4;
+    }
+
+    ol:not(.list-none) {
+        @apply list-decimal pl-4 mb-4;
+    }
+
+    table {
+        @apply w-full mb-4;
+        tr {
+            @apply border-b-2 border-blue;
+            th {
+                @apply bg-blue-light-20 text-center text-xl font-coeliac leading-none;
+                padding: 1rem 0!important;
+            }
+            td, th {
+                @apply p-1 border-r-2 border-blue align-top;
+                &:last-of-type {
+                    @apply border-0;
+                }
+            }
+        }
+    }
+}

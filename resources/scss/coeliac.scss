@@ -1,0 +1,53 @@
+@import '_settings.scss';
+@import 'animations.scss';
+@import 'helpers.scss';
+@import 'mainBody.scss';
+@import 'map.scss';
+@import 'scrollable.scss';
+@import 'toast.scss';
+@import 'tooltips.scss';
+
+@tailwind base;
+@tailwind components;
+
+html, body .w-screen, .inner-wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.inner-wrapper {
+    max-width: 1500px;
+}
+
+.page-box {
+    background: #fff;
+    @apply p-3;
+
+    strong {
+        @apply font-semibold;
+    }
+
+    .iframe-wrapper {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        padding-top: 56.25%;
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+img.lazy:not(.loaded) {
+    height: 100%;
+    padding-bottom: 20%;
+}
+
+@tailwind utilities;
