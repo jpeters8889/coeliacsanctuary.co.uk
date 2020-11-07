@@ -17,6 +17,8 @@ use JPeters\Architect\Http\Requests\BlueprintSubmitRequest;
  */
 trait ArchitectModel
 {
+    protected static $hasUpdatedImages = [];
+
     public static function bootArchitectModel()
     {
         static::creating(static function (BaseModel $model) {
@@ -71,11 +73,12 @@ trait ArchitectModel
         $requestImages = json_decode($request->input('Images'));
 
         foreach ($requestImages->article as $image) {
-            if (!Str::contains($model->$field, $image)) {
+            if (in_array($image, self::$hasUpdatedImages) || !Str::contains($model->$field, $image)) {
                 continue;
             }
 
             if (Str::contains($model->$field, $images[$index]->image->image_url)) {
+                self::$hasUpdatedImages[] = $image;
                 ++$index;
                 continue;
             }
