@@ -71,8 +71,6 @@ class Plan extends ArchitectPlan
 
         (new Collection(json_decode($value, true)))
             ->each(function ($image, $method) use ($model) {
-                $category = $this->uploadCategory;
-
                 switch ($method) {
                     case 'social':
                         $category = Image::IMAGE_CATEGORY_SOCIAL;

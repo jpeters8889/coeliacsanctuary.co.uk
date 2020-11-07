@@ -60,10 +60,6 @@ trait ArchitectModel
             return;
         }
 
-        if ($model->images()->latest()->first()->created_at->isSameMinute($model->updated_at)) {
-            return;
-        }
-
         /** @var BlueprintSubmitRequest $request */
         $request = resolve(BlueprintSubmitRequest::class);
 
