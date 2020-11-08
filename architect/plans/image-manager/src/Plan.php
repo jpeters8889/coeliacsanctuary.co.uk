@@ -44,7 +44,7 @@ class Plan extends ArchitectPlan
         /** @var ImageManager $imageManager */
         $imageManager = resolve(ImageManager::class);
 
-        return $model->images->transform(static function (ImageAssociations $imageAssociation) use ($imageManager) {
+        return $model->fresh()->images->transform(static function (ImageAssociations $imageAssociation) use ($imageManager) {
             $fileName = $imageAssociation->image->file_name;
             $category = $imageAssociation->category->category;
 
