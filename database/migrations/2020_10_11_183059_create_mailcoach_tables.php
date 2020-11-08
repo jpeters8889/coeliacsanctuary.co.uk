@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateMailcoachTables extends Migration
 {
@@ -142,7 +144,6 @@ class CreateMailcoachTables extends Migration
 
             $table->string('send_batch_id')->nullable();
             $table->timestamp('all_jobs_added_to_batch_at')->nullable();
-
 
             $table->timestamp('last_modified_at')->nullable();
 
@@ -350,8 +351,6 @@ class CreateMailcoachTables extends Migration
                 ->references('id')->on('mailcoach_tags')
                 ->onDelete('cascade');
         });
-
-
 
         Schema::create('mailcoach_positive_segment_tags', function (Blueprint $table) {
             $table->bigIncrements('id');

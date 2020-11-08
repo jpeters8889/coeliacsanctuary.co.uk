@@ -40,12 +40,12 @@ abstract class Import
         $this->campaignDatabase = DB::connection('seed_campaigns');
         $this->command = $command;
 
-        $command->info('Running ' . class_basename($this) . ' - ' . Carbon::now()->format('H:i:s'));
+        $command->info('Running '.class_basename($this).' - '.Carbon::now()->format('H:i:s'));
     }
 
     public function __destruct()
     {
-        $this->command->line(PHP_EOL . '------------------');
+        $this->command->line(PHP_EOL.'------------------');
     }
 
     abstract public function handle();

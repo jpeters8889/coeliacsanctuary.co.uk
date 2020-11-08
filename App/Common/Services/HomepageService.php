@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Common\Services;
 
 use Carbon\Carbon;
-use Coeliac\Common\Models\FeaturedImage;
 use Illuminate\Support\Collection;
 use Illuminate\Container\Container;
+use Coeliac\Common\Models\FeaturedImage;
 use Coeliac\Modules\Shop\ProductRepository;
 use Coeliac\Modules\Blog\Repository as BlogRepository;
 use Coeliac\Modules\Recipe\Repository as RecipeRepository;
@@ -14,7 +16,6 @@ use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository as WteRepository;
-use Coeliac\Common\FeaturedImages\Repository as FeaturedImagesRepository;
 
 class HomepageService
 {
@@ -32,7 +33,7 @@ class HomepageService
     {
         return $this->cacheRepository->rememberForever(
             $this->configRepository->get('coeliac.cache.blogs.homepage_count'),
-            fn() => Container::getInstance()->make(BlogRepository::class)->take(2)
+            fn () => Container::getInstance()->make(BlogRepository::class)->take(2)
         );
     }
 
@@ -40,7 +41,7 @@ class HomepageService
     {
         return $this->cacheRepository->rememberForever(
             $this->configRepository->get('coeliac.cache.recipes.homepage_count'),
-            fn() => Container::getInstance()->make(RecipeRepository::class)->take(3)
+            fn () => Container::getInstance()->make(RecipeRepository::class)->take(3)
         );
     }
 
@@ -48,7 +49,7 @@ class HomepageService
     {
         return $this->cacheRepository->rememberForever(
             $this->configRepository->get('coeliac.cache.reviews.homepage_count'),
-            fn() => Container::getInstance()->make(ReviewRepository::class)->take(2)
+            fn () => Container::getInstance()->make(ReviewRepository::class)->take(2)
         );
     }
 
@@ -57,7 +58,7 @@ class HomepageService
         return $this->cacheRepository->remember(
             $this->configRepository->get('coeliac.cache.homepage_stats'),
             Carbon::now()->addDay(),
-            fn() => new Collection([
+            fn () => new Collection([
                 'product_count' => Container::getInstance()->make(ProductRepository::class)->count(),
                 'blog_count' => Container::getInstance()->make(BlogRepository::class)->count(),
                 'recipe_count' => Container::getInstance()->make(RecipeRepository::class)->count(),

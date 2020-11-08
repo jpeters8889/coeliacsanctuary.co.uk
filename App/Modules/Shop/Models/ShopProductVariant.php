@@ -8,12 +8,12 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property int $id
+ * @property int          $id
  * @property mixed|string $quantity
  * @property mixed|string $title
  * @property mixed|string $weight
- * @property ShopProduct $product
- * @property bool $live
+ * @property ShopProduct  $product
+ * @property bool         $live
  */
 class ShopProductVariant extends BaseModel
 {

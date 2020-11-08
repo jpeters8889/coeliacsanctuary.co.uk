@@ -9,18 +9,18 @@ use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Models\UserAddress;
 
 /**
- * @property ShopOrderState $state
- * @property User $user
- * @property UserAddress $address
- * @property mixed|string $id
- * @property mixed|string $token
+ * @property ShopOrderState     $state
+ * @property User               $user
+ * @property UserAddress        $address
+ * @property mixed|string       $id
+ * @property mixed|string       $token
  * @property ShopPostageCountry $postageCountry
- * @property mixed|string $customer_id
- * @property mixed|string $customer_address_id
- * @property ShopPayment $payment
- * @property string $order_key
- * @property bool $newsletter_signup
- * @property ShopDiscountCode $discountCode
+ * @property mixed|string       $customer_id
+ * @property mixed|string       $customer_address_id
+ * @property ShopPayment        $payment
+ * @property string             $order_key
+ * @property bool               $newsletter_signup
+ * @property ShopDiscountCode   $discountCode
  */
 class ShopOrder extends BaseModel
 {

@@ -69,12 +69,12 @@ class Repository extends AbstractRepository
             $results = $model::search()
                 ->with([
                     'aroundLatLng' => implode(', ', $this->resolveLatLng(array_filter($parameters))),
-                    'aroundRadius' => (int)round(((int)$parameters['range']) * 1609.344),
+                    'aroundRadius' => (int) round(((int) $parameters['range']) * 1609.344),
                     'getRankingInfo' => true,
                 ])
                 ->get();
 
-            $results = $results->reject(fn(WhereToEat $whereToEat) => $whereToEat->county_id === 1)
+            $results = $results->reject(fn (WhereToEat $whereToEat) => $whereToEat->county_id === 1)
                 ->each(function ($result) {
                     $this->appends[$result->id] = [
                         'distance' => round($result->scoutMetadata()['_rankingInfo']['geoDistance'] / 1609, 1),

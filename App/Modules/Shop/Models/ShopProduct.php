@@ -19,18 +19,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @property int $currentPrice
- * @property mixed|string $oldPrice
- * @property mixed|string $id
- * @property mixed|string $title
- * @property mixed|string $slug
- * @property mixed|string $short_description
- * @property mixed|string $long_description
- * @property ShopShippingMethod $shippingMethod
- * @property mixed|string $mainImage
- * @property mixed|string $meta_tags
+ * @property int                            $currentPrice
+ * @property mixed|string                   $oldPrice
+ * @property mixed|string                   $id
+ * @property mixed|string                   $title
+ * @property mixed|string                   $slug
+ * @property mixed|string                   $short_description
+ * @property mixed|string                   $long_description
+ * @property ShopShippingMethod             $shippingMethod
+ * @property mixed|string                   $mainImage
+ * @property mixed|string                   $meta_tags
  * @property Collection<ShopProductVariant> $variants
- * @property Collection<ShopProductPrice> $prices
+ * @property Collection<ShopProductPrice>   $prices
+ *
  * @method transform(array $array)
  */
 class ShopProduct extends BaseModel implements SearchableContract
@@ -122,8 +123,8 @@ class ShopProduct extends BaseModel implements SearchableContract
     public function currentPrices()
     {
         return $this->prices
-            ->filter(fn(ShopProductPrice $price) => $price->start_at->lessThan(Carbon::now()))
-            ->filter(fn(ShopProductPrice $price) => !$price->end_at || $price->end_at->greaterThan(Carbon::now()))
+            ->filter(fn (ShopProductPrice $price) => $price->start_at->lessThan(Carbon::now()))
+            ->filter(fn (ShopProductPrice $price) => !$price->end_at || $price->end_at->greaterThan(Carbon::now()))
             ->sortByDesc('start_at');
     }
 

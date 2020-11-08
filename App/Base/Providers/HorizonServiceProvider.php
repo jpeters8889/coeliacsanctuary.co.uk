@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Base\Providers;
 
-use Illuminate\Support\Facades\Gate;
 use Laravel\Horizon\Horizon;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
 
 class HorizonServiceProvider extends HorizonApplicationServiceProvider

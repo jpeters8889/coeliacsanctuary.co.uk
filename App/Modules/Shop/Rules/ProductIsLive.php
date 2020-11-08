@@ -18,7 +18,7 @@ class ProductIsLive implements Rule
             return false;
         }
 
-        /** @var ShopProduct $product */
+        /* @var ShopProduct $product */
         return in_array(true, $product->variants->pluck('live')->toArray());
     }
 

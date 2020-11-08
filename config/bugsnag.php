@@ -1,7 +1,8 @@
 <?php
 
-return [
+declare(strict_types=1);
 
+return [
     /*
     |--------------------------------------------------------------------------
     | API Key
@@ -304,5 +305,4 @@ return [
     */
 
     'build_endpoint' => env('BUGSNAG_BUILD_ENDPOINT'),
-
 ];

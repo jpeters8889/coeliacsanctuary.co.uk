@@ -59,7 +59,7 @@ function redirect_now($url, $code = 301)
 
 function array_average(array $values)
 {
-    if(!$values) {
+    if (!$values) {
         return null;
     }
 

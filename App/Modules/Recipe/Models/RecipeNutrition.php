@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property string $calories
- * @property mixed $carbs
- * @property mixed $fat
- * @property mixed $protein
- * @property mixed $sugar
- * @property mixed $fibre
+ * @property mixed  $carbs
+ * @property mixed  $fat
+ * @property mixed  $protein
+ * @property mixed  $sugar
+ * @property mixed  $fibre
  */
 class RecipeNutrition extends BaseModel
 {

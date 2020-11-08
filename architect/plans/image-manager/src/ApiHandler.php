@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Coeliac\Architect\Plans\ImageManager;
 
-use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Intervention\Image\ImageManager;
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ApiHandler
 {

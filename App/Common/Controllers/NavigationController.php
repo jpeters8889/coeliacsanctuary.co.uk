@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Controllers;
 
-use Coeliac\Common\Services\NavigationService;
-use Coeliac\Queries\ShopProductsTopSelling;
 use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Coeliac\Modules\Blog\Repository as BlogRepository;
-use Coeliac\Modules\Recipe\Repository as RecipeRepository;
+use Coeliac\Common\Services\NavigationService;
 
 class NavigationController extends BaseController
 {

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @property Collection<WhereToEatSearch> $searches
- * @property mixed $term
+ * @property mixed                        $term
  */
 class WhereToEatSearchTerm extends Model
 {

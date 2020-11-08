@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     /*
      * The mailer used by Mailcoach for password resets and summary emails.

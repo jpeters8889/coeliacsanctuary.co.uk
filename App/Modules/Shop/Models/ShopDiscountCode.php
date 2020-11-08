@@ -8,8 +8,8 @@ use Carbon\Carbon;
 use Coeliac\Base\Models\BaseModel;
 
 /**
- * @property mixed $id
- * @property int $max_claims
+ * @property mixed  $id
+ * @property int    $max_claims
  * @property Carbon $start_at
  * @property Carbon $end_at
  */

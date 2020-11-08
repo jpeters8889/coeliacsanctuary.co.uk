@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Controllers;
 
-use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Exception;
 use Illuminate\Http\Response;
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Shop\Requests\OrderRequest;
 use Coeliac\Modules\Shop\Exceptions\PaymentException;
@@ -30,9 +30,11 @@ class OrderController extends BaseController
             return $this->paymentProcessor->initiatePayment();
         } catch (PaymentException $exception) {
             Bugsnag::notifyException($exception);
+
             return new Response(['error' => $exception->getMessage()], 400);
         } catch (Exception $exception) {
             Bugsnag::notifyException($exception);
+
             return new Response(['error' => 'An unknown error occurred'], 400);
         }
     }
@@ -43,9 +45,11 @@ class OrderController extends BaseController
             return $this->paymentProcessor->processPayment($request);
         } catch (PaymentException $exception) {
             Bugsnag::notifyException($exception);
+
             return new Response(['error' => $exception->getMessage()], 400);
         } catch (Exception $exception) {
             Bugsnag::notifyException($exception);
+
             return new Response(['error' => 'An unknown error occurred'], 400);
         }
     }

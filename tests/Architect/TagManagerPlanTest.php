@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Tests\Architect;
 
 use Coeliac\Architect\Plans\TagManager\Plan;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use JPeters\Architect\TestHelpers\Abstracts\PlanTestCase;
 use JPeters\Architect\TestHelpers\Laravel\Models\Blog;
+use JPeters\Architect\TestHelpers\Abstracts\PlanTestCase;
 
 class TagManagerPlanTest extends PlanTestCase
 {

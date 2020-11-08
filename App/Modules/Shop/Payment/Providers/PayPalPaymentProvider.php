@@ -91,8 +91,8 @@ class PayPalPaymentProvider implements Provider
             $currentItem = new Item();
             $currentItem->setName($item->product->title)
                 ->setCurrency('GBP')
-                ->setQuantity((string)$item->quantity)
-                ->setSku((string)$item->variant->id)
+                ->setQuantity((string) $item->quantity)
+                ->setSku((string) $item->variant->id)
                 ->setPrice($item->product_price / 100);
 
             $items->push($currentItem);
@@ -107,7 +107,7 @@ class PayPalPaymentProvider implements Provider
                 $thisItem = new Item();
                 $thisItem->setName($discount->name)
                     ->setCurrency('GBP')
-                    ->setQuantity((string)1)
+                    ->setQuantity((string) 1)
                     ->setSku($discount->code)
                     ->setPrice('-'.number_format($this->discount, 2));
 

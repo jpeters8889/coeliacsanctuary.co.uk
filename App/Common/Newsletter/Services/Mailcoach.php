@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Common\Newsletter\Services;
 
 use RuntimeException;
 use Spatie\Mailcoach\Models\EmailList;
 use Coeliac\Common\Newsletter\NewsletterService;
 use Coeliac\Common\Newsletter\Exceptions\AlreadySubscribedException;
-use Spatie\Mailcoach\Models\Subscriber;
 
 class Mailcoach implements NewsletterService
 {

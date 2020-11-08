@@ -197,7 +197,7 @@ class WhereToEatTest extends TestCase
 
         $this->assertEquals([
             'id' => (int) $review->id,
-            'wheretoeat_id' => (string)$this->wheretoeat->id,
+            'wheretoeat_id' => (string) $this->wheretoeat->id,
             'title' => $review->title,
             'slug' => $review->slug,
             'created_at' => $review->created_at->toJson(),

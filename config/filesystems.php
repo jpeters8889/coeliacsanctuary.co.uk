@@ -51,7 +51,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL') . '/storage',
+            'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
 
@@ -63,7 +63,7 @@ return [
             'bucket' => 'coeliac-images',
             'options' => [
                 'CacheControl' => 'max-age=315360000, no-transform, public',
-            ]
+            ],
         ],
 
         'search' => [

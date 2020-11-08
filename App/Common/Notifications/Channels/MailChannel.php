@@ -19,7 +19,6 @@ class MailChannel extends NotificationChannel
     public function send($notifiable, Notification $notification)
     {
         /** @var \Coeliac\Common\Notifications\Notification $notification */
-
         $email = '';
 
         if ($notifiable instanceof User) {

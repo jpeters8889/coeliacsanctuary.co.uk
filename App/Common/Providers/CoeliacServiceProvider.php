@@ -6,11 +6,11 @@ namespace Coeliac\Common\Providers;
 
 use DirectoryIterator;
 use Coeliac\Base\Modules;
+use Illuminate\Contracts\Config\Repository;
 use Coeliac\Base\Providers\BaseServiceProvider;
 use Coeliac\Common\MjmlCompiler\CoeliacCompiler;
 use Coeliac\Common\MjmlCompiler\CompilerContract;
 use Coeliac\Common\Notifications\Channels\MailChannel;
-use Illuminate\Contracts\Config\Repository;
 
 class CoeliacServiceProvider extends BaseServiceProvider
 {
@@ -19,7 +19,7 @@ class CoeliacServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        if($this->app->runningUnitTests()) {
+        if ($this->app->runningUnitTests()) {
             $this->app->make(Repository::class)->set('filesystems.disks.images.root', storage_path('testing'));
         }
 

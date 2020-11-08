@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Coeliac\Base\Models\BaseModel;
 
 /**
- * @property Carbon $start_at
+ * @property Carbon      $start_at
  * @property Carbon|null $end_at
  */
 class ShopProductPrice extends BaseModel

@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
- * @property mixed $town
+ * @property mixed            $town
  * @property WhereToEatCounty $county
- * @property string $slug
+ * @property string           $slug
  */
 class WhereToEatTown extends BaseModel
 {

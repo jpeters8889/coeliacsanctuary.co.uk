@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests;
 
 use Coeliac\Common\Models\User;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 

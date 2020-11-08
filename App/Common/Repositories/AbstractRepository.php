@@ -65,7 +65,7 @@ abstract class AbstractRepository
                 ->withCount($this->getWithCounts())
         );
 
-        /** @phpstan-ignore-next-line  */
+        /* @phpstan-ignore-next-line  */
         if (method_exists($this, 'performSearch') && $this->useSearch && $searchIds = $this->performSearch($model)) {
             $builder->whereIn('id', $searchIds)
                 ->orderByRaw('field(id, '.implode(',', $searchIds).')');
