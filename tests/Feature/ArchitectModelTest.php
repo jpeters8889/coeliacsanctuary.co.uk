@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Coeliac\Common\Models\Image;
+use Coeliac\Common\Models\ImageAssociations;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Tests\TestCase;
 use Coeliac\Modules\Blog\Models\Blog;
@@ -33,9 +34,9 @@ class ArchitectModelTest extends TestCase
             'meta_description' => 'foo',
             'blog_tags' => 'foo,bar',
             'Images' => json_encode([
-                'article' => ['_test_image.png'],
+                'article' => ['_test_image.png', '_test_image_2.png', '_test_image_3.png'],
             ]),
-            'architect_body' => 'Foo Bar <article-image src="_test_image.png"></article-image>',
+            'architect_body' => 'Foo Bar <article-image src="_test_image.png"></article-image><article-image src="_test_image_2.png"></article-image><article-image src="_test_image_3.png"></article-image>',
         ]);
 
         $this->blog = Blog::query()->first();
@@ -57,30 +58,34 @@ class ArchitectModelTest extends TestCase
     /** @test */
     public function it_changes_the_images_to_the_full_url_when_the_image_is_in_the_body()
     {
-        /** @var Image $image */
-        $image = Image::query()->first();
-
-        $this->assertEquals('Foo Title', $this->blog->title);
-        $this->assertStringContainsString($image->image_url, $this->blog->body);
+        Image::query()->get()->each(function(Image  $image) {
+            $this->assertStringContainsString($image->image_url, $this->blog->body);
+        });
     }
 
     /** @test */
     public function it_only_uses_the_image_name_when_editing()
     {
-        /** @var Image $image */
-        $image = Image::query()->first();
-
-        $this->assertStringContainsString($image->file_name, $this->blog->architect_body);
-        $this->assertStringNotContainsString($image->image_url, $this->blog->architect_body);
+        Image::query()->get()->each(function(Image $image) {
+            $this->assertStringContainsString($image->file_name, $this->blog->architect_body);
+            $this->assertStringNotContainsString($image->image_url, $this->blog->architect_body);
+        });
     }
 
     /** @test */
     public function it_updates_the_body_field_with_the_updated_images()
     {
-        /** @var Image $image */
-        $image = Image::query()->first();
 
-        $image->update(['file_name' => '_test_image.png']);
+        Image::query()->get()->each(function(Image $image, $index) {
+            $filename = '_test_image.png';
+
+            if($index > 0) {
+                $x = $index + 1;
+                $filename = "_test_image_{$x}.png";
+            }
+
+            $image->update(['file_name' => $filename]);
+        });
 
         $this->post('/cs-adm/api/blueprints/submit', [
             '_blueprint' => 'blog',
@@ -93,14 +98,15 @@ class ArchitectModelTest extends TestCase
             'meta_description' => 'foo',
             'blog_tags' => 'foo,bar',
             'Images' => json_encode([
-                'article' => ['_test_image.png'],
+                'article' => ['_test_image.png', '_test_image_2.png', '_test_image_3.png'],
             ]),
-            'architect_body' => 'Foo Bar <article-image src="_test_image.png"></article-image>',
+            'architect_body' => 'Foo Bar <article-image src="_test_image.png"></article-image><article-image src="_test_image_2.png"></article-image><article-image src="_test_image_3.png"></article-image>',
         ]);
 
         $this->blog->refresh();
-        $image->refresh();
 
-        $this->assertStringContainsString('<article-image src="'.$image->image_url.'">', $this->blog->body);
+        Image::query()->get()->each(function(Image $image) {
+            $this->assertStringContainsString('<article-image src="' . $image->image_url . '">', $this->blog->body);
+        });
     }
 }

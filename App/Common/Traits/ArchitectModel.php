@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Traits;
 
-use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Container\Container;
@@ -17,8 +16,6 @@ use JPeters\Architect\Http\Requests\BlueprintSubmitRequest;
  */
 trait ArchitectModel
 {
-    protected static $hasUpdatedImages = [];
-
     public static function bootArchitectModel()
     {
         static::creating(static function (BaseModel $model) {
@@ -66,19 +63,23 @@ trait ArchitectModel
         $request = resolve(BlueprintSubmitRequest::class);
 
         /** @phpstan-ignore-next-line */
-        $images = $model->images()->get();
+        $images = $model->fresh()->images()->get();
         $index = 0;
         $field = self::bodyField();
         $isDirty = false;
         $requestImages = json_decode($request->input('Images'));
 
         foreach ($requestImages->article as $image) {
-            if (in_array($image, self::$hasUpdatedImages) || !Str::contains($model->$field, $image)) {
+            if (!Str::contains($model->$field, $image) || Str::contains($model->$field, '/'.$image)) {
+                continue;
+            }
+
+            if ($image === $images[$index]->image->file_name) {
+                ++$index;
                 continue;
             }
 
             if (Str::contains($model->$field, $images[$index]->image->image_url)) {
-                self::$hasUpdatedImages[] = $image;
                 ++$index;
                 continue;
             }
