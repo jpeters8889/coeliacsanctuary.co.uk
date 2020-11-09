@@ -15,14 +15,11 @@ class CreateImageAssociationsTable extends Migration
     {
         Schema::create('image_associations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('image_id')->unsigned();
-            $table->integer('imageable_id')->unsigned();
+            $table->integer('image_id')->unsigned()->index();
+            $table->integer('imageable_id')->unsigned()->index();
             $table->string('imageable_type');
             $table->integer('image_category_id')->unsigned()->default(1);
             $table->timestamps();
-
-            $table->foreign('image_id')->references('id')->on('images');
-            $table->foreign('image_category_id')->references('id')->on('image_categories');
         });
     }
 

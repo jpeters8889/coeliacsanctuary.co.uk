@@ -21,12 +21,6 @@ class ClearPublicDirectories extends Command
 
         (new Collection($files))
             ->map(static function (SplFileInfo $file) use ($filesystem, $bar) {
-                if (in_array($file->getFilename(), ['_test_image.png', '.gitkeep'])) {
-                    $bar->advance();
-
-                    return;
-                }
-
                 $filesystem->delete($file->getRealPath());
                 $bar->advance();
             });

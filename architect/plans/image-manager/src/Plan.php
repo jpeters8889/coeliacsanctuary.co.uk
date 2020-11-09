@@ -66,7 +66,6 @@ class Plan extends ArchitectPlan
 
     public function handleUpdate(Model $model, $column, $value)
     {
-        /* @var Imageable $model */
         $model->images->each(static function (ImageAssociations $imageAssociation) {
             $imageAssociation->image->delete();
             $imageAssociation->delete();
