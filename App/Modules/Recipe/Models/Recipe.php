@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Recipe\Models;
 
 use Carbon\Carbon;
-use Coeliac\Common\Traits\ClearsCache;
 use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Support\Collection;
 use Coeliac\Common\Traits\Linkable;
 use Coeliac\Common\Traits\Imageable;
+use Coeliac\Common\Traits\ClearsCache;
 use Coeliac\Common\Traits\HasRichText;
 use Coeliac\Common\Comments\Commentable;
 use Coeliac\Common\Contracts\HasComments;
@@ -21,20 +21,21 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @property Carbon $created_at
+ * @property Carbon                     $created_at
  * @property Collection<RecipeAllergen> $allergens
- * @property mixed $live
- * @property mixed $title
- * @property mixed $author
- * @property mixed $meta_description
- * @property mixed $prep_time
- * @property mixed $cook_time
- * @property mixed $serving_size
- * @property RecipeNutrition $nutrition
- * @property mixed $ingredients
- * @property mixed $body
- * @property mixed $meta_tags
- * @property Collection<RecipeFeature> $features
+ * @property mixed                      $live
+ * @property mixed                      $title
+ * @property mixed                      $author
+ * @property mixed                      $meta_description
+ * @property mixed                      $prep_time
+ * @property mixed                      $cook_time
+ * @property mixed                      $serving_size
+ * @property RecipeNutrition            $nutrition
+ * @property mixed                      $ingredients
+ * @property mixed                      $body
+ * @property mixed                      $meta_tags
+ * @property Collection<RecipeFeature>  $features
+ *
  * @method transform(array $array)
  */
 class Recipe extends BaseModel implements HasComments

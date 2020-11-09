@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Tests\Traits\ClearingCacheTest;
 use Tests\Traits\HasImages;
 use Tests\Traits\CreatesBlogs;
 use Coeliac\Common\Models\Image;
 use Coeliac\Common\Models\Comment;
+use Tests\Traits\ClearingCacheTest;
 use Coeliac\Modules\Blog\Models\Blog;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;

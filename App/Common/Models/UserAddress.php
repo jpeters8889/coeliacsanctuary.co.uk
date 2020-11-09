@@ -9,7 +9,7 @@ use Coeliac\Modules\Shop\Models\ShopOrder;
 
 /**
  * @property mixed|string $id
- * @property User $user
+ * @property User         $user
  * @property mixed|string $name
  * @property mixed|string $line_1
  * @property mixed|string $line_2

@@ -4,34 +4,35 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
-use Coeliac\Common\Traits\ClearsCache;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Container\Container;
+use Coeliac\Common\Traits\ClearsCache;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property mixed $name
- * @property WhereToEatTown $town
- * @property WhereToEatCounty $county
- * @property mixed $info
- * @property mixed $address
- * @property mixed $lat
- * @property mixed $lng
- * @property mixed $live
- * @property mixed $id
+ * @property mixed                            $name
+ * @property WhereToEatTown                   $town
+ * @property WhereToEatCounty                 $county
+ * @property mixed                            $info
+ * @property mixed                            $address
+ * @property mixed                            $lat
+ * @property mixed                            $lng
+ * @property mixed                            $live
+ * @property mixed                            $id
  * @property Collection<AttractionRestaurant> $restaurants
- * @property mixed $website
- * @property WhereToEatCuisine $cuisine
- * @property mixed $phone
- * @property WhereToEatCountry $country
- * @property mixed $type_id
- * @property mixed $review_count
+ * @property mixed                            $website
+ * @property WhereToEatCuisine                $cuisine
+ * @property mixed                            $phone
+ * @property WhereToEatCountry                $country
+ * @property mixed                            $type_id
+ * @property mixed                            $review_count
+ *
  * @method transform(array $array)
  */
 class WhereToEat extends BaseModel
@@ -86,16 +87,16 @@ class WhereToEat extends BaseModel
 
     public function getAverageRatingAttribute()
     {
-        if(!$this->relationLoaded('ratings')) {
+        if (!$this->relationLoaded('ratings')) {
             return null;
         }
 
-        return (string)array_average($this->ratings->pluck('rating')->toArray());
+        return (string) array_average($this->ratings->pluck('rating')->toArray());
     }
 
     public function getHasBeenRatedAttribute()
     {
-        if(!$this->relationLoaded('ratings')) {
+        if (!$this->relationLoaded('ratings')) {
             return null;
         }
 
@@ -120,7 +121,7 @@ class WhereToEat extends BaseModel
             $file = 'hotel.png';
         }
 
-        return asset('assets/images/wte-icons/' . $file);
+        return asset('assets/images/wte-icons/'.$file);
     }
 
     public function venueType(): HasOne
@@ -156,8 +157,8 @@ class WhereToEat extends BaseModel
     public function toSearchableArray(): array
     {
         return $this->transform([
-            'title' => $this->name . ', ' . $this->town->town,
-            'location' => $this->town->town . ', ' . $this->county->county,
+            'title' => $this->name.', '.$this->town->town,
+            'location' => $this->town->town.', '.$this->county->county,
             'town' => $this->town->town,
             'county' => $this->county->county,
             'description' => $this->info,

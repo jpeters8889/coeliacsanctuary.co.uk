@@ -15,7 +15,7 @@ class HeroController extends BaseController
     {
         return $cache->rememberForever(
             $config->get('coeliac.cache.featured_images.featured_images'),
-            fn() => $repository->all()
+            fn () => $repository->all()
         );
     }
 }

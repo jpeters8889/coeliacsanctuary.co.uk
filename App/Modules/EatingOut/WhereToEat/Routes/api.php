@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatQuickSearchController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSearchController;
@@ -10,6 +9,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatRatingsController
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSummaryController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSettingsController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatVenueTypesController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatQuickSearchController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatPlaceRequestController;
 
 /* @var Router $router */

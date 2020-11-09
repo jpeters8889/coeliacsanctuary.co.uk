@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
- * @property string $county
+ * @property string            $county
  * @property WhereToEatCountry $country
- * @property mixed $slug
- * @property mixed $reviews_count
+ * @property mixed             $slug
+ * @property mixed             $reviews_count
  */
 class WhereToEatCounty extends BaseModel
 {

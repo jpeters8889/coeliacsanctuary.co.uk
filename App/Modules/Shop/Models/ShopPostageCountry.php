@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property ShopPostageCountryArea $area
- * @property mixed|string $id
- * @property mixed|string $iso_code
+ * @property mixed|string           $id
+ * @property mixed|string           $iso_code
  */
 class ShopPostageCountry extends BaseModel
 {

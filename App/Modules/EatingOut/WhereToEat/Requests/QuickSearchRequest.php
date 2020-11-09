@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\Requests;
 
 use Coeliac\Base\Requests\ApiFormRequest;

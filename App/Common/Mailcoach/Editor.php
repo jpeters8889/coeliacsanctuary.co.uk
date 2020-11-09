@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Common\Mailcoach;
 
-use Coeliac\Modules\Blog\Models\Blog;
-use Coeliac\Modules\EatingOut\Reviews\Models\Review;
-use Coeliac\Modules\Recipe\Models\Recipe;
-use Illuminate\Container\Container;
 use Illuminate\View\Factory;
+use Illuminate\Container\Container;
+use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\Recipe\Models\Recipe;
+use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Spatie\Mailcoach\Models\Concerns\HasHtmlContent;
 use Spatie\Mailcoach\Support\Editor\Editor as MailcoachEditor;
 

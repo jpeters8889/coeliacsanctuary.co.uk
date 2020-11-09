@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Payment\Processors;
 
-use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Exception;
-use Throwable;
 use Illuminate\Http\Request;
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Coeliac\Modules\Shop\Payment\Processor;
 use Coeliac\Modules\Shop\Exceptions\PaymentException;
 

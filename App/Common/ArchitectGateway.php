@@ -11,7 +11,7 @@ class ArchitectGateway implements \JPeters\Architect\ArchitectGateway
 {
     public function canUseArchitect(Authenticatable $user): bool
     {
-        /** @var User $user */
+        /* @var User $user */
         return in_array($user->email, ['jamie@jamie-peters.co.uk', 'contact@coeliacsanctuary.co.uk']);
     }
 }

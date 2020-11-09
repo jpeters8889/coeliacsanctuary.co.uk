@@ -41,7 +41,8 @@ class Page extends PageBuilder
         return $this;
     }
 
-    public function addPrefetch(array $items) {
+    public function addPrefetch(array $items)
+    {
         $this->prefetch = array_merge($this->prefetch, $items);
 
         return $this;

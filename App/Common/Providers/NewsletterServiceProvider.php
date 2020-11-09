@@ -26,7 +26,7 @@ class NewsletterServiceProvider extends ServiceProvider
 
         $this->app->bind(
             NewsletterService::class,
-            fn() => new Mailcoach(
+            fn () => new Mailcoach(
                 Container::getInstance()
                     ->make(Repository::class)
                     ->get('coeliac.newsletter.list')

@@ -7,13 +7,13 @@ namespace Coeliac\Modules\Shop\Models;
 use Coeliac\Base\Models\BaseModel;
 
 /**
- * @property ShopOrder $order
- * @property ShopPaymentType $type
+ * @property ShopOrder           $order
+ * @property ShopPaymentType     $type
  * @property ShopPaymentResponse $response
- * @property mixed|string $id
- * @property mixed|string $postage
- * @property mixed|string $subtotal
- * @property mixed|string $total
+ * @property mixed|string        $id
+ * @property mixed|string        $postage
+ * @property mixed|string        $subtotal
+ * @property mixed|string        $total
  */
 class ShopPayment extends BaseModel
 {

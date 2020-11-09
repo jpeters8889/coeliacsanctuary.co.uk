@@ -8,12 +8,19 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @property Image $image
+ * @property Image         $image
  * @property ImageCategory $category
  */
 class ImageAssociations extends BaseModel
 {
     protected $with = ['image'];
+
+    protected static function booted()
+    {
+        self::deleting(function (self $imageAssociation) {
+            $imageAssociation->image()->delete();
+        });
+    }
 
     public function category()
     {

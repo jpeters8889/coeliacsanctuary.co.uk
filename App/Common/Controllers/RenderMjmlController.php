@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Common\Controllers;
 
+use Illuminate\Support\Collection;
+use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\Recipe\Models\Recipe;
+use Illuminate\View\Factory as ViewFactory;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Common\MjmlCompiler\CompilerContract;
 use Coeliac\Common\Requests\NewsletterRenderRequest;
-use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
-use Coeliac\Modules\Recipe\Models\Recipe;
-use Illuminate\Support\Collection;
-use Illuminate\View\Factory as ViewFactory;
 
 class RenderMjmlController extends BaseController
 {

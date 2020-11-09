@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Traits;
 
-use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Container\Container;
@@ -60,22 +59,23 @@ trait ArchitectModel
             return;
         }
 
-        if ($model->images()->latest()->first()->created_at->isSameMinute($model->updated_at)) {
-            return;
-        }
-
         /** @var BlueprintSubmitRequest $request */
         $request = resolve(BlueprintSubmitRequest::class);
 
         /** @phpstan-ignore-next-line */
-        $images = $model->images()->get();
+        $images = $model->fresh()->images()->get();
         $index = 0;
         $field = self::bodyField();
         $isDirty = false;
         $requestImages = json_decode($request->input('Images'));
 
         foreach ($requestImages->article as $image) {
-            if (!Str::contains($model->$field, $image)) {
+            if (!Str::contains($model->$field, $image) || Str::contains($model->$field, '/'.$image)) {
+                continue;
+            }
+
+            if ($image === $images[$index]->image->file_name) {
+                ++$index;
                 continue;
             }
 

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Models;
 
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\Linkable;
 use Coeliac\Common\Traits\Imageable;
+use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\DisplaysImages;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

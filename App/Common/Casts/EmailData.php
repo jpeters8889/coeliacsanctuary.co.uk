@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Coeliac\Common\Casts;
 
 use Carbon\Carbon;
+use Coeliac\Common\Models\User;
 use Coeliac\Common\Models\Comment;
 use Coeliac\Common\Models\CommentReply;
-use Coeliac\Common\Models\User;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRating;
-use function Symfony\Component\String\s;
 
 class EmailData implements CastsAttributes
 {
@@ -38,11 +37,11 @@ class EmailData implements CastsAttributes
             $data['rating'] = WhereToEatRating::query()->find($data['rating']['id']);
         }
 
-        if(isset($data['order'])) {
+        if (isset($data['order'])) {
             $data['order'] = ShopOrder::query()->find($data['order']['id']);
         }
 
-        if(isset($data['notifiable'])) {
+        if (isset($data['notifiable'])) {
             $data['notifiable'] = User::query()->find($data['notifiable']['id']);
         }
 

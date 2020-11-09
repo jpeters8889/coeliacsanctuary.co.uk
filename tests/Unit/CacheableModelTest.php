@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
+use Tests\TestCase;
+use Illuminate\Support\Arr;
+use Tests\Traits\CreatesBlogs;
 use Illuminate\Container\Container;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Arr;
-use Tests\TestCase;
-use Tests\Traits\CreatesBlogs;
 
 class CacheableModelTest extends TestCase
 {

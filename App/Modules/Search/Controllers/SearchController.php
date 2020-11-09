@@ -69,7 +69,7 @@ class SearchController extends BaseController
                 }
             }
 
-            if($area === 'reviews') {
+            if ($area === 'reviews') {
                 $relations += ['eatery', 'eatery.ratings', 'eatery.town', 'eatery.county', 'eatery.country'];
             }
 
@@ -100,7 +100,7 @@ class SearchController extends BaseController
         }
 
         $results = $results->sort(function (BaseModel $first, BaseModel $second) {
-            /** @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line  */
             return $second->scoutMetadata()['_rankingInfo']['userScore'] <=> $first->scoutMetadata()['_rankingInfo']['userScore'];
         })->values();
 

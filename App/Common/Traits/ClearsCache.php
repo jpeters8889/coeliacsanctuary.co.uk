@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Common\Traits;
 
 use Illuminate\Container\Container;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * @mixin Model

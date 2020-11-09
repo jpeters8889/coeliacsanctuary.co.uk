@@ -15,7 +15,7 @@ class VariantIsLive implements Rule
             return false;
         }
 
-        /** @var ShopProductVariant $variant */
+        /* @var ShopProductVariant $variant */
         return $variant->live = true;
     }
 

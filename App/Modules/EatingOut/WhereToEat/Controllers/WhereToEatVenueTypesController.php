@@ -20,8 +20,8 @@ class WhereToEatVenueTypesController extends BaseController
                         'id' => $venueType->id,
                         'type_id' => $venueType->type_id,
                         'label' => $venueType->venue_type,
-                        'count' => 0
-                    ]
+                        'count' => 0,
+                    ],
                 ];
             })
             ->toArray();

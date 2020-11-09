@@ -37,7 +37,7 @@ class MapSettings
 
         return $cache->rememberForever(
             $config->get('coeliac.cache.wheretoeat.js_map_settings'),
-            fn() => $this->baseMapData()
+            fn () => $this->baseMapData()
         );
     }
 

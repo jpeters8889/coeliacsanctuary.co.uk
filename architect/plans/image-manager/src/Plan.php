@@ -44,7 +44,7 @@ class Plan extends ArchitectPlan
         /** @var ImageManager $imageManager */
         $imageManager = resolve(ImageManager::class);
 
-        return $model->images->transform(static function (ImageAssociations $imageAssociation) use ($imageManager) {
+        return $model->fresh()->images->transform(static function (ImageAssociations $imageAssociation) use ($imageManager) {
             $fileName = $imageAssociation->image->file_name;
             $category = $imageAssociation->category->category;
 
@@ -67,12 +67,13 @@ class Plan extends ArchitectPlan
     public function handleUpdate(Model $model, $column, $value)
     {
         /* @var Imageable $model */
-        $model->images()->delete();
+        $model->images->each(static function (ImageAssociations $imageAssociation) {
+            $imageAssociation->image->delete();
+            $imageAssociation->delete();
+        });
 
         (new Collection(json_decode($value, true)))
             ->each(function ($image, $method) use ($model) {
-                $category = $this->uploadCategory;
-
                 switch ($method) {
                     case 'social':
                         $category = Image::IMAGE_CATEGORY_SOCIAL;

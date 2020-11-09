@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Coeliac\Base\Providers;
 
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Coeliac\Common\Providers\CoeliacServiceProvider;
 use Coeliac\Common\Providers\ArchitectServiceProvider;

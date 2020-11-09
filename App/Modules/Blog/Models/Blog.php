@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Blog\Models;
 
 use Carbon\Carbon;
-use Coeliac\Common\Traits\ClearsCache;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Traits\Linkable;
 use Coeliac\Common\Traits\Imageable;
+use Coeliac\Common\Traits\ClearsCache;
 use Coeliac\Common\Traits\HasRichText;
 use Coeliac\Common\Comments\Commentable;
 use Coeliac\Common\Contracts\HasComments;
@@ -19,14 +19,15 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @property string $title
+ * @property string              $title
  * @property Collection<BlogTag> $tags
- * @property mixed $meta_description
- * @property mixed $meta_keywords
- * @property mixed $id
- * @property mixed $link
- * @property mixed $live
- * @property Carbon $created_at
+ * @property mixed               $meta_description
+ * @property mixed               $meta_keywords
+ * @property mixed               $id
+ * @property mixed               $link
+ * @property mixed               $live
+ * @property Carbon              $created_at
+ *
  * @method transform(array $array)
  */
 class Blog extends BaseModel implements HasComments
