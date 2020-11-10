@@ -63,7 +63,7 @@
 <?php /** @var \Coeliac\Modules\Shop\Models\ShopOrder $order */ ?>
 @foreach($orders as $order)
     <div class="page">
-        <div style="width:100%;text-align:center"><img src="{{ public_path('/assets/images/misc/dispatch_logo.png') }}"/></div>
+        <div style="width:100%;text-align:center"><img src="{{ asset('/assets/images/misc/dispatch_logo.png') }}"/></div>
         <hr/>
         <table style="width:100%">
             <tr>
