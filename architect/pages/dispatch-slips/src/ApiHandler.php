@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Architect\Pages\DispatchSlips;
 
 use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Coeliac\Modules\Shop\Models\ShopOrder;
@@ -15,12 +16,13 @@ class ApiHandler
 {
     public function render(Dompdf $pdf, ResponseFactory $factory, $ids)
     {
-        $pdf->loadHtml($factory->view('architect.shop-dispatch-slip', [
-            'orders' => ShopOrder::query()
-                ->where('state_id', '!=', ShopOrderState::STATE_BASKET)
-                ->whereIn('id', explode(',', $ids))
-                ->get(),
-        ])->content());
+        $pdf->setOptions(new Options(['isRemoteEnabled' => true]))
+            ->loadHtml($factory->view('architect.shop-dispatch-slip', [
+                'orders' => ShopOrder::query()
+                    ->where('state_id', '!=', ShopOrderState::STATE_BASKET)
+                    ->whereIn('id', explode(',', $ids))
+                    ->get(),
+            ])->content());
 
         $pdf->setPaper('A4')->render();
 
@@ -35,8 +37,8 @@ class ApiHandler
     {
         ShopOrder::query()
             ->where('state_id', '!=', ShopOrderState::STATE_BASKET)
-            ->whereIn('id', explode(',', (string) $request->input('id')))
+            ->whereIn('id', explode(',', (string)$request->input('id')))
             ->get()
-            ->each(fn (ShopOrder $order) => $order->markAs(ShopOrderState::STATE_PRINTED));
+            ->each(fn(ShopOrder $order) => $order->markAs(ShopOrderState::STATE_PRINTED));
     }
 }
