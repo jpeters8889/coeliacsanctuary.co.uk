@@ -20,7 +20,7 @@ return [
     ],
 
     'social' => [
-        'image' => asset('/assets/images/shares/coeliac.jpg'),
+        'image' => 'https://www.coeliacsanctuary.co.uk/assets/images/shares/coeliac.jpg',
         'facebook' => true,
         'twitter' => true,
         'twitter-handle' => '@coeliacsanc',
