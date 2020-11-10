@@ -23,6 +23,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('coeliac:shopCloseBaskets')->everyMinute();
         $schedule->command('coeliac:clear_public_dirs')->daily();
 
+        $schedule->command('list')->thenPing('http://beats.envoyer.io/heartbeat/8YWokjIDBE2Dkzc');
+
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
 
         $schedule->command('mailcoach:calculate-statistics')->everyMinute();
