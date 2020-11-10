@@ -36,7 +36,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
  * @property Carbon       $created_at
  * @property mixed        $meta_desc
  *
- * @method tran«sform(array $array)
+ * @method transform(array $array)
  */
 class Review extends BaseModel implements HasComments
 {
@@ -103,7 +103,7 @@ class Review extends BaseModel implements HasComments
 
     public function toSearchableArray(): array
     {
-        return $this->tran«sform([
+        return $this->transform([
             'title' => $this->title.', '.$this->eatery->town->town,
             'location' => $this->eatery->town->town.', '.$this->eatery->county->county,
             'description' => $this->meta_description,
