@@ -20,7 +20,7 @@ return [
     ],
 
     'social' => [
-        'image' => '/images/shares/coeliac.jpg',
+        'image' => asset('/assets/images/shares/coeliac.jpg'),
         'facebook' => true,
         'twitter' => true,
         'twitter-handle' => '@coeliacsanc',
