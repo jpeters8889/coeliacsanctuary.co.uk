@@ -91,7 +91,18 @@
             },
 
             markAsShipped() {
-                //
+                window.Architect.request().post('/external/order/ship', {
+                    id: this.id,
+                }).then((request) => {
+                    if (request.status === 200) {
+                        window.Architect.success('Order Shipped!');
+                        window.Architect.$emit('reload-page');
+
+                        return;
+                    }
+
+                    window.Architect.error('An error has occurred');
+                });
             },
 
             cancelOrder() {

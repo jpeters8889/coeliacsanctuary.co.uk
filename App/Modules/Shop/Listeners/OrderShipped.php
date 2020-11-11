@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Listeners;
 
+use Carbon\Carbon;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Shop\Events\ShipOrder;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -17,6 +18,7 @@ class OrderShipped implements ShouldQueue
     public function handle(ShipOrder $shipOrderEvent)
     {
         $shipOrderEvent->order()->markAs(ShopOrderState::STATE_SHIPPED);
+        $shipOrderEvent->order()->update(array('shipped_at' => Carbon::now()));
 
         $shipOrderEvent->order()->user->notify(new OrderShippedNotification($shipOrderEvent->order()));
 
