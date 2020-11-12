@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Services;
 
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
 use Illuminate\Container\Container;
+use Coeliac\Modules\Shop\ProductRepository;
+use Coeliac\Modules\Shop\CategoryRepository;
 use Coeliac\Modules\Blog\Repository as BlogRepository;
 use Coeliac\Modules\Recipe\Repository as RecipeRepository;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -57,6 +59,22 @@ class SiteMapService
         return $this->cacheRepository->rememberForever(
             $this->configRepository->get('coeliac.cache.reviews.sitemap'),
             fn () => Container::getInstance()->make(ReviewRepository::class)->all()
+        );
+    }
+
+    public function shopCategories(): EloquentCollection
+    {
+        return $this->cacheRepository->rememberForever(
+            $this->configRepository->get('coeliac.cache.shop.categories'),
+            fn () => Container::getInstance()->make(CategoryRepository::class)->all()
+        );
+    }
+
+    public function shopProducts(): EloquentCollection
+    {
+        return $this->cacheRepository->rememberForever(
+            $this->configRepository->get('coeliac.cache.shop.products'),
+            fn () => Container::getInstance()->make(ProductRepository::class)->all()
         );
     }
 
