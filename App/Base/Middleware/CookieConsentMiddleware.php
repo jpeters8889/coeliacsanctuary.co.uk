@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Base\Middleware;
 
 use Closure;
@@ -12,6 +14,7 @@ class CookieConsentMiddleware extends Middleware
     /**
      * @param Request $request
      * @param Closure $next
+     *
      * @return Response
      */
     public function handle($request, Closure $next)
