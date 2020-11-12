@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed                      $body
  * @property mixed                      $meta_tags
  * @property Collection<RecipeFeature>  $features
+ * @property string                     $method
  *
  * @method transform(array $array)
  */
@@ -163,7 +164,7 @@ class Recipe extends BaseModel implements HasComments
                 'fiberContent' => $this->nutrition->fibre,
             ],
             'recipeIngredient' => Str::explodeIntoCollection($this->ingredients, '<br />'),
-            'recipeInstructions' => cs_br2nl($this->body),
+            'recipeInstructions' => cs_br2nl($this->method),
             'suitableForDiet' => $this->richTextSuitableFor(),
             'averageRating' => '',
             'keywords' => $this->meta_tags,
