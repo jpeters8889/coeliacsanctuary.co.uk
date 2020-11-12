@@ -50,6 +50,27 @@
         <priority>0.25</priority>
     </url>
 
+    <!-- Shop -->
+    <url>
+        <loc>https://www.coeliacsanctuary.co.uk/blog</loc>
+        <changefreq>always</changefreq>
+        <priority>0.95</priority>
+    </url>
+    @foreach($shopCategories as $category)
+        <url>
+            <loc>https://www.coeliacsanctuary.co.uk/shop/{{ $category->slug }}</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+    @endforeach
+    @foreach($shopProducts as $product)
+        <url>
+            <loc>https://www.coeliacsanctuary.co.uk/shop/product/{{ $product->slug }}</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.9</priority>
+        </url>
+    @endforeach
+
     <!-- Blogs -->
     <url>
         <loc>https://www.coeliacsanctuary.co.uk/blog</loc>

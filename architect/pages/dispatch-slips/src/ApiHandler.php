@@ -37,8 +37,8 @@ class ApiHandler
     {
         ShopOrder::query()
             ->where('state_id', '!=', ShopOrderState::STATE_BASKET)
-            ->whereIn('id', explode(',', (string)$request->input('id')))
+            ->whereIn('id', explode(',', (string) $request->input('id')))
             ->get()
-            ->each(fn(ShopOrder $order) => $order->markAs(ShopOrderState::STATE_PRINTED));
+            ->each(fn (ShopOrder $order) => $order->markAs(ShopOrderState::STATE_PRINTED));
     }
 }

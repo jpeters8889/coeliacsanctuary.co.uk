@@ -51,6 +51,8 @@ return [
         ],
         'shop' => [
             'navigation' => 'shop.navigation',
+            'categories' => 'shop.categories',
+            'products' => 'shop.products',
         ],
         'wheretoeat' => [
             'js_map_settings' => 'wheretoeat.js_map_settings',
