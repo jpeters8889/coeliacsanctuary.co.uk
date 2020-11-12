@@ -1,4 +1,4 @@
-<urlset>
+<urlset xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
         <loc>https://www.coeliacsanctuary.co.uk</loc>
         <changefreq>always</changefreq>
