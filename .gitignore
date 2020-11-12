@@ -32,3 +32,5 @@ phpmd.xml
 
 # Except...
 !.gitkeep
+
+public/mix-manifest.json

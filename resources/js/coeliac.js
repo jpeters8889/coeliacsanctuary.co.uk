@@ -10,32 +10,29 @@ window.coeliac = function (config) {
     return new CoeliacApplication(config);
 }
 
+coeliac().build();
 
-window.addEventListener('DOMContentLoaded', () => {
-        coeliac().build();
+document.querySelectorAll('.lazy').forEach((image) => {
+    image.setAttribute('src', `data:image/svg+xml,%3Csvg
+        xmlns='http://www.w3.org/2000/svg'
+        viewBox='0 0 3 2'%3E%3C/svg%3E"`);
+});
 
-    document.querySelectorAll('.lazy').forEach((image) => {
-        image.setAttribute('src', `data:image/svg+xml,%3Csvg
-    xmlns='http://www.w3.org/2000/svg'
-    viewBox='0 0 3 2'%3E%3C/svg%3E"`);
-    });
+document.querySelectorAll('.page-box iframe').forEach((iframe) => {
+    setTimeout(() => {
+        Array.from(iframe.attributes).forEach((attribute) => {
+            if (attribute.name === 'src') {
+                return;
+            }
 
-    document.querySelectorAll('.page-box iframe').forEach((iframe) => {
-        setTimeout(() => {
-            Array.from(iframe.attributes).forEach((attribute) => {
-                if (attribute.name === 'src') {
-                    return;
-                }
+            iframe.removeAttribute(attribute.name);
+        });
 
-                iframe.removeAttribute(attribute.name);
-            });
-
-            const wrapper = document.createElement('div');
-            wrapper.classList.add('iframe-wrapper');
-            iframe.parentElement.insertBefore(wrapper, iframe);
-            wrapper.appendChild(iframe);
-        }, 500);
-    });
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('iframe-wrapper');
+        iframe.parentElement.insertBefore(wrapper, iframe);
+        wrapper.appendChild(iframe);
+    }, 500);
 });
 
 window.dataLayer = window.dataLayer || [];
