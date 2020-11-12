@@ -75,7 +75,7 @@ class BasketBlueprint extends Blueprint
     public function ordering(): array
     {
         return [
-            'updated_at',
+            'created_at',
             'desc',
         ];
     }
