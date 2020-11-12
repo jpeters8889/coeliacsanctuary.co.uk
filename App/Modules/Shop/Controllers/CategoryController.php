@@ -27,6 +27,7 @@ class CategoryController extends BaseController
     {
         return $this->page
             ->breadcrumbs([], 'Shop')
+            ->setPageTitle('Shop - Travel Cards, Wristbands and more')
             ->setMetaDescription('Coeliac Sanctuary gluten free and coeliac travel cards, wristbands, stickers and other helpful products for Coeliacs.')
             ->setMetaKeywords([
                 'Gluten free merchandise', 'coeliac sanctuary shop', 'coeliac travel cards', 'gluten free travel cards',
@@ -52,6 +53,7 @@ class CategoryController extends BaseController
                     'link' => 'shop',
                 ],
             ], $category->title)
+            ->setPageTitle($category->title . ' | Shop')
             ->setMetaDescription($category->meta_description)
             ->setMetaKeywords(explode(',', $category->meta_keywords))
             ->setSocialImage($category->first_image)

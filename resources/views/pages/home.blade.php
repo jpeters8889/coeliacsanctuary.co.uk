@@ -60,7 +60,7 @@
 
         <!-- Latest Blogs -->
         <section class="page-box mt-4">
-            <h2 class="font-coeliac font-semibold text-2xl">Latest Blogs</h2>
+            <h2 class="font-coeliac font-semibold text-2xl">Latest Coeliac Blogs</h2>
             <p>
                 Our motto is that we're more than just a gluten free blog, but blogs are still the heart and soul of
                 Coeliac Sanctuary, we'll write about a bit of everything, from coeliac news, new products, guides, and
@@ -97,7 +97,7 @@
 
         <!-- Latest Recipes -->
         <section class="page-box mt-4">
-            <h2 class="font-coeliac font-semibold text-2xl">Latest Recipes</h2>
+            <h2 class="font-coeliac font-semibold text-2xl">Latest Coeliac Recipes</h2>
             <p>
                 Why not check out some of our fabulous, gluten free, coeliac recipes! All of our recipes are tried and
                 tested by us, and as much as we can will always use simple, easy to get ingredients, readily available
@@ -132,7 +132,7 @@
 
         <!-- Latest Reviews -->
         <section class="page-box mt-4">
-            <h2 class="font-coeliac font-semibold text-2xl">Latest Reviews</h2>
+            <h2 class="font-coeliac font-semibold text-2xl">Latest Coeliac Reviews</h2>
             <p>
                 Being coeliac, eating out isn't always easy, if you're anything like us you'll research and plan way
                 before you'll go anywhere, thats why we have our comprehensive
