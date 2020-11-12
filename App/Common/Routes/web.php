@@ -7,6 +7,7 @@ use Coeliac\Common\Controllers\FaqController;
 use Coeliac\Common\Controllers\EmailController;
 use Coeliac\Common\Controllers\AboutUsController;
 use Coeliac\Common\Controllers\ContactController;
+use Coeliac\Common\Controllers\SiteMapController;
 use Coeliac\Common\Controllers\HomepageController;
 use Coeliac\Common\Controllers\TermsOfUseController;
 use Coeliac\Common\Controllers\WorkWithUsController;
@@ -28,3 +29,5 @@ $router->get('email/{key}', [EmailController::class, 'get']);
 $router->get('privacy-policy', [PrivacyPolicyController::class, 'get']);
 $router->get('terms-of-use', [TermsOfUseController::class, 'get']);
 $router->get('work-with-us', [WorkWithUsController::class, 'get']);
+
+$router->get('sitemap.xml', [SiteMapController::class, 'get']);

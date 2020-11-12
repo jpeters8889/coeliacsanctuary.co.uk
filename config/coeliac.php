@@ -38,19 +38,24 @@ return [
         'blogs' => [
             'homepage_count' => 'blogs.homepage_count',
             'navigation' => 'blogs.navigation',
+            'sitemap' => 'blogs.sitemap',
         ],
         'recipes' => [
             'homepage_count' => 'recipes.homepage_count',
             'navigation' => 'recipes.navigation',
+            'sitemap' => 'recipes.sitemap',
         ],
         'reviews' => [
             'homepage_count' => 'reviews.homepage_count',
+            'sitemap' => 'reviews.sitemap',
         ],
         'shop' => [
             'navigation' => 'shop.navigation',
         ],
         'wheretoeat' => [
             'js_map_settings' => 'wheretoeat.js_map_settings',
+            'counties' => 'wheretoeat.counties',
+            'towns' => 'wheretoeat.towns',
         ],
         'homepage_stats' => 'homepage_stats',
         'featured_images' => [
