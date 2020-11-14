@@ -61,6 +61,7 @@ class Page extends PageBuilder
             'https://pagead2.googlesyndication.com',
             'https://googleads.g.doubleclick.net',
             'https://www.google-analytics.com',
+            '/assets/fonts/Notethis.woff',
         ]);
 
         return parent::collectData($data);
