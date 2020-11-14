@@ -285,7 +285,7 @@ module.exports = {
             screen: '100vh',
             search: '22.5rem',
             hero: '750px',
-            logo: '150px',
+            logo: '125px',
         },
         maxWidth: {
             ...widths,
