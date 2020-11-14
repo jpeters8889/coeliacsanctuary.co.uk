@@ -1,7 +1,7 @@
 <template>
     <div class="flex-1 flex flex-col">
         <div class="flex flex-col justify-center items-center -mt-4 mb-4 space-y-2">
-            <img class="w-1/2 max-h-logo" src="/assets/svg/logo.svg" alt="Coeliac Sanctuary"/>
+            <img class="w-1/2 max-h-logo" width="100%" height="auto" src="/assets/svg/logo.svg" alt="Coeliac Sanctuary"/>
             <h1 class="text-4xl font-medium font-coeliac mb-2 text-center">Coeliac Sanctuary</h1>
         </div>
 
