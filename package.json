@@ -33,6 +33,9 @@
         "webpack-chunk-rename-plugin": "^1.0.3"
     },
     "devDependencies": {
+        "fontmin-webpack": "^3.0.0",
+        "laravel-mix-bundle-analyzer": "^1.0.5",
+        "moment-locales-webpack-plugin": "^1.2.0",
         "vue-loader": "^15.9.3"
     }
 }
