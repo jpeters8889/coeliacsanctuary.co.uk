@@ -34,7 +34,7 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             ReviewBlueprint::class,
             RecipeBlueprint::class,
             WhereToEatBlueprint::class,
-            FeaturedImagesBlueprint::class,
+//            FeaturedImagesBlueprint::class,
             CommentsBlueprint::class,
             WteRatingsBlueprint::class,
             AnnouncementBlueprint::class,
