@@ -45,11 +45,13 @@ html, body .w-screen, .inner-wrapper {
     }
 }
 
-.hero-background {
-    background-image: url('/assets/images/misc/stickers.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+@media only screen and (min-width: 400px) {
+    .hero-background {
+        background-image: url('/assets/images/misc/stickers.jpg');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
 }
 
 img.lazy:not(.loaded) {
