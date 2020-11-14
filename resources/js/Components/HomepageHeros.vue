@@ -55,11 +55,11 @@ export default {
 
             {
                 title: 'Coeliac Sanctuary Blogs',
-                description: `Our blogs are part our heart and soul, covering a wide range of subjects across the gluten free world, from new
+                description: `Our blogs are part of our heart and soul, covering a wide range of subjects across the gluten free world, from new
                 products, news, guides, always something for everyone!`,
                 cta: {
                     link: '/blog',
-                    label: 'Checkout our Blogs',
+                    label: 'Check out our Blogs',
                 }
             },
 
@@ -69,7 +69,7 @@ export default {
                 they're all tried and tested by us!`,
                 cta: {
                     link: '/recipe',
-                    label: 'Checkout our Recipes',
+                    label: 'Check out our Recipes',
                 }
             },
 
@@ -99,7 +99,7 @@ export default {
                 }
 
                 this.currentIndex++;
-            }, 4000);
+            }, 8000);
         },
 
         clearTimeout() {
