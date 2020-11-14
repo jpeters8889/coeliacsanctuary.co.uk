@@ -25,6 +25,7 @@ trait DisplaysImages
     {
         return $this->images
                 ->whereIn('image_category_id', [Image::IMAGE_CATEGORY_HEADER, Image::IMAGE_CATEGORY_SQUARE])
+                ->sortBy('image_category_id')
                 ->first()
                 ->image
                 ->image_url ?? null;
