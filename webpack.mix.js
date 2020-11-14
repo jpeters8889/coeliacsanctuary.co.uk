@@ -1,8 +1,20 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
-const webpack = require('webpack');
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const FontminPlugin = require('fontmin-webpack')
+
+require('laravel-mix-bundle-analyzer');
+
 
 mix
+    .webpackConfig({
+        plugins: [
+            new MomentLocalesPlugin(),
+            new FontminPlugin({
+                autodetect: true,
+            }),
+        ]
+    })
     .sass('resources/scss/coeliac.scss', 'public/assets/css')
     .js('resources/js/coeliac.js', 'public/assets/js')
     .vue()
@@ -12,11 +24,6 @@ mix
         uglify: {
             comments: false,
         }
-    })
-    .webpackConfig({
-        plugins: [
-            new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        ]
     })
     .extract([
         // '@fortawesome/fontawesome-svg-core',
@@ -34,4 +41,8 @@ mix
 
 if (!mix.inProduction()) {
     mix.sourceMaps();
+}
+
+if (!mix.inProduction()) {
+    mix.bundleAnalyzer();
 }
