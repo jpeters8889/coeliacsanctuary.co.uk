@@ -34,3 +34,6 @@ phpmd.xml
 !.gitkeep
 
 public/mix-manifest.json
+
+.DS_Store
+*/.DS_Store
