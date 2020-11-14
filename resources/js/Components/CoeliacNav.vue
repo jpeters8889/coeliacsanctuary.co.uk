@@ -1,5 +1,5 @@
 <template>
-    <nav class="text-lg text-black h-full leading-loose mt-5px w-full js-primary-nav">
+    <nav class="text-lg text-black h-full leading-loose w-full js-primary-nav">
         <ul class="flex relative">
             <li v-for="item in navigation" class="border-b-4 border-transparent hover:border-white-80 cursor:pointer"
                 @mouseenter="hoveringOn = item.label" @mouseleave="hoveringOn = ''">

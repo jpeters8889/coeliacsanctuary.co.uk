@@ -11,6 +11,13 @@
   animation-duration: .4s;
 }
 
+.pulse {
+    animation-name: coeliacPulse;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 1.5s;
+}
+
 @keyframes spin {
   from {
     transform:rotate(0deg);
@@ -18,6 +25,17 @@
   to {
     transform:rotate(360deg);
   }
+}
+
+@keyframes coeliacPulse {
+    0%, 100%{
+        opacity: 0.75;
+        transform: scale(0.75);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
 }
 
 @keyframes slide-down {

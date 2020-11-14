@@ -10,29 +10,12 @@
     @include('components.announcement')
 
     <!-- Header -->
-    <div class="w-full h-full flex flex-col">
-        <div class="bg-blue flex items-center" style="min-height: 50px">
-            <top-bar></top-bar>
-        </div>
-
-        <div class="flex flex-col h-full">
-            <div class="bg-blue-light border-yellow border-b-4 mb-4">
-                <div class="inner-wrapper p-3 flex leading-none items-center">
-                    <div class="hidden md:block mr-2 w-1/6">
-                        <img src="/assets/svg/logo.svg" alt=""/>
-                    </div>
-                    <div class="text-center flex flex-col flex-1 md:text-left">
-                        <h1 class="text-3xl font-medium font-coeliac mb-2">
-                            Coeliac Sanctuary
-                        </h1>
-                        <h2>
-                            Gluten Free Eateries, Blogs, Recipes. Reviews and more...
-                        </h2>
-                    </div>
-                </div>
+    <div class="w-full flex flex-col hero-background h-auto xs:h-95vh max-h-hero">
+        <div class="w-full flex flex-col h-full bg-blue-gradient-90">
+            <div class="flex items-center" style="min-height: 50px">
+                <top-bar transparent></top-bar>
             </div>
-
-            <div class="transition-height h-auto" style="min-height: 266px">
+            <div class="flex flex-1 p-8">
                 <coeliac-home-heros></coeliac-home-heros>
             </div>
         </div>
@@ -54,7 +37,9 @@
             <p class="mt-2">
                 Our website is our own official sanctuary for Coeliac's to get tips, hints and tricks. If you have any
                 recommendations or recipes you would like us to try please feel free to
-                <contact-trigger inline class="text-blue cursor-pointer font-semibold hover:underline">contact us</contact-trigger>!
+                <contact-trigger inline class="text-blue cursor-pointer font-semibold hover:underline">contact us
+                </contact-trigger>
+                !
             </p>
         </section>
 
@@ -206,3 +191,9 @@
     </div>
     @include('components.footer')
 @endsection
+<script>
+    import HomepageHeros from "../../js/Components/HomepageHeros";
+    export default {
+        components: {HomepageHeros}
+    }
+</script>

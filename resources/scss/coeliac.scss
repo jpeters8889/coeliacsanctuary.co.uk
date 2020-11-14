@@ -45,6 +45,13 @@ html, body .w-screen, .inner-wrapper {
     }
 }
 
+.hero-background {
+    background-image: url('/assets/images/misc/stickers.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 img.lazy:not(.loaded) {
     height: 100%;
     padding-bottom: 20%;
