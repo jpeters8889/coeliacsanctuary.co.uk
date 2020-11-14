@@ -16,6 +16,8 @@ document.querySelectorAll('.lazy').forEach((image) => {
     image.setAttribute('src', `data:image/svg+xml,%3Csvg
         xmlns='http://www.w3.org/2000/svg'
         viewBox='0 0 3 2'%3E%3C/svg%3E"`);
+
+    image.style.paddingBottom = '52.5%';
 });
 
 document.querySelectorAll('.page-box iframe').forEach((iframe) => {
