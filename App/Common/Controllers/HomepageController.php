@@ -14,6 +14,7 @@ class HomepageController extends BaseController
     public function handle(Page $page, HomepageService $service): Response
     {
         return $page
+            ->addPrefetch(['/assets/images/misc/stickers.jpg'])
             ->render('pages.home', [
                 'latestBlogs' => $service->blogs(),
                 'latestRecipes' => $service->recipes(),
