@@ -242,6 +242,9 @@ module.exports = {
             '600': '600px',
             '800': '800px',
             '3/4': '75%',
+
+            '95vh': '95vh',
+            '80vh': '80vh',
         },
         inset: {
             '0': '0',
@@ -281,6 +284,7 @@ module.exports = {
             map: '300px',
             screen: '100vh',
             search: '22.5rem',
+            hero: '600px',
         },
         maxWidth: {
             ...widths,

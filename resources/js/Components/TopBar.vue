@@ -1,8 +1,8 @@
 <template>
     <div class="w-full">
-        <div class="z-max bg-blue-80 w-full px-2 py-0 text-white text-3xl md:bg-blue md:p-0 z-10"
+        <div class="z-max w-full px-2 py-0 text-white text-3xl md:p-0 z-10"
              id="top-bar"
-             :class="stickyNav ? 'top-0 bg-blue slide-down' : ''"
+             :class="backgroundClasses"
              :style="stickyNav ? 'position: fixed!important;' : ''">
             <div class="flex justify-between items-center inner-wrapper md:relative">
                 <mobile-nav class="mr-2 md:hidden"></mobile-nav>
@@ -18,10 +18,17 @@
 </template>
 
 <script>
-
     import CoeliacNav from "./CoeliacNav";
 
     export default {
+        props: {
+          transparent: {
+              required: false,
+              type: Boolean,
+              default: () => false,
+          }
+        },
+
         data: () => ({
             stickyNav: false,
         }),
@@ -38,6 +45,20 @@
                 }
                 this.stickyNav = entries[0].intersectionRatio === 0;
             }).observe(document.querySelector('#top-bar-check'));
+        },
+
+        computed: {
+            backgroundClasses() {
+                if(this.stickyNav) {
+                    return ['top-0', 'bg-blue', 'slide-down']
+                }
+
+                if(!this.transparent) {
+                    return ['bg-blue-80', 'md:bg-blue'];
+                }
+
+                return [];
+            }
         }
     }
 </script>

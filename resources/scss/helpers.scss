@@ -3,6 +3,14 @@
         background: linear-gradient(to bottom right, #80CCFC 0%, #addaf9 100%);
     }
 
+    .bg-blue-gradient-90 {
+        background: linear-gradient(to bottom right, rgb(128, 204, 252, .9) 0%, rgb(173, 218, 249, .9) 100%);
+    }
+
+    .bg-blue-gradient-50 {
+        background: linear-gradient(to bottom right, rgb(128, 204, 252, .5) 0%, rgb(173, 218, 249, .5) 100%);
+    }
+
     .bg-blue-gradient-30 {
         background: linear-gradient(to bottom right, rgb(128, 204, 252, .3) 0%, rgb(173, 218, 249, .3) 100%);
     }
@@ -18,4 +26,8 @@
 
 .transition-height {
     transition: height 0.5s ease;
+}
+
+.transition-width {
+    transition: width 0.5s ease;
 }

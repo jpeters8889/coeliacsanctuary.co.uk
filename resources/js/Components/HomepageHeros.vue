@@ -1,101 +1,90 @@
 <template>
-    <div id="heros" class="inner-wrapper flex flex-col shadow-xl" @mouseenter="resetTimeout" @mouseleave="createTimeout">
-        <div class="flex flex-col h-full relative" v-if="heros.length > 0">
-            <div class="flex-1 flex flex-col md:flex-row">
-                <div class="md:w-3/5">
-                    <img class="w-full" :src="heros[currentIndex].first_image"
-                         :alt="heros[currentIndex].title"/>
-                </div>
-
-                <div class="bg-blue-light flex justify-center items-center pb-4 md:pb-0 md:w-2/5">
-                    <div class="p-4 text-center">
-                        <h2 class="font-semibold mb-4 text-lg lg:text-xl">
-                            {{ heros[currentIndex].title }}
-                        </h2>
-                        <p class="mb-4 text-sm lg:text-base">
-                            {{ heros[currentIndex].description }}
-                        </p>
-                        <link-button class="px-6 py-3 text-lg lg:text-xl rounded-lg"
-                                     :href="heros[currentIndex].link">
-                            Find out more
-                        </link-button>
-                    </div>
+    <div class="flex-1 flex flex-col" @mouseenter="clearTimeout()" @mouseleave="setTimeout()">
+        <div class="flex-1 flex flex-col justify-center items-center inner-wrapper">
+            <div class="bg-white-80 p-4 w-full md:w-3/4">
+                <h2 class="mb-2 text-2xl font-semibold text-center">
+                    {{ slides[currentIndex].title }}
+                </h2>
+                <p class="mb-2">{{ slides[currentIndex].description }}</p>
+                <div class="flex justify-center">
+                    <a :href="slides[currentIndex].cta.link"
+                       class="bg-yellow px-6 py-2 font-semibold leading-none inline-block text-xl transition-width">
+                        {{ slides[currentIndex].cta.label }}
+                    </a>
                 </div>
             </div>
 
-            <div class="absolute top-auto bottom-0 w-full">
-                <!-- Navigation Circles -->
-                <div class="flex justify-center mt-4 mb-2 w-full">
-                    <div v-for="(item, index) in heros">
-                        <div class="w-3 h-3 rounded-full mx-1 cursor-pointer"
-                             :class="index === currentIndex ? 'bg-yellow' : 'bg-white border border-grey-off'"
-                             @click.prevent="currentIndex = index">
-                        </div>
+            <div class="flex justify-center mt-4 w-full">
+                <div v-for="(item, index) in slides">
+                    <div class="w-4 h-4 rounded-full mx-1 cursor-pointer border border-white-80"
+                         :class="index === currentIndex ? 'bg-white-80' : ''"
+                         @click.prevent="currentIndex = index">
                     </div>
                 </div>
-                <!-- End Navigation Circles -->
+            </div>
+        </div>
+
+        <div class="items-baseline flex justify-center mt-4 w-full">
+            <div class="text-3xl leading-none text-white-80 pulse">
+                <font-awesome-icon :icon="['fas', 'chevron-down']"></font-awesome-icon>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import inViewport from 'in-viewport';
-
 export default {
     data: () => ({
         timeout: null,
-        heros: [
+        slides: [
             {
-                image_url: '',
-                link: '',
+                title: 'Coeliac Sanctuary Shop',
+                description: `Check out our online shop for some great coeliac related goodies, including our fantastic travel cards for when
+                you go abroad, our 'Gluten Free' stickers, our wristbands, and much more too!`,
+                cta: {
+                    link: '/shop',
+                    label: 'Visit our Shop',
+                }
+            },
+
+            {
+                title: 'Coeliac Sanctuary Blogs',
+                description: `Our blogs are part our heart and soul, covering a wide range of subjects across the gluten free world, from new
+                products, news, guides, always something for everyone!`,
+                cta: {
+                    link: '/blog',
+                    label: 'Checkout our Blogs',
+                }
             }
         ],
         currentIndex: 0,
     }),
 
     mounted() {
-        window.coeliac().request().get('/api/heros').then((response) => {
-            this.heros = response.data;
-            this.createTimeout();
-        });
-
-        window.addEventListener('scroll', () => {
-            let headerInView = inViewport(document.getElementById('heros'));
-
-            if (!headerInView) {
-                this.resetTimeout();
-                return;
-            }
-
-            if (!this.timeout && headerInView) {
-                this.createTimeout();
-            }
-        }, {passive: true})
+        this.setTimeout();
     },
 
     methods: {
-        createTimeout() {
+        setTimeout() {
             this.timeout = setTimeout(() => {
-                if (this.currentIndex + 1 >= this.heros.length) {
+                if (this.currentIndex === this.slides.length - 1) {
                     this.currentIndex = 0;
                     return;
                 }
 
                 this.currentIndex++;
-            }, 5000)
+            }, 4000);
         },
 
-        resetTimeout() {
+        clearTimeout() {
             clearTimeout(this.timeout);
-            this.timeout = null;
         }
     },
 
     watch: {
         currentIndex: function () {
-            this.resetTimeout();
-            this.createTimeout();
+            this.clearTimeout();
+            this.setTimeout();
         }
     }
 }
