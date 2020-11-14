@@ -209,7 +209,7 @@
                 switch (button) {
                     case 'social':
                     case 'header':
-                        return image.width === 1200 && image.height === 630;
+                        return image.width >= 1200
                     case 'square':
                         return image.width === image.height;
                 }
