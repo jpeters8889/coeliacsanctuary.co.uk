@@ -10,7 +10,7 @@
     @include('components.announcement')
 
     <!-- Header -->
-    <div class="w-full flex flex-col hero-background h-95vh max-h-hero">
+    <div class="w-full flex flex-col hero-background h-auto xs:h-95vh max-h-hero">
         <div class="w-full flex flex-col h-full bg-blue-gradient-90">
             <div class="flex items-center" style="min-height: 50px">
                 <top-bar transparent></top-bar>

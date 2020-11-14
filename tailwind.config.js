@@ -284,7 +284,8 @@ module.exports = {
             map: '300px',
             screen: '100vh',
             search: '22.5rem',
-            hero: '600px',
+            hero: '750px',
+            logo: '150px',
         },
         maxWidth: {
             ...widths,

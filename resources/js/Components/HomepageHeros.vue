@@ -1,6 +1,12 @@
 <template>
-    <div class="flex-1 flex flex-col" @mouseenter="clearTimeout()" @mouseleave="setTimeout()">
-        <div class="flex-1 flex flex-col justify-center items-center inner-wrapper">
+    <div class="flex-1 flex flex-col">
+        <div class="flex flex-col justify-center items-center -mt-4 mb-4 space-y-2">
+            <img class="w-1/2 max-h-logo" src="/assets/svg/logo.svg" alt="Coeliac Sanctuary"/>
+            <h1 class="text-4xl font-medium font-coeliac mb-2 text-center">Coeliac Sanctuary</h1>
+        </div>
+
+        <div class="flex-1 flex flex-col justify-center items-center inner-wrapper" @mouseenter="clearTimeout()"
+             @mouseleave="setTimeout()">
             <div class="bg-white-80 p-4 w-full md:w-3/4">
                 <h2 class="mb-2 text-2xl font-semibold text-center">
                     {{ slides[currentIndex].title }}
@@ -54,6 +60,26 @@ export default {
                 cta: {
                     link: '/blog',
                     label: 'Checkout our Blogs',
+                }
+            },
+
+            {
+                title: 'Coeliac Sanctuary Recipes',
+                description: `We keep all of our recipes simple and use simple ingredients you can get from most supermarkets, and more importantly
+                they're all tried and tested by us!`,
+                cta: {
+                    link: '/recipe',
+                    label: 'Checkout our Recipes',
+                }
+            },
+
+            {
+                title: 'Places to Eat',
+                description: `We've got over 1500 independent places to eat out listed in our eating out guide spread all over the UK, and all
+                contributed to and rated by other Coeliacs!`,
+                cta: {
+                    link: '/wheretoeat',
+                    label: 'Visit our Eating Out guide',
                 }
             }
         ],

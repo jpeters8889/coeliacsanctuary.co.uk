@@ -4,13 +4,13 @@
              id="top-bar"
              :class="backgroundClasses"
              :style="stickyNav ? 'position: fixed!important;' : ''">
-            <div class="flex justify-between items-center inner-wrapper md:relative">
+            <div class="flex justify-between items-center inner-wrapper md:relative py-2 md:py-0">
                 <mobile-nav class="mr-2 md:hidden"></mobile-nav>
                 <a href="/">
                     <coeliac-icon class="js-mob-icon text-white md:hidden" style="height: 1.875rem"></coeliac-icon>
                 </a>
                 <coeliac-nav class="hidden md:block"></coeliac-nav>
-                <header-search class="md:absolute md:right-0 md:top-0 md:mr-2"></header-search>
+                <header-search class="h-full flex items-center md:absolute md:right-0 md:top-0 md:mr-2"></header-search>
             </div>
         </div>
         <div id="top-bar-check"></div>
