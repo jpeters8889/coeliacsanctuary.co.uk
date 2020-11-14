@@ -111,9 +111,9 @@
     }
 </script>
 
-<script src="{{ mix('/assets/js/manifest.js') }}" defer></script>
-<script src="{{ mix('/assets/js/vendor.js') }}" defer></script>
-<script src="{{ mix('/assets/js/coeliac.js') }}" defer></script>
+<script src="{{ mix('/assets/js/manifest.js') }}" async defer></script>
+<script src="{{ mix('/assets/js/vendor.js') }}" async defer></script>
+<script src="{{ mix('/assets/js/coeliac.js') }}" async defer></script>
 
 @yield('footerJavascript')
 
