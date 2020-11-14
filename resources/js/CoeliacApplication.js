@@ -17,7 +17,11 @@ export default class Coeliac {
             elements_selector: ".lazy",
             threshold: 10,
             cancel_on_exit: true,
-            callback_loaded: (img) => img.style.paddingBottom = 0,
+            callback_loaded: (img) => {
+                img.removeAttribute('width');
+                img.removeAttribute('height');
+                img.style.paddingBottom = 0;
+            },
         });
     }
 
