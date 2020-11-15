@@ -27,7 +27,7 @@
                         <p>
                             You can use the tabs above to filter the results to find the type of places you want.
                         </p>
-                        <google-ad code="5284484376"></google-ad>
+{{--                        <google-ad code="5284484376"></google-ad>--}}
                     </template>
                 </wheretoeat-list>
 

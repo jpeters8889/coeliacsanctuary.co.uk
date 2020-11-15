@@ -17,8 +17,6 @@
                     </p>
                 </div>
 
-                <google-ad code="5284484376"></google-ad>
-
                 <p>
                     In the table below you can find our list of independent Gluten Free venues and attractions in
                     {{ $county }}, don't forget National chains (TGIs, Nandos, Pizza Hut etc are listed
@@ -44,6 +42,8 @@
                         </tr>
                     @endforeach
                 </table>
+
+                <google-ad code="5284484376"></google-ad>
             </div>
         </div>
 
