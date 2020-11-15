@@ -1,38 +1,25 @@
 <template>
-    <div class="flex-1 flex flex-col">
-        <div class="flex flex-col justify-center items-center -mt-4 mb-4 space-y-2">
-            <img class="w-1/2 max-h-logo" width="100%" height="125" src="/assets/svg/logo.svg" alt="Coeliac Sanctuary"/>
-            <h1 class="text-4xl font-medium font-coeliac mb-2 text-center">Coeliac Sanctuary</h1>
-        </div>
-
-        <div class="flex-1 flex flex-col justify-center items-center inner-wrapper" @mouseenter="clearTimeout()"
-             @mouseleave="setTimeout()">
-            <div class="bg-white-80 p-4 w-full md:w-3/4">
-                <h2 class="mb-2 text-2xl font-semibold text-center">
-                    {{ slides[currentIndex].title }}
-                </h2>
-                <p class="mb-2">{{ slides[currentIndex].description }}</p>
-                <div class="flex justify-center">
-                    <a :href="slides[currentIndex].cta.link"
-                       class="bg-yellow px-6 py-2 font-semibold leading-none inline-block text-xl transition-width">
-                        {{ slides[currentIndex].cta.label }}
-                    </a>
-                </div>
-            </div>
-
-            <div class="flex justify-center mt-4 w-full">
-                <div v-for="(item, index) in slides">
-                    <div class="w-4 h-4 rounded-full mx-1 cursor-pointer border border-white-80"
-                         :class="index === currentIndex ? 'bg-white-80' : ''"
-                         @click.prevent="currentIndex = index">
-                    </div>
-                </div>
+    <div class="flex-1 flex flex-col justify-center items-center inner-wrapper" @mouseenter="clearTimeout()"
+         @mouseleave="setTimeout()">
+        <div class="bg-white-80 p-4 w-full md:w-3/4">
+            <h2 class="mb-2 text-2xl font-semibold text-center">
+                {{ slides[currentIndex].title }}
+            </h2>
+            <p class="mb-2">{{ slides[currentIndex].description }}</p>
+            <div class="flex justify-center">
+                <a :href="slides[currentIndex].cta.link"
+                   class="bg-yellow px-6 py-2 font-semibold leading-none inline-block text-xl transition-width">
+                    {{ slides[currentIndex].cta.label }}
+                </a>
             </div>
         </div>
 
-        <div class="items-baseline flex justify-center mt-4 w-full">
-            <div class="text-3xl leading-none text-white-80 pulse">
-                <font-awesome-icon :icon="['fas', 'chevron-down']"></font-awesome-icon>
+        <div class="flex justify-center mt-4 w-full">
+            <div v-for="(item, index) in slides">
+                <div class="w-4 h-4 rounded-full mx-1 cursor-pointer border border-white-80"
+                     :class="index === currentIndex ? 'bg-white-80' : ''"
+                     @click.prevent="currentIndex = index">
+                </div>
             </div>
         </div>
     </div>
