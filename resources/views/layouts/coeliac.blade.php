@@ -47,10 +47,10 @@
     @yield('headerJavaScript', '')
 
     @if(config('app.env') !== 'testing')
-        <script defer src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script defer async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-53299243-1"></script>
+        <script defer async src="https://www.googletagmanager.com/gtag/js?id=UA-53299243-1"></script>
 
         <noscript>
             <img height="1" width="1" src="https://www.facebook.com/tr?id=1163828547057901&ev=PageView&noscript=1"/>
