@@ -191,10 +191,3 @@
     </div>
     @include('components.footer')
 @endsection
-<script>
-    import HomepageHeros from "../../js/Components/HomepageHeros";
-
-    export default {
-        components: {HomepageHeros}
-    }
-</script>
