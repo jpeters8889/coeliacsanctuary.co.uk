@@ -17,6 +17,12 @@ class WhereToEatTownRequest extends WhereToEatCountyRequest
     {
         $county = $this->resolveCounty();
 
+        if ($legacy = $county->towns()->where('legacy', $this->route('town'))->first()) {
+            if ($legacy->slug !== $this->route('town')) {
+                redirect_now('/wheretoeat/'.$this->route('county').'/'.$legacy->slug);
+            }
+        }
+
         /** @var WhereToEatTown $town */
         $town = $county->towns()->where('slug', $this->route('town'))
             ->firstOrFail();
