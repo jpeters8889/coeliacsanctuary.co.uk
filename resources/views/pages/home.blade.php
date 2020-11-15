@@ -16,7 +16,20 @@
                 <top-bar transparent></top-bar>
             </div>
             <div class="flex flex-1 p-8">
-                <coeliac-home-heros></coeliac-home-heros>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex flex-col justify-center items-center -mt-4 mb-4 space-y-2">
+                        <img class="w-1/2 max-h-logo" width="100%" height="125" src="/assets/svg/logo.svg" alt="Coeliac Sanctuary"/>
+                        <h1 class="text-4xl font-medium font-coeliac mb-2 text-center">Coeliac Sanctuary</h1>
+                    </div>
+
+                    <coeliac-home-heros></coeliac-home-heros>
+
+                    <div class="items-baseline flex justify-center mt-4 w-full">
+                        <div class="text-3xl leading-none text-white-80 pulse">
+                            <font-awesome-icon :icon="['fas', 'chevron-down']"></font-awesome-icon>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
