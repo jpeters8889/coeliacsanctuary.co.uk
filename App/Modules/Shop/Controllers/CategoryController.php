@@ -53,7 +53,7 @@ class CategoryController extends BaseController
                     'link' => 'shop',
                 ],
             ], $category->title)
-            ->setPageTitle($category->title . ' | Shop')
+            ->setPageTitle($category->title.' | Shop')
             ->setMetaDescription($category->meta_description)
             ->setMetaKeywords(explode(',', $category->meta_keywords))
             ->setSocialImage($category->first_image)
