@@ -6,6 +6,7 @@ namespace Coeliac\Common\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Coeliac\Modules\Shop\Models\ShopOrder;
+use JPeters\Architect\Traits\HasArchitectSettings;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -14,6 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasArchitectSettings;
 
     protected $guarded = [];
 
