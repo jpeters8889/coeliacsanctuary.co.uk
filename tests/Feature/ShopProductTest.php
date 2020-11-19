@@ -91,7 +91,7 @@ class ShopProductTest extends TestCase
     /** @test */
     public function it_has_the_product_short_description()
     {
-        $this->get('/shop/product/'.$this->product->slug)->assertSee($this->product->short_description, false);
+        $this->get('/shop/product/'.$this->product->slug)->assertSee($this->product->description, false);
     }
 
     /** @test */
