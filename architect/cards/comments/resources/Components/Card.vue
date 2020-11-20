@@ -3,7 +3,11 @@
         <div class="flex p-2 justify-between flex-col md:flex-row" :class="!isApproved ? 'bg-negative-50' : ''">
             <div class="flex flex-col md:w-4/5">
                 <div class="mb-1">
-                    <h2 class="font-semibold text-blue-700 text-xl">{{ commentTitle }}</h2>
+                    <h2 class="font-semibold text-blue-700 text-xl">
+                        <a :href="this.data.commentable.link" target="_blank">
+                            {{ commentTitle }}
+                        </a>
+                    </h2>
                 </div>
                 <div class="mb-2" v-html="data.comment"></div>
                 <div><strong>{{ data.name }}</strong> - {{ data.created_at }}</div>
@@ -78,7 +82,8 @@
                         <p v-html="data.comment"></p>
                     </div>
 
-                    <textarea class="my-2 form-control form-control-input w-full" rows="5" v-bind="replyText"></textarea>
+                    <textarea class="my-2 form-control form-control-input w-full" rows="5"
+                              v-bind="replyText"></textarea>
                     <button class="button button-positive button-default" @click.prevent="replyComment()">Reply</button>
                 </div>
             </modal>
@@ -148,7 +153,7 @@ export default {
         },
 
         replyComment() {
-            window.Architect.request().post('/external/coeliac-comments/reply/' + this.data.id, {reply: replyText}).then(() => {
+            window.Architect.request().post('/external/coeliac-comments/reply/' + this.data.id, {reply: this.replyText}).then(() => {
                 window.Architect.success('Reply sent and Comment approved');
                 window.Architect.$emit('reload-page');
                 this.showReplyModal = false;
