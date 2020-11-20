@@ -16,7 +16,7 @@ class CardServiceProvider extends ServiceProvider
             $architect = resolve(Architect::class);
 
             $architect->apiManager->registerEndpoint('delete', 'coeliac-place-request', ApiHandler::class, 'delete');
-            $architect->apiManager->registerEndpoint('put', 'coeliac-place-request', ApiHandler::class, 'approve');
+            $architect->apiManager->registerEndpoint('put', 'coeliac-place-request', ApiHandler::class, 'complete');
 
             $architect->assetManager->registerScript('PlaceRequestCard', __DIR__.'/../dist/card.js');
             $architect->assetManager->registerStyle('PlaceRequestCard', __DIR__.'/../dist/card.css');
