@@ -42,7 +42,7 @@
         </div>
 
         <div v-else>
-            <div class="flex flex-col my-2 md:flex-row md:flex-wrap -mx-2">
+            <div class="flex flex-col my-2 md:flex-row md:flex-wrap -mx-2" ref="items">
                 <module-list-item
                         v-for="(item, index) in response.data"
                         :key="item.id"
@@ -179,6 +179,9 @@
                     this.currentPage = page;
 
                     this.loadData();
+                    this.$scrollTo(this.$refs.items, 500, {
+                        offset : -200,
+                    });
                 });
 
                 this.$root.$on('layout-change', (layout) => {
@@ -205,6 +208,7 @@
 
                     this.filters[filter.name].push(filter.value);
 
+                    this.currentPage = 1;
                     this.loadData();
                 });
 
@@ -217,6 +221,7 @@
                         this.filters[availableFilter.value] = [];
                     });
 
+                    this.currentPage = 1;
                     this.loadData();
                 });
 
