@@ -112,14 +112,15 @@
             deleteRequest() {
                 window.Architect.request().delete('/external/coeliac-place-request/delete/' + this.data.id).then(() => {
                     window.Architect.success('Request Deleted');
-                    window.Architect.$emit('reload-page');
+                    this.showDeleteModal = false;
                 });
             },
 
             completeRequest() {
                 window.Architect.request().put('/external/coeliac-place-request/complete/' + this.data.id).then(() => {
                     window.Architect.success('Request Completed');
-                    window.Architect.$emit('reload-page');
+                    this.showApproveModal = false;
+                    this.data.completed = true;
                 });
             },
 

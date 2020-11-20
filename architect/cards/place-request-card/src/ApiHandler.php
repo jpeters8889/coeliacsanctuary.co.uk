@@ -16,7 +16,7 @@ class ApiHandler
         return new Response();
     }
 
-    public function approve($id)
+    public function complete($id)
     {
         PlaceRequest::query()->findOrFail($id)->update(['completed' => 1]);
 
