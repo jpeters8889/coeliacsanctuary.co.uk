@@ -23,7 +23,7 @@ class OrderShippedNotification extends Notification
         $this->order = $order;
     }
 
-    public function toMail(User $notifiable = null)
+    public function toMail($notifiable = null)
     {
         return (new MJMLMessage())
             ->subject('Coeliac Sanctuary - Order Shipped')

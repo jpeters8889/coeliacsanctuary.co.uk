@@ -29,7 +29,7 @@ class CommentApprovedNotification extends Notification
         return $this->comment;
     }
 
-    public function toMail(User $notifiable = null)
+    public function toMail($notifiable = null)
     {
         return (new MJMLMessage())
             ->subject('Coeliac Sanctuary - Comment Approved')

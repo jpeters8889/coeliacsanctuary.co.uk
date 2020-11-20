@@ -29,7 +29,7 @@ class WhereToEatRatingApprovedNotification extends Notification
         return $this->rating;
     }
 
-    public function toMail(User $notifiable = null)
+    public function toMail($notifiable = null)
     {
         return (new MJMLMessage())
             ->subject('Coeliac Sanctuary - Place Review Approved')
