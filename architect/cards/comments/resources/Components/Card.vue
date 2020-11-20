@@ -83,7 +83,7 @@
                     </div>
 
                     <textarea class="my-2 form-control form-control-input w-full" rows="5"
-                              v-bind="replyText"></textarea>
+                              v-model="replyText"></textarea>
                     <button class="button button-positive button-default" @click.prevent="replyComment()">Reply</button>
                 </div>
             </modal>

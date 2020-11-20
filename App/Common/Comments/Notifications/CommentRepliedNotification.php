@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Comments\Notifications;
 
+use Carbon\Carbon;
 use Coeliac\Common\Models\User;
 use Coeliac\Common\Models\Comment;
 use Illuminate\Container\Container;
@@ -31,12 +32,12 @@ class CommentRepliedNotification extends Notification
         return $this->comment;
     }
 
-    public function toMail(User $notifiable = null)
+    public function toMail($notifiable = null)
     {
         return (new MJMLMessage())
             ->subject('Coeliac Sanctuary - A Reply has been left on your Comment')
             ->mjml('mailables.mjml.comments.replied', [
-                'date' => $this->date,
+                'date' => $this->date ?: Carbon::now(),
                 'email' => $this->comment->email,
                 'key' => $this->key,
                 'comment' => $this->comment,

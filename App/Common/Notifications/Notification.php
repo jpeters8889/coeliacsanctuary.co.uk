@@ -30,5 +30,5 @@ abstract class Notification extends IlluminateNotification implements ShouldQueu
         return $this;
     }
 
-    abstract public function toMail(User $notifiable = null);
+    abstract public function toMail($notifiable = null);
 }
