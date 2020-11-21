@@ -34,7 +34,7 @@
         @endforeach
     @endisset
 
-    <link rel="preload" href="/assets/fonts/Notethis.woff" />
+    <link rel="preload" href="/assets/fonts/Notethis.woff"/>
 
     <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}"/>
 
@@ -57,6 +57,19 @@
         </noscript>
     @endif
 
+    @if(config('app.env') === 'production')
+        <script>
+            (function(h,o,t,j,a,r){
+                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                h._hjSettings={hjid:2113025,hjsv:6};
+                a=o.getElementsByTagName('head')[0];
+                r=o.createElement('script');r.async=1;
+                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                a.appendChild(r);
+            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+        </script>
+    @endif
+
     @if($page->url === config('app.url'))
         <script type="application/ld+json">
             {
@@ -66,6 +79,7 @@
                 "url": "https:\/\/www.coeliacsanctuary.co.uk\/",
                 "name": "Coeliac Sanctuary | Gluten Free Places to Eat, Reviews, Blogs and more!"
             }
+
         </script>
 
         <script type='application/ld+json'>
@@ -81,6 +95,7 @@
                 "@id": "#person",
                 "name": "Alison Wheatley"
             }
+
         </script>
     @endif
 </head>
