@@ -39,7 +39,7 @@ class PlaceRequestApiCallTest extends TestCase
     {
         $this->assertEquals(0, $this->placeRequest->completed);
 
-        $this->put('/cs-adm/api/external/coeliac-place-request/approve/'.$this->placeRequest->id);
+        $this->put('/cs-adm/api/external/coeliac-place-request/complete/'.$this->placeRequest->id);
 
         $this->assertEquals(1, $this->placeRequest->fresh()->completed);
     }
