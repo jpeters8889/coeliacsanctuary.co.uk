@@ -277,16 +277,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.163.1",
+            "version": "3.163.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7b6948915654f0f94847ccaf51172fa1a7f1cc59"
+                "reference": "ef46d2daf80f2a21809608ada7ba76dddfd103cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7b6948915654f0f94847ccaf51172fa1a7f1cc59",
-                "reference": "7b6948915654f0f94847ccaf51172fa1a7f1cc59",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ef46d2daf80f2a21809608ada7ba76dddfd103cd",
+                "reference": "ef46d2daf80f2a21809608ada7ba76dddfd103cd",
                 "shasum": ""
             },
             "require": {
@@ -361,9 +361,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.163.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.163.2"
             },
-            "time": "2020-11-19T19:26:10+00:00"
+            "time": "2020-11-20T19:13:16+00:00"
         },
         {
             "name": "box/spout",
@@ -2530,16 +2530,16 @@
         },
         {
             "name": "jpeters/architect",
-            "version": "0.5.1",
+            "version": "0.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jpeters8889/architect.git",
-                "reference": "f2e809536c3216e21cdd5f7c8b860a2c51aba4f2"
+                "reference": "b8db6999beacd9d331ec716b52162aa9ab87aaca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jpeters8889/architect/zipball/f2e809536c3216e21cdd5f7c8b860a2c51aba4f2",
-                "reference": "f2e809536c3216e21cdd5f7c8b860a2c51aba4f2",
+                "url": "https://api.github.com/repos/jpeters8889/architect/zipball/b8db6999beacd9d331ec716b52162aa9ab87aaca",
+                "reference": "b8db6999beacd9d331ec716b52162aa9ab87aaca",
                 "shasum": ""
             },
             "require": {
@@ -2588,10 +2588,10 @@
             ],
             "description": "Architect",
             "support": {
-                "source": "https://github.com/jpeters8889/architect/tree/0.5.1",
+                "source": "https://github.com/jpeters8889/architect/tree/0.5.2",
                 "issues": "https://github.com/jpeters8889/architect/issues"
             },
-            "time": "2020-11-19T19:58:56+00:00"
+            "time": "2020-11-21T19:16:20+00:00"
         },
         {
             "name": "jpeters/laravel-page-view",
@@ -5287,16 +5287,16 @@
         },
         {
             "name": "spatie/image-optimizer",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image-optimizer.git",
-                "reference": "f87f8328ca5bfabb3811241f5d35f17e146f7f83"
+                "reference": "b622d0cf29f57d7735d49f2b62471e6b788cb291"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/f87f8328ca5bfabb3811241f5d35f17e146f7f83",
-                "reference": "f87f8328ca5bfabb3811241f5d35f17e146f7f83",
+                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/b622d0cf29f57d7735d49f2b62471e6b788cb291",
+                "reference": "b622d0cf29f57d7735d49f2b62471e6b788cb291",
                 "shasum": ""
             },
             "require": {
@@ -5335,9 +5335,9 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/image-optimizer/issues",
-                "source": "https://github.com/spatie/image-optimizer/tree/1.3.0"
+                "source": "https://github.com/spatie/image-optimizer/tree/1.3.1"
             },
-            "time": "2020-11-10T13:45:49+00:00"
+            "time": "2020-11-20T11:36:11+00:00"
         },
         {
             "name": "spatie/laravel-cookie-consent",
@@ -11973,16 +11973,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.56",
+            "version": "0.12.57",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "007fd5d700c41e1bb27795fae15a2383f8fa4ba1"
+                "reference": "f9909d1d0c44b4cbaf72babcf80e8f14d6fdd55b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/007fd5d700c41e1bb27795fae15a2383f8fa4ba1",
-                "reference": "007fd5d700c41e1bb27795fae15a2383f8fa4ba1",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f9909d1d0c44b4cbaf72babcf80e8f14d6fdd55b",
+                "reference": "f9909d1d0c44b4cbaf72babcf80e8f14d6fdd55b",
                 "shasum": ""
             },
             "require": {
@@ -12013,7 +12013,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.56"
+                "source": "https://github.com/phpstan/phpstan/tree/0.12.57"
             },
             "funding": [
                 {
@@ -12029,7 +12029,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-16T22:59:18+00:00"
+            "time": "2020-11-21T12:53:28+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -14677,35 +14677,35 @@
         },
         {
             "name": "wnx/laravel-stats",
-            "version": "v2.4.1",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stefanzweifel/laravel-stats.git",
-                "reference": "d248bc1fb3f0e004f397c92c596a83bd511f32a0"
+                "reference": "d6237ba1e44def2abd89a1a96faa10f15e47358a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stefanzweifel/laravel-stats/zipball/d248bc1fb3f0e004f397c92c596a83bd511f32a0",
-                "reference": "d248bc1fb3f0e004f397c92c596a83bd511f32a0",
+                "url": "https://api.github.com/repos/stefanzweifel/laravel-stats/zipball/d6237ba1e44def2abd89a1a96faa10f15e47358a",
+                "reference": "d6237ba1e44def2abd89a1a96faa10f15e47358a",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "illuminate/console": "^6.0 || ^7.0 || ^8.0",
                 "illuminate/support": "^6.0 || ^7.0 || ^8.0",
-                "php": ">=7.3.0",
+                "php": "^7.3 || ^8.0",
                 "stefanzweifel/laravel-stats-phploc": "^6.1 || ^7.1",
                 "symfony/finder": "^4.3 || ^5.0",
                 "symfony/process": "^4.3 || ^5.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.15",
                 "laravel/browser-kit-testing": "~5.0 || ~6.0 || ~7.0",
                 "laravel/dusk": "~5.0 || ~6.0",
                 "mockery/mockery": "^1.1",
                 "orchestra/testbench": "^4.0 || ^5.0 || ^6.0",
                 "phpunit/phpunit": "8.* || 9.*",
-                "vimeo/psalm": "^3.12"
+                "psalm/plugin-laravel": "^1.4",
+                "vimeo/psalm": "^4.0"
             },
             "type": "library",
             "extra": {
@@ -14742,7 +14742,7 @@
             ],
             "support": {
                 "issues": "https://github.com/stefanzweifel/laravel-stats/issues",
-                "source": "https://github.com/stefanzweifel/laravel-stats/tree/v2.4.1"
+                "source": "https://github.com/stefanzweifel/laravel-stats/tree/v2.5.0"
             },
             "funding": [
                 {
@@ -14754,7 +14754,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-09-29T18:09:12+00:00"
+            "time": "2020-11-20T19:49:06+00:00"
         }
     ],
     "aliases": [],

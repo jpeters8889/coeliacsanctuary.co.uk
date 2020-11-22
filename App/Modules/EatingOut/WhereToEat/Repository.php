@@ -40,6 +40,7 @@ class Repository extends AbstractRepository
             ];
         }
 
+
         if (array_key_exists('term', $parameters)) {
             $geocoder = Container::getInstance()
                 ->make(Geocoder::class)
@@ -68,7 +69,7 @@ class Repository extends AbstractRepository
 
             $results = $model::search()
                 ->with([
-                    'aroundLatLng' => implode(', ', $this->resolveLatLng(array_filter($parameters))),
+                    'aroundLatLng' => implode(', ', $latlng = $this->resolveLatLng(array_filter($parameters))),
                     'aroundRadius' => (int) round(((int) $parameters['range']) * 1609.344),
                     'getRankingInfo' => true,
                 ])
@@ -80,6 +81,8 @@ class Repository extends AbstractRepository
                         'distance' => round($result->scoutMetadata()['_rankingInfo']['geoDistance'] / 1609, 1),
                     ];
                 });
+
+            $this->appends['latlng'] = $latlng;
 
             abort_if($results->count() === 0, 404);
 
