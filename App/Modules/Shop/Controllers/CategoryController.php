@@ -50,7 +50,7 @@ class CategoryController extends BaseController
             ->breadcrumbs([
                 [
                     'title' => 'Shop',
-                    'link' => 'shop',
+                    'link' => '/shop',
                 ],
             ], $category->title)
             ->setPageTitle($category->title.' | Shop')
