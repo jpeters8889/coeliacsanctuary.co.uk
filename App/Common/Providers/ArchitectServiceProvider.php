@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Coeliac\Common\Providers;
 
 use Coeliac\Common\ArchitectDashboard;
+use Coeliac\Common\Architect\HorizonDashboard;
+use Coeliac\Common\Architect\MailcoachDashboard;
+use Coeliac\Modules\Shop\Architect\ShopDashboard;
 use Coeliac\Modules\Shop\Architect\OrderBlueprint;
 use Coeliac\Modules\Shop\Architect\BasketBlueprint;
 use Coeliac\Common\Users\Blueprint as UserBlueprint;
@@ -19,7 +22,6 @@ use Coeliac\Common\Notifications\Blueprint as EmailBlueprint;
 use Coeliac\Modules\Blog\Architect\Blueprint as BlogBlueprint;
 use Coeliac\Modules\Recipe\Architect\Blueprint as RecipeBlueprint;
 use Coeliac\Common\Announcements\Blueprint as AnnouncementBlueprint;
-use Coeliac\Modules\Shop\Architect\ShopDashboard;
 use JPeters\Architect\Providers\ArchitectApplicationServiceProvider;
 use Coeliac\Common\Comments\Architect\Blueprint as CommentsBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\WhereToEatBlueprint;
@@ -62,6 +64,8 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
         return [
             ArchitectDashboard::class,
             ShopDashboard::class,
+            HorizonDashboard::class,
+            MailcoachDashboard::class,
         ];
     }
 }
