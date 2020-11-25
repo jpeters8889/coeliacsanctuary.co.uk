@@ -52,7 +52,7 @@ class WhereToEatBlueprint extends Blueprint
 
     public function primaryField(): string
     {
-        return 'wheretoeat.id';
+        return 'id';
     }
 
     public function blueprintName(): string
