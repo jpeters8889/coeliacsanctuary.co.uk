@@ -14,7 +14,7 @@ class BlogFeedController extends BaseController
     public function list(Repository $repository, BlogFeed $feed)
     {
         return new Response(
-            $feed->render($repository->all()),
+            $feed->render($repository->setColumns(['id', 'title', 'slug', 'meta_description', 'created_at'])->all()),
             200,
             ['Content-type' => 'text/xml']
         );
