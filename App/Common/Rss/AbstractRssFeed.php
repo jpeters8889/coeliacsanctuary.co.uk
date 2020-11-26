@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Rss;
 
+use Carbon\Carbon;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Config\Repository;
@@ -36,11 +37,13 @@ abstract class AbstractRssFeed
             $items[] = $this->formatItem($item);
         });
 
+        $lastUpdated = $this->items->first() ? $this->items->first()->created_at : Carbon::now();
+
         return [
             'title' => $this->feedTitle(),
             'link' => Container::getInstance()->make(Repository::class)->get('app.url').'/'.$this->linkRoot(),
             'description' => $this->feedDescription(),
-            'date' => $this->items->first()->created_at->toRfc822String(),
+            'date' => $lastUpdated->toRfc822String(),
             'items' => $items,
         ];
     }
