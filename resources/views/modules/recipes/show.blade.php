@@ -10,9 +10,9 @@
             <div class="bg-blue-gradient-30 -mx-3 my-2 p-3 flex-flex-col">
                 <h1 class="text-3xl font-coeliac text-center font-semibold leading-tight lg:text-left flex justify-between">
                     <span>{{ $recipe->title }}</span>
-{{--                    <a href="/recipe/{{ $recipe->slug }}/print" target="_blank">--}}
-{{--                        <font-awesome-icon :icon="['fas', 'print']"></font-awesome-icon>--}}
-{{--                    </a>--}}
+                    <a href="/recipe/{{ $recipe->slug }}/print" target="_blank">
+                        <font-awesome-icon :icon="['fas', 'print']"></font-awesome-icon>
+                    </a>
                 </h1>
                 <p class="my-1 font-medium">{{ $recipe->description }}</p>
                 <p class="text-sm mt-1 text-grey-darker">
