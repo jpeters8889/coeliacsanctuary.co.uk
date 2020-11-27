@@ -16,5 +16,5 @@ $router->group(['prefix' => 'recipe'], static function () use ($router) {
     $router->get('/', [RecipeController::class, 'index']);
     $router->get('/feed', [RecipeFeedController::class, 'list']);
     $router->get('/{slug}', [RecipeController::class, 'show']);
-//    $router->get('/{slug}/print', [RecipeController::class, 'print']);
+    $router->get('/{slug}/print', [RecipeController::class, 'print']);
 });

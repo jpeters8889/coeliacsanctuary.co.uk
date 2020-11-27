@@ -79,6 +79,6 @@ class RecipeController extends BaseController
         /* @var Recipe $recipe */
         abort_if(!$recipe = $request->resolveItem(), 404, 'Sorry, this recipe can\'t be found');
 
-        return $this->page->render('modules.recipe.print', compact('recipe'));
+        return $this->page->render('modules.recipes.print', compact('recipe'));
     }
 }
