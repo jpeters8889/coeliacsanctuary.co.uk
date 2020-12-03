@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
+use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
@@ -20,6 +21,18 @@ class WhereToEatTown extends BaseModel
     protected $table = 'wheretoeat_towns';
 
     protected $visible = ['id', 'town', 'slug', 'county_id'];
+
+    protected static function booted()
+    {
+        static::creating(static function (self $town) {
+            if (!$town->slug) {
+                $town->slug = Str::slug($town->town);
+                $town->legacy = $town->slug;
+            }
+
+            return $town;
+        });
+    }
 
     public function eateries(): HasMany
     {

@@ -6,7 +6,6 @@ namespace Coeliac\Common\Notifications;
 
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Coeliac\Common\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification as IlluminateNotification;
 

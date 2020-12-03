@@ -40,7 +40,6 @@ class Repository extends AbstractRepository
             ];
         }
 
-
         if (array_key_exists('term', $parameters)) {
             $geocoder = Container::getInstance()
                 ->make(Geocoder::class)

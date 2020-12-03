@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Notifications;
 
 use Carbon\Carbon;
-use Coeliac\Common\Models\User;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\ProductRepository;

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Coeliac\Common\Comments\Notifications;
 
 use Carbon\Carbon;
-use Coeliac\Common\Models\User;
 use Coeliac\Common\Models\Comment;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Blog\Repository;

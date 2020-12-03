@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Common;
 
 use Carbon\Carbon;
@@ -79,11 +81,8 @@ class ArchitectDashboard extends AbstractDashboard
                 ->whereDate('created_at', '>=', $day->startOfDay())
                 ->whereDate('created_at', '<=', $day->endOfDay())
                 ->count();
-
-
         }
         $chart->addDataSet('Sent Emails', $counts, 'line');
-
 
         return $chart;
     }
@@ -107,11 +106,8 @@ class ArchitectDashboard extends AbstractDashboard
                 ->whereDate('created_at', '>=', $day->startOfDay())
                 ->whereDate('created_at', '<=', $day->endOfDay())
                 ->count();
-
-
         }
         $chart->addDataSet('Submitted Ratings', $counts, 'line');
-
 
         return $chart;
     }
