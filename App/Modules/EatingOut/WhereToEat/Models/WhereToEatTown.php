@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
+use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Support\Str;
 
 /**
- * @property mixed $town
+ * @property mixed            $town
  * @property WhereToEatCounty $county
- * @property string $slug
+ * @property string           $slug
  */
 class WhereToEatTown extends BaseModel
 {
@@ -62,15 +62,15 @@ class WhereToEatTown extends BaseModel
         $return = [];
 
         if ($eateries > 0) {
-            $return[] = $eateries . ' Place' . ($eateries > 1 ? 's' : '') . ' to eat';
+            $return[] = $eateries.' Place'.($eateries > 1 ? 's' : '').' to eat';
         }
 
         if ($attractions > 0) {
-            $return[] = $attractions . ' Attraction' . ($attractions > 1 ? 's' : '');
+            $return[] = $attractions.' Attraction'.($attractions > 1 ? 's' : '');
         }
 
         if ($hotels > 0) {
-            $return[] = $hotels . ' Hotel' . ($hotels > 1 ? 's' : '') . ' / B&B' . ($hotels > 1 ? 's' : '');
+            $return[] = $hotels.' Hotel'.($hotels > 1 ? 's' : '').' / B&B'.($hotels > 1 ? 's' : '');
         }
 
         return implode(', ', $return);

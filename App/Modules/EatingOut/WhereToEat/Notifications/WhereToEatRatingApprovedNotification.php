@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\WhereToEat\Notifications;
 
 use Carbon\Carbon;
-use Coeliac\Common\Models\User;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Blog\Repository;
 use Coeliac\Modules\Blog\Models\Blog;

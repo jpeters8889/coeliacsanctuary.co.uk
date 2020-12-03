@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Common\Architect;
 
-use JPeters\Architect\Dashboards\AbstractDashboard;
 use JPeters\Architect\Dashboards\Cards\Card;
+use JPeters\Architect\Dashboards\AbstractDashboard;
 
 class MailcoachDashboard extends AbstractDashboard
 {

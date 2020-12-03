@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCountry;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
 use Tests\TestCase;
+use Illuminate\Support\Str;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCountry;
 
 class WhereToEatTownTest extends TestCase
 {
