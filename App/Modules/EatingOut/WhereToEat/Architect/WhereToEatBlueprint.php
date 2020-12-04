@@ -13,6 +13,7 @@ use JPeters\Architect\Plans\Boolean;
 use JPeters\Architect\Plans\Switcher;
 use JPeters\Architect\Plans\Textarea;
 use JPeters\Architect\Plans\Textfield;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use JPeters\Architect\Blueprints\Blueprint;
 use Coeliac\Architect\Plans\AddressLookup\Plan;
@@ -87,6 +88,12 @@ class WhereToEatBlueprint extends Blueprint
                 ->fetchValueFrom(static function ($value) {
                     return WhereToEatTown::query()
                         ->firstWhere('town', $value);
+                })
+                ->setCreateAction(static function (Model $model, $value) {
+                    return WhereToEatTown::query()->create([
+                        'town' => $value,
+                        'county_id' => request()->input('county_id'),
+                    ]);
                 }),
 
             Select::generate('county_id', 'County')
