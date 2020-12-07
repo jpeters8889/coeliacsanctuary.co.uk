@@ -71,5 +71,13 @@ return [
             'root' => storage_path('app/search'),
             'visibility' => 'private',
         ],
+
+        'backups' => [
+            'driver' => 's3',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION', 'eu-west-2'),
+            'bucket' => 'coeliac-backups',
+        ],
     ],
 ];

@@ -42,6 +42,7 @@
         "paypal/rest-api-sdk-php": "^1.14",
         "predis/predis": "^1.1",
         "spatie/geocoder": "^3.9.2",
+        "spatie/laravel-backup": "^6.13",
         "spatie/laravel-cookie-consent": "^2.12.9",
         "spatie/laravel-mailcoach": "^3.0.0",
         "spatie/laravel-mailcoach-ses-feedback": "^2.0",
