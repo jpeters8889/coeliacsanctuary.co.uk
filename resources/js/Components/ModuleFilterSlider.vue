@@ -1,5 +1,5 @@
 <template>
-    <div class="w-screen h-screen fixed inset-0 bg-black-80 z-10" v-show="show" @click.self="closeFilterBar()">
+    <div class="w-screen h-screen fixed inset-0 bg-black-80 z-max" v-show="show" @click.self="closeFilterBar()">
         <div class="w-11/12 h-full absolute top-0 right-0 bg-white border-l border-grey-off-dark z-20 shadow-lg flex flex-col overflow-y-scroll" style="max-width: 350px;">
             <div class="flex mb-1 items-center p-2">
                 <h2 class="flex-1 text-xl font-medium">Filter {{ title }}</h2>

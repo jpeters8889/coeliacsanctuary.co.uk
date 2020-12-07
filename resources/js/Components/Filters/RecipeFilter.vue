@@ -182,10 +182,10 @@
                         this.selectedFeatures = [];
 
                         if (this.currentFilters) {
-                            this.currentFilters.meal.forEach((currentFilter) => {
-                                this.selectedMeals.push(
-                                    this.meals.filter((meal) => {
-                                        return meal.title === currentFilter;
+                            this.currentFilters.feature.forEach((currentFilter) => {
+                                this.selectedFeatures.push(
+                                    this.features.filter((feature) => {
+                                        return feature.title === currentFilter;
                                     })[0]
                                 );
                             });
@@ -237,13 +237,12 @@
 
             removeFeature(feature) {
                 this.selectedFeatures = this.selectedFeatures.filter((feature) => {
-                    return features.title !== feature.title;
+                    return feature.title !== feature.title;
                 });
 
-
                 this.$root.$emit('remove-filter', {
-                    name: 'freefrom',
-                    value: allergen.title,
+                    name: 'feature',
+                    value: feature.title,
                 });
             },
 
@@ -262,7 +261,7 @@
 
                 this.$root.$emit('remove-filter', {
                     name: 'meal',
-                    value: allergen.title,
+                    value: meal.title,
                 });
             },
 
