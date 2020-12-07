@@ -25,6 +25,9 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('list')->thenPing('http://beats.envoyer.io/heartbeat/8YWokjIDBE2Dkzc');
 
+        $schedule->command('backup:clean')->dailyAt('0:00');
+        $schedule->command('backup:run')->dailyAt('00:30');
+
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
 
         $schedule->command('mailcoach:calculate-statistics')->everyMinute();
