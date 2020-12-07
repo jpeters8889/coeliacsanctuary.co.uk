@@ -24,7 +24,7 @@ class ArchitectModelTest extends TestCase
 
         $this->withoutExceptionHandling();
 
-        $this->post('/cs-adm/api/blueprints/submit', [
+        $request = $this->post('/cs-adm/api/blueprints/submit', [
             '_blueprint' => 'blog',
             '_state' => 'add',
             'title' => 'Foo Title',

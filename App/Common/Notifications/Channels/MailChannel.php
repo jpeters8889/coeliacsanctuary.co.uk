@@ -11,6 +11,7 @@ use Illuminate\View\Factory as ViewFactory;
 use Coeliac\Common\Models\NotificationEmail;
 use Coeliac\Common\MjmlCompiler\CompilerContract;
 use Illuminate\Notifications\AnonymousNotifiable;
+use Spatie\Backup\Notifications\BaseNotification;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
 use Illuminate\Notifications\Channels\MailChannel as NotificationChannel;
 
@@ -18,6 +19,10 @@ class MailChannel extends NotificationChannel
 {
     public function send($notifiable, Notification $notification)
     {
+        if ($notification instanceof BaseNotification) {
+            parent::send($notifiable, $notification);
+        }
+
         /** @var \Coeliac\Common\Notifications\Notification $notification */
         $email = '';
 
@@ -61,7 +66,7 @@ class MailChannel extends NotificationChannel
      */
     protected function buildView($message)
     {
-        if ($message->mjml) {
+        if (property_exists($message, 'mjml')) {
             return $this->buildMjml($message);
         }
 
