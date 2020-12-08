@@ -34,6 +34,8 @@
             checkoutData: null,
 
             isDisabled: true,
+
+            hasStartedPayment: false,
         }),
 
         mounted() {
@@ -71,10 +73,17 @@
             },
 
             executePayment() {
+                if(this.hasStartedPayment) {
+                    this.stripeError();
+                    return;
+                }
+
+                this.hasStartedPayment = true;
+                this.isDisabled = true;
+
                 this.googleEvent('event', 'set-checkout-option', {
                     event_label: 'stripe',
                 });
-
 
                 this.stripe.createPaymentMethod('card', this.cardElement, {
                     billing_details: {
@@ -89,6 +98,7 @@
                     },
                 }).then((result) => {
                     if (result.error) {
+                        this.hasStartedPayment = false;
                         return this.stripeError();
                     }
 
@@ -104,8 +114,10 @@
                             }
 
                             this.stripeError();
+                            this.hasStartedPayment = false;
                         }).catch(() => {
                         this.stripeError();
+                        this.hasStartedPayment = false;
                     })
                 });
             },
@@ -122,6 +134,8 @@
             },
 
             stripeError() {
+                this.isDisabled = false;
+
                 this.$root.$emit('hide-page-load');
                 coeliac().error('There was an completing your order, you have not been charged, please check all fields and try again...');
             },
@@ -130,6 +144,7 @@
                 this.stripe.handleCardAction(token).then((result) => {
                     if (result.error) {
                         return this.stripeError();
+                        this.hasStartedPayment = false;
                     }
 
                     coeliac().request().patch('/api/shop/order', {
@@ -143,8 +158,10 @@
                         }
 
                         this.stripeError();
+                        this.hasStartedPayment = false;
                     }).catch(() => {
                         this.stripeError();
+                        this.hasStartedPayment = false;
                     });
                 });
             },
