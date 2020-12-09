@@ -90,7 +90,7 @@ class WhereToEatBlueprint extends Blueprint
                         ->firstWhere('town', $value);
                 })
                 ->setCreateAction(static function (Model $model, $value) {
-                    return WhereToEatTown::query()->create([
+                    return WhereToEatTown::query()->firstOrCreate([
                         'town' => $value,
                         'county_id' => request()->input('county_id'),
                     ]);
