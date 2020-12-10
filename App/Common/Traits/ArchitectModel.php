@@ -74,7 +74,7 @@ trait ArchitectModel
                 continue;
             }
             
-            if(array_key_exists($index, $images)) {
+            if(isset($images[$index])) {
                 continue;
             }
 
