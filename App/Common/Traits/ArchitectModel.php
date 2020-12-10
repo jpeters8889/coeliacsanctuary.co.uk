@@ -70,7 +70,7 @@ trait ArchitectModel
         $requestImages = json_decode($request->input('Images'));
 
         foreach ($requestImages->article as $image) {
-            if (!Str::contains($model->$field, $image) || Str::contains($model->$field, '/' . $image)) {
+            if (Str::contains($model->$field, '/' . $image)) {
                 continue;
             }
 
