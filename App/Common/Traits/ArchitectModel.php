@@ -73,10 +73,6 @@ trait ArchitectModel
             if (!Str::contains($model->$field, $image) || Str::contains($model->$field, '/'.$image)) {
                 continue;
             }
-            
-            if(isset($images[$index])) {
-                continue;
-            }
 
             if ($image === $images[$index]->image->file_name) {
                 ++$index;
