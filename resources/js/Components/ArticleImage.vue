@@ -1,7 +1,7 @@
 <template>
     <div>
         <div :class="classMap">
-            <img :data-src="src" :src="lazyLoadSrc" :alt="title" loading="lazy" class="lazy max-w-full" style="cursor: zoom-in" @click="zoom = true"/>
+            <img :data-src="src" :src="lazyLoadSrc" :alt="title" loading="lazy" class="lazy w-full h-auto" style="cursor: zoom-in" @click="zoom = true"/>
             <div v-if="title" class="text-center text-sm mt-2 leading-none">{{ title }}</div>
         </div>
 

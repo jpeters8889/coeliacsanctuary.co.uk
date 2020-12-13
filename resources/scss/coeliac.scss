@@ -43,6 +43,19 @@ html, body .w-screen, .inner-wrapper {
             height: 100%;
         }
     }
+
+    a {
+        @apply font-semibold text-blue;
+        transition: underline 0.5s ease;
+    }
+
+    a:hover {
+        @apply underline;
+    }
+
+    blockquote {
+        @apply bg-blue-light-50 p-2 rounded shadow text-sm;
+    }
 }
 
 @media only screen and (min-width: 400px) {
