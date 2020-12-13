@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use Illuminate\Support\Facades\Cache;
+use Spatie\TestTime\TestTime;
 use Tests\TestCase;
 use Coeliac\Common\Models\Image;
 use Coeliac\Modules\Blog\Models\Blog;
@@ -22,9 +24,7 @@ class ArchitectModelTest extends TestCase
         $this->createAdminUser();
         $this->actingAs(admin_user());
 
-        $this->withoutExceptionHandling();
-
-        $request = $this->post('/cs-adm/api/blueprints/submit', [
+        $this->post('/cs-adm/api/blueprints/submit', [
             '_blueprint' => 'blog',
             '_state' => 'add',
             'title' => 'Foo Title',
@@ -40,6 +40,8 @@ class ArchitectModelTest extends TestCase
         ]);
 
         $this->blog = Blog::query()->first();
+
+        TestTime::freeze()->addMinute();
     }
 
     /** @test */
@@ -85,6 +87,8 @@ class ArchitectModelTest extends TestCase
 
             $image->update(['file_name' => $filename]);
         });
+
+        Cache::forget('blogs-1-images-saved');
 
         $this->post('/cs-adm/api/blueprints/submit', [
             '_blueprint' => 'blog',

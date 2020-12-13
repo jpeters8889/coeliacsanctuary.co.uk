@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Traits;
 
+use Carbon\Carbon;
+use Illuminate\Cache\Repository as CacheRepository;
 use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Container\Container;
@@ -49,13 +51,30 @@ trait ArchitectModel
         }
     }
 
-    protected static function onSave(BaseModel $model)
+    protected static function requiresImageProcessing($model): bool
     {
         if (!self::usesImages()) {
-            return;
+            return false;
         }
 
         if (method_exists($model, 'images') && $model->images()->count() === 0) {
+            return false;
+        }
+
+        if (Container::getInstance()->make(CacheRepository::class)->has(self::imageCacheKey($model))) {
+            return false;
+        }
+
+        if ($model->images()->first()->created_at->lt($model->updated_at)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    protected static function onSave(BaseModel $model)
+    {
+        if (!self::requiresImageProcessing($model)) {
             return;
         }
 
@@ -66,37 +85,29 @@ trait ArchitectModel
         $images = $model->fresh()->images()->get();
         $index = 0;
         $field = self::bodyField();
-        $isDirty = false;
         $requestImages = json_decode($request->input('Images'));
 
         foreach ($requestImages->article as $image) {
-            if (Str::contains($model->$field, '/' . $image)) {
-                continue;
-            }
-
-            if (!isset($images[$index])) {
-                continue;
-            }
-
-            if ($image === $images[$index]->image->file_name) {
-                ++$index;
-                continue;
-            }
-
-            if (Str::contains($model->$field, $images[$index]->image->image_url)) {
-                ++$index;
-                continue;
-            }
-
             $model->$field = Str::replaceFirst($image, $images[$index]->image->image_url, $model->$field);
             ++$index;
-
-            $isDirty = true;
         }
 
-        if ($isDirty) {
+        if ($model->isDirty()) {
+            Container::getInstance()
+                ->make(CacheRepository::class)
+                ->put(self::imageCacheKey($model), true, Carbon::now()->addSeconds(10));
+
             $model->save();
         }
+    }
+
+    /**
+     * @param BaseModel $model
+     * @return string
+     */
+    protected static function imageCacheKey(BaseModel $model): string
+    {
+        return "{$model->getTable()}-{$model->id}-images-saved";
     }
 
     public function getArchitectBodyAttribute()
