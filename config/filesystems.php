@@ -60,7 +60,7 @@ return [
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
             'region' => env('AWS_DEFAULT_REGION', 'eu-west-2'),
-            'bucket' => 'coeliac-images',
+            'bucket' => env('AWS_BUCKET', 'coeliac-images'),
             'options' => [
                 'CacheControl' => 'max-age=315360000, no-transform, public',
             ],
