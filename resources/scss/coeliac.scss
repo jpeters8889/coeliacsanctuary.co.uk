@@ -44,17 +44,19 @@ html, body .w-screen, .inner-wrapper {
         }
     }
 
-    a {
-        @apply font-semibold text-blue;
-        transition: underline 0.5s ease;
-    }
+    article {
+        a {
+            @apply font-semibold text-blue;
+            transition: underline 0.5s ease;
+        }
 
-    a:hover {
-        @apply underline;
-    }
+        a:hover {
+            @apply underline;
+        }
 
-    blockquote {
-        @apply bg-blue-light-50 p-2 rounded shadow text-sm;
+        blockquote {
+            @apply bg-blue-light-50 p-2 rounded shadow text-sm;
+        }
     }
 }
 

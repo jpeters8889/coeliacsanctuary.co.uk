@@ -22,7 +22,9 @@
 
             <google-ad code="7619961534"></google-ad>
 
-            {!! $blog->body !!}
+            <article>
+                {!! $blog->body !!}
+            </article>
 
             <google-ad code="6662103082"></google-ad>
         </div>

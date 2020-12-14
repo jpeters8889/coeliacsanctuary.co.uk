@@ -40,9 +40,9 @@
 
             <div class="my-2 pb-2 border-b border-yellow flex flex-col">
                 <h3 class="text-base font-semibold">Ingredients</h3>
-                <div>
+                <article>
                     {!! $recipe->ingredients !!}
-                </div>
+                </article>
                 <ul class="mt-2">
                     <li><strong class="font-semibold">Preparation Time:</strong> {{ $recipe->prep_time }}</li>
                     <li><strong class="font-semibold">Cooking Time:</strong> {{ $recipe->cook_time }}</li>
@@ -75,9 +75,9 @@
 
                 <h3 class="text-base font-semibold">Method</h3>
 
-                <div>
+                <article>
                     {!! $recipe->method !!}
-                </div>
+                </article>
 
                 <google-ad code="4702154153"></google-ad>
             </div>

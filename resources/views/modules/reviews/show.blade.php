@@ -61,7 +61,9 @@
 
             <google-ad code="2925914349"></google-ad>
 
-            {!! $review->body !!}
+            <article>
+                {!! $review->body !!}
+            </article>
 
             <google-ad code="3472709255"></google-ad>
         </div>
