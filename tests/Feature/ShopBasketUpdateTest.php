@@ -139,7 +139,7 @@ class ShopBasketUpdateTest extends TestCase
 
         $this->makeRequest()
             ->assertStatus(400)
-            ->assertJson(['error' => 'Item isn\'t available in the basket']);
+            ->assertJson(['error' => 'Item isn\'t available in your basket']);
     }
 
     /** @test */
@@ -151,7 +151,7 @@ class ShopBasketUpdateTest extends TestCase
 
         $this->makeRequest()
             ->assertStatus(400)
-            ->assertJson(['error' => 'Product Variant is out of stock']);
+            ->assertJson(['error' => 'Sorry, this product is out of stock']);
     }
 
     /** @test */

@@ -25,23 +25,27 @@ class Parser implements ParserContract
     {
         $parts = (new Collection(explode(',', $address)))
             ->reject(static function ($part) {
-                return $part === ' ';
+                return trim($part) === '';
             })
             ->transform(static function ($part) {
                 return trim($part);
-            });
+            })
+            ->values();
 
         $result = $this->addressArray($postcode, $parts);
 
         $result['friendly'] = implode(', ', array_filter($result));
-        $result['house_number'] = (int) explode(' ', $result['address_1'])[0];
+        $result['house_number'] = (int)explode(' ', $result['address_1'])[0];
 
         return $result;
     }
 
     private function addressArray($postcode, Collection $parts): array
     {
-        $county = $parts->pop();
+        if ($parts->count() > 2) {
+            $county = $parts->pop();
+        }
+
         $town = $parts->pop();
 
         return [
@@ -49,7 +53,7 @@ class Parser implements ParserContract
             'address_2' => $parts->shift() ?: null,
             'address_3' => $parts->implode(', ') ?: null,
             'town' => $town,
-            'county' => $county,
+            'county' => $county ?? '',
             'postcode' => strtoupper($postcode),
         ];
     }

@@ -45,11 +45,19 @@ class BasketController extends BaseController
 
     public function create(AddToBasketRequest $request)
     {
-        $this->basket->items()->add($request->resolveProduct(), $request->resolveVariant(), $request->input('quantity'));
+        try {
+            $this->basket
+                ->items()
+                ->add($request->resolveProduct(), $request->resolveVariant(), $request->input('quantity'));
 
-        return [
-            'data' => 'ok',
-        ];
+            return [
+                'data' => 'ok',
+            ];
+        } catch (BasketException $exception) {
+            return new Response([
+                'error' => $exception->getMessage(),
+            ], 422);
+        }
     }
 
     public function get(Store $sessionStore)
@@ -102,7 +110,7 @@ class BasketController extends BaseController
     public function update(BasketUpdateRequest $request)
     {
         try {
-            $method = $request->input('action').'Quantity';
+            $method = $request->input('action') . 'Quantity';
 
             $this->basket->items()->$method($request->resolveProduct(), $request->resolveVariant());
 
