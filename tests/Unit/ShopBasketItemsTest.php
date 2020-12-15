@@ -60,7 +60,7 @@ class ShopBasketItemsTest extends TestCase
         $this->variant->update(['live' => false]);
 
         $this->expectException(BasketException::class);
-        $this->expectExceptionMessage('Product not found');
+        $this->expectExceptionMessage('This product can\'t be found');
 
         $this->basket->items()->add($this->product, $this->variant);
 
@@ -104,7 +104,7 @@ class ShopBasketItemsTest extends TestCase
         $this->basket->items()->add($this->product, $this->variant);
 
         $this->expectException(BasketException::class);
-        $this->expectExceptionMessage('Item is already in your basket');
+        $this->expectExceptionMessage('This item is already in your basket!');
 
         $this->basket->items()->add($this->product, $this->variant);
     }
@@ -115,7 +115,7 @@ class ShopBasketItemsTest extends TestCase
         $this->variant->update(['quantity' => 0]);
 
         $this->expectException(BasketException::class);
-        $this->expectExceptionMessage('Product Variant is out of stock');
+        $this->expectExceptionMessage('Sorry, this product is out of stock');
 
         $this->basket->items()->add($this->product, $this->variant);
     }
@@ -126,7 +126,7 @@ class ShopBasketItemsTest extends TestCase
         $this->variant->update(['quantity' => 1]);
 
         $this->expectException(BasketException::class);
-        $this->expectExceptionMessage('Product Variant doesn\'t have enough quantity available');
+        $this->expectExceptionMessage('Sorry, this product doesn\'t have enough quantity available');
 
         $this->basket->items()->add($this->product, $this->variant, 2);
     }
@@ -137,12 +137,12 @@ class ShopBasketItemsTest extends TestCase
         $this->session->remove('basket_token');
 
         $this->expectException(BasketException::class);
-        $this->expectExceptionMessage('No open basket');
+        $this->expectExceptionMessage('No basket found');
 
         $this->basket->items()->decreaseQuantity($this->product, $this->variant);
 
         $this->expectException(BasketException::class);
-        $this->expectExceptionMessage('No open basket');
+        $this->expectExceptionMessage('No basket found');
 
         $this->basket->items()->increaseQuantity($this->product, $this->variant);
     }
@@ -159,7 +159,7 @@ class ShopBasketItemsTest extends TestCase
         ]);
 
         $this->expectException(BasketException::class);
-        $this->expectExceptionMessage('Item isn\'t available in the basket');
+        $this->expectExceptionMessage('Item isn\'t available in your basket');
 
         $this->basket->items()->decreaseQuantity($this->product, $this->variant);
 
@@ -214,14 +214,14 @@ class ShopBasketItemsTest extends TestCase
         $this->basket->items()->add($this->product, $this->variant, 1);
 
         $this->expectException(BasketException::class);
-        $this->expectExceptionMessage('Product Variant is out of stock');
+        $this->expectExceptionMessage('Sorry, this product is out of stock');
 
         $this->basket->items()->increaseQuantity($this->product, $this->variant);
 
         $this->variant->update(['quantity' => 1]);
 
         $this->expectException(BasketException::class);
-        $this->expectExceptionMessage('Product Variant is out of stock');
+        $this->expectExceptionMessage('Sorry, this product is out of stock');
 
         $this->basket->items()->increaseQuantity($this->product, $this->variant);
     }

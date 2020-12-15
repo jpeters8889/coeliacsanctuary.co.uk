@@ -39,7 +39,7 @@ class Items
         }
 
         if ($this->basket->model()->items()->where('product_variant_id', $this->request['variant']->id)->count() > 0) {
-            throw new BasketException('Item is already in your basket');
+            throw new BasketException('This item is already in your basket!');
         }
 
         $this->basket->model()->addProduct($variant, $quantity);
@@ -74,7 +74,7 @@ class Items
     protected function updateProduct(ShopProduct $product, ShopProductVariant $variant, $action = 'increase')
     {
         if (!$this->basket->resolve()) {
-            throw new BasketException('No open basket');
+            throw new BasketException('No basket found');
         }
 
         $this->request = [
@@ -84,7 +84,7 @@ class Items
         ];
 
         if (!$item = $this->find()) {
-            throw new BasketException('Item isn\'t available in the basket');
+            throw new BasketException('Item isn\'t available in your basket');
         }
 
         if ($action === 'decrease' && $item->quantity === 1) {
@@ -109,15 +109,15 @@ class Items
     protected function validate()
     {
         if (!$this->request['variant']->live) {
-            throw new BasketException('Product not found');
+            throw new BasketException('This product can\'t be found.');
         }
 
         if ($this->request['variant']->quantity === 0) {
-            throw new BasketException('Product Variant is out of stock');
+            throw new BasketException('Sorry, this product is out of stock');
         }
 
         if ($this->request['quantity'] > $this->request['variant']->quantity) {
-            throw new BasketException('Product Variant doesn\'t have enough quantity available');
+            throw new BasketException('Sorry, this product doesn\'t have enough quantity available');
         }
     }
 }
