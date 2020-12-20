@@ -111,7 +111,7 @@ class Blueprint extends ArchitectBlueprint
         return RecipeAllergen::query()
             ->get()
             ->transform(static function (RecipeAllergen $allergen) {
-                return Boolean::generate($allergen->id, $allergen->allergen);
+                return Boolean::generate($allergen->id, $allergen->allergen)->setDefault('1');
             })
             ->toArray();
     }
