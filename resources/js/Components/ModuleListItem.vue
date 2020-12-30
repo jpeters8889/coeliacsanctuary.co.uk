@@ -46,7 +46,8 @@
                 <p class="mb-1 flex-1 h-full" v-html="description"></p>
                 <div class="text-sm flex flex-wrap justify-between">
                     <p>{{ formatDate(item.created_at) }}</p>
-                    <p class="text-right" v-text="commentsText(item.comments_count)"></p>
+                    <p class="text-right" v-if="module !== 'collection'" v-text="commentsText(item.comments_count)"></p>
+                    <p class="text-right" v-else v-text="collectionItemsText(item.items_count)"></p>
                 </div>
             </div>
         </div>
@@ -64,7 +65,7 @@ export default {
         module: {
             required: true,
             validator: (value) => {
-                return ['blogs', 'recipes', 'reviews'].indexOf(value) !== -1;
+                return ['blogs', 'collection', 'recipes', 'reviews'].indexOf(value) !== -1;
             }
         },
         item: {
@@ -113,6 +114,14 @@ export default {
             }
 
             return `${count} comments`;
+        },
+
+        collectionItemsText(count) {
+            if (count === 1) {
+                return '1 item in this collection';
+            }
+
+            return `${count} items in this collection`;
         }
     },
 

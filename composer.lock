@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb4743dd8de69fa00e8660122420e578",
+    "content-hash": "4bb8402709754cc38e7e2e0d619c2f96",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -802,6 +802,34 @@
             "autoload": {
                 "psr-4": {
                     "Coeliac\\Architect\\Plans\\AddressLookup\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "coeliac/collection-items",
+            "version": "dev-develop",
+            "dist": {
+                "type": "path",
+                "url": "./architect/plans/collection-items",
+                "reference": "440f13aa7f1016a98d11694a75aded442eb17f26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Coeliac\\Architect\\Plans\\CollectionItems\\PlanServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Coeliac\\Architect\\Plans\\CollectionItems\\": "src/"
                 }
             },
             "license": [
@@ -14891,6 +14919,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "coeliac/collection-items": 20,
         "coeliac/wte-attractions": 20
     },
     "prefer-stable": true,

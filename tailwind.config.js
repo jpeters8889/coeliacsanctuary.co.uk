@@ -238,6 +238,7 @@ module.exports = {
             ...spacing,
             full: '100%',
             screen: '100vh',
+            '200': '200px',
             '400': '400px',
             '600': '600px',
             '800': '800px',

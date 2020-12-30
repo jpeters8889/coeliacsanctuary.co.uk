@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Coeliac\Common\Traits;
 
 use Carbon\Carbon;
-use Illuminate\Cache\Repository as CacheRepository;
 use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Container\Container;
 use Intervention\Image\ImageManager;
 use Coeliac\Common\Models\ImageAssociations;
+use Illuminate\Cache\Repository as CacheRepository;
 use JPeters\Architect\Http\Requests\BlueprintSubmitRequest;
 
 /**
@@ -103,6 +103,7 @@ trait ArchitectModel
 
     /**
      * @param BaseModel $model
+     *
      * @return string
      */
     protected static function imageCacheKey(BaseModel $model): string

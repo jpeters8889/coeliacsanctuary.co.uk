@@ -16,7 +16,6 @@ use Coeliac\Modules\Shop\Architect\CategoryBlueprint;
 use Coeliac\Modules\Shop\Architect\DiscountBlueprint;
 use Coeliac\Common\Popups\Blueprint as PopupBlueprint;
 use Coeliac\Modules\Shop\Architect\DailyStockBlueprint;
-use Coeliac\Common\FeaturedImages\FeaturedImagesBlueprint;
 use Coeliac\Modules\Shop\Architect\PostagePricesBlueprint;
 use Coeliac\Common\Notifications\Blueprint as EmailBlueprint;
 use Coeliac\Modules\Blog\Architect\Blueprint as BlogBlueprint;
@@ -26,6 +25,7 @@ use JPeters\Architect\Providers\ArchitectApplicationServiceProvider;
 use Coeliac\Common\Comments\Architect\Blueprint as CommentsBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\WhereToEatBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\PlaceRequestBlueprint;
+use Coeliac\Modules\Collection\Architect\Blueprint as CollectionsBlueprint;
 use Coeliac\Modules\EatingOut\Reviews\Architect\Blueprint as ReviewBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\RatingsBlueprint as WteRatingsBlueprint;
 
@@ -38,7 +38,7 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             ReviewBlueprint::class,
             RecipeBlueprint::class,
             WhereToEatBlueprint::class,
-//            FeaturedImagesBlueprint::class,
+            CollectionsBlueprint::class,
             CommentsBlueprint::class,
             WteRatingsBlueprint::class,
             AnnouncementBlueprint::class,

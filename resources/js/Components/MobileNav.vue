@@ -72,6 +72,10 @@
                     label: 'Recipes',
                     link: '/recipe',
                 },
+                // {
+                //     label: 'Collections',
+                //     link: '/collection',
+                // },
                 {
                     label: 'Info',
                     link: '/info',

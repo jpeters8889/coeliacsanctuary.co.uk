@@ -16,6 +16,7 @@ use Coeliac\Common\Contracts\HasComments;
 use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\DisplaysImages;
 use Illuminate\Database\Eloquent\Collection;
+use Coeliac\Modules\Collection\Traits\IsCollectionItem;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed               $link
  * @property mixed               $live
  * @property Carbon              $created_at
+ * @property string              $description
  *
  * @method transform(array $array)
  */
@@ -38,6 +40,7 @@ class Blog extends BaseModel implements HasComments
     use DisplaysImages;
     use HasRichText;
     use Imageable;
+    use IsCollectionItem;
     use Linkable;
     use Searchable;
 

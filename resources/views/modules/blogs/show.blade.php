@@ -82,6 +82,10 @@
 
         <widget-newsletter-signup class="mb-3"></widget-newsletter-signup>
 
+        @if($featured)
+            @include('components.featured-in', $featured)
+        @endif
+
         @include('components.related-item', $related)
     </div>
 @endsection

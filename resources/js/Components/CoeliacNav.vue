@@ -92,6 +92,11 @@
                     link: '/recipe',
                     children: null,
                 },
+                collections: {
+                    label: 'Collections',
+                    link: '/collection',
+                    children: null,
+                },
                 info: {
                     label: 'Info',
                     link: '/info',
@@ -107,6 +112,10 @@
                         this.navigation[key].children = response.data[key];
                     }
                 });
+
+                if(this.navigation.collections.children === null || this.navigation.collections.children.items.length === 0) {
+                    this.$root.$delete(this.navigation, 'collections')
+                }
 
                 this.loadLazyImages();
             });

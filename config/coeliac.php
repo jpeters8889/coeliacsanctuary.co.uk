@@ -63,6 +63,9 @@ return [
         'featured_images' => [
             'featured_images' => 'featured_images',
         ],
+        'collections' => [
+          'navigation' => 'collections.navigation',
+        ],
     ],
 
     'newsletter' => [

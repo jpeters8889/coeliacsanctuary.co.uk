@@ -110,7 +110,7 @@ class BasketController extends BaseController
     public function update(BasketUpdateRequest $request)
     {
         try {
-            $method = $request->input('action') . 'Quantity';
+            $method = $request->input('action').'Quantity';
 
             $this->basket->items()->$method($request->resolveProduct(), $request->resolveVariant());
 
