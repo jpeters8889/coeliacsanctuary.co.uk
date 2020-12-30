@@ -10,6 +10,7 @@ use Coeliac\Modules\Blog\Repository;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Blog\Requests\BlogShowRequest;
+use Coeliac\Modules\Collection\Models\CollectionItem;
 
 class BlogController extends BaseController
 {
@@ -69,6 +70,16 @@ class BlogController extends BaseController
             $related = (new Repository())->random()->take(10);
         }
 
+        $featured = null;
+
+        if ($blog->associatedCollections()->count() > 0) {
+            $featured = $blog->associatedCollections()
+                ->inRandomOrder()
+                ->take(3)
+                ->get()
+                ->transform(fn (CollectionItem $item) => $item->collection);
+        }
+
         return $this->page
             ->breadcrumbs([
                 [
@@ -80,6 +91,6 @@ class BlogController extends BaseController
             ->setMetaDescription($blog->meta_description)
             ->setMetaKeywords(explode(',', (string) $blog->meta_keywords))
             ->setSocialImage($blog->social_image)
-            ->render('modules.blogs.show', compact('blog', 'related'));
+            ->render('modules.blogs.show', compact('blog', 'related', 'featured'));
     }
 }

@@ -9,6 +9,7 @@ use Coeliac\Common\Response\Page;
 use Coeliac\Modules\Recipe\Repository;
 use Coeliac\Modules\Recipe\Models\Recipe;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Collection\Models\CollectionItem;
 use Coeliac\Modules\Recipe\Requests\RecipeShowRequest;
 
 class RecipeController extends BaseController
@@ -60,6 +61,16 @@ class RecipeController extends BaseController
             ->random()
             ->take(10);
 
+        $featured = null;
+
+        if ($recipe->associatedCollections()->count() > 0) {
+            $featured = $recipe->associatedCollections()
+                ->inRandomOrder()
+                ->take(3)
+                ->get()
+                ->transform(fn (CollectionItem $item) => $item->collection);
+        }
+
         return $this->page
             ->breadcrumbs([
                 [
@@ -71,7 +82,7 @@ class RecipeController extends BaseController
             ->setMetaDescription($recipe->meta_description)
             ->setMetaKeywords(explode(',', (string) $recipe->meta_keywords))
             ->setSocialImage($recipe->social_image)
-            ->render('modules.recipes.show', compact('recipe', 'related'));
+            ->render('modules.recipes.show', compact('recipe', 'related', 'featured'));
     }
 
     public function print(RecipeShowRequest $request)

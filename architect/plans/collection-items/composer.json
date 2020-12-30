@@ -1,0 +1,21 @@
+{
+    "name": "coeliac/collection-items",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Coeliac\\Architect\\Plans\\CollectionItems\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Coeliac\\Architect\\Plans\\CollectionItems\\PlanServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

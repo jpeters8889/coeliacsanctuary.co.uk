@@ -11,6 +11,7 @@
         "aws/aws-sdk-php": "^3.156",
         "bugsnag/bugsnag-laravel": "^2.0",
         "coeliac/address-lookup": "*",
+        "coeliac/collection-items": "dev-develop",
         "coeliac/comments": "*",
         "coeliac/dispatch-slips": "*",
         "coeliac/image-manager": "*",
@@ -176,6 +177,10 @@
         {
             "type": "composer",
             "url": "https://satis.mailcoach.app"
+        },
+        {
+            "type": "path",
+            "url": "./architect/plans/collection-items"
         }
     ],
     "autoload": {

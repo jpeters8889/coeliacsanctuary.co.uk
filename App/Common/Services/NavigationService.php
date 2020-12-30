@@ -11,6 +11,7 @@ use Coeliac\Modules\Blog\Repository as BlogRepository;
 use Coeliac\Modules\Recipe\Repository as RecipeRepository;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Coeliac\Modules\Collection\Repository as CollectionRepository;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class NavigationService
@@ -69,6 +70,17 @@ class NavigationService
             $this->configRepository->get('coeliac.cache.recipes.navigation'),
             fn () => Container::getInstance()->make(RecipeRepository::class)
                 ->setColumns(['id', 'title', 'slug', 'meta_description'])
+                ->take(8)
+        );
+    }
+
+    public function collections(): EloquentCollection
+    {
+        return $this->cacheRepository->rememberForever(
+            $this->configRepository->get('coeliac.cache.collections.navigation'),
+            fn () => Container::getInstance()->make(CollectionRepository::class)
+                ->setColumns(['id', 'title', 'slug', 'meta_description'])
+                ->setWiths(['images', 'images.image'])
                 ->take(8)
         );
     }

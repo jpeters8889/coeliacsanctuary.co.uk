@@ -18,6 +18,7 @@ use Coeliac\Common\Contracts\HasComments;
 use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\DisplaysImages;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Coeliac\Modules\Collection\Traits\IsCollectionItem;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -36,6 +37,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed                      $meta_tags
  * @property Collection<RecipeFeature>  $features
  * @property string                     $method
+ * @property string                     $description
  *
  * @method transform(array $array)
  */
@@ -47,6 +49,7 @@ class Recipe extends BaseModel implements HasComments
     use DisplaysImages;
     use HasRichText;
     use Imageable;
+    use IsCollectionItem;
     use Linkable;
     use Searchable;
 

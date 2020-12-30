@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Coeliac\Common\Search\SearchableContract;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Coeliac\Modules\Collection\Traits\IsCollectionItem;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -38,6 +39,7 @@ class ShopProduct extends BaseModel implements SearchableContract
 {
     use DisplaysImages;
     use Imageable;
+    use IsCollectionItem;
     use Searchable;
     use Linkable;
     use ArchitectModel;

@@ -9,6 +9,7 @@ use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\EatingOut\Reviews\Repository;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\Collection\Models\CollectionItem;
 use Coeliac\Modules\EatingOut\Reviews\Requests\ReviewShowRequest;
 
 class ReviewController extends BaseController
@@ -67,6 +68,15 @@ class ReviewController extends BaseController
         $related = $this->repository
             ->setWiths(['eatery', 'eatery.town', 'eatery.county', 'eatery.country', 'eatery.type', 'images', 'images.image'])
             ->random()->take(10);
+        $featured = null;
+
+        if ($review->associatedCollections()->count() > 0) {
+            $featured = $review->associatedCollections()
+                ->inRandomOrder()
+                ->take(3)
+                ->get()
+                ->transform(fn (CollectionItem $item) => $item->collection);
+        }
 
         return $this->page
             ->breadcrumbs([
@@ -83,6 +93,6 @@ class ReviewController extends BaseController
             ->setMetaDescription($review->meta_description)
             ->setMetaKeywords(explode(',', (string) $review->meta_keywords))
             ->setSocialImage($review->social_image)
-            ->render('modules.reviews.show', compact('review', 'related'));
+            ->render('modules.reviews.show', compact('review', 'related', 'featured'));
     }
 }

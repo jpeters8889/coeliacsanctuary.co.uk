@@ -4,7 +4,7 @@
     <template v-slot:body>
         @foreach($related as $item)
             <div
-                class="w-full rounded-lg overflow-hidden flex flex-col shadow-md mb-4 bg-blue-gradient-30 {{ !$loop->last ? 'sm:mb-3' : '' }}">
+                class="w-full rounded-lg overflow-hidden flex flex-col shadow-md bg-blue-gradient-30 {{ !$loop->last ? 'mb-4 sm:mb-3' : 'mb-1' }}">
                 <div>
                     <a href="{{ $item->link }}">
                         @if($item instanceof \Coeliac\Modules\Recipe\Models\Recipe)

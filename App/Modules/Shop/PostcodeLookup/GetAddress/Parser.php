@@ -35,7 +35,7 @@ class Parser implements ParserContract
         $result = $this->addressArray($postcode, $parts);
 
         $result['friendly'] = implode(', ', array_filter($result));
-        $result['house_number'] = (int)explode(' ', $result['address_1'])[0];
+        $result['house_number'] = (int) explode(' ', $result['address_1'])[0];
 
         return $result;
     }

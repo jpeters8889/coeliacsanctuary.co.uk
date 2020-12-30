@@ -50,6 +50,10 @@ class NavigationController extends BaseController
                     ],
                 ],
             ],
+            'collections' => [
+                'layout' => '3x5',
+                'items' => $navigationService->collections(),
+            ],
             'info' => [
                 'layout' => 'list',
                 'items' => [

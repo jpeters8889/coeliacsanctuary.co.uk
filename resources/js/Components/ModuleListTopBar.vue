@@ -10,7 +10,7 @@
         </div>
 
         <div class="w-full flex my-2 flex-col sm:flex-row">
-            <div class="w-full flex items-center mb-1 sm:w-1/2 sm:mr-2 sm:mb-0 lg:w-1/3">
+            <div class="w-full flex items-center mb-1 sm:w-1/2 sm:mr-2 sm:mb-0 lg:w-1/3" v-if="showFilterBar">
                 <input type="search" placeholder="Search..." v-model="searchText"
                        class="text-sm p-1 flex-1 bg-grey-lightest border border-grey-off rounded"/>
             </div>
@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="w-full sm:text-right md:w-auto md:p-2">
-                    <button class="w-full inline-block leading-none p-2 bg-blue rounded sm:w-auto" @click.prevent="toggleFilter()">
+                    <button v-if="showFilterBar" class="w-full inline-block leading-none p-2 bg-blue rounded sm:w-auto" @click.prevent="toggleFilter()">
                         Filter {{ title }}
                     </button>
                 </div>
@@ -72,6 +72,10 @@
             urlPrefix: {
                 required: true,
                 type: String,
+            },
+            showFilterBar: {
+                type: Boolean,
+                default: () => false,
             }
         },
 
