@@ -4,7 +4,7 @@
     "description": "Coeliac Sanctuary",
     "license": "proprietary",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4|^8.0",
         "ext-json": "*",
         "algolia/algoliasearch-client-php": "^2.7",
         "algolia/scout-extended": "^1.10.1",
@@ -28,7 +28,7 @@
         "coeliac/wte-attractions": "dev-develop",
         "coeliac/wte-ratings-card": "*",
         "doctrine/dbal": "^2.11.1",
-        "dompdf/dompdf": "^0.8.6",
+        "dompdf/dompdf": "^1.0",
         "fideloper/proxy": "^4.4.0",
         "fruitcake/laravel-cors": "^2.0.2",
         "guzzlehttp/guzzle": "^7.0.1",
