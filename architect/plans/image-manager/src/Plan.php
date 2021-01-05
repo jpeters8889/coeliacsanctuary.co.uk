@@ -57,7 +57,7 @@ class Plan extends ArchitectPlan
             return [
                 'path' => $url,
                 'filename' => $fileName,
-                'type' => $category !== 'general' ? $category : 'article',
+                'type' => !in_array($category, ['general', 'shop_product']) ? $category : 'article',
                 'width' => $image->width(),
                 'height' => $image->height(),
             ];

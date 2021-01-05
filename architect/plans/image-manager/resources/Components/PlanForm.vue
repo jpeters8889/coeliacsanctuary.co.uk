@@ -114,6 +114,14 @@
                         });
                     }
                 });
+
+                if(!this.selectedImages.header) {
+                    this.handleImageButtonClick('header', this.value[0]);
+                }
+
+                if(!this.selectedImages.social) {
+                    this.handleImageButtonClick('social', this.value[0]);
+                }
             }
         },
 
