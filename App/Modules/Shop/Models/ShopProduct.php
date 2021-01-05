@@ -126,7 +126,7 @@ class ShopProduct extends BaseModel implements SearchableContract
     {
         return $this->prices
             ->filter(fn (ShopProductPrice $price) => $price->start_at->lessThan(Carbon::now()))
-            ->filter(fn (ShopProductPrice $price) => !$price->end_at || $price->end_at->greaterThan(Carbon::now()))
+            ->filter(fn (ShopProductPrice $price) => !$price->end_at || $price->end_at->endOfDay()->greaterThan(Carbon::now()))
             ->sortByDesc('start_at');
     }
 

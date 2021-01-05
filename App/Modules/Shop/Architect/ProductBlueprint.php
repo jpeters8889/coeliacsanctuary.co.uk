@@ -48,7 +48,7 @@ class ProductBlueprint extends Blueprint
 
             ImagePlan::generate('images')
                 ->hideOnIndex()
-                ->setImageDirectory('categories')
+                ->setImageDirectory('products')
                 ->setDefaultImageCategory(Image::IMAGE_CATEGORY_SHOP_PRODUCT),
 
             Select::generate('categories')
