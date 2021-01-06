@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Controllers;
 
 use Coeliac\Common\Models\Image;
-use Coeliac\Common\Models\ImageAssociations;
-use Coeliac\Common\Models\ImageCategory;
 use Coeliac\Modules\Shop\ProductRepository;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Shop\Models\ShopProduct;

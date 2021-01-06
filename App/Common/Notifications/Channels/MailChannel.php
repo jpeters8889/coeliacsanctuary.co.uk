@@ -40,7 +40,7 @@ class MailChannel extends NotificationChannel
         $model = NotificationEmail::query()->create([
             'user_id' => $notifiable->id ?? null,
             'email_address' => $email,
-            'template' => $message->mjml,
+            'template' => $message->mjml ?? null,
             'data' => $message->viewData,
         ]);
 

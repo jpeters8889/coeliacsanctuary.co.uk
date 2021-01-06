@@ -16,6 +16,7 @@ use Coeliac\Modules\Shop\Architect\CategoryBlueprint;
 use Coeliac\Modules\Shop\Architect\DiscountBlueprint;
 use Coeliac\Common\Popups\Blueprint as PopupBlueprint;
 use Coeliac\Modules\Shop\Architect\DailyStockBlueprint;
+use Coeliac\Modules\Shop\Architect\MassDiscountsBlueprint;
 use Coeliac\Modules\Shop\Architect\PostagePricesBlueprint;
 use Coeliac\Common\Notifications\Blueprint as EmailBlueprint;
 use Coeliac\Modules\Blog\Architect\Blueprint as BlogBlueprint;
@@ -54,6 +55,7 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             //Dispatch Slips
             CategoryBlueprint::class,
             ProductBlueprint::class,
+            MassDiscountsBlueprint::class,
             DiscountBlueprint::class,
             PostagePricesBlueprint::class,
         ];

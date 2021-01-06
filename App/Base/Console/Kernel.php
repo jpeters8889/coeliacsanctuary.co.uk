@@ -7,12 +7,14 @@ namespace Coeliac\Base\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Coeliac\Modules\Shop\Console\CloseBaskets;
 use Coeliac\Base\Console\Commands\ImportCommand;
+use Coeliac\Modules\Shop\Console\ApplyMassDiscounts;
 use Coeliac\Base\Console\Commands\ClearPublicDirectories;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
+        ApplyMassDiscounts::class,
         ClearPublicDirectories::class,
         CloseBaskets::class,
         ImportCommand::class,
@@ -21,6 +23,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('coeliac:shopCloseBaskets')->everyMinute();
+        $schedule->command('coeliac:apply_mass_discounts')->everyMinute();
         $schedule->command('coeliac:clear_public_dirs')->daily();
 
         $schedule->command('list')->thenPing('http://beats.envoyer.io/heartbeat/8YWokjIDBE2Dkzc');

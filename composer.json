@@ -40,6 +40,7 @@
         "laravel/scout": "^8.3.1",
         "laravel/tinker": "^2.4.2",
         "league/flysystem-aws-s3-v3": "^1.0",
+        "mattiasgeniar/php-percentages": "^1.1",
         "paypal/rest-api-sdk-php": "^1.14",
         "predis/predis": "^1.1",
         "spatie/geocoder": "^3.9.2",
