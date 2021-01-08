@@ -21,7 +21,7 @@ class NewsletterServiceProvider extends ServiceProvider
         Route::sesFeedback('ses-feedback');
 
         Gate::define('viewMailcoach', function (User $user) {
-            return in_array($user->email, ['jamie@jamie-peters.co.uk', 'alisondwheatley@gmail.com']);
+            return in_array($user->email, ['jamie@jamie-peters.co.uk', 'contact@coeliacsanctuary.co.uk']);
         });
 
         $this->app->bind(
