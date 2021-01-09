@@ -21,7 +21,7 @@ class MailChannel extends NotificationChannel
         /** @var MJMLMessage $message */
         $message = $notification->toMail($notifiable);
 
-        if (!$message->mjml) {
+        if (!isset($message->mjml)) {
             parent::send($notifiable, $notification);
 
             return;
