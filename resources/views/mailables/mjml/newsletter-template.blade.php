@@ -67,7 +67,7 @@
                 </mj-section>
                 <mj-section>
                     <mj-column>
-                        <mj-image src="{{ asset('assets/images/shares/coeliac.jpg') }}"/>
+                        <mj-image href="https://www.coeliacsanctuary.co.uk/shop" src="{{ asset('assets/email/banner.png') }}"/>
                     </mj-column>
                 </mj-section>
                 <mj-section>
