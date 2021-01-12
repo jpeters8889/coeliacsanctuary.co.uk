@@ -6,7 +6,7 @@
                 <td>Subtotal</td>
                 <td class="text-right" v-html="formatPrice(subtotal)"></td>
             </tr>
-            <tr v-if="discount.length > 0">
+            <tr v-if="discount && Object.keys(discount).length > 0">
                 <td>
                     {{ discount.name }}
                 </td>

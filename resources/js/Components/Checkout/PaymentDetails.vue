@@ -58,150 +58,150 @@
 </template>
 
 <script>
-    import CheckoutComponent from "../../Mixins/CheckoutComponent";
-    import StripeCheckout from "../StripeCheckout";
-    import PayPalCheckout from "../PayPalCheckout";
+import CheckoutComponent from "../../Mixins/CheckoutComponent";
+import StripeCheckout from "../StripeCheckout";
+import PayPalCheckout from "../PayPalCheckout";
 
-    export default {
-        mixins: [CheckoutComponent],
+export default {
+    mixins: [CheckoutComponent],
 
-        components: {
-            'stripe-checkout': StripeCheckout,
-            'paypal-checkout': PayPalCheckout,
+    components: {
+        'stripe-checkout': StripeCheckout,
+        'paypal-checkout': PayPalCheckout,
+    },
+
+    data: () => ({
+        paymentProviders: [
+            {value: 'stripe', label: 'by Credit / Debit Card'},
+            {value: 'paypal', label: 'by PayPal'},
+        ],
+
+        billingOptions: [
+            {value: '1', label: 'Same as Shipping Address'},
+            {value: '0', label: 'Other'},
+        ],
+
+        formData: {
+            provider: '',
+            shippingAddress: '1',
+            billingName: '',
+            billingAddress1: '',
+            billingAddress2: '',
+            billingAddress3: '',
+            billingTown: '',
+            billingPostcode: '',
+            billingCountry: '',
         },
 
-        data: () => ({
-            paymentProviders: [
-                {value: 'stripe', label: 'by Credit / Debit Card'},
-                {value: 'paypal', label: 'by PayPal'},
-            ],
+        validity: {
+            provider: false,
+            shippingAddress: true,
+            billingName: true,
+            billingAddress1: true,
+            billingAddress2: true,
+            billingAddress3: true,
+            billingTown: true,
+            billingPostcode: true,
+            billingCountry: true,
+            card: false,
+        },
+    }),
 
-            billingOptions: [
-                {value: '1', label: 'Same as Shipping Address'},
-                {value: '0', label: 'Other'},
-            ],
+    mounted() {
+        this.$root.$emit('shippingAddress-set-value', ('1'));
 
-            formData: {
-                provider: '',
-                shippingAddress: '1',
-                billingName: '',
-                billingAddress1: '',
-                billingAddress2: '',
-                billingAddress3: '',
-                billingTown: '',
-                billingPostcode: '',
-                billingCountry: '',
-            },
+        this.$root.$on('prepare-payment', () => {
+            this.initiatePayment();
+        });
 
-            validity: {
-                provider: false,
-                shippingAddress: true,
-                billingName: true,
-                billingAddress1: true,
-                billingAddress2: true,
-                billingAddress3: true,
-                billingTown: true,
-                billingPostcode: true,
-                billingCountry: true,
-                card: false,
-            },
-        }),
+        this.$root.$on('complete-order', () => {
+            this.completeOrder();
+        });
 
-        mounted() {
-            this.$root.$emit('shippingAddress-set-value', ('1'));
+        Object.keys(this.validity).forEach((key) => {
+            if (key.includes('billing')) {
+                this.formData[key] = this.defaultData[key];
+                this.$root.$emit(`${key}-set-value`, (this.defaultData[key]));
+            }
+        });
+    },
 
-            this.$root.$on('prepare-payment', () => {
-               this.initiatePayment();
-            });
+    methods: {
+        initiatePayment() {
+            this.$root.$emit('full-page-load');
 
-            this.$root.$on('complete-order', () => {
-                this.completeOrder();
-            });
+            if (!this.validateForm()) {
+                return;
+            }
+
+            this.$root.$emit('initiate-payment', this.bundleData());
+        },
+
+        completeOrder() {
+            sessionStorage.removeItem('checkout-data');
+            sessionStorage.removeItem('checkout-country');
+            window.location.href = '/shop/basket/done';
+        },
+
+        bundleData() {
+            let sections = JSON.parse(sessionStorage.getItem('checkout-data'));
+
+            return {
+                user: {
+                    name: sections[0].data.name,
+                    email: sections[0].data.email,
+                    emailConfirmation: sections[0].data.emailConfirmation,
+                    phone: sections[0].data.phone,
+                },
+                shipping: {
+                    address1: sections[1].data.address1,
+                    address2: sections[1].data.address2,
+                    address3: sections[1].data.address3,
+                    town: sections[1].data.town,
+                    postcode: sections[1].data.postcode,
+                    country: sessionStorage.getItem('checkout-country'),
+                },
+                billing: {
+                    name: this.formData.billingName,
+                    address1: this.formData.billingAddress1,
+                    address2: this.formData.billingAddress2,
+                    address3: this.formData.billingAddress3,
+                    town: this.formData.billingTown,
+                    postcode: this.formData.billingPostcode,
+                    country: this.formData.billingCountry,
+                },
+            };
+        }
+    },
+
+    watch: {
+        'formData.shippingAddress': function (value) {
+            this.$root.$emit('shippingAddress-set-value', (value));
+
+            if (value === '1') {
+                Object.keys(this.validity).forEach((key) => {
+                    if (key.includes('billing')) {
+                        this.formData[key] = this.defaultData[key];
+                        this.$root.$emit(`${key}-set-value`, (this.defaultData[key]));
+                        this.$root.$emit(`${key}-valid`);
+                        this.$root.$emit(`${key}-validate`);
+                    }
+                });
+                return;
+            }
 
             Object.keys(this.validity).forEach((key) => {
                 if (key.includes('billing')) {
-                    this.formData[key] = this.defaultData[key];
-                    this.$root.$emit(`${key}-set-value`, (this.defaultData[key]));
+                    this.formData[key] = '';
+                    this.$root.$emit(`${key}-set-value`, (''));
+
+                    if (key !== 'billingAddress2' && key !== 'billingAddress3') {
+                        this.$root.$emit(`${key}-error`);
+                        this.$root.$emit(`${key}-validate`);
+                    }
                 }
             });
-        },
-
-        methods: {
-            initiatePayment() {
-                this.$root.$emit('full-page-load');
-
-                if (!this.validateForm()) {
-                    return;
-                }
-
-                this.$root.$emit('initiate-payment', this.bundleData());
-            },
-
-            completeOrder() {
-                sessionStorage.removeItem('checkout-data');
-                sessionStorage.removeItem('checkout-country');
-                window.location.href = '/shop/basket/done';
-            },
-
-            bundleData() {
-                let sections = JSON.parse(sessionStorage.getItem('checkout-data'));
-
-                return {
-                    user: {
-                        name: sections[0].data.name,
-                        email: sections[0].data.email,
-                        emailConfirmation: sections[0].data.emailConfirmation,
-                        phone: sections[0].data.phone,
-                    },
-                    shipping: {
-                        address1: sections[1].data.address1,
-                        address2: sections[1].data.address2,
-                        address3: sections[1].data.address3,
-                        town: sections[1].data.town,
-                        postcode: sections[1].data.postcode,
-                        country: sessionStorage.getItem('checkout-country'),
-                    },
-                    billing: {
-                        name: this.formData.billingName,
-                        address1: this.formData.billingAddress1,
-                        address2: this.formData.billingAddress2,
-                        address3: this.formData.billingAddress3,
-                        town: this.formData.billingTown,
-                        postcode: this.formData.billingPostcode,
-                        country: this.formData.billingCountry,
-                    },
-                };
-            }
-        },
-
-        watch: {
-            'formData.shippingAddress': function (value) {
-                this.$root.$emit('shippingAddress-set-value', (value));
-
-                if (value === '1') {
-                    Object.keys(this.validity).forEach((key) => {
-                        if (key.includes('billing')) {
-                            this.formData[key] = this.defaultData[key];
-                            this.$root.$emit(`${key}-set-value`, (this.defaultData[key]));
-                            this.$root.$emit(`${key}-valid`);
-                            this.$root.$emit(`${key}-validate`);
-                        }
-                    });
-                    return;
-                }
-
-                Object.keys(this.validity).forEach((key) => {
-                    if (key.includes('billing')) {
-                        this.formData[key] = '';
-                        this.$root.$emit(`${key}-set-value`, (''));
-
-                        if (key !== 'billingAddress2' && key !== 'billingAddress3') {
-                            this.$root.$emit(`${key}-error`);
-                            this.$root.$emit(`${key}-validate`);
-                        }
-                    }
-                });
-            }
         }
     }
+}
 </script>
