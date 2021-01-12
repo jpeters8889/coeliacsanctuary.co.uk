@@ -120,7 +120,7 @@
             @if($order->payment->discount > 0)
                 <tr>
                     <td colspan="2"><strong>{{ $order->discountCode->name }}</strong></td>
-                    <td><strong>{{ formatPrice($order->payment->discount) }}</strong></td>
+                    <td><strong>-{{ formatPrice($order->payment->discount) }}</strong></td>
                 </tr>
             @endif
             <tr>

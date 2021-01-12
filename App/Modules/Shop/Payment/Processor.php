@@ -88,7 +88,8 @@ abstract class Processor
                 $this->basket->model(),
                 $this->basket->postage()->calculate(),
                 $provider,
-                $data
+                $data,
+                $this->basket->discount(),
             )
         );
     }

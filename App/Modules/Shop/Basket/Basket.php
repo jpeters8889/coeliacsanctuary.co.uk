@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Basket;
 
 use Illuminate\Support\Str;
-use Illuminate\Session\Store;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Session\Store as SessionStore;
@@ -62,7 +61,7 @@ class Basket
 
     public function discount(): ?ShopDiscountCode
     {
-        $sessionStore = Container::getInstance()->make(Store::class);
+        $sessionStore = Container::getInstance()->make(SessionStore::class);
 
         if ($sessionStore->has('basket_discount_code')) {
             /** @var ?ShopDiscountCode $discountCode */

@@ -81,7 +81,7 @@
                                             Deduction
                                         </td>
                                         <td class="text-left p-2 border-blue-900 border-b-2"
-                                            v-html="'-'+formatPrice(info.payment.deduction || 0)">
+                                            v-html="'-'+formatPrice(info.payment.discount || 0)">
                                         </td>
                                     </tr>
                                     <tr>

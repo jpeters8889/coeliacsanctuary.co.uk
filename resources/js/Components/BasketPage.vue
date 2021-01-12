@@ -11,7 +11,8 @@
                 <div class="flex flex-col mb-4">
                     <div class="flex py-2 leading-tight" v-for="item in data.items">
                         <div class="w-1/4 pr-2 sm:w-1/5">
-                            <img :data-src="item.product.first_image" :src="lazyLoadSrc" loading="lazy" class="lazy" alt="">
+                            <img :data-src="item.product.first_image" :src="lazyLoadSrc" loading="lazy" class="lazy"
+                                 alt="">
                         </div>
                         <div class="w-3/4 flex flex-col sm:flex-row sm:w-4/5 sm:justify-between">
                             <div class="sm:mr-2">
@@ -45,7 +46,8 @@
                 </button>
 
                 <basket-page-totals :country="data.country" :postage="data.postage" :subtotal="data.subtotal"
-                                    :total="data.total" :dispatch="data.delivery" :discount="data.discount"></basket-page-totals>
+                                    :total="data.total" :dispatch="data.delivery"
+                                    :discount="data.discount"></basket-page-totals>
             </div>
         </div>
         <div class="flex justify-center mt-4" v-if="!loading && data.items.length > 0">
@@ -59,75 +61,77 @@
 </template>
 
 <script>
-    import FormatsPrices from "../Mixins/FormatsPrices";
-    import LazyLoadsImages from "../Mixins/LazyLoadsImages";
-    import BasketCheckoutWrapper from "./BasketCheckoutWrapper";
-    import BasketDiscountModal from "./BasketDiscountModal";
-    import BasketPageTotals from "./BasketPageTotals";
-    import Loader from "./Loader";
+import FormatsPrices from "../Mixins/FormatsPrices";
+import LazyLoadsImages from "../Mixins/LazyLoadsImages";
+import BasketCheckoutWrapper from "./BasketCheckoutWrapper";
+import BasketDiscountModal from "./BasketDiscountModal";
+import BasketPageTotals from "./BasketPageTotals";
+import Loader from "./Loader";
 
-    export default {
-        mixins: [FormatsPrices, LazyLoadsImages],
+export default {
+    mixins: [FormatsPrices, LazyLoadsImages],
 
-        components: {
-            'basket-checkout-wrapper': BasketCheckoutWrapper,
-            'basket-discount-modal': BasketDiscountModal,
-            'basket-page-totals': BasketPageTotals,
-            'loader': Loader,
+    components: {
+        'basket-checkout-wrapper': BasketCheckoutWrapper,
+        'basket-discount-modal': BasketDiscountModal,
+        'basket-page-totals': BasketPageTotals,
+        'loader': Loader,
+    },
+
+    data: () => ({
+        loading: true,
+        showDiscountModal: false,
+        data: {
+            items: [],
+            subtotal: 0,
+            postage: 0,
+            country: 1,
+            delivery: '1 - 2',
+            total: 0,
         },
+    }),
 
-        data: () => ({
-            loading: true,
-            showDiscountModal: false,
-            data: {
-                items: [],
-                subtotal: 0,
-                postage: 0,
-                country: 1,
-                delivery: '1 - 2',
-                total: 0,
-            },
-        }),
+    mounted() {
+        this.getData();
 
-        mounted() {
+        this.$root.$on('product-updated', () => {
             this.getData();
+        });
 
-            this.$root.$on('product-updated', () => {
-                this.getData();
-            });
+        this.$root.$on('basket-updated', () => {
+            this.getData();
+        });
 
-            this.$root.$on('basket-updated', () => {
-                this.getData();
-            });
+        this.$root.$on('modal-closed', () => {
+            document.querySelector('body').classList.remove('overflow-hidden');
+            this.showDiscountModal = false;
+        });
 
-            this.$root.$on('modal-closed', () => {
-                this.showDiscountModal = false;
-            });
+        this.$root.$on('basket-discount-code-validated', () => {
+            document.querySelector('body').classList.remove('overflow-hidden');
+            this.showDiscountModal = false;
+            this.getData();
+        });
+    },
 
-            this.$root.$on('basket-discount-code-validated', () => {
-                this.showDiscountModal = false;
-                this.getData();
-            });
-        },
+    methods: {
+        getData() {
+            this.loading = true;
 
-        methods: {
-            getData() {
-                this.loading = true;
+            coeliac().request().get('/api/shop/basket/summary')
+                .then((response) => {
+                    if (response.status === 200) {
+                        this.data = response.data;
+                        this.loading = false;
 
-                coeliac().request().get('/api/shop/basket/summary')
-                    .then((response) => {
-                        if (response.status === 200) {
-                            this.data = response.data;
-                            this.loading = false;
-
-                            if (this.data.items.length === 0) {
-                                sessionStorage.removeItem('checkout-data');
-                            }
-
-                            this.loadLazyImages();
+                        if (this.data.items.length === 0) {
+                            sessionStorage.removeItem('checkout-data');
                         }
-                    });
-            }
+
+                        this.loadLazyImages();
+                    }
+                });
         }
     }
+}
 </script>

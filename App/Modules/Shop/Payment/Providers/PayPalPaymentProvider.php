@@ -54,10 +54,11 @@ class PayPalPaymentProvider implements Provider
     {
         $this->basket = resolve(Basket::class);
 
-        $this->subtotal = $this->basket->subtotal() / 100;
+        $subtotal = $this->basket->subtotal() / 100;
         $this->postage = $this->basket->postage()->calculate() / 100;
-        $this->discount = $this->basket->discount() ? $this->basket->discount()->calculateDeduction($this->subtotal) / 100 : 0;
-        $this->total = $this->subtotal - $this->discount + $this->postage;
+        $this->discount = $this->basket->discount() ? $this->basket->discount()->calculateDeduction($subtotal) : 0;
+        $this->subtotal = $subtotal - $this->discount;
+        $this->total = $this->subtotal + $this->postage;
 
         $this->payer = (new Payer())->setPaymentMethod('paypal');
 
@@ -105,10 +106,10 @@ class PayPalPaymentProvider implements Provider
 
             if ($discount) {
                 $thisItem = new Item();
-                $thisItem->setName($discount->name)
+                $thisItem->setName($this->basket->discount()->name)
                     ->setCurrency('GBP')
                     ->setQuantity((string) 1)
-                    ->setSku($discount->code)
+                    ->setSku($this->basket->discount()->code)
                     ->setPrice('-'.number_format($this->discount, 2));
 
                 $items->push($thisItem);
