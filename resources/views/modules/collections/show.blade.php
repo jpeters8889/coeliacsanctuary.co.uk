@@ -22,9 +22,9 @@
 
             {{--            <google-ad code="7619961534"></google-ad>--}}
 
-            <article>
-                {!! $collection->body !!}
-            </article>
+{{--            <article>--}}
+{{--                {!! $collection->body !!}--}}
+{{--            </article>--}}
 
             {{--            <google-ad code="6662103082"></google-ad>--}}
         </div>
