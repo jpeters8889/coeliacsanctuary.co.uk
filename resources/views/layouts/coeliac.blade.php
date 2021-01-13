@@ -36,7 +36,7 @@
 
     <link rel="preload" href="/assets/fonts/Notethis.woff"/>
 
-    <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}"/>
+    <link rel="preload" as="style" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}" onload="this.onload=null;this.rel='stylesheet'"/>
 
     <!--iPhone tiles-->
     <link href="/assets/images/apple/apple-touch-icon-57x57.png" rel="apple-touch-icon"/>
@@ -58,16 +58,16 @@
     @endif
 
     @if(config('app.env') === 'production')
-        <script>
-            (function(h,o,t,j,a,r){
-                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-                h._hjSettings={hjid:2113025,hjsv:6};
-                a=o.getElementsByTagName('head')[0];
-                r=o.createElement('script');r.async=1;
-                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-                a.appendChild(r);
-            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-        </script>
+{{--        <script>--}}
+{{--            (function(h,o,t,j,a,r){--}}
+{{--                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};--}}
+{{--                h._hjSettings={hjid:2113025,hjsv:6};--}}
+{{--                a=o.getElementsByTagName('head')[0];--}}
+{{--                r=o.createElement('script');r.async=1;--}}
+{{--                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;--}}
+{{--                a.appendChild(r);--}}
+{{--            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');--}}
+{{--        </script>--}}
     @endif
 
     @if($page->url === config('app.url'))
