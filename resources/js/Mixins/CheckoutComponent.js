@@ -13,6 +13,10 @@ export default {
         defaultData: {
             type: Object,
             required: true,
+        },
+        countryId: {
+            type: Number,
+            required: true,
         }
     },
 

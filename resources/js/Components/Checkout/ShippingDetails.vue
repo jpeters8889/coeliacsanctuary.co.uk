@@ -2,11 +2,14 @@
     <div class="flex flex-col leading-none">
         <div class="py-1 flex relative">
             <form-input class="flex-1" required placeholder="Postcode" name="postcode"
+                        :pattern="postcodePattern" pattern-error="Please enter a valid UK Postcode"
                         :value="formData.postcode"></form-input>
-            <button class="py-2 px-4 text-sm rounded-lg font-semibold bg-yellow ml-2" @click="lookupPostcode()">
+            <button class="py-2 px-4 text-sm rounded-lg font-semibold bg-yellow ml-2"
+                    v-if="canLookupPostcode()"
+                    @click="lookupPostcode()">
                 Search
             </button>
-            <div v-if="displayLookup"
+            <div v-if="canLookupPostcode() && displayLookup"
                  class="absolute w-full bg-grey-lightest border border-grey shadow max-h-map scrollable"
                  style="top: 100%">
                 <ul v-for="result in lookupResults">
@@ -79,6 +82,12 @@
 
         methods: {
             lookupPostcode() {
+                if(!this.validity.postcode) {
+                    coeliac().error('Please enter a valid UK Postcode or change the delivery country above!');
+
+                    return;
+                }
+
                 coeliac().request().post('/api/shop/lookup', {
                     postcode: this.formData.postcode,
                 }).then((response) => {
@@ -108,6 +117,20 @@
                 Object.keys(this.validity).forEach((key) => {
                     this.$root.$emit(`${key}-set-value`, (this.formData[key]));
                 });
+            },
+
+            canLookupPostcode() {
+                return this.countryId === 1;
+            }
+        },
+
+        computed: {
+            postcodePattern() {
+                if(!this.canLookupPostcode()) {
+                    return /.*/;
+                }
+
+                return /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i;
             }
         },
 

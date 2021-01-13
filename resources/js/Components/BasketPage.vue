@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="flex justify-center mt-4" v-if="!loading && data.items.length > 0">
-            <basket-checkout-wrapper></basket-checkout-wrapper>
+            <basket-checkout-wrapper :country-id="data.country"></basket-checkout-wrapper>
         </div>
 
         <portal to="modal" v-if="showDiscountModal">

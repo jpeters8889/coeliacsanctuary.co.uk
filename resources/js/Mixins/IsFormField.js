@@ -43,6 +43,10 @@ export default {
             type: RegExp,
             default: null,
         },
+        patternError: {
+            type: String,
+            default: 'Field is Invalid',
+        },
         match: {
             type: String,
             default: null,
@@ -91,7 +95,7 @@ export default {
             if (this.pattern) {
                 if (this.required || this.currentValue !== '') {
                     if (!this.currentValue.match(this.pattern)) {
-                        this.errorText = 'Field is invalid';
+                        this.errorText = this.patternError;
                         this.pushError();
                         return;
                     }

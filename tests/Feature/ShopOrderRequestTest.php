@@ -45,7 +45,8 @@ class ShopOrderRequestTest extends TestCase
     {
         parent::setUp();
 
-        $this->setUpFaker();
+        $this->faker = $this->makeFaker('en_gb');
+
         $this->setupPostage();
         $this->setupOrders();
 
@@ -157,6 +158,37 @@ class ShopOrderRequestTest extends TestCase
     public function it_fails_without_a_postcode()
     {
         $this->makeRequest(['shipping.postcode' => null])->assertStatus(422);
+    }
+
+    /** @test */
+    public function it_fails_with_an_invalid_uk_postcode_when_country_is_set_to_uk()
+    {
+        $token = Str::random(8);
+
+        ShopOrder::query()->create([
+            'token' => $token,
+        ]);
+
+        $this->withSession(['basket_token' => $token]);
+
+        $this->makeRequest(['shipping.postcode' => 'foobar'])->assertStatus(422);
+    }
+
+    /** @test */
+    public function it_allows_any_postcode_when_the_country_is_not_uk()
+    {
+        $token = Str::random(8);
+
+        ShopOrder::query()->create([
+            'token' => $token,
+            'postage_country_id' => 2,
+        ]);
+
+        $this->withSession(['basket_token' => $token]);
+
+        $request = $this->makeRequest(['shipping.postcode' => 'foobar']);
+
+        $this->assertNotEquals(422, $request->getStatusCode());
     }
 
     /** @test */
@@ -368,7 +400,7 @@ class ShopOrderRequestTest extends TestCase
             'shipping.address2' => 'Address 2',
             'shipping.address3' => 'Address 3',
             'shipping.town' => 'Town',
-            'shipping.postcode' => 'Postcode',
+            'shipping.postcode' => $postcode = $this->faker->postcode,
         ]);
 
         $this->assertDatabaseHas('user_addresses', [
@@ -378,7 +410,7 @@ class ShopOrderRequestTest extends TestCase
             'line_2' => 'Address 2',
             'line_3' => 'Address 3',
             'town' => 'Town',
-            'postcode' => 'Postcode',
+            'postcode' => $postcode,
         ]);
     }
 
