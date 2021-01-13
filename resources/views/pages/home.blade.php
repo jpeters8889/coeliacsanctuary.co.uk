@@ -22,7 +22,25 @@
                         <h1 class="text-4xl font-medium font-coeliac mb-2 text-center">Coeliac Sanctuary</h1>
                     </div>
 
-                    <coeliac-home-heros></coeliac-home-heros>
+                    <coeliac-home-heros class="hidden xxs:block"></coeliac-home-heros>
+
+                    <div class="flex-1 flex flex-col justify-center items-center inner-wrapper">
+                        <div class="xxs:hidden bg-white-80 p-4 w-full md:w-3/4">
+                            <h2 class="mb-2 text-2xl font-semibold text-center">
+                                Coeliac Sanctuary Shop
+                            </h2>
+                            <p class="mb-2">
+                                Check out our online shop for some great coeliac related goodies, including our fantastic travel cards for when
+                                you go abroad, our 'Gluten Free' stickers, our wristbands, and much more too!
+                            </p>
+                            <div class="flex justify-center">
+                                <a href="/shop"
+                                   class="bg-yellow px-6 py-2 font-semibold leading-none inline-block text-xl transition-width">
+                                    Visit our Shop
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="items-baseline flex justify-center mt-4 w-full">
                         <div class="text-3xl leading-none text-white-80 pulse">
