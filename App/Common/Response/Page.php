@@ -62,6 +62,7 @@ class Page extends PageBuilder
             'https://googleads.g.doubleclick.net',
             'https://www.google-analytics.com',
             '/assets/fonts/Notethis.woff',
+            '/assets/svg/logo.svg',
         ]);
 
         return parent::collectData($data);
