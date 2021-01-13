@@ -34,6 +34,8 @@
         @endforeach
     @endisset
 
+    @preload
+
     <link rel="preload" href="/assets/fonts/Notethis.woff"/>
 
     <link rel="preload" as="style" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}" onload="this.onload=null;this.rel='stylesheet'"/>
