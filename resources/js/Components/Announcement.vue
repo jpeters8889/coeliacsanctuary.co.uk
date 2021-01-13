@@ -1,13 +1,6 @@
 <template>
     <div>
-        <div class="bg-red-dark p-1 text-center text-white">
-            <div class="flex flex-col">
-                <slot name="title" class="mb-2 font-semibold"></slot>
-                <a class="cursor-pointer text-white-80 text-sm hover:text-white hover:underline transition-color" @click="showModal = true">
-                    Read more
-                </a>
-            </div>
-        </div>
+        <slot @click="showModal = true"></slot>
 
         <portal to="modal" v-if="showModal">
             <modal modal-classes="text-center">
@@ -16,7 +9,7 @@
                 </h2>
 
                 <div>
-                    <slot></slot>
+                    <slot name="body"></slot>
                 </div>
             </modal>
         </portal>
