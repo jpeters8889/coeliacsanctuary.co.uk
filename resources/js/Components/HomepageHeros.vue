@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <div class="flex justify-center mt-4 w-full">
+        <div class="flex justify-center mt-4 w-full" >
             <div v-for="(item, index) in slides">
                 <div class="w-4 h-4 rounded-full mx-1 cursor-pointer border border-white-80"
                      :class="index === currentIndex ? 'bg-white-80' : ''"
@@ -91,7 +91,7 @@ export default {
 
         clearTimeout() {
             clearTimeout(this.timeout);
-        }
+        },
     },
 
     watch: {
