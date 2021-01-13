@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class ShopPostageCountry extends BaseModel
 {
+    public const UK = 1;
+
     protected $visible = [
         'id',
         'country',

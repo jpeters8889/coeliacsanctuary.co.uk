@@ -22,9 +22,11 @@
 
             {{--            <google-ad code="7619961534"></google-ad>--}}
 
-{{--            <article>--}}
-{{--                {!! $collection->body !!}--}}
-{{--            </article>--}}
+            @if($collection->body)
+                <article>
+                    {!! $collection->body !!}
+                </article>
+            @endif
 
             {{--            <google-ad code="6662103082"></google-ad>--}}
         </div>

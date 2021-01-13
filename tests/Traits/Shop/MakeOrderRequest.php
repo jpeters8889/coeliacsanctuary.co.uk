@@ -13,9 +13,7 @@ trait MakeOrderRequest
 
     private function makeOrderRequest($params = [], $method = 'stripe', $token = '123abc')
     {
-        if (!$this->faker) {
-            $this->setupFaker();
-        }
+        $this->faker = $this->makeFaker('en_gb');
 
         $return = [
             'user' => [

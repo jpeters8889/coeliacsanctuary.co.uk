@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Requests;
 
 use Coeliac\Base\Requests\ApiFormRequest;
+use Coeliac\Modules\Shop\Rules\ValidPostcode;
 
 class OrderRequest extends ApiFormRequest
 {
@@ -19,7 +20,7 @@ class OrderRequest extends ApiFormRequest
             'shipping' => ['required', 'array'],
             'shipping.address1' => ['required'],
             'shipping.town' => ['required'],
-            'shipping.postcode' => ['required'],
+            'shipping.postcode' => ['required', new ValidPostcode()],
 
             'billing' => ['required', 'array'],
             'billing.name' => ['required'],
