@@ -22,7 +22,7 @@
                         <h1 class="text-4xl font-medium font-coeliac mb-2 text-center">Coeliac Sanctuary</h1>
                     </div>
 
-                    <coeliac-home-heros class="hidden xxs:block"></coeliac-home-heros>
+                    <coeliac-home-heros></coeliac-home-heros>
 
                     <div class="flex-1 flex flex-col justify-center items-center inner-wrapper">
                         <div class="xxs:hidden bg-white-80 p-4 w-full md:w-3/4">
