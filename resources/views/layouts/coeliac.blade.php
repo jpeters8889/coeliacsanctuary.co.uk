@@ -38,7 +38,7 @@
 
     <link rel="preload" href="/assets/fonts/Notethis.woff"/>
 
-    <link rel="preload" as="style" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}" onload="this.onload=null;this.rel='stylesheet'"/>
+    <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}"/>
 
     <!--iPhone tiles-->
     <link href="/assets/images/apple/apple-touch-icon-57x57.png" rel="apple-touch-icon"/>
