@@ -1,5 +1,5 @@
 <template>
-    <div class="hidden xxs:flex flex-1 flex-col justify-center items-center inner-wrapper" @mouseenter="clearTimeout()"
+    <div class="flex flex-1 flex-col justify-center items-center inner-wrapper" @mouseenter="clearTimeout()"
          @mouseleave="setTimeout()">
         <div class="bg-white-80 p-4 w-full md:w-3/4">
             <h2 class="mb-2 text-2xl font-semibold text-center">
