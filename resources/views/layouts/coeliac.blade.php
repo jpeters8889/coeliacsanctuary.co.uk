@@ -36,10 +36,15 @@
 
     @preload
 
-    <link rel="preload" href="/assets/fonts/Notethis.woff"/>
+{{--    <link rel="preload" href="/assets/fonts/Notethis.woff"/>--}}
 
+    <link href="http://fonts.cdnfonts.com/css/note-this" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap" />
-    <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}" />
+{{--    <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}" />--}}
+
+    <style type="text/css">
+        {{ file_get_contents(public_path('assets/css/coeliac.css')) }}
+    </style>
 
     <!--iPhone tiles-->
     <link href="/assets/images/apple/apple-touch-icon-57x57.png" rel="apple-touch-icon"/>

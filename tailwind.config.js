@@ -208,7 +208,7 @@ module.exports = {
         },
         fontFamily: {
             sans: 'Raleway',
-            coeliac: 'Notethis',
+            coeliac: 'Note This',
         },
         fontSize: {
             xxs: '0.6rem',
