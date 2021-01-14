@@ -175,7 +175,7 @@ class WhereToEat extends BaseModel
 
     public function shouldBeSearchable(): bool
     {
-        return $this->live === 1;
+        return (bool) $this->live;
     }
 
     public function getScoutKey()
