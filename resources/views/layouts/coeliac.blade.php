@@ -38,7 +38,8 @@
 
     <link rel="preload" href="/assets/fonts/Notethis.woff"/>
 
-    <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap" />
+    <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}" />
 
     <!--iPhone tiles-->
     <link href="/assets/images/apple/apple-touch-icon-57x57.png" rel="apple-touch-icon"/>
