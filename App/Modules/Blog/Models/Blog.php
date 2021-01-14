@@ -71,7 +71,7 @@ class Blog extends BaseModel implements HasComments
 
     public function shouldBeSearchable(): bool
     {
-        return $this->live === 1;
+        return (bool) $this->live;
     }
 
     public function tags(): BelongsToMany

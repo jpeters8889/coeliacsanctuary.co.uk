@@ -74,7 +74,7 @@ class ShopProduct extends BaseModel implements SearchableContract
     public function shouldBeSearchable(): bool
     {
         return $this->variants->filter(static function ($query) {
-            return $query->live === 1;
+            return (bool) $query->live;
         })->count() > 0;
     }
 
