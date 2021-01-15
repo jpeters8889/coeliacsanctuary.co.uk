@@ -34,7 +34,7 @@
         @endforeach
     @endisset
 
-    @preload(public_path('mix-manifest.json'))
+    @preload
 
 {{--    <link rel="preload" href="/assets/fonts/Notethis.woff"/>--}}
 
