@@ -1,19 +1,11 @@
 @if($announcements->count() > 0)
-    <announcement>
-        <div class="bg-red-dark p-1 text-center text-white">
-            <div class="flex flex-col">
-                <div class="mb-2 font-semibold">
-                    {{ $announcements->first()->title }}
-                </div>
-                <a class="cursor-pointer text-white-80 text-sm hover:text-white hover:underline transition-color"
-                   @click="showModal = true">
-                    Read more
-                </a>
-            </div>
-        </div>
+    <div class="bg-red-dark" style="min-height: 72px">
+        <announcement>
+            <template v-slot:title>
+                {{ $announcements->first()->title }}
+            </template>
 
-        <template v-slot:body>
             {!! $announcements->first()->text !!}
-        </template>
-    </announcement>
+        </announcement>
+    </div>
 @endif

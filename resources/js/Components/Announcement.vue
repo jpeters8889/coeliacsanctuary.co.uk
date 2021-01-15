@@ -1,46 +1,55 @@
 <template>
-    <slot></slot>
-
-    <portal to="modal" v-if="showModal">
-        <modal modal-classes="text-center">
-            <h2 class="text-lg mb-2 font-semibold">
+    <div>
+        <div class="bg-red-dark p-1 text-center text-white">
+            <div class="flex flex-col">
                 <slot name="title" class="mb-2 font-semibold"></slot>
-            </h2>
-
-            <div>
-                <slot name="body"></slot>
+                <a class="cursor-pointer text-white-80 text-sm hover:text-white hover:underline transition-color" @click="showModal = true">
+                    Read more
+                </a>
             </div>
-        </modal>
-    </portal>
+        </div>
+
+        <portal to="modal" v-if="showModal">
+            <modal modal-classes="text-center">
+                <h2 class="text-lg mb-2 font-semibold">
+                    <slot name="title" class="mb-2 font-semibold"></slot>
+                </h2>
+
+                <div>
+                    <slot></slot>
+                </div>
+            </modal>
+        </portal>
+    </div>
 </template>
 
 <script>
-import GoogleEvents from "../Mixins/GoogleEvents";
-import Modal from "./Modal";
+    import GoogleEvents from "../Mixins/GoogleEvents";
+    import Modal from "./Modal";
 
-export default {
-    mixins: [GoogleEvents],
+    export default {
+        mixins: [GoogleEvents],
 
-    components: {
-        'modal': Modal,
-    },
+        components: {
+            'modal': Modal,
+        },
 
-    data: () => ({
-        showModal: false,
-    }),
+        data: () => ({
+            showModal: false,
+        }),
 
-    mounted() {
-        this.$root.$on('modal-closed', () => {
-            this.showModal = false;
-        });
-    },
+        mounted() {
+            this.$root.$on('modal-closed', () => {
+                this.showModal = false;
+            });
+        },
 
-    watch: {
-        showModal: function () {
-            if (this.showModal) {
-                this.googleEvent('event', 'viewed-announcement');
+        watch: {
+            showModal: function() {
+                if(this.showModal) {
+                    this.googleEvent('event', 'viewed-announcement');
+                }
             }
         }
     }
-}
 </script>
