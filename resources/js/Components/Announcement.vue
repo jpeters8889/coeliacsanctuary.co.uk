@@ -1,6 +1,13 @@
 <template>
     <div>
-        <slot @click="showModal = true"></slot>
+        <div class="bg-red-dark p-1 text-center text-white">
+            <div class="flex flex-col">
+                <slot name="title" class="mb-2 font-semibold"></slot>
+                <a class="cursor-pointer text-white-80 text-sm hover:text-white hover:underline transition-color" @click="showModal = true">
+                    Read more
+                </a>
+            </div>
+        </div>
 
         <portal to="modal" v-if="showModal">
             <modal modal-classes="text-center">
@@ -9,7 +16,7 @@
                 </h2>
 
                 <div>
-                    <slot name="body"></slot>
+                    <slot></slot>
                 </div>
             </modal>
         </portal>
@@ -17,32 +24,34 @@
 </template>
 
 <script>
-    import GoogleEvents from "../Mixins/GoogleEvents";
-    import Modal from "./Modal";
+import GoogleEvents from "../Mixins/GoogleEvents";
+import Modal from "./Modal";
 
-    export default {
-        mixins: [GoogleEvents],
+export default {
+    mixins: [GoogleEvents],
 
-        components: {
-            'modal': Modal,
-        },
+    components: {
+        'modal': Modal,
+    },
 
-        data: () => ({
-            showModal: false,
-        }),
+    data: () => ({
+        showModal: false,
+    }),
 
-        mounted() {
-            this.$root.$on('modal-closed', () => {
-                this.showModal = false;
-            });
-        },
+    mounted() {
+        console.log('loaded announcement');
 
-        watch: {
-            showModal: function() {
-                if(this.showModal) {
-                    this.googleEvent('event', 'viewed-announcement');
-                }
+        this.$root.$on('modal-closed', () => {
+            this.showModal = false;
+        });
+    },
+
+    watch: {
+        showModal: function() {
+            if(this.showModal) {
+                this.googleEvent('event', 'viewed-announcement');
             }
         }
     }
+}
 </script>
