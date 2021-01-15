@@ -1,13 +1,6 @@
 <template>
-    <div>
-        <div class="bg-red-dark p-1 text-center text-white">
-            <div class="flex flex-col">
-                <slot name="title" class="mb-2 font-semibold"></slot>
-                <a class="cursor-pointer text-white-80 text-sm hover:text-white hover:underline transition-color" @click="showModal = true">
-                    Read more
-                </a>
-            </div>
-        </div>
+    <div  @click="showModal = true">
+        <slot></slot>
 
         <portal to="modal" v-if="showModal">
             <modal modal-classes="text-center">
@@ -16,7 +9,7 @@
                 </h2>
 
                 <div>
-                    <slot></slot>
+                    <slot name="body"></slot>
                 </div>
             </modal>
         </portal>
@@ -24,34 +17,32 @@
 </template>
 
 <script>
-import GoogleEvents from "../Mixins/GoogleEvents";
-import Modal from "./Modal";
+    import GoogleEvents from "../Mixins/GoogleEvents";
+    import Modal from "./Modal";
 
-export default {
-    mixins: [GoogleEvents],
+    export default {
+        mixins: [GoogleEvents],
 
-    components: {
-        'modal': Modal,
-    },
+        components: {
+            'modal': Modal,
+        },
 
-    data: () => ({
-        showModal: false,
-    }),
+        data: () => ({
+            showModal: false,
+        }),
 
-    mounted() {
-        console.log('loaded announcement');
+        mounted() {
+            this.$root.$on('modal-closed', () => {
+                this.showModal = false;
+            });
+        },
 
-        this.$root.$on('modal-closed', () => {
-            this.showModal = false;
-        });
-    },
-
-    watch: {
-        showModal: function() {
-            if(this.showModal) {
-                this.googleEvent('event', 'viewed-announcement');
+        watch: {
+            showModal: function() {
+                if(this.showModal) {
+                    this.googleEvent('event', 'viewed-announcement');
+                }
             }
         }
     }
-}
 </script>
