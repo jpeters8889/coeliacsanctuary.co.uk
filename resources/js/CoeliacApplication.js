@@ -38,11 +38,13 @@ export default class Coeliac {
         new Vue({
             el: '#coeliac',
             mounted: () => {
-                console.log('vue mounted');
                 this.updateLazyloader();
-                console.log('end of mount');
             },
         });
+
+        window.onerror = function(message, source, line, column, error) {
+            console.log(message);
+        }
     }
 
     updateLazyloader() {
