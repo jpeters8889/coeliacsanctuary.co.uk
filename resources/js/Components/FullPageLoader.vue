@@ -3,7 +3,8 @@
 </template>
 
 <script>
-    import Loader from "./Loader";
+    const Loader = () => import('./Loader' /* webpackChunkName: "prefetch-loader" */)
+
 
     export default {
         data: () => ({

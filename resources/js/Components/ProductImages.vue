@@ -21,8 +21,8 @@
 </template>
 
 <script>
-    import Loader from "./Loader";
-    import Modal from "./Modal";
+    const Loader = () => import('./Loader' /* webpackChunkName: "prefetch-loader" */)
+    const Modal = () => import('./Modal' /* webpackChunkName: "prefetch-modal" */)
 
     export default {
         props: {

@@ -52,8 +52,8 @@
 </template>
 
 <script>
-    import FormInput from "./Forms/FormInput";
-    import FormTextarea from "./Forms/FormTextarea";
+    const FormInput = () => import('./Forms/FormInput' /* webpackChunkName: "prefetch-form-input" */)
+    const FormTextarea = () => import('./Forms/FormTextarea' /* webpackChunkName: "prefetch-form-textarea" */)
 
     export default {
         components: {

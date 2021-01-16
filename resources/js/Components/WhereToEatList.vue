@@ -78,8 +78,8 @@
 
 <script>
 import FilterableUrls from "../Mixins/FilterableUrls";
-import Loader from "./Loader";
-import Pagination from "./Pagination";
+const Loader = () => import('./Loader' /* webpackChunkName: "prefetch-loader" */)
+const Pagination = () => import('./Pagination' /* webpackChunkName: "prefetch-pagination" */)
 import WhereToEatAttraction from "./WhereToEatAttraction";
 import WhereToEatEatery from "./WhereToEatEatery";
 import WhereToEatHotel from "./WhereToEatHotel";

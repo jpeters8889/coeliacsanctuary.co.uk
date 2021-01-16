@@ -1,6 +1,5 @@
 <template>
     <div class="bg-yellow rounded-lg p-2">
-        <!-- todo discount -->
         <table class="w-full text-lg">
             <tr>
                 <td>Subtotal</td>
@@ -35,7 +34,7 @@
 
 <script>
     import FormatsPrices from "../Mixins/FormatsPrices";
-    import FormSelect from "./Forms/FormSelect";
+        const FormSelect = () => import('./Forms/FormSelect' /* webpackChunkName: "prefetch-form-select" */)
 
     export default {
         mixins: [FormatsPrices],
