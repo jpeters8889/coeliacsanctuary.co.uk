@@ -41,10 +41,6 @@ export default class Coeliac {
                 this.updateLazyloader();
             },
         });
-
-        Vue.config.productionTip = true;
-        Vue.config.devtools = true;
-        Vue.config.debug = true;
     }
 
     updateLazyloader() {
