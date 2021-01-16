@@ -45,15 +45,6 @@ export default class Coeliac {
         Vue.config.productionTip = true;
         Vue.config.devtools = true;
         Vue.config.debug = true;
-
-        Vue.config.errorHandler = function(err, vm, info) {
-            //oopsIDidItAgain();
-            console.log(`Error: ${err.toString()}\nInfo: ${info}`);
-        }
-
-        window.onerror = function(message, source, line, column, error) {
-            console.log(message);
-        }
     }
 
     updateLazyloader() {

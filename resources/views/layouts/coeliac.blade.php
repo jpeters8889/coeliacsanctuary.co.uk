@@ -34,7 +34,7 @@
 {{--        @endforeach--}}
 {{--    @endisset--}}
 
-{{--    @preload--}}
+    @preload
 
 {{--    <link rel="preload" href="/assets/fonts/Notethis.woff"/>--}}
 
