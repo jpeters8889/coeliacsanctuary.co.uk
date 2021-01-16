@@ -5,7 +5,6 @@ const FontminPlugin = require('fontmin-webpack')
 
 require('laravel-mix-bundle-analyzer');
 
-
 mix
     .webpackConfig({
         plugins: [
