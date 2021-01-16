@@ -25,16 +25,16 @@
 
     <meta name="asset-url" content="{{ config('coeliac.assets_url') }}">
 
-    @isset($prefetch)
-    <!-- DNS Prefetch -->
-        @foreach($prefetch as $domain)
-            <link rel="dns-prefetch" href="{{ $domain }}"/>
-            <link rel="preload" href="{{ $domain }}"/>
-            <link rel="preconnect" href="{{ $domain }}" crossorigin/>
-        @endforeach
-    @endisset
+{{--    @isset($prefetch)--}}
+{{--    <!-- DNS Prefetch -->--}}
+{{--        @foreach($prefetch as $domain)--}}
+{{--            <link rel="dns-prefetch" href="{{ $domain }}"/>--}}
+{{--            <link rel="preload" href="{{ $domain }}"/>--}}
+{{--            <link rel="preconnect" href="{{ $domain }}" crossorigin/>--}}
+{{--        @endforeach--}}
+{{--    @endisset--}}
 
-    @preload
+{{--    @preload--}}
 
 {{--    <link rel="preload" href="/assets/fonts/Notethis.woff"/>--}}
 

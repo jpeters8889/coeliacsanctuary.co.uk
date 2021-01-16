@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <portal to="modal">
+        <portal to="modal" v-if="showModal">
             <modal modal-classes="text-center">
                 <h2 class="text-lg mb-2 font-semibold">
                     <slot name="title" class="mb-2 font-semibold"></slot>
