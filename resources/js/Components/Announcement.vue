@@ -9,17 +9,7 @@
             </div>
         </div>
 
-        <portal to="modal">
-            <modal modal-classes="text-center">
-                <h2 class="text-lg mb-2 font-semibold">
-                    <slot name="title" class="mb-2 font-semibold"></slot>
-                </h2>
-
-                <div>
-                    <slot></slot>
-                </div>
-            </modal>
-        </portal>
+     
     </div>
 </template>
 
