@@ -61,7 +61,10 @@ class Page extends PageBuilder
     {
         $data['breadcrumbs'] = $this->breadcrumbs;
         $data['announcements'] = Container::getInstance()->make(Repository::class)->take(1);
-        $data['prefetch'] = array_merge($this->prefetch, []);
+        $data['prefetch'] = array_merge($this->prefetch, [
+            'http://fonts.cdnfonts.com/css/note-this' => 'style',
+            'https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap' => 'style',
+        ]);
         $data['criticalCss'] = $this->criticalCss;
 
         return parent::collectData($data);
