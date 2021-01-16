@@ -4,6 +4,6 @@
             {{ $announcements->first()->title }}
         </template>
 
-        {!! $announcements->first()->text !!}
+{{--        {!! $announcements->first()->text !!}--}}
     </announcement>
 @endif
