@@ -71,11 +71,12 @@ import AvailableFilters from "./Resources/AvailableFilters";
 import FilterableUrls from "../Mixins/FilterableUrls";
 import LazyLoadsImages from "../Mixins/LazyLoadsImages";
 import GoogleEvents from "../Mixins/GoogleEvents";
-import Loader from "./Loader";
+const Loader = () => import('./Loader' /* webpackChunkName: "prefetch-loader" */)
+
 import ModuleFilterSlider from "./ModuleFilterSlider";
 import ModuleListItem from "./ModuleListItem";
 import ModuleListTopBar from "./ModuleListTopBar";
-import Pagination from "./Pagination";
+const Pagination = () => import('./Pagination' /* webpackChunkName: "prefetch-pagination" */)
 
 export default {
     mixins: [FilterableUrls, GoogleEvents, LazyLoadsImages],

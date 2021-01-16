@@ -56,7 +56,6 @@
 
 <script>
     import WhereToEatDetails from "../Mixins/WhereToEatDetails";
-    import WhereToEatRatings from "./WhereToEatRatings";
 
     export default {
         mixins: [WhereToEatDetails],

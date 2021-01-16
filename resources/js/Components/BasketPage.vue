@@ -66,7 +66,7 @@ import LazyLoadsImages from "../Mixins/LazyLoadsImages";
 import BasketCheckoutWrapper from "./BasketCheckoutWrapper";
 import BasketDiscountModal from "./BasketDiscountModal";
 import BasketPageTotals from "./BasketPageTotals";
-import Loader from "./Loader";
+const Loader = () => import('./Loader' /* webpackChunkName: "prefetch-loader" */)
 
 export default {
     mixins: [FormatsPrices, LazyLoadsImages],

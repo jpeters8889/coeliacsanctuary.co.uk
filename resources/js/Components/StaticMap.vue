@@ -15,7 +15,7 @@
 import HasGoogleMap from "../Mixins/HasGoogleMap";
 import LazyLoadsImages from "../Mixins/LazyLoadsImages";
 import DynamicMap from "./DynamicMap";
-import Modal from "./Modal";
+const Modal = () => import('./Modal' /* webpackChunkName: "prefetch-modal" */)
 
 export default {
     mixins: [HasGoogleMap, LazyLoadsImages],
