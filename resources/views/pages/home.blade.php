@@ -1,11 +1,5 @@
 @extends('layouts.coeliac')
 
-@section('headerJavaScript')
-    @foreach($heros as $hero)
-        <link rel="preload" as="image" href="{{ $hero }}">
-    @endforeach
-@endsection
-
 @section('content')
     @include('components.announcement')
 

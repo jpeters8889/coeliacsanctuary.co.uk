@@ -37,7 +37,7 @@
     <link rel="preload stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap" as="style">
     <link rel="preload stylesheet" href="{{ mix('/assets/css/coeliac.css') }}" as="style">
 
-@isset($criticalCss)
+    @isset($criticalCss)
         <style type="text/css">
             {{ file_get_contents(public_path('assets/css/'.$criticalCss.'_critical.css')) }}
         </style>
@@ -50,15 +50,6 @@
     <link href="/assets/images/apple/apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152"/>
 
     @yield('headerJavaScript', '')
-
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53299243-1"></script>
-
-    <noscript>
-        <img height="1" width="1" src="https://www.facebook.com/tr?id=1163828547057901&ev=PageView&noscript=1"/>
-    </noscript>
 </head>
 
 <body class="min-h-screen shadow-lg flex flex-col bg-grey-off-light font-sans">
@@ -86,6 +77,15 @@
         },
     }
 </script>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-53299243-1"></script>
+
+<noscript>
+    <img height="1" width="1" src="https://www.facebook.com/tr?id=1163828547057901&ev=PageView&noscript=1"/>
+</noscript>
 
 <script src="{{ mix('/assets/js/manifest.js') }}" async defer></script>
 <script src="{{ mix('/assets/js/vendor.js') }}" async defer></script>
