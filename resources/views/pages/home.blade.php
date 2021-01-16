@@ -20,7 +20,7 @@
 
                     <div class="flex-1 flex flex-col justify-center items-center inner-wrapper">
                         <div class="xxs:hidden bg-white-80 p-4 w-full md:w-3/4">
-                            <h2 class="mb-2 text-2xl font-semibold text-center">
+                            <h2 class="mb-2 px-4 text-2xl font-semibold text-center">
                                 Coeliac Sanctuary Shop
                             </h2>
                             <p class="mb-2">
