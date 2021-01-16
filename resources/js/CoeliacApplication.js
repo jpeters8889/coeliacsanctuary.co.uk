@@ -42,8 +42,9 @@ export default class Coeliac {
             },
         });
 
-        Vue.config.productionTip = false;
-        Vue.config.devtools = false;
+        Vue.config.productionTip = true;
+        Vue.config.devtools = true;
+        Vue.config.debug = true;
 
         Vue.config.errorHandler = function(err, vm, info) {
             //oopsIDidItAgain();
