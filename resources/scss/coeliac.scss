@@ -67,6 +67,10 @@ html, body .w-screen, .inner-wrapper {
         background-size: cover;
         background-repeat: no-repeat;
     }
+
+    .webp .hero-background {
+        background-image: url('/assets/images/misc/stickers.webp');
+    }
 }
 
 img.lazy:not(.loaded) {
