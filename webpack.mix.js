@@ -3,6 +3,7 @@ const tailwindcss = require('tailwindcss');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const FontminPlugin = require('fontmin-webpack')
 
+require('laravel-mix-criticalcss');
 require('laravel-mix-bundle-analyzer');
 
 mix
@@ -28,6 +29,20 @@ mix
     .webpackConfig({
         output: {
             chunkFilename: 'assets/js/[name].js',
+        },
+    })
+    .criticalCss({
+        enabled: true,
+        paths: {
+            base: 'http://coeliac.test/',
+            templates: './public/assets/css/',
+            suffix: '_critical'
+        },
+        urls: [
+            { url: '', template: 'home' },
+        ],
+        options: {
+            minify: mix.inProduction(),
         },
     })
     .version();

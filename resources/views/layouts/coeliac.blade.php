@@ -36,17 +36,20 @@
 
     @preload
 
-{{--    <link rel="preload" href="/assets/fonts/Notethis.woff"/>--}}
+    {{--    <link rel="preload" href="/assets/fonts/Notethis.woff"/>--}}
 
     <link href="http://fonts.cdnfonts.com/css/note-this" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap" />
-    <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}" />
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap"/>
+    <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}"/>
 
-    <style type="text/css">
-{{--        {{ file_get_contents(public_path('assets/css/coeliac.css')) }}--}}
-    </style>
+    @isset($criticalCss)
+        <style type="text/css">
+            {{ file_get_contents(public_path('assets/css/'.$criticalCss.'_critical.css')) }}
+        </style>
+    @endisset
 
-    <!--iPhone tiles-->
+<!--iPhone tiles-->
     <link href="/assets/images/apple/apple-touch-icon-57x57.png" rel="apple-touch-icon"/>
     <link href="/assets/images/apple/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72"/>
     <link href="/assets/images/apple/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114"/>
@@ -66,16 +69,16 @@
     @endif
 
     @if(config('app.env') === 'production')
-{{--        <script>--}}
-{{--            (function(h,o,t,j,a,r){--}}
-{{--                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};--}}
-{{--                h._hjSettings={hjid:2113025,hjsv:6};--}}
-{{--                a=o.getElementsByTagName('head')[0];--}}
-{{--                r=o.createElement('script');r.async=1;--}}
-{{--                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;--}}
-{{--                a.appendChild(r);--}}
-{{--            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');--}}
-{{--        </script>--}}
+        {{--        <script>--}}
+        {{--            (function(h,o,t,j,a,r){--}}
+        {{--                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};--}}
+        {{--                h._hjSettings={hjid:2113025,hjsv:6};--}}
+        {{--                a=o.getElementsByTagName('head')[0];--}}
+        {{--                r=o.createElement('script');r.async=1;--}}
+        {{--                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;--}}
+        {{--                a.appendChild(r);--}}
+        {{--            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');--}}
+        {{--        </script>--}}
     @endif
 
     @if($page->url === config('app.url'))
@@ -87,6 +90,7 @@
                 "url": "https:\/\/www.coeliacsanctuary.co.uk\/",
                 "name": "Coeliac Sanctuary | Gluten Free Places to Eat, Reviews, Blogs and more!"
             }
+
 
         </script>
 
@@ -103,6 +107,7 @@
                 "@id": "#person",
                 "name": "Alison Wheatley"
             }
+
 
         </script>
     @endif
