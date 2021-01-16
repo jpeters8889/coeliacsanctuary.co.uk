@@ -39,7 +39,7 @@ export default class Coeliac {
             el: '#coeliac',
             mounted: () => {
                 this.updateLazyloader();
-            }
+            },
         });
     }
 

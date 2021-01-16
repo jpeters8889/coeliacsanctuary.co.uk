@@ -24,34 +24,32 @@
 </template>
 
 <script>
-import GoogleEvents from "../Mixins/GoogleEvents";
-import Modal from "./Modal";
+    import GoogleEvents from "../Mixins/GoogleEvents";
+    import Modal from "./Modal";
 
-export default {
-    mixins: [GoogleEvents],
+    export default {
+        mixins: [GoogleEvents],
 
-    components: {
-        'modal': Modal,
-    },
+        components: {
+            'modal': Modal,
+        },
 
-    data: () => ({
-        showModal: false,
-    }),
+        data: () => ({
+            showModal: false,
+        }),
 
-    mounted() {
-        console.log('loaded announcement');
+        mounted() {
+            this.$root.$on('modal-closed', () => {
+                this.showModal = false;
+            });
+        },
 
-        this.$root.$on('modal-closed', () => {
-            this.showModal = false;
-        });
-    },
-
-    watch: {
-        showModal: function() {
-            if(this.showModal) {
-                this.googleEvent('event', 'viewed-announcement');
+        watch: {
+            showModal: function() {
+                if(this.showModal) {
+                    this.googleEvent('event', 'viewed-announcement');
+                }
             }
         }
     }
-}
 </script>

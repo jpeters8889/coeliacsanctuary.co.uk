@@ -27,9 +27,9 @@
 
     @isset($prefetch)
     <!-- DNS Prefetch -->
-        @foreach($prefetch as $domain)
+        @foreach($prefetch as $domain => $as)
             <link rel="dns-prefetch" href="{{ $domain }}"/>
-            <link rel="preload" href="{{ $domain }}"/>
+            <link rel="preload" href="{{ $domain }}" as="{{ $as }}"/>
             <link rel="preconnect" href="{{ $domain }}" crossorigin/>
         @endforeach
     @endisset
@@ -40,10 +40,10 @@
 
     <link href="http://fonts.cdnfonts.com/css/note-this" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap" />
-{{--    <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}" />--}}
+    <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}" />
 
     <style type="text/css">
-        {{ file_get_contents(public_path('assets/css/coeliac.css')) }}
+{{--        {{ file_get_contents(public_path('assets/css/coeliac.css')) }}--}}
     </style>
 
     <!--iPhone tiles-->

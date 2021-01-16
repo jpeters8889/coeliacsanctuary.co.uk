@@ -10,10 +10,9 @@ _ide_helper.php
 # Custom
 /public/cs-adm-uploads/*
 /public/imports
-/public/assets/js/*
-/public/assets/css/*
-/public/assets/mix-manifest.json
-/public/public
+#/public/assets/js/*
+#/public/assets/css/*
+#/public/assets/mix-manifest.json
 /storage/app/tests/*
 /tests/storage/*
 
@@ -32,8 +31,6 @@ phpmd.xml
 
 # Except...
 !.gitkeep
-
-public/mix-manifest.json
 
 .DS_Store
 */.DS_Store
