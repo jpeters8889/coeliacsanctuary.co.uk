@@ -18,7 +18,7 @@
             <div class="flex flex-1 p-8">
                 <div class="flex-1 flex flex-col">
                     <div class="flex flex-col justify-center items-center mb-4 space-y-2" style="min-height: 160px;">
-                        <img class="w-1/2 max-h-logo" width="100%" height="125" src="/assets/svg/logo.svg" alt="Coeliac Sanctuary"/>
+                        <img class="w-1/2 max-h-logo flex-1" width="100%" height="125" src="/assets/svg/logo.svg" alt="Coeliac Sanctuary"/>
                         <h1 class="text-4xl font-medium font-coeliac mb-2 text-center">Coeliac Sanctuary</h1>
                     </div>
 
