@@ -15,6 +15,7 @@ class HomepageController extends BaseController
     {
         return $page
             ->addPrefetch(['/assets/images/misc/stickers.jpg' => 'image'])
+            ->loadCriticalCss('home')
             ->render('pages.home', [
                 'latestBlogs' => $service->blogs(),
                 'latestRecipes' => $service->recipes(),

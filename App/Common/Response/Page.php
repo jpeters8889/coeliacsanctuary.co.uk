@@ -10,7 +10,9 @@ use JPeters\PageViewBuilder\Page as PageBuilder;
 
 class Page extends PageBuilder
 {
-    private $prefetch = [];
+    private array $prefetch = [];
+
+    private ?string $criticalCss = null;
 
     private array $breadcrumbs = [
         'crumbs' => [
@@ -22,7 +24,7 @@ class Page extends PageBuilder
         'location' => '',
     ];
 
-    public function breadcrumbs(array $breadcrumbs, $location)
+    public function breadcrumbs(array $breadcrumbs, $location): self
     {
         $this->breadcrumbs['location'] = $location;
 
@@ -41,9 +43,16 @@ class Page extends PageBuilder
         return $this;
     }
 
-    public function addPrefetch(array $items)
+    public function addPrefetch(array $items): self
     {
         $this->prefetch = array_merge($this->prefetch, $items);
+
+        return $this;
+    }
+
+    public function loadCriticalCss(string $path): self
+    {
+        $this->criticalCss = $path;
 
         return $this;
     }
@@ -52,8 +61,8 @@ class Page extends PageBuilder
     {
         $data['breadcrumbs'] = $this->breadcrumbs;
         $data['announcements'] = Container::getInstance()->make(Repository::class)->take(1);
-        $data['prefetch'] = array_merge($this->prefetch, [
-        ]);
+        $data['prefetch'] = array_merge($this->prefetch, []);
+        $data['criticalCss'] = $this->criticalCss;
 
         return parent::collectData($data);
     }
