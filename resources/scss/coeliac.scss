@@ -61,6 +61,10 @@ html, body .w-screen, .inner-wrapper {
 }
 
 @media only screen and (min-width: 400px) {
+    .xxs\:flex {
+        display: flex!important;
+    }
+
     .hero-background {
         background-image: url('/assets/images/misc/stickers.jpg');
         background-position: center;

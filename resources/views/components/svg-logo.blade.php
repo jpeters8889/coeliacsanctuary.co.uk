@@ -1,6 +1,6 @@
 <svg version="1.1" id="Layer_7" xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="0 0 931 647" style="enable-background:new 0 0 931 647;" xml:space="preserve">
+     viewBox="0 0 931 647" style="enable-background:new 0 0 931 647;" xml:space="preserve" class="max-h-full">
 
                                 <g id="Layer_2_1_">
                                     <g>
