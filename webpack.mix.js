@@ -28,7 +28,7 @@ mix
     .extract()
     .webpackConfig({
         output: {
-            chunkFilename: 'assets/js/[name].js',
+            chunkFilename: 'assets/js/[name].js?id=[fullhash]',
         },
     })
     .criticalCss({
