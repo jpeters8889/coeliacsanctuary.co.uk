@@ -1,13 +1,13 @@
 import Vue from 'vue';
 
-const CoeliacIcon = () => import("./Components/CoeliacIcon" /* webpackChunkName: "prefetch-coeliac-icon" */);
-const MobileNav = () => import("./Components/MobileNav" /* webpackChunkName: "prefetch-mobile-nav" */);
-const HeaderSearch = () => import("./Components/HeaderSearch" /* webpackChunkName: "prefetch-header-search" */);
+const CoeliacIcon = () => import("./Components/CoeliacIcon" /* webpackChunkName: "preload-coeliac-icon" */);
+const MobileNav = () => import("./Components/MobileNav" /* webpackChunkName: "preload-mobile-nav" */);
+const HeaderSearch = () => import("./Components/HeaderSearch" /* webpackChunkName: "preload-header-search" */);
 const HomepageHeros = () => import("./Components/HomepageHeros" /* webpackChunkName: "prefetch-home-heros" */);
 const LinkButton = () => import("./Components/LinkButton" /* webpackChunkName: "prefetch-link-button" */);
-const TopBar = () => import("./Components/TopBar" /* webpackChunkName: "prefetch-top-bar" */);
+const TopBar = () => import("./Components/TopBar" /* webpackChunkName: "preload-top-bar" */);
 const NumberCountUp = () => import("./Components/NumberCountUp" /* webpackChunkName: "prefetch-number-count" */);
-const FooterNewsletter = () => import("./Components/FooterNewsletter" /* webpackChunkName: "prefetch-footer-newsletter" */);
+const FooterNewsletter = () => import("./Components/FooterNewsletter" /* webpackChunkName: "preload-footer-newsletter" */);
 const Breadcrumbs = () => import("./Components/Breadcrumbs" /* webpackChunkName: "prefetch-breadcrumbs" */);
 const ModuleListIndex = () => import("./Components/ModuleListIndex" /* webpackChunkName: "prefetch-module-list-index" */);
 const Accordion = () => import("./Components/Accordion" /* webpackChunkName: "prefetch-accordion" */);
@@ -37,10 +37,10 @@ const ProductAddToBasket = () => import("./Components/ProductAddToBasket" /* web
 const BasketPage = () => import("./Components/BasketPage" /* webpackChunkName: "prefetch-basket-page" */);
 const BasketQuantitySwitcher = () => import("./Components/BasketQuantitySwitcher" /* webpackChunkName: "prefetch-basket-quantity-switcher" */);
 const FullPageLoader = () => import("./Components/FullPageLoader" /* webpackChunkName: "prefetch-page-loader" */);
-const QuickSearch = () => import("./Components/QuickSearch" /* webpackChunkName: "prefetch-quick-search" */);
+const QuickSearch = () => import("./Components/QuickSearch" /* webpackChunkName: "preload-quick-search" */);
 const Announcement = () => import("./Components/Announcement" /* webpackChunkName: "prefetch-announcements" */);
-const PopupCta = () => import("./Components/PopupCta" /* webpackChunkName: "prefetch-popup-cta" */);
-const GoogleAd = () => import('./Components/GoogleAd' /* webpackChunkName: "prefetch-google-ad" */);
+const PopupCta = () => import("./Components/PopupCta" /* webpackChunkName: "preload-popup-cta" */);
+const GoogleAd = () => import('./Components/GoogleAd' /* webpackChunkName: "preload-google-ad" */);
 const WhereToEatQuickSearch = () => import('./Components/WhereToEatQuickSearch' /* webpackChunkName: "prefetch-wte-quick-search" */);
 
 Vue.component('accordion', Accordion);
