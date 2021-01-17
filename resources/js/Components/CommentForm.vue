@@ -33,8 +33,8 @@
 </template>
 
 <script>
-const FormInput = () => import('./Forms/FormInput' /* webpackChunkName: "prefetch-form-input" */)
-const FormTextarea = () => import('./Forms/FormTextarea' /* webpackChunkName: "prefetch-form-textarea" */)
+const FormInput = () => import('./Forms/FormInput' /* webpackChunkName: "chunk-form-input" */)
+const FormTextarea = () => import('./Forms/FormTextarea' /* webpackChunkName: "chunk-form-textarea" */)
 
 export default {
     components: {

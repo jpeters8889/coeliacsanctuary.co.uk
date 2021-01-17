@@ -21,9 +21,9 @@
 </template>
 
 <script>
-    const FormInput = () => import('./Forms/FormInput' /* webpackChunkName: "prefetch-form-input" */)
-    const FormSelect = () => import('./Forms/FormSelect' /* webpackChunkName: "prefetch-form-select" */)
-    const FormTextarea = () => import('./Forms/FormTextarea' /* webpackChunkName: "prefetch-form-textarea" */)
+    const FormInput = () => import('./Forms/FormInput' /* webpackChunkName: "chunk-form-input" */)
+    const FormSelect = () => import('./Forms/FormSelect' /* webpackChunkName: "chunk-form-select" */)
+    const FormTextarea = () => import('./Forms/FormTextarea' /* webpackChunkName: "chunk-form-textarea" */)
 
     export default {
         components: {
