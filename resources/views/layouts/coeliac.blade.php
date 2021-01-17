@@ -33,7 +33,7 @@
     <link rel="preconnect" href="https://www.googletagservices.com/" crossorigin="anonymous">
     <link rel="preconnect" href="https://tpc.googlesyndication.com/" crossorigin="anonymous">
 
-    @preload
+{{--    @preload--}}
 
     <link rel="preload stylesheet" href="http://fonts.cdnfonts.com/css/note-this" as="style">
     <link rel="preload stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap" as="style">
