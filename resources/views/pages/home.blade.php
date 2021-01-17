@@ -24,7 +24,14 @@
     <div class="w-full flex flex-col h-screen hero-background xs:h-95vh max-h-hero">
         <div class="w-full flex flex-col h-full bg-blue-gradient-90">
             <div class="flex items-center" style="min-height: 50px">
-                <top-bar transparent></top-bar>
+                <top-bar transparent>
+                    <mobile-nav class="mr-2 md:hidden"></mobile-nav>
+                    <a href="/">
+                        <coeliac-icon class="js-mob-icon text-white md:hidden" style="height: 1.875rem"></coeliac-icon>
+                    </a>
+                    <coeliac-nav class="hidden md:block"></coeliac-nav>
+                    <header-search class="h-full flex items-center md:absolute md:right-0 md:top-0 md:mr-2"></header-search>
+                </top-bar>
             </div>
             <div class="flex flex-1 p-8">
                 <div class="flex-1 flex flex-col">
