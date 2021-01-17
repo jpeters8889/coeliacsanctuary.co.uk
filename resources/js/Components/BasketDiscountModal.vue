@@ -22,10 +22,10 @@
 
 <script>
     import GoogleEvents from "../Mixins/GoogleEvents";
-    const Loader = () => import('./Loader' /* webpackChunkName: "prefetch-loader" */)
+    const Loader = () => import('./Loader' /* webpackChunkName: "chunk-loader" */)
 
-    const Modal = () => import('./Modal' /* webpackChunkName: "prefetch-modal" */)
-    const FormInput = () => import('./Forms/FormInput' /* webpackChunkName: "prefetch-form-input" */)
+    const Modal = () => import('./Modal' /* webpackChunkName: "chunk-modal" */)
+    const FormInput = () => import('./Forms/FormInput' /* webpackChunkName: "chunk-form-input" */)
 
     export default {
         mixins: [GoogleEvents],

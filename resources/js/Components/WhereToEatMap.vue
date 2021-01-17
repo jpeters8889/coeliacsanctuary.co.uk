@@ -6,7 +6,7 @@
 </template>
 
 <script>
-    const Loader = () => import('./Loader' /* webpackChunkName: "prefetch-loader" */)
+    const Loader = () => import('./Loader' /* webpackChunkName: "chunk-loader" */)
 
 
     export default {

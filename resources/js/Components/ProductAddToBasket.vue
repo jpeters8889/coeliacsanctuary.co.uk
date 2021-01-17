@@ -25,10 +25,10 @@
 
 <script>
     import FormatsPrices from "../Mixins/FormatsPrices";
-    const Loader = () => import('./Loader' /* webpackChunkName: "prefetch-loader" */)
+    const Loader = () => import('./Loader' /* webpackChunkName: "chunk-loader" */)
     import ProductQuantity from "./ProductQuantity";
-    const FormInput = () => import('./Forms/FormInput' /* webpackChunkName: "prefetch-form-input" */)
-    const FormSelect = () => import('./Forms/FormSelect' /* webpackChunkName: "prefetch-form-select" */)
+    const FormInput = () => import('./Forms/FormInput' /* webpackChunkName: "chunk-form-input" */)
+    const FormSelect = () => import('./Forms/FormSelect' /* webpackChunkName: "chunk-form-select" */)
 
     export default {
         mixins: [FormatsPrices],

@@ -17,7 +17,7 @@
 
 <script>
     import GoogleEvents from "../Mixins/GoogleEvents";
-    const Modal = () => import('./Modal' /* webpackChunkName: "prefetch-modal" */)
+    const Modal = () => import('./Modal' /* webpackChunkName: "chunk-modal" */)
 
     export default {
         mixins: [GoogleEvents],

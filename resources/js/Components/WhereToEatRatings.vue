@@ -74,7 +74,7 @@
 <script>
     import FormatsDates from "../Mixins/FormatsDates";
     import GoogleEvents from "../Mixins/GoogleEvents";
-    const Modal = () => import('./Modal' /* webpackChunkName: "prefetch-modal" */)
+    const Modal = () => import('./Modal' /* webpackChunkName: "chunk-modal" */)
     import WhereToEatCreateRating from "./WhereToEatCreateRating";
 
     export default {

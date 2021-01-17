@@ -34,7 +34,7 @@
 
 <script>
     import FormatsPrices from "../Mixins/FormatsPrices";
-        const FormSelect = () => import('./Forms/FormSelect' /* webpackChunkName: "prefetch-form-select" */)
+        const FormSelect = () => import('./Forms/FormSelect' /* webpackChunkName: "chunk-form-select" */)
 
     export default {
         mixins: [FormatsPrices],

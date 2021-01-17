@@ -14,8 +14,8 @@
 
 <script>
     import GoogleEvents from "../Mixins/GoogleEvents";
-    const ContactForm = () => import('./ContactForm' /* webpackChunkName: "prefetch-contact-form" */)
-    const Modal = () => import('./Modal' /* webpackChunkName: "prefetch-modal" */)
+    const ContactForm = () => import('./ContactForm' /* webpackChunkName: "chunk-contact-form" */)
+    const Modal = () => import('./Modal' /* webpackChunkName: "chunk-modal" */)
 
     export default {
         mixins: [GoogleEvents],
