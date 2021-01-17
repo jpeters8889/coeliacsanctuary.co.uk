@@ -1,5 +1,22 @@
 @extends('layouts.coeliac')
 
+@section('headerJavaScript')
+    <style type="text/css">
+        .st0{fill:#D7D5D5;}
+        .st1{fill:none;stroke:#000000;stroke-width:6;stroke-miterlimit:10;}
+        .st2{fill:#D7D5D5;stroke:#000000;stroke-width:6;stroke-miterlimit:10;}
+        .st3{fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+        .st4{fill:#EC2027;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+        .st5{fill:#FFFFFF;stroke:#000000;stroke-width:4;stroke-miterlimit:10;}
+        .st6{fill:#5D5EAA;}
+        .st7{fill:none;stroke:#000000;stroke-width:4;stroke-miterlimit:10;}
+        .st8{stroke:#000000;stroke-width:4;stroke-miterlimit:10;}
+        .st9{fill:#7BCFDA;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+        .st10{fill:none;stroke:#000000;stroke-width:3;stroke-miterlimit:10;}
+        .st11{fill:#DBBC26;stroke:#000000;stroke-width:3;stroke-miterlimit:10;}
+    </style>
+@endsection
+
 @section('content')
     @include('components.announcement')
 
@@ -12,7 +29,9 @@
             <div class="flex flex-1 p-8">
                 <div class="flex-1 flex flex-col">
                     <div class="flex flex-col justify-center items-center mb-4 space-y-2" style="min-height: 160px;">
-                        <img class="border border-transparent xxs:border-0 w-1/2 max-h-logo flex-1" width="100%" height="125" src="/assets/svg/logo.svg" alt="Coeliac Sanctuary"/>
+                        <div class="w-1/2 max-h-logo flex-1">
+                            <x-svg-logo></x-svg-logo>
+                        </div>
                         <h1 class="text-4xl font-medium font-coeliac mb-2 text-center">Coeliac Sanctuary</h1>
                     </div>
 
@@ -24,7 +43,8 @@
                                 Coeliac Sanctuary Shop
                             </h2>
                             <p class="mb-2">
-                                Check out our online shop for some great coeliac related goodies, including our fantastic travel cards for when
+                                Check out our online shop for some great coeliac related goodies, including our
+                                fantastic travel cards for when
                                 you go abroad, our 'Gluten Free' stickers, our wristbands, and much more too!
                             </p>
                             <div class="flex justify-center">
