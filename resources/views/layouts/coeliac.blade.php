@@ -33,17 +33,17 @@
     <link rel="preconnect" href="https://www.googletagservices.com/" crossorigin="anonymous">
     <link rel="preconnect" href="https://tpc.googlesyndication.com/" crossorigin="anonymous">
 
-    {{--    @preload--}}
+    @preload
 
     <link rel="preload stylesheet" href="http://fonts.cdnfonts.com/css/note-this" as="style">
     <link rel="preload stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap" as="style">
     <link rel="preload stylesheet" href="{{ mix('/assets/css/coeliac.css') }}" as="style">
 
-    @isset($criticalCss)
+    @if($criticalCss && file_exists(public_path('assets/css/'.$criticalCss.'_critical.css')))
         <style type="text/css">
             {{ file_get_contents(public_path('assets/css/'.$criticalCss.'_critical.css')) }}
         </style>
-    @endisset
+    @endif
 
     <!--iPhone tiles-->
     <link href="/assets/images/apple/apple-touch-icon-57x57.png" rel="apple-touch-icon"/>
