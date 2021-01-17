@@ -27,7 +27,9 @@
         @endforeach
     @endisset
 
-{{--    @preload--}}
+    <link rel="preload" as="font" href="https://fonts.cdnfonts.com/s/9372/Note%20this.woff" type="font/woff2" crossorigin="anonymous">
+
+    {{--    @preload--}}
 
 {{--    <link href="http://fonts.cdnfonts.com/css/note-this" rel="stylesheet">--}}
 {{--    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap"/>--}}
