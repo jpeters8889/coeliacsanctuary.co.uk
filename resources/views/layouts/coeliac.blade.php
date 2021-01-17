@@ -19,7 +19,6 @@
     @yield('alternateMetas')
 
     @isset($prefetch)
-    <!-- DNS Prefetch -->
         @foreach($prefetch as $domain => $as)
             <link rel="dns-prefetch" href="{{ $domain }}"/>
             <link rel="preload" href="{{ $domain }}" as="{{ $as }}"/>
@@ -28,12 +27,13 @@
     @endisset
 
     <link rel="preload" as="font" href="https://fonts.cdnfonts.com/s/9372/Note%20this.woff" type="font/woff2" crossorigin="anonymous">
+    <link rel="preconnect" href="https://www.google-analytics.com/" crossorigin="anonymous">
+    <link rel="preconnect" href="https://adservice.google.com/" crossorigin="anonymous">
+    <link rel="preconnect" href="https://googleads.g.doubleclick.net/" crossorigin="anonymous">
+    <link rel="preconnect" href="https://www.googletagservices.com/" crossorigin="anonymous">
+    <link rel="preconnect" href="https://tpc.googlesyndication.com/" crossorigin="anonymous">
 
     {{--    @preload--}}
-
-{{--    <link href="http://fonts.cdnfonts.com/css/note-this" rel="stylesheet">--}}
-{{--    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap"/>--}}
-{{--    <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/coeliac.css') }}"/>--}}
 
     <link rel="preload stylesheet" href="http://fonts.cdnfonts.com/css/note-this" as="style">
     <link rel="preload stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap" as="style">
