@@ -28,7 +28,7 @@ mix
     .extract()
     .webpackConfig({
         output: {
-            chunkFilename: 'assets/js/[name].js?id=[fullhash]',
+            chunkFilename: 'assets/js/[name].js?id=[chunkhash]',
         },
     })
     .criticalCss({
@@ -51,6 +51,6 @@ if (!mix.inProduction()) {
     mix.sourceMaps();
 }
 
-if (!mix.inProduction()) {
-    // mix.bundleAnalyzer();
+if (mix.inProduction()) {
+    mix.bundleAnalyzer();
 }

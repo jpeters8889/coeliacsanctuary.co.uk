@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Toasted from 'vue-toasted';
-import VTooltip from 'v-tooltip';
 import request from "./Utilities/RequestHandler";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import PortalVue from 'portal-vue'
@@ -31,7 +30,6 @@ export default class Coeliac {
             position: "bottom-right",
             duration: 6000,
         })
-        Vue.use(VTooltip);
         Vue.use(PortalVue);
         Vue.use(VueScrollTo);
 

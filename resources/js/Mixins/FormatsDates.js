@@ -1,9 +1,9 @@
-import moment from "moment";
+import dayjs from "dayjs";
 
 export default {
     methods: {
-        formatDate(date, format = 'Do MMMM YYYY') {
-            return moment(date).format(format);
+        formatDate(date, format = 'D MMMM YYYY') {
+            return dayjs(date).format(format);
         },
     },
 }
