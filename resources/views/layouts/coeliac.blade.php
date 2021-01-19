@@ -85,9 +85,9 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53299243-1"></script>
 
-<noscript>
-    <img height="1" width="1" src="https://www.facebook.com/tr?id=1163828547057901&ev=PageView&noscript=1"/>
-</noscript>
+{{--<noscript>--}}
+{{--    <img height="1" width="1" src="https://www.facebook.com/tr?id=1163828547057901&ev=PageView&noscript=1"/>--}}
+{{--</noscript>--}}
 
 <script src="{{ mix('/assets/js/manifest.js') }}" async defer></script>
 <script src="{{ mix('/assets/js/vendor.js') }}" async defer></script>
