@@ -24,7 +24,7 @@
     <div class="w-full flex flex-col h-screen hero-background xs:h-95vh max-h-hero">
         <div class="w-full flex flex-col h-full bg-blue-gradient-90">
             <div class="flex items-center" style="min-height: 50px">
-                <top-bar transparent>
+                <top-bar transparent v-cloak>
                     <mobile-nav class="mr-2 md:hidden"></mobile-nav>
                     <a href="/">
                         <coeliac-icon class="js-mob-icon text-white md:hidden" style="height: 1.875rem"></coeliac-icon>
@@ -65,7 +65,7 @@
 
                     <div class="items-baseline flex justify-center mt-4 w-full" style="min-height: 32px">
                         <div class="text-3xl leading-none text-white-80 pulse">
-                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path></svg>
+                            <font-awesome-icon :icon="['fas', 'chevron-down']"></font-awesome-icon>
                         </div>
                     </div>
                 </div>

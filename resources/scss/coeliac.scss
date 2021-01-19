@@ -10,6 +10,10 @@
 @tailwind base;
 @tailwind components;
 
+[v-cloak] {
+    visibility: hidden;
+}
+
 html, body .w-screen, .inner-wrapper {
     width: 100%;
     margin: 0 auto;
