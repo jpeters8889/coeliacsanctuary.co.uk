@@ -24,7 +24,7 @@
     <div class="w-full flex flex-col h-screen hero-background xs:h-95vh max-h-hero">
         <div class="w-full flex flex-col h-full bg-blue-gradient-90">
             <div class="flex items-center" style="min-height: 50px">
-                <top-bar transparent v-cloak>
+                <top-bar transparent>
                     <mobile-nav class="mr-2 md:hidden"></mobile-nav>
                     <a href="/">
                         <coeliac-icon class="js-mob-icon text-white md:hidden" style="height: 1.875rem"></coeliac-icon>
