@@ -65,7 +65,7 @@
 
                     <div class="items-baseline flex justify-center mt-4 w-full" style="min-height: 32px">
                         <div class="text-3xl leading-none text-white-80 pulse">
-                            <font-awesome-icon :icon="['fas', 'chevron-down']"></font-awesome-icon>
+{{--                            <font-awesome-icon :icon="['fas', 'chevron-down']"></font-awesome-icon>--}}
                         </div>
                     </div>
                 </div>
