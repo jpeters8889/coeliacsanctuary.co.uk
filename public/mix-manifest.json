@@ -1,6 +1,6 @@
 {
-    "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=74106e83dcebf74749a2",
-    "/assets/js/manifest.js": "/assets/js/manifest.js?id=47d184296ad09b2d8b3e",
+    "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=b2e82d64b161be77d869",
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=b5750ff442635fcf3c2a",
     "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=e8623a9e304ebcda41af",
     "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=6ade830211a097546b85",
     "/assets/js/preload-header-search.js": "/assets/js/preload-header-search.js?id=ec41d380f11af650393b",
@@ -15,6 +15,7 @@
     "/assets/js/chunk-widget.js": "/assets/js/chunk-widget.js?id=ec38fc43a1bee525a606",
     "/assets/js/chunk-newsletter-signup.js": "/assets/js/chunk-newsletter-signup.js?id=fcb7cbfb5ddaf8669c20",
     "/assets/js/chunk-blog-search.js": "/assets/js/chunk-blog-search.js?id=857d1fbf55f38ac97a40",
+    "/assets/js/chunk-comments.js": "/assets/js/chunk-comments.js?id=0a094f0df813d845cf08",
     "/assets/js/chunk-comment-form.js": "/assets/js/chunk-comment-form.js?id=d56b5080dd7dd297a995",
     "/assets/js/chunk-recipe-image.js": "/assets/js/chunk-recipe-image.js?id=1515801825ac0df5d9a7",
     "/assets/js/chunk-recipe-search.js": "/assets/js/chunk-recipe-search.js?id=61660b0789bffbef9889",
@@ -51,6 +52,6 @@
     "/assets/js/chunk-form-textarea.js": "/assets/js/chunk-form-textarea.js?id=70dc84fe2d907907af0b",
     "/assets/js/chunk-form-select.js": "/assets/js/chunk-form-select.js?id=f172fc48c96d3776862d",
     "/assets/js/prefetch-form-option.js": "/assets/js/prefetch-form-option.js?id=beb08163db21cfb5327f",
-    "/assets/css/coeliac.css": "/assets/css/coeliac.css?id=1250131a4dcd0c6bb076",
+    "/assets/css/coeliac.css": "/assets/css/coeliac.css?id=0d4b554c66984b91f081",
     "/assets/js/vendor.js": "/assets/js/vendor.js?id=f2d83e461d21ae6c6d16"
 }

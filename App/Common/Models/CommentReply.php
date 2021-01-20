@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CommentReply extends BaseModel
 {
+    protected $visible = [
+        'comment_reply',
+        'created_at',
+    ];
+
     public function comment(): BelongsTo
     {
         return $this->belongsTo(Comment::class);
