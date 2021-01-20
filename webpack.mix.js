@@ -51,6 +51,6 @@ if (!mix.inProduction()) {
     mix.sourceMaps();
 }
 
-if (mix.inProduction()) {
-    mix.bundleAnalyzer();
-}
+// if (mix.inProduction()) {
+//     mix.bundleAnalyzer();
+// }

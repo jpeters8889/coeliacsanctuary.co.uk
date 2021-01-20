@@ -39,7 +39,7 @@
     <link rel="preload stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap" as="style">
     <link rel="preload stylesheet" href="{{ mix('/assets/css/coeliac.css') }}" as="style">
 
-    @if($criticalCss && file_exists(public_path('assets/css/'.$criticalCss.'_critical.css')))
+    @if(isset($criticalCss) && file_exists(public_path('assets/css/'.$criticalCss.'_critical.css')))
         <style type="text/css">
             {{ file_get_contents(public_path('assets/css/'.$criticalCss.'_critical.css')) }}
         </style>

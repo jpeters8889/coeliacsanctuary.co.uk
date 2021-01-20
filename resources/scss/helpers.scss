@@ -14,6 +14,14 @@
     .bg-blue-gradient-30 {
         background: linear-gradient(to bottom right, rgb(128, 204, 252, .3) 0%, rgb(173, 218, 249, .3) 100%);
     }
+
+    .bg-blue-gradient-20 {
+        background: linear-gradient(to bottom right, rgb(128, 204, 252, .2) 0%, rgb(173, 218, 249, .2) 100%);
+    }
+
+    .bg-blue-gradient-10 {
+        background: linear-gradient(to bottom right, rgb(128, 204, 252, .1) 0%, rgb(173, 218, 249, .1) 100%);
+    }
 }
 
 .transition-bg {
