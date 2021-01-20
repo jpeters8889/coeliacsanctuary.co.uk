@@ -20,7 +20,7 @@
         <div class="page-body">
             <img data-src="{{ $blog->main_image }}"
                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 2'%3E%3C/svg%3E"
-                 alt="{{ $blog->title }}" loading="lazy" class="lazy"/>
+                 alt="{{ $blog->title }}" width="100%" loading="lazy" class="lazy"/>
         </div>
 
         <div class="page-box p-3">
