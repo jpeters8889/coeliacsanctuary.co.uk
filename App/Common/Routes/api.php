@@ -19,7 +19,12 @@ if (!isset($router)) {
 }
 
 $router->group(['prefix' => 'api'], static function () use ($router) {
-    $router->post('comments', [CommentController::class, 'store']);
+    $router->group(['prefix' => 'comments'], static function () use ($router) {
+        $router->post('/', [CommentController::class, 'store']);
+
+        $router->get('/{area}/{id}', [CommentController::class, 'get']);
+    });
+
     $router->post('contact', [ContactController::class, 'store']);
     $router->get('heros', [HeroController::class, 'get']);
     $router->get('navigation', [NavigationController::class, 'get']);

@@ -15,6 +15,13 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  */
 class Comment extends BaseModel
 {
+    protected $visible = [
+        'name',
+        'comment',
+        'created_at',
+        'reply',
+    ];
+
     protected $appends = ['what'];
 
     protected $attributes = [

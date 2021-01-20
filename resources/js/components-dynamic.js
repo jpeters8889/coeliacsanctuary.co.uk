@@ -14,6 +14,7 @@ const Accordion = () => import("./Components/Accordion" /* webpackChunkName: "ch
 const Widget = () => import("./Components/Widget" /* webpackChunkName: "chunk-widget" */);
 const NewsletterSignup = () => import("./Components/Widgets/NewsletterSignup" /* webpackChunkName: "chunk-newsletter-signup" */);
 const BlogSearch = () => import("./Components/Widgets/BlogSearch" /* webpackChunkName: "chunk-blog-search" */);
+const Comments = () => import("./Components/Comments" /* webpackChunkName: "chunk-comments" */);
 const CommentForm = () => import("./Components/CommentForm" /* webpackChunkName: "chunk-comment-form" */);
 const RecipeImage = () => import("./Components/RecipeImage" /* webpackChunkName: "chunk-recipe-image" */);
 const RecipeSearch = () => import("./Components/Widgets/RecipeSearch" /* webpackChunkName: "chunk-recipe-search" */);
@@ -56,6 +57,7 @@ Vue.component('breadcrumbs', Breadcrumbs);
 Vue.component('coeliac-icon', CoeliacIcon);
 Vue.component('coeliac-home-heros', HomepageHeros);
 Vue.component('comment-form', CommentForm);
+Vue.component('comments', Comments);
 Vue.component('contact-trigger', ContactTrigger);
 Vue.component('footer-newsletter', FooterNewsletter);
 Vue.component('full-page-loader', FullPageLoader);

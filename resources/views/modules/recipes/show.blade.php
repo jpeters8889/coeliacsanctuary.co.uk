@@ -90,27 +90,7 @@
             <h2 class="text-2xl my-2 font-semibold font-coeliac">Your Comments</h2>
 
             <div class="flex flex-col -mb-3">
-                @forelse($recipe->comments as $comment)
-                    <div class="flex flex-col bg-blue-gradient-30 p-3 border-l-8 border-yellow shadow mb-3">
-                        <div class="mb-2">{!! $comment->comment !!}</div>
-                        <div class="flex text-xs font-medium text-grey">
-                            <div class="mr-2">{{ $comment->name }}</div>
-                            <div>{{ formatDate($comment->created_at) }}</div>
-                        </div>
-                        @if($comment->reply)
-                            <div class="flex mt-2 flex-col mt-3 bg-white-80 p-3">
-                                <strong>Alison @ Coeliac Sanctuary replied to this comment
-                                    on {{ formatDate($comment->reply->created_at) }}</strong>
-                                <p>{!! $comment->reply->comment_reply !!}</p>
-                            </div>
-                        @endif
-                    </div>
-                @empty
-                    <div class="mb-3">
-                        <strong class="font-semibold">There's no comments on this Recipe, why not leave
-                            one?</strong>
-                    </div>
-                @endforelse
+                <comments area="recipe" :id="{{ $recipe->id }}"></comments>
             </div>
         </div>
 
