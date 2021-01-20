@@ -1,5 +1,5 @@
 <template>
-    <div class="hidden xs:block">
+    <div class="hidden xxs:block">
         <div id="breadcrumb"
              class="my-2 border-grey-off border bg-grey-off-light p-2 leading-none"
              :class="sticky ? 'fixed top-50px slide-down w-full mt-1 z-20' : ''">

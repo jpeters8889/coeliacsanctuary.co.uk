@@ -7,10 +7,12 @@
         <top-bar></top-bar>
         <div class="inner-wrapper p-3 flex leading-none items-center">
             <div class="hidden md:block mr-2 w-1/6">
-                <img src="{{ asset('assets/svg/logo.svg') }}" alt="" />
+                <a href="/">
+                    <x-svg-logo></x-svg-logo>
+                </a>
             </div>
-            <div class="text-center flex flex-col flex-1 md:text-left">
-                <h1 class="text-3xl font-medium font-coeliac mb-2">Coeliac Sanctuary</h1>
+            <div class="text-center flex flex-col flex-1 py-2 md:text-left md:py-0">
+                <h1 class="text-4xl font-medium font-coeliac mb-4 md:text-3xl md:mb-2">Coeliac Sanctuary</h1>
                 <h2>Gluten Free Eateries, Blogs, Recipes. Reviews and more...</h2>
             </div>
         </div>
