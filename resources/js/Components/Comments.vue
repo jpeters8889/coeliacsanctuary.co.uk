@@ -74,7 +74,6 @@ export default {
         this.hasMore = false;
 
         new IntersectionObserver(entries => {
-            console.log(entries);
             if (this.initial) {
                 return;
             }
