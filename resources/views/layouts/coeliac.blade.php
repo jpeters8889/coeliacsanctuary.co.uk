@@ -28,10 +28,10 @@
 
     <link rel="preload" as="font" href="https://fonts.cdnfonts.com/s/9372/Note%20this.woff" type="font/woff2" crossorigin="anonymous">
     <link rel="preconnect" href="https://www.google-analytics.com/" crossorigin="anonymous">
-    <link rel="preconnect" href="https://adservice.google.com/" crossorigin="anonymous">
-    <link rel="preconnect" href="https://googleads.g.doubleclick.net/" crossorigin="anonymous">
-    <link rel="preconnect" href="https://www.googletagservices.com/" crossorigin="anonymous">
-    <link rel="preconnect" href="https://tpc.googlesyndication.com/" crossorigin="anonymous">
+{{--    <link rel="preconnect" href="https://adservice.google.com/" crossorigin="anonymous">--}}
+{{--    <link rel="preconnect" href="https://googleads.g.doubleclick.net/" crossorigin="anonymous">--}}
+{{--    <link rel="preconnect" href="https://www.googletagservices.com/" crossorigin="anonymous">--}}
+{{--    <link rel="preconnect" href="https://tpc.googlesyndication.com/" crossorigin="anonymous">--}}
 
 {{--    @preload--}}
 
