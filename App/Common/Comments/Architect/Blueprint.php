@@ -16,9 +16,16 @@ class Blueprint extends ArchitectBlueprint
         return Comment::class;
     }
 
+    public function makeVisible(): array
+    {
+        return ['email', 'link', 'area', 'commentable', 'commentable_type', 'reply', 'approved', 'id'];
+    }
+
     public function getData(): Builder
     {
-        return parent::getData()->with('commentable', 'reply')->select('*');
+        return parent::getData()
+            ->with('commentable', 'reply')
+            ->select('*');
     }
 
     public function plans(): array
