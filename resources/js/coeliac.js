@@ -12,6 +12,21 @@ window.coeliac = function (config) {
 
 coeliac().build();
 
+document.querySelectorAll('img').forEach((image) => {
+    const width = image.width;
+
+    if (image.hasAttribute('data-src')) {
+        let attribute = image.getAttribute('data-src');
+
+        image.setAttribute('data-src', `${attribute}?size=${width}`);
+        return;
+    }
+
+    let attribute = image.getAttribute('src');
+
+    image.setAttribute('src', `${attribute}?size=${width}`);
+});
+
 document.querySelectorAll('.lazy').forEach((image) => {
     image.setAttribute('src', `data:image/svg+xml,%3Csvg
         xmlns='http://www.w3.org/2000/svg'
