@@ -39,9 +39,34 @@ export default class Coeliac {
                 this.updateLazyloader();
             },
         });
+
+        this.addWidthToImages();
+    }
+
+    addWidthToImages() {
+        document.querySelectorAll('img').forEach((image) => {
+            const width = image.width > 0 ? image.width : image.closest('div').offsetWidth;
+
+            if (image.hasAttribute('data-src')) {
+                let attribute = new URL(image.getAttribute('data-src'));
+                attribute.searchParams.delete('size');
+                attribute.searchParams.append('size', width.toString());
+
+                image.setAttribute('data-src', attribute.toString());
+            }
+
+            if (image.hasAttribute('src')) {
+                let attribute = new URL(image.getAttribute('src'));
+                attribute.searchParams.delete('size');
+                attribute.searchParams.append('size', width.toString());
+
+                image.setAttribute('src', attribute.toString());
+            }
+        });
     }
 
     updateLazyloader() {
+        this.addWidthToImages();
         this.lazyLoader.update();
     }
 

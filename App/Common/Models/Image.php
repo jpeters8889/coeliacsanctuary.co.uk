@@ -42,6 +42,10 @@ class Image extends BaseModel
 
     public function getImageUrlAttribute()
     {
-        return Container::getInstance()->make(FilesystemManager::class)->disk('images')->url($this->directory.'/'.$this->file_name);
+        return implode('/', [
+            config('coeliac.images_url'),
+            $this->directory,
+            $this->file_name,
+        ]);
     }
 }

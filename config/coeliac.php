@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 return [
-    'image_url' => env('IMAGES_URL'),
+    'images_url' => env('IMAGES_URL'),
     'assets_url' => env('ASSETS_URL'),
 
     'pagination' => [
