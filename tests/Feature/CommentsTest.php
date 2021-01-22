@@ -129,7 +129,7 @@ class CommentsTest extends TestCase
 
         $this->assertEquals(0, $comment->approved);
 
-        $request = $this->get('/blog/'.$this->blog->slug);
+        $request = $this->get('/api/comments/blog/'.$this->blog->id);
 
         $request->assertDontSee($params['name']);
         $request->assertDontSee($params['comment']);
@@ -156,7 +156,7 @@ class CommentsTest extends TestCase
 
         $this->assertEquals(1, $comment->approved);
 
-        $request = $this->get('/blog/'.$this->blog->slug);
+        $request = $this->get('/api/comments/blog/'.$this->blog->id);
 
         $request->assertSee($params['name'], false);
         $request->assertSee($params['comment'], false);
