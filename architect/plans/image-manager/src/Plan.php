@@ -51,7 +51,7 @@ class Plan extends ArchitectPlan
             $url = config('architect.upload_directory').'/'.$fileName;
 
             $image = $imageManager
-                ->make($imageAssociation->image->image_url)
+                ->make($imageAssociation->image->raw_url)
                 ->save(public_path($url));
 
             return [

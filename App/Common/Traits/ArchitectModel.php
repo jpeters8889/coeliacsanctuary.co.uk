@@ -124,7 +124,7 @@ trait ArchitectModel
 
             foreach ($this->images()->get() as $image) {
                 /* @var ImageAssociations $image */
-                $imageManager->make($image->image->image_url)
+                $imageManager->make($image->image->raw_url)
                     ->save(public_path("{$uploadDirectory}/{$image->image->file_name}"));
 
                 $current = str_replace(
