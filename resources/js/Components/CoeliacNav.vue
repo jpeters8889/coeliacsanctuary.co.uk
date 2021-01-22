@@ -16,7 +16,7 @@
                                     :class="index < 2 ? 'border-b border-yellow' : ''">
                                     <a :href="child.link" class="flex">
                                         <div class="w-1/4 mr-1 lg:w-1/6">
-                                            <img :data-src="child.main_image+'?nav'" :src="lazyLoadSrc" loading="lazy" class="lazy"
+                                            <img :data-src="child.main_image" :src="lazyLoadSrc" loading="lazy" class="lazy"
                                                  :alt="child.title">
                                         </div>
                                         <div class="leading-none flex-1">
