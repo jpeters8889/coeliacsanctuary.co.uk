@@ -1,0 +1,1 @@
+(self.webpackChunk=self.webpackChunk||[]).push([[1640],{7857:(e,t,l)=>{"use strict";l.r(t),l.d(t,{default:()=>u});const n={};const u=(0,l(1900).Z)(n,(function(){var e=this,t=e.$createElement;return(e._self._c||t)("h2",[e._t("default")],2)}),[],!1,null,null,null).exports}}]);

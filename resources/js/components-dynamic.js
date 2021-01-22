@@ -26,6 +26,7 @@ const StaticMap = () => import("./Components/StaticMap" /* webpackChunkName: "ch
 const Stars = () => import("./Components/Stars" /* webpackChunkName: "chunk-stars" */);
 const WhereToEatPlaceRequestForm = () => import("./Components/WhereToEatPlaceRequestForm" /* webpackChunkName: "chunk-wte-place-request" */);
 const ReviewSearch = () => import("./Components/Widgets/ReviewSearch" /* webpackChunkName: "chunk-review-search" */);
+const ArticleHeader = () => import("./Components/ArticleHeader" /* webpackChunkName: "chunk-article-header" */);
 const ArticleImage = () => import("./Components/ArticleImage" /* webpackChunkName: "chunk-article-image" */);
 const ContactTrigger = () => import("./Components/ContactTrigger" /* webpackChunkName: "chunk-contact-trigger" */);
 const WhereToEatSearch = () => import("./Components/Widgets/WhereToEatSearch" /* webpackChunkName: "chunk-wte-search" */);
@@ -47,6 +48,7 @@ const WhereToEatQuickSearch = () => import('./Components/WhereToEatQuickSearch' 
 Vue.component('accordion', Accordion);
 Vue.component('add-basket-trigger', AddBasketTrigger);
 Vue.component('announcement', Announcement);
+Vue.component('article-header', ArticleHeader);
 Vue.component('article-image', ArticleImage);
 Vue.component('basket-header-widget', BasketHeaderWidget);
 Vue.component('basket-quick-link', BasketQuickLink);

@@ -1,7 +1,7 @@
 @extends('templates.page-two-column')
 
 @section('primary-column')
-    <div class="flex flex-col" style="max-width: 1200px">
+    <div class="flex flex-col"chunk>
         <div class="page-box">
             <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
                 Place Request<br />
