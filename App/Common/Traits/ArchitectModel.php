@@ -89,6 +89,7 @@ trait ArchitectModel
 
         foreach ($requestImages->article as $image) {
             $model->$field = Str::replaceFirst($image, $images[$index]->image->image_url, $model->$field);
+            $model->$field = Str::replaceFirst($image, $images[$index]->image->raw_url, $model->$field);
             ++$index;
         }
 
@@ -127,7 +128,7 @@ trait ArchitectModel
                     ->save(public_path("{$uploadDirectory}/{$image->image->file_name}"));
 
                 $current = str_replace(
-                    $image->image->image_url,
+                    [$image->image->image_url, $image->image->raw_url],
                     $image->image->file_name,
                     $current
                 );
