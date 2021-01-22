@@ -28,6 +28,7 @@
             content: " (" attr(href) ") ";
         }
     </style>
+    <meta name="robots" content="noindex">
 </head>
 <body onload="window.print()">
 <img src="{{ $recipe->main_image }}" alt="{{ $recipe->title }}"
