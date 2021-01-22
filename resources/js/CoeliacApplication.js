@@ -28,7 +28,7 @@ export default class Coeliac {
         Vue.component('font-awesome-icon', FontAwesomeIcon);
         Vue.use(Toasted, {
             position: "bottom-right",
-            duration: 6000,
+            duration: 3000,
         })
         Vue.use(PortalVue);
         Vue.use(VueScrollTo);

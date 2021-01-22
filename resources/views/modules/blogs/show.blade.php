@@ -1,9 +1,7 @@
 @extends('templates.page-two-column')
 
 @section('primary-column')
-    <div class="flex flex-col" style="max-width: 1200px">
-
-
+    <div class="flex flex-col"chunk>
         <div class="page-box p-3">
             <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">{{ $blog->title }}</h1>
 
