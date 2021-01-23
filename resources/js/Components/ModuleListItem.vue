@@ -4,7 +4,7 @@
             <div :class="imageClasses" class="flex flex-col">
                 <a :href="item.link">
                     <img :data-src="item.main_image" :alt="item.title" loading="lazy" class="lazy w-full"
-                         :src="lazyLoadSrc" v-if="module !== 'recipes'">
+                         :src="index > 0 ? lazyLoadSrc : item.main_image" v-if="module !== 'recipes'">
                     <recipe-image :src="item.main_image" :alt="item.title" v-else></recipe-image>
                 </a>
                 <template v-if="module==='recipes' && layout === 'list'">

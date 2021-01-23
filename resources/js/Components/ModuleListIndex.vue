@@ -1,68 +1,75 @@
 <template>
-    <div class="page-box">
-        <module-filter-slider
-            v-if="showFilterBar"
-            :show="showFilters"
-            :title="title"
-            :total-results="response.total"
-            :current-filters="filters"
-            :current-search="searchText"
-        ></module-filter-slider>
+    <div>
+        <div v-show="initialLoad">
+            <slot></slot>
+        </div>
 
-        <module-list-top-bar :title="title" :currentLayout="layout" :url-prefix="urlPrefix" :show-filter-bar="showFilterBar"
-                             :currentSearch="searchText"></module-list-top-bar>
+        <div v-show="!initialLoad" class="page-box">
+            <module-filter-slider
+                v-if="showFilterBar"
+                :show="showFilters"
+                :title="title"
+                :total-results="response.total"
+                :current-filters="filters"
+                :current-search="searchText"
+            ></module-filter-slider>
 
-        <pagination :current="response.current_page"
-                    :lastPage="response.last_page"
-                    :can-go-back="!! response.prev_page_url"
-                    :can-go-forward="!! response.next_page_url"
-        ></pagination>
+            <module-list-top-bar :title="title" :currentLayout="layout" :url-prefix="urlPrefix"
+                                 :show-filter-bar="showFilterBar"
+                                 :currentSearch="searchText"></module-list-top-bar>
 
-        <div v-if="showFilters">
-            <ul class="flex -m-1">
-                <li v-if="searchText !== ''"
-                    class="m-1 bg-blue-light rounded-lg text-xs overflow-hidden flex justify-between">
-                    <div class="py-1 px-3">Search: {{ searchText }}</div>
-                    <div class="bg-yellow py-1 px-3 cursor-pointer" @click="clearSearch">
-                        <font-awesome-icon :icon="['fas', 'times']"></font-awesome-icon>
-                    </div>
-                </li>
-                <template v-for="filter in availableFilters">
-                    <li v-for="option in filters[filter.value]"
+            <pagination :current="response.current_page"
+                        :lastPage="response.last_page"
+                        :can-go-back="!! response.prev_page_url"
+                        :can-go-forward="!! response.next_page_url"
+            ></pagination>
+
+            <div v-if="showFilters">
+                <ul class="flex -m-1">
+                    <li v-if="searchText !== ''"
                         class="m-1 bg-blue-light rounded-lg text-xs overflow-hidden flex justify-between">
-                        <div class="py-1 px-3">{{ filter.label }}: {{ option }}</div>
-                        <div class="bg-yellow py-1 px-3 cursor-pointer" @click="removeFilter(filter.value, option)">
+                        <div class="py-1 px-3">Search: {{ searchText }}</div>
+                        <div class="bg-yellow py-1 px-3 cursor-pointer" @click="clearSearch">
                             <font-awesome-icon :icon="['fas', 'times']"></font-awesome-icon>
                         </div>
                     </li>
-                </template>
-            </ul>
-        </div>
-
-        <div v-if="isLoading" class="relative h-64">
-            <loader :show="true"></loader>
-        </div>
-
-        <div v-else>
-            <div class="flex flex-col my-2 md:flex-row md:flex-wrap -mx-2" ref="items">
-                <module-list-item
-                    v-for="(item, index) in response.data"
-                    :key="item.id"
-                    :module="module"
-                    :item="item"
-                    :index="index"
-                    :page="currentPage"
-                    :layout="layout"
-                    :has-filters="hasFilters">
-                </module-list-item>
+                    <template v-for="filter in availableFilters">
+                        <li v-for="option in filters[filter.value]"
+                            class="m-1 bg-blue-light rounded-lg text-xs overflow-hidden flex justify-between">
+                            <div class="py-1 px-3">{{ filter.label }}: {{ option }}</div>
+                            <div class="bg-yellow py-1 px-3 cursor-pointer" @click="removeFilter(filter.value, option)">
+                                <font-awesome-icon :icon="['fas', 'times']"></font-awesome-icon>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
             </div>
-        </div>
 
-        <pagination :current="response.current_page"
-                    :lastPage="response.last_page"
-                    :can-go-back="!! response.prev_page_url"
-                    :can-go-forward="!! response.next_page_url"
-        ></pagination>
+            <div v-if="isLoading" class="relative h-64">
+                <loader :show="true"></loader>
+            </div>
+
+            <div v-else>
+                <div class="flex flex-col my-2 md:flex-row md:flex-wrap -mx-2" ref="items">
+                    <module-list-item
+                        v-for="(item, index) in response.data"
+                        :key="item.id"
+                        :module="module"
+                        :item="item"
+                        :index="index"
+                        :page="currentPage"
+                        :layout="layout"
+                        :has-filters="hasFilters">
+                    </module-list-item>
+                </div>
+            </div>
+
+            <pagination :current="response.current_page"
+                        :lastPage="response.last_page"
+                        :can-go-back="!! response.prev_page_url"
+                        :can-go-forward="!! response.next_page_url"
+            ></pagination>
+        </div>
     </div>
 </template>
 
@@ -71,11 +78,11 @@ import AvailableFilters from "./Resources/AvailableFilters";
 import FilterableUrls from "../Mixins/FilterableUrls";
 import LazyLoadsImages from "../Mixins/LazyLoadsImages";
 import GoogleEvents from "../Mixins/GoogleEvents";
-const Loader = () => import('./Loader' /* webpackChunkName: "chunk-loader" */)
-
 import ModuleFilterSlider from "./ModuleFilterSlider";
 import ModuleListItem from "./ModuleListItem";
 import ModuleListTopBar from "./ModuleListTopBar";
+
+const Loader = () => import('./Loader' /* webpackChunkName: "chunk-loader" */)
 const Pagination = () => import('./Pagination' /* webpackChunkName: "chunk-pagination" */)
 
 export default {
@@ -111,6 +118,7 @@ export default {
     },
 
     data: () => ({
+        initialLoad: true,
         response: {
             current_page: 1,
             last_page: 1,
@@ -128,7 +136,7 @@ export default {
     }),
 
     mounted() {
-        if(this.showFilterBar) {
+        if (this.showFilterBar) {
             this.availableFilters = AvailableFilters[this.module];
 
             this.availableFilters.forEach((filter) => {
@@ -152,6 +160,7 @@ export default {
                 .then((response) => {
                     this.response = response.data.data;
                     this.isLoading = false;
+                    this.initialLoad = false;
 
                     window.history.pushState(null, null, this.buildUrl(window.location.href.split('?')[0], this.currentPage, this.searchText, this.filters, true))
                 });
