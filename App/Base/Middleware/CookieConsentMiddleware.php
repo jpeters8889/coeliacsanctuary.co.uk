@@ -19,19 +19,21 @@ class CookieConsentMiddleware extends Middleware
      */
     public function handle($request, Closure $next)
     {
-        $excluded = [
-            'cs-adm',
-            'cs-adm/*',
-            'mailcoach',
-            'mailcoach/*',
-            'horizon',
-            'horizon/*',
-        ];
+        return $next($request);
 
-        if ($request->is($excluded)) {
-            return $next($request);
-        }
-
-        return parent::handle($request, $next);
+//        $excluded = [
+//            'cs-adm',
+//            'cs-adm/*',
+//            'mailcoach',
+//            'mailcoach/*',
+//            'horizon',
+//            'horizon/*',
+//        ];
+//
+//        if ($request->is($excluded)) {
+//            return $next($request);
+//        }
+//
+//        return parent::handle($request, $next);
     }
 }
