@@ -102,9 +102,9 @@
 {{--    <img height="1" width="1" src="https://www.facebook.com/tr?id=1163828547057901&ev=PageView&noscript=1"/>--}}
 {{--</noscript>--}}
 
-<script src="{{ mix('/assets/js/manifest.js') }}" async defer></script>
-<script src="{{ mix('/assets/js/vendor.js') }}" async defer></script>
-<script src="{{ mix('/assets/js/coeliac.js') }}" async defer></script>
+<script src="{{ mix('/assets/js/manifest.js') }}" async></script>
+<script src="{{ mix('/assets/js/vendor.js') }}" async></script>
+<script src="{{ mix('/assets/js/coeliac.js') }}" async></script>
 
 @if($page->url === config('app.url'))
     <script type="application/ld+json">
