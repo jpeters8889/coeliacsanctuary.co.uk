@@ -27,9 +27,6 @@ class BlogController extends BaseController
     public function index()
     {
         return $this->page
-            ->addPrefetch([
-                $this->repository->take(1)->first()->main_image => 'image',
-            ])
             ->breadcrumbs([], 'Blogs')
             ->setPageTitle('Gluten Free Blogs')
             ->setMetaDescription('Coeliac Sanctuary gluten free blog list | All of our Coeliac blog posts in one list')
