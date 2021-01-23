@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" class="min-h-screen">
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-573BRJ');</script>
+    <!-- End Google Tag Manager -->
+
     @include('page-view-builder::header')
 
     <meta name="author" content="Coeliac Sanctuary"/>
@@ -56,6 +64,11 @@
 
 <body class="min-h-screen shadow-lg flex flex-col bg-grey-off-light font-sans">
 
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-573BRJ"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <div id="coeliac" class="min-h-screen flex flex-col">
     @yield('content')
 
@@ -80,7 +93,7 @@
     }
 </script>
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script async defer src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53299243-1"></script>
@@ -89,9 +102,9 @@
 {{--    <img height="1" width="1" src="https://www.facebook.com/tr?id=1163828547057901&ev=PageView&noscript=1"/>--}}
 {{--</noscript>--}}
 
-<script src="{{ mix('/assets/js/manifest.js') }}" async defer></script>
-<script src="{{ mix('/assets/js/vendor.js') }}" async defer></script>
-<script src="{{ mix('/assets/js/coeliac.js') }}" async defer></script>
+<script src="{{ mix('/assets/js/manifest.js') }}" async></script>
+<script src="{{ mix('/assets/js/vendor.js') }}" async></script>
+<script src="{{ mix('/assets/js/coeliac.js') }}" async></script>
 
 @if($page->url === config('app.url'))
     <script type="application/ld+json">
