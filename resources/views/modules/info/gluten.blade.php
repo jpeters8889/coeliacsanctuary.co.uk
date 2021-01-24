@@ -3,10 +3,15 @@
 @section('primary-column')
     <div class="flex flex-col"chunk>
         <div class="page-box">
-            <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
+            <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
                 Gluten Challenge
-                <a class="text-xs font-sans hover:text-grey transition-color" href="/info"><br />More Information</a>
             </h1>
+
+            <h6 class="text-center -mt-4 pt-1">
+                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="/info">
+                    More Coeliac Information
+                </a>
+            </h6>
 
             <div class="flex flex-col mt-4 main-body">
                 <p>

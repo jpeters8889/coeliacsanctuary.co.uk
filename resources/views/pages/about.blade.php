@@ -3,7 +3,7 @@
 @section('primary-column')
     <div class="flex flex-col"chunk>
         <div class="page-box">
-            <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
+            <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
                 About Coeliac Sanctuary
             </h1>
 

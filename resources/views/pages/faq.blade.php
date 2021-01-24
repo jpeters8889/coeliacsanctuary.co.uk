@@ -1,13 +1,18 @@
 @extends('templates.page-two-column')
 
 @section('primary-column')
-    <div class="flex flex-col"chunk>
+    <div class="flex flex-col" chunk>
         <div class="page-box">
-            <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
+            <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
                 Frequently Asked Questions
             </h1>
 
-            <div class="flex flex-col mt-4">
+            <div class="flex flex-col mt-4 min-h-screen">
+                <p class="mb-4">
+                    We get asked a few common questions now and then, so we thought we'd put them on our website,
+                    hopefully this helps with any questions you might have!
+                </p>
+
                 @foreach($accordions as $accordion)
                     <accordion group="info" name="{{ $accordion->id }}">
                         <template v-slot:title>
