@@ -3,21 +3,29 @@
 @section('primary-column')
     <div class="flex flex-col">
         <div class="page-box">
-            <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
+            <h1 class="my-4 p-3 text-3xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
                 {{ $product->title }}
-                <a class="text-xs font-sans hover:text-grey transition-color" href="{{ $category->link }}"><br />Back
-                    to {{ $category->title }}</a>
             </h1>
 
-            <div class="flex flex-col mt-4 sm:flex-row">
+            <h6 class="text-center -mt-4 pt-1">
+                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="{{ $category->link }}">
+                    Back to {{ $category->title }}
+                </a>
+            </h6>
+
+            <div class="flex flex-col my-4 sm:flex-row">
                 <product-images :product-id="{{ $product->id }}"
-                                class="sm:w-1/2 md:w-1/3 lg:w-1/4"></product-images>
+                                class="hidden sm:block sm:w-1/2 md:w-1/3 lg:w-1/4"></product-images>
+
                 <div class="main-body w-full mt-4 sm:w-1/2 sm:mt-0 sm:ml-4 md:w-2/3 lg:w-3/4 xl:w-4/5">
                     <p>{{ $product->description }}</p>
                     <p><a href="#product-description">Read more...</a></p>
+                    <product-images :product-id="{{ $product->id }}"
+                                    class="sm:hidden my-4"></product-images>
                     <product-add-basket :product-id="{{ $product->id }}" class="mb-4"></product-add-basket>
                 </div>
             </div>
+
 
             <div class="main-body">
                 <p id="product-description">
