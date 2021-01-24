@@ -7,7 +7,7 @@
 
 <script>
     const Loader = () => import('./Loader' /* webpackChunkName: "chunk-loader" */)
-
+    import {loadScript} from "../Utilities/ScriptLoader";
 
     export default {
         data: () => ({
@@ -17,6 +17,11 @@
 
         components: {
             'loader': Loader
+        },
+
+        created() {
+            loadScript(coeliac().getAsset('raphael-min.js', 'external/wteMap'));
+            loadScript(coeliac().getAsset('map.js', 'external/wteMap'));
         },
 
         mounted() {
