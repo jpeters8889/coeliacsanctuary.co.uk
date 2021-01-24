@@ -1,12 +1,15 @@
 @extends('templates.page-two-column')
 
 @section('primary-column')
-    <div class="flex flex-col"chunk>
+    <div class="flex flex-col" chunk>
         <div class="page-box">
-            <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
-                Gluten Free Places to eat in {{ $county }}<br />
-                <a class="text-xs font-sans hover:text-grey transition-color" href="/wheretoeat">Back to Map/List</a>
+            <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
+                Gluten Free Places to eat in {{ $county }}<br/>
             </h1>
+
+            <h6 class="text-center -mt-4">
+                <a class="text-xs font-sans hover:text-grey transition-color" href="/wheretoeat">Back to Map/List</a>
+            </h6>
 
             <div class="flex flex-col mt-2">
                 <div class="flex flex-col bg-blue-light-50 border text-sm border-blue p-2 mb-4">
@@ -18,9 +21,21 @@
                 </div>
 
                 <p>
-                    In the table below you can find our list of independent Gluten Free venues and attractions in
-                    {{ $county }}, don't forget National chains (TGIs, Nandos, Pizza Hut etc are listed
-                    <a href="/wheretoeat/nationwide" class="font-semibold text-blue hover:text-grey transition-color">separately</a>!)
+                    In the list below you can see cities, towns and villages in {{ $county }} that we know offer gluten
+                    free options, whether these are places to eat, attractions or hotels / B&Bs.
+                </p>
+
+                <p class="mt-2">
+                    Most of the places to eat listed in our guide are contributed by people like you, other Coeliac's or
+                    people with a gluten intolerance who know of local places in their local area and are kind enough to let
+                    us know.
+                </p>
+
+                <p class="mt-2">
+                    You won't find any nationwide chains in our normal eating out guide simply due to how many places these
+                    chains have, the other independent eateries will get lost! Instead, we list
+                    <a class="font-semibold hover:text-blue-dark transition-colour" href="/wheretoeat/nationwide">nationwide
+                        chains</a> on a separate page.
                 </p>
 
                 <table class="mt-4 w-full leading-none">
@@ -77,7 +92,7 @@
                     <div
                         class="w-full sm:w-1/2 rounded-lg overflow-hidden flex flex-col shadow-md mb-4 bg-blue-gradient {{ $loop->first ? 'sm:mr-3' : '' }}">
                         <div>
-                            <img src="{{ $review->main_image }}" alt="{{ $review->title }}" />
+                            <img src="{{ $review->main_image }}" alt="{{ $review->title }}"/>
                         </div>
                         <div class="p-2 flex flex-col h-full">
                             <a href="/review/{{ $review->slug }}">
