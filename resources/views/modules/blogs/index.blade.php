@@ -20,5 +20,5 @@
         </module-list-index>
     </div>
 
-    <google-ad code="6662103082"></google-ad>
+{{--    <google-ad code="6662103082"></google-ad>--}}
 @endsection
