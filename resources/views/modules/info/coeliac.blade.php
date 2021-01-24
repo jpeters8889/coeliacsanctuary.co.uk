@@ -1,12 +1,23 @@
 @extends('templates.page-two-column')
 
 @section('primary-column')
-    <div class="flex flex-col"chunk>
+    <div class="flex flex-col" chunk>
         <div class="page-box">
-            <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
+            <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
                 About Coeliac Disease
-                <a class="text-xs font-sans hover:text-grey transition-color" href="/info"><br/>More Information</a>
             </h1>
+
+            <h6 class="text-center -mt-4 pt-1">
+                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="/info">
+                    More Coeliac Information
+                </a>
+            </h6>
+
+            <p class="mt-4">
+                Are you new to coeliac or gluten intolerance? On this page we've got a lot of common information on
+                Coeliac disease, from what it is, to the gluten free lifestyle, and the risk to family and any of your
+                children.
+            </p>
 
             <div class="flex flex-col mt-4">
                 @foreach($accordions as $accordion)
