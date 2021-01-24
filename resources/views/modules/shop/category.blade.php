@@ -8,7 +8,7 @@
             </h1>
 
             <h6 class="text-center -mt-4 pt-1">
-                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="//shop">
+                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="/shop">
                     Back to Shop Home
                 </a>
             </h6>
