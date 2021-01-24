@@ -1,8 +1,8 @@
 @extends('templates.page-two-column')
 
 @section('primary-column')
-    <div class="flex flex-col"chunk>
-        <div class="page-box">
+    <div class="flex flex-col">
+        <div class="min-h-screen page-box">
             <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
                 Gluten Free Places to Eat and Visit
             </h1>
@@ -75,6 +75,6 @@
 @endsection
 
 @section('footerJavascript')
-    <script src="{{ asset('assets/external/wteMap/raphael-min.js') }}"></script>
-    <script src="{{ asset('assets/external/wteMap/map.js') }}"></script>
+    <script async defer src="{{ asset('assets/external/wteMap/raphael-min.js') }}"></script>
+    <script async defer src="{{ asset('assets/external/wteMap/map.js') }}"></script>
 @endsection
