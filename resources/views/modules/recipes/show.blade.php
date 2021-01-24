@@ -1,7 +1,7 @@
 @extends('templates.page-two-column')
 
 @section('primary-column')
-    <div class="flex flex-col"chunk>
+    <div class="flex flex-col" chunk>
         <div class="page-box p-3">
             <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">{{ $recipe->title }}</h1>
 
@@ -22,7 +22,11 @@
         </div>
 
         <div>
-            <recipe-image src="{{ $recipe->main_image }}" alt="{{ $recipe->title }}"></recipe-image>
+{{--            @if($recipe->square_image !== $recipe->main_image)--}}
+{{--                <img src="{{ $recipe->main_image }}" alt="{{ $recipe->title }}" width="100%" loading="lazy"/>--}}
+{{--            @else--}}
+                <recipe-image src="{{ $recipe->main_image }}" alt="{{ $recipe->title }}"></recipe-image>
+{{--            @endif--}}
         </div>
 
         <div class="page-box p-3 flex flex-col">
