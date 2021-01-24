@@ -7,19 +7,11 @@
                 Gluten Free Places to eat in {{ $county }}<br/>
             </h1>
 
-            <h6 class="text-center -mt-4">
-                <a class="text-xs font-sans hover:text-grey transition-color" href="/wheretoeat">Back to Map/List</a>
+            <h6 class="text-center -mt-4 pt-1">
+                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="/wheretoeat">Back to Map/List</a>
             </h6>
 
             <div class="flex flex-col mt-2">
-                <div class="flex flex-col bg-blue-light-50 border text-sm border-blue p-2 mb-4">
-                    <p>
-                        Know somewhere that offers gluten free for us to add or does somewhere need removing off our
-                        list? <a class="font-semibold hover:text-grey transition-color"
-                                 href="/wheretoeat/place-request">Let us know!</a>
-                    </p>
-                </div>
-
                 <p>
                     In the list below you can see cities, towns and villages in {{ $county }} that we know offer gluten
                     free options, whether these are places to eat, attractions or hotels / B&Bs.
@@ -37,6 +29,14 @@
                     <a class="font-semibold hover:text-blue-dark transition-colour" href="/wheretoeat/nationwide">nationwide
                         chains</a> on a separate page.
                 </p>
+
+                <div class="mt-2 flex flex-col bg-blue-light-50 border text-sm border-blue p-2">
+                    <p>
+                        Know somewhere that offers gluten free for us to add or does somewhere need removing off our
+                        list? <a class="font-semibold hover:text-grey transition-color"
+                                 href="/wheretoeat/place-request">Let us know!</a>
+                    </p>
+                </div>
 
                 <table class="mt-4 w-full leading-none">
                     <tr class="text-left border-b-2 border-blue">
