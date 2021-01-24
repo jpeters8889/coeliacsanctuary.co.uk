@@ -6,7 +6,7 @@
                 <div class="xs:w-2/3 md:w-4/5">
                     <div>
                         <p class="mb-3">
-                            <img :src="place.icon" alt="" class="float-left mr-1 mb-1" style="width: 40px" />
+                            <img :data-src="place.icon" alt="" loading="lazy" :src="lazyLoadSrc" class="lazy float-left mr-1 mb-1" style="width: 40px" />
                             <template v-if="place.type.type === 'wte'">
                                 {{ place.info }}
                             </template>
@@ -45,8 +45,13 @@
 
 <script>
     import WhereToEatDetails from "../Mixins/WhereToEatDetails";
+    import LazyLoadsImages from "../Mixins/LazyLoadsImages";
 
     export default {
-        mixins: [WhereToEatDetails],
+        mixins: [WhereToEatDetails, LazyLoadsImages],
+
+        mounted() {
+            this.loadLazyImages();
+        }
     }
 </script>
