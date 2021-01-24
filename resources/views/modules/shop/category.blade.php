@@ -3,10 +3,15 @@
 @section('primary-column')
     <div class="flex flex-col">
         <div class="page-box">
-            <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
+            <h1 class="my-4 p-3 text-3xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
                 {{ $category->title }}
-                <a class="text-xs font-sans hover:text-grey transition-color" href="/shop"><br />Back to Shop Home</a>
             </h1>
+
+            <h6 class="text-center -mt-4 pt-1">
+                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="//shop">
+                    Back to Shop Home
+                </a>
+            </h6>
 
             <div class="flex flex-col mt-4">
                 <p class="mb-4">{{ $category->description }}</p>
