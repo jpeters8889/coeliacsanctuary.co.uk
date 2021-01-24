@@ -14,6 +14,8 @@ class Page extends PageBuilder
 
     private ?string $criticalCss = null;
 
+    private bool $tracking = true;
+
     private array $breadcrumbs = [
         'crumbs' => [
             [
@@ -57,6 +59,13 @@ class Page extends PageBuilder
         return $this;
     }
 
+    public function doNotIndex(): self
+    {
+        $this->tracking = false;
+
+        return $this;
+    }
+
     protected function collectData(array $data = []): array
     {
         $data['breadcrumbs'] = $this->breadcrumbs;
@@ -66,6 +75,7 @@ class Page extends PageBuilder
             'https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap' => 'style',
         ]);
         $data['criticalCss'] = $this->criticalCss;
+        $data['tracking'] = $this->tracking;
 
         return parent::collectData($data);
     }
