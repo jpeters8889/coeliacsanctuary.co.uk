@@ -92,6 +92,6 @@
 @endsection
 
 @section('footerJavascript')
-    <script async defer src="{{ asset('assets/external/wteMap/raphael-min.js') }}"></script>
-    <script async defer src="{{ asset('assets/external/wteMap/map.js') }}"></script>
+    <script async src="{{ asset('assets/external/wteMap/raphael-min.js') }}"></script>
+    <script async src="{{ asset('assets/external/wteMap/map.js') }}"></script>
 @endsection
