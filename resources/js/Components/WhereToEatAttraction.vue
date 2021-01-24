@@ -6,7 +6,7 @@
                 <div class="w-full flex flex-col sm:w-1/2">
                     <div>
                         <p class="mb-3">
-                            <img :src="place.icon" alt="" class="float-left mr-1 mb-1" style="width: 40px" />
+                            <img :data-src="place.icon" alt="" :src="lazyLoadSrc" loading="lazy" class="lazy float-left mr-1 mb-1" style="width: 40px" />
                             <template v-for="restaurant in place.restaurants">
                                 <strong v-if="restaurant.restaurant_name">{{ restaurant.restaurant_name }}<br/></strong>
                                 {{ restaurant.info }}
@@ -56,8 +56,13 @@
 
 <script>
     import WhereToEatDetails from "../Mixins/WhereToEatDetails";
+    import LazyLoadsImages from "../Mixins/LazyLoadsImages";
 
     export default {
-        mixins: [WhereToEatDetails],
+        mixins: [WhereToEatDetails, LazyLoadsImages],
+
+        mounted() {
+            this.loadLazyImages();
+        }
     }
 </script>

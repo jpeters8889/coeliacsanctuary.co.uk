@@ -6,7 +6,8 @@
                 <div class="w-full flex flex-col sm:w-1/2">
                     <div>
                         <p class="mb-3">
-                            <img :src="place.icon" alt="" class="float-left mr-1 mb-1" style="width: 40px" />
+                            <img :data-src="place.icon" loading="lazy" alt=""
+                                 :src="lazyLoadSrc" class="lazy float-left mr-1 mb-1" style="width: 40px"/>
                             {{ place.info }}
                         </p>
                         <p>
@@ -18,7 +19,7 @@
                     </div>
                     <div class="flex flex-col mt-2">
                         <p>
-                            <span v-html="place.address"></span><br />
+                            <span v-html="place.address"></span><br/>
                             {{ place.phone }}
                             <span v-if="place.distance" class="font-semibold mt-2">
                                 <br/>{{ place.distance }} miles away.
@@ -36,11 +37,11 @@
             <div class="w-full flex flex-col mt-2 sm:flex-row">
                 <div class="sm:w-1/2">
                     <wheretoeat-ratings
-                            :ratings="place.ratings"
-                            :average="place.average_rating"
-                            :name="place.name"
-                            :id="place.id"
-                            :has-rated="place.has_been_rated"
+                        :ratings="place.ratings"
+                        :average="place.average_rating"
+                        :name="place.name"
+                        :id="place.id"
+                        :has-rated="place.has_been_rated"
                     ></wheretoeat-ratings>
                 </div>
                 <div class="flex flex-wrap -m-px items-start text-xl sm:w-1/2 sm:justify-end">
@@ -59,9 +60,14 @@
 </template>
 
 <script>
-    import WhereToEatDetails from "../Mixins/WhereToEatDetails";
+import WhereToEatDetails from "../Mixins/WhereToEatDetails";
+import LazyLoadsImages from "../Mixins/LazyLoadsImages";
 
-    export default {
-        mixins: [WhereToEatDetails],
+export default {
+    mixins: [WhereToEatDetails, LazyLoadsImages],
+
+    mounted() {
+        this.loadLazyImages()
     }
+}
 </script>
