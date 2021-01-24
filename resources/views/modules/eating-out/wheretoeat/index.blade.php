@@ -91,7 +91,7 @@
     </div>
 @endsection
 
-@section('footerJavascript')
-    <script async src="{{ asset('assets/external/wteMap/raphael-min.js') }}"></script>
-    <script async src="{{ asset('assets/external/wteMap/map.js') }}"></script>
-@endsection
+{{--@section('footerJavascript')--}}
+{{--    <script async src="{{ asset('assets/external/wteMap/raphael-min.js') }}"></script>--}}
+{{--    <script async src="{{ asset('assets/external/wteMap/map.js') }}"></script>--}}
+{{--@endsection--}}
