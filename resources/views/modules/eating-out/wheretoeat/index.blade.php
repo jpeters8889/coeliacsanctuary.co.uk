@@ -3,13 +3,28 @@
 @section('primary-column')
     <div class="flex flex-col">
         <div class="min-h-screen page-box">
-            <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
+            <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
                 Gluten Free Places to Eat and Visit
             </h1>
 
             <p>
-                Find independent places to eat that offer gluten free options on our Map and List page, you can also
-                find Nationwide chains that offer gluten free options on a separate page to avoid cluttering our lists.
+                Our Where to Eat guide lists 1000s of independent eateries all over the UK and Ireland that offer gluten
+                free options or have a gluten free menu.
+            </p>
+            <p class="mt-2">
+                Most of the places to eat listed in our guide are contributed by people like you, other Coeliac's or
+                people with a gluten intolerance who know of local places in their local area and are kind enough to let
+                us know through our <a href="/wheretoeat/place-request" target="_blank">Place Request form</a>.
+            </p>
+            <p class="mt-2">
+                Our eating out guide can be viewed as an interactive map of all the counties across the UK, or as a
+                simple list to make it easier to find what you're looking for. Each county in then broken down into
+                individual cities, towns or even villages, and then you can easily view places in that area.
+            </p>
+            <p class="mt-2">
+                You won't find any nationwide chains in our normal eating out guide simply due to how many places these
+                chains have, the other independent eateries will get lost! Instead, we list
+                <a href="/wheretoeat/nationwide">nationwide chains</a> on a separate page.
             </p>
 
             <wheretoeat-quick-search></wheretoeat-quick-search>
@@ -48,7 +63,7 @@
                 <tab title="Nationwide Places" url="nationwide">
                     <wheretoeat-list :county-id="{{ $nationwide_id }}">
                         <template v-slot:intro>
-                            <p class="mb-4">
+                            <p class="mb-4" id="nationwide-eateries">
                                 Here you can find chain restaurants and eateries that offer gluten free. We don't show
                                 these places within our main Where To Eat guide because there is so many of them.
                             </p>
