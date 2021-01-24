@@ -5,7 +5,7 @@
              :src="lazyLoadSrc"
              :alt="alt"/>
         <div class="absolute top-0 h-full w-full flex justify-center">
-            <img class="h-full w-auto lazy" :data-src="src" :src="lazyLoadSrc" :alt="alt"/>
+            <img class="h-full w-auto lazy recipe-img" :data-src="src" :src="lazyLoadSrc" :alt="alt"/>
         </div>
     </div>
 </template>

@@ -45,7 +45,15 @@ export default class Coeliac {
 
     addWidthToImages() {
         document.querySelectorAll('img').forEach((image) => {
-            const width = image.width > 0 ? image.width : image.closest('div').offsetWidth;
+            let width = image.width;
+
+            if(width === 0 || image.classList.contains('recipe-img')) {
+                width = image.closest('div').offsetWidth;
+            }
+
+            if (image.classList.contains('absolute')) {
+                return;
+            }
 
             if (image.hasAttribute('data-src')) {
                 let attribute = new URL(image.getAttribute('data-src'));
