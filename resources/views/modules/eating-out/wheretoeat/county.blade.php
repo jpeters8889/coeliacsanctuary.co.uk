@@ -92,7 +92,8 @@
                     <div
                         class="w-full sm:w-1/2 rounded-lg overflow-hidden flex flex-col shadow-md mb-4 bg-blue-gradient {{ $loop->first ? 'sm:mr-3' : '' }}">
                         <div>
-                            <img src="{{ $review->main_image }}" alt="{{ $review->title }}"/>
+                            <img data-src="{{ $review->main_image }}" alt="{{ $review->title }}" loading="lazy" class="lazy"
+                                 src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 2'%3E%3C/svg%3E"/>
                         </div>
                         <div class="p-2 flex flex-col h-full">
                             <a href="/review/{{ $review->slug }}">
