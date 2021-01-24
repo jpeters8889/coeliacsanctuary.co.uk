@@ -135,6 +135,7 @@ class BasketController extends BaseController
                 ],
             ], 'Checkout')
             ->setPageTitle('Checkout | Coeliac Sanctuary')
+            ->doNotIndex()
             ->render('modules.shop.basket');
     }
 }

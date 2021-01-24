@@ -52,6 +52,7 @@ class BasketDoneController extends BaseController
                 ],
             ], 'Order Complete!')
             ->setPageTitle('Order Complete | Coeliac Sanctuary')
+            ->doNotIndex()
             ->render('modules.shop.basket-done', [
                 'gtagData' => $gtagData,
                 'latestBlogs' => (new BlogRepository())->take(2),
