@@ -1,6 +1,5 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const FontminPlugin = require('fontmin-webpack')
 
 require('laravel-mix-criticalcss');
@@ -9,7 +8,6 @@ require('laravel-mix-bundle-analyzer');
 mix
     .webpackConfig({
         plugins: [
-            new MomentLocalesPlugin(),
             new FontminPlugin({
                 autodetect: true,
             }),
