@@ -45,15 +45,7 @@ class SearchController extends BaseController
                 continue;
             }
 
-            $with = [
-                'getRankingInfo' => true,
-            ];
-
             $relations = ['images', 'images.image'];
-
-            if ($area === 'blogs') {
-                $with['restrictSearchableAttributes'] = 'title,description,metaTags,tags';
-            }
 
             if ($area === 'eateries') {
                 $relations = ['town', 'county', 'country', 'ratings'];
@@ -64,7 +56,7 @@ class SearchController extends BaseController
                     $wteWith = [
                         'getRankingInfo' => true,
                         'aroundLatLng' => implode(', ', [$geocoder['lat'], $geocoder['lng']]),
-                        'aroundRadius' => (int) round(2 * 1609.344),
+                        'aroundRadius' => (int)round(2 * 1609.344),
                     ];
                 }
             }
@@ -74,7 +66,9 @@ class SearchController extends BaseController
             }
 
             $thisResults = $model::search($request->input('search'))
-                ->with($with)
+                ->with([
+                    'getRankingInfo' => true,
+                ])
                 ->get()
                 ->load($relations);
 
@@ -99,51 +93,52 @@ class SearchController extends BaseController
             }
         }
 
-        $results = $results->sort(function (BaseModel $first, BaseModel $second) {
-            /* @phpstan-ignore-next-line  */
-            return $second->scoutMetadata()['_rankingInfo']['userScore'] <=> $first->scoutMetadata()['_rankingInfo']['userScore'];
-        })->values();
+        return $results->sortBy(fn(BaseModel $model) => [
+            $model->scoutMetadata()['_rankingInfo']['firstMatchedWord'],
+            -$model->scoutMetadata()['_rankingInfo']['userScore'],
+        ])
+            ->transform(function (BaseModel $model) {
+                $merge = [];
+                $type = class_basename($model) === 'WhereToEat' ? 'eateries' : Str::lower(Str::plural(class_basename($model)));
 
-        return $results->transform(function (BaseModel $model) {
-            $merge = [];
-            $type = class_basename($model) === 'WhereToEat' ? 'eateries' : Str::lower(Str::plural(class_basename($model)));
+                if ($type === 'eateries') {
+                    /** @var WhereToEat $eatery */
+                    $eatery = $model;
 
-            if ($type === 'eateries') {
-                /** @var WhereToEat $eatery */
-                $eatery = $model;
+                    $merge = [
+                        'lat' => $eatery->lat,
+                        'lng' => $eatery->lng,
+                        'town' => $eatery->town->town,
+                        'county' => $eatery->county->county,
+                        'country' => $eatery->country->country,
+                        'link' => '/wheretoeat/' . $eatery->county->slug . '/' . $eatery->town->slug,
+                        'title' => $eatery->name,
+                        'description' => $eatery->info,
+                    ];
+                }
 
-                $merge = [
-                    'lat' => $eatery->lat,
-                    'lng' => $eatery->lng,
-                    'town' => $eatery->town->town,
-                    'county' => $eatery->county->county,
-                    'country' => $eatery->country->country,
-                    'link' => '/wheretoeat/'.$eatery->county->slug.'/'.$eatery->town->slug,
-                    'title' => $eatery->name,
-                    'description' => $eatery->info,
-                ];
-            }
+                if ($type === 'reviews') {
+                    /** @var Review $review */
+                    $review = $model;
+                    $merge = [
+                        'title' => $review->title . ', ' . $review->eatery->town->town . ', ' . $review->eatery->county->county,
+                    ];
+                }
 
-            if ($type === 'reviews') {
-                /** @var Review $review */
-                $review = $model;
-                $merge = [
-                    'title' => $review->title.', '.$review->eatery->town->town.', '.$review->eatery->county->county,
-                ];
-            }
+                /** @var Blog $blog */
+                $blog = $model;
 
-            /** @var Blog $blog */
-            $blog = $model;
-
-            return array_merge([
-                'score' => $blog->scoutMetadata()['_rankingInfo']['userScore'],
-                'type' => $type,
-                'id' => $blog->id,
-                'link' => $blog->link,
-                'title' => $blog->title,
-                'description' => $blog->meta_description,
-                'image' => $blog->main_image ?? $blog->first_image,
-            ], $merge);
-        });
+                return array_merge([
+                    'word' => $blog->scoutMetadata()['_rankingInfo']['firstMatchedWord'],
+                    'score' => $blog->scoutMetadata()['_rankingInfo']['userScore'],
+                    'type' => $type,
+                    'id' => $blog->id,
+                    'link' => $blog->link,
+                    'title' => $blog->title,
+                    'description' => $blog->meta_description,
+                    'image' => $blog->main_image ?? $blog->first_image,
+                ], $merge);
+            })
+            ->values();
     }
 }
