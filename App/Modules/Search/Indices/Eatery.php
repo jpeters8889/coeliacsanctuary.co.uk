@@ -14,7 +14,7 @@ class Eatery extends Index
 {
     protected function model(): Builder
     {
-        WhereToEat::search($this->term);
+        return WhereToEat::search($this->term);
     }
 
     protected function withRelations(): array
