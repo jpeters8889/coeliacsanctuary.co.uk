@@ -34,7 +34,7 @@ class RecipeModelTest extends TestCase
     public function it_has_a_feature()
     {
         $this->recipe->features()->attach($this->createRecipeFeature());
-        $this->assertEquals(1, $this->recipe->features->count());
+        $this->assertEquals(1, $this->recipe->features()->count());
     }
 
     /** @test */

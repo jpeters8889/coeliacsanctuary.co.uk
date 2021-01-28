@@ -278,6 +278,7 @@ module.exports = {
             '0': '0',
             1: '0.5rem',
             '50px': '50px',
+            '130px': '130px',
             auto: 'auto',
         },
         letterSpacing: {

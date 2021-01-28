@@ -32,7 +32,7 @@ class Image extends BaseModel
         static::deleted(static function (Image $image) {
             Container::getInstance()->make(FilesystemManager::class)
                 ->disk('images')
-                ->delete($image->directory . '/' . $image->file_name);
+                ->delete($image->directory.'/'.$image->file_name);
         });
     }
 
@@ -43,14 +43,14 @@ class Image extends BaseModel
 
     public function getRawUrlAttribute()
     {
-        return Container::getInstance()->make(FilesystemManager::class)->disk('images')->url($this->directory . '/' . $this->file_name);
+        return Container::getInstance()->make(FilesystemManager::class)->disk('images')->url($this->directory.'/'.$this->file_name);
     }
 
     public function getImageUrlAttribute()
     {
         if (config('app.env') === 'testing') {
             // @todo this sucks
-            return Container::getInstance()->make(FilesystemManager::class)->disk('images')->url($this->directory . '/' . $this->file_name);
+            return Container::getInstance()->make(FilesystemManager::class)->disk('images')->url($this->directory.'/'.$this->file_name);
         }
 
         return implode('/', [

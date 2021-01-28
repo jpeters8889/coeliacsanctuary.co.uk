@@ -10,5 +10,5 @@ class RoutesServiceProvider extends BaseRouteProvider
 {
     protected $path = 'App/Modules/Search/Routes/';
 
-    protected $maps = ['api'];
+    protected $maps = ['web', 'api'];
 }

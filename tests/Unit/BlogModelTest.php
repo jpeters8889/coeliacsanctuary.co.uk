@@ -37,7 +37,7 @@ class BlogModelTest extends TestCase
     /** @test */
     public function it_has_a_tag()
     {
-        $this->assertEquals(1, $this->blog->tags->count());
+        $this->assertEquals(1, $this->blog->tags()->count());
     }
 
     /** @test */

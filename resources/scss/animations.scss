@@ -4,6 +4,12 @@
   animation-fill-mode: forwards;
 }
 
+.slide-up {
+    transform: translateY(-500%);
+    animation: slide-up .3s ease;
+    animation-fill-mode: forwards;
+}
+
 .spin {
   animation-name: spin;
   animation-timing-function: linear;
@@ -16,6 +22,13 @@
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-duration: 1.5s;
+}
+
+@responsive {
+    .no-animation {
+        animation: none;
+        transform: none;
+    }
 }
 
 @keyframes spin {
@@ -39,6 +52,12 @@
 }
 
 @keyframes slide-down {
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
   100% {
     transform: translateY(0);
   }

@@ -44,6 +44,7 @@ const Announcement = () => import("./Components/Announcement" /* webpackChunkNam
 const PopupCta = () => import("./Components/PopupCta" /* webpackChunkName: "preload-popup-cta" */);
 const GoogleAd = () => import('./Components/GoogleAd' /* webpackChunkName: "preload-google-ad" */);
 const WhereToEatQuickSearch = () => import('./Components/WhereToEatQuickSearch' /* webpackChunkName: "chunk-wte-quick-search" */);
+const SiteSearch = () => import('./Components/SiteSearch' /* webpackChunkName: "chunk-site-search" */)
 
 Vue.component('accordion', Accordion);
 Vue.component('add-basket-trigger', AddBasketTrigger);
@@ -74,6 +75,7 @@ Vue.component('product-add-basket', ProductAddToBasket);
 Vue.component('product-images', ProductImages);
 Vue.component('quick-search', QuickSearch);
 Vue.component('recipe-image', RecipeImage);
+Vue.component('site-search', SiteSearch);
 Vue.component('static-map', StaticMap);
 Vue.component('stars', Stars);
 Vue.component('tab', Tab);

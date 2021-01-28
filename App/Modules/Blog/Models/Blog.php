@@ -64,7 +64,7 @@ class Blog extends BaseModel implements HasComments
             'title' => $this->title,
 //            'body' => $this->body,
             'description' => $this->description,
-            'metaTags' => explode(',', $this->meta_tags),
+            'metaTags' => $this->meta_keywords ? explode(',', $this->meta_keywords) : [],
             'tags' => $this->tags->pluck('tag'),
         ]);
     }
