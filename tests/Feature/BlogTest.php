@@ -24,7 +24,7 @@ class BlogTest extends TestCase
     {
         $this->get('/blog')
             ->assertStatus(200)
-            ->assertSee('<module-list-index module="blogs" title="Blogs" url-prefix="blog"></module-list-index>', false);
+            ->assertSee('<module-list-index module="blogs" title="Blogs" url-prefix="blog">', false);
     }
 
     /** @test */
@@ -156,6 +156,8 @@ class BlogTest extends TestCase
     /** @test */
     public function it_shows_blog_content()
     {
+        $this->withoutExceptionHandling();
+
         $blog = $this->createBlog();
 
         $blog->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER)
