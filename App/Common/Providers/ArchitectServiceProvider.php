@@ -7,6 +7,7 @@ namespace Coeliac\Common\Providers;
 use Coeliac\Common\ArchitectDashboard;
 use Coeliac\Common\Architect\HorizonDashboard;
 use Coeliac\Common\Architect\MailcoachDashboard;
+use Coeliac\Modules\Search\Architect\Blueprint as SearchHistoryBlueprint;
 use Coeliac\Modules\Shop\Architect\ShopDashboard;
 use Coeliac\Modules\Shop\Architect\OrderBlueprint;
 use Coeliac\Modules\Shop\Architect\BasketBlueprint;
@@ -42,6 +43,7 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             CollectionsBlueprint::class,
             CommentsBlueprint::class,
             WteRatingsBlueprint::class,
+            SearchHistoryBlueprint::class,
             AnnouncementBlueprint::class,
             PopupBlueprint::class,
             PlaceRequestBlueprint::class,
