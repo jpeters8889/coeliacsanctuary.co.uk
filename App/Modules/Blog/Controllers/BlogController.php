@@ -56,17 +56,22 @@ class BlogController extends BaseController
         /* @var Blog $blog */
         abort_if(!$blog = $request->resolveItem(), 404, 'Sorry, this blog can\'t be found');
 
-        $related = $blog->tags()
-            ->first()
-            ->blogs()
-            ->where('id', '!=', $blog->id)
-            ->where('live', true)
-            ->with('images', 'images.image')
-            ->latest()
-            ->take(10)
-            ->get();
+        try {
+            $related = $blog->tags()
+                ->has('blogs', '>=', 2)
+                ->first()
+                ->blogs()
+                ->where('id', '!=', $blog->id)
+                ->where('live', true)
+                ->with('images', 'images.image')
+                ->latest()
+                ->take(10)
+                ->get();
 
-        if (!$related) {
+            if ($related->count() < 10) {
+                $related->concat((new Repository())->random()->take(10 - $related->count()));
+            }
+        } catch (\Throwable $exception) {
             $related = (new Repository())->random()->take(10);
         }
 
@@ -77,7 +82,7 @@ class BlogController extends BaseController
                 ->inRandomOrder()
                 ->take(3)
                 ->get()
-                ->transform(fn (CollectionItem $item) => $item->collection);
+                ->transform(fn(CollectionItem $item) => $item->collection);
         }
 
         return $this->page
@@ -88,9 +93,9 @@ class BlogController extends BaseController
                     'title' => 'Blogs',
                 ],
             ], $blog->title)
-            ->setPageTitle($blog->title.' | Blogs')
+            ->setPageTitle($blog->title . ' | Blogs')
             ->setMetaDescription($blog->meta_description)
-            ->setMetaKeywords(explode(',', (string) $blog->meta_keywords))
+            ->setMetaKeywords(explode(',', (string)$blog->meta_keywords))
             ->setSocialImage($blog->social_image)
             ->render('modules.blogs.show', compact('blog', 'related', 'featured'));
     }
