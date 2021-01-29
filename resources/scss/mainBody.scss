@@ -1,7 +1,7 @@
 .main-body {
     a {
         transition: color 0.5s ease;
-        display: inline!important;
+        display: inline !important;
         font-weight: 600;
         color: #80CCFC;
 
@@ -28,13 +28,29 @@
             @apply border-b-2 border-blue;
             th {
                 @apply bg-blue-light-20 text-center text-xl font-coeliac leading-none;
-                padding: 1rem 0!important;
+                padding: 1rem 0 !important;
             }
+
             td, th {
                 @apply p-1 border-r-2 border-blue align-top;
                 &:last-of-type {
                     @apply border-0;
                 }
+            }
+        }
+    }
+
+    table.recipe-table {
+        width: fit-content;
+
+        tr {
+            th, td {
+                width: 16.6666%;
+            }
+
+            th {
+                @apply font-sans text-sm;
+                padding: 0.5rem !important;
             }
         }
     }
