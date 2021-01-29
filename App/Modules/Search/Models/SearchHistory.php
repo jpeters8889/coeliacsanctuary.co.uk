@@ -9,11 +9,7 @@ use Coeliac\Base\Models\BaseModel;
 class SearchHistory extends BaseModel
 {
     protected $casts = [
-      'blogs' => 'bool',
-      'recipes' => 'bool',
-      'reviews' => 'bool',
-      'eateries' => 'bool',
-      'products' => 'bool',
+        'number_of_searches' => 'int',
     ];
 
     protected $table = 'search_history';

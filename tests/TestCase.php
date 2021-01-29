@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Laravel\Scout\Builder;
+use Tests\Mocks\MockScoutBuilder;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -35,5 +37,10 @@ abstract class TestCase extends BaseTestCase
         Config::set('filesystems.disks.images.url', __DIR__.'/../storage/app/tests');
 
         Storage::fake();
+    }
+
+    protected function setUpScout(): void
+    {
+        $this->app->bind(Builder::class, MockScoutBuilder::class);
     }
 }

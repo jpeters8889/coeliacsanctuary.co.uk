@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Support\Str;
 use Coeliac\Modules\Search\Models\SearchHistory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -13,46 +12,18 @@ class SearchTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function makeRequest($term, $areas = [])
+    /** @test */
+    public function itReturnsSuccessWithAValidSearchString()
     {
-        $areas = array_merge([
-            'blogs' => true,
-            'reviews' => true,
-            'recipes' => true,
-            'eateries' => true,
-            'products' => true,
-        ], $areas);
-
-        return $this->post('/api/search', [
-            'search' => $term,
-            'areas' => $areas,
-        ]);
+        $this->get('/search?q=foo')->assertStatus(200);
     }
 
     /** @test */
-    public function it_rejects_searches_without_a_term()
-    {
-        return $this->makeRequest(null)->assertStatus(422);
-    }
-
-    /** @test */
-    public function it_errors_with_a_search_that_is_too_long()
-    {
-        $this->makeRequest(Str::random(51))->assertStatus(422);
-    }
-
-    /** @test */
-    public function it_returns_success_with_a_valid_search()
-    {
-        $this->makeRequest('foo')->assertStatus(200);
-    }
-
-    /** @test */
-    public function it_logs_the_search_history()
+    public function itCreatesARecordInTheSearchHistory()
     {
         $this->assertEmpty(SearchHistory::query()->get());
 
-        $this->makeRequest('foo');
+        $this->get('/search?q=foo');
 
         $this->assertNotEmpty(SearchHistory::query()->get());
 
@@ -62,28 +33,29 @@ class SearchTest extends TestCase
     }
 
     /** @test */
-    public function it_stores_the_search_areas()
+    public function it_doesnt_duplicate_search_history()
     {
-        $this->makeRequest('first');
+        $this->get('/search?q=foo');
 
-        $history = SearchHistory::query()->latest()->first();
+        $this->assertCount(1, SearchHistory::all());
 
-        $this->assertTrue($history->blogs);
-        $this->assertTrue($history->recipes);
-        $this->assertTrue($history->reviews);
-        $this->assertTrue($history->eateries);
-        $this->assertTrue($history->products);
+        $this->get('/search?q=foo');
 
-        $this->makeRequest('second', ['blogs' => false]);
+        $this->assertCount(1, SearchHistory::all());
+    }
 
-        $history = SearchHistory::query()->orderByDesc('id')->first();
+    /** @test */
+    public function it_updates_the_search_count()
+    {
+        $this->get('/search?q=foo');
 
-        $this->assertFalse($history->blogs);
+        /** @var SearchHistory $history */
+        $history = SearchHistory::query()->first();
 
-        $this->makeRequest('third', ['products' => false]);
+        $this->assertEquals(1, $history->number_of_searches);
 
-        $history = SearchHistory::query()->orderByDesc('id')->first();
+        $this->get('/search?q=foo');
 
-        $this->assertFalse($history->products);
+        $this->assertEquals(2, $history->fresh()->number_of_searches);
     }
 }
