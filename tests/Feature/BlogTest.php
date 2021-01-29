@@ -156,6 +156,8 @@ class BlogTest extends TestCase
     /** @test */
     public function it_shows_blog_content()
     {
+        $this->withoutExceptionHandling();
+
         $blog = $this->createBlog();
 
         $blog->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER)
