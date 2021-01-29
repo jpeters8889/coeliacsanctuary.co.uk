@@ -142,10 +142,6 @@ export default {
         Object.keys(this.areas).forEach((area) => {
             this.$root.$on(`${area}-change`, (value) => {
                 this.areas[area] = !!value;
-
-                if (this.currentTerm !== '') {
-                    this.runSearch();
-                }
             });
         });
 
@@ -156,6 +152,10 @@ export default {
             }
             this.isSticky = entries[0].intersectionRatio === 0;
         }).observe(document.querySelector('#searchCheck'));
+
+        this.parseUrl();
+
+        this.runSearch();
     },
 
     methods: {
@@ -172,15 +172,16 @@ export default {
                 coeliac().error('Sorry, there was an error running your search.');
             }).finally(() => {
                 this.loading = false;
-                this.loadLazyImages();
                 this.updateUrl();
                 this.updateTitle();
+                this.loadLazyImages();
             })
         },
 
         updateUrl() {
             const params = new URLSearchParams(window.location.search);
             params.set('q', this.currentTerm);
+            params.set('f', btoa(JSON.stringify(this.areas)));
             history.pushState(null, '', `${window.location.origin}${window.location.pathname}?${params.toString()}`);
         },
 
@@ -214,6 +215,22 @@ export default {
                     return 'search-shop-product-result';
             }
         },
+
+        parseUrl() {
+            const params = new URLSearchParams(window.location.search);
+
+            if(params.has('f')) {
+                const areas = JSON.parse(atob(params.get('f')));
+
+                if(JSON.stringify(Object.keys(areas)) === JSON.stringify(Object.keys(this.areas))) {
+                    this.areas = areas;
+
+                    Object.keys(areas).forEach((area) => {
+                        this.$root.$on(`${area}-set-value`, areas[area]);
+                    });
+                }
+            }
+        },
     },
 
     computed: {
@@ -230,7 +247,7 @@ export default {
 
     watch: {
         currentTerm: function (newTerm, oldTerm) {
-            if (oldTerm === '') {
+            if (oldTerm === '' || newTerm === oldTerm) {
                 return;
             }
 
@@ -240,6 +257,17 @@ export default {
                 this.currentPage = 1;
                 this.runSearch();
             }, 500);
+        },
+
+        areas: {
+            deep: true,
+            handler: function() {
+                this.updateUrl();
+
+                if (this.currentTerm !== '' && !this.loading) {
+                    this.runSearch();
+                }
+            },
         }
     },
 }
