@@ -22,11 +22,7 @@
         </div>
 
         <div>
-{{--            @if($recipe->square_image !== $recipe->main_image)--}}
-{{--                <img src="{{ $recipe->main_image }}" alt="{{ $recipe->title }}" width="100%" loading="lazy"/>--}}
-{{--            @else--}}
-                <recipe-image src="{{ $recipe->main_image }}" alt="{{ $recipe->title }}"></recipe-image>
-{{--            @endif--}}
+            <recipe-image src="{{ $recipe->main_image }}" alt="{{ $recipe->title }}"></recipe-image>
         </div>
 
         <div class="page-box p-3 flex flex-col">
@@ -85,6 +81,29 @@
                 <article>
                     {!! $recipe->method !!}
                 </article>
+
+                <h3 class="text-base font-semibold mt-4 mb-2">
+                    Nutritional Information (Per {{ $recipe->per }})
+                </h3>
+
+                <table class="recipe-table">
+                    <tr>
+                        <th>Calories</th>
+                        <th>Carbs</th>
+                        <th>Fibre</th>
+                        <th>Fat</th>
+                        <th>Sugar</th>
+                        <th>Protein</th>
+                    </tr>
+                    <tr>
+                        <td>{{ $recipe->nutrition->calories }}</td>
+                        <td>{{ $recipe->nutrition->carbs }}<sub>g</sub></td>
+                        <td>{{ $recipe->nutrition->fibre }}<sub>g</sub></td>
+                        <td>{{ $recipe->nutrition->fat }}<sub>g</sub></td>
+                        <td>{{ $recipe->nutrition->sugar }}<sub>g</sub></td>
+                        <td>{{ $recipe->nutrition->protein }}<sub>g</sub></td>
+                    </tr>
+                </table>
 
                 <google-ad code="4702154153"></google-ad>
             </div>
