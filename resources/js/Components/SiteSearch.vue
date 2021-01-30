@@ -6,7 +6,7 @@
 
                 <div :class="filterClasses">
                     <div>
-                        <form-input name="term" required :max="50" :value="currentTerm"></form-input>
+                        <form-input type="search" name="term" required :max="50" :value="currentTerm"></form-input>
                     </div>
 
                     <div class="leading-none flex flex-wrap justify-center text-xs lg:flex-no-wrap lg:flex-col">
@@ -35,7 +35,7 @@
                          :class="index % 2 === 0 ? 'bg-grey-light' : ''">
                         <component :is="resultComponent(result.type)" :result="result"></component>
                     </div>
-                    <div v-else>
+                    <div v-if="results.length === 0">
                         <em>No results found...</em>
                     </div>
                 </div>
@@ -112,6 +112,11 @@ export default {
     mounted() {
         this.currentTerm = this.term;
 
+        if(this.currentTerm === '') {
+            this.loading = false;
+            coeliac().error('Please enter a search term...')
+        }
+
         this.$root.$on('term-change', (value) => {
             this.currentTerm = value;
         });
@@ -160,7 +165,10 @@ export default {
 
     methods: {
         runSearch() {
-            this.results = [];
+            if (this.currentTerm === '') {
+                this.results = [];
+                return;
+            }
 
             coeliac().request().post(`/api/search?page=${this.currentPage}`, {
                 term: this.currentTerm,
@@ -169,6 +177,8 @@ export default {
                 this.lastPage = response.data.last_page;
                 this.results = response.data.data;
             }).catch(() => {
+                this.results = [];
+
                 coeliac().error('Sorry, there was an error running your search.');
             }).finally(() => {
                 this.loading = false;
@@ -219,10 +229,10 @@ export default {
         parseUrl() {
             const params = new URLSearchParams(window.location.search);
 
-            if(params.has('f')) {
+            if (params.has('f')) {
                 const areas = JSON.parse(atob(params.get('f')));
 
-                if(JSON.stringify(Object.keys(areas)) === JSON.stringify(Object.keys(this.areas))) {
+                if (JSON.stringify(Object.keys(areas)) === JSON.stringify(Object.keys(this.areas))) {
                     this.areas = areas;
 
                     Object.keys(areas).forEach((area) => {
@@ -234,20 +244,20 @@ export default {
     },
 
     computed: {
-        filterClasses: function() {
-            let base = ['p-2','flex','flex-col','lg:border','border-blue','lg:rounded-lg'];
+        filterClasses: function () {
+            let base = ['p-2', 'flex', 'flex-col', 'lg:border', 'border-blue', 'lg:rounded-lg'];
 
-            if(this.isSticky) {
-                return base.concat(['bottom-0','left-0','bg-yellow','slide-up','w-full','z-max','lg:bg-grey-lightest','fixed','lg:sticky','lg:no-animation','lg:top-130px','lg:bottom-auto', 'lg:z-auto'])
+            if (this.isSticky) {
+                return base.concat(['bottom-0', 'left-0', 'bg-yellow', 'slide-up', 'w-full', 'z-max', 'lg:bg-grey-lightest', 'fixed', 'lg:sticky', 'lg:no-animation', 'lg:top-130px', 'lg:bottom-auto', 'lg:z-auto'])
             }
 
-            return base.concat(['bg-blue-light-20','lg:bg-grey-lightest']);
+            return base.concat(['bg-blue-light-20', 'lg:bg-grey-lightest']);
         }
     },
 
     watch: {
         currentTerm: function (newTerm, oldTerm) {
-            if (oldTerm === '' || newTerm === oldTerm) {
+            if (oldTerm === '' || newTerm === oldTerm || newTerm === '') {
                 return;
             }
 
@@ -261,7 +271,7 @@ export default {
 
         areas: {
             deep: true,
-            handler: function() {
+            handler: function () {
                 this.updateUrl();
 
                 if (this.currentTerm !== '' && !this.loading) {
