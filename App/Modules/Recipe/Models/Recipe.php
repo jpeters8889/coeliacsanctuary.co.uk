@@ -94,7 +94,7 @@ class Recipe extends BaseModel implements HasComments
 
     public function nutrition(): HasOne
     {
-        return $this->hasOne(RecipeNutrition::class);
+        return $this->hasOne(RecipeNutrition::class)->latest();
     }
 
     public function toSearchableArray(): array
