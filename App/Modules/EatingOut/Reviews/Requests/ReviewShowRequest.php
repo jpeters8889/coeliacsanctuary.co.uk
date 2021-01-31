@@ -21,8 +21,12 @@ class ReviewShowRequest extends ModuleRequest
             return $parent;
         }
 
-        return $this->repository()
+        $legacy = $this->repository()
             ->setWiths($withs)
             ->get($this->route($this->identifier()), 'legacy_slug');
+
+        if ($legacy) {
+            redirect_now($legacy->link);
+        }
     }
 }
