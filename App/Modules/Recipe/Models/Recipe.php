@@ -167,7 +167,7 @@ class Recipe extends BaseModel implements HasComments
                 'fiberContent' => $this->nutrition->fibre,
             ],
             'recipeIngredient' => Str::explodeIntoCollection($this->ingredients, '<br />'),
-            'recipeInstructions' => cs_br2nl($this->method),
+            'recipeInstructions' => Str::explodeIntoCollection($this->method, '\n\n'),
             'suitableForDiet' => $this->richTextSuitableFor(),
             'averageRating' => '',
             'keywords' => $this->meta_tags,
