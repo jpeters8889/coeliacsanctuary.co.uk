@@ -32,7 +32,7 @@ trait HasRichText
         $bits = explode(' ', $time);
 
         if (count($bits) === 4) {
-            return "PT{$bits[0]}H{$bits[2]}M";
+            return str_ireplace('half', '', "PT{$bits[0]}H{$bits[2]}M");
         }
 
         if (count($bits) === 2) {
@@ -42,7 +42,7 @@ trait HasRichText
                 $unit = 'H';
             }
 
-            return "PT{$bits[0]}{$unit}";
+            return str_ireplace('half', '', "PT{$bits[0]}{$unit}");
         }
 
         return 'PT';
