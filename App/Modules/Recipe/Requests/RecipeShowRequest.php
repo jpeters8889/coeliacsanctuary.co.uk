@@ -14,4 +14,19 @@ class RecipeShowRequest extends ModuleRequest
     {
         return new Repository();
     }
+
+    public function resolveItem($withs = [])
+    {
+        if ($parent = parent::resolveItem($withs)) {
+            return $parent;
+        }
+
+        $legacy = $this->repository()
+            ->setWiths($withs)
+            ->get($this->route($this->identifier()), 'legacy_slug');
+
+        if ($legacy) {
+            redirect_now($legacy->link);
+        }
+    }
 }

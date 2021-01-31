@@ -6,10 +6,10 @@ namespace Coeliac\Base\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Coeliac\Modules\Shop\Console\CloseBaskets;
-use Coeliac\Base\Console\Commands\ImportCommand;
 use Coeliac\Modules\Shop\Console\ApplyMassDiscounts;
 use Coeliac\Base\Console\Commands\ClearPublicDirectories;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Coeliac\Modules\Recipe\Console\PrefixRecipesWithGlutenFree;
 
 class Kernel extends ConsoleKernel
 {
@@ -17,7 +17,8 @@ class Kernel extends ConsoleKernel
         ApplyMassDiscounts::class,
         ClearPublicDirectories::class,
         CloseBaskets::class,
-        ImportCommand::class,
+//        ImportCommand::class,
+        PrefixRecipesWithGlutenFree::class,
     ];
 
     protected function schedule(Schedule $schedule)
