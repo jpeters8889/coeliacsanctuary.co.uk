@@ -67,7 +67,7 @@ class Blueprint extends ArchitectBlueprint
 
             Group::generate('nutrition', 'Nutritional Information')
                 ->hideOnIndex()
-                ->setRelationship('nutrition')
+                ->setPivotRelationship('nutrition')
                 ->plans($this->getNutritionPlans()),
 
             Group::generate('allergens', 'Free From')
