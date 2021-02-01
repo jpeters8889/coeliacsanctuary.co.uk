@@ -6,9 +6,9 @@ namespace Tests\Unit\Modules\User;
 
 use Tests\TestCase;
 use Tests\Traits\CreateUser;
-use Coeliac\Common\Models\User;
+use Coeliac\Modules\Member\Models\User;
 use Tests\Traits\Shop\CreateOrder;
-use Coeliac\Common\Models\UserAddress;
+use Coeliac\Modules\Member\Models\UserAddress;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserAddressesTest extends TestCase

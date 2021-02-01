@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Traits;
 
-use Coeliac\Common\Models\User;
-use Coeliac\Common\Models\UserAddress;
+use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Member\Models\UserAddress;
 
 trait CreateUser
 {

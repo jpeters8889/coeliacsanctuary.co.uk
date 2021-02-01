@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Imports;
 
 use Carbon\Carbon;
-use Coeliac\Common\Models\User;
-use Coeliac\Common\Models\UserAddress;
+use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Member\Models\UserAddress;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopOrderState;

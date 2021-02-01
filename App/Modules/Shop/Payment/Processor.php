@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Payment;
 
 use Illuminate\Http\Request;
-use Coeliac\Common\Models\User;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Shop\Basket\Basket;
 use Illuminate\Contracts\Events\Dispatcher;

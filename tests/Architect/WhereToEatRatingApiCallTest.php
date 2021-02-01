@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Architect;
 
 use Tests\TestCase;
-use Coeliac\Common\Models\User;
+use Coeliac\Modules\Member\Models\User;
 use Tests\Traits\CreatesWhereToEat;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\AnonymousNotifiable;

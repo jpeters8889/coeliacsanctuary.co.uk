@@ -7,6 +7,7 @@ namespace Tests;
 use Laravel\Scout\Builder;
 use Coeliac\Common\Models\User;
 use Tests\Mocks\MockScoutBuilder;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;

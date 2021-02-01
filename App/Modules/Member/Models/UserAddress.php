@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Coeliac\Common\Models;
+namespace Coeliac\Modules\Member\Models;
 
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Shop\Models\ShopOrder;

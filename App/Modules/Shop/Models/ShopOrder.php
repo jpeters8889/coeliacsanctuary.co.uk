@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Models;
 
-use Coeliac\Common\Models\User;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Common\Models\UserAddress;
+use Coeliac\Modules\Member\Models\UserAddress;
 
 /**
  * @property ShopOrderState     $state

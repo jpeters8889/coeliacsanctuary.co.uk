@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Architect;
 
 use Tests\TestCase;
-use Coeliac\Common\Models\User;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use JPeters\Architect\TestHelpers\Traits\LogsInUsers;

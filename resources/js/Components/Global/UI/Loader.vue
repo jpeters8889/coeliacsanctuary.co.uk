@@ -51,7 +51,7 @@
             borderWidth: {
                 type: String,
                 default: '5px',
-            }
+            },
         },
 
         computed: {
