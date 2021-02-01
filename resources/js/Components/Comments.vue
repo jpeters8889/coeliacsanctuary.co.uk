@@ -6,7 +6,7 @@
 
         <div v-else>
             <div v-if="data.length === 0" class="mb-3">
-                <strong class="font-semibold">There's no comments on this Blog, why not leave one?</strong>
+                <strong class="font-semibold">There's no comments on this {{ area }}, why not leave one?</strong>
             </div>
 
             <div v-else>
