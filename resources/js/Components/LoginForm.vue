@@ -1,21 +1,22 @@
 <template>
     <div class="flex justify-center items-center">
-        <div
-            class="rounded-lg border border-blue p-4 flex flex-col space-y-4 w-full max-w-basket-sidebar bg-grey-lightest">
+        <form
+            class="rounded-lg border border-blue p-4 flex flex-col space-y-4 w-full max-w-basket-sidebar bg-grey-lightest"
+            @submit.prevent="attemptLogin">
             <div class="mx-auto" style="width: 50px;">
                 <coeliac-icon colour="#80CCFC"></coeliac-icon>
             </div>
 
-            <form-input type="email" required name="email" placeholder="Email Address" :value="fields.email"/>
+            <form-input type="email" required name="email" placeholder="Email Address" :value="fields.email" autocomple="email"/>
 
-            <form-input type="password" required name="password" placeholder="Password" :value="fields.password"/>
+            <form-input type="password" required name="password" placeholder="Password" :value="fields.password" autocomplete="password"/>
 
             <button
                 class="rounded-lg bg-blue leading-none text-lg font-semibold text-white hover:bg-blue-light transition-bg flex items-center justify-center"
                 style="height: 42px;"
                 :class="isSubmitting ? 'py-2' : 'py-3'"
                 :disabled="isSubmitting"
-                @click="attemptLogin">
+                @click.prevent="attemptLogin">
                 <loader background-position=""
                         v-if="isSubmitting"
                         :show="true"
@@ -28,12 +29,17 @@
                 <span v-else>Log In</span>
             </button>
 
+            <div v-if="needsToVerify" class="border-red border p-2 rounded-sm bg-red-20 text-red font-semibold">
+                You need to verify your email address before you can login,
+                <a href="" class="text-black">Resend verification email</a>.
+            </div>
+
             <div class="flex justify-between text-xs mt-2 font-semibold">
                 <a class="text-blue hover:text-grey" href="/member/register">Sign up!</a>
 
                 <a class="text-blue hover:text-grey" href="/member/forgot-password">Forgotten Password?</a>
             </div>
-        </div>
+        </form>
     </div>
 </template>
 
@@ -49,6 +55,7 @@ export default {
 
     data: () => ({
         isSubmitting: false,
+        needsToVerify: false,
 
         fields: {
             email: '',
@@ -87,15 +94,23 @@ export default {
             this.isSubmitting = true;
 
             coeliac().request().post('/api/member/login', this.fields)
-                .then((response) => {
-                    console.log(response);
+                .then(() => {
+                    window.location = '/member/dashboard';
                 })
                 .catch((err) => {
-                    if(err.response.status === 422) {
-                        //
+                    let message = 'There was an error logging you in...';
+
+                    if (err.response.status === 422 && err.response.data.message === 'email not verified') {
+                        message = 'You must verify your account first!'
+                        this.needsToVerify = true;
                     }
 
-                    coeliac().error('There was an error logging you in...');
+                    this.fields.password = '';
+                    this.validity.password = false;
+
+                    this.$root.$emit('password-set-value', (''));
+
+                    coeliac().error(message);
                 })
                 .finally(() => {
                     this.isSubmitting = false;

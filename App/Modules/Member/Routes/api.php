@@ -11,6 +11,6 @@ if (!isset($router)) {
     return;
 }
 
-$router->group(['prefix' => 'api/members'], static function () use ($router) {
+$router->group(['prefix' => 'api/member'], static function () use ($router) {
     $router->post('login', [LoginController::class, 'create']);
 });

@@ -1,8 +1,18 @@
 <template>
     <div class="flex overflow-hidden border border-blue rounded">
         <div class="bg-grey-lightest p-0 flex-1">
-            <input v-model="currentValue" :type="type" :name="name" :placeholder="placeholder" @blur="validate()" :min="min" :max="max"
-                   :disabled="disabled" class="w-full bg-transparent border-0 p-3 m-0 text-grey-darkest" :class="disabled ? 'text-grey-light cursor:not-allowed' : ''" />
+            <input v-model="currentValue"
+                   :type="type"
+                   :name="name"
+                   :placeholder="placeholder"
+                   @blur="validate()"
+                   :min="min"
+                   :max="max"
+                   :disabled="disabled"
+                   :autocomplete="autocomplete"
+                   class="w-full bg-transparent border-0 p-3 m-0 text-grey-darkest"
+                   :class="disabled ? 'text-grey-light cursor:not-allowed' : ''"
+            />
         </div>
 
         <div class="bg-red flex justify-center items-center p-2 text-white" v-if="hasError && showError"

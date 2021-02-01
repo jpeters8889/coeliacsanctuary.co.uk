@@ -55,6 +55,10 @@ export default {
         match: {
             type: String,
             default: null,
+        },
+        autocomplete: {
+            type: String,
+            default: null,
         }
     },
 

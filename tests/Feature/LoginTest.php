@@ -38,8 +38,8 @@ class LoginTest extends TestCase
     protected function makeLoginRequest($email = null, $password = null)
     {
         return $this->post('/api/members/login', [
-            'email' => $email ?: $this->user->email,
-            'password' => $password ?: 'password',
+            'email' => $email ?? $this->user->email,
+            'password' => $password ?? 'password',
         ]);
     }
 
@@ -50,40 +50,60 @@ class LoginTest extends TestCase
     }
 
     /** @test */
+    public function it_errors_if_we_pass_an_invalid_email()
+    {
+        $this->makeLoginRequest('foo')->assertStatus(422);
+    }
+
+    /** @test */
     public function it_errors_if_we_dont_have_a_password()
     {
-        //
+        $this->makeLoginRequest(null, '')->assertStatus(422);
     }
 
     /** @test */
     public function it_errors_if_the_email_doesnt_exist()
     {
-        //
+        $this->makeLoginRequest('foo@bar.com')->assertStatus(422);
     }
 
     /** @test */
     public function it_errors_if_the_user_isnt_active()
     {
-        //
+        $this->user->update(['user_level_id' => UserLevel::SHOP]);
+
+        $this->makeLoginRequest()->assertStatus(422);
     }
 
-    // user validated?
+    /** @test */
+    public function it_errors_if_the_user_is_inactive()
+    {
+        $this->user->update(['email_verified_at' => null]);
+
+        $this->makeLoginRequest()->assertStatus(422)->assertJsonFragment([
+            'message' => 'email not verified',
+        ]);
+    }
 
     /** @test */
     public function it_errors_if_the_password_is_wrong()
     {
-        //
+        $this->makeLoginRequest(null, 'foo')->assertStatus(422);
     }
 
     /** @test */
     public function it_returns_ok_with_valid_data()
     {
-        //
+        $this->makeLoginRequest()->assertOk();
     }
 
     /** @test */
     public function it_logs_the_user_in()
     {
-        //
+        $this->assertFalse($this->isAuthenticated());
+
+        $this->makeLoginRequest();
+
+        $this->assertAuthenticatedAs($this->user);
     }
 }
