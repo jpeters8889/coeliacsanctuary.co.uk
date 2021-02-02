@@ -2,6 +2,7 @@
 <<<<<<< develop
 <<<<<<< develop
 <<<<<<< develop
+<<<<<<< develop
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=dd3198b112a0662f691b",
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=0bb7a45f1695237c9ff1",
     "/assets/js/chunk-contact-trigger.js": "/assets/js/chunk-contact-trigger.js?id=e820041e33e88bdd7c4d",
@@ -69,6 +70,10 @@
 >>>>>>> login form
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=f59ade6abc7882e29637",
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=b4cda587783d7083d456",
+=======
+    "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=29cd85e9fe2bfb7bcc55",
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=abc097dfdbd5afae1cec",
+>>>>>>> wip
     "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=cf9ac22e5d898519b568",
     "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=2a9d84402759b9b25032",
     "/assets/js/preload-header-search.js": "/assets/js/preload-header-search.js?id=ab0f0def260c44cd207d",
@@ -123,8 +128,9 @@
     "/assets/js/chunk-form-textarea.js": "/assets/js/chunk-form-textarea.js?id=32d27e947fbef798791f",
     "/assets/js/chunk-form-select.js": "/assets/js/chunk-form-select.js?id=5ea9a8b772fbc7324f67",
     "/assets/js/prefetch-form-option.js": "/assets/js/prefetch-form-option.js?id=5a39cca3de9ede02397f",
-    "/assets/js/chunk-form-checkbox.js": "/assets/js/chunk-form-checkbox.js?id=9c3784c7c4905eeb6b45",
+    "/assets/js/chunk-form-checkbox.js": "/assets/js/chunk-form-checkbox.js?id=69db6cff91e13a090ca3",
     "/assets/css/coeliac.css": "/assets/css/coeliac.css?id=96f190a477d0417104b9",
+<<<<<<< develop
     "/assets/js/vendor.js": "/assets/js/vendor.js?id=1bbc722c7d51ef004149"
 <<<<<<< develop
 <<<<<<< develop
@@ -193,4 +199,8 @@
 >>>>>>> comment label
 =======
 >>>>>>> login form
+=======
+    "/assets/js/vendor.js": "/assets/js/vendor.js?id=1bbc722c7d51ef004149",
+    "/assets/js/chunk-register-form.js": "/assets/js/chunk-register-form.js?id=d3a5e6ac4814c43664c4"
+>>>>>>> wip
 }

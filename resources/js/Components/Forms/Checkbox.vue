@@ -7,9 +7,7 @@
                     <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
                 </div>
             </div>
-            <div class="flex-1" :class="inputSize">
-                {{ label }}
-            </div>
+            <div class="flex-1" :class="inputSize" v-html="label"></div>
         </div>
     </div>
 </template>

@@ -35,9 +35,17 @@ class LoginTest extends TestCase
             ->assertSee('<login-form>', false);
     }
 
+    /** @test */
+    public function it_doesnt_load_the_page_if_logged_in()
+    {
+        $this->actingAs($this->user);
+
+        $this->get('/member/login')->assertRedirect('/member/dashboard');
+    }
+
     protected function makeLoginRequest($email = null, $password = null)
     {
-        return $this->post('/api/members/login', [
+        return $this->post('/api/member/login', [
             'email' => $email ?? $this->user->email,
             'password' => $password ?? 'password',
         ]);

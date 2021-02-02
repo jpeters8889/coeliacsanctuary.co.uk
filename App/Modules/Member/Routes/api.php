@@ -12,5 +12,5 @@ if (!isset($router)) {
 }
 
 $router->group(['prefix' => 'api/member'], static function () use ($router) {
-    $router->post('login', [LoginController::class, 'create']);
+    $router->post('login', [LoginController::class, 'create'])->middleware(['guest', 'throttle:60,1']);
 });

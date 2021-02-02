@@ -8,6 +8,7 @@ use Closure;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
 class RedirectIfAuthenticated
 {
@@ -22,7 +23,11 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Container::getInstance()->make(Guard::class)->check()) {
-            return new RedirectResponse('/');
+            if($request->wantsJson()) {
+                return new Response([]);
+            }
+
+            return new RedirectResponse('/member/dashboard');
         }
 
         return $next($request);

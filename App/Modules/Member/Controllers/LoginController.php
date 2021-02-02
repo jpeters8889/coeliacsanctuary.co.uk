@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers;
 
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Response;
 use Coeliac\Common\Response\Page;
-use Illuminate\Auth\SessionGuard;
+use Illuminate\Contracts\Auth\Guard;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Member\Requests\LoginRequest;
 
@@ -21,7 +20,7 @@ class LoginController extends BaseController
             ->render('modules.member.login');
     }
 
-    public function create(LoginRequest $request, Guard $guard)
+    public function create(LoginRequest $request, Guard $guard): Response
     {
         if (!$request->userExists() || !$request->userIsActive()) {
             return new Response([], 422);
