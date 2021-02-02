@@ -33,7 +33,8 @@
                     <div v-if="results.length > 0" v-for="(result, index) in results"
                          class="border-b border-grey-off-light leading-tight"
                          :class="index % 2 === 0 ? 'bg-grey-light' : ''">
-                        <component :is="resultComponent(result.type)" :result="result"></component>
+                        <component :is="resultComponent(result.type)" :result="result"
+                                   :key="result.type+'-'+result.id"></component>
                     </div>
                     <div v-if="results.length === 0">
                         <em>No results found...</em>
@@ -112,7 +113,7 @@ export default {
     mounted() {
         this.currentTerm = this.term;
 
-        if(this.currentTerm === '') {
+        if (this.currentTerm === '') {
             this.loading = false;
             coeliac().error('Please enter a search term...')
         }
