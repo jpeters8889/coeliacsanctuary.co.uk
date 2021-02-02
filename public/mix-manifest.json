@@ -3,6 +3,7 @@
 <<<<<<< develop
 <<<<<<< develop
 <<<<<<< develop
+<<<<<<< develop
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=dd3198b112a0662f691b",
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=0bb7a45f1695237c9ff1",
     "/assets/js/chunk-contact-trigger.js": "/assets/js/chunk-contact-trigger.js?id=e820041e33e88bdd7c4d",
@@ -71,6 +72,9 @@
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=f59ade6abc7882e29637",
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=b4cda587783d7083d456",
 =======
+=======
+<<<<<<< HEAD
+>>>>>>> fix search images on page change
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=29cd85e9fe2bfb7bcc55",
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=abc097dfdbd5afae1cec",
 >>>>>>> wip
@@ -202,5 +206,68 @@
 =======
     "/assets/js/vendor.js": "/assets/js/vendor.js?id=1bbc722c7d51ef004149",
     "/assets/js/chunk-register-form.js": "/assets/js/chunk-register-form.js?id=d3a5e6ac4814c43664c4"
+<<<<<<< develop
 >>>>>>> wip
+=======
+=======
+    "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=cdf7fff7e2d2ccd0144b",
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=eff6b2c6b9b51b4793f4",
+    "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=e8623a9e304ebcda41af",
+    "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=6ade830211a097546b85",
+    "/assets/js/preload-header-search.js": "/assets/js/preload-header-search.js?id=ec41d380f11af650393b",
+    "/assets/js/chunk-home-heros.js": "/assets/js/chunk-home-heros.js?id=d7eda07d935bd3e4ac89",
+    "/assets/js/chunk-link-button.js": "/assets/js/chunk-link-button.js?id=f70005eac7a40627e6cd",
+    "/assets/js/preload-top-bar.js": "/assets/js/preload-top-bar.js?id=2a928d3077d3102f2619",
+    "/assets/js/chunk-number-count.js": "/assets/js/chunk-number-count.js?id=964b41394bde6ea4efcc",
+    "/assets/js/preload-footer-newsletter.js": "/assets/js/preload-footer-newsletter.js?id=5111244fe8a13f4d2f71",
+    "/assets/js/chunk-breadcrumbs.js": "/assets/js/chunk-breadcrumbs.js?id=7c0fa8991d2a3f75f93d",
+    "/assets/js/chunk-module-list-index.js": "/assets/js/chunk-module-list-index.js?id=234e49b84bb7fa555f97",
+    "/assets/js/chunk-accordion.js": "/assets/js/chunk-accordion.js?id=12d78efccc19e2c396db",
+    "/assets/js/chunk-widget.js": "/assets/js/chunk-widget.js?id=ec38fc43a1bee525a606",
+    "/assets/js/chunk-newsletter-signup.js": "/assets/js/chunk-newsletter-signup.js?id=fcb7cbfb5ddaf8669c20",
+    "/assets/js/chunk-blog-search.js": "/assets/js/chunk-blog-search.js?id=857d1fbf55f38ac97a40",
+    "/assets/js/chunk-comments.js": "/assets/js/chunk-comments.js?id=e89117259d7c6baf9483",
+    "/assets/js/chunk-comment-form.js": "/assets/js/chunk-comment-form.js?id=d56b5080dd7dd297a995",
+    "/assets/js/chunk-recipe-image.js": "/assets/js/chunk-recipe-image.js?id=e5b7aba119a7323fea42",
+    "/assets/js/chunk-recipe-search.js": "/assets/js/chunk-recipe-search.js?id=61660b0789bffbef9889",
+    "/assets/js/chunk-tabs.js": "/assets/js/chunk-tabs.js?id=58e10845ea4d955414cf",
+    "/assets/js/chunk-tab.js": "/assets/js/chunk-tab.js?id=de6e429172b80721ac2d",
+    "/assets/js/chunk-wte-map.js": "/assets/js/chunk-wte-map.js?id=284dd44a8491746706ea",
+    "/assets/js/chunk-wte-list.js": "/assets/js/chunk-wte-list.js?id=777dc5c6abd9ce1610b7",
+    "/assets/js/chunk-static-map.js": "/assets/js/chunk-static-map.js?id=9e6532e25abed88272b8",
+    "/assets/js/chunk-stars.js": "/assets/js/chunk-stars.js?id=81416a6c31c3eb8805ec",
+    "/assets/js/chunk-wte-place-request.js": "/assets/js/chunk-wte-place-request.js?id=718ba8fde92019361f76",
+    "/assets/js/chunk-review-search.js": "/assets/js/chunk-review-search.js?id=5befded9f834957a07b4",
+    "/assets/js/chunk-article-header.js": "/assets/js/chunk-article-header.js?id=2ea74251870b86734011",
+    "/assets/js/chunk-article-image.js": "/assets/js/chunk-article-image.js?id=23d44b3dd30edf6975de",
+    "/assets/js/chunk-contact-trigger.js": "/assets/js/chunk-contact-trigger.js?id=9fb5d8f105f443942f4d",
+    "/assets/js/chunk-wte-search.js": "/assets/js/chunk-wte-search.js?id=a8eb6c5497fe89dfd85f",
+    "/assets/js/chunk-add-basket-trigger.js": "/assets/js/chunk-add-basket-trigger.js?id=f93395726801e6e83c05",
+    "/assets/js/chunk-basket-header-widget.js": "/assets/js/chunk-basket-header-widget.js?id=f9b5c4b5b9f8fbecd1c4",
+    "/assets/js/chunk-basket-sidebar.js": "/assets/js/chunk-basket-sidebar.js?id=d63d00abdd2ec90028ab",
+    "/assets/js/chunk-basket-quick-link.js": "/assets/js/chunk-basket-quick-link.js?id=f7e4c66a40dfad6cdcdb",
+    "/assets/js/chunk-product-images.js": "/assets/js/chunk-product-images.js?id=bfe7976d7d1ea2b63b0a",
+    "/assets/js/chunk-product-add-basket.js": "/assets/js/chunk-product-add-basket.js?id=a873601761b02af8e83e",
+    "/assets/js/chunk-basket-page.js": "/assets/js/chunk-basket-page.js?id=6375a0daeb6e73252628",
+    "/assets/js/chunk-basket-quantity-switcher.js": "/assets/js/chunk-basket-quantity-switcher.js?id=107e08984e546f8700a0",
+    "/assets/js/chunk-page-loader.js": "/assets/js/chunk-page-loader.js?id=1aaa24da544fcf99bcf1",
+    "/assets/js/preload-quick-search.js": "/assets/js/preload-quick-search.js?id=6305f422ac8baf68239a",
+    "/assets/js/chunk-announcements.js": "/assets/js/chunk-announcements.js?id=12b74da24f584ba15bdc",
+    "/assets/js/preload-popup-cta.js": "/assets/js/preload-popup-cta.js?id=ed194455391abc31c12d",
+    "/assets/js/preload-google-ad.js": "/assets/js/preload-google-ad.js?id=14ce722b46e4a7bc6294",
+    "/assets/js/chunk-wte-quick-search.js": "/assets/js/chunk-wte-quick-search.js?id=2248496448c4d9669dea",
+    "/assets/js/chunk-site-search.js": "/assets/js/chunk-site-search.js?id=5c5b02a52ac982e54cc5",
+    "/assets/js/chunk-contact-form.js": "/assets/js/chunk-contact-form.js?id=1fd3d85ae1cc8e39b63b",
+    "/assets/js/chunk-modal.js": "/assets/js/chunk-modal.js?id=8dda9fc90ce30bd95259",
+    "/assets/js/chunk-loader.js": "/assets/js/chunk-loader.js?id=95898589b4165ff146ab",
+    "/assets/js/chunk-pagination.js": "/assets/js/chunk-pagination.js?id=4099b300d85043dc7a89",
+    "/assets/js/chunk-form-input.js": "/assets/js/chunk-form-input.js?id=29fe719cc04cc08de647",
+    "/assets/js/chunk-form-textarea.js": "/assets/js/chunk-form-textarea.js?id=70dc84fe2d907907af0b",
+    "/assets/js/chunk-form-select.js": "/assets/js/chunk-form-select.js?id=f172fc48c96d3776862d",
+    "/assets/js/prefetch-form-option.js": "/assets/js/prefetch-form-option.js?id=beb08163db21cfb5327f",
+    "/assets/js/chunk-form-checkbox.js": "/assets/js/chunk-form-checkbox.js?id=cd801de59960f3faa2e5",
+    "/assets/css/coeliac.css": "/assets/css/coeliac.css?id=8755d6acf31274554535",
+    "/assets/js/vendor.js": "/assets/js/vendor.js?id=f2d83e461d21ae6c6d16"
+>>>>>>> d001119... fix search images on page change
+>>>>>>> fix search images on page change
 }
