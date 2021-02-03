@@ -4,23 +4,26 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Models;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Coeliac\Modules\Shop\Models\ShopOrder;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Routing\UrlGenerator;
 use JPeters\Architect\Traits\HasArchitectSettings;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property string $email
- * @property int    $user_level_id
+ * @property int $user_level_id
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use Notifiable;
     use HasArchitectSettings;
-    use VerifiesEmails;
+
+    protected $casts = [
+        'user_level_id' => 'int',
+    ];
 
     protected $guarded = [];
 
@@ -42,5 +45,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdmin(): bool
     {
         return $this->user_level_id === UserLevel::ADMIN;
+    }
+
+    public function generateEmailVerificationLink(): string
+    {
+        return resolve(UrlGenerator::class)->temporarySignedRoute(
+            'member.verify_email',
+            Carbon::now()->addMinutes(config('auth.verification.expire', 60)),
+            [
+                'id' => $this->id,
+                'hash' => sha1($this->email),
+            ]
+        );
     }
 }

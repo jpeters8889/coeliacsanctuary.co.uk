@@ -84,16 +84,6 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function it_errors_if_the_user_is_inactive()
-    {
-        $this->user->update(['email_verified_at' => null]);
-
-        $this->makeLoginRequest()->assertStatus(422)->assertJsonFragment([
-            'message' => 'email not verified',
-        ]);
-    }
-
-    /** @test */
     public function it_errors_if_the_password_is_wrong()
     {
         $this->makeLoginRequest(null, 'foo')->assertStatus(422);

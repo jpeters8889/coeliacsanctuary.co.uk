@@ -25,12 +25,14 @@
     <mj-body background-color="#f7f7f7">
         <mj-container background-color="#f7f7f7">
             <mj-wrapper>
-                <mj-section mj-class="blue" padding="5px">
-                    <mj-column>
-                        <mj-text align="center" font-size="14px">Having trouble viewing this email? <a
-                                href="{{ config('app.url') }}/email/{{ $key }}">View Online</a></mj-text>
-                    </mj-column>
-                </mj-section>
+                @isset($key)
+                    <mj-section mj-class="blue" padding="5px">
+                        <mj-column>
+                            <mj-text align="center" font-size="14px">Having trouble viewing this email? <a
+                                    href="{{ config('app.url') }}/email/{{ $key }}">View Online</a></mj-text>
+                        </mj-column>
+                    </mj-section>
+                @endisset
                 <mj-section mj-class="blue">
                     <mj-column>
                         <mj-image src="{{ asset('assets/email/logo.jpg') }}"></mj-image>

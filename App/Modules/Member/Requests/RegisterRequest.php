@@ -7,14 +7,17 @@ namespace Coeliac\Modules\Member\Requests;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Base\Requests\ApiFormRequest;
 use Coeliac\Modules\Member\Models\UserLevel;
+use Coeliac\Modules\Member\Rules\MemberEmailIsntActive;
 
-class LoginRequest extends ApiFormRequest
+class RegisterRequest extends ApiFormRequest
 {
     public function rules(): array
     {
         return [
-          'email' => ['required', 'email'],
-          'password' => ['required'],
+            'name' => ['required'],
+            'email' => ['required', 'email', new MemberEmailIsntActive()],
+            'password' => ['required', 'confirmed', 'min:8'],
+            'terms' => ['required', 'accepted'],
         ];
     }
 
@@ -28,6 +31,14 @@ class LoginRequest extends ApiFormRequest
         return User::query()
             ->where('email', $this->input('email'))
             ->where('user_level_id', '!=', UserLevel::SHOP)
+            ->exists();
+    }
+
+    public function userIsVerified()
+    {
+        return User::query()
+            ->where('email', $this->input('email'))
+            ->whereNotNull('email_verified_at')
             ->exists();
     }
 }

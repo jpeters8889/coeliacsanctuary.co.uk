@@ -26,10 +26,6 @@ class LoginController extends BaseController
             return new Response([], 422);
         }
 
-        if (!$request->userIsVerified()) {
-            return new Response(['message' => 'email not verified'], 422);
-        }
-
         if ($guard->attempt($request->validated(), true)) {
             $request->session()->regenerate();
 

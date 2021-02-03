@@ -4,6 +4,7 @@
 <<<<<<< develop
 <<<<<<< develop
 <<<<<<< develop
+<<<<<<< develop
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=dd3198b112a0662f691b",
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=0bb7a45f1695237c9ff1",
     "/assets/js/chunk-contact-trigger.js": "/assets/js/chunk-contact-trigger.js?id=e820041e33e88bdd7c4d",
@@ -78,6 +79,10 @@
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=29cd85e9fe2bfb7bcc55",
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=abc097dfdbd5afae1cec",
 >>>>>>> wip
+=======
+    "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=29cd85e9fe2bfb7bcc55",
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=22aca995b388cb03abfe",
+>>>>>>> wip
     "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=cf9ac22e5d898519b568",
     "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=2a9d84402759b9b25032",
     "/assets/js/preload-header-search.js": "/assets/js/preload-header-search.js?id=ab0f0def260c44cd207d",
@@ -122,8 +127,9 @@
     "/assets/js/preload-popup-cta.js": "/assets/js/preload-popup-cta.js?id=dfdd7476d3e95d62fe51",
     "/assets/js/preload-google-ad.js": "/assets/js/preload-google-ad.js?id=77a1b17f7954bf78e957",
     "/assets/js/chunk-wte-quick-search.js": "/assets/js/chunk-wte-quick-search.js?id=1d662184d65e8d99ca55",
-    "/assets/js/chunk-site-search.js": "/assets/js/chunk-site-search.js?id=3c9ced60b31b37657dbb",
+    "/assets/js/chunk-site-search.js": "/assets/js/chunk-site-search.js?id=56b8cf2c8ca0ae0dbe80",
     "/assets/js/chunk-login-form.js": "/assets/js/chunk-login-form.js?id=2866da1d9237f9031e08",
+    "/assets/js/chunk-register-form.js": "/assets/js/chunk-register-form.js?id=d3a5e6ac4814c43664c4",
     "/assets/js/chunk-contact-form.js": "/assets/js/chunk-contact-form.js?id=1237859819da81372d52",
     "/assets/js/chunk-modal.js": "/assets/js/chunk-modal.js?id=3ad7d5b70605d89ddc7f",
     "/assets/js/chunk-loader.js": "/assets/js/chunk-loader.js?id=a4bbc32ef995ea5fb88f",
@@ -134,6 +140,7 @@
     "/assets/js/prefetch-form-option.js": "/assets/js/prefetch-form-option.js?id=5a39cca3de9ede02397f",
     "/assets/js/chunk-form-checkbox.js": "/assets/js/chunk-form-checkbox.js?id=69db6cff91e13a090ca3",
     "/assets/css/coeliac.css": "/assets/css/coeliac.css?id=96f190a477d0417104b9",
+<<<<<<< develop
 <<<<<<< develop
     "/assets/js/vendor.js": "/assets/js/vendor.js?id=1bbc722c7d51ef004149"
 <<<<<<< develop
@@ -270,4 +277,7 @@
     "/assets/js/vendor.js": "/assets/js/vendor.js?id=f2d83e461d21ae6c6d16"
 >>>>>>> d001119... fix search images on page change
 >>>>>>> fix search images on page change
+=======
+    "/assets/js/vendor.js": "/assets/js/vendor.js?id=1bbc722c7d51ef004149"
+>>>>>>> wip
 }
