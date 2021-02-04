@@ -47,6 +47,9 @@ const WhereToEatQuickSearch = () => import('./Components/WhereToEatQuickSearch' 
 const SiteSearch = () => import('./Components/SiteSearch' /* webpackChunkName: "chunk-site-search" */)
 const LoginForm = () => import('./Components/LoginForm' /* webpackChunkName: "chunk-login-form" */)
 const RegisterForm = () => import('./Components/RegisterForm' /* webpackChunkName: "chunk-register-form" */)
+const LoginTrigger = () => import('./Components/LoginTrigger' /* webpackChunkName: "preload-login-trigger" */)
+const VerifyEmailResendTrigger = () => import('./Components/VerifyEmailResendTrigger' /* webpackChunkName: "chunk-resend-verify-email" */)
+const DashboardNavigation = () => import('./Components/DashboardNavigation' /* webpackChunkName: "chunk-member-dashboard" */)
 
 Vue.component('accordion', Accordion);
 Vue.component('add-basket-trigger', AddBasketTrigger);
@@ -64,12 +67,14 @@ Vue.component('coeliac-home-heros', HomepageHeros);
 Vue.component('comment-form', CommentForm);
 Vue.component('comments', Comments);
 Vue.component('contact-trigger', ContactTrigger);
+Vue.component('dashboard-navigation', DashboardNavigation);
 Vue.component('footer-newsletter', FooterNewsletter);
 Vue.component('full-page-loader', FullPageLoader);
 Vue.component('google-ad', GoogleAd);
 Vue.component('header-search', HeaderSearch);
 Vue.component('link-button', LinkButton);
 Vue.component('login-form', LoginForm);
+Vue.component('login-trigger', LoginTrigger);
 Vue.component('mobile-nav', MobileNav);
 Vue.component('module-list-index', ModuleListIndex);
 Vue.component('number-counter', NumberCountUp);
@@ -85,6 +90,7 @@ Vue.component('stars', Stars);
 Vue.component('tab', Tab);
 Vue.component('tabs', Tabs);
 Vue.component('top-bar', TopBar);
+Vue.component('verify-email-resend-trigger', VerifyEmailResendTrigger);
 Vue.component('wheretoeat-list', WhereToEatList);
 Vue.component('wheretoeat-map', WhereToEatMap);
 Vue.component('wheretoeat-place-request-form', WhereToEatPlaceRequestForm);

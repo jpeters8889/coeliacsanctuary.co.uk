@@ -12,7 +12,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Common\Events\ContactFormSubmitted;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ContactTest extends TestCase
+class
+ContactTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;

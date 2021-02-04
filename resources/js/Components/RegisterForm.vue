@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center items-center">
-        <form
+        <form v-if="!alreadyHasAccount"
             class="rounded-lg border border-blue p-4 flex flex-col space-y-4 w-full max-w-basket-sidebar bg-grey-lightest"
             @submit.prevent="submitRegistration">
             <div class="mx-auto" style="width: 50px;">
@@ -52,6 +52,14 @@
                 <a class="text-blue hover:text-grey" href="/member/forgot-password">Forgotten Password?</a>
             </div>
         </form>
+        <div v-else class="rounded-lg border border-blue p-4 flex flex-col space-y-4 w-full max-w-basket-sidebar bg-grey-lightest text-lg text-center">
+            <p>
+                Your email {{ fields.email }} is already associated with an account!
+            </p>
+            <p class="mt-2">
+                <login-trigger class="text-blue cursor-pointer text-semibold hover:text-blue-dark transition-colour">Login now!</login-trigger>
+            </p>
+        </div>
     </div>
 </template>
 
@@ -69,6 +77,7 @@ export default {
 
     data: () => ({
         isSubmitting: false,
+        alreadyHasAccount: false,
 
         fields: {
             name: '',
@@ -84,6 +93,14 @@ export default {
             password: false,
             password_confirmation: false,
             terms: false,
+        },
+
+        errors: {
+            name: '',
+            email: '',
+            password: '',
+            password_confirmation: '',
+            generic: '',
         }
     }),
 
@@ -119,10 +136,26 @@ export default {
 
             coeliac().request().post('/api/member/register', this.fields)
                 .then(() => {
-                    //
+                    window.location = '/member/dashboard';
                 })
                 .catch((err) => {
-                    coeliac().error('There was an error logging you in...');
+                    if(err.response.status === 422 && err.response.data.errors.email && err.response.data.errors.email[0] === 'Your email is already associated with an account!') {
+                        this.alreadyHasAccount = true;
+                        return;
+                    }
+
+                    coeliac().error('Please correct any errors before continuing!');
+
+                    this.fields.password = '';
+                    this.validity.password = false;
+                    this.fields.password_confirmation = '';
+                    this.validity.password_confirmation = false;
+                    this.fields.terms = false;
+                    this.validity.terms = false;
+
+                    this.$root.$emit('password-set-value', (''));
+                    this.$root.$emit('password_confirmation-set-value', (''));
+                    this.$root.$emit('terms-set-value', false);
                 })
                 .finally(() => {
                     this.isSubmitting = false;

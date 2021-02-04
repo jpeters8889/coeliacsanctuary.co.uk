@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col">
+    <div class="flex flex-col" :class="hasError ? 'border border-red rounded -mx-2 px-2 bg-red-20' : ''">
         <div class="flex items-center cursor-pointer" @click="select()">
             <div class="p-2 pl-0">
                 <div class="border border-grey-off bg-grey-lightest p-1"

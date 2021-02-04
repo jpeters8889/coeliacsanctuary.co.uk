@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Base\Http;
 
+use Coeliac\Base\Middleware\HasVerifiedEmail;
 use Fruitcake\Cors\HandleCors;
 use Coeliac\Base\Middleware\TrimStrings;
 use Coeliac\Base\Middleware\Authenticate;
@@ -86,7 +87,7 @@ class Kernel extends HttpKernel
         'guest' => RedirectIfAuthenticated::class,
         'signed' => ValidateSignature::class,
         'throttle' => ThrottleRequests::class,
-        'verified' => EnsureEmailIsVerified::class,
+        'verified' => HasVerifiedEmail::class,
 
         'userHasNotRatedEatery' => UserHasNotRatedEatery::class,
         'shopOrderComplete' => OrderComplete::class,

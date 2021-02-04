@@ -98,19 +98,12 @@ export default {
                     window.location = '/member/dashboard';
                 })
                 .catch((err) => {
-                    let message = 'There was an error logging you in...';
-
-                    if (err.response.status === 422 && err.response.data.message === 'email not verified') {
-                        message = 'You must verify your account first!'
-                        this.needsToVerify = true;
-                    }
-
                     this.fields.password = '';
                     this.validity.password = false;
 
                     this.$root.$emit('password-set-value', (''));
 
-                    coeliac().error(message);
+                    coeliac().error('There was an error logging you in...');
                 })
                 .finally(() => {
                     this.isSubmitting = false;

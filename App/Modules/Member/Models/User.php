@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Models;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Routing\UrlGenerator;
@@ -16,7 +17,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $email
  * @property int $user_level_id
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     use HasArchitectSettings;
@@ -26,6 +27,13 @@ class User extends Authenticatable
     ];
 
     protected $guarded = [];
+
+    protected $hidden = [
+        'api_token',
+        'password',
+        'remember_token',
+        'user_level_id',
+    ];
 
     public function addresses(): HasMany
     {

@@ -12,10 +12,10 @@
             <mj-text mj-class="inner">&nbsp;</mj-text>
             <mj-text mj-class="inner">Before you can use your account you must verify your email, just click the button below and you're all set!</mj-text>
             <mj-text mj-class="inner">&nbsp;</mj-text>
-            <mj-button href="{{ config('app.url') }}{{ $verification_link }}">
+            <mj-button href="{{ $verification_link }}">
                 Verify my email
             </mj-button>
-            <mj-text mj-class="inner">
+            <mj-text mj-class="inner" padding-top="5px">
                 If you didn't register an account on www.coeliacsanctuary.co.uk please
                 <a href="{{ config('app.url') }}/contact">contact us</a>.
             </mj-text>

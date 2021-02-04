@@ -86,7 +86,7 @@ class VeryEmailTest extends TestCase
 
         $this->actingAs($user = factory(User::class)->create(['email_verified_at' => null]));
 
-        $this->post('/member/verify-email');
+        $this->post('/api/member/verify-email');
 
         Notification::assertSentTo($user, ResendVerifyEmail::class);
     }

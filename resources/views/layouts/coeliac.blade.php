@@ -95,6 +95,7 @@
             stripe: '{{ config('services.shop.payments.stripe.public') }}',
             paypal: '{{ config('app.env') === 'production' ? 'production' : 'sandbox' }}'
         },
+        user: @json(request()->user()),
     }
 </script>
 

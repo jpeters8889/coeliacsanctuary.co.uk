@@ -95,7 +95,7 @@ export default {
         validate() {
             this.showError = true;
 
-            if (this.required && this.currentValue === '') {
+            if (this.required && (this.currentValue === '' || this.currentValue === false)) {
                 this.errorText = 'Field is required';
                 this.pushError();
                 return;
