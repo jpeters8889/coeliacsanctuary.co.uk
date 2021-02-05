@@ -53,7 +53,7 @@ class ShopOrderCompleteTest extends TestCase
         $this->get('/shop/basket/done')->assertRedirect('/shop');
     }
 
-    private function setupOrder()
+    private function setupOrder($params = [])
     {
         $this->setupPostage();
         $this->setupOrders();
@@ -85,9 +85,9 @@ class ShopOrderCompleteTest extends TestCase
 
         $token = Str::random(8);
 
-        ShopOrder::query()->create([
+        ShopOrder::query()->create(array_merge([
             'token' => $token,
-        ]);
+        ], $params));
 
         $this->withSession(['basket_token' => $token]);
 
