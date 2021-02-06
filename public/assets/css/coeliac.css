@@ -255,6 +255,13 @@ html {
   padding: 0.5rem !important;
 }
 
+.main-body table.order-dashboard th {
+  font-family: Raleway, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.875rem;
+  padding: 0.5rem !important;
+  vertical-align: middle;
+}
+
 .main-body article-header {
   border-bottom-width: 1px;
   --border-opacity: 1;

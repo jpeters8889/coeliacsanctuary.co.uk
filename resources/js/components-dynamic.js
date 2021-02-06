@@ -50,6 +50,7 @@ const RegisterForm = () => import('./Components/RegisterForm' /* webpackChunkNam
 const LoginTrigger = () => import('./Components/LoginTrigger' /* webpackChunkName: "preload-login-trigger" */)
 const VerifyEmailResendTrigger = () => import('./Components/VerifyEmailResendTrigger' /* webpackChunkName: "chunk-resend-verify-email" */)
 const DashboardNavigation = () => import('./Components/DashboardNavigation' /* webpackChunkName: "chunk-member-dashboard" */)
+const DashboardRecentOrders = () => import('./Components/DashboardRecentOrders' /* webpackChunkName: "chunk-dashboard-recent-orders" */)
 
 Vue.component('accordion', Accordion);
 Vue.component('add-basket-trigger', AddBasketTrigger);
@@ -68,6 +69,7 @@ Vue.component('comment-form', CommentForm);
 Vue.component('comments', Comments);
 Vue.component('contact-trigger', ContactTrigger);
 Vue.component('dashboard-navigation', DashboardNavigation);
+Vue.component('dashboard-recent-orders', DashboardRecentOrders)
 Vue.component('footer-newsletter', FooterNewsletter);
 Vue.component('full-page-loader', FullPageLoader);
 Vue.component('google-ad', GoogleAd);

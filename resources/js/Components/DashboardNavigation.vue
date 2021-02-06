@@ -23,9 +23,9 @@
             </nav>
         </div>
 
-        <div class="border-r-8 border-blue mr-2 flex flex-col">
+        <div class="hidden border-r-8 border-blue mr-2 md:flex flex-col">
             <nav class="flex-1 flex items-center">
-                <ul class="flex flex-col w-full">
+                <ul class="list-none flex flex-col w-full">
                     <li v-for="link in links" v-if="!link.mobileOnly">
                         <a class="block py-2 pl-2 border-b border-blue hover:bg-blue-light hover:text-white transition-both"
                            :href="link.link">{{ link.label }}</a>

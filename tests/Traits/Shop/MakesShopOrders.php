@@ -56,8 +56,6 @@ trait MakesShopOrders
 
         $this->createVariant($product, ['live' => 1, 'quantity' => 2]);
 
-        $this->createAdminUser();
-
         factory(ShopProductPrice::class)->create([
             'product_id' => $product->id,
             'price' => 100,

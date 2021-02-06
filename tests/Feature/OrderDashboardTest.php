@@ -26,15 +26,24 @@ class OrderDashboardTest extends DashboardTest
     }
 
     /** @test */
+    public function it_displays_an_error_message_if_the_user_hasnt_verified_their_email()
+    {
+        $this->user->update(['email_verified_at' => null]);
+
+        $this->get('/member/dashboard/orders')
+            ->assertSee('You need to verify your email address before you can view your order history');
+    }
+
+    /** @test */
     public function it_loads_the_order_list_endpoint()
     {
-        $this->get('/api/member/dashboard/orders')->assertStatus(200);
+        $this->makeRequest()->assertStatus(200);
     }
 
     /** @test */
     public function it_returns_a_paginated_list_of_orders()
     {
-        $this->get('/api/member/dashboard/orders')->assertJsonFragment(['current_page' => 1]);
+        $this->makeRequest()->assertJsonFragment(['current_page' => 1]);
     }
 
     /** @test */
@@ -42,7 +51,7 @@ class OrderDashboardTest extends DashboardTest
     {
         $this->createFullOrder(['user_id' => $this->user->id]);
 
-        $this->get('/api/member/dashboard/orders')
+        $this->makeRequest()
             ->assertJsonStructure([
                 'data' => [[
                     'order_date',
@@ -115,28 +124,32 @@ class OrderDashboardTest extends DashboardTest
     }
 
     /** @test */
-//    public function it_doesnt_show_baskets_that_didnt_convert()
-//    {
-//        //
-//    }
-//
-//    /** @test */
-//    public function it_shows_the_users_orders()
-//    {
-//        $firstOrder = $this->createOrder(['user_id' => $this->user->id]);
-//        $secondOrder = $this->createOrder(['user_id' => $this->user->id]);
-//
-//        $this->get('/api/member/dashboard/orders')
-//            ->assertJsonFragment(['order_key']);
-//    }
-//
-//    /** @test */
-//    public function it_doesnt_show_orders_not_linked_to_the_account()
-//    {
-//        $secondUser = factory(User::class)->create();
-//
-//        $order = $this->createOrder(['user_id' => $secondUser->id]);
-//
-//        $this->get('/api/members/dashboard/orders')->assertJsonMissing(['reference' => $order->order_key]);
-//    }
+    public function it_doesnt_show_baskets_that_didnt_convert()
+    {
+        $this->createFullOrder(['user_id' => $this->user->id]);
+
+        $response = $this->makeRequest()->json();
+
+        $this->assertCount(1, $response['data']);
+
+        $this->createBasket(['user_id' => $this->user->id]);
+
+        $response = $this->makeRequest()->json();
+
+        $this->assertCount(1, $response['data']);
+    }
+
+    /** @test */
+    public function it_doesnt_show_orders_not_linked_to_the_account()
+    {
+        $myOrder = $this->createFullOrder(['user_id' => $this->user->id]);
+
+        $secondUser = factory(User::class)->create();
+
+        $otherOrder = $this->createFullOrder(['user_id' => $secondUser->id]);
+
+        $this->makeRequest()
+            ->assertJsonFragment(['reference' => $myOrder->order_key])
+            ->assertJsonMissing(['reference' => $otherOrder->order_key]);
+    }
 }

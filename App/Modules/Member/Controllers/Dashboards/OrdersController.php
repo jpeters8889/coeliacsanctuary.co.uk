@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Controllers\Dashboards;
 
 use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Coeliac\Common\Response\Page;
@@ -27,6 +28,7 @@ class OrdersController extends BaseController
     {
         return ShopOrder::query()
             ->where('user_id', $request->user()->id)
+            ->whereNotIn('state_id', [ShopOrderState::STATE_BASKET])
             ->withCount('items')
             ->with(['payment', 'state', 'address'])
             ->latest()
