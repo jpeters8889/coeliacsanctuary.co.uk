@@ -6,6 +6,7 @@ namespace Coeliac\Modules\Member;
 
 use Coeliac\Base\Modules;
 use Coeliac\Modules\Member\Providers\EventServiceProvider;
+use Coeliac\Modules\Member\Providers\GatewayServiceProvider;
 use Coeliac\Modules\Member\Providers\RoutesServiceProvider;
 
 class Module extends Modules
@@ -15,6 +16,7 @@ class Module extends Modules
         return [
             RoutesServiceProvider::class,
             EventServiceProvider::class,
+            GatewayServiceProvider::class,
         ];
     }
 }

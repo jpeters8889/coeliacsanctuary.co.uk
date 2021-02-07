@@ -23,6 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasArchitectSettings;
 
     protected $casts = [
+        'id' => 'int',
         'user_level_id' => 'int',
     ];
 

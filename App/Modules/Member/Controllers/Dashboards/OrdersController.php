@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers\Dashboards;
 
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Coeliac\Modules\Member\Requests\ViewOrderRequest;
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Coeliac\Common\Response\Page;
+use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Illuminate\Support\Collection;
 
 class OrdersController extends BaseController
 {
@@ -36,20 +39,28 @@ class OrdersController extends BaseController
             ->transform(fn(ShopOrder $order) => [
                 'order_date' => $order->created_at,
                 'reference' => $order->order_key,
-                'number_of_items' => (int) $order->items_count,
+                'number_of_items' => (int)$order->items_count,
                 'total_cost' => $order->payment->total,
                 'state' => $order->state->state,
-                'shipping_address' => [
-                    'name' => $order->address->name,
-                    'line_1' => $order->address->line_1,
-                    'line_2' => $order->address->line_2,
-                    'line_3' => $order->address->line_3,
-                    'town' => $order->address->town,
-                    'postcode' => $order->address->postcode,
-                    'county' => $order->address->country,
-                ],
                 'shipped_at' => $order->shipped_at,
             ])
             ->paginate(10);
+    }
+
+    public function get(ViewOrderRequest $request)
+    {
+        return (new Collection([$request->order()]))->map(function (ShopOrder $order) {
+            return [
+                'order_date' => $order->created_at,
+                'reference' => $order->order_key,
+                'number_of_items' => (int)$order->items_count,
+                'total_cost' => $order->payment->total,
+                'state' => $order->state->state,
+                'shipped_at' => $order->shipped_at,
+                'addresses' => [],
+                'items' => [],
+                'payment' => [],
+            ];
+        })->first();
     }
 }

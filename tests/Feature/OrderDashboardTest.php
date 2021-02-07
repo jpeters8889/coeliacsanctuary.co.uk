@@ -58,7 +58,6 @@ class OrderDashboardTest extends DashboardTest
                     'reference',
                     'number_of_items',
                     'state',
-                    'shipping_address',
                     'shipped_at',
                 ]],
             ]);
@@ -94,20 +93,6 @@ class OrderDashboardTest extends DashboardTest
         $order->markAs(ShopOrderState::STATE_SHIPPED);
 
         $this->makeRequest()->assertJsonFragment(['state' => 'Shipped']);
-    }
-
-    /** @test */
-    public function it_shows_the_users_address()
-    {
-        $this->createFullOrder(['user_id' => $this->user->id]);
-
-        $keys = ['name', 'line_1', 'line_2', 'line_3', 'town', 'postcode', 'county'];
-
-        $request = $this->makeRequest()->json();
-
-        foreach ($keys as $key) {
-            $this->assertArrayHasKey($key, $request['data'][0]['shipping_address']);
-        }
     }
 
     /** @test */
@@ -151,5 +136,63 @@ class OrderDashboardTest extends DashboardTest
         $this->makeRequest()
             ->assertJsonFragment(['reference' => $myOrder->order_key])
             ->assertJsonMissing(['reference' => $otherOrder->order_key]);
+    }
+
+    /** @test */
+    public function it_errors_when_trying_to_load_an_order_detail_page_for_another_user()
+    {
+        $secondUser = factory(User::class)->create();
+
+        $otherOrder = $this->createFullOrder(['user_id' => $secondUser->id]);
+
+        $this->get("/api/member/dashboard/orders/{$otherOrder->order_key}")->assertStatus(403);
+    }
+
+    /** @test */
+    public function it_loads_the_order_detail_page_for_the_correct_user()
+    {
+        /** @var ShopOrder $order */
+        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+
+        $this->get("/api/member/dashboard/orders/{$order->order_key}")->assertStatus(200);
+    }
+
+    /** @test */
+    public function it_returns_the_orders_data()
+    {
+        /** @var ShopOrder $order */
+        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+
+        $response = $this->get("/api/member/dashboard/orders/{$order->order_key}")->json();
+
+        $keys = ['order_date', 'reference', 'number_of_items', 'state', 'shipped_at', 'addresses', 'items', 'payment'];
+
+        foreach($keys as $key) {
+            $this->assertArrayHasKey($key, $response);
+        }
+    }
+
+    /** @test */
+    public function it_returns_the_correct_shipping_and_billing_addresses()
+    {
+        //
+    }
+
+    /** @test */
+    public function it_returns_the_correct_items()
+    {
+        //
+    }
+
+    /** @test */
+    public function it_returns_the_items_in_the_correct_format()
+    {
+        //
+    }
+
+    /** @test */
+    public function it_returns_the_payment_information()
+    {
+        //
     }
 }

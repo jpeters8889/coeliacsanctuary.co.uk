@@ -11,7 +11,7 @@
         </div>
     @endif
 
-    <div class="mt-4 page-box p-2">
+    <div class="page-box p-2">
         <div class="md:flex">
             <div class="md:w-1/4">
                 <dashboard-navigation></dashboard-navigation>

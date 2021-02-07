@@ -69,7 +69,7 @@ trait MakesShopOrders
         /** @var ShopOrder $order */
         $order = ShopOrder::query()->create(array_merge([
             'token' => $token,
-            'order_key' => Str::random(8)
+            'order_key' => random_int(10000000, 99999999),
         ], $params));
 
         $this->withSession(['basket_token' => $token]);

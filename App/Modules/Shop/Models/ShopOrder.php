@@ -25,6 +25,7 @@ use Coeliac\Modules\Member\Models\UserAddress;
 class ShopOrder extends BaseModel
 {
     protected $casts = [
+        'user_id' => 'int',
         'postage_country_id' => 'int',
         'state_id' => 'int',
         'newsletter_signup' => 'bool',
