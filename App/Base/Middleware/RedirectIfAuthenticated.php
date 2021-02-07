@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Coeliac\Base\Middleware;
 
 use Closure;
+use Illuminate\Http\Response;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 
 class RedirectIfAuthenticated
 {
@@ -23,7 +23,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Container::getInstance()->make(Guard::class)->check()) {
-            if($request->wantsJson()) {
+            if ($request->wantsJson()) {
                 return new Response([]);
             }
 

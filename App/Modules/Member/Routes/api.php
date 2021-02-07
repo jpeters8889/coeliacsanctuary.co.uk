@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
+use Illuminate\Routing\Router;
 use Coeliac\Modules\Member\Controllers\LoginController;
 use Coeliac\Modules\Member\Controllers\RegisterController;
 use Coeliac\Modules\Member\Controllers\VerifyEmailController;
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use Illuminate\Routing\Router;
+use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
 
 /* @var Router $router */
 

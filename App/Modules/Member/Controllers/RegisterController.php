@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers;
 
-use Illuminate\Auth\AuthManager;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Coeliac\Common\Response\Page;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\RedirectResponse;
 use Coeliac\Modules\Member\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Contracts\Events\Dispatcher;

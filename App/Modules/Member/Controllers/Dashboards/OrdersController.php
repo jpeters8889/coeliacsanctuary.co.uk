@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers\Dashboards;
 
-use Coeliac\Modules\Member\Requests\ViewOrderRequest;
-use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Coeliac\Common\Response\Page;
+use Illuminate\Support\Collection;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
-use Illuminate\Support\Collection;
+use Coeliac\Modules\Member\Requests\ViewOrderRequest;
 
 class OrdersController extends BaseController
 {
@@ -36,10 +35,10 @@ class OrdersController extends BaseController
             ->with(['payment', 'state', 'address'])
             ->latest()
             ->get()
-            ->transform(fn(ShopOrder $order) => [
+            ->transform(fn (ShopOrder $order) => [
                 'order_date' => $order->created_at,
                 'reference' => $order->order_key,
-                'number_of_items' => (int)$order->items_count,
+                'number_of_items' => (int) $order->items_count,
                 'total_cost' => $order->payment->total,
                 'state' => $order->state->state,
                 'shipped_at' => $order->shipped_at,
@@ -53,7 +52,7 @@ class OrdersController extends BaseController
             return [
                 'order_date' => $order->created_at,
                 'reference' => $order->order_key,
-                'number_of_items' => (int)$order->items_count,
+                'number_of_items' => (int) $order->items_count,
                 'total_cost' => $order->payment->total,
                 'state' => $order->state->state,
                 'shipped_at' => $order->shipped_at,

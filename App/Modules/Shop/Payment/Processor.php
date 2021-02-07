@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Payment;
 
 use Illuminate\Http\Request;
-use Coeliac\Modules\Member\Models\User;
 use Illuminate\Container\Container;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Basket\Basket;
 use Illuminate\Contracts\Events\Dispatcher;
 use Coeliac\Modules\Shop\Events\CreateOrder;

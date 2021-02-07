@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Notifications\Channels;
 
-use Coeliac\Modules\Member\Models\User;
 use Illuminate\Container\Container;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Notifications\Notification;
 use Illuminate\View\Factory as ViewFactory;
 use Coeliac\Common\Models\NotificationEmail;

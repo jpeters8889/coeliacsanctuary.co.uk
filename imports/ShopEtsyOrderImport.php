@@ -6,9 +6,9 @@ namespace Imports;
 
 use Carbon\Carbon;
 use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Member\Models\UserAddress;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopProduct;
+use Coeliac\Modules\Member\Models\UserAddress;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Coeliac\Modules\Shop\Models\ShopPostageCountry;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Models;
 
-use Coeliac\Modules\Member\Models\User;
 use Coeliac\Base\Models\BaseModel;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserAddress;
 
 /**

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Models;
 
-use Coeliac\Modules\Member\Models\User;
 use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Casts\EmailData;
+use Coeliac\Modules\Member\Models\User;
 
 /**
  * @property string $key

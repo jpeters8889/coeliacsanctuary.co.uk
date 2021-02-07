@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Carbon\Carbon;
 
-function admin_user(): \Coeliac\Modules\Member\Models\User
+function admin_user(): Coeliac\Modules\Member\Models\User
 {
     return \Coeliac\Modules\Member\Models\User::query()->firstWhere('email', 'contact@coeliacsanctuary.co.uk');
 }

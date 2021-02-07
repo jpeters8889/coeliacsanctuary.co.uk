@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Models;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Notifications\Notifiable;
 use Coeliac\Modules\Shop\Models\ShopOrder;
-use Illuminate\Routing\UrlGenerator;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use JPeters\Architect\Traits\HasArchitectSettings;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property string $email
- * @property int $user_level_id
+ * @property int    $user_level_id
  */
 class User extends Authenticatable implements MustVerifyEmail
 {

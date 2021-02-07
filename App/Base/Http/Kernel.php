@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Coeliac\Base\Http;
 
-use Coeliac\Base\Middleware\HasVerifiedEmail;
 use Fruitcake\Cors\HandleCors;
 use Coeliac\Base\Middleware\TrimStrings;
 use Coeliac\Base\Middleware\Authenticate;
@@ -12,6 +11,7 @@ use Coeliac\Base\Middleware\TrustProxies;
 use Illuminate\Auth\Middleware\Authorize;
 use Coeliac\Base\Middleware\EncryptCookies;
 use Coeliac\Base\Middleware\VerifyCsrfToken;
+use Coeliac\Base\Middleware\HasVerifiedEmail;
 use Illuminate\Http\Middleware\SetCacheHeaders;
 use Illuminate\Session\Middleware\StartSession;
 use Coeliac\Modules\Shop\Middleware\OrderComplete;
@@ -21,7 +21,6 @@ use Coeliac\Base\Middleware\CookieConsentMiddleware;
 use Coeliac\Base\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Routing\Middleware\ValidateSignature;
-use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;

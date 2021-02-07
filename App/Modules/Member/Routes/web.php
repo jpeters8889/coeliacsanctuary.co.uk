@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-use Coeliac\Modules\Member\Controllers\DashboardController;
-use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
-use Coeliac\Modules\Member\Controllers\Dashboards\SubscriptionsController;
-use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
+use Illuminate\Routing\Router;
 use Coeliac\Modules\Member\Controllers\LoginController;
 use Coeliac\Modules\Member\Controllers\LogoutController;
 use Coeliac\Modules\Member\Controllers\RegisterController;
-use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookController;
+use Coeliac\Modules\Member\Controllers\DashboardController;
 use Coeliac\Modules\Member\Controllers\VerifyEmailController;
-use Illuminate\Routing\Router;
+use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
+use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookController;
+use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
+use Coeliac\Modules\Member\Controllers\Dashboards\SubscriptionsController;
 
 /* @var Router $router */
 
