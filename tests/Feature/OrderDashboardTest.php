@@ -7,6 +7,7 @@ use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserAddress;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Illuminate\Testing\TestResponse;
 use Spatie\TestTime\TestTime;
 use Tests\Abstracts\DashboardTest;
 use Tests\Traits\Shop\MakesShopOrders;
@@ -163,36 +164,85 @@ class OrderDashboardTest extends DashboardTest
         /** @var ShopOrder $order */
         $order = $this->createFullOrder(['user_id' => $this->user->id]);
 
-        $response = $this->get("/api/member/dashboard/orders/{$order->order_key}")->json();
+        $response = $this->makeOrderInfoRequest($order)->json();
 
-        $keys = ['order_date', 'reference', 'number_of_items', 'state', 'shipped_at', 'addresses', 'items', 'payment'];
+        $keys = ['order_date', 'reference', 'number_of_items', 'state', 'shipped_at', 'address', 'items', 'payment'];
 
-        foreach($keys as $key) {
+        foreach ($keys as $key) {
             $this->assertArrayHasKey($key, $response);
         }
     }
 
     /** @test */
-    public function it_returns_the_correct_shipping_and_billing_addresses()
+    public function it_returns_the_correct_shipping_address()
     {
-        //
+        /** @var ShopOrder $order */
+        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+
+        $order->address->update($params = [
+            'line_1' => 'First Line',
+            'line_2' => 'Second Line',
+            'line_3' => 'Third Line',
+            'town' => 'My Town',
+            'postcode' => 'AB1 2CD',
+            'country' => 'England',
+        ]);
+
+        $request = $this->makeOrderInfoRequest($order)->json();
+
+        foreach ($params as $key => $value) {
+            $this->assertArrayHasKey($key, $request['address']);
+            $this->assertEquals($value, $request['address'][$key]);
+        }
     }
 
     /** @test */
-    public function it_returns_the_correct_items()
+    public function it_returns_an_array_of_items()
     {
-        //
+        /** @var ShopOrder $order */
+        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+
+        $request = $this->makeOrderInfoRequest($order)->json();
+
+        $this->assertIsArray($request['items']);
     }
 
     /** @test */
     public function it_returns_the_items_in_the_correct_format()
     {
-        //
+        /** @var ShopOrder $order */
+        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+
+        $request = $this->makeOrderInfoRequest($order)->json();
+
+        $keys = ['quantity', 'product_title', 'product_price', 'subtotal'];
+
+        foreach ($request['items'] as $index => $item) {
+            foreach ($keys as $key) {
+                $this->assertArrayHasKey($key, $item);
+                $this->assertEquals($item[$key], $order->items[$index]->$key);
+            }
+        }
     }
 
     /** @test */
     public function it_returns_the_payment_information()
     {
-        //
+        /** @var ShopOrder $order */
+        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+
+        $request = $this->makeOrderInfoRequest($order)->json();
+
+        $keys = ['subtotal', 'discount', 'postage', 'total', 'payment_type'];
+
+        foreach ($keys as $key) {
+            $this->assertArrayHasKey($key, $request['payment']);
+            $this->assertEquals($request['payment'][$key], $order->payment->$key);
+        }
+    }
+
+    protected function makeOrderInfoRequest(ShopOrder $order): TestResponse
+    {
+        return $this->get("/api/member/dashboard/orders/{$order->order_key}");
     }
 }

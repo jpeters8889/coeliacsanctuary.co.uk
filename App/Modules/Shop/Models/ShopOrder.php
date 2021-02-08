@@ -4,23 +4,29 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Models;
 
+use Carbon\Carbon;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Member\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Coeliac\Modules\Member\Models\UserAddress;
 
 /**
- * @property ShopOrderState     $state
- * @property User               $user
- * @property UserAddress        $address
- * @property mixed|string       $id
- * @property mixed|string       $token
- * @property ShopPostageCountry $postageCountry
- * @property mixed|string       $customer_id
- * @property mixed|string       $customer_address_id
- * @property ShopPayment        $payment
- * @property string             $order_key
- * @property bool               $newsletter_signup
- * @property ShopDiscountCode   $discountCode
+ * @property ShopOrderState            $state
+ * @property User                      $user
+ * @property UserAddress               $address
+ * @property mixed|string              $id
+ * @property mixed|string              $token
+ * @property ShopPostageCountry        $postageCountry
+ * @property mixed|string              $customer_id
+ * @property mixed|string              $customer_address_id
+ * @property ShopPayment               $payment
+ * @property string                    $order_key
+ * @property bool                      $newsletter_signup
+ * @property ShopDiscountCode          $discountCode
+ * @property Carbon                    $created_at
+ * @property int                       $items_count
+ * @property Carbon|null               $shipped_at
+ * @property Collection<ShopOrderItem> $items
  */
 class ShopOrder extends BaseModel
 {
@@ -29,6 +35,7 @@ class ShopOrder extends BaseModel
         'postage_country_id' => 'int',
         'state_id' => 'int',
         'newsletter_signup' => 'bool',
+        'order_key' => 'int',
     ];
 
     protected $dates = ['shipped_at'];
