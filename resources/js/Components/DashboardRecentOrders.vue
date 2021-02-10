@@ -22,7 +22,8 @@
                     </div>
                 </div>
                 <div
-                    class="bg-blue text-white font-semibold p-2 hover:bg-blue-light cursor-pointer text-lg text-center border-t border-white transition-bg">
+                    class="bg-blue text-white font-semibold p-2 hover:bg-blue-light cursor-pointer text-lg text-center border-t border-white transition-bg"
+                    @click="showOrderDetails = order.reference">
                     More Info
                 </div>
             </div>
@@ -41,7 +42,8 @@
                     <td v-for="params in orderParameters()"
                         v-html="!params.condition || params.condition(order) ? params.format ? params.format(order[params.prop]) : order[params.prop] : ''"></td>
                     <td>
-                        <div class="bg-blue rounded px-3 py-1 text-white font-semibold cursor-pointer">
+                        <div class="bg-blue rounded px-3 py-1 text-white font-semibold cursor-pointer"
+                             @click="showOrderDetails = order.reference">
                             More Info
                         </div>
                     </td>
@@ -55,6 +57,12 @@
                     :can-go-back="currentPage > 1"
                     :can-go-forward="currentPage < lastPage"
         ></pagination>
+
+        <portal to="modal" v-if="showOrderDetails">
+            <modal modal-classes="w-full" small>
+                <dashboard-order-details :id="showOrderDetails"></dashboard-order-details>
+            </modal>
+        </portal>
     </div>
 </template>
 
@@ -62,11 +70,15 @@
 import FormatsDates from "../Mixins/FormatsDates";
 import FormatsPrices from "../Mixins/FormatsPrices";
 
-const Pagination = () => import('./Pagination' /* webpackChunkName: "chunk-pagination" */)
+const Pagination = () => import('./Pagination' /* webpackChunkName: "chunk-pagination" */);
+const Modal = () => import('./Modal' /* webpackChunkName: "chunk-modal" */);
+const DashboardOrderDetails = () => import('./DashboardOrderDetails' /* webpackChunkName: "chunk-dashboard-order-details" */)
 
 export default {
     components: {
         'pagination': Pagination,
+        'modal': Modal,
+        'dashboard-order-details': DashboardOrderDetails,
     },
 
     mixins: [FormatsDates, FormatsPrices],
@@ -77,6 +89,8 @@ export default {
         currentPage: 1,
         lastPage: 1,
         loading: true,
+
+        showOrderDetails: false,
     }),
 
     mounted() {
@@ -97,6 +111,10 @@ export default {
             this.$scrollTo(this.$refs.items, 500, {
                 offset: -200,
             });
+        });
+
+        this.$root.$on('modal-closed', () => {
+            this.showOrderDetails = false;
         });
     },
 

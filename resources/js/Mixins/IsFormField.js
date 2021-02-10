@@ -12,6 +12,10 @@ export default {
     }),
 
     props: {
+        id: {
+            type: String,
+            default: ''
+        },
         type: {
             type: String,
             default: 'text',

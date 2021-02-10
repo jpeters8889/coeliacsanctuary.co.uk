@@ -2,6 +2,7 @@
     <div class="flex overflow-hidden border border-blue rounded">
         <div class="bg-grey-lightest p-0 flex-1">
             <input v-model="currentValue"
+                   :id="id"
                    :type="type"
                    :name="name"
                    :placeholder="placeholder"
