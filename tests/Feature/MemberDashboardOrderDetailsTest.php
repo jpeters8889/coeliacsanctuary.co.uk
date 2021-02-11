@@ -12,7 +12,7 @@ use Spatie\TestTime\TestTime;
 use Tests\Abstracts\DashboardTest;
 use Tests\Traits\Shop\MakesShopOrders;
 
-class OrderDashboardTest extends DashboardTest
+class MemberDashboardOrderDetailsTest extends DashboardTest
 {
     use MakesShopOrders;
 
@@ -44,7 +44,7 @@ class OrderDashboardTest extends DashboardTest
     /** @test */
     public function it_returns_a_paginated_list_of_orders()
     {
-        $this->makeRequest()->assertJsonFragment(['current_page' => 1]);
+        $this->makeApiRequest()->assertJsonFragment(['current_page' => 1]);
     }
 
     /** @test */
@@ -52,7 +52,7 @@ class OrderDashboardTest extends DashboardTest
     {
         $this->createFullOrder(['user_id' => $this->user->id]);
 
-        $this->makeRequest()
+        $this->makeApiRequest()
             ->assertJsonStructure([
                 'data' => [[
                     'order_date',
@@ -70,7 +70,7 @@ class OrderDashboardTest extends DashboardTest
         /** @var ShopOrder $order */
         $order = $this->createFullOrder(['user_id' => $this->user->id]);
 
-        $this->makeRequest()->assertJsonFragment(['number_of_items' => 1]);
+        $this->makeApiRequest()->assertJsonFragment(['number_of_items' => 1]);
 
         $order->items()->create([
             'product_id' => 1,
@@ -80,7 +80,7 @@ class OrderDashboardTest extends DashboardTest
             'product_price' => 1,
         ]);
 
-        $this->makeRequest()->assertJsonFragment(['number_of_items' => 2]);
+        $this->makeApiRequest()->assertJsonFragment(['number_of_items' => 2]);
     }
 
     /** @test */
@@ -89,11 +89,11 @@ class OrderDashboardTest extends DashboardTest
         /** @var ShopOrder $order */
         $order = $this->createFullOrder(['user_id' => $this->user->id]);
 
-        $this->makeRequest()->assertJsonFragment(['state' => 'Order']);
+        $this->makeApiRequest()->assertJsonFragment(['state' => 'Order']);
 
         $order->markAs(ShopOrderState::STATE_SHIPPED);
 
-        $this->makeRequest()->assertJsonFragment(['state' => 'Shipped']);
+        $this->makeApiRequest()->assertJsonFragment(['state' => 'Shipped']);
     }
 
     /** @test */
@@ -102,11 +102,11 @@ class OrderDashboardTest extends DashboardTest
         /** @var ShopOrder $order */
         $order = $this->createFullOrder(['user_id' => $this->user->id]);
 
-        $this->makeRequest()->assertJsonFragment(['shipped_at' => null]);
+        $this->makeApiRequest()->assertJsonFragment(['shipped_at' => null]);
 
         $order->update(['shipped_at' => Carbon::now()]);
 
-        $this->makeRequest()->assertJsonMissing(['shipped_at' => null]);
+        $this->makeApiRequest()->assertJsonMissing(['shipped_at' => null]);
     }
 
     /** @test */
@@ -114,13 +114,13 @@ class OrderDashboardTest extends DashboardTest
     {
         $this->createFullOrder(['user_id' => $this->user->id]);
 
-        $response = $this->makeRequest()->json();
+        $response = $this->makeApiRequest()->json();
 
         $this->assertCount(1, $response['data']);
 
         $this->createBasket(['user_id' => $this->user->id]);
 
-        $response = $this->makeRequest()->json();
+        $response = $this->makeApiRequest()->json();
 
         $this->assertCount(1, $response['data']);
     }
@@ -134,7 +134,7 @@ class OrderDashboardTest extends DashboardTest
 
         $otherOrder = $this->createFullOrder(['user_id' => $secondUser->id]);
 
-        $this->makeRequest()
+        $this->makeApiRequest()
             ->assertJsonFragment(['reference' => $myOrder->order_key])
             ->assertJsonMissing(['reference' => $otherOrder->order_key]);
     }

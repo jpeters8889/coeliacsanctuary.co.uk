@@ -7,6 +7,7 @@ use Coeliac\Modules\Member\Controllers\LoginController;
 use Coeliac\Modules\Member\Controllers\RegisterController;
 use Coeliac\Modules\Member\Controllers\VerifyEmailController;
 use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
+use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
 
 /* @var Router $router */
 
@@ -25,8 +26,13 @@ $router->group(['prefix' => 'api/member'], static function () use ($router) {
 
         $router->group(['prefix' => 'dashboard'], static function () use ($router) {
             $router->group(['prefix' => 'orders', 'middleware' => ['verified']], static function () use ($router) {
-                $router->get('/', [OrdersController::class, 'list'])->middleware(['verified']);
+                $router->get('/', [OrdersController::class, 'list']);
                 $router->get('/{key}', [OrdersController::class, 'get']);
+            });
+
+            $router->group(['prefix' => 'details'], static function () use ($router) {
+                $router->post('/', [YourDetailsController::class, 'update']);
+                $router->patch('/', [YourDetailsController::class, 'password']);
             });
         });
     });

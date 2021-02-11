@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Coeliac\Modules\Member\Requests\ViewOrderRequest;
 use Coeliac\Modules\Member\Services\ShopOrderService;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class OrdersController extends BaseController
 {

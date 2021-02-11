@@ -17,6 +17,7 @@ const colours = {
         shopping: '#f4f9fd',
     },
     yellow: {
+        light: '#ecd14a',
         default: '#DBBC25',
         '40': 'rgba(219,188,37,0.4)',
         '50': 'rgba(219,188,37,0.5)',
@@ -32,6 +33,7 @@ const colours = {
     black: {
         default: '#000',
         '80': 'rgba(0,0,0,0.8)',
+        '50': 'rgba(0,0,0,0.5)',
     },
     grey: {
         default: '#666',

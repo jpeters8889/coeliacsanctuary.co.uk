@@ -21,11 +21,16 @@ abstract class DashboardTest extends TestCase
         return false;
     }
 
+    protected function hasApiEndpoint(): bool
+    {
+        return true;
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();;
+        $this->user = factory(User::class)->create();
         $this->actingAs($this->user);
     }
 
@@ -42,11 +47,16 @@ abstract class DashboardTest extends TestCase
     {
         if (!$this->mustBeVerified()) {
             $this->assertTrue(true);
+            return;
         }
 
         $this->user->update(['email_verified_at' => null]);
 
-        $this->makeRequest()->assertStatus(403);
+        $this->makeRequest()->assertSee('You need to verify your email address');
+
+        if($this->hasApiEndpoint()) {
+            $this->makeApiRequest()->assertStatus(403);
+        }
 
         $this->user->update(['email_verified_at' => Carbon::now()]);
     }
@@ -59,6 +69,11 @@ abstract class DashboardTest extends TestCase
 
 
     protected function makeRequest(): TestResponse
+    {
+        return $this->get("/member/dashboard/{$this->page()}");
+    }
+
+    protected function makeApiRequest(): TestResponse
     {
         return $this->get("/api/member/dashboard/{$this->page()}");
     }

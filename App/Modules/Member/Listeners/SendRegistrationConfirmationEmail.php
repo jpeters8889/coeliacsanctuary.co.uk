@@ -7,7 +7,7 @@ namespace Coeliac\Modules\Member\Listeners;
 use Coeliac\Modules\Member\Events\UserRegistered;
 use Coeliac\Modules\Member\Notifications\VerifyEmail;
 
-class SendEmailVerificationEmail
+class SendRegistrationConfirmationEmail
 {
     public function handle(UserRegistered $event)
     {

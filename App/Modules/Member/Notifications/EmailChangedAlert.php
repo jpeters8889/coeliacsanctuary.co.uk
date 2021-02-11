@@ -8,35 +8,28 @@ use Carbon\Carbon;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Blog\Repository;
 use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Common\Notifications\Notification;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
-class VerifyEmail extends Notification
+class EmailChangedAlert extends Notification
 {
-    private bool $newUser;
+    private User $user;
 
-    public function __construct($newUser = true)
+    public function __construct(User $user)
     {
-        $this->newUser = $newUser;
+        $this->user = $user;
     }
 
     public function toMail($notifiable = null)
     {
-        $subject = 'Thanks for registering, please confirm your email address!';
-
-        if (!$this->newUser) {
-            $subject = 'Please confirm your email address!';
-        }
-
         return (new MJMLMessage())
-            ->subject($subject)
-            ->mjml('mailables.mjml.member.verify-email', [
+            ->subject('You changed your email address!')
+            ->mjml('mailables.mjml.member.email-changed-alert', [
                 'date' => Carbon::now(),
-                'notifiable' => $notifiable,
-                'reason' => 'because you registed an account at Coeliac Sanctuary and need to confirm your email address.',
-                'newUser' => $this->newUser,
-                'verification_link' => $notifiable->generateEmailVerificationLink(),
+                'notifiable' => $this->user,
+                'reason' => 'because you have changed your email address on Coeliac Sanctuary.',
                 'relatedTitle' => 'Blogs',
                 'relatedItems' => (new Repository())->random()->take(3)
                     ->transform(static function (Blog $blog) {
