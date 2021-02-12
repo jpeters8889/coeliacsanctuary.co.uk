@@ -1,11 +1,11 @@
 <template>
     <div class="flex flex-col">
-        <div>
+        <form @submit.prevent="updateDetails">
             <div>
                 <div v-for="input in form" class="py-4 border-b border-blue last:border-0">
                     <label class="text-blue-dark font-semibold mb-1" :for="input.field">{{ input.label }}</label>
                     <form-input :id="input.field" :type="input.type" :name="input.field" :required="input.required"
-                                :value="fields[input.field]"/>
+                                :value="fields[input.field]" :autocomplete="input.field"/>
                     <span class="text-sm font-semibold leading-tight" v-if="input.help">{{ input.help }}</span>
                 </div>
             </div>
@@ -28,9 +28,9 @@
                     <span v-else>Update!</span>
                 </button>
             </div>
-        </div>
+        </form>
 
-        <div class="bg-blue-gradient-30 p-2 rounded-lg">
+        <form class="bg-blue-gradient-30 p-2 rounded-lg" @submit.prevent="updatePassword">
             <h2 class="text-lg text-blue-dark font-semibold">Your Password</h2>
 
             <p class="text-sm mb-2">
@@ -46,14 +46,15 @@
                 <label class="text-blue-dark font-semibold mb-1" for="current_password">
                     Current Password
                 </label>
-                <form-input id="current_password" type="password" name="current_password" :min="8"/>
+                <form-input id="current_password" type="password" name="current_password" :min="8"
+                            autocomplete="current_password"/>
             </div>
 
             <div class="py-4 border-b border-blue last:border-0">
                 <label class="text-blue-dark font-semibold mb-1" for="new_password">
                     New Password
                 </label>
-                <form-input id="new_password" type="password" name="new_password" :min="8"/>
+                <form-input id="new_password" type="password" name="new_password" :min="8" autocomplete="new_password"/>
             </div>
 
             <div class="py-4">
@@ -61,7 +62,7 @@
                     Confirm New Password
                 </label>
                 <form-input id="new_password_confirmation" type="password" name="new_password_confirmation" :min="8"
-                            :match="password.fields.new"/>
+                            autocomplete="new_password_confirmation" :match="password.fields.new"/>
             </div>
 
             <div class="flex justify-end my-2">
@@ -83,7 +84,7 @@
                     <span v-else>Update Password</span>
                 </button>
             </div>
-        </div>
+        </form>
     </div>
 </template>
 
@@ -209,14 +210,15 @@ export default {
 
 
             coeliac().request().post('/api/member/dashboard/details', this.fields)
-                .then((response) => {
-                    //
+                .then(() => {
+                    coeliac().success('Your details have been updated.');
                 })
-                .catch((err) => {
-
+                .catch(() => {
+                    coeliac().error('There was an error updating your details, please try again');
+                    this.validateForm();
                 })
                 .finally(() => {
-                    //
+                    this.submittingDetails = false;
                 });
         },
 
@@ -227,16 +229,25 @@ export default {
 
             this.submittingPassword = true;
 
-            coeliac().request().post('/api/member/dashboard/details', this.fields)
-                .then((response) => {
-                    //
+            coeliac().request().patch('/api/member/dashboard/details', this.password.fields)
+                .then(() => {
+                    coeliac().success('Your password has been updated.');
                 })
-                .catch((err) => {
-
+                .catch(() => {
+                    coeliac().error('There was an error changing your password, please try again');
                 })
                 .finally(() => {
-                    //
+                    this.resetPasswordForm();
+                    this.submittingPassword = false;
                 });
+        },
+
+        resetPasswordForm() {
+            Object.keys(this.password.fields).forEach((field) => {
+                this.$root.$emit(`${field}-set-value`, (''));
+                this.password.fields[field] = '';
+                this.password.validity[field] = true;
+            });
         },
 
         validateForm() {
@@ -256,7 +267,7 @@ export default {
         },
 
         validatePassword() {
-            if(!this.password.fields.current) {
+            if (!this.password.fields.current) {
                 return false;
             }
 

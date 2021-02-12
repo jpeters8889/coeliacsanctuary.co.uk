@@ -14,7 +14,7 @@ export default {
     props: {
         id: {
             type: String,
-            default: ''
+            default: null
         },
         type: {
             type: String,

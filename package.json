@@ -36,6 +36,7 @@
         "laravel-mix-bundle-analyzer": "^1.0.5",
         "laravel-mix-criticalcss": "^1.0.1",
         "moment-locales-webpack-plugin": "^1.2.0",
-        "vue-loader": "^15.9.3"
+        "vue-loader": "^15.9.3",
+        "vue-click-outside": "^1.1.0"
     }
 }
