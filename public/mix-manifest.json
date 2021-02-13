@@ -105,14 +105,18 @@
 >>>>>>> wip
 =======
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=da976b01cd2b078f6073",
+<<<<<<< develop
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=3aad849e71ade71f29e4",
+>>>>>>> wip
+=======
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=1b33459a614bd55433d5",
 >>>>>>> wip
     "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=cf9ac22e5d898519b568",
     "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=2a9d84402759b9b25032",
     "/assets/js/preload-header-search.js": "/assets/js/preload-header-search.js?id=ab0f0def260c44cd207d",
     "/assets/js/chunk-home-heros.js": "/assets/js/chunk-home-heros.js?id=02faf049edef6b3c4df8",
     "/assets/js/chunk-link-button.js": "/assets/js/chunk-link-button.js?id=937bf9e43b7d3883de72",
-    "/assets/js/preload-top-bar.js": "/assets/js/preload-top-bar.js?id=b5cf5de4903f76fa4963",
+    "/assets/js/preload-top-bar.js": "/assets/js/preload-top-bar.js?id=b7263c8f71497209b7a5",
     "/assets/js/chunk-number-count.js": "/assets/js/chunk-number-count.js?id=cae35a441e48bc69db01",
     "/assets/js/preload-footer-newsletter.js": "/assets/js/preload-footer-newsletter.js?id=93fa741978278b71b035",
     "/assets/js/chunk-breadcrumbs.js": "/assets/js/chunk-breadcrumbs.js?id=6a142ae0115906537131",
@@ -162,7 +166,7 @@
     "/assets/js/chunk-contact-form.js": "/assets/js/chunk-contact-form.js?id=1237859819da81372d52",
     "/assets/js/chunk-modal.js": "/assets/js/chunk-modal.js?id=3ad7d5b70605d89ddc7f",
     "/assets/js/preload-coeliac-nav.js": "/assets/js/preload-coeliac-nav.js?id=a1a7842a95a59d7d8ed0",
-    "/assets/js/preload-user-manager.js": "/assets/js/preload-user-manager.js?id=b886c1d36d87d896c541",
+    "/assets/js/preload-user-manager.js": "/assets/js/preload-user-manager.js?id=07321b2de96cef85d5b2",
     "/assets/js/chunk-loader.js": "/assets/js/chunk-loader.js?id=a4bbc32ef995ea5fb88f",
     "/assets/js/chunk-pagination.js": "/assets/js/chunk-pagination.js?id=9ef894fdb96deed5981a",
 <<<<<<< develop

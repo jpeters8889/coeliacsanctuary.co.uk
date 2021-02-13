@@ -10,7 +10,7 @@
                     <coeliac-icon class="js-mob-icon text-white md:hidden" style="height: 1.875rem"/>
                 </a>
                 <coeliac-nav class="hidden md:block" v-if="width > 500"/>
-                <div class="flex md:absolute md:right-0 md:top-0 md:mr-2">
+                <div class="flex md:absolute md:right-0 md:top-0 md:mr-2 leading-none h-full">
                     <user-manager class="mr-2"/>
                     <header-search class="h-full flex items-center "/>
                 </div>
