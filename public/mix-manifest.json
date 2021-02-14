@@ -106,10 +106,14 @@
 =======
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=da976b01cd2b078f6073",
 <<<<<<< develop
+<<<<<<< develop
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=3aad849e71ade71f29e4",
 >>>>>>> wip
 =======
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=1b33459a614bd55433d5",
+>>>>>>> wip
+=======
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=186341ec1907fc834ea4",
 >>>>>>> wip
     "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=cf9ac22e5d898519b568",
     "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=2a9d84402759b9b25032",
@@ -147,7 +151,7 @@
     "/assets/js/chunk-basket-quick-link.js": "/assets/js/chunk-basket-quick-link.js?id=76c831d155cd472b6144",
     "/assets/js/chunk-product-images.js": "/assets/js/chunk-product-images.js?id=14561ce5599e73e92c50",
     "/assets/js/chunk-product-add-basket.js": "/assets/js/chunk-product-add-basket.js?id=477459ff96040f8afd96",
-    "/assets/js/chunk-basket-page.js": "/assets/js/chunk-basket-page.js?id=880e5751aa553b8b07df",
+    "/assets/js/chunk-basket-page.js": "/assets/js/chunk-basket-page.js?id=0bd30c3f2974ebfdc15b",
     "/assets/js/chunk-basket-quantity-switcher.js": "/assets/js/chunk-basket-quantity-switcher.js?id=f7cee498794489a48347",
     "/assets/js/chunk-page-loader.js": "/assets/js/chunk-page-loader.js?id=fcff3dd2fcb3b6b7e5a3",
     "/assets/js/preload-quick-search.js": "/assets/js/preload-quick-search.js?id=1b829652b14cf21715b5",
@@ -166,7 +170,7 @@
     "/assets/js/chunk-contact-form.js": "/assets/js/chunk-contact-form.js?id=1237859819da81372d52",
     "/assets/js/chunk-modal.js": "/assets/js/chunk-modal.js?id=3ad7d5b70605d89ddc7f",
     "/assets/js/preload-coeliac-nav.js": "/assets/js/preload-coeliac-nav.js?id=a1a7842a95a59d7d8ed0",
-    "/assets/js/preload-user-manager.js": "/assets/js/preload-user-manager.js?id=07321b2de96cef85d5b2",
+    "/assets/js/preload-user-manager.js": "/assets/js/preload-user-manager.js?id=35422257ccfe1a8b3219",
     "/assets/js/chunk-loader.js": "/assets/js/chunk-loader.js?id=a4bbc32ef995ea5fb88f",
     "/assets/js/chunk-pagination.js": "/assets/js/chunk-pagination.js?id=9ef894fdb96deed5981a",
 <<<<<<< develop

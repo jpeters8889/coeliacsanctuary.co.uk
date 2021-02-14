@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Coeliac\Modules\Member\Controllers\AddressController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\Member\Controllers\LoginController;
 use Coeliac\Modules\Member\Controllers\RegisterController;
@@ -22,6 +23,8 @@ $router->group(['prefix' => 'api/member'], static function () use ($router) {
     });
 
     $router->group(['middleware' => 'auth'], static function () use ($router) {
+        $router->get('addresses', [AddressController::class, 'list'])->middleware(['verified']);
+
         $router->post('/verify-email', [VerifyEmailController::class, 'create']);
 
         $router->group(['prefix' => 'dashboard'], static function () use ($router) {

@@ -9,6 +9,7 @@ use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Member\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Coeliac\Modules\Member\Models\UserAddress;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property ShopOrderState            $state
@@ -52,7 +53,7 @@ class ShopOrder extends BaseModel
 
     public function address()
     {
-        return $this->belongsTo(UserAddress::class, 'user_address_id');
+        return $this->belongsTo(UserAddress::class, 'user_address_id')->withTrashed();
     }
 
     public function addProduct(ShopProductVariant $variant, $quantity = 1)

@@ -6,6 +6,7 @@ namespace Coeliac\Modules\Member\Models;
 
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Shop\Models\ShopOrder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed|string $id
@@ -19,6 +20,8 @@ use Coeliac\Modules\Shop\Models\ShopOrder;
  */
 class UserAddress extends BaseModel
 {
+    use SoftDeletes;
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
