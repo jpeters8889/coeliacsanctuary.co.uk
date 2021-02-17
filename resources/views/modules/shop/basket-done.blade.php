@@ -4,6 +4,7 @@
     <div class="flex flex-col p-2">
         <div class="bg-blue-gradient w-full rounded-lg p-2 shadow">
             <div class="flex flex-col xs:flex-row xs:justify-between xs:pt-4 mb-4">
+                @guest
                 <div class="flex xs:flex-col xs:flex-1">
                     <div class="px-4 relative xs:px-0">
                         <div class="w-5 h-5 rounded-full absolute text-white bg-yellow"
@@ -15,6 +16,7 @@
                         Your Details
                     </div>
                 </div>
+                @endguest
 
                 <div class="flex xs:flex-col xs:flex-1">
                     <div class="px-4 relative xs:px-0">

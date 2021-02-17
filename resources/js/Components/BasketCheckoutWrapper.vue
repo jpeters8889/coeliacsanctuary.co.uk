@@ -68,6 +68,10 @@ export default {
         this.$root.$on('checkout-back', () => {
             this.goBack();
         });
+
+        this.$root.$on('set-customer-name', (name) => {
+            this.sections[0].data.name = name;
+        })
     },
 
     data: () => ({

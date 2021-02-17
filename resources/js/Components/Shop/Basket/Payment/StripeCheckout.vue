@@ -115,7 +115,8 @@
 
                             this.stripeError();
                             this.hasStartedPayment = false;
-                        }).catch(() => {
+                        }).catch((err) => {
+                          console.log(err)
                         this.stripeError();
                         this.hasStartedPayment = false;
                     })
@@ -159,7 +160,8 @@
 
                         this.stripeError();
                         this.hasStartedPayment = false;
-                    }).catch(() => {
+                    }).catch((err) => {
+                      console.log(err);
                         this.stripeError();
                         this.hasStartedPayment = false;
                     });

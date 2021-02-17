@@ -149,7 +149,7 @@ export default {
                 return true;
             }
 
-            return super.validateForm();
+            return CheckoutComponent.methods.validateForm.call(this);
         },
 
         selectSavedAddress(address) {
@@ -157,10 +157,23 @@ export default {
                 this.$root.$emit('enable-country-change');
                 this.formData.id = null;
 
+                this.formData.address1 = '';
+                this.formData.address2 = '';
+                this.formData.address3 = '';
+                this.formData.town = '';
+                this.formData.postcode = '';
+
                 this.updateSessionStorage();
                 return;
             }
 
+            this.formData.address1 = address.line_1;
+            this.formData.address2 = address.line_2;
+            this.formData.address3 = address.line_3;
+            this.formData.town = address.town;
+            this.formData.postcode = address.postcode;
+
+            this.$root.$emit('set-customer-name', (address.name));
             this.$root.$emit('disable-country-change');
             this.formData.id = address.id;
             this.$root.$emit('select-country', (address.country));

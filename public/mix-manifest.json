@@ -9,6 +9,7 @@
 <<<<<<< develop
 <<<<<<< develop
 <<<<<<< develop
+<<<<<<< develop
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=dd3198b112a0662f691b",
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=0bb7a45f1695237c9ff1",
     "/assets/js/chunk-contact-trigger.js": "/assets/js/chunk-contact-trigger.js?id=e820041e33e88bdd7c4d",
@@ -115,6 +116,10 @@
 =======
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=186341ec1907fc834ea4",
 >>>>>>> wip
+=======
+    "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=a49f1d332defbe5239e7",
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=9433c0dd1acb9ae2dd30",
+>>>>>>> wip
     "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=cf9ac22e5d898519b568",
     "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=2a9d84402759b9b25032",
     "/assets/js/preload-header-search.js": "/assets/js/preload-header-search.js?id=ab0f0def260c44cd207d",
@@ -124,7 +129,7 @@
     "/assets/js/chunk-number-count.js": "/assets/js/chunk-number-count.js?id=cae35a441e48bc69db01",
     "/assets/js/preload-footer-newsletter.js": "/assets/js/preload-footer-newsletter.js?id=93fa741978278b71b035",
     "/assets/js/chunk-breadcrumbs.js": "/assets/js/chunk-breadcrumbs.js?id=6a142ae0115906537131",
-    "/assets/js/chunk-module-list-index.js": "/assets/js/chunk-module-list-index.js?id=e250030fe4017de95736",
+    "/assets/js/chunk-module-list-index.js": "/assets/js/chunk-module-list-index.js?id=c01e46b5734b2c4f0cdd",
     "/assets/js/chunk-accordion.js": "/assets/js/chunk-accordion.js?id=f1a6d804768acdb3e724",
     "/assets/js/chunk-widget.js": "/assets/js/chunk-widget.js?id=3ad3091bdc34d2e417bc",
     "/assets/js/chunk-newsletter-signup.js": "/assets/js/chunk-newsletter-signup.js?id=ce1f605526def32540d9",
@@ -151,7 +156,7 @@
     "/assets/js/chunk-basket-quick-link.js": "/assets/js/chunk-basket-quick-link.js?id=76c831d155cd472b6144",
     "/assets/js/chunk-product-images.js": "/assets/js/chunk-product-images.js?id=14561ce5599e73e92c50",
     "/assets/js/chunk-product-add-basket.js": "/assets/js/chunk-product-add-basket.js?id=477459ff96040f8afd96",
-    "/assets/js/chunk-basket-page.js": "/assets/js/chunk-basket-page.js?id=0bd30c3f2974ebfdc15b",
+    "/assets/js/chunk-basket-page.js": "/assets/js/chunk-basket-page.js?id=45c4f7487a4d9d7ff0a6",
     "/assets/js/chunk-basket-quantity-switcher.js": "/assets/js/chunk-basket-quantity-switcher.js?id=f7cee498794489a48347",
     "/assets/js/chunk-page-loader.js": "/assets/js/chunk-page-loader.js?id=fcff3dd2fcb3b6b7e5a3",
     "/assets/js/preload-quick-search.js": "/assets/js/preload-quick-search.js?id=1b829652b14cf21715b5",
@@ -166,7 +171,7 @@
     "/assets/js/chunk-resend-verify-email.js": "/assets/js/chunk-resend-verify-email.js?id=ccd4c7943d3cfd39f23f",
     "/assets/js/chunk-member-dashboard.js": "/assets/js/chunk-member-dashboard.js?id=c45d9df9ac55b0b9dd14",
     "/assets/js/chunk-dashboard-recent-orders.js": "/assets/js/chunk-dashboard-recent-orders.js?id=5f501fdf546f943aa3b0",
-    "/assets/js/chunk-dashboard-user-details.js": "/assets/js/chunk-dashboard-user-details.js?id=4677478c2ed984fabbfd",
+    "/assets/js/chunk-dashboard-user-details.js": "/assets/js/chunk-dashboard-user-details.js?id=4102d1dfcd071287e944",
     "/assets/js/chunk-contact-form.js": "/assets/js/chunk-contact-form.js?id=1237859819da81372d52",
     "/assets/js/chunk-modal.js": "/assets/js/chunk-modal.js?id=3ad7d5b70605d89ddc7f",
     "/assets/js/preload-coeliac-nav.js": "/assets/js/preload-coeliac-nav.js?id=a1a7842a95a59d7d8ed0",
@@ -358,7 +363,12 @@
     "/assets/js/prefetch-form-option.js": "/assets/js/prefetch-form-option.js?id=9f847e5633731f342585",
     "/assets/js/chunk-form-checkbox.js": "/assets/js/chunk-form-checkbox.js?id=2de9b168aba1fe762b53",
     "/assets/js/chunk-dashboard-order-details.js": "/assets/js/chunk-dashboard-order-details.js?id=7a01a2f5e8dff7272c3d",
+<<<<<<< develop
     "/assets/css/coeliac.css": "/assets/css/coeliac.css?id=11bee4f1fb9bd9a07040",
     "/assets/js/vendor.js": "/assets/js/vendor.js?id=a16754b7b1c05a90e11a"
+>>>>>>> wip
+=======
+    "/assets/css/coeliac.css": "/assets/css/coeliac.css?id=eba77f8f69dd46cddd25",
+    "/assets/js/vendor.js": "/assets/js/vendor.js?id=820c0fa6273b8f2d0b77"
 >>>>>>> wip
 }

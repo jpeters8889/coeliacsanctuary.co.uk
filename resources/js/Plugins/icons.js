@@ -28,6 +28,8 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
 import {faRssSquare} from "@fortawesome/free-solid-svg-icons/faRssSquare";
 import {faUserCog} from "@fortawesome/free-solid-svg-icons/faUserCog";
 import {faUser} from "@fortawesome/free-solid-svg-icons/faUser";
+import {faPen} from "@fortawesome/free-solid-svg-icons/faPen";
+import {faTrashAlt} from "@fortawesome/free-regular-svg-icons/faTrashAlt";
 
 export default () => {
     // Generic
@@ -55,6 +57,8 @@ export default () => {
     library.add(faUtensils);
     library.add(faUserCog);
     library.add(faUser);
+    library.add(faPen);
+    library.add(faTrashAlt);
 
     // Social
     library.add(faFacebookSquare);

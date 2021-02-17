@@ -27,6 +27,7 @@ const colours = {
     green: '#0f0',
     red: {
         default: '#f00',
+        light: '#ff6060',
         dark: '#E53E3E',
         '20': 'rgba(255,0,0,0.2)',
     },

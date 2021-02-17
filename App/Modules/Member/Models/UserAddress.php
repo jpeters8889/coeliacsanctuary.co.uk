@@ -22,6 +22,8 @@ class UserAddress extends BaseModel
 {
     use SoftDeletes;
 
+    protected $casts = ['user_id' => 'int'];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

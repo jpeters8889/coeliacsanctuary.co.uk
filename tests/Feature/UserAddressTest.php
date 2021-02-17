@@ -87,4 +87,89 @@ class UserAddressTest extends TestCase
 
         $request->assertJsonMissing(['line_1' => 'Another Address']);
     }
+
+    /** @test */
+    public function it_can_delete_an_address()
+    {
+        $this->assertCount(2, $this->user->addresses);
+
+        $this->delete("/api/member/addresses/{$this->user->addresses[0]->id}")->assertOk();
+
+        $this->assertCount(1, $this->user->fresh()->addresses);
+    }
+
+    /** @test */
+    public function it_only_soft_deletes_addresses()
+    {
+        $address = $this->user->addresses->first();
+
+        $this->assertCount(2, $this->user->addresses()->withTrashed()->get());
+        $this->assertNull($address->deleted_at);
+
+        $this->delete("/api/member/addresses/{$address->id}");
+
+        $this->assertCount(2, $this->user->fresh()->addresses()->withTrashed()->get());
+        $this->assertNotNull($address->fresh()->deleted_at);
+    }
+
+    /** @test */
+    public function it_doesnt_delete_addresses_that_dont_belong_to_the_user()
+    {
+        $user = factory(User::class)->create();
+        $address = factory(UserAddress::class)->create(['line_1' => 'Another Address', 'user_id' => $user->id]);
+
+        $this->assertCount(1, $user->addresses);
+
+        $this->delete("/api/member/addresses/{$address->id}")->assertStatus(403);
+
+        $this->assertCount(1, $user->fresh()->addresses);
+    }
+
+    /** @test */
+    public function it_errors_when_updating_without_a_name()
+    {
+        //
+    }
+
+    /** @test */
+    public function it_errors_when_updating_without_a_line_1()
+    {
+        //
+    }
+
+    /** @test */
+    public function it_errors_when_updating_without_a_town()
+    {
+        //
+    }
+
+    /** @test */
+    public function it_errors_when_updating_without_a_postcode()
+    {
+        //
+    }
+
+    /** @test */
+    public function it_errors_when_updating_without_a_country()
+    {
+        //
+    }
+
+    /** @test */
+    public function it_errors_when_updating_a_shipping_address_with_an_invalid_country()
+    {
+        //
+    }
+
+    /** @test */
+    public function it_returns_ok_when_updating()
+    {
+        //
+    }
+
+    /** @test */
+    public function it_updates_the_address()
+    {
+        //
+    }
 }

@@ -12,11 +12,26 @@
             </div>
 
             <template v-if="formData.shippingAddress === '0'">
-                <div>
-                    <!-- select address -->
+                <div v-if="savedAddresses.length > 0">
+                    <p class="text-lg mb-3 font-semibold">Choose Saved Address</p>
+
+                    <div class="flex flex-col space-y-3">
+                        <div v-for="address in savedAddresses"
+                             @click="selectSavedAddress(address)"
+                             class="p-2 flex flex-col cursor-pointer transition-bg"
+                             :class="address.id === formData.id ?
+                        'bg-blue-light-20 border-yellow border-4 text-black' :
+                        'border text-black-50 bg-blue-light-50 border-white-80 hover:bg-blue-light-80 hover:border-white'"
+                        >
+                            <span class="font-semibold">{{ address.name }}</span>
+                            <span>{{ formatAddress(address) }}</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div>
+                <div v-if="formData.billingId === null">
+                    <p v-if="savedAddresses.length > 0" class="text-lg my-3 font-semibold">Or Add New Address</p>
+
                     <div class="py-1">
                         <form-input required placeholder="Billing Name"
                                     name="billingName" :value="formData.billingName"></form-input>
@@ -165,14 +180,30 @@ export default {
         },
 
         selectSavedAddress(address) {
-            if (this.formData.id === address.id) {
+            if (this.formData.billingId === address.id) {
                 this.formData.billingId = null;
+
+                this.formData.billingName = '';
+                this.formData.billingAddress1 = '';
+                this.formData.billingAddress2 = '';
+                this.formData.billingAddress3 = '';
+                this.formData.billingTown = '';
+                this.formData.billingPostcode = '';
+                this.formData.billingCountry = '';
 
                 this.updateSessionStorage();
                 return;
             }
 
             this.formData.billingId = address.id;
+            this.formData.billingName = address.name;
+            this.formData.billingAddress1 = address.line_1;
+            this.formData.billingAddress2 = address.line_2;
+            this.formData.billingAddress3 = address.line_3;
+            this.formData.billingTown = address.town;
+            this.formData.billingPostcode = address.postcode;
+            this.formData.billingCountry = address.country;
+
             this.updateSessionStorage();
         },
 
@@ -181,7 +212,7 @@ export default {
                 return true;
             }
 
-            return super.validateForm();
+            return CheckoutComponent.methods.validateForm.call(this);
         },
 
         updateSessionStorage() {
