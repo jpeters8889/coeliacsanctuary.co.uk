@@ -19,7 +19,8 @@
                     <div class="flex space-x-2">
                         <font-awesome-icon class="cursor-pointer" :icon="['fas', 'pen']" @click="openEditModal(address)"
                                            v-tooltip.left="{content: 'Edit', classes: ['bg-blue', 'border-blue', 'text-white']}"/>
-                        <font-awesome-icon class="cursor-pointer" :icon="['far', 'trash-alt']" @click="openDeleteModal(address)"
+                        <font-awesome-icon class="cursor-pointer" :icon="['far', 'trash-alt']"
+                                           @click="openDeleteModal(address)"
                                            v-tooltip.left="{content: 'Delete', classes: ['bg-blue', 'border-blue', 'text-white']}"/>
                     </div>
                 </div>
@@ -27,8 +28,40 @@
         </div>
 
         <portal to="modal" v-if="showEditAddressModal">
-            <modal name="edit-address">
+            <modal name="edit-address" modal-classes="w-full" small>
+                <form @submit.prevent="" class="flex flex-col">
+                    <div class="py-4 border-b border-blue last:border-0" v-for="input in addressEditableFields()">
+                        <label class="text-blue-dark font-semibold mb-1" :for="`editing_${input.prop}`"
+                               v-html="input.label"/>
+                        <component :is="input.type" :value="editingAddress[input.prop]" :id="`editing_${input.prop}`"
+                                   :name="`editing_${input.prop}`" :required="input.required"
+                                   :pattern="input.pattern ? input.pattern() : null"
+                                   :options="input.options ? input.options() : null"/>
+                    </div>
 
+                    <div class="flex space-x-4 justify-center mt-2">
+                        <button
+                            class="rounded leading-none px-4 py-2 bg-blue hover:bg-blue-light hover:shadow cursor-pointer"
+                            @click.prevent="closeEditModal">
+                            Cancel
+                        </button>
+
+                        <button
+                            class="rounded leading-none px-4 py-2 bg-yellow hover:bg-yellow-light hover:shadow cursor-pointer"
+                            style="width: 170px; height: 50px">
+                            <loader background-position=""
+                                    v-if="submittingDetails"
+                                    :show="true"
+                                    height="25px"
+                                    width="25px"
+                                    border-width="3px"
+                                    faded-border-color="border-black-50"
+                                    primary-border-color="black">
+                            </loader>
+                            <span v-else>Save Address</span>
+                        </button>
+                    </div>
+                </form>
             </modal>
         </portal>
 
@@ -36,7 +69,8 @@
             <modal name="delete-address">
                 <h3>Are you sure you want to delete this address?</h3>
                 <div class="flex space-x-4 justify-center mt-2">
-                    <a class="rounded leading-none px-4 py-2 bg-blue hover:bg-blue-light hover:shadow cursor-pointer" @click="closeDeleteModal">
+                    <a class="rounded leading-none px-4 py-2 bg-blue hover:bg-blue-light hover:shadow cursor-pointer"
+                       @click="closeDeleteModal">
                         No
                     </a>
 
@@ -51,28 +85,44 @@
 
 <script>
 const FormInput = () => import('./Forms/FormInput' /* webpackChunkName: "chunk-form-input" */)
+const FormSelect = () => import('./Forms/FormSelect' /* webpackChunkName: "chunk-form-select" */)
 const Loader = () => import('./Loader' /* webpackChunkName: "chunk-loader" */)
 const Modal = () => import('./Modal' /* webpackChunkName: "chunk-modal" */)
 
 export default {
     components: {
         'form-input': FormInput,
+        'form-select': FormSelect,
         'loader': Loader,
         'modal': Modal,
     },
 
     data: () => ({
         addresses: [],
+        countries: [],
 
         showEditAddressModal: false,
         showDeleteAddressModal: false,
 
         editingAddress: {},
         deletingAddress: {},
+
+        submittingDetails: false,
+
+        validity: {
+            name: false,
+            line_1: false,
+            line_2: true,
+            line_3: true,
+            town: false,
+            postcode: false,
+            country: false,
+        },
     }),
 
     mounted() {
         this.loadAddresses();
+        this.loadCountries();
 
         this.$root.$on('modal-closed', (name) => {
             if (name === 'edit-address') {
@@ -82,6 +132,22 @@ export default {
             if (name === 'delete-address') {
                 this.closeDeleteModal();
             }
+        });
+
+        Object.values(this.addressEditableFields()).forEach((input) => {
+            coeliac().$emit(`editing_${input.prop}-set-value`, (this.editingAddress[input.prop]));
+
+            this.$root.$on(`editing_${input.prop}-error`, () => {
+                this.validity[input.prop] = false;
+            });
+
+            this.$root.$on(`editing_${input.prop}-valid`, () => {
+                this.validity[input.prop] = true;
+            });
+
+            this.$root.$on(`editing_${input.prop}-change`, (value) => {
+                this.editingAddress[input.prop] = value;
+            });
         });
     },
 
@@ -102,6 +168,49 @@ export default {
                 });
         },
 
+        loadCountries() {
+            coeliac().request().get('/api/shop/countries')
+                .then((response) => {
+                    this.countries = response.data;
+                });
+        },
+
+        saveAddress() {
+            if (!this.validateEditForm()) {
+                return;
+            }
+
+            this.submittingDetails = true;
+
+            coeliac().request().post(`/api/member/addresses/${this.editingAddress.id}`)
+                .then(() => {
+                    coeliac().success('Address Saved');
+                    this.closeEditModal();
+                })
+                .catch(() => {
+                    coeliac().error('There was an error saving your address');
+                })
+                .finally(() => {
+                    this.submittingDetails = false;
+                })
+        },
+
+        validateEditForm() {
+            Object.values(this.addressEditableFields()).forEach((field) => {
+                this.$root.$emit(`editing-${field.prop}-get-value`)
+            });
+
+            let isValid = true;
+
+            Object.values(this.addressEditableFields()).forEach((field) => {
+                if (this.validity[field.prop] === false) {
+                    isValid = false;
+                }
+            });
+
+            return isValid;
+        },
+
         openEditModal(address) {
             this.editingAddress = address;
             this.showEditAddressModal = true;
@@ -120,7 +229,58 @@ export default {
         closeDeleteModal() {
             this.showDeleteAddressModal = false;
             this.deletingAddress = {};
-        }
+        },
+
+        addressEditableFields() {
+            return [
+                {
+                    label: 'Your Name',
+                    type: 'form-input',
+                    prop: 'name',
+                    required: true,
+                },
+                {
+                    label: 'Address 1',
+                    type: 'form-input',
+                    prop: 'line_1',
+                    required: true,
+                },
+                {
+                    label: 'Address 2',
+                    type: 'form-input',
+                    prop: 'line_2',
+                    required: false,
+                },
+                {
+                    label: 'Address 3',
+                    type: 'form-input',
+                    prop: 'line_3',
+                    required: false,
+                },
+                {
+                    label: 'Postcode',
+                    type: 'form-input',
+                    prop: 'postcode',
+                    required: true,
+                    pattern: () => {
+                        if (this.editingAddress.type === 'Shipping' && this.editingAddress.country === 'United Kingdom') {
+                            return /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i
+                        }
+
+                        return /.*/;
+                    }
+                },
+                {
+                    label: 'Country',
+                    type: this.editingAddress.type === 'Shipping' ? 'form-select' : 'form-input',
+                    prop: 'country',
+                    required: true,
+                    options: () => {
+                        return this.countries.map(country => ({value: country.label, label: country.label}));
+                    },
+                }
+            ];
+        },
     }
 }
 </script>

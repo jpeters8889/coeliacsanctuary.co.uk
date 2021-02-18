@@ -25,6 +25,7 @@ $router->group(['prefix' => 'api/member'], static function () use ($router) {
     $router->group(['middleware' => 'auth'], static function () use ($router) {
         $router->group(['prefix' => 'addresses', 'middleware' => ['verified']], static function () use ($router) {
             $router->get('/', [AddressController::class, 'list']);
+            $router->post('{address}', [AddressController::class, 'update']);
             $router->delete('{address}', [AddressController::class, 'delete']);
         });
 

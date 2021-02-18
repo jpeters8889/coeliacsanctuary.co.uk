@@ -5,18 +5,22 @@ namespace Tests\Feature;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserAddress;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
 class UserAddressTest extends TestCase
 {
     use RefreshDatabase;
+    use WithFaker;
 
     protected User $user;
 
     protected function setUp(): void
     {
         parent::setUp();
+        $this->faker = $this->makeFaker('en_GB');
 
         $this->user = factory(User::class)->create();
 
@@ -67,7 +71,7 @@ class UserAddressTest extends TestCase
 
         $response = $this->get('/api/member/addresses')->json();
 
-        foreach($response as $index => $address) {
+        foreach ($response as $index => $address) {
             foreach ($keys as $key) {
                 $this->assertArrayHasKey($key, $address);
                 $this->assertEquals($this->user->addresses[$index]->$key, $address[$key]);
@@ -125,51 +129,126 @@ class UserAddressTest extends TestCase
         $this->assertCount(1, $user->fresh()->addresses);
     }
 
+    protected function makeUpdateRequest(array $params = [], ?UserAddress $address = null): TestResponse
+    {
+        if (!$address) {
+            $address = $this->user->addresses[0];
+        }
+
+        return $this->post("/api/member/addresses/{$address->id}", array_merge([
+            'type' => $address->type,
+            'name' => $this->faker->name,
+            'line_1' => $this->faker->streetAddress,
+            'line_2' => $this->faker->streetSuffix,
+            'line_3' => $this->faker->streetName,
+            'town' => $this->faker->city,
+            'postcode' => $this->faker->postcode,
+            'country' => 'United Kingdom',
+        ], $params));
+    }
+
+    /** @test */
+    public function it_errors_without_a_type()
+    {
+        $this->makeUpdateRequest(['type' => null])->assertStatus(422);
+    }
+
+    /** @test */
+    public function it_errors_with_an_invalid_type()
+    {
+        $this->makeUpdateRequest(['type' => 'foo'])->assertStatus(422);
+    }
+
     /** @test */
     public function it_errors_when_updating_without_a_name()
     {
-        //
+        $this->makeUpdateRequest(['name' => null])->assertStatus(422);
     }
 
     /** @test */
     public function it_errors_when_updating_without_a_line_1()
     {
-        //
+        $this->makeUpdateRequest(['line_1' => null])->assertStatus(422);
     }
 
     /** @test */
     public function it_errors_when_updating_without_a_town()
     {
-        //
+        $this->makeUpdateRequest(['town' => null])->assertStatus(422);
     }
 
     /** @test */
     public function it_errors_when_updating_without_a_postcode()
     {
-        //
+        $this->makeUpdateRequest(['postcode' => null])->assertStatus(422);
     }
 
     /** @test */
     public function it_errors_when_updating_without_a_country()
     {
-        //
+        $this->makeUpdateRequest(['country' => null])->assertStatus(422);
     }
 
     /** @test */
     public function it_errors_when_updating_a_shipping_address_with_an_invalid_country()
     {
-        //
+        $this->makeUpdateRequest([
+            'type' => 'Shipping',
+            'country' => 'Foo',
+        ])->assertStatus(422);
+    }
+
+    /** @test */
+    public function it_errors_when_updating_a_shipping_postcode_to_a_none_uk_postcode_for_a_uk_country()
+    {
+        $this->makeUpdateRequest([
+            'type' => 'Shipping',
+            'country' => 'United Kingdom',
+            'postcode' => 'foobar',
+        ])->assertStatus(422);
     }
 
     /** @test */
     public function it_returns_ok_when_updating()
     {
-        //
+        $this->makeUpdateRequest()->assertOk();
     }
 
     /** @test */
     public function it_updates_the_address()
     {
-        //
+        $params = [
+            'type' => 'Billing',
+            'name' => 'New Name',
+            'line_1' => 'Line 1',
+            'line_2' => 'Line 2',
+            'line_3' => 'Line 3',
+            'town' => 'Town',
+            'postcode' => 'Postcode',
+            'country' => 'Country',
+        ];
+
+        $address = $this->user->addresses[0];
+
+        $this->makeUpdateRequest($params);
+
+        $address->refresh();
+
+        foreach($params as $key => $value) {
+            $this->assertEquals($value, $address->$key);
+        }
+    }
+
+    /** @test */
+    public function it_errors_when_trying_to_update_an_address_for_another_user()
+    {
+        $user = factory(User::class)->create();
+        $address = factory(UserAddress::class)->create(['line_1' => 'Another Address', 'user_id' => $user->id]);
+
+        $this->makeUpdateRequest(['line_1' => 'Changed Address'], $address)->assertStatus(403);
+
+        $address->refresh();
+
+        $this->assertNotEquals('Changed Address', $address->line_1);
     }
 }
