@@ -119,10 +119,14 @@
 =======
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=a49f1d332defbe5239e7",
 <<<<<<< develop
+<<<<<<< develop
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=9433c0dd1acb9ae2dd30",
 >>>>>>> wip
 =======
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=9a55a2648a02c14bb8cf",
+>>>>>>> wip
+=======
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=9e77394bbde258471ab3",
 >>>>>>> wip
     "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=cf9ac22e5d898519b568",
     "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=2a9d84402759b9b25032",
@@ -175,7 +179,7 @@
     "/assets/js/chunk-resend-verify-email.js": "/assets/js/chunk-resend-verify-email.js?id=ccd4c7943d3cfd39f23f",
     "/assets/js/chunk-member-dashboard.js": "/assets/js/chunk-member-dashboard.js?id=c45d9df9ac55b0b9dd14",
     "/assets/js/chunk-dashboard-recent-orders.js": "/assets/js/chunk-dashboard-recent-orders.js?id=5f501fdf546f943aa3b0",
-    "/assets/js/chunk-dashboard-user-details.js": "/assets/js/chunk-dashboard-user-details.js?id=977a57250804279ebd6e",
+    "/assets/js/chunk-dashboard-user-details.js": "/assets/js/chunk-dashboard-user-details.js?id=53984ba09d5099a8850f",
     "/assets/js/chunk-contact-form.js": "/assets/js/chunk-contact-form.js?id=1237859819da81372d52",
     "/assets/js/chunk-modal.js": "/assets/js/chunk-modal.js?id=3ad7d5b70605d89ddc7f",
     "/assets/js/preload-coeliac-nav.js": "/assets/js/preload-coeliac-nav.js?id=a1a7842a95a59d7d8ed0",

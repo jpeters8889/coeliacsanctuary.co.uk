@@ -70,7 +70,7 @@ export default {
             },
             {
                 label: 'Email Address',
-                help: 'You will need to verify your new email address.',
+                help: 'If you change your email address, you will need to verify it.',
                 field: 'email',
                 required: true,
                 type: 'email',

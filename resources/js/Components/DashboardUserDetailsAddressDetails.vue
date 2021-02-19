@@ -29,7 +29,7 @@
 
         <portal to="modal" v-if="showEditAddressModal">
             <modal name="edit-address" modal-classes="w-full" small>
-                <form @submit.prevent="" class="flex flex-col">
+                <form @submit.prevent="saveAddress()" class="flex flex-col">
                     <div class="py-4 border-b border-blue last:border-0" v-for="input in addressEditableFields()">
                         <label class="text-blue-dark font-semibold mb-1" :for="`editing_${input.prop}`"
                                v-html="input.label"/>
@@ -48,7 +48,7 @@
 
                         <button
                             class="rounded leading-none px-4 py-2 bg-yellow hover:bg-yellow-light hover:shadow cursor-pointer"
-                            style="width: 170px; height: 50px">
+                            style="width: 170px; height: 50px" @click.prevent="saveAddress()">
                             <loader background-position=""
                                     v-if="submittingDetails"
                                     :show="true"
@@ -74,7 +74,8 @@
                         No
                     </a>
 
-                    <a class="rounded leading-none px-4 py-2 bg-yellow hover:bg-yellow-light hover:shadow cursor-pointer">
+                    <a class="rounded leading-none px-4 py-2 bg-yellow hover:bg-yellow-light hover:shadow cursor-pointer"
+                       @click="deleteAddress()">
                         Yes
                     </a>
                 </div>
@@ -88,6 +89,11 @@ const FormInput = () => import('./Forms/FormInput' /* webpackChunkName: "chunk-f
 const FormSelect = () => import('./Forms/FormSelect' /* webpackChunkName: "chunk-form-select" */)
 const Loader = () => import('./Loader' /* webpackChunkName: "chunk-loader" */)
 const Modal = () => import('./Modal' /* webpackChunkName: "chunk-modal" */)
+
+import Vue from "vue";
+import VTooltip from "v-tooltip";
+
+Vue.use(VTooltip);
 
 export default {
     components: {
@@ -133,22 +139,6 @@ export default {
                 this.closeDeleteModal();
             }
         });
-
-        Object.values(this.addressEditableFields()).forEach((input) => {
-            coeliac().$emit(`editing_${input.prop}-set-value`, (this.editingAddress[input.prop]));
-
-            this.$root.$on(`editing_${input.prop}-error`, () => {
-                this.validity[input.prop] = false;
-            });
-
-            this.$root.$on(`editing_${input.prop}-valid`, () => {
-                this.validity[input.prop] = true;
-            });
-
-            this.$root.$on(`editing_${input.prop}-change`, (value) => {
-                this.editingAddress[input.prop] = value;
-            });
-        });
     },
 
     methods: {
@@ -159,6 +149,8 @@ export default {
         },
 
         loadAddresses() {
+            this.addresses = [];
+
             coeliac().request().get('/api/member/addresses')
                 .then((response) => {
                     this.addresses = response.data;
@@ -175,6 +167,19 @@ export default {
                 });
         },
 
+        deleteAddress() {
+            coeliac().request().delete(`/api/member/addresses/${this.deletingAddress.id}`)
+                .then(() => {
+                    coeliac().success('Address Deleted');
+                })
+                .catch(() => {
+                    coeliac().error('There was an error deleting your address');
+                })
+                .then(() => {
+                    this.closeDeleteModal();
+                });
+        },
+
         saveAddress() {
             if (!this.validateEditForm()) {
                 return;
@@ -182,7 +187,7 @@ export default {
 
             this.submittingDetails = true;
 
-            coeliac().request().post(`/api/member/addresses/${this.editingAddress.id}`)
+            coeliac().request().post(`/api/member/addresses/${this.editingAddress.id}`, this.editingAddress)
                 .then(() => {
                     coeliac().success('Address Saved');
                     this.closeEditModal();
@@ -196,14 +201,16 @@ export default {
         },
 
         validateEditForm() {
-            Object.values(this.addressEditableFields()).forEach((field) => {
-                this.$root.$emit(`editing-${field.prop}-get-value`)
+            Object.keys(this.validity).forEach((field) => {
+                this.$root.$emit(`editing_${field}-get-value`)
             });
 
             let isValid = true;
 
-            Object.values(this.addressEditableFields()).forEach((field) => {
-                if (this.validity[field.prop] === false) {
+            Object.keys(this.validity).forEach((field) => {
+                if (this.validity[field] === false) {
+                    console.log('not valid');
+                    console.log(field);
                     isValid = false;
                 }
             });
@@ -214,11 +221,31 @@ export default {
         openEditModal(address) {
             this.editingAddress = address;
             this.showEditAddressModal = true;
+
+            Object.keys(this.validity).forEach((field) => {
+                coeliac().$emit(`editing_${field}-set-value`, (this.editingAddress[field]));
+
+                this.$root.$on(`editing_${field}-error`, () => {
+                    this.validity[field] = false;
+                });
+
+                this.$root.$on(`editing_${field}-valid`, () => {
+                    this.validity[field] = true;
+                });
+
+                this.$root.$on(`editing_${field}-change`, (value) => {
+                    this.editingAddress[field] = value;
+                });
+            });
+
+            this.validateEditForm();
         },
 
         closeEditModal() {
+            this.loadAddresses();
             this.showEditAddressModal = false;
             this.editingAddress = {};
+            document.querySelector('body').classList.remove('overflow-hidden');
         },
 
         openDeleteModal(address) {
@@ -227,8 +254,10 @@ export default {
         },
 
         closeDeleteModal() {
+            this.loadAddresses();
             this.showDeleteAddressModal = false;
             this.deletingAddress = {};
+            document.querySelector('body').classList.remove('overflow-hidden');
         },
 
         addressEditableFields() {
@@ -256,6 +285,12 @@ export default {
                     type: 'form-input',
                     prop: 'line_3',
                     required: false,
+                },
+                {
+                    label: 'Town',
+                    type: 'form-input',
+                    prop: 'town',
+                    required: true,
                 },
                 {
                     label: 'Postcode',
