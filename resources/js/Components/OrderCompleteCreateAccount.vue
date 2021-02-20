@@ -1,33 +1,20 @@
 <template>
-    <div class="flex justify-center items-center">
-        <form v-if="!alreadyHasAccount"
-            class="rounded-lg border border-blue p-4 flex flex-col space-y-4 w-full max-w-basket-sidebar bg-grey-lightest"
-            @submit.prevent="submitRegistration">
-            <div class="mx-auto" style="width: 50px;">
-                <coeliac-icon colour="#80CCFC"></coeliac-icon>
-            </div>
+    <div class="bg-white-50 rounded-lg mb-2 p-2 shadow lg:w-1/3 mr-2">
+        <p class="text-center font-semibold">
+            Why not create an account with us to be able to see your order history, create and manage
+            personal scrapbooks, get notified about places to eat near you, and much more!
+        </p>
 
-            <p>
-                Register an account on Coeliac Sanctuary today and get access to our member dashboard where you can
-                create lists of your favourite recipes and blogs, subscribe to get notified when we add places to eat
-                near you, view your order history in our shop, plus much more!
-            </p>
+        <form class="flex flex-col space-y-2 mt-2" @submit.prevent="submitRegistration">
+            <form-input type="password" name="password" autocomplete="password" placeholder="Password" required
+                        :min="8" :value="fields.password"/>
 
-            <form-input type="text" required name="name" placeholder="Your Name" :value="fields.name"
-                        autocomple="name"/>
-
-            <form-input type="email" required name="email" placeholder="Email Address" :value="fields.email"
-                        autocomple="email"/>
-
-            <form-input type="password" required name="password" placeholder="Password" :value="fields.password"
-                        autocomplete="password"/>
-
-            <form-input type="password" required name="password_confirmation" placeholder="Confirm your password"
-                        :match="fields.password" :value="fields.password_confirmation"
-                        autocomplete="password_confirmation"/>
+            <form-input type="password" name="password_confirmation" autocomplete="password_confirmation"
+                        placeholder="Confirm Your Password" required :min="8" :value="fields.password_confirmation"
+                        :match="fields.password"/>
 
             <form-checkbox required name="terms" input-size="text-base"
-                           label="I accept the <a href='/terms-of-use' target='_blank'>Terms and Conditions</a>"
+                           label="I accept the <a href='/terms-of-use' target='_blank' class='font-semibold hover:underline'>Terms and Conditions</a>"
                            :value="fields.terms"/>
 
             <button
@@ -47,19 +34,7 @@
                 </loader>
                 <span v-else>Join now!</span>
             </button>
-
-            <div class="flex justify-end text-xs mt-2 font-semibold">
-                <a class="text-blue hover:text-grey" href="/member/forgot-password">Forgotten Password?</a>
-            </div>
         </form>
-        <div v-else class="rounded-lg border border-blue p-4 flex flex-col space-y-4 w-full max-w-basket-sidebar bg-grey-lightest text-lg text-center">
-            <p>
-                Your email {{ fields.email }} is already associated with an account!
-            </p>
-            <p class="mt-2">
-                <login-trigger class="text-blue cursor-pointer text-semibold hover:text-blue-dark transition-colour">Login now!</login-trigger>
-            </p>
-        </div>
     </div>
 </template>
 
@@ -75,9 +50,19 @@ export default {
         'loader': Loader,
     },
 
+    props: {
+        name: {
+            required: true,
+            type: String,
+        },
+        email: {
+            required: true,
+            type: String,
+        },
+    },
+
     data: () => ({
         isSubmitting: false,
-        alreadyHasAccount: false,
 
         fields: {
             name: '',
@@ -88,16 +73,12 @@ export default {
         },
 
         validity: {
-            name: false,
-            email: false,
             password: false,
             password_confirmation: false,
             terms: false,
         },
 
         errors: {
-            name: '',
-            email: '',
             password: '',
             password_confirmation: '',
             generic: '',
@@ -105,6 +86,9 @@ export default {
     }),
 
     mounted() {
+        this.fields.name = this.name;
+        this.fields.email = this.email;
+
         Object.keys(this.fields).forEach((field) => {
             this.$root.$on(`${field}-error`, () => {
                 this.validity[field] = false;
@@ -140,7 +124,7 @@ export default {
                 })
                 .catch((err) => {
                     if(err.response.status === 422 && err.response.data.errors.email && err.response.data.errors.email[0] === 'Your email is already associated with an account!') {
-                        this.alreadyHasAccount = true;
+                        coeliac().error('Your email is already associated with an account, please log in to view your order history!');
                         return;
                     }
 
@@ -177,6 +161,6 @@ export default {
 
             return isValid;
         }
-    },
+    }
 }
 </script>

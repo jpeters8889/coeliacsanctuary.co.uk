@@ -52,6 +52,7 @@ const VerifyEmailResendTrigger = () => import('./Components/VerifyEmailResendTri
 const DashboardNavigation = () => import('./Components/DashboardNavigation' /* webpackChunkName: "chunk-member-dashboard" */)
 const DashboardRecentOrders = () => import('./Components/DashboardRecentOrders' /* webpackChunkName: "chunk-dashboard-recent-orders" */)
 const DashboardUserDetails = () => import('./Components/DashboardUserDetails' /* webpackChunkName: "chunk-dashboard-user-details" */)
+const OrderCompleteCreateAccount = () => import('./Components/OrderCompleteCreateAccount' /* webpackChunkName: "chunk-order-complete-create-account" */)
 
 Vue.component('accordion', Accordion);
 Vue.component('add-basket-trigger', AddBasketTrigger);
@@ -82,6 +83,7 @@ Vue.component('login-trigger', LoginTrigger);
 Vue.component('mobile-nav', MobileNav);
 Vue.component('module-list-index', ModuleListIndex);
 Vue.component('number-counter', NumberCountUp);
+Vue.component('order-complete-create-account', OrderCompleteCreateAccount);
 Vue.component('popup-cta', PopupCta);
 Vue.component('product-add-basket', ProductAddToBasket);
 Vue.component('product-images', ProductImages);

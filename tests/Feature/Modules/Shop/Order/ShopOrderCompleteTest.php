@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Shop\Order;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Member\Models\UserLevel;
 use Tests\TestCase;
 use Illuminate\Support\Str;
 use Tests\Traits\HasImages;
@@ -85,8 +87,11 @@ class ShopOrderCompleteTest extends TestCase
 
         $token = Str::random(8);
 
+        factory(User::class)->create();
+
         ShopOrder::query()->create(array_merge([
             'token' => $token,
+            'user_id' => 1,
         ], $params));
 
         $this->withSession(['basket_token' => $token]);
@@ -107,6 +112,40 @@ class ShopOrderCompleteTest extends TestCase
             'total' => 1,
             'payment_type_id' => 1,
         ]);
+
+    }
+
+    /** @test */
+    public function it_shows_the_form_to_become_a_member_when_ordering_as_a_guest()
+    {
+        $this->setupOrder();
+
+        $user = User::query()->first();
+
+        $this->get('/shop/basket/done')
+            ->assertSee('<order-complete-create-account name="'.$user->name.'" email="'.$user->email.'"></order-complete-create-account>', false);
+    }
+
+    /** @test */
+    public function it_doesnt_show_the_form_to_register_if_already_logged_in()
+    {
+        $this->setupOrder();
+
+        $user = User::query()->first();
+
+        $this->actingAs($user);
+
+        $this->get('/shop/basket/done')->assertDontSee('order-complete-create-account');
+    }
+
+    /** @test */
+    public function it_doesnt_show_the_register_form_if_the_user_already_exists_but_isnt_logged_in()
+    {
+        $this->setupOrder();
+
+        User::query()->first()->update(['user_level_id' => UserLevel::MEMBER]);
+
+        $this->get('/shop/basket/done')->assertDontSee('order-complete-create-account');
     }
 
     /** @test */

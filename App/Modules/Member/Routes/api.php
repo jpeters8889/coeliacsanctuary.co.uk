@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Coeliac\Modules\Member\Controllers\AddressController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\Member\Controllers\LoginController;
+use Coeliac\Modules\Member\Controllers\AddressController;
 use Coeliac\Modules\Member\Controllers\RegisterController;
 use Coeliac\Modules\Member\Controllers\VerifyEmailController;
 use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;

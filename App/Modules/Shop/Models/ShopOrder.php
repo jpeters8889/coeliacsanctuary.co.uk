@@ -9,7 +9,6 @@ use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Member\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Coeliac\Modules\Member\Models\UserAddress;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property ShopOrderState            $state

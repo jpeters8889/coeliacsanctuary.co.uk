@@ -22,7 +22,7 @@ class BasketDoneController extends BaseController
         /** @var ShopOrder $order */
         $order = ShopOrder::query()
             ->where('token', $store->get('basket_token'))
-            ->with(['payment', 'items'])
+            ->with(['payment', 'items', 'user'])
             ->first();
 
         $gtagData = [
@@ -42,8 +42,6 @@ class BasketDoneController extends BaseController
             })->toArray(),
         ];
 
-//        $store->remove('basket_token');
-
         return $page
             ->breadcrumbs([
                 [
@@ -54,6 +52,7 @@ class BasketDoneController extends BaseController
             ->setPageTitle('Order Complete | Coeliac Sanctuary')
             ->doNotIndex()
             ->render('modules.shop.basket-done', [
+                'order' => $order,
                 'gtagData' => $gtagData,
                 'latestBlogs' => (new BlogRepository())->take(2),
                 'latestReviews' => (new ReviewRepository())->take(2),

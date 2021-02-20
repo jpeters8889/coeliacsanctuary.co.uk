@@ -10,6 +10,7 @@
 <<<<<<< develop
 <<<<<<< develop
 <<<<<<< develop
+<<<<<<< develop
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=dd3198b112a0662f691b",
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=0bb7a45f1695237c9ff1",
     "/assets/js/chunk-contact-trigger.js": "/assets/js/chunk-contact-trigger.js?id=e820041e33e88bdd7c4d",
@@ -128,6 +129,10 @@
 =======
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=9e77394bbde258471ab3",
 >>>>>>> wip
+=======
+    "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=db38bb7c5a5f4edfb8e8",
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=d38528976eedaa85acba",
+>>>>>>> wip
     "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=cf9ac22e5d898519b568",
     "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=2a9d84402759b9b25032",
     "/assets/js/preload-header-search.js": "/assets/js/preload-header-search.js?id=ab0f0def260c44cd207d",
@@ -174,7 +179,7 @@
     "/assets/js/chunk-wte-quick-search.js": "/assets/js/chunk-wte-quick-search.js?id=1d662184d65e8d99ca55",
     "/assets/js/chunk-site-search.js": "/assets/js/chunk-site-search.js?id=56b8cf2c8ca0ae0dbe80",
     "/assets/js/chunk-login-form.js": "/assets/js/chunk-login-form.js?id=5a0c0f3798fab69ea75f",
-    "/assets/js/chunk-register-form.js": "/assets/js/chunk-register-form.js?id=e1ba7530728168881a54",
+    "/assets/js/chunk-register-form.js": "/assets/js/chunk-register-form.js?id=fa418b07babbab2dd365",
     "/assets/js/preload-login-trigger.js": "/assets/js/preload-login-trigger.js?id=d3d8ea0fa22ebc47a137",
     "/assets/js/chunk-resend-verify-email.js": "/assets/js/chunk-resend-verify-email.js?id=ccd4c7943d3cfd39f23f",
     "/assets/js/chunk-member-dashboard.js": "/assets/js/chunk-member-dashboard.js?id=c45d9df9ac55b0b9dd14",
@@ -377,6 +382,11 @@
 >>>>>>> wip
 =======
     "/assets/css/coeliac.css": "/assets/css/coeliac.css?id=eba77f8f69dd46cddd25",
+<<<<<<< develop
     "/assets/js/vendor.js": "/assets/js/vendor.js?id=820c0fa6273b8f2d0b77"
+>>>>>>> wip
+=======
+    "/assets/js/vendor.js": "/assets/js/vendor.js?id=820c0fa6273b8f2d0b77",
+    "/assets/js/chunk-order-complete-create-account.js": "/assets/js/chunk-order-complete-create-account.js?id=e3dab5cdba51c5207056"
 >>>>>>> wip
 }
