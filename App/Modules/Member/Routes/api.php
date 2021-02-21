@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookItemController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\Member\Controllers\LoginController;
 use Coeliac\Modules\Member\Controllers\AddressController;
@@ -45,6 +46,15 @@ $router->group(['prefix' => 'api/member'], static function () use ($router) {
 
             $router->group(['prefix' => 'scrapbooks'], static function () use ($router) {
                 $router->get('/', [ScrapbookController::class, 'list']);
+                $router->post('/', [ScrapbookController::class, 'create']);
+
+                $router->group(['prefix' => '{scrapbook}'], static function () use ($router) {
+                    $router->post('/', [ScrapbookItemController::class, 'create']);
+                    $router->patch('/', [ScrapbookController::class, 'update']);
+                    $router->delete('/', [ScrapbookController::class, 'delete']);
+
+                    $router->delete('{item}', [ScrapbookItemController::class, 'delete']);
+                });
             });
         });
     });
