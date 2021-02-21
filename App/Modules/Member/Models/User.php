@@ -56,6 +56,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->user_level_id === UserLevel::ADMIN;
     }
 
+    public function scrapbooks()
+    {
+        return $this->hasMany(Scrapbook::class);
+    }
+
     public function generateEmailVerificationLink(): string
     {
         return resolve(UrlGenerator::class)->temporarySignedRoute(

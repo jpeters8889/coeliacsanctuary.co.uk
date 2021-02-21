@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\Reviews\Models;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Traits\Linkable;
@@ -42,6 +43,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
 class Review extends BaseModel implements HasComments
 {
     use ArchitectModel;
+    use CanBeAddedToScrapbook;
     use ClearsCache;
     use Commentable;
     use DisplaysImages;

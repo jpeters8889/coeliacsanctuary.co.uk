@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\User;
 
+use Coeliac\Modules\Member\Models\Scrapbook;
 use Coeliac\Modules\Member\Models\UserLevel;
 use Tests\TestCase;
 use Tests\Traits\CreateUser;
@@ -83,5 +84,21 @@ class UserTest extends TestCase
 
         $this->assertFalse($shopUser->isAdmin());
         $this->assertFalse($normalUser->isAdmin());
+    }
+
+    /** @test */
+    public function it_can_have_scrapbooks()
+    {
+        $user = $this->createUser();
+
+        $this->assertCount(0, $user->scrapbooks);
+
+        factory(Scrapbook::class)->create(['user_id' => $user->id]);
+
+        $this->assertCount(1, $user->fresh()->scrapbooks);
+
+        factory(Scrapbook::class)->create(['user_id' => $user->id]);
+
+        $this->assertCount(2, $user->fresh()->scrapbooks);
     }
 }

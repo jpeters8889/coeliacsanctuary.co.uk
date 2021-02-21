@@ -7,6 +7,7 @@ namespace Coeliac\Modules\Member\Providers;
 use Coeliac\Modules\Member\Events\UserRegistered;
 use Coeliac\Modules\Member\Events\UserEmailChanged;
 use Coeliac\Modules\Member\Events\UserPasswordUpdated;
+use Coeliac\Modules\Member\Listeners\CreateUserScrapbook;
 use Coeliac\Modules\Member\Listeners\LimitUserAccount;
 use Coeliac\Modules\Member\Listeners\SendEmailChangedAlert;
 use Coeliac\Modules\Member\Listeners\SendPasswordChangedAlert;
@@ -18,6 +19,7 @@ class EventServiceProvider extends ServiceProvider
 {
     protected $listen = [
         UserRegistered::class => [
+            CreateUserScrapbook::class,
             SendRegistrationConfirmationEmail::class,
         ],
 

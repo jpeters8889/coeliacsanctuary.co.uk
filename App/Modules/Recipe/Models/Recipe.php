@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Recipe\Models;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
@@ -44,6 +45,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Recipe extends BaseModel implements HasComments
 {
     use ArchitectModel;
+    use CanBeAddedToScrapbook;
     use ClearsCache;
     use Commentable;
     use DisplaysImages;

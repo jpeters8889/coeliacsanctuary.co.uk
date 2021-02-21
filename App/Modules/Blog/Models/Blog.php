@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Blog\Models;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Traits\Linkable;
@@ -35,6 +36,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Blog extends BaseModel implements HasComments
 {
     use ArchitectModel;
+    use CanBeAddedToScrapbook;
     use ClearsCache;
     use Commentable;
     use DisplaysImages;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use Coeliac\Modules\Member\Events\UserRegistered;
+use Coeliac\Modules\Member\Models\Scrapbook;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserLevel;
 use Coeliac\Modules\Member\Notifications\VerifyEmail;
@@ -172,6 +173,18 @@ class RegisterTest extends TestCase
         $this->makeRegistrationRequest();
 
         Event::assertDispatched(UserRegistered::class);
+    }
+
+    /** @test */
+    public function it_creates_a_default_scrapbook_for_the_user()
+    {
+        $this->assertEmpty(Scrapbook::all());
+
+        $this->makeRegistrationRequest();
+
+        $this->assertNotEmpty(Scrapbook::all());
+
+        $this->assertCount(1, User::query()->first()->scrapbooks);
     }
 
     /** @test */
