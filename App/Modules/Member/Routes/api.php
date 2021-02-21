@@ -8,6 +8,7 @@ use Coeliac\Modules\Member\Controllers\AddressController;
 use Coeliac\Modules\Member\Controllers\RegisterController;
 use Coeliac\Modules\Member\Controllers\VerifyEmailController;
 use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
+use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookController;
 use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
 
 /* @var Router $router */
@@ -40,6 +41,10 @@ $router->group(['prefix' => 'api/member'], static function () use ($router) {
             $router->group(['prefix' => 'details'], static function () use ($router) {
                 $router->post('/', [YourDetailsController::class, 'update']);
                 $router->patch('/', [YourDetailsController::class, 'password']);
+            });
+
+            $router->group(['prefix' => 'scrapbooks'], static function () use ($router) {
+                $router->get('/', [ScrapbookController::class, 'list']);
             });
         });
     });

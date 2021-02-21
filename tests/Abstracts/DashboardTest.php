@@ -40,6 +40,10 @@ abstract class DashboardTest extends TestCase
         $this->get('/member/logout');
 
         $this->makeRequest()->assertRedirect('/member/login');
+
+        if($this->hasApiEndpoint()) {
+            $this->makeApiRequest()->assertStatus(401);
+        }
     }
 
     /** @test */
@@ -75,6 +79,6 @@ abstract class DashboardTest extends TestCase
 
     protected function makeApiRequest(): TestResponse
     {
-        return $this->get("/api/member/dashboard/{$this->page()}");
+        return $this->getJson("/api/member/dashboard/{$this->page()}");
     }
 }

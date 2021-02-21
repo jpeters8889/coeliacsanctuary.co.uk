@@ -56,7 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->user_level_id === UserLevel::ADMIN;
     }
 
-    public function scrapbooks()
+    public function scrapbooks(): HasMany
     {
         return $this->hasMany(Scrapbook::class);
     }

@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Scrapbook extends BaseModel
 {
+    protected $casts = [
+        'user_id' => 'int',
+    ];
+
     public function items(): HasMany
     {
         return $this->hasMany(ScrapbookItem::class);
