@@ -30,6 +30,8 @@ import {faUserCog} from "@fortawesome/free-solid-svg-icons/faUserCog";
 import {faUser} from "@fortawesome/free-solid-svg-icons/faUser";
 import {faPen} from "@fortawesome/free-solid-svg-icons/faPen";
 import {faTrashAlt} from "@fortawesome/free-regular-svg-icons/faTrashAlt";
+import {faBookmark} from "@fortawesome/free-regular-svg-icons/faBookmark";
+import {faBookmark as faBookmarkSolid} from "@fortawesome/free-solid-svg-icons/faBookmark";
 
 export default () => {
     // Generic
@@ -59,6 +61,8 @@ export default () => {
     library.add(faUser);
     library.add(faPen);
     library.add(faTrashAlt);
+    library.add(faBookmark);
+    library.add(faBookmarkSolid);
 
     // Social
     library.add(faFacebookSquare);

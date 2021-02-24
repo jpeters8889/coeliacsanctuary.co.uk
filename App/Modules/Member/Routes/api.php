@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookItemController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\Member\Controllers\LoginController;
 use Coeliac\Modules\Member\Controllers\AddressController;
@@ -11,6 +10,7 @@ use Coeliac\Modules\Member\Controllers\VerifyEmailController;
 use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookController;
 use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
+use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookItemController;
 
 /* @var Router $router */
 

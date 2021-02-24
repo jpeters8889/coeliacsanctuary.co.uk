@@ -28,7 +28,7 @@ class ScrapbookController extends BaseController
 
     public function list(Request $request)
     {
-        return $request->user()->scrapbooks()->withCount('items')->get();
+        return $request->user()->scrapbooks()->withCount('items')->orderBy('name')->get();
     }
 
     public function create(ScrapbookCreateRequest $request)

@@ -48,11 +48,13 @@ const SiteSearch = () => import('./Components/SiteSearch' /* webpackChunkName: "
 const LoginForm = () => import('./Components/LoginForm' /* webpackChunkName: "chunk-login-form" */)
 const RegisterForm = () => import('./Components/RegisterForm' /* webpackChunkName: "chunk-register-form" */)
 const LoginTrigger = () => import('./Components/LoginTrigger' /* webpackChunkName: "preload-login-trigger" */)
+const RegisterTrigger = () => import('./Components/RegisterTrigger' /* webpackChunkName: "preload-register-trigger" */)
 const VerifyEmailResendTrigger = () => import('./Components/VerifyEmailResendTrigger' /* webpackChunkName: "chunk-resend-verify-email" */)
 const DashboardNavigation = () => import('./Components/DashboardNavigation' /* webpackChunkName: "chunk-member-dashboard" */)
 const DashboardRecentOrders = () => import('./Components/DashboardRecentOrders' /* webpackChunkName: "chunk-dashboard-recent-orders" */)
 const DashboardUserDetails = () => import('./Components/DashboardUserDetails' /* webpackChunkName: "chunk-dashboard-user-details" */)
 const OrderCompleteCreateAccount = () => import('./Components/OrderCompleteCreateAccount' /* webpackChunkName: "chunk-order-complete-create-account" */)
+const DashboardScrapbooks = () => import('./Components/DashboardScrapbooks' /* webpackChunkName: "chunk-dashboard-scrapbooks" */)
 
 Vue.component('accordion', Accordion);
 Vue.component('add-basket-trigger', AddBasketTrigger);
@@ -72,6 +74,7 @@ Vue.component('comments', Comments);
 Vue.component('contact-trigger', ContactTrigger);
 Vue.component('dashboard-navigation', DashboardNavigation);
 Vue.component('dashboard-recent-orders', DashboardRecentOrders)
+Vue.component('dashboard-scrapbooks', DashboardScrapbooks)
 Vue.component('dashboard-user-details', DashboardUserDetails)
 Vue.component('footer-newsletter', FooterNewsletter);
 Vue.component('full-page-loader', FullPageLoader);
@@ -80,6 +83,7 @@ Vue.component('header-search', HeaderSearch);
 Vue.component('link-button', LinkButton);
 Vue.component('login-form', LoginForm);
 Vue.component('login-trigger', LoginTrigger);
+Vue.component('register-trigger', RegisterTrigger);
 Vue.component('mobile-nav', MobileNav);
 Vue.component('module-list-index', ModuleListIndex);
 Vue.component('number-counter', NumberCountUp);

@@ -12,6 +12,10 @@ export default {
     }),
 
     props: {
+        small: {
+            type: Boolean,
+            default: false,
+        },
         id: {
             type: String,
             default: null
