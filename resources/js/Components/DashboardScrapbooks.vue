@@ -22,7 +22,7 @@
 
             <div v-for="scrapbook in scrapbooks" @mouseenter="isHoveringOn = scrapbook.id"
                  @mouseleave="isHoveringOn = null" class="sm:w-1/2 sm:px-1">
-                <div class="bg-blue-gradient-30 rounded p-2 flex">
+                <div class="bg-blue-gradient-30 rounded p-2 flex" @click.stop="viewScrapbook = scrapbook">
                     <div class="flex-1 flex flex-col">
                         <strong class="font-semibold text-lg flex items-center">
                             <div v-if="scrapbook.id === isEditing" class="flex">
@@ -52,8 +52,48 @@
             </div>
         </div>
 
+        <portal to="modal" v-if="viewScrapbook">
+            <modal modal-classes="w-full" name="view-scrapbook">
+                <h2 class="text-xl font-semibold text-center mb-2">
+                    {{ viewScrapbook.name }}
+                </h2>
+
+                <div class="w-full min-h-map">
+                    <loader v-if="scrapbookItems.length === 0" :show="true"></loader>
+
+                    <div v-else class="flex flex-col space-y-4">
+                        <div v-for="item in scrapbookItems" class="flex flex-col bg-blue-gradient-50 rounded-lg md:flex-row" :key="item.id">
+                            <a :href="item.item.link" target="_blank" class="md:w-1/3 md:p-1">
+                                <img :src="item.item.image" :alt="item.item.title" class="rounded-t-lg md:rounded-lg"/>
+                            </a>
+
+                            <div class="p-2 flex-1 md:p-1">
+                                <a :href="item.item.link" target="_blank">
+                                    <h2 class="text-lg font-semibold hover:text-blue-dark transition-colour md:leading-none">
+                                        {{ item.item.area }} - {{ item.item.title }}
+                                    </h2>
+                                </a>
+
+                                <p v-html="item.item.description"></p>
+
+                                <div class="mt-2 flex justify-between text-sm">
+                                    <p>
+                                        Added {{ formatDate(item.added) }}
+                                    </p>
+
+                                    <a class="font-semibold hover:text-blue-dark transition-bg cursor-pointer" @click="removeItem(item.id)">
+                                        Remove
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </modal>
+        </portal>
+
         <portal to="modal" v-if="confirmDelete">
-            <modal small>
+            <modal small name="delete-scrapbook">
                 <p>Are you sure you want to delete this scrapbook? Any items saved will be lost.</p>
                 <div class="flex space-x-4 justify-center mt-2">
                     <a class="rounded leading-none px-4 py-2 bg-blue hover:bg-blue-light hover:shadow cursor-pointer"
@@ -72,11 +112,15 @@
 </template>
 
 <script>
+import FormatsDates from "../Mixins/FormatsDates";
+
 const Loader = () => import('./Loader' /* webpackChunkName: "chunk-loader" */)
 const FormInput = () => import('./Forms/FormInput' /* webpackChunkName: "chunk-form-input" */)
 const Modal = () => import('./Modal' /* webpackChunkName: "chunk-modal" */)
 
 export default {
+    mixins: [FormatsDates],
+
     components: {
         loader: Loader,
         'form-input': FormInput,
@@ -87,7 +131,9 @@ export default {
         isLoading: true,
 
         scrapbooks: [],
+        scrapbookItems: [],
 
+        viewScrapbook: null,
         isHoveringOn: null,
         isEditing: null,
         isAdding: false,
@@ -101,8 +147,15 @@ export default {
     mounted() {
         this.loadScrapbooks();
 
-        this.$root.$on('modal-closed', () => {
-            this.confirmDelete = null;
+        this.$root.$on('modal-closed', (name) => {
+            if (name === 'delete-scrapbook') {
+                this.confirmDelete = null;
+            }
+
+            if (name === 'view-scrapbook') {
+                this.viewScrapbook = null;
+                this.loadScrapbooks();
+            }
         });
     },
 
@@ -208,6 +261,38 @@ export default {
                 .finally(() => {
                     this.confirmDelete = null;
                 });
+        },
+
+        getScrapbookItems() {
+            coeliac().request().get(`/api/member/dashboard/scrapbooks/${this.viewScrapbook.id}`)
+                .then((response) => {
+                    this.scrapbookItems = response.data;
+                })
+                .catch(() => {
+                    coeliac().error('There was an error opening this scrapbook');
+                    this.viewScrapbook = null;
+                })
+        },
+
+        removeItem(id) {
+            coeliac().request().delete(`/api/member/dashboard/scrapbooks/${this.viewScrapbook.id}/${id}`)
+                .then(() => {
+                    this.getScrapbookItems();
+                })
+                .catch(() => {
+                    coeliac().error(`There was an error removing this item from your scrapbook`);
+                });
+        }
+    },
+
+    watch: {
+        viewScrapbook: function () {
+            if (!this.viewScrapbook) {
+                this.scrapbookItems = []
+                return;
+            }
+
+            this.getScrapbookItems();
         }
     }
 }

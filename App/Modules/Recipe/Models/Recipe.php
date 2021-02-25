@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Recipe\Models;
 
 use Carbon\Carbon;
-use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
@@ -20,6 +19,7 @@ use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\DisplaysImages;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Coeliac\Modules\Collection\Traits\IsCollectionItem;
+use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**

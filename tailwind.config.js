@@ -35,6 +35,7 @@ const colours = {
         default: '#000',
         '80': 'rgba(0,0,0,0.8)',
         '50': 'rgba(0,0,0,0.5)',
+        '20': 'rgba(0,0,0,0.2)',
     },
     grey: {
         default: '#666',

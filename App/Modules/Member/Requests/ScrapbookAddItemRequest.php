@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Member\Requests;
 
-use Coeliac\Base\Models\BaseModel;
-use Coeliac\Base\Requests\ApiFormRequest;
-use Coeliac\Modules\Blog\Models\Blog;
-use Coeliac\Modules\EatingOut\Reviews\Models\Review;
-use Coeliac\Modules\Recipe\Models\Recipe;
-use Exception;
-use Illuminate\Contracts\Auth\Access\Gate;
 use RuntimeException;
+use Coeliac\Base\Models\BaseModel;
+use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Base\Requests\ApiFormRequest;
+use Coeliac\Modules\Recipe\Models\Recipe;
+use Illuminate\Contracts\Auth\Access\Gate;
+use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 
 class ScrapbookAddItemRequest extends ApiFormRequest
 {

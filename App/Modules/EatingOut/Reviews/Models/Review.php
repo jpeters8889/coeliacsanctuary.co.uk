@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\Reviews\Models;
 
 use Carbon\Carbon;
-use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Traits\Linkable;
@@ -17,6 +16,7 @@ use Coeliac\Common\Contracts\HasComments;
 use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\DisplaysImages;
 use Coeliac\Modules\Collection\Traits\IsCollectionItem;
+use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
 

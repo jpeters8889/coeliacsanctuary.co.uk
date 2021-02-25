@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\User;
 
+use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Member\Models\Scrapbook;
+use Coeliac\Modules\Member\Models\ScrapbookItem;
 use Coeliac\Modules\Member\Models\UserLevel;
 use Tests\TestCase;
 use Tests\Traits\CreateUser;
@@ -100,5 +102,25 @@ class UserTest extends TestCase
         factory(Scrapbook::class)->create(['user_id' => $user->id]);
 
         $this->assertCount(2, $user->fresh()->scrapbooks);
+    }
+
+    /** @test */
+    public function it_has_scapbook_items()
+    {
+        $user = $this->createUser();
+
+        $this->assertEmpty($user->fresh()->scrapbookItems);
+
+        factory(Scrapbook::class)->create(['user_id' => $user->id]);
+        $item = ScrapbookItem::query()->create([
+            'scrapbook_id' => 1,
+            'item_type' => Blog::class,
+            'item_id' => 1,
+        ]);
+
+        $this->assertNotEmpty($user->fresh()->scrapbookItems);
+        $this->assertCount(1, $user->scrapbookItems);
+
+        $this->assertTrue($user->scrapbookItems[0]->is($item));
     }
 }

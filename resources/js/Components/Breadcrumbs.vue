@@ -26,7 +26,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center">
+                <div class="flex justify-center relative">
                     <add-to-scrapbook v-if="scrapable" :area="scrapable.area" :id="scrapable.id"></add-to-scrapbook>
 
                     <div class="mr-2 text-3xl text-grey cursor-pointer hover:text-social-facebook transition-color"

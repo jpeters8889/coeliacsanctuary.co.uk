@@ -91,7 +91,7 @@ class Page extends PageBuilder
 
     protected function collectData(array $data = []): array
     {
-        return parent::collectData(array_merge($data,[
+        return parent::collectData(array_merge($data, [
             'breadcrumbs' => $this->breadcrumbs,
             'announcements' => Container::getInstance()->make(Repository::class)->take(1),
             'prefetch' => array_merge($this->prefetch, [

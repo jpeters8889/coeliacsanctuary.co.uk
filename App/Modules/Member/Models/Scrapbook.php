@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Member\Models;
 
 use Coeliac\Base\Models\BaseModel;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Scrapbook extends BaseModel
 {

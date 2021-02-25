@@ -12,6 +12,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use JPeters\Architect\Traits\HasArchitectSettings;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
  * @property string $email
@@ -59,6 +60,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scrapbooks(): HasMany
     {
         return $this->hasMany(Scrapbook::class);
+    }
+
+    public function scrapbookItems(): HasManyThrough
+    {
+        return $this->hasManyThrough(ScrapbookItem::class, Scrapbook::class);
     }
 
     public function generateEmailVerificationLink(): string
