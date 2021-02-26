@@ -182,7 +182,6 @@ export default {
                 type: this.addModal.searchType,
                 term: this.addModal.searchString,
             }).then((response) => {
-                console.log(response);
                 this.addModal.searchResults = response.data.results;
             }).catch(() => {
                 Architect.error('No results found');
@@ -193,7 +192,6 @@ export default {
             this.addModal.selectedItem = item;
             this.addModal.searchDescription = item.description;
             this.addModal.searchResults = [];
-            console.log('reset search results from select');
         },
 
         addItem() {
@@ -207,7 +205,6 @@ export default {
             this.addModal.searchString = '';
             this.addModal.searchDescription = '';
             this.addModal.searchResults = [];
-            console.log('reset search results from add');
 
             this.addModal.selectedItem = null;
         }
