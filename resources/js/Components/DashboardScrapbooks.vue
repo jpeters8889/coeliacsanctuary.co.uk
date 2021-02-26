@@ -22,13 +22,13 @@
 
             <div v-for="scrapbook in scrapbooks" @mouseenter="isHoveringOn = scrapbook.id"
                  @mouseleave="isHoveringOn = null" class="sm:w-1/2 sm:px-1">
-                <div class="bg-blue-gradient-30 rounded p-2 flex" @click.stop="viewScrapbook = scrapbook">
+                <div class="bg-blue-gradient-30 rounded p-2 flex" @click.stop.exact="viewScrapbook = scrapbook">
                     <div class="flex-1 flex flex-col">
                         <strong class="font-semibold text-lg flex items-center">
                             <div v-if="scrapbook.id === isEditing" class="flex">
                                 <form-input small name="editing-name" :value="editingName"/>
                                 <a class="ml-2 flex items-center leading-none bg-yellow text-sm rounded py-1 px-3 cursor-pointer hover:bg-yellow-light transition-bg"
-                                   @click="updateTitle()">
+                                   @click.stop.exact="updateTitle()">
                                     Update
                                 </a>
                             </div>
@@ -38,7 +38,7 @@
                                 <span class="text-grey-off hover:text-grey-dark cursor-pointer text-base pl-2"
                                       v-show="isHoveringOn === scrapbook.id">
                             <font-awesome-icon :icon="['fas', 'pen']"
-                                               @click.stop="editTitle(scrapbook)"></font-awesome-icon>
+                                               @click.stop.exact="editTitle(scrapbook)"></font-awesome-icon>
                         </span>
                             </template>
                         </strong>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="text-2xl text-right text-grey-off hover:text-grey-dark cursor-pointer transition-colour"
                          v-if="scrapbooks.length > 1" v-show="isHoveringOn === scrapbook.id">
-                        <font-awesome-icon :icon="['far', 'trash-alt']" @click="confirmDelete = scrapbook.id"/>
+                        <font-awesome-icon :icon="['far', 'trash-alt']" @click.stop.exact="confirmDelete = scrapbook.id"/>
                     </div>
                 </div>
             </div>

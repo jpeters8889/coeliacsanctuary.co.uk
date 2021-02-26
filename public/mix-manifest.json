@@ -137,10 +137,14 @@
 =======
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=f232be6bc359ad3ec2de",
 <<<<<<< develop
+<<<<<<< develop
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=fa0a2e5a0a38805d652f",
 >>>>>>> wip
 =======
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=b354b8b73a81c315081d",
+>>>>>>> wip
+=======
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=a50d7cd98a73fb9fb79e",
 >>>>>>> wip
     "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=cf9ac22e5d898519b568",
     "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=2a9d84402759b9b25032",
@@ -418,7 +422,7 @@
 >>>>>>> wip
     "/assets/js/vendor.js": "/assets/js/vendor.js?id=ba43123e200182917f9c",
     "/assets/js/chunk-order-complete-create-account.js": "/assets/js/chunk-order-complete-create-account.js?id=e3dab5cdba51c5207056",
-    "/assets/js/chunk-dashboard-scrapbooks.js": "/assets/js/chunk-dashboard-scrapbooks.js?id=de8526e72e96cd969f03",
+    "/assets/js/chunk-dashboard-scrapbooks.js": "/assets/js/chunk-dashboard-scrapbooks.js?id=9ca298ac5d39dbee9625",
     "/assets/js/chunk-add-scrapbook.js": "/assets/js/chunk-add-scrapbook.js?id=3930cc81d721513c7b61",
     "/assets/js/preload-register-trigger.js": "/assets/js/preload-register-trigger.js?id=8c1b6264586ecd738a13"
 >>>>>>> wip
