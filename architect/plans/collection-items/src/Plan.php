@@ -54,6 +54,8 @@ class Plan extends ArchitectPlan
                 'position' => $item['position'],
             ]);
         }
+
+        $model->touch();
     }
 
     protected function getItemModel(string $item): string
