@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Blog\Models;
 
 use Coeliac\Base\Models\BaseModel;
+use Coeliac\Modules\Member\Contracts\Subscribable;
 
 /**
  * @property mixed $slug
  */
-class BlogTag extends BaseModel
+class BlogTag extends BaseModel implements Subscribable
 {
     protected $appends = ['link'];
 
