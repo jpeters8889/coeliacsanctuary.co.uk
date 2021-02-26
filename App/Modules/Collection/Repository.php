@@ -19,6 +19,6 @@ class Repository extends AbstractRepository
 
     protected function order(Builder &$builder)
     {
-        $builder->latest();
+        $builder->orderByDesc('updated_at');
     }
 }
