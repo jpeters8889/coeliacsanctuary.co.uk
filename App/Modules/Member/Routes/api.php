@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Coeliac\Modules\Member\Controllers\Dashboards\SubscriptionsController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\Member\Controllers\LoginController;
 use Coeliac\Modules\Member\Controllers\AddressController;
@@ -58,6 +59,12 @@ $router->group(['prefix' => 'api/member'], static function () use ($router) {
 
                     $router->delete('{item}', [ScrapbookItemController::class, 'delete']);
                 });
+            });
+
+            $router->group(['prefix' => 'subscriptions'], static function () use ($router) {
+               $router->get('/', [SubscriptionsController::class, 'list']);
+               $router->post('/', [SubscriptionsController::class, 'create']);
+               $router->delete('{subscription}', [SubscriptionsController::class, 'delete']);
             });
         });
     });

@@ -29,11 +29,6 @@ class SubscriptionTypeModelTest extends TestCase
         $this->assertInstanceOf(HasMany::class, $this->subscriptionType->subscriptions());
         $this->assertEmpty($this->subscriptionType->subscriptions);
 
-//        $this->subscriptionType->subscribe(
-//            factory(User::class)->create(),
-//            factory(BlogTag::class)->create()
-//        );
-
         $subscription = UserSubscription::query()->create([
             'user_id' => factory(User::class)->create()->id,
             'user_subscription_type_id' => $this->subscriptionType->id,

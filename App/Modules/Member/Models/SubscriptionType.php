@@ -6,8 +6,14 @@ use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Member\Contracts\Subscribable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property string subscribable_type
+ * @property int id
+ */
 class SubscriptionType extends BaseModel
 {
+    public const BLOG_TAGS = 1;
+
     protected $table = 'user_subscription_types';
 
     public function subscriptions(): HasMany

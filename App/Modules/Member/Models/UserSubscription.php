@@ -4,19 +4,30 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Models;
 
+use Coeliac\Modules\Member\Contracts\Subscribable;
 use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int user_id
+ * @property int user_subscription_type_id
+ * @property Subscribable subscribable
+ */
 class UserSubscription extends BaseModel
 {
     public $incrementing = false;
     protected $keyType = 'string';
 
+    protected $casts = [
+        'user_id' => 'int',
+        'user_subscription_type_id' => 'int',
+    ];
+
     protected static function booted()
     {
-        self::creating(fn (self $subscription) => $subscription->id = Str::uuid()->toString());
+        self::creating(fn(self $subscription) => $subscription->id = Str::uuid()->toString());
     }
 
     public function user(): BelongsTo

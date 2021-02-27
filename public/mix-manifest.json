@@ -12,6 +12,7 @@
 <<<<<<< develop
 <<<<<<< develop
 <<<<<<< develop
+<<<<<<< develop
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=dd3198b112a0662f691b",
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=0bb7a45f1695237c9ff1",
     "/assets/js/chunk-contact-trigger.js": "/assets/js/chunk-contact-trigger.js?id=e820041e33e88bdd7c4d",
@@ -146,6 +147,10 @@
 =======
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=a50d7cd98a73fb9fb79e",
 >>>>>>> wip
+=======
+    "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=7be2698e7bc5e33a3080",
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=a9fa9b618166fb8b4dd2",
+>>>>>>> wip
     "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=cf9ac22e5d898519b568",
     "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=2a9d84402759b9b25032",
     "/assets/js/preload-header-search.js": "/assets/js/preload-header-search.js?id=ab0f0def260c44cd207d",
@@ -155,7 +160,7 @@
     "/assets/js/chunk-number-count.js": "/assets/js/chunk-number-count.js?id=cae35a441e48bc69db01",
     "/assets/js/preload-footer-newsletter.js": "/assets/js/preload-footer-newsletter.js?id=93fa741978278b71b035",
     "/assets/js/chunk-breadcrumbs.js": "/assets/js/chunk-breadcrumbs.js?id=62e572cb91250b31e0b6",
-    "/assets/js/chunk-module-list-index.js": "/assets/js/chunk-module-list-index.js?id=c01e46b5734b2c4f0cdd",
+    "/assets/js/chunk-module-list-index.js": "/assets/js/chunk-module-list-index.js?id=91694bc276a044553323",
     "/assets/js/chunk-accordion.js": "/assets/js/chunk-accordion.js?id=f1a6d804768acdb3e724",
     "/assets/js/chunk-widget.js": "/assets/js/chunk-widget.js?id=3ad3091bdc34d2e417bc",
     "/assets/js/chunk-newsletter-signup.js": "/assets/js/chunk-newsletter-signup.js?id=ce1f605526def32540d9",
@@ -194,16 +199,21 @@
     "/assets/js/chunk-login-form.js": "/assets/js/chunk-login-form.js?id=5a0c0f3798fab69ea75f",
     "/assets/js/chunk-register-form.js": "/assets/js/chunk-register-form.js?id=fa418b07babbab2dd365",
     "/assets/js/preload-login-trigger.js": "/assets/js/preload-login-trigger.js?id=d3d8ea0fa22ebc47a137",
+    "/assets/js/preload-register-trigger.js": "/assets/js/preload-register-trigger.js?id=8c1b6264586ecd738a13",
     "/assets/js/chunk-resend-verify-email.js": "/assets/js/chunk-resend-verify-email.js?id=ccd4c7943d3cfd39f23f",
     "/assets/js/chunk-member-dashboard.js": "/assets/js/chunk-member-dashboard.js?id=c45d9df9ac55b0b9dd14",
     "/assets/js/chunk-dashboard-recent-orders.js": "/assets/js/chunk-dashboard-recent-orders.js?id=5f501fdf546f943aa3b0",
     "/assets/js/chunk-dashboard-user-details.js": "/assets/js/chunk-dashboard-user-details.js?id=53984ba09d5099a8850f",
+    "/assets/js/chunk-order-complete-create-account.js": "/assets/js/chunk-order-complete-create-account.js?id=e3dab5cdba51c5207056",
+    "/assets/js/chunk-dashboard-scrapbooks.js": "/assets/js/chunk-dashboard-scrapbooks.js?id=9ca298ac5d39dbee9625",
     "/assets/js/chunk-contact-form.js": "/assets/js/chunk-contact-form.js?id=1237859819da81372d52",
     "/assets/js/chunk-modal.js": "/assets/js/chunk-modal.js?id=3ad7d5b70605d89ddc7f",
     "/assets/js/preload-coeliac-nav.js": "/assets/js/preload-coeliac-nav.js?id=a1a7842a95a59d7d8ed0",
     "/assets/js/preload-user-manager.js": "/assets/js/preload-user-manager.js?id=35422257ccfe1a8b3219",
+    "/assets/js/chunk-add-scrapbook.js": "/assets/js/chunk-add-scrapbook.js?id=3930cc81d721513c7b61",
     "/assets/js/chunk-loader.js": "/assets/js/chunk-loader.js?id=a4bbc32ef995ea5fb88f",
     "/assets/js/chunk-pagination.js": "/assets/js/chunk-pagination.js?id=9ef894fdb96deed5981a",
+<<<<<<< develop
 <<<<<<< develop
 <<<<<<< develop
 <<<<<<< develop
@@ -395,6 +405,9 @@
 =======
     "/assets/js/chunk-form-input.js": "/assets/js/chunk-form-input.js?id=d006df8f26454ff4d3c6",
 >>>>>>> wip
+=======
+    "/assets/js/chunk-form-input.js": "/assets/js/chunk-form-input.js?id=6afe2a81e0202d7d0fc9",
+>>>>>>> wip
     "/assets/js/chunk-form-textarea.js": "/assets/js/chunk-form-textarea.js?id=f48122968b32732067ab",
     "/assets/js/chunk-form-select.js": "/assets/js/chunk-form-select.js?id=94ea0dd2d5e9a0cd983a",
     "/assets/js/prefetch-form-option.js": "/assets/js/prefetch-form-option.js?id=1bcd8391a6ed96f66bcc",
@@ -419,11 +432,15 @@
 =======
 =======
     "/assets/css/coeliac.css": "/assets/css/coeliac.css?id=0350820a550eb68f77cc",
+<<<<<<< develop
 >>>>>>> wip
     "/assets/js/vendor.js": "/assets/js/vendor.js?id=ba43123e200182917f9c",
     "/assets/js/chunk-order-complete-create-account.js": "/assets/js/chunk-order-complete-create-account.js?id=e3dab5cdba51c5207056",
     "/assets/js/chunk-dashboard-scrapbooks.js": "/assets/js/chunk-dashboard-scrapbooks.js?id=9ca298ac5d39dbee9625",
     "/assets/js/chunk-add-scrapbook.js": "/assets/js/chunk-add-scrapbook.js?id=3930cc81d721513c7b61",
     "/assets/js/preload-register-trigger.js": "/assets/js/preload-register-trigger.js?id=8c1b6264586ecd738a13"
+>>>>>>> wip
+=======
+    "/assets/js/vendor.js": "/assets/js/vendor.js?id=a2f28d27117d8328e716"
 >>>>>>> wip
 }
