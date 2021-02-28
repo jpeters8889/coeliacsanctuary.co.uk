@@ -14,6 +14,7 @@
 <<<<<<< develop
 <<<<<<< develop
 <<<<<<< develop
+<<<<<<< develop
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=dd3198b112a0662f691b",
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=0bb7a45f1695237c9ff1",
     "/assets/js/chunk-contact-trigger.js": "/assets/js/chunk-contact-trigger.js?id=e820041e33e88bdd7c4d",
@@ -155,6 +156,10 @@
 =======
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=419d7d636af88dec0a43",
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=160b8280fd2e11dbfeab",
+>>>>>>> wip
+=======
+    "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=c9fe1bc422f19f9b5918",
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=5e069061feae0aae720b",
 >>>>>>> wip
     "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=cf9ac22e5d898519b568",
     "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=2a9d84402759b9b25032",
@@ -451,6 +456,11 @@
 >>>>>>> wip
 =======
     "/assets/js/vendor.js": "/assets/js/vendor.js?id=a2f28d27117d8328e716",
+<<<<<<< develop
     "/assets/js/chunk-wte-subscribe.js": "/assets/js/chunk-wte-subscribe.js?id=f42755aec8f2a92c0108"
+>>>>>>> wip
+=======
+    "/assets/js/chunk-wte-subscribe.js": "/assets/js/chunk-wte-subscribe.js?id=f42755aec8f2a92c0108",
+    "/assets/js/chunk-dashboard-subscriptions.js": "/assets/js/chunk-dashboard-subscriptions.js?id=473b399b5c59bf0541db"
 >>>>>>> wip
 }

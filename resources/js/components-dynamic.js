@@ -56,6 +56,7 @@ const DashboardUserDetails = () => import('./Components/DashboardUserDetails' /*
 const OrderCompleteCreateAccount = () => import('./Components/OrderCompleteCreateAccount' /* webpackChunkName: "chunk-order-complete-create-account" */)
 const DashboardScrapbooks = () => import('./Components/DashboardScrapbooks' /* webpackChunkName: "chunk-dashboard-scrapbooks" */)
 const WhereToEatSubscribe = () => import('./Components/WhereToEatSubscribe' /* webpackChunkName: "chunk-wte-subscribe" */)
+const DashboardSubscriptions = () => import('./Components/DashboardSubscriptions' /* webpackChunkName: "chunk-dashboard-subscriptions" */)
 
 Vue.component('accordion', Accordion);
 Vue.component('add-basket-trigger', AddBasketTrigger);
@@ -76,6 +77,7 @@ Vue.component('contact-trigger', ContactTrigger);
 Vue.component('dashboard-navigation', DashboardNavigation);
 Vue.component('dashboard-recent-orders', DashboardRecentOrders)
 Vue.component('dashboard-scrapbooks', DashboardScrapbooks)
+Vue.component('dashboard-subscriptions', DashboardSubscriptions)
 Vue.component('dashboard-user-details', DashboardUserDetails)
 Vue.component('footer-newsletter', FooterNewsletter);
 Vue.component('full-page-loader', FullPageLoader);

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string subscribable_type
  * @property int id
  * @property string name
+ * @property string description
  */
 class SubscriptionType extends BaseModel
 {

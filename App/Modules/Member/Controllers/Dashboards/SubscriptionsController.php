@@ -31,6 +31,7 @@ class SubscriptionsController extends BaseController
         return $request->user()
             ->subscriptions()
             ->with(['type', 'subscribable'])
+            ->latest()
             ->get()
             ->map(function (UserSubscription $subscription) {
                 if ($subscription->user_subscription_type_id === SubscriptionType::WTE_TOWN) {
@@ -44,6 +45,7 @@ class SubscriptionsController extends BaseController
                 'type' => [
                     'id' => $subscription->type->id,
                     'name' => $subscription->type->name,
+                    'description' => $subscription->type->description,
                 ],
                 'subscribable' => [
                     'id' => $subscription->subscribable->id,
@@ -51,7 +53,8 @@ class SubscriptionsController extends BaseController
                     'link' => $subscription->subscribable->subscribableLink(),
                 ],
                 'created_at' => $subscription->created_at,
-            ]);
+            ])
+            ->values();
     }
 
     public function create(SubscriptionCreateRequest $request)
