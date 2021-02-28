@@ -45,6 +45,9 @@
                     </p>
                 </div>
 
+                <wheretoeat-notifications-subscribe :type-id="3" :subscribable-id="{{ $town->id }}"
+                                                    friendly-name="{{ $town->town }}, {{ $county->county }}"></wheretoeat-notifications-subscribe>
+
                 <div class="min-h-map">
                     <wheretoeat-page-list :county-id="{{ $county->id }}" :town-id="{{ $town->id }}"></wheretoeat-page-list>
                 </div>

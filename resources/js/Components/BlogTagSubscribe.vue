@@ -2,9 +2,23 @@
     <div>
         <div class="pl-2 text-yellow cursor-pointer hover:text-grey-dark text-lg transition-color"
              v-tooltip.right="{content: tooltip, classes: ['bg-yellow', 'text-black', 'rounded-lg', 'text-sm']}"
-             @click="">
+             @click="toggleSubscription()">
             <font-awesome-icon :icon="icon"></font-awesome-icon>
         </div>
+
+        <portal to="modal" v-if="showUserCta">
+            <modal small name="userCta" modal-classes="text-center text-lg">
+                <p>You must be signed in to receive updates about blogs tagged with {{ tag }}!</p>
+                <p>
+                    <a href="/member/register" class="font-semibold hover:text-blue-dark cursor-pointer">Create an
+                        account</a>
+                </p>
+                <p>
+                    Already got one? <a href="/member/login" class="font-semibold hover:text-blue-dark cursor-pointer">Log
+                    in now.</a>
+                </p>
+            </modal>
+        </portal>
     </div>
 </template>
 
@@ -12,11 +26,18 @@
 import InteractsWithUser from "../Mixins/InteractsWithUser";
 import Vue from "vue";
 import VTooltip from "v-tooltip";
+import HasMemberSubscriptions from "../Mixins/HasMemberSubscriptions";
+
+const Modal = () => import('./Modal' /* webpackChunkName: "chunk-modal" */)
 
 Vue.use(VTooltip);
 
 export default {
-    mixins: [InteractsWithUser],
+    components: {
+        modal: Modal
+    },
+
+    mixins: [InteractsWithUser, HasMemberSubscriptions],
 
     props: {
         tag: {
@@ -25,21 +46,36 @@ export default {
         },
     },
 
-    data: () => ({
-        isSubscribed: false,
-    }),
+    created() {
+        this.subscribable = this.tag;
+        this.type = 1;
+    },
 
-    computed: {
-        icon() {
-            return [this.isSubscribed ? 'fas' : 'far', 'bell'];
+    methods: {
+        unsubscribeSuccess() {
+            coeliac().success(`You're now unsubscribed from getting notifications from blogs tagged with '${this.tag}'`);
         },
 
-        tooltip() {
-          if(this.isSubscribed) {
-              return 'Unsubscribe from email notifications on this tag.';
-          }
+        unsubscribeError() {
+            coeliac().success('Sorry, there was an error unsubscribing you from this blog tag.');
+        },
 
-          return 'Subscribe to email notifications on this tag.'
+        subscribeSuccess() {
+            coeliac().success(`You're now subscribed to notifications new blogs tagged with '${this.tag}'`);
+        },
+
+        subscribeError() {
+            coeliac().success('Sorry, there was an error subscribing you to this blog tag.');
+        },
+    },
+
+    computed: {
+        tooltip() {
+            if (this.isSubscribed) {
+                return 'Unsubscribe from email notifications on this tag.';
+            }
+
+            return `Subscribe to email notifications for new blogs tagged with ${this.tag}.`
         },
     }
 }

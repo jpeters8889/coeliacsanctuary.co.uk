@@ -3,6 +3,9 @@
 namespace Tests\Feature;
 
 use Coeliac\Modules\Blog\Models\BlogTag;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCountry;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
 use Coeliac\Modules\Member\Contracts\Subscribable;
 use Coeliac\Modules\Member\Models\SubscriptionType;
 use Coeliac\Modules\Member\Models\User;
@@ -25,7 +28,7 @@ class MemberSubscriptionsTest extends DashboardTest
         $this->blogTag = factory(BlogTag::class)->create();
     }
 
-    protected function makeSubscribeRequest($type = SubscriptionType::BLOG_TAGS, $subscribable = null, $prop = 'tag')
+    protected function makeSubscribeRequest($type = SubscriptionType::BLOG_TAGS, $subscribable = null, $prop = 'slug')
     {
         if ($subscribable === null) {
             $subscribable = $this->blogTag;
@@ -127,5 +130,103 @@ class MemberSubscriptionsTest extends DashboardTest
         $this->delete("/api/member/dashboard/subscriptions/{$subscription->id}")->assertStatus(403);
 
         $this->assertNotEmpty(UserSubscription::all());
+    }
+
+    /** @test */
+    public function it_errors_when_searching_for_an_existing_subscription_without_a_type()
+    {
+        $this->post('/api/member/dashboard/subscriptions/search', [
+            'type' => null,
+            'subscribable' => 'foo',
+        ])->assertStatus(422);
+    }
+
+    /** @test */
+    public function it_errors_when_searching_for_an_existing_subscription_with_an_invalid_type()
+    {
+        $this->post('/api/member/dashboard/subscriptions/search', [
+            'type' => 'foo',
+            'subscribable' => 'bar',
+        ])->assertStatus(422);
+    }
+
+    /** @test */
+    public function it_errors_when_searching_for_a_subscription_when_the_type_doesnt_exist()
+    {
+        $this->post('/api/member/dashboard/subscriptions/search', [
+            'type' => 999,
+            'subscribable' => 'foo',
+        ])->assertStatus(422);
+    }
+
+    /** @test */
+    public function it_errors_when_searching_for_an_existing_subscription_without_a_subscribable()
+    {
+        $this->post('/api/member/dashboard/subscriptions/search', [
+            'type' => SubscriptionType::BLOG_TAGS,
+            'subscribable' => null,
+        ])->assertStatus(422);
+    }
+
+    /** @test */
+    public function it_errors_when_searching_for_an_existing_subscription_with_a_subscrible_that_doesnt_exist()
+    {
+        $this->post('/api/member/dashboard/subscriptions/search', [
+            'type' => SubscriptionType::BLOG_TAGS,
+            'subscribable' => 'foo',
+        ])->assertStatus(422);
+    }
+
+    /** @test */
+    public function it_can_find_out_whether_a_subscription_exists()
+    {
+        $this->makeSubscribeRequest();
+
+        $subscription = UserSubscription::query()->first();
+
+        $this->post('/api/member/dashboard/subscriptions/search', [
+            'type' => SubscriptionType::BLOG_TAGS,
+            'subscribable' => $this->blogTag->slug,
+        ])
+            ->assertOk()
+            ->assertJson(['id' => $subscription->id]);
+    }
+
+    /** @test */
+    public function it_returns_no_content_when_not_subscribed_to_a_subscribable()
+    {
+        $this->post('/api/member/dashboard/subscriptions/search', [
+            'type' => SubscriptionType::BLOG_TAGS,
+            'subscribable' => $this->blogTag->slug,
+        ])->assertStatus(204);
+    }
+
+    /** @test */
+    public function it_returns_the_users_subscriptions_on_the_subscription_list_endpoint()
+    {
+        $this->makeSubscribeRequest();
+
+        $country = factory(WhereToEatCountry::class)->create();
+        $county = factory(WhereToEatCounty::class)->create(['country_id' => $country->id]);
+        $town = factory(WhereToEatTown::class)->create(['county_id' => $county->id]);
+
+        $this->makeSubscribeRequest(SubscriptionType::WTE_COUNTY, $county, 'id');
+        $this->makeSubscribeRequest(SubscriptionType::WTE_TOWN, $town, 'id');
+
+        $request = $this->makeApiRequest();
+
+        $this->assertIsArray($request->json());
+        $request->assertJsonStructure([[
+            'id',
+            'type' => [
+                'id',
+                'name',
+            ],
+            'subscribable' => [
+                'id',
+                'name',
+                'link',
+            ],
+        ]]);
     }
 }

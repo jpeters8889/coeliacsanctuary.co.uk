@@ -6,6 +6,7 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
 use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
+use Coeliac\Modules\Member\Contracts\Subscribable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property WhereToEatCounty $county
  * @property string           $slug
  */
-class WhereToEatTown extends BaseModel
+class WhereToEatTown extends BaseModel implements Subscribable
 {
     protected $table = 'wheretoeat_towns';
 
@@ -79,5 +80,15 @@ class WhereToEatTown extends BaseModel
     public function reviews(): HasManyThrough
     {
         return $this->hasManyThrough(Review::class, WhereToEat::class, 'town_id', 'wheretoeat_id');
+    }
+
+    public function subscribableName(): string
+    {
+        return $this->town;
+    }
+
+    public function subscribableLink(): string
+    {
+        return "/wheretoeat/{$this->county->slug}/{$this->slug}";
     }
 }

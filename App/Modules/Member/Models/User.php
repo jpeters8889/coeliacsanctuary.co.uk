@@ -67,6 +67,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasManyThrough(ScrapbookItem::class, Scrapbook::class);
     }
 
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(UserSubscription::class);
+    }
+
     public function generateEmailVerificationLink(): string
     {
         return resolve(UrlGenerator::class)->temporarySignedRoute(

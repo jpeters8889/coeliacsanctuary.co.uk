@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Member\Models;
 
 use Coeliac\Base\Models\BaseModel;
@@ -9,10 +11,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property string subscribable_type
  * @property int id
+ * @property string name
  */
 class SubscriptionType extends BaseModel
 {
     public const BLOG_TAGS = 1;
+    public const WTE_COUNTY = 2;
+    public const WTE_TOWN = 3;
 
     protected $table = 'user_subscription_types';
 

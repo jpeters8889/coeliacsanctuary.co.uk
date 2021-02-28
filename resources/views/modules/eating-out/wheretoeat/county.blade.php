@@ -41,6 +41,8 @@
                     </p>
                 </div>
 
+                <wheretoeat-notifications-subscribe :type-id="2" :subscribable-id="{{ $id }}" friendly-name="{{ $county }}"></wheretoeat-notifications-subscribe>
+
                 <table class="mt-4 w-full leading-none">
                     <tr class="text-left border-b-2 border-blue">
                         <th class="border-r-2 border-blue p-1 pl-0">Town</th>

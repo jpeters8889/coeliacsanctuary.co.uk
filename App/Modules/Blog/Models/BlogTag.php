@@ -30,4 +30,14 @@ class BlogTag extends BaseModel implements Subscribable
     {
         return $this->belongsToMany(Blog::class, 'blog_assigned_tags', 'tag_id', 'blog_id');
     }
+
+    public function subscribableName(): string
+    {
+        return $this->tag;
+    }
+
+    public function subscribableLink(): string
+    {
+        return $this->link;
+    }
 }

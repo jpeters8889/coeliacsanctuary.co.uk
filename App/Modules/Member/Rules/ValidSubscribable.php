@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Rules;
 
-use Coeliac\Modules\Member\Models\SubscriptionType;
 use Illuminate\Contracts\Validation\Rule;
-use Coeliac\Modules\Member\Requests\CreateSubscriptionRequest;
+use Coeliac\Modules\Member\Models\SubscriptionType;
+use Coeliac\Modules\Member\Requests\SubscriptionCreateRequest;
 
 class ValidSubscribable implements Rule
 {
-    private CreateSubscriptionRequest $request;
+    private SubscriptionCreateRequest $request;
 
-    public function __construct(CreateSubscriptionRequest $request)
+    public function __construct(SubscriptionCreateRequest $request)
     {
         $this->request = $request;
     }
@@ -30,7 +30,7 @@ class ValidSubscribable implements Rule
         $prop = 'id';
 
         if ($subscriptionType->id === SubscriptionType::BLOG_TAGS) {
-            $prop = 'tag';
+            $prop = 'slug';
         }
 
         return $subscribable::query()->where($prop, $value)->exists();

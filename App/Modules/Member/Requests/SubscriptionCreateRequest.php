@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Member\Requests;
 
 use Coeliac\Base\Requests\ApiFormRequest;
@@ -7,7 +9,7 @@ use Coeliac\Modules\Member\Contracts\Subscribable;
 use Coeliac\Modules\Member\Models\SubscriptionType;
 use Coeliac\Modules\Member\Rules\ValidSubscribable;
 
-class CreateSubscriptionRequest extends ApiFormRequest
+class SubscriptionCreateRequest extends ApiFormRequest
 {
     protected ?SubscriptionType $subscription = null;
 
@@ -34,7 +36,7 @@ class CreateSubscriptionRequest extends ApiFormRequest
         $prop = 'id';
 
         if ($this->input('type') === SubscriptionType::BLOG_TAGS) {
-            $prop = 'tag';
+            $prop = 'slug';
         }
 
         return $subscribable::query()->firstWhere($prop, $this->input('subscribable'));

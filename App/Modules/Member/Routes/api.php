@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Coeliac\Modules\Member\Controllers\Dashboards\SubscriptionsController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\Member\Controllers\LoginController;
 use Coeliac\Modules\Member\Controllers\AddressController;
@@ -12,7 +11,9 @@ use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookController;
 use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookItemController;
+use Coeliac\Modules\Member\Controllers\Dashboards\SubscriptionsController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookSearchController;
+use Coeliac\Modules\Member\Controllers\Dashboards\SubscriptionSearchController;
 
 /* @var Router $router */
 
@@ -62,9 +63,10 @@ $router->group(['prefix' => 'api/member'], static function () use ($router) {
             });
 
             $router->group(['prefix' => 'subscriptions'], static function () use ($router) {
-               $router->get('/', [SubscriptionsController::class, 'list']);
-               $router->post('/', [SubscriptionsController::class, 'create']);
-               $router->delete('{subscription}', [SubscriptionsController::class, 'delete']);
+                $router->get('/', [SubscriptionsController::class, 'list']);
+                $router->post('/', [SubscriptionsController::class, 'create']);
+                $router->post('/search', SubscriptionSearchController::class);
+                $router->delete('{subscription}', [SubscriptionsController::class, 'delete']);
             });
         });
     });
