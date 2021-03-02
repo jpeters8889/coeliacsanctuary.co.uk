@@ -55,8 +55,8 @@ const DashboardRecentOrders = () => import('./Components/DashboardRecentOrders' 
 const DashboardUserDetails = () => import('./Components/DashboardUserDetails' /* webpackChunkName: "chunk-dashboard-user-details" */)
 const OrderCompleteCreateAccount = () => import('./Components/OrderCompleteCreateAccount' /* webpackChunkName: "chunk-order-complete-create-account" */)
 const DashboardScrapbooks = () => import('./Components/DashboardScrapbooks' /* webpackChunkName: "chunk-dashboard-scrapbooks" */)
-const WhereToEatSubscribe = () => import('./Components/WhereToEatSubscribe' /* webpackChunkName: "chunk-wte-subscribe" */)
-const DashboardSubscriptions = () => import('./Components/DashboardSubscriptions' /* webpackChunkName: "chunk-dashboard-subscriptions" */)
+const WhereToEatDailyUpdateSubscribe = () => import('./Components/WhereToEatDailyUpdateSubscribe' /* webpackChunkName: "chunk-wte-subscribe" */)
+const DashboardDailyUpdates = () => import('./Components/DashboardDailyUpdates' /* webpackChunkName: "chunk-dashboard-subscriptions" */)
 
 Vue.component('accordion', Accordion);
 Vue.component('add-basket-trigger', AddBasketTrigger);
@@ -77,7 +77,7 @@ Vue.component('contact-trigger', ContactTrigger);
 Vue.component('dashboard-navigation', DashboardNavigation);
 Vue.component('dashboard-recent-orders', DashboardRecentOrders)
 Vue.component('dashboard-scrapbooks', DashboardScrapbooks)
-Vue.component('dashboard-subscriptions', DashboardSubscriptions)
+Vue.component('dashboard-daily-updates', DashboardDailyUpdates)
 Vue.component('dashboard-user-details', DashboardUserDetails)
 Vue.component('footer-newsletter', FooterNewsletter);
 Vue.component('full-page-loader', FullPageLoader);
@@ -108,7 +108,7 @@ Vue.component('wheretoeat-list', WhereToEatList);
 Vue.component('wheretoeat-map', WhereToEatMap);
 Vue.component('wheretoeat-place-request-form', WhereToEatPlaceRequestForm);
 Vue.component('wheretoeat-quick-search', WhereToEatQuickSearch);
-Vue.component('wheretoeat-notifications-subscribe', WhereToEatSubscribe);
+Vue.component('wheretoeat-notifications-daily-updates-subscribe', WhereToEatDailyUpdateSubscribe);
 Vue.component('widget', Widget);
 
 Vue.component('widget-blog-search', BlogSearch);

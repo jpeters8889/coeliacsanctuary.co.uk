@@ -11,9 +11,9 @@ use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookController;
 use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookItemController;
-use Coeliac\Modules\Member\Controllers\Dashboards\SubscriptionsController;
+use Coeliac\Modules\Member\Controllers\Dashboards\DailyUpdatesController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookSearchController;
-use Coeliac\Modules\Member\Controllers\Dashboards\SubscriptionSearchController;
+use Coeliac\Modules\Member\Controllers\Dashboards\DailyUpdatesSearchController;
 
 /* @var Router $router */
 
@@ -62,11 +62,11 @@ $router->group(['prefix' => 'api/member'], static function () use ($router) {
                 });
             });
 
-            $router->group(['prefix' => 'subscriptions'], static function () use ($router) {
-                $router->get('/', [SubscriptionsController::class, 'list']);
-                $router->post('/', [SubscriptionsController::class, 'create']);
-                $router->post('/search', SubscriptionSearchController::class);
-                $router->delete('{subscription}', [SubscriptionsController::class, 'delete']);
+            $router->group(['prefix' => 'daily-updates'], static function () use ($router) {
+                $router->get('/', [DailyUpdatesController::class, 'list']);
+                $router->post('/', [DailyUpdatesController::class, 'create']);
+                $router->post('/search', DailyUpdatesSearchController::class);
+                $router->delete('{dailyUpdate}', [DailyUpdatesController::class, 'delete']);
             });
         });
     });

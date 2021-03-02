@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Blog\Models;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Member\Models\DailyUpdateType;
+use Coeliac\Modules\Member\Traits\CreatesDailyUpdate;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Traits\Linkable;
@@ -39,6 +41,7 @@ class Blog extends BaseModel implements HasComments
     use CanBeAddedToScrapbook;
     use ClearsCache;
     use Commentable;
+    use CreatesDailyUpdate;
     use DisplaysImages;
     use HasRichText;
     use Imageable;
@@ -126,5 +129,10 @@ class Blog extends BaseModel implements HasComments
     protected function cacheKey(): string
     {
         return 'blogs';
+    }
+
+    protected static function dailyUpdateType()
+    {
+        return DailyUpdateType::BLOG_TAGS;
     }
 }

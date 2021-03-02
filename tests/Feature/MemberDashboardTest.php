@@ -50,7 +50,7 @@ class MemberDashboardTest extends TestCase
         return [
             ['scrapbooks'],
             ['orders'],
-            ['subscriptions'],
+            ['daily-updates'],
             ['details'],
         ];
     }

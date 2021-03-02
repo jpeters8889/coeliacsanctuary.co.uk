@@ -66,8 +66,10 @@ abstract class DashboardTest extends TestCase
     }
 
     /** @test */
-    public function it_redirects_ok_when_the_user_is_signed_in()
+    public function it_returns_ok_when_the_user_is_signed_in()
     {
+        $this->withoutExceptionHandling();
+
         $this->makeRequest()->assertOk();
     }
 

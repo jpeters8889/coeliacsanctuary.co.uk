@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="pl-2 text-yellow cursor-pointer hover:text-grey-dark text-lg transition-color"
-             v-tooltip.right="{content: tooltip, classes: ['bg-yellow', 'text-black', 'rounded-lg', 'text-sm']}"
+             v-tooltip.right="{content: tooltip, classes: ['bg-yellow', 'text-black', 'rounded-lg', 'text-sm', 'ml-2', 'p-2', 'max-w-250']}"
              @click="toggleSubscription()">
             <font-awesome-icon :icon="icon"></font-awesome-icon>
         </div>
@@ -10,12 +10,15 @@
             <modal small name="userCta" modal-classes="text-center text-lg">
                 <p>You must be signed in to receive updates about blogs tagged with {{ tag }}!</p>
                 <p>
-                    <a href="/member/register" class="font-semibold hover:text-blue-dark cursor-pointer">Create an
-                        account</a>
+                    <a href="/member/register" class="font-semibold hover:text-blue-dark cursor-pointer">
+                        Create an account
+                    </a>
                 </p>
                 <p>
-                    Already got one? <a href="/member/login" class="font-semibold hover:text-blue-dark cursor-pointer">Log
-                    in now.</a>
+                    Already got one?
+                    <a href="/member/login" class="font-semibold hover:text-blue-dark cursor-pointer">
+                        Log in now.
+                    </a>
                 </p>
             </modal>
         </portal>
@@ -26,7 +29,7 @@
 import InteractsWithUser from "../Mixins/InteractsWithUser";
 import Vue from "vue";
 import VTooltip from "v-tooltip";
-import HasMemberSubscriptions from "../Mixins/HasMemberSubscriptions";
+import SubscribesToDailyUpdates from "../Mixins/SubscribesToDailyUpdates";
 
 const Modal = () => import('./Modal' /* webpackChunkName: "chunk-modal" */)
 
@@ -37,7 +40,7 @@ export default {
         modal: Modal
     },
 
-    mixins: [InteractsWithUser, HasMemberSubscriptions],
+    mixins: [InteractsWithUser, SubscribesToDailyUpdates],
 
     props: {
         tag: {
@@ -47,7 +50,7 @@ export default {
     },
 
     created() {
-        this.subscribable = this.tag;
+        this.updatable = this.tag;
         this.type = 1;
     },
 
@@ -72,10 +75,10 @@ export default {
     computed: {
         tooltip() {
             if (this.isSubscribed) {
-                return 'Unsubscribe from email notifications on this tag.';
+                return 'Unsubscribe from daily updates on this tag.';
             }
 
-            return `Subscribe to email notifications for new blogs tagged with ${this.tag}.`
+            return `Subscribe to daily updates for new blogs tagged with ${this.tag}.`
         },
     }
 }

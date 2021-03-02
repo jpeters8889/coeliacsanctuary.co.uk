@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
+use Coeliac\Modules\Member\Models\DailyUpdateType;
+use Coeliac\Modules\Member\Traits\CreatesDailyUpdate;
 use Illuminate\Http\Request;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
@@ -37,6 +39,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class WhereToEat extends BaseModel
 {
+    use CreatesDailyUpdate;
     use ClearsCache;
     use Searchable;
 
@@ -210,5 +213,10 @@ class WhereToEat extends BaseModel
     protected function cacheKey(): string
     {
         return 'wheretoeat';
+    }
+
+    protected static function dailyUpdateType()
+    {
+        return [DailyUpdateType::WTE_COUNTY, DailyUpdateType::WTE_TOWN];
     }
 }

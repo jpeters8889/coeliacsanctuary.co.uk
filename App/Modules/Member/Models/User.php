@@ -69,7 +69,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function subscriptions(): HasMany
     {
-        return $this->hasMany(UserSubscription::class);
+        return $this->hasMany(UserDailyUpdateSubscription::class);
     }
 
     public function generateEmailVerificationLink(): string

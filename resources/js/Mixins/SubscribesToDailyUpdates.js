@@ -6,7 +6,7 @@ export default {
     data: () => ({
         showUserCta: false,
         isSubscribed: false,
-        subscribable: null,
+        updatable: null,
         type: null,
     }),
 
@@ -36,7 +36,7 @@ export default {
         },
 
         unsubscribe() {
-            coeliac().request().delete(`/api/member/dashboard/subscriptions/${this.isSubscribed.id}`)
+            coeliac().request().delete(`/api/member/dashboard/daily-updates/${this.isSubscribed.id}`)
                 .then(() => {
                     this.unsubscribeSuccess();
                     this.isSubscribed = false;
@@ -47,9 +47,9 @@ export default {
         },
 
         subscribe() {
-            coeliac().request().post(`/api/member/dashboard/subscriptions`, {
+            coeliac().request().post(`/api/member/dashboard/daily-updates`, {
                 type: this.type,
-                subscribable: this.subscribable,
+                updatable: this.updatable,
             }).then(() => {
                 this.subscribeSuccess();
                 this.seeIfSubscribed();
@@ -59,9 +59,9 @@ export default {
         },
 
         seeIfSubscribed() {
-            return coeliac().request().post('/api/member/dashboard/subscriptions/search', {
+            return coeliac().request().post('/api/member/dashboard/daily-updates/search', {
                 'type': this.type,
-                'subscribable': this.subscribable,
+                'updatable': this.updatable,
             }).then((response) => {
                 if (response.status === 200) {
                     this.isSubscribed = response.data;

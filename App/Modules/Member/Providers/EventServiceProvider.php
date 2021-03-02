@@ -8,9 +8,11 @@ use Coeliac\Modules\Member\Events\UserRegistered;
 use Coeliac\Modules\Member\Events\UserEmailChanged;
 use Coeliac\Modules\Member\Events\UserPasswordUpdated;
 use Coeliac\Modules\Member\Listeners\LimitUserAccount;
+use Coeliac\Modules\Member\Events\DailyUpdateItemCreated;
 use Coeliac\Modules\Member\Listeners\CreateUserScrapbook;
 use Coeliac\Modules\Member\Listeners\SendEmailChangedAlert;
 use Coeliac\Modules\Member\Listeners\SendPasswordChangedAlert;
+use Coeliac\Modules\Member\Listeners\FindEligibleDailyUpdatesToQueue;
 use Coeliac\Modules\Member\Listeners\SendEmailUpdatedVerificationEmail;
 use Coeliac\Modules\Member\Listeners\SendRegistrationConfirmationEmail;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -31,6 +33,10 @@ class EventServiceProvider extends ServiceProvider
 
         UserPasswordUpdated::class => [
             SendPasswordChangedAlert::class,
+        ],
+
+        DailyUpdateItemCreated::class => [
+            FindEligibleDailyUpdatesToQueue::class,
         ],
     ];
 }

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import HasMemberSubscriptions from "../Mixins/HasMemberSubscriptions";
+import SubscribesToDailyUpdates from "../Mixins/SubscribesToDailyUpdates";
 
 const Modal = () => import('./Modal' /* webpackChunkName: "chunk-modal" */)
 
@@ -40,14 +40,14 @@ export default {
         modal: Modal
     },
 
-    mixins: [HasMemberSubscriptions],
+    mixins: [SubscribesToDailyUpdates],
 
     props: {
         typeId: {
             required: true,
             type: Number,
         },
-        subscribableId: {
+        updatableId: {
             required: true,
             type: Number,
         },
@@ -63,13 +63,13 @@ export default {
     }),
 
     created() {
-        this.subscribable = this.subscribableId;
+        this.updatable = this.updatableId;
         this.type = this.typeId;
     },
 
     methods: {
         unsubscribeSuccess() {
-            coeliac().success(`You're now unsubscribed from notifications to places added in '${this.friendlyName}'`);
+            coeliac().success(`You're now unsubscribed from daily updates for places added in '${this.friendlyName}'`);
         },
 
         unsubscribeError() {
@@ -77,7 +77,7 @@ export default {
         },
 
         subscribeSuccess() {
-            coeliac().success(`You're now subscribed to notifications of places added in '${this.friendlyName}'`);
+            coeliac().success(`You're now subscribed to getting daily updates when places are added in '${this.friendlyName}'`);
         },
 
         subscribeError() {
@@ -88,7 +88,7 @@ export default {
     computed: {
         label() {
             if (this.isSubscribed) {
-                return `You're already subscribed to <strong>${this.friendlyName}</strong>, unsubscribe?`
+                return `You're already subscribed to daily updates from <strong>${this.friendlyName}</strong>, unsubscribe?`
             }
 
             return `Subscribe to <strong>${this.friendlyName}</strong>.`;

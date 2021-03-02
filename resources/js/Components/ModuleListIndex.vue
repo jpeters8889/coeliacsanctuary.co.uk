@@ -37,7 +37,7 @@
                         <li v-for="option in filters[filter.value]"
                             class="m-1 bg-blue-light rounded-lg text-xs overflow-hidden flex justify-between">
                             <div v-if="filter.value === 'tags' && module === 'blogs'">
-                                <blog-tag-subscribe :tag="option"></blog-tag-subscribe>
+                                <blog-tag-daily-update-subscribe :tag="option"></blog-tag-daily-update-subscribe>
                             </div>
                             <div class="py-1 px-3">{{ filter.label }}: {{ option }}</div>
                             <div class="bg-yellow py-1 px-3 cursor-pointer" @click="removeFilter(filter.value, option)">
@@ -84,7 +84,7 @@ import GoogleEvents from "../Mixins/GoogleEvents";
 import ModuleFilterSlider from "./ModuleFilterSlider";
 import ModuleListItem from "./ModuleListItem";
 import ModuleListTopBar from "./ModuleListTopBar";
-import BlogTagSubscribe from "./BlogTagSubscribe";
+import BlogTagDailyUpdateSubscribe from "./BlogTagDailyUpdateSubscribe";
 
 const Loader = () => import('./Loader' /* webpackChunkName: "chunk-loader" */)
 const Pagination = () => import('./Pagination' /* webpackChunkName: "chunk-pagination" */)
@@ -98,7 +98,7 @@ export default {
         'module-list-item': ModuleListItem,
         'module-list-top-bar': ModuleListTopBar,
         'pagination': Pagination,
-        'blog-tag-subscribe': BlogTagSubscribe,
+        'blog-tag-daily-update-subscribe': BlogTagDailyUpdateSubscribe,
     },
 
     props: {

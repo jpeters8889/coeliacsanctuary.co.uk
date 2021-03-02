@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserSubscriptionsTable extends Migration
+class CreateUserDailyUpdateSubscriptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,11 +15,11 @@ class CreateUserSubscriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_subscriptions', function (Blueprint $table) {
+        Schema::create('user_daily_update_subscriptions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('user_subscription_type_id')->index();
-            $table->morphs('subscribable');
+            $table->unsignedBigInteger('daily_update_type_id')->index();
+            $table->morphs('updatable', 'updatable_index');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateUserSubscriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_subscriptions');
+        Schema::dropIfExists('user_daily_update_subscriptions');
     }
 }

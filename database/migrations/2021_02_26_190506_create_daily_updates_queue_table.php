@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserSubscriptionTypesTable extends Migration
+class CreateDailyUpdatesQueueTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,11 +15,10 @@ class CreateUserSubscriptionTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_subscription_types', function (Blueprint $table) {
+        Schema::create('daily_updates_queue', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->string('subscribable_type');
+            $table->uuid('user_daily_update_id')->index();
+            $table->morphs('new_item');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateUserSubscriptionTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_subscription_types');
+        Schema::dropIfExists('daily_updates_queue');
     }
 }

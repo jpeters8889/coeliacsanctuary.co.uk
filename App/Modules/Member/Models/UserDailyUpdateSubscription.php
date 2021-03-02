@@ -6,25 +6,25 @@ namespace Coeliac\Modules\Member\Models;
 
 use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Modules\Member\Contracts\Subscribable;
+use Coeliac\Modules\Member\Contracts\Updatable;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int user_id
- * @property int user_subscription_type_id
- * @property Subscribable subscribable
+ * @property int daily_update_type_id
+ * @property Updatable updatable
  * @property int id
- * @property SubscriptionType type
+ * @property DailyUpdateType type
  */
-class UserSubscription extends BaseModel
+class UserDailyUpdateSubscription extends BaseModel
 {
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $casts = [
         'user_id' => 'int',
-        'user_subscription_type_id' => 'int',
+        'daily_update_type_id' => 'int',
     ];
 
     protected static function booted()
@@ -39,11 +39,11 @@ class UserSubscription extends BaseModel
 
     public function type(): BelongsTo
     {
-        return $this->belongsTo(SubscriptionType::class, 'user_subscription_type_id');
+        return $this->belongsTo(DailyUpdateType::class, 'daily_update_type_id');
     }
 
-    public function subscribable(): MorphTo
+    public function updatable(): MorphTo
     {
-        return $this->morphTo('subscribable');
+        return $this->morphTo('updatable');
     }
 }

@@ -11,13 +11,13 @@
                     <p class="mb-2">{{ subscription.type.description }}</p>
                     <p class="text-sm">
                         <strong>Subscribed To: </strong>
-                        <a :href="subscription.subscribable.link" target="_blank" class="font-semibold text-blue-dark hover:underline">
-                            {{ subscription.subscribable.name }}
+                        <a :href="subscription.updatable.link" target="_blank" class="font-semibold text-blue-dark hover:underline">
+                            {{ subscription.updatable.name }}
                         </a>
                     </p>
                     <p class="text-sm">
                         <strong>Subscribed Since:</strong>
-                        {{ formatDate(subscription.created_at, 'D/MM/YY HH:mm') }}
+                        {{ formatDate(subscription.created_at, 'DD/MM/YY HH:mm') }}
                     </p>
                 </div>
                 <div @click="confirmUnsubscribe = subscription" class="ml-2 flex flex-col items-center cursor-pointer pt-2 text-grey opacity-50 hover:opacity-100 hover:text-blue-dark transition-colour">
@@ -29,10 +29,10 @@
 
         <portal to="modal" v-if="confirmUnsubscribe">
             <modal small name="delete-scrapbook">
-                <p>Are you sure you want to delete the {{ confirmUnsubscribe.type.name}} subscription to '{{ confirmUnsubscribe.subscribable.name }}'?</p>
+                <p>Are you sure you want to delete your {{ confirmUnsubscribe.type.name}} daily update subscription to '{{ confirmUnsubscribe.subscribable.name }}'?</p>
                 <div class="flex space-x-4 justify-center mt-2">
                     <a class="rounded leading-none px-4 py-2 bg-blue hover:bg-blue-light hover:shadow cursor-pointer"
-                       @click="confirmUnsubscribe = null">
+                       @click="closeConfirmationModal">
                         No
                     </a>
 
@@ -68,15 +68,17 @@ export default {
 
     mounted() {
         this.loadSubscriptions();
-
-        this.$root.$on('modal-closed', (name) => {
-            //
-        });
     },
 
     methods: {
+        closeConfirmationModal()
+        {
+            this.confirmUnsubscribe = null;
+            document.querySelector('body').classList.remove('overflow-hidden');
+        },
+
         loadSubscriptions() {
-            coeliac().request().get('/api/member/dashboard/subscriptions')
+            coeliac().request().get('/api/member/dashboard/daily-updates')
                 .then((response) => {
                     this.subscriptions = response.data;
                 })
@@ -89,9 +91,9 @@ export default {
         },
 
         unsubscribe() {
-            coeliac().request().delete(`/api/member/dashboard/subscriptions/${this.confirmUnsubscribe.id}`)
+            coeliac().request().delete(`/api/member/dashboard/daily-updates/${this.confirmUnsubscribe.id}`)
             .then(() => {
-                coeliac().success(`You're now unsubscribed from the ${this.confirmUnsubscribe.type.name} ${this.confirmUnsubscribe.subscribable.name}`);
+                coeliac().success(`You're now unsubscribed from getting daily updates about ${this.confirmUnsubscribe.type.name} ${this.confirmUnsubscribe.subscribable.name}`);
                 this.loadSubscriptions();
             })
             .catch(() => {

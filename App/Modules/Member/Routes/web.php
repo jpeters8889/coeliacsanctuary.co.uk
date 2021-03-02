@@ -11,7 +11,7 @@ use Coeliac\Modules\Member\Controllers\VerifyEmailController;
 use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookController;
 use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
-use Coeliac\Modules\Member\Controllers\Dashboards\SubscriptionsController;
+use Coeliac\Modules\Member\Controllers\Dashboards\DailyUpdatesController;
 
 /* @var Router $router */
 
@@ -36,7 +36,7 @@ $router->group(['prefix' => 'member'], static function () use ($router) {
             $router->get('/', [DashboardController::class, 'show']);
             $router->get('scrapbooks', [ScrapbookController::class, 'show']);
             $router->get('orders', [OrdersController::class, 'show']);
-            $router->get('subscriptions', [SubscriptionsController::class, 'show']);
+            $router->get('daily-updates', [DailyUpdatesController::class, 'show']);
             $router->get('details', [YourDetailsController::class, 'show']);
         });
     });

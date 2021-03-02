@@ -10,7 +10,7 @@ use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Coeliac\Modules\Member\Models\Scrapbook;
 use Coeliac\Modules\Member\Models\UserAddress;
-use Coeliac\Modules\Member\Models\UserSubscription;
+use Coeliac\Modules\Member\Models\UserDailyUpdateSubscription;
 
 class GatewayServiceProvider extends ServiceProvider
 {
@@ -22,6 +22,6 @@ class GatewayServiceProvider extends ServiceProvider
         $gate->define('view-shop-order', fn (User $user, ShopOrder $order) => $order->user_id === $user->id);
         $gate->define('modify-address', fn (User $user, UserAddress $address) => $address->user_id === $user->id);
         $gate->define('manage-scrapbook', fn (User $user, Scrapbook $scrapbook) => $scrapbook->user_id === $user->id);
-        $gate->define('manage-subscription', fn (User $user, UserSubscription $subscription) => $subscription->user_id === $user->id);
+        $gate->define('manage-daily-updates', fn (User $user, UserDailyUpdateSubscription $subscription) => $subscription->user_id === $user->id);
     }
 }

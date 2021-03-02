@@ -52,8 +52,8 @@ export default {
                 link: '/member/dashboard/orders',
             },
             {
-                label: 'Subscriptions',
-                link: '/member/dashboard/subscriptions',
+                label: 'Daily Updates',
+                link: '/member/dashboard/daily-updates',
             },
             {
                 label: 'My Details',

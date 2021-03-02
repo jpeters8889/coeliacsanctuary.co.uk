@@ -336,6 +336,7 @@ module.exports = {
             '5xl': '64rem',
             '6xl': '72rem',
             full: '100%',
+            '250': '250px',
             'modal-small': '700px',
             'modal': '1000px',
             'recipe-feature': '60px',

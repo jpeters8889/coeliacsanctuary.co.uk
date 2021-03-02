@@ -6,7 +6,7 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
 use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Modules\Member\Contracts\Subscribable;
+use Coeliac\Modules\Member\Contracts\Updatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property WhereToEatCounty $county
  * @property string           $slug
  */
-class WhereToEatTown extends BaseModel implements Subscribable
+class WhereToEatTown extends BaseModel implements Updatable
 {
     protected $table = 'wheretoeat_towns';
 
@@ -82,12 +82,12 @@ class WhereToEatTown extends BaseModel implements Subscribable
         return $this->hasManyThrough(Review::class, WhereToEat::class, 'town_id', 'wheretoeat_id');
     }
 
-    public function subscribableName(): string
+    public function updatableName(): string
     {
         return $this->town;
     }
 
-    public function subscribableLink(): string
+    public function updatableLink(): string
     {
         return "/wheretoeat/{$this->county->slug}/{$this->slug}";
     }
