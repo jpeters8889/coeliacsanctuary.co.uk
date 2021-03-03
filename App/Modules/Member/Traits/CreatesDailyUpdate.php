@@ -14,20 +14,34 @@ trait CreatesDailyUpdate
     public static function bootCreatesDailyUpdate()
     {
         static::created(function (BaseModel $model) {
-            /** @var Dispatcher $dispatcher */
-            $dispatcher = resolve(Dispatcher::class);
-
-            $types = static::dailyUpdateType();
-
-            if (!is_array($types)) {
-                $types = [$types];
+            if (!static::dispatchUpdateOnCreate()) {
+                return;
             }
 
-            foreach ($types as $type) {
-                $dispatcher->dispatch(new DailyUpdateItemCreated($model, $type));
-            }
+            self::dispatchDailyUpdate($model);
         });
     }
 
     abstract protected static function dailyUpdateType();
+
+    protected static function dispatchUpdateOnCreate(): bool
+    {
+        return true;
+    }
+
+    protected static function dispatchDailyUpdate(BaseModel $model): void
+    {
+        /** @var Dispatcher $dispatcher */
+        $dispatcher = resolve(Dispatcher::class);
+
+        $types = static::dailyUpdateType();
+
+        if (!is_array($types)) {
+            $types = [$types];
+        }
+
+        foreach ($types as $type) {
+            $dispatcher->dispatch(new DailyUpdateItemCreated($model, $type));
+        }
+    }
 }

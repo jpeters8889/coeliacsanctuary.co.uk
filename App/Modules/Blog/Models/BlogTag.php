@@ -6,6 +6,7 @@ namespace Coeliac\Modules\Blog\Models;
 
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Member\Contracts\Updatable;
+use GeneaLabs\LaravelPivotEvents\Traits\PivotEventTrait;
 
 /**
  * @property mixed $slug
@@ -23,7 +24,7 @@ class BlogTag extends BaseModel implements Updatable
 
     public function getLinkAttribute(): string
     {
-        return '/blog?o='.base64_encode('filter[tags]='.$this->slug);
+        return '/blog?o=' . base64_encode('filter[tags]=' . $this->slug);
     }
 
     public function blogs()

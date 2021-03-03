@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Blog\Models;
 
 use Carbon\Carbon;
-use Coeliac\Modules\Member\Models\DailyUpdateType;
-use Coeliac\Modules\Member\Traits\CreatesDailyUpdate;
+use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Traits\Linkable;
@@ -18,6 +17,8 @@ use Coeliac\Common\Contracts\HasComments;
 use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\DisplaysImages;
 use Illuminate\Database\Eloquent\Collection;
+use Coeliac\Modules\Member\Models\DailyUpdateType;
+use Coeliac\Modules\Member\Traits\CreatesDailyUpdate;
 use Coeliac\Modules\Collection\Traits\IsCollectionItem;
 use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -47,11 +48,30 @@ class Blog extends BaseModel implements HasComments
     use Imageable;
     use IsCollectionItem;
     use Linkable;
+    use PivotEventTrait;
     use Searchable;
 
     protected $appends = ['main_image'];
 
     protected $hidden = ['images'];
+
+    protected static function booted()
+    {
+        self::pivotAttached(function ($model, $relationName, $pivotIds) {
+            if ($relationName !== 'tags') {
+                return;
+            }
+
+            foreach ($pivotIds as $tag) {
+                static::dispatchDailyUpdate($model);
+            }
+        });
+    }
+
+    protected static function dispatchUpdateOnCreate(): bool
+    {
+        return false;
+    }
 
     public function getScoutKey()
     {
