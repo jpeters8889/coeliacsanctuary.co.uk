@@ -6,6 +6,7 @@ namespace Coeliac\Modules\Member\Listeners;
 
 use RuntimeException;
 use Coeliac\Modules\Blog\Models\BlogTag;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Collection;
 use Coeliac\Modules\Member\Contracts\Updatable;
@@ -52,8 +53,8 @@ class FindEligibleDailyUpdatesToQueue implements ShouldQueue
 
     protected function handleWhereToEatCreated(): void
     {
-        $this->processUpdatable($this->event->model()->county());
-        $this->processUpdatable($this->event->model()->town());
+        $this->processUpdatable($this->event->model()->county);
+        $this->processUpdatable($this->event->model()->town);
     }
 
     protected function processUpdatable(Updatable $updatable): void
@@ -79,6 +80,21 @@ class FindEligibleDailyUpdatesToQueue implements ShouldQueue
 
     protected function queueUpdateForUser(UserDailyUpdateSubscription $subscription): void
     {
+        if ($this->userAlreadyHasQueuedUpdateForItem($subscription->user_id)) {
+            return;
+        }
+
         DailyUpdatesQueue::queueItemForUser($this->event->model(), $subscription);
+    }
+
+    protected function userAlreadyHasQueuedUpdateForItem(int $userId): bool
+    {
+        $isQueued = DailyUpdatesQueue::query()
+            ->where('new_item_type', get_class($this->event->model()))
+            ->where('new_item_id', $this->event->model()->id)
+            ->whereHas('subscription', fn (Builder $query) => $query->where('user_id', $userId))
+            ->exists();
+
+        return $isQueued;
     }
 }

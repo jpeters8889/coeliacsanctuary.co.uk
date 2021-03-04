@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Updatable updatable
  * @property int id
  * @property DailyUpdateType type
+ * @property User user
  */
 class UserDailyUpdateSubscription extends BaseModel
 {

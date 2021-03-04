@@ -24,15 +24,15 @@ use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @property string              $title
+ * @property string $title
  * @property Collection<BlogTag> $tags
- * @property mixed               $meta_description
- * @property mixed               $meta_keywords
- * @property mixed               $id
- * @property mixed               $link
- * @property mixed               $live
- * @property Carbon              $created_at
- * @property string              $description
+ * @property mixed $meta_description
+ * @property mixed $meta_keywords
+ * @property mixed $id
+ * @property mixed $link
+ * @property mixed $live
+ * @property Carbon $created_at
+ * @property string $description
  *
  * @method transform(array $array)
  */
@@ -57,14 +57,12 @@ class Blog extends BaseModel implements HasComments
 
     protected static function booted()
     {
-        self::pivotAttached(function ($model, $relationName, $pivotIds) {
+        self::pivotAttached(function ($model, $relationName) {
             if ($relationName !== 'tags') {
                 return;
             }
 
-            foreach ($pivotIds as $tag) {
-                static::dispatchDailyUpdate($model);
-            }
+            static::dispatchDailyUpdate($model);
         });
     }
 
@@ -96,7 +94,7 @@ class Blog extends BaseModel implements HasComments
 
     public function shouldBeSearchable(): bool
     {
-        return (bool) $this->live;
+        return (bool)$this->live;
     }
 
     public function tags(): BelongsToMany

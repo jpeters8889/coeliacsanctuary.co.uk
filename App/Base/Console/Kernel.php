@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Base\Console;
 
+use Coeliac\Modules\Member\Console\SendDailyUpdates;
 use Illuminate\Console\Scheduling\Schedule;
 use Coeliac\Modules\Shop\Console\CloseBaskets;
 use Coeliac\Modules\Shop\Console\ApplyMassDiscounts;
@@ -19,6 +20,7 @@ class Kernel extends ConsoleKernel
         CloseBaskets::class,
 //        ImportCommand::class,
         PrefixRecipesWithGlutenFree::class,
+        SendDailyUpdates::class,
     ];
 
     protected function schedule(Schedule $schedule)

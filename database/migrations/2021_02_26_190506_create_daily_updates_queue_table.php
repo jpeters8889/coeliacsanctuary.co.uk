@@ -18,6 +18,7 @@ class CreateDailyUpdatesQueueTable extends Migration
         Schema::create('daily_updates_queue', function (Blueprint $table) {
             $table->id();
             $table->uuid('user_daily_update_id')->index();
+            $table->uuid('user_id')->index();
             $table->morphs('new_item');
             $table->timestamps();
         });
