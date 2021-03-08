@@ -10,8 +10,8 @@ use Coeliac\Modules\Member\Controllers\VerifyEmailController;
 use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookController;
 use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
-use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookItemController;
 use Coeliac\Modules\Member\Controllers\Dashboards\DailyUpdatesController;
+use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookItemController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookSearchController;
 use Coeliac\Modules\Member\Controllers\Dashboards\DailyUpdatesSearchController;
 

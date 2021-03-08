@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Blog\Models;
 
 use Carbon\Carbon;
-use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Traits\Linkable;
@@ -18,21 +17,22 @@ use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\DisplaysImages;
 use Illuminate\Database\Eloquent\Collection;
 use Coeliac\Modules\Member\Models\DailyUpdateType;
+use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Coeliac\Modules\Member\Traits\CreatesDailyUpdate;
 use Coeliac\Modules\Collection\Traits\IsCollectionItem;
 use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @property string $title
+ * @property string              $title
  * @property Collection<BlogTag> $tags
- * @property mixed $meta_description
- * @property mixed $meta_keywords
- * @property mixed $id
- * @property mixed $link
- * @property mixed $live
- * @property Carbon $created_at
- * @property string $description
+ * @property mixed               $meta_description
+ * @property mixed               $meta_keywords
+ * @property mixed               $id
+ * @property mixed               $link
+ * @property mixed               $live
+ * @property Carbon              $created_at
+ * @property string              $description
  *
  * @method transform(array $array)
  */
@@ -94,7 +94,7 @@ class Blog extends BaseModel implements HasComments
 
     public function shouldBeSearchable(): bool
     {
-        return (bool)$this->live;
+        return (bool) $this->live;
     }
 
     public function tags(): BelongsToMany

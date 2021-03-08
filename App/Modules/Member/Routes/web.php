@@ -8,6 +8,7 @@ use Coeliac\Modules\Member\Controllers\LogoutController;
 use Coeliac\Modules\Member\Controllers\RegisterController;
 use Coeliac\Modules\Member\Controllers\DashboardController;
 use Coeliac\Modules\Member\Controllers\VerifyEmailController;
+use Coeliac\Modules\Member\Controllers\ManageUpdatesController;
 use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookController;
 use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
@@ -40,4 +41,8 @@ $router->group(['prefix' => 'member'], static function () use ($router) {
             $router->get('details', [YourDetailsController::class, 'show']);
         });
     });
+
+    $router->get('/manage-daily-updates/{id}/{hash}', ManageUpdatesController::class)
+        ->middleware(['signed'])
+        ->name('member.manage_updates');
 });

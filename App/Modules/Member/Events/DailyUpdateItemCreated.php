@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Member\Events;
 
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Modules\Member\Contracts\Updatable;
 use Coeliac\Modules\Member\Models\DailyUpdateType;
 
 class DailyUpdateItemCreated

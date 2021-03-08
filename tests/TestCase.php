@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Tests;
 
 use Laravel\Scout\Builder;
-use Coeliac\Common\Models\User;
 use Tests\Mocks\MockScoutBuilder;
-use Coeliac\Modules\Member\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
@@ -26,6 +25,24 @@ abstract class TestCase extends BaseTestCase
     {
         $this->assertArrayHasKey($key, $haystack, 'Failed asserting that array contains the given key');
         $this->assertEquals($value, $haystack[$key], 'Failed asserting that the array key equals the given value');
+    }
+
+    protected function assertArrayHasStructure(array $keys, $haystack): void
+    {
+        $hasStructure = true;
+        $failed = [];
+
+        foreach ($keys as $key) {
+            if (!isset($haystack[$key]) && $haystack[$key] !== null) {
+                $hasStructure = false;
+                $failed[] = $key;
+            }
+        }
+
+        $this->assertTrue(
+            $hasStructure,
+            'Failed asserting that the iterable has the given structure, ['.implode(', ', $failed).'] missing.'
+        );
     }
 
     protected function setUp(): void

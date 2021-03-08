@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Member\Models;
 
 use Coeliac\Base\Models\BaseModel;
@@ -22,7 +24,8 @@ class DailyUpdatesQueue extends BaseModel
         ]);
     }
 
-    public function newItem() {
+    public function newItem()
+    {
         return $this->morphTo('new_item');
     }
 

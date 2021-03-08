@@ -83,4 +83,16 @@ class User extends Authenticatable implements MustVerifyEmail
             ]
         );
     }
+
+    public function generateManageDailyUpdatesLink(): string
+    {
+        return resolve(UrlGenerator::class)->temporarySignedRoute(
+            'member.manage_updates',
+            Carbon::now()->addHours(24),
+            [
+                'id' => $this->id,
+                'hash' => sha1($this->email),
+            ]
+        );
+    }
 }

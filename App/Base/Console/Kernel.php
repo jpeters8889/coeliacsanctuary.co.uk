@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Base\Console;
 
-use Coeliac\Modules\Member\Console\SendDailyUpdates;
 use Illuminate\Console\Scheduling\Schedule;
 use Coeliac\Modules\Shop\Console\CloseBaskets;
+use Coeliac\Modules\Member\Console\SendDailyUpdates;
 use Coeliac\Modules\Shop\Console\ApplyMassDiscounts;
 use Coeliac\Base\Console\Commands\ClearPublicDirectories;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
