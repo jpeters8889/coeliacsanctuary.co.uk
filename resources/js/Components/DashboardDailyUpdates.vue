@@ -5,7 +5,7 @@
         </div>
 
         <div v-else class="mt-2 flex flex-col space-y-2 sm:flex-wrap sm:flex-row justify-between sm:-mx-1">
-            <div v-for="subscription in subscriptions" class="bg-blue-gradient-30 rounded p-2 flex">
+            <div v-for="subscription in subscriptions" class="w-full bg-blue-gradient-30 rounded p-2 flex">
                 <div class="flex flex-col flex-1">
                     <h2 class="text-lg font-semibold">{{ subscription.type.name }}</h2>
                     <p class="mb-2">{{ subscription.type.description }}</p>

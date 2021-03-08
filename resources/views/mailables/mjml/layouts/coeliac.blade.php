@@ -4,8 +4,11 @@
         <mj-font name="Raleway" href="https://fonts.googleapis.com/css?family=Raleway"/>
 
         <mj-style>
-            a {color:black;font-weight:bold;text-decoration:none} a:hover {text-decoration:underline;} h1
-            {font-size:30px;text-align:center;margin:10px 0 0; padding:0;color:#000} h2,h3 {margin:0;padding:0;}
+            a {color:black;font-weight:bold;text-decoration:none}
+            a:hover {text-decoration:underline;}
+            h1 {font-size:30px;text-align:center;margin:10px 0 0; padding:0;color:#000}
+            h2,h3,h4 {margin:0;padding:0;}
+            h4 {font-size:18px;font-weight:bold;}
         </mj-style>
 
         <mj-attributes>

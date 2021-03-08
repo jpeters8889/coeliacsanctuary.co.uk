@@ -12,13 +12,17 @@
                 We've added some new content to Coeliac Sanctuary since you last visited, here's a roundup of everything
                 that you're subscribed to in your daily update!
             </mj-text>
-            <mj-text mj-class="inner">&nbsp;</mj-text>
+        </mj-column>
+    </mj-section>
+    <mj-section>
+        <mj-column>
+            <mj-divider border-width="2px" border-style="dashed" border-color="#DBBC25"/>
         </mj-column>
     </mj-section>
 
     @if($updates->get('blogs'))
         <mj-section>
-            <mj-colum>
+            <mj-column>
                 <mj-text mj-class="inner" padding-bottom="10px">
                     <h2>Coeliac Sanctuary Blogs</h2>
                 </mj-text>
@@ -31,7 +35,7 @@
                     We've added blogs that are tagged with:
                     <strong>{{ $updates->get('blogs')->get('subscriptions')->join(', ')}}</strong>.
                 </mj-text>
-            </mj-colum>
+            </mj-column>
         </mj-section>
 
         @foreach($updates->get('blogs')->get('items') as $item)
@@ -49,11 +53,17 @@
                 </mj-column>
             </mj-section>
         @endforeach
+
+        <mj-section>
+            <mj-column>
+                <mj-divider border-width="2px" border-style="dashed" border-color="#DBBC25"/>
+            </mj-column>
+        </mj-section>
     @endif
 
     @if($updates->get('eateries'))
         <mj-section>
-            <mj-colum>
+            <mj-column>
                 <mj-text mj-class="inner" padding-bottom="10px">
                     <h2>Places To Eat</h2>
                 </mj-text>
@@ -62,19 +72,20 @@
                     Here's the latest places to eat added in areas that you're subscribed to, including:
                     <strong>{{ $updates->get('eateries')->get('subscriptions')->join(', ')}}</strong>.
                 </mj-text>
-            </mj-colum>
+            </mj-column>
         </mj-section>
 
         @foreach($updates->get('eateries')->get('items') as $item)
             <mj-section>
                 <mj-column>
                     <mj-text>
-                        {{ $item['title'] }}<br/>
-                        <a href="{{ $item['link'] }}">{{ $item['location'] }}</a>
+                        <a href="{{ $item['link'] }}">{{ $item['title'] }}, {{ $item['location'] }}</a>
                     </mj-text>
+                    <mj-text></mj-text>
                     <mj-text>
                         {!! $item['description'] !!}
                     </mj-text>
+                    <mj-text></mj-text>
                     <mj-text>{{ $item['address'] }}</mj-text>
                 </mj-column>
             </mj-section>
