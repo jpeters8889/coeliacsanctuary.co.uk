@@ -82,7 +82,7 @@ class BlogController extends BaseController
                 ->inRandomOrder()
                 ->take(3)
                 ->get()
-                ->transform(fn(CollectionItem $item) => $item->collection);
+                ->transform(fn (CollectionItem $item) => $item->collection);
         }
 
         return $this->page
@@ -93,9 +93,9 @@ class BlogController extends BaseController
                     'title' => 'Blogs',
                 ],
             ], $blog->title)
-            ->setPageTitle($blog->title . ' | Blogs')
+            ->setPageTitle($blog->title.' | Blogs')
             ->setMetaDescription($blog->meta_description)
-            ->setMetaKeywords(explode(',', (string)$blog->meta_keywords))
+            ->setMetaKeywords(explode(',', (string) $blog->meta_keywords))
             ->setSocialImage($blog->social_image)
             ->render('modules.blogs.show', compact('blog', 'related', 'featured'));
     }
