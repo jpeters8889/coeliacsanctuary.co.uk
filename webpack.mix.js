@@ -22,7 +22,15 @@ mix
             comments: false,
         }
     })
-    .extract()
+    .extract([
+        'vue',
+        '@fortawesome',
+        'vue-toasted',
+        'axios',
+        'in-viewport',
+        'portal-vue',
+    ])
+    .extract(['v-tooltip'], 'tooltip')
     .webpackConfig({
         output: {
             chunkFilename: 'assets/js/[name].js?id=[chunkhash]',
@@ -33,3 +41,5 @@ mix
 if (!mix.inProduction()) {
     mix.sourceMaps();
 }
+
+    mix.bundleAnalyzer();
