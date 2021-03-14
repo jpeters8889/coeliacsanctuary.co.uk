@@ -70,7 +70,7 @@
                 <div class="h-48" v-if="!terms">
                     <loader show></loader>
                 </div>
-                <div v-else class="text-xs" v-html="terms"></div>
+                <div v-else class="text-xs main-body" v-html="terms"></div>
             </modal>
         </portal>
     </div>

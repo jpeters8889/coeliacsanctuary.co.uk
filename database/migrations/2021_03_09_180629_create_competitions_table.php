@@ -20,7 +20,7 @@ class CreateCompetitionsTable extends Migration
             $table->uuid('uuid')->index()->unique();
             $table->string('name');
             $table->string('slug');
-            $table->string('description');
+            $table->text('description');
             $table->text('meta_keywords');
             $table->text('meta_description');
             $table->dateTime('start_at');
