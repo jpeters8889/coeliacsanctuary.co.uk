@@ -1,15 +1,16 @@
 @extends('templates.page-two-column')
 
 @section('primary-column')
-    <div class="flex flex-col"chunk>
+    <div class="flex flex-col" chunk>
         <div class="page-box">
             <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
-                Coeliac Sanctuary - On the Go<br />
+                Coeliac Sanctuary - On the Go<br/>
                 <a class="text-xs font-sans hover:text-grey transition-color" href="/wheretoeat">Back
                     to Map/List</a>
             </h1>
 
-            <img class="mb-4" src="{{ asset('assets/images/shares/wheretoeat-app.jpg') }}" alt="Coeliac Sanctuary - On the Go" />
+            <img class="mb-4" src="{{ asset('assets/images/shares/wheretoeat-app.jpg') }}"
+                 alt="Coeliac Sanctuary - On the Go"/>
 
             <p class="mb-4">
                 Coeliac Sanctuary - On the Go connects to the Where to Eat guide on the Coeliac Sanctuary website to
@@ -36,7 +37,7 @@
                    href="https://play.google.com/store/apps/details?id=com.coeliacsanctuary.onthego" target="_blank">
                     <img style="max-width: 250px"
                          src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
-                         alt="Get it on Google Play"><br />
+                         alt="Get it on Google Play"><br/>
                     Download the App now from the Google Play store
                 </a>
             </p>
@@ -47,27 +48,27 @@
 
 @section('secondary-column')
     <div class="flex flex-col">
-        <widget-newsletter-signup class="mb-3"></widget-newsletter-signup>
+        <x-widget class="mb-3" title="Sign up to our newsletter">
+            <widget-newsletter-signup/>
+        </x-widget>
 
-        <widget>
-            <template v-slot:title>Random Reviews</template>
+        <google-ad code="7266831645"></google-ad>
 
-            <template v-slot:body>
-                @foreach($related as $relatedRecipe)
-                    <div
-                        class="w-full rounded-lg overflow-hidden flex flex-col shadow-md mb-4 bg-blue-gradient-30 {{ !$loop->last ? 'sm:mb-3' : '' }}">
-                        <div>
-                            <img src="{{ $relatedRecipe->main_image }}" alt="{{ $relatedRecipe->title }}" />
-                        </div>
-                        <div class="p-2 flex flex-col h-full">
-                            <a href="{{ $relatedRecipe->link }}">
-                                <h3 class="font-bold hover:underline">{{ $relatedRecipe->title }}</h3>
-                            </a>
-                            <p class="flex-1">{{ $relatedRecipe->meta_description }}</p>
-                        </div>
+        <x-widget name="Random Reviews">
+            @foreach($related as $relatedRecipe)
+                <div
+                    class="w-full rounded-lg overflow-hidden flex flex-col shadow-md mb-4 bg-blue-gradient-30 {{ !$loop->last ? 'sm:mb-3' : '' }}">
+                    <div>
+                        <img src="{{ $relatedRecipe->main_image }}" alt="{{ $relatedRecipe->title }}"/>
                     </div>
-                @endforeach
-            </template>
-        </widget>
+                    <div class="p-2 flex flex-col h-full">
+                        <a href="{{ $relatedRecipe->link }}">
+                            <h3 class="font-bold hover:underline">{{ $relatedRecipe->title }}</h3>
+                        </a>
+                        <p class="flex-1">{{ $relatedRecipe->meta_description }}</p>
+                    </div>
+                </div>
+            @endforeach
+        </x-widget>
     </div>
 @endsection

@@ -114,7 +114,11 @@
 
 @section('secondary-column')
     <div class="flex flex-col">
-        <widget-newsletter-signup class="mb-3"></widget-newsletter-signup>
+        <x-widget class="mb-3" title="Sign up to our newsletter">
+            <widget-newsletter-signup />
+        </x-widget>
+
+        <google-ad code="7266831645"></google-ad>
 
         @include('components.related-item', [$related, $title = 'Recent Blogs'])
     </div>

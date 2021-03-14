@@ -83,9 +83,15 @@
 
 @section('secondary-column')
     <div class="flex flex-col">
-        <widget-wheretoeat-search class="mb-3"></widget-wheretoeat-search>
+        <x-widget class="mb-3" title="Search Places">
+            <widget-wheretoeat-search />
+        </x-widget>
 
-        <widget-newsletter-signup class="mb-3"></widget-newsletter-signup>
+        <x-widget class="mb-3" title="Sign up to our newsletter">
+            <widget-newsletter-signup/>
+        </x-widget>
+
+        <google-ad code="7266831645"></google-ad>
 
         @include('components.related-item', [$title = 'Recent Reviews', $related])
     </div>
