@@ -1,7 +1,7 @@
 @extends('templates.page-two-column')
 
 @section('primary-column')
-    <div class="flex flex-col"chunk>
+    <div class="flex flex-col" chunk>
         <div>
             <img data-src="{{ $review->main_image }}"
                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 2'%3E%3C/svg%3E"
@@ -102,9 +102,15 @@
 
 @section('secondary-column')
     <div class="flex flex-col">
-        <widget-review-search class="mb-3"></widget-review-search>
+        <x-widget class="mb-3" title="Search Reviews">
+            <widget-review-search/>
+        </x-widget>
 
-        <widget-newsletter-signup class="mb-3"></widget-newsletter-signup>
+        <x-widget class="mb-3" title="Sign up to our newsletter">
+            <widget-newsletter-signup />
+        </x-widget>
+
+        <google-ad code="7266831645"></google-ad>
 
         @if($featured)
             @include('components.featured-in', $featured)

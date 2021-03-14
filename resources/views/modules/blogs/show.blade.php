@@ -7,12 +7,24 @@
 
             <p class="text-lg my-2 font-medium leading-relaxed">{!! $blog->description !!}</p>
 
-            <p class="mt-3 p-3 text-sm mt-1 text-grey-darker bg-blue-light-20">
-                Added {{ formatDate($blog->created_at) }}
+            <div class="mt-3 p-3 text-sm mt-1 text-grey-darker bg-blue-light-20">
+                <div>
+                    <h3 class="font-semibold text-base text-grey-darkest">Tagged with:</h3>
+                    <ul class="flex flex-row flex-wrap text-sm leading-tight">
+                        @foreach($blog->tags as $tag)
+                            <li>
+                                <a class="font-medium hover:underline text-grey-darker" href="{{ $tag->link }}">
+                                    {{ $tag->tag  }}</a>@if(!$loop->last),&nbsp;
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <p class="mt-2">Added {{ formatDate($blog->created_at) }}</p>
                 @if(!$blog->updated_at->isSameDay($blog->created_at))
-                    <br>Updated {{ formatDate($blog->updated_at) }}
+                    <p>Updated {{ formatDate($blog->updated_at) }}</p>
                 @endif
-            </p>
+            </div>
         </div>
 
         <div class="page-body">
@@ -21,7 +33,7 @@
         </div>
 
         <div class="page-box p-3">
-{{--            <google-ad code="7619961534"></google-ad>--}}
+            {{--            <google-ad code="7619961534"></google-ad>--}}
 
             <article>
                 {!! $blog->body !!}
@@ -45,24 +57,15 @@
 
 @section('secondary-column')
     <div class="flex flex-col">
-        <widget-blog-search class="mb-3"></widget-blog-search>
+        <x-widget class="mb-3" title="Search Blogs">
+            <widget-blog-search />
+        </x-widget>
 
-        <widget class="mb-3">
-            <template v-slot:title>Tags</template>
-            <template v-slot:body>
-                <ul class="flex flex-row flex-wrap text-sm leading-tight">
-                    @foreach($blog->tags as $tag)
-                        <li>
-                            <a class="font-medium hover:underline text-grey-darker" href="{{ $tag->link }}">
-                                {{ $tag->tag  }}</a>@if(!$loop->last),&nbsp;
-                            @endif
-                        </li>
-                    @endforeach
-                </ul>
-            </template>
-        </widget>
+        <x-widget class="mb-3" title="Sign up to our newsletter">
+            <widget-newsletter-signup />
+        </x-widget>
 
-        <widget-newsletter-signup class="mb-3"></widget-newsletter-signup>
+        <google-ad code="7266831645"></google-ad>
 
         @if($featured)
             @include('components.featured-in', $featured)

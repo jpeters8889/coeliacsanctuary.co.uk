@@ -8,7 +8,8 @@
             </h1>
 
             <h6 class="text-center -mt-4 pt-1">
-                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="/wheretoeat">Back to Map/List</a>
+                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="/wheretoeat">Back
+                    to Map/List</a>
             </h6>
 
             <div class="flex flex-col mt-2">
@@ -19,12 +20,14 @@
 
                 <p class="mt-2">
                     Most of the places to eat listed in our guide are contributed by people like you, other Coeliac's or
-                    people with a gluten intolerance who know of local places in their local area and are kind enough to let
+                    people with a gluten intolerance who know of local places in their local area and are kind enough to
+                    let
                     us know.
                 </p>
 
                 <p class="mt-2">
-                    You won't find any nationwide chains in our normal eating out guide simply due to how many places these
+                    You won't find any nationwide chains in our normal eating out guide simply due to how many places
+                    these
                     chains have, the other independent eateries will get lost! Instead, we list
                     <a class="font-semibold hover:text-blue-dark transition-colour" href="/wheretoeat/nationwide">nationwide
                         chains</a> on a separate page.
@@ -92,7 +95,8 @@
                     <div
                         class="w-full sm:w-1/2 rounded-lg overflow-hidden flex flex-col shadow-md mb-4 bg-blue-gradient {{ $loop->first ? 'sm:mr-3' : '' }}">
                         <div>
-                            <img data-src="{{ $review->main_image }}" alt="{{ $review->title }}" loading="lazy" class="lazy"
+                            <img data-src="{{ $review->main_image }}" alt="{{ $review->title }}" loading="lazy"
+                                 class="lazy"
                                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 2'%3E%3C/svg%3E"/>
                         </div>
                         <div class="p-2 flex flex-col h-full">
@@ -127,9 +131,15 @@
 
 @section('secondary-column')
     <div class="flex flex-col">
-        <widget-wheretoeat-search class="mb-3"></widget-wheretoeat-search>
+        <x-widget class="mb-3" title="Search Places">
+            <widget-wheretoeat-search />
+        </x-widget>
 
-        <widget-newsletter-signup class="mb-3"></widget-newsletter-signup>
+        <x-widget class="mb-3" title="Sign up to our newsletter">
+            <widget-newsletter-signup/>
+        </x-widget>
+
+        <google-ad code="7266831645"></google-ad>
 
         @include('components.related-item', [$title = 'Recent Reviews', $related])
     </div>

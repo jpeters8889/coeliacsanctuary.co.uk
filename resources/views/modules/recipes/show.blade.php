@@ -124,9 +124,15 @@
 
 @section('secondary-column')
     <div class="flex flex-col">
-        <widget-recipe-search class="mb-3"></widget-recipe-search>
+        <x-widget class="mb-3" title="Search Recipes">
+        <widget-recipe-search/>
+        </x-widget>
 
-        <widget-newsletter-signup class="mb-3"></widget-newsletter-signup>
+        <x-widget class="mb-3" title="Sign up to our newsletter">
+            <widget-newsletter-signup />
+        </x-widget>
+
+        <google-ad code="7266831645"></google-ad>
 
         @if($featured)
             @include('components.featured-in', $featured)
