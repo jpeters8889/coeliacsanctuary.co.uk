@@ -39,6 +39,20 @@
 
 {{--    @preload--}}
 
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin />
+
+    <!-- [2] -->
+    <link rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap" />
+
+    <!-- [3] -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap"
+          media="print" onload="this.media='all'" />
+
     <link rel="preload stylesheet" href="http://fonts.cdnfonts.com/css/note-this" as="style">
     <link rel="preload stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap" as="style">
     <link rel="preload stylesheet" href="{{ mix('/assets/css/coeliac.css') }}" as="style">
