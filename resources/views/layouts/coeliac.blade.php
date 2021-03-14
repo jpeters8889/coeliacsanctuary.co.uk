@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" class="min-h-screen">
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-573BRJ');</script>
-    <!-- End Google Tag Manager -->
+{{--    <!-- Google Tag Manager -->--}}
+{{--    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':--}}
+{{--                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],--}}
+{{--            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=--}}
+{{--            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);--}}
+{{--        })(window,document,'script','dataLayer','GTM-573BRJ');</script>--}}
+{{--    <!-- End Google Tag Manager -->--}}
 
     @include('page-view-builder::header')
 
@@ -36,10 +36,6 @@
 
     <link rel="preload" as="font" href="https://fonts.cdnfonts.com/s/9372/Note%20this.woff" type="font/woff2" crossorigin="anonymous">
     <link rel="preconnect" href="https://www.google-analytics.com/" crossorigin="anonymous">
-{{--    <link rel="preconnect" href="https://adservice.google.com/" crossorigin="anonymous">--}}
-{{--    <link rel="preconnect" href="https://googleads.g.doubleclick.net/" crossorigin="anonymous">--}}
-{{--    <link rel="preconnect" href="https://www.googletagservices.com/" crossorigin="anonymous">--}}
-{{--    <link rel="preconnect" href="https://tpc.googlesyndication.com/" crossorigin="anonymous">--}}
 
 {{--    @preload--}}
 
@@ -63,11 +59,6 @@
 </head>
 
 <body class="min-h-screen shadow-lg flex flex-col bg-grey-off-light font-sans">
-
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-573BRJ"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
 <div id="coeliac" class="min-h-screen flex flex-col">
     @yield('content')
