@@ -29,7 +29,7 @@
         <div class="page-box mt-4" id="enter-competition">
             @if(!$competition->isOpenForEntries())
                 <p>
-                    Sorry, but this competition has ended, keep checking for our next amazing competition!
+                    Sorry, but this competition is not currently open for entries.
                 </p>
             @else
                 <competition uuid="{{ $competition->uuid }}"
