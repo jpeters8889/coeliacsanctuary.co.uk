@@ -55,7 +55,7 @@ html, body .w-screen, .inner-wrapper {
         }
 
         a.text-black {
-            color: black!important;
+            color: black !important;
         }
 
         a:hover {
@@ -170,13 +170,17 @@ html, body .w-screen, .inner-wrapper {
 
 @media (min-width: 750px) {
     .md\:flex-row {
-        flex-direction: row!important;
+        flex-direction: row !important;
     }
 }
 
-img.lazy:not(.loaded) {
-    height: 100%;
-    padding-bottom: 20%;
+img.lazy:not(.loaded)::before {
+    content: "";
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: 630px / 1200px * 100%;
 }
 
 @tailwind utilities;
