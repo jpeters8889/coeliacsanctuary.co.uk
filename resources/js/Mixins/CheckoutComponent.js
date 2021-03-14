@@ -1,6 +1,6 @@
-const FormInput = () => import('../Components/Forms/FormInput' /* webpackChunkName: "prefetch-form-input" */)
-const FormOption = () => import('../Components/Forms/FormOption' /* webpackChunkName: "prefetch-form-option" */)
-const FormSelect = () => import('../Components/Forms/FormSelect' /* webpackChunkName: "prefetch-form-select" */)
+const FormInput = () => import('../Components/Forms/FormInput' /* webpackChunkName: "chunk-form-input" */)
+const FormOption = () => import('../Components/Forms/FormOption' /* webpackChunkName: "chunk-form-option" */)
+const FormSelect = () => import('../Components/Forms/FormSelect' /* webpackChunkName: "chunk-form-select" */)
 
 export default {
     components: {

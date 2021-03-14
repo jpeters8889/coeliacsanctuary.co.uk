@@ -7,7 +7,7 @@ const HomepageHeros = () => import("./Components/HomepageHeros" /* webpackChunkN
 const LinkButton = () => import("./Components/LinkButton" /* webpackChunkName: "chunk-link-button" */);
 const TopBar = () => import("./Components/TopBar" /* webpackChunkName: "preload-top-bar" */);
 const NumberCountUp = () => import("./Components/NumberCountUp" /* webpackChunkName: "chunk-number-count" */);
-const FooterNewsletter = () => import("./Components/FooterNewsletter" /* webpackChunkName: "preload-footer-newsletter" */);
+const FooterNewsletter = () => import("./Components/FooterNewsletter" /* webpackChunkName: "chunk-footer-newsletter" */);
 const Breadcrumbs = () => import("./Components/Breadcrumbs" /* webpackChunkName: "chunk-breadcrumbs" */);
 const ModuleListIndex = () => import("./Components/ModuleListIndex" /* webpackChunkName: "chunk-module-list-index" */);
 const Accordion = () => import("./Components/Accordion" /* webpackChunkName: "chunk-accordion" */);
