@@ -33,7 +33,7 @@ class ApiHandler
             'twitter_follow' => $competition->entries()->where('entry_type', 'twitter_follow')->count(),
             'twitter_tweet' => $competition->entries()->where('entry_type', 'twitter_tweet')->count(),
             'shop_purchase' => $competition->entries()->where('entry_type', 'shop_purchase')->count(),
-            'entrants' => $competition->entries()->latest()->paginate(5, '*', 'page', $request->get('page', 1)),
+            'entrants' => $competition->entries()->latest()->paginate(25, '*', 'page', $request->get('page', 1)),
         ];
     }
 }
