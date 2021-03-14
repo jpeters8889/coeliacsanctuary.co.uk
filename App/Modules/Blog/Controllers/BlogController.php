@@ -86,7 +86,6 @@ class BlogController extends BaseController
         }
 
         return $this->page
-            ->addPrefetch([$blog->main_image => 'image'])
             ->breadcrumbs([
                 [
                     'link' => '/blog',
