@@ -176,7 +176,6 @@ class BlogTest extends TestCase
     /** @test */
     public function it_doesnt_load_blogs_that_arent_live()
     {
-        $this->withExceptionHandling();
         $blog = $this->createBlog(['live' => false]);
 
         $response = $this->get('/blog/'.$blog->slug);

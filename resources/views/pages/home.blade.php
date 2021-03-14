@@ -57,6 +57,8 @@
     </div>
 
     <!-- Intro -->
+    @include('components.competition')
+
     <div class="inner-wrapper">
         <section class="page-box mt-4">
             <h2 class="font-coeliac font-semibold text-2xl text-center">Welcome to Coeliac Sanctuary</h2>

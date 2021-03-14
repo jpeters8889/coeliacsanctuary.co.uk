@@ -1,6 +1,6 @@
 {
-    "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=cdf7fff7e2d2ccd0144b",
-    "/assets/js/manifest.js": "/assets/js/manifest.js?id=eff6b2c6b9b51b4793f4",
+    "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=d0e2f2735f9cca3df489",
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=4745b5f920c51e3c05b6",
     "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=e8623a9e304ebcda41af",
     "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=6ade830211a097546b85",
     "/assets/js/preload-header-search.js": "/assets/js/preload-header-search.js?id=ec41d380f11af650393b",
@@ -9,7 +9,7 @@
     "/assets/js/preload-top-bar.js": "/assets/js/preload-top-bar.js?id=2a928d3077d3102f2619",
     "/assets/js/chunk-number-count.js": "/assets/js/chunk-number-count.js?id=964b41394bde6ea4efcc",
     "/assets/js/preload-footer-newsletter.js": "/assets/js/preload-footer-newsletter.js?id=5111244fe8a13f4d2f71",
-    "/assets/js/chunk-breadcrumbs.js": "/assets/js/chunk-breadcrumbs.js?id=7c0fa8991d2a3f75f93d",
+    "/assets/js/chunk-breadcrumbs.js": "/assets/js/chunk-breadcrumbs.js?id=7e6b8533dd7cf9c6e6ed",
     "/assets/js/chunk-module-list-index.js": "/assets/js/chunk-module-list-index.js?id=234e49b84bb7fa555f97",
     "/assets/js/chunk-accordion.js": "/assets/js/chunk-accordion.js?id=12d78efccc19e2c396db",
     "/assets/js/chunk-widget.js": "/assets/js/chunk-widget.js?id=ec38fc43a1bee525a606",
@@ -46,6 +46,7 @@
     "/assets/js/preload-google-ad.js": "/assets/js/preload-google-ad.js?id=14ce722b46e4a7bc6294",
     "/assets/js/chunk-wte-quick-search.js": "/assets/js/chunk-wte-quick-search.js?id=2248496448c4d9669dea",
     "/assets/js/chunk-site-search.js": "/assets/js/chunk-site-search.js?id=5c5b02a52ac982e54cc5",
+    "/assets/js/chunk-competition.js": "/assets/js/chunk-competition.js?id=a0d9a7ed4b8b36036b09",
     "/assets/js/chunk-contact-form.js": "/assets/js/chunk-contact-form.js?id=1fd3d85ae1cc8e39b63b",
     "/assets/js/chunk-modal.js": "/assets/js/chunk-modal.js?id=8dda9fc90ce30bd95259",
     "/assets/js/chunk-loader.js": "/assets/js/chunk-loader.js?id=95898589b4165ff146ab",
@@ -55,6 +56,6 @@
     "/assets/js/chunk-form-select.js": "/assets/js/chunk-form-select.js?id=f172fc48c96d3776862d",
     "/assets/js/prefetch-form-option.js": "/assets/js/prefetch-form-option.js?id=beb08163db21cfb5327f",
     "/assets/js/chunk-form-checkbox.js": "/assets/js/chunk-form-checkbox.js?id=cd801de59960f3faa2e5",
-    "/assets/css/coeliac.css": "/assets/css/coeliac.css?id=8755d6acf31274554535",
+    "/assets/css/coeliac.css": "/assets/css/coeliac.css?id=6150e31a96d8dc7b3551",
     "/assets/js/vendor.js": "/assets/js/vendor.js?id=f2d83e461d21ae6c6d16"
 }

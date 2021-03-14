@@ -97,7 +97,7 @@
                 });
 
                 this.openPopup(
-                    'https://twitter.com/intent/tweet?text=' + document.querySelector('meta[name=description').getAttribute('content') + '&via=CoeliacSanc&url=' + window.location.href,
+                    'https://twitter.com/intent/tweet?text=' + document.querySelector('meta[name=description]').getAttribute('content') + '&via=CoeliacSanc&url=' + window.location.href,
                     'Share on Twitter'
                 );
             },

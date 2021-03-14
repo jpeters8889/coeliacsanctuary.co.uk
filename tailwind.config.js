@@ -52,7 +52,9 @@ const colours = {
 
     social: {
         facebook: '#3b5998',
+        'facebook-light': 'rgba(59,89,152, 0.5)',
         twitter: '#00aced',
+        'twitter-light': 'rgba(0,172,237, 0.5)',
         pinterest: '#bd081c',
         reddit: '#ff4500',
         rss: '#f26522',
@@ -207,7 +209,7 @@ module.exports = {
             default: '1',
         },
         fontFamily: {
-            sans: ['Raleway','ui-sans-serif',
+            sans: ['Raleway', 'ui-sans-serif',
                 'system-ui',
                 '-apple-system',
                 'BlinkMacSystemFont',
@@ -221,7 +223,7 @@ module.exports = {
                 '"Segoe UI Emoji"',
                 '"Segoe UI Symbol"',
                 '"Noto Color Emoji"',],
-            coeliac: ['Note This','ui-sans-serif',
+            coeliac: ['Note This', 'ui-sans-serif',
                 'system-ui',
                 '-apple-system',
                 'BlinkMacSystemFont',

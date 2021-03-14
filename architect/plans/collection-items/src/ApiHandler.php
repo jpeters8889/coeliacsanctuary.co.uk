@@ -50,7 +50,7 @@ class ApiHandler
                 ->get()
                 ->filter(function ($model) {
                     if (!$model instanceof ShopProduct) {
-                        return (bool)$model->live === true;
+                        return (bool) $model->live === true;
                     }
 
                     return true;

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75795b4df0049d33de0f0f7f2ed12152",
+    "content-hash": "356cc545421e0b8f0ef5095742054675",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -857,6 +857,34 @@
             "autoload": {
                 "psr-4": {
                     "Coeliac\\Architect\\Cards\\Comments\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "coeliac/competition-entries",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./architect/plans/competition-entries",
+                "reference": "c29e44ed3dbdeee0b9adcc6e2f871e6eeda46261"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Coeliac\\Architect\\Plans\\CompetitionEntries\\PlanServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Coeliac\\Architect\\Plans\\CompetitionEntries\\": "src/"
                 }
             },
             "license": [
@@ -15627,6 +15655,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "coeliac/collection-items": 20,
+        "coeliac/competition-entries": 20,
         "coeliac/wte-attractions": 20
     },
     "prefer-stable": true,
