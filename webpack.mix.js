@@ -25,7 +25,7 @@ mix
     .extract()
     .webpackConfig({
         output: {
-            chunkFilename: 'assets/js/[name].js?id=[contenthash]',
+            chunkFilename: 'assets/js/[name].js?id=[chunkhash]',
         },
     })
     .version();
