@@ -7,7 +7,6 @@ namespace Coeliac\Common\Providers;
 use Coeliac\Common\ArchitectDashboard;
 use Coeliac\Common\Architect\HorizonDashboard;
 use Coeliac\Common\Architect\MailcoachDashboard;
-use Coeliac\Modules\Search\Architect\Blueprint as SearchHistoryBlueprint;
 use Coeliac\Modules\Shop\Architect\ShopDashboard;
 use Coeliac\Modules\Shop\Architect\OrderBlueprint;
 use Coeliac\Modules\Shop\Architect\BasketBlueprint;
@@ -27,7 +26,9 @@ use JPeters\Architect\Providers\ArchitectApplicationServiceProvider;
 use Coeliac\Common\Comments\Architect\Blueprint as CommentsBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\WhereToEatBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\PlaceRequestBlueprint;
+use Coeliac\Modules\Search\Architect\Blueprint as SearchHistoryBlueprint;
 use Coeliac\Modules\Collection\Architect\Blueprint as CollectionsBlueprint;
+use Coeliac\Modules\Competition\Architect\Blueprint as CompetitonsBlueprint;
 use Coeliac\Modules\EatingOut\Reviews\Architect\Blueprint as ReviewBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\RatingsBlueprint as WteRatingsBlueprint;
 
@@ -43,6 +44,7 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             CollectionsBlueprint::class,
             CommentsBlueprint::class,
             WteRatingsBlueprint::class,
+            CompetitonsBlueprint::class,
             SearchHistoryBlueprint::class,
             AnnouncementBlueprint::class,
             PopupBlueprint::class,

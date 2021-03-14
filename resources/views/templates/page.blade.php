@@ -31,6 +31,8 @@
     <breadcrumbs :crumbs='@json($breadcrumbs['crumbs'])'
                  location="{{ $breadcrumbs['location'] }}"></breadcrumbs>
 
+    @include('components.competition')
+
     <div class="inner-wrapper">
         @yield('inner-content')
     </div>

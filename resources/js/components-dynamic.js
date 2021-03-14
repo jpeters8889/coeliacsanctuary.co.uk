@@ -45,6 +45,7 @@ const PopupCta = () => import("./Components/PopupCta" /* webpackChunkName: "prel
 const GoogleAd = () => import('./Components/GoogleAd' /* webpackChunkName: "preload-google-ad" */);
 const WhereToEatQuickSearch = () => import('./Components/WhereToEatQuickSearch' /* webpackChunkName: "chunk-wte-quick-search" */);
 const SiteSearch = () => import('./Components/SiteSearch' /* webpackChunkName: "chunk-site-search" */)
+const Competition = () => import('./Components/Competition' /* webpackChunkName: "chunk-competition" */)
 
 Vue.component('accordion', Accordion);
 Vue.component('add-basket-trigger', AddBasketTrigger);
@@ -61,6 +62,7 @@ Vue.component('coeliac-icon', CoeliacIcon);
 Vue.component('coeliac-home-heros', HomepageHeros);
 Vue.component('comment-form', CommentForm);
 Vue.component('comments', Comments);
+Vue.component('competition', Competition);
 Vue.component('contact-trigger', ContactTrigger);
 Vue.component('footer-newsletter', FooterNewsletter);
 Vue.component('full-page-loader', FullPageLoader);

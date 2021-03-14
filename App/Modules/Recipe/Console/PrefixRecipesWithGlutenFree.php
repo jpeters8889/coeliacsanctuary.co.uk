@@ -30,7 +30,7 @@ class PrefixRecipesWithGlutenFree extends Command
             if (Str::contains(Str::lower($recipe->title), 'gluten free')) {
                 $this->error("{$recipe->title} already contains 'gluten free', skipping...");
                 $this->next();
-                $skipped++;
+                ++$skipped;
 
                 return;
             }
@@ -52,7 +52,7 @@ class PrefixRecipesWithGlutenFree extends Command
                 $recipe->saveQuietly();
             }
 
-            $updated++;
+            ++$updated;
             $this->next();
         });
 

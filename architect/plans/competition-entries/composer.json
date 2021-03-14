@@ -1,0 +1,21 @@
+{
+    "name": "coeliac/competition-entries",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Coeliac\\Architect\\Plans\\CompetitionEntries\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Coeliac\\Architect\\Plans\\CompetitionEntries\\PlanServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

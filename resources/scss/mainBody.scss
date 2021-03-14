@@ -22,6 +22,14 @@
         @apply list-decimal pl-4 mb-4;
     }
 
+    ol[type='a'] {
+        list-style: lower-alpha;
+    }
+
+    ol[type='i'] {
+        list-style: lower-roman;
+    }
+
     table {
         @apply w-full mb-4;
         tr {
