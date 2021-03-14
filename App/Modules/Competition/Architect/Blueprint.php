@@ -7,7 +7,6 @@ namespace Coeliac\Modules\Competition\Architect;
 use Carbon\Carbon;
 use JPeters\Architect\Plans\Body;
 use JPeters\Architect\Plans\Group;
-use JPeters\Architect\Plans\Label;
 use JPeters\Architect\Plans\Boolean;
 use JPeters\Architect\Plans\DateTime;
 use JPeters\Architect\Plans\Textarea;
@@ -16,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Coeliac\Architect\Plans\ImageManager\Plan;
 use Coeliac\Modules\Competition\Models\Competition;
 use JPeters\Architect\Blueprints\Blueprint as Architect;
+use Coeliac\Architect\Plans\CompetitionEntries\Plan as CompetitionEntries;
 
 class Blueprint extends Architect
 {
@@ -47,7 +47,7 @@ class Blueprint extends Architect
 
             Body::generate('architect_body', 'Page Body')->hideOnIndex(),
 
-            Label::generate('entries_count')->hideOnForms(),
+            CompetitionEntries::generate('entries_count')->hideOnForms(),
 
             DateTime::generate('start_at', 'Entries Open At')
                 ->setDefault(Carbon::tomorrow()->startOfDay()->toIso8601String()),

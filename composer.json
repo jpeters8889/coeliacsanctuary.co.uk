@@ -13,6 +13,7 @@
         "coeliac/address-lookup": "*",
         "coeliac/collection-items": "dev-develop",
         "coeliac/comments": "*",
+        "coeliac/competition-entries": "dev-master",
         "coeliac/dispatch-slips": "*",
         "coeliac/image-manager": "*",
         "coeliac/order-dispatch-slip": "*",
@@ -185,6 +186,10 @@
         {
             "type": "path",
             "url": "./architect/plans/collection-items"
+        },
+        {
+            "type": "path",
+            "url": "./architect/plans/competition-entries"
         }
     ],
     "autoload": {
