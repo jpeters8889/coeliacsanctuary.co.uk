@@ -1,0 +1,10 @@
+@if(isset($promoteCompetition) && is_object($promoteCompetition))
+    <div class="inner-wrapper mt-4">
+        <a class="block bg-yellow p-2 text-center text-white" href="/promoteCompetition/{{ $promoteCompetition->slug }}">
+            <div class="flex flex-col">
+                <h3 class="mb-2 font-semibold">Enter our promoteCompetition, {{ $promoteCompetition->name }}</h3>
+                <p>{{ $promoteCompetition->meta_description }}</p>
+            </div>
+        </a>
+    </div>
+@endif

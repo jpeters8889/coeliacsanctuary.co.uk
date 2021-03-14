@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Response;
 
+use Carbon\Carbon;
+use Coeliac\Modules\Competition\Models\Competition;
 use Illuminate\Container\Container;
 use Coeliac\Common\Announcements\Repository;
 use JPeters\PageViewBuilder\Page as PageBuilder;
@@ -70,6 +72,10 @@ class Page extends PageBuilder
     {
         $data['breadcrumbs'] = $this->breadcrumbs;
         $data['announcements'] = Container::getInstance()->make(Repository::class)->take(1);
+        $data['promoteCompetition'] = Competition::query()->whereDate('start_at', '<', Carbon::now())
+            ->whereDate('end_at', '>', Carbon::now())
+            ->where('promote_on_banner', 1)
+            ->first();
         $data['prefetch'] = array_merge($this->prefetch, [
             'http://fonts.cdnfonts.com/css/note-this' => 'font',
             'https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap' => 'style',

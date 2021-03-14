@@ -28,7 +28,7 @@
                     <button
                         class="mt-2 bg-blue-50 border border-blue rounded-lg px-6 py-2 text-xl text-black transition-bg hover:bg-blue-20"
                         @click.prevent="submitForm()" :disabled="isSubmitting"
-                        style="width: 255px; height: 53px;">
+                        style="width: 285px; height: 59px;">
                         <loader v-if="isSubmitting" show background-position="relative" width="30px"
                                 height="30px"></loader>
                         <span v-else>Enter Competition!</span>
