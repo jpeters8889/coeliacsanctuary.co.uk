@@ -1,0 +1,31 @@
+import Vue from "vue";
+
+const LinkButton = () => import("~/Global/UI/LinkButton" /* webpackChunkName: "chunk-link-button" */);
+const NumberCountUp = () => import("~/Global/UI/NumberCountUp" /* webpackChunkName: "chunk-number-count" */);
+const Accordion = () => import("~/Global/UI/Accordion" /* webpackChunkName: "chunk-accordion" */);
+const NewsletterSignup = () => import("~/Global/UI/NewsletterSignup" /* webpackChunkName: "chunk-newsletter-signup" */);
+const BlogSearch = () => import("~/Global/UI/BlogSearch" /* webpackChunkName: "chunk-blog-search" */);
+const RecipeImage = () => import("~/Global/UI/RecipeImage" /* webpackChunkName: "chunk-recipe-image" */);
+const RecipeSearch = () => import("~/Global/UI/RecipeSearch" /* webpackChunkName: "chunk-recipe-search" */);
+const Tabs = () => import("~/Global/UI/Tabs" /* webpackChunkName: "chunk-tabs" */);
+const Tab = () => import("~/Global/UI/Tab" /* webpackChunkName: "chunk-tab" */);
+const Stars = () => import("~/Global/UI/Stars" /* webpackChunkName: "chunk-stars" */);
+const ReviewSearch = () => import("~/Global/UI/ReviewSearch" /* webpackChunkName: "chunk-review-search" */);
+const WhereToEatSearch = () => import("~/Global/UI/WhereToEatSearch" /* webpackChunkName: "chunk-wte-search" */);
+const PopupCta = () => import("~/Global/UI/PopupCta" /* webpackChunkName: "preload-popup-cta" */);
+const GoogleAd = () => import('~/Global/UI/GoogleAd' /* webpackChunkName: "preload-google-ad" */);
+
+Vue.component('accordion', Accordion);
+Vue.component('google-ad', GoogleAd);
+Vue.component('link-button', LinkButton);
+Vue.component('number-counter', NumberCountUp);
+Vue.component('popup-cta', PopupCta);
+Vue.component('recipe-image', RecipeImage);
+Vue.component('stars', Stars);
+Vue.component('tab', Tab);
+Vue.component('tabs', Tabs);
+Vue.component('widget-blog-search', BlogSearch);
+Vue.component('widget-newsletter-signup', NewsletterSignup);
+Vue.component('widget-recipe-search', RecipeSearch);
+Vue.component('widget-review-search', ReviewSearch);
+Vue.component('widget-wheretoeat-search', WhereToEatSearch);

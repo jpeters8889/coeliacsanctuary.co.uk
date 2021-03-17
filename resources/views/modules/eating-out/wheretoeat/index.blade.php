@@ -41,7 +41,7 @@
                         @foreach($list as $country => $counties)
                             @if($country !== 'Nationwide')
                                 <li>
-                                    <accordion group="countries" name="{{ $country }}">
+                                    <global-layout-accordion group="countries" name="{{ $country }}">
                                         <template v-slot:title>
                                             <h3 class="cursor-pointer border-b border-blue-light-50 p-1 text-lg text-black">{{ $country }}</h3>
                                         </template>
@@ -55,7 +55,7 @@
                                                 </a>
                                             @endforeach
                                         </template>
-                                    </accordion>
+                                    </global-layout-accordion>
                                 </li>
                             @endif
                         @endforeach

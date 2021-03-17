@@ -14,7 +14,7 @@
                 </p>
 
                 @foreach($accordions as $accordion)
-                    <accordion group="info" name="{{ $accordion->id }}">
+                    <global-layout-accordion group="info" name="{{ $accordion->id }}">
                         <template v-slot:title>
                             <h2 class="text-xl font-semibold p-1 border-b border-blue cursor-pointer flex items-center">
                                 <span class="flex-1 text-grey-dark">{{ $accordion->title }}</span>
@@ -28,7 +28,7 @@
                                 {!! $accordion->body !!}
                             </div>
                         </template>
-                    </accordion>
+                    </global-layout-accordion>
                 @endforeach
             </div>
         </div>

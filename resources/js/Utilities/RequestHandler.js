@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Coeliac from "../CoeliacApplication";
+import Coeliac from "../App";
 
 const request = axios.create();
 

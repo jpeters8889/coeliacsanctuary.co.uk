@@ -80,7 +80,7 @@
     <popup-cta></popup-cta>
     <quick-search></quick-search>
     <portal-target name="modal"></portal-target>
-    <full-page-loader></full-page-loader>
+    <global-layout-full-page-loader></global-layout-full-page-loader>
 </div>
 
 @yield('footerCSS')

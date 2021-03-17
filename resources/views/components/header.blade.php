@@ -1,7 +1,7 @@
 <header class="w-full">
     <div class="w-full bg-blue flex justify-between items-center px-2 py-0 text-white text-3xl">
-        <mobile-nav class="mr-2"></mobile-nav>
-        <coeliac-icon class="text-white xs:hidden" style="height: 1.875rem"></coeliac-icon>
+        <global-layout-mobile-nav class="mr-2"></global-layout-mobile-nav>
+        <global-layout-coeliac-icon class="text-white xs:hidden" style="height: 1.875rem"></global-layout-coeliac-icon>
         <header-search></header-search>
     </div>
 

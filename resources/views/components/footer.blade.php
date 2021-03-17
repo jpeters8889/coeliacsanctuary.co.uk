@@ -3,7 +3,7 @@
         <div class="w-5/6 mx-auto lg:w-4/5">
             <h4 class="font-medium text-center mb-2">Enter your email address below to get our newsletter sent straight
                 to your inbox!</h4>
-            <footer-newsletter></footer-newsletter>
+            <global-layout-footer-newsletter></global-layout-footer-newsletter>
         </div>
 
         <google-ad code="3102132022"></google-ad>
@@ -11,7 +11,7 @@
         <div class="mt-6 flex flex-col justify-center items-center sm:flex-row sm:items-start lg:mt-10">
             <div class="flex flex-col sm:w-1/2 sm:mr-3 lg:w-3/5">
                 <div class="flex items-center justify-center sm:justify-start">
-                    <coeliac-icon colour='#000' class="text-black mr-1" style="height: 1.25rem"></coeliac-icon>
+                    <global-layout-coeliac-icon colour='#000' class="text-black mr-1" style="height: 1.25rem"></global-layout-coeliac-icon>
                     <h2 class="text-black text-xl font-semibold">Coeliac Sanctuary</h2>
                 </div>
                 <p class="text-sm leading-tight mt-1 text-center sm:text-left">

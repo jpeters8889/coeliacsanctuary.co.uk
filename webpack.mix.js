@@ -1,6 +1,7 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
 const FontminPlugin = require('fontmin-webpack')
+const path = require('path');
 
 require('laravel-mix-bundle-analyzer');
 
@@ -11,6 +12,10 @@ mix
                 autodetect: true,
             }),
         ]
+    })
+    .alias({
+        '@': path.join(__dirname, 'resources/js'),
+        '~': path.join(__dirname, 'resources/js/Components'),
     })
     .sass('resources/scss/coeliac.scss', 'public/assets/css')
     .js('resources/js/coeliac.js', 'public/assets/js')
@@ -42,4 +47,4 @@ if (!mix.inProduction()) {
     mix.sourceMaps();
 }
 
-    mix.bundleAnalyzer();
+    // mix.bundleAnalyzer();
