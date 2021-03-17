@@ -72,8 +72,8 @@ class Page extends PageBuilder
     {
         $data['breadcrumbs'] = $this->breadcrumbs;
         $data['announcements'] = Container::getInstance()->make(Repository::class)->take(1);
-        $data['promoteCompetition'] = Competition::query()->whereDate('start_at', '<', Carbon::now())
-            ->whereDate('end_at', '>', Carbon::now())
+        $data['promoteCompetition'] = Competition::query()->whereDate('start_at', '<', Carbon::now()->format('Y-m-d H:i:s'))
+            ->whereDate('end_at', '>', Carbon::now()->format('Y-m-d H:i:s'))
             ->where('promote_on_banner', 1)
             ->first();
         $data['prefetch'] = array_merge($this->prefetch, [
