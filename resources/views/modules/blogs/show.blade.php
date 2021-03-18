@@ -34,24 +34,24 @@
         </div>
 
         <div class="page-box p-3">
-            {{--            <google-ad code="7619961534"></google-ad>--}}
+            {{--            <global-ui-google-ad code="7619961534"></google-ad>--}}
 
             <article>
                 {!! $blog->body !!}
             </article>
 
-            <google-ad code="6662103082"></google-ad>
+            <global-ui-google-ad code="6662103082"></global-ui-google-ad>
         </div>
 
         <div class="page-box p-3 mt-3">
             <h2 class="text-2xl my-2 font-semibold font-coeliac">Your Comments</h2>
 
             <div class="flex flex-col -mb-3">
-                <comments area="blog" :id="{{ $blog->id }}"></comments>
+                <module-comments area="blog" :id="{{ $blog->id }}"></module-comments>
             </div>
         </div>
 
-        <comment-form area="blog" :id="{{ $blog->id }}"></comment-form>
+        <modules-comment-form area="blog" :id="{{ $blog->id }}"></modules-comment-form>
 
     </div>
 @endsection
@@ -59,14 +59,14 @@
 @section('secondary-column')
     <div class="flex flex-col">
         <x-widget class="mb-3" title="Search Blogs">
-            <widget-blog-search />
+            <search-ui-blog-widget />
         </x-widget>
 
         <x-widget class="mb-3" title="Sign up to our newsletter">
-            <widget-newsletter-signup />
+            <global-ui-newsletter-signup />
         </x-widget>
 
-        <google-ad code="7266831645"></google-ad>
+        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
 
         @if($featured)
             @include('components.featured-in', $featured)

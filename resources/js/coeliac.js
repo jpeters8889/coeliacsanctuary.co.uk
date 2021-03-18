@@ -1,10 +1,9 @@
 import Vue from 'vue';
-import CoeliacApplication from "./CoeliacApplication";
+import CoeliacApplication from "./App";
+import './Components';
 import './Plugins';
 
 Vue.config.productionTip = false;
-
-import './components-dynamic';
 
 window.coeliac = function (config) {
     return new CoeliacApplication(config);

@@ -1,6 +1,6 @@
-const FormInput = () => import('../Components/Forms/FormInput' /* webpackChunkName: "chunk-form-input" */)
-const FormOption = () => import('../Components/Forms/FormOption' /* webpackChunkName: "chunk-form-option" */)
-const FormSelect = () => import('../Components/Forms/FormSelect' /* webpackChunkName: "chunk-form-select" */)
+const FormInput = () => import('~/Forms/Input' /* webpackChunkName: "chunk-form-input" */)
+const FormOption = () => import('~/Forms/Option' /* webpackChunkName: "chunk-form-option" */)
+const FormSelect = () => import('~/Forms/Select' /* webpackChunkName: "chunk-form-select" */)
 
 export default {
     components: {

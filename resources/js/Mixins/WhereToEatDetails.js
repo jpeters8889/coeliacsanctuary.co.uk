@@ -1,6 +1,6 @@
-import WhereToEatRatings from "../Components/WhereToEatRatings";
-import WhereToEatFeatures from "../Components/WhereToEatFeatures";
-import WhereToEatReviewButton from "../Components/WhereToEatReviewButton";
+import WhereToEatRatings from "~/WhereToEat/UI/WhereToEatRatings";
+import WhereToEatFeatures from "~/WhereToEat/UI/WhereToEatFeatures";
+import WhereToEatReviewButton from "~/WhereToEat/UI/WhereToEatReviewButton";
 
 export default {
     components: {

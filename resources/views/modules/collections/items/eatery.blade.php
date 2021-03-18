@@ -1,6 +1,6 @@
 <div class="flex flex-col sm:flex-row">
     <div class="flex flex-col mb-2 sm:mb-0 sm:mr-2 sm:w-1/4">
-        <static-map :lat="{{ $eatery->lat }}" :lng="{{ $eatery->lng }}" :map-classes="['h-400 sm:h-200']"></static-map>
+        <map-static :lat="{{ $eatery->lat }}" :lng="{{ $eatery->lng }}" :map-classes="['h-400 sm:h-200']"></map-static>
     </div>
 
     <div class="p-2 flex flex-col sm:flex-1 sm:py-0">

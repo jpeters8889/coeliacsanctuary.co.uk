@@ -40,13 +40,13 @@
 
                                 @if($product->variants->count()===1)
                                     @if($product->variants[0]->quantity>0)
-                                        <add-basket-trigger :product-id="{{ $product->id }}"
+                                        <shop-basket-ui-add-product :product-id="{{ $product->id }}"
                                                             :variant-id="{{ $product->variants[0]->id }}">
                                             <button
                                                 class="xs:ml-1 w-full font-semibold border border-blue rounded p-2 bg-blue-light-50 text-black hover:bg-blue-light-20 transition-bg mb-2">
                                                 Add to Basket
                                             </button>
-                                        </add-basket-trigger>
+                                        </shop-basket-ui-add-product>
                                         @else
                                         <button disabled
                                             class="xs:ml-1 font-semibold border border-blue-light rounded p-2 bg-blue-light-20 text-grey cursor-not-allowed mb-2">

@@ -77,10 +77,10 @@
 <div id="coeliac" class="min-h-screen flex flex-col">
     @yield('content')
 
-    <popup-cta></popup-cta>
-    <quick-search></quick-search>
+    <global-ui-popup-cta></global-ui-popup-cta>
+    <search-ui-quick></search-ui-quick>
     <portal-target name="modal"></portal-target>
-    <full-page-loader></full-page-loader>
+    <global-layout-full-page-loader></global-layout-full-page-loader>
 </div>
 
 @yield('footerCSS')
