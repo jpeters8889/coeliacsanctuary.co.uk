@@ -5,14 +5,14 @@
 
     <header class="flex flex-col bg-blue-light border-yellow border-b-4">
         <div style="min-height: 60px">
-            <top-bar>
-                <mobile-nav class="mr-2 md:hidden"></mobile-nav>
+            <global-layout-top-bar>
+                <global-layout-mobile-nav class="mr-2 md:hidden"></global-layout-mobile-nav>
                 <a href="/">
-                    <coeliac-icon class="js-mob-icon text-white md:hidden" style="height: 1.875rem"></coeliac-icon>
+                    <global-layout-coeliac-icon class="js-mob-icon text-white md:hidden" style="height: 1.875rem"></global-layout-coeliac-icon>
                 </a>
                 <coeliac-nav class="hidden md:block"></coeliac-nav>
-                <header-search class="h-full flex items-center md:absolute md:right-0 md:top-0 md:mr-2"></header-search>
-            </top-bar>
+                <search-ui-header class="h-full flex items-center md:absolute md:right-0 md:top-0 md:mr-2"></search-ui-header>
+            </global-layout-top-bar>
         </div>
 
         <div class="inner-wrapper p-3 flex leading-none items-center">
@@ -28,8 +28,8 @@
         </div>
     </header>
 
-    <breadcrumbs :crumbs='@json($breadcrumbs['crumbs'])'
-                 location="{{ $breadcrumbs['location'] }}"></breadcrumbs>
+    <global-layout-breadcrumbs :crumbs='@json($breadcrumbs['crumbs'])'
+                 location="{{ $breadcrumbs['location'] }}"></global-layout-breadcrumbs>
 
     @include('components.competition')
 

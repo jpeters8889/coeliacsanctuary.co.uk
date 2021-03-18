@@ -29,19 +29,19 @@
                     chains</a> on a separate page.
             </p>
 
-            <wheretoeat-quick-search></wheretoeat-quick-search>
+            <wheretoeat-ui-quick-search></wheretoeat-ui-quick-search>
 
-            <tabs base-url="wheretoeat">
-                <tab title="Map" url="map">
-                    <wheretoeat-map></wheretoeat-map>
-                </tab>
+            <global-ui-tabs base-url="wheretoeat">
+                <global-ui-tab title="Map" url="map">
+                    <wheretoeat-tabs-map></wheretoeat-tabs-map>
+                </global-ui-tab>
 
-                <tab title="List" url="list" mobile-default>
+                <global-ui-tab title="List" url="list" mobile-default>
                     <ul class="flex flex-col">
                         @foreach($list as $country => $counties)
                             @if($country !== 'Nationwide')
                                 <li>
-                                    <accordion group="countries" name="{{ $country }}">
+                                    <global-ui-accordion group="countries" name="{{ $country }}">
                                         <template v-slot:title>
                                             <h3 class="cursor-pointer border-b border-blue-light-50 p-1 text-lg text-black">{{ $country }}</h3>
                                         </template>
@@ -55,15 +55,15 @@
                                                 </a>
                                             @endforeach
                                         </template>
-                                    </accordion>
+                                    </global-ui-accordion>
                                 </li>
                             @endif
                         @endforeach
                     </ul>
-                </tab>
+                </global-ui-tab>
 
-                <tab title="Nationwide Places" url="nationwide">
-                    <wheretoeat-list :county-id="{{ $nationwide_id }}">
+                <global-ui-tab title="Nationwide Places" url="nationwide">
+                    <wheretoeat-page-list :county-id="{{ $nationwide_id }}">
                         <template v-slot:intro>
                             <p class="mb-4" id="nationwide-eateries">
                                 Here you can find chain restaurants and eateries that offer gluten free. We don't show
@@ -73,9 +73,9 @@
                                 You can use the tabs above to filter the results to find the type of places you want.
                             </p>
                         </template>
-                    </wheretoeat-list>
-                </tab>
-            </tabs>
+                    </wheretoeat-page-list>
+                </global-ui-tab>
+            </global-ui-tabs>
 
         </div>
     </div>
@@ -84,14 +84,14 @@
 @section('secondary-column')
     <div class="flex flex-col">
         <x-widget class="mb-3" title="Search Places">
-            <widget-wheretoeat-search />
+            <search-ui-wheretoeat-widget />
         </x-widget>
 
         <x-widget class="mb-3" title="Sign up to our newsletter">
-            <widget-newsletter-signup/>
+            <global-ui-newsletter-signup/>
         </x-widget>
 
-        <google-ad code="7266831645"></google-ad>
+        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
 
         @include('components.related-item', [$title = 'Recent Reviews', $related])
     </div>

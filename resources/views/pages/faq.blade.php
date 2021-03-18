@@ -14,7 +14,7 @@
                 </p>
 
                 @foreach($accordions as $accordion)
-                    <accordion group="info" name="{{ $accordion->id }}">
+                    <global-ui-accordion group="info" name="{{ $accordion->id }}">
                         <template v-slot:title>
                             <h2 class="text-xl font-semibold p-1 border-b border-blue cursor-pointer flex items-center">
                                 <span class="flex-1 text-grey-dark">{{ $accordion->title }}</span>
@@ -28,7 +28,7 @@
                                 {!! $accordion->body !!}
                             </div>
                         </template>
-                    </accordion>
+                    </global-ui-accordion>
                 @endforeach
             </div>
         </div>
@@ -38,10 +38,10 @@
 @section('secondary-column')
     <div class="flex flex-col">
         <x-widget class="mb-3" title="Sign up to our newsletter">
-            <widget-newsletter-signup />
+            <global-ui-newsletter-signup />
         </x-widget>
 
-        <google-ad code="7266831645"></google-ad>
+        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
 
         @include('components.related-item', [$related, $title = 'Recent Blogs'])
     </div>

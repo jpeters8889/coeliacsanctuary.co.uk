@@ -32,13 +32,13 @@
                     Sorry, but this competition is not currently open for entries.
                 </p>
             @else
-                <competition uuid="{{ $competition->uuid }}"
+                <page-competition uuid="{{ $competition->uuid }}"
                     :facebook-like="{{ $competition->enable_facebook_like }}"
                     :facebook-share="{{ $competition->enable_facebook_share }}"
                     :twitter-follow="{{ $competition->enable_twitter_follow }}"
                     :twitter-tweet="{{ $competition->enable_twitter_tweet }}"
                     :shop-purchase="{{ $competition->enable_shop_purchase }}"
-                ></competition>
+                ></page-competition>
             @endif
         </div>
     </div>

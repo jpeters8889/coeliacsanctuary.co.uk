@@ -1,7 +1,7 @@
 <div class="flex flex-col sm:flex-row">
     <div class="flex flex-col mb-2 sm:mb-0 sm:mr-2 sm:w-1/4">
         <a href="{{ $recipe->link }}" target="_blank">
-            <recipe-image src="{{ $recipe->main_image }}" alt="{{ $recipe->title }}"></recipe-image>
+            <global-ui-recipe-image src="{{ $recipe->main_image }}" alt="{{ $recipe->title }}"></global-ui-recipe-image>
         </a>
     </div>
 

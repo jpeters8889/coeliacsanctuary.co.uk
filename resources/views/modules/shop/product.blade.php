@@ -14,15 +14,15 @@
             </h6>
 
             <div class="flex flex-col my-4 sm:flex-row">
-                <product-images :product-id="{{ $product->id }}"
-                                class="hidden sm:block sm:w-1/2 md:w-1/3 lg:w-1/4"></product-images>
+                <shop-product-images :product-id="{{ $product->id }}"
+                                class="hidden sm:block sm:w-1/2 md:w-1/3 lg:w-1/4"></shop-product-images>
 
                 <div class="main-body w-full mt-4 sm:w-1/2 sm:mt-0 sm:ml-4 md:w-2/3 lg:w-3/4 xl:w-4/5">
                     <p>{{ $product->description }}</p>
                     <p><a href="#product-description">Read more...</a></p>
-                    <product-images :product-id="{{ $product->id }}"
-                                    class="sm:hidden my-4"></product-images>
-                    <product-add-basket :product-id="{{ $product->id }}" class="mb-4"></product-add-basket>
+                    <shop-product-images :product-id="{{ $product->id }}"
+                                    class="sm:hidden my-4"></shop-product-images>
+                    <shop-product-add-basket :product-id="{{ $product->id }}" class="mb-4"></shop-product-add-basket>
                 </div>
             </div>
 

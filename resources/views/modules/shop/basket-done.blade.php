@@ -82,9 +82,9 @@
                             </a>
                             <p class="flex-1">{{ $blog->meta_description }}</p>
                             <div>
-                                <link-button class="py-2 px-4 mt-2" rounded href="/blog/{{ $blog->slug }}">
+                                <global-ui-link-button class="py-2 px-4 mt-2" rounded href="/blog/{{ $blog->slug }}">
                                     Read more...
-                                </link-button>
+                                </global-ui-link-button>
                             </div>
                         </div>
                     </div>
@@ -108,9 +108,9 @@
                             </a>
                             <p class="flex-1">{{ $recipe->meta_description }}</p>
                             <div>
-                                <link-button class="py-2 px-4 mt-2" rounded href="/recipe/{{ $recipe->slug }}">
+                                <global-ui-link-button class="py-2 px-4 mt-2" rounded href="/recipe/{{ $recipe->slug }}">
                                     Read more...
-                                </link-button>
+                                </global-ui-link-button>
                             </div>
                         </div>
                     </div>
@@ -134,9 +134,9 @@
                             </a>
                             <p class="flex-1">{{ $review->meta_description }}</p>
                             <div>
-                                <link-button class="py-2 px-4 mt-2" rounded href="/review/{{ $review->slug }}">
+                                <global-ui-link-button class="py-2 px-4 mt-2" rounded href="/review/{{ $review->slug }}">
                                     Read more...
-                                </link-button>
+                                </global-ui-link-button>
                             </div>
                         </div>
                     </div>

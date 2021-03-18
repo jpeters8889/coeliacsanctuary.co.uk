@@ -1,7 +1,7 @@
 @extends('templates.page')
 
 @section('inner-content')
-    {{--    <google-ad code="2137793897"></google-ad>--}}
+    {{--    <global-ui-google-ad code="2137793897"></google-ad>--}}
 
     <div class="min-h-screen bg-white">
         <module-list-index module="recipes" title="Recipes" url-prefix="recipe">
@@ -20,5 +20,5 @@
         </module-list-index>
     </div>
 
-    {{--    <google-ad code="4702154153"></google-ad>--}}
+    {{--    <global-ui-google-ad code="4702154153"></google-ad>--}}
 @endsection
