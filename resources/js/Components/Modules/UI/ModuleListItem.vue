@@ -5,7 +5,7 @@
                 <a :href="item.link">
                     <img :data-src="item.main_image" :alt="item.title" loading="lazy" class="lazy w-full"
                          :src="index > 0 ? lazyLoadSrc : item.main_image" v-if="module !== 'recipes'">
-                    <recipe-image :src="item.main_image" :alt="item.title" v-else></recipe-image>
+                    <global-ui-recipe-image :src="item.main_image" :alt="item.title" v-else></global-ui-recipe-image>
                 </a>
                 <template v-if="module==='recipes' && layout === 'list'">
                     <ul class="flex flex-wrap justify-center -mx-2 sm:justify-start">
@@ -27,7 +27,7 @@
                     <span class="font-semibold text-xs" :class="layout === 'tiles' ? 'text-center' : ''">
                         {{ item.eatery.type.name }} in {{ item.eatery.town.town }}, {{ item.eatery.county.county }}
                     </span>
-                    <stars class="my-2" :stars="item.overall_rating"></stars>
+                    <global-ui-stars class="my-2" :stars="item.overall_rating"></global-ui-stars>
                 </template>
                 <template v-if="module==='recipes'">
                     <ul class="flex flex-wrap justify-center -mx-2" v-if="layout === 'grid'">

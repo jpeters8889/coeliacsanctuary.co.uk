@@ -13,7 +13,7 @@
                         <global-layout-coeliac-icon class="js-mob-icon text-white md:hidden" style="height: 1.875rem"></global-layout-coeliac-icon>
                     </a>
                     <coeliac-nav class="hidden md:block"></coeliac-nav>
-                    <header-search class="h-full flex items-center md:absolute md:right-0 md:top-0 md:mr-2"></header-search>
+                    <search-ui-header class="h-full flex items-center md:absolute md:right-0 md:top-0 md:mr-2"></search-ui-header>
                 </global-layout-top-bar>
             </div>
             <div class="flex flex-1 p-8">
@@ -25,7 +25,7 @@
                         <h1 class="text-4xl font-medium font-coeliac mb-2 text-center">Coeliac Sanctuary</h1>
                     </div>
 
-                    <coeliac-home-heros></coeliac-home-heros>
+                    <page-home-heros></page-home-heros>
 
                     <div class="flex-1 flex flex-col justify-center items-center inner-wrapper">
                         <div class="xxs:hidden bg-white-80 p-4 w-full md:w-3/4">
@@ -105,9 +105,9 @@
                             </a>
                             <p class="flex-1">{{ $blog->meta_description }}</p>
                             <div>
-                                <link-button class="py-2 px-4 mt-2" rounded href="/blog/{{ $blog->slug }}">
+                                <global-ui-link-button class="py-2 px-4 mt-2" rounded href="/blog/{{ $blog->slug }}">
                                     Read more...
-                                </link-button>
+                                </global-ui-link-button>
                             </div>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
             </div>
         </section>
 
-        <google-ad code="9266309021"></google-ad>
+        <global-ui-google-ad code="9266309021"></global-ui-google-ad>
 
         <!-- Latest Recipes -->
         <section class="page-box mt-4">
@@ -142,9 +142,9 @@
                             </a>
                             <p class="flex-1">{{ $recipe->meta_description }}</p>
                             <div>
-                                <link-button class="py-2 px-4 mt-2" rounded href="/recipe/{{ $recipe->slug }}">
+                                <global-ui-link-button class="py-2 px-4 mt-2" rounded href="/recipe/{{ $recipe->slug }}">
                                     Read more...
-                                </link-button>
+                                </global-ui-link-button>
                             </div>
                         </div>
                     </div>
@@ -178,9 +178,9 @@
                             </a>
                             <p class="flex-1">{{ $review->meta_description }}</p>
                             <div>
-                                <link-button class="py-2 px-4 mt-2" rounded href="/review/{{ $review->slug }}">
+                                <global-ui-link-button class="py-2 px-4 mt-2" rounded href="/review/{{ $review->slug }}">
                                     Read more...
-                                </link-button>
+                                </global-ui-link-button>
                             </div>
                         </div>
                     </div>
@@ -202,7 +202,7 @@
                            class="flex flex-col w-115px m-2 justify-center items-center bg-grey-light shadow-md rounded-lg p-2 text-blue-other">
                             <font-awesome-icon class="text-3xl mb-1" :icon="{{ $stat['icon'] }}"></font-awesome-icon>
                             <span class="flex-1 text-center leading-none">{{ $stat['label'] }}</span>
-                            <number-counter class="text-3xl sm:text-2xl" :to="{{ $stat['count'] }}"></number-counter>
+                            <global-ui-number-counter class="text-3xl sm:text-2xl" :to="{{ $stat['count'] }}"></global-ui-number-counter>
                         </a>
                     @endforeach
                 </div>

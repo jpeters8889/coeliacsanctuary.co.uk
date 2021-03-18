@@ -14,11 +14,11 @@
             </div>
             <product-quantity :quantity="availableQuantity"></product-quantity>
             <form-input required name="quantity" :value="formData.quantity.toString()" type="number" :min="1"></form-input>
-            <add-basket-trigger :product-id="productId" :variant-id="parseInt(formData.variant)" :quantity="parseInt(formData.quantity)">
+            <shop-basket-ui-add-product :product-id="productId" :variant-id="parseInt(formData.variant)" :quantity="parseInt(formData.quantity)">
                 <button class="w-full p-2 bg-blue-light-80 border-blue text-center rounded mt-4 font-semibold">
                     Add to Basket
                 </button>
-            </add-basket-trigger>
+            </shop-basket-ui-add-product>
         </template>
     </div>
 </template>

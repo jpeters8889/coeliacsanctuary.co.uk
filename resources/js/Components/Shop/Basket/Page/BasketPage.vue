@@ -28,8 +28,8 @@
                             <div class="flex mb-1 sm:flex-col sm:mr-2">
                                 <div class="font-semibold mr-1 sm:mr-0 sm:mb-2">Quantity</div>
                                 <div>
-                                    <basket-quantity-swticher :quantity="item.quantity" :product-id="item.product.id"
-                                                              :variant-id="item.variant.id"></basket-quantity-swticher>
+                                    <shop-basket-ui-quantity-switcher :quantity="item.quantity" :product-id="item.product.id"
+                                                              :variant-id="item.variant.id"></shop-basket-ui-quantity-switcher>
                                 </div>
                             </div>
                             <div class="flex mb-1 sm:flex-col sm:mr-2">

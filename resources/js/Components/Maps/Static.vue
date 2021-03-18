@@ -14,7 +14,7 @@
 <script>
 import HasGoogleMap from "@/Mixins/HasGoogleMap";
 import LazyLoadsImages from "@/Mixins/LazyLoadsImages";
-import DynamicMap from "~/Maps/DynamicMap";
+import DynamicMap from "~/Maps/Dynamic";
 const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
 
 export default {

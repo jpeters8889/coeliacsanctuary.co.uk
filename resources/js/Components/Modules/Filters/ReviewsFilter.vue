@@ -1,6 +1,6 @@
 <template>
     <div>
-        <global-layout-accordion group="filters" name="counties">
+        <global-ui-accordion group="filters" name="counties">
             <template v-slot:title>
                 <div class="border-b border-grey-light p-2">
                     <div class="flex flex-col">
@@ -43,9 +43,9 @@
                     </ul>
                 </div>
             </template>
-        </global-layout-accordion>
+        </global-ui-accordion>
 
-        <global-layout-accordion group="filters" name="ratings">
+        <global-ui-accordion group="filters" name="ratings">
             <template v-slot:title>
                 <div class="border-b border-grey-light p-2">
                     <div class="flex flex-col">
@@ -82,7 +82,7 @@
                     </ul>
                 </div>
             </template>
-        </global-layout-accordion>
+        </global-ui-accordion>
     </div>
 </template>
 

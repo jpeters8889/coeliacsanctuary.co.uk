@@ -10,7 +10,7 @@
                     <global-layout-coeliac-icon class="js-mob-icon text-white md:hidden" style="height: 1.875rem"></global-layout-coeliac-icon>
                 </a>
                 <coeliac-nav class="hidden md:block" v-if="width > 500"></coeliac-nav>
-                <header-search class="h-full flex items-center md:absolute md:right-0 md:top-0 md:mr-2"></header-search>
+                <search-ui-header class="h-full flex items-center md:absolute md:right-0 md:top-0 md:mr-2"></search-ui-header>
             </div>
         </div>
         <div id="top-bar-check"></div>

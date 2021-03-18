@@ -18,33 +18,33 @@
                         <ul class="text-center sm:text-left">
                             <li class="flex flex-col mb-2">
                                 <h2 class="text-xl font-semibold">Our Overall Rating</h2>
-                                <stars stars="{{ $review->overall_rating }}"></stars>
+                                <global-ui-stars stars="{{ $review->overall_rating }}"></global-ui-stars>
                             </li>
 
                             <li class="flex flex-col mb-2">
                                 <h3>Knowledge</h3>
-                                <stars stars="{{ $review->knowledge_rating }}"></stars>
+                                <global-ui-stars stars="{{ $review->knowledge_rating }}"></global-ui-stars>
                             </li>
 
                             <li class="flex flex-col mb-2">
                                 <h3>Presentation and Taste</h3>
-                                <stars stars="{{ $review->presentation_taste_rating }}"></stars>
+                                <global-ui-stars stars="{{ $review->presentation_taste_rating }}"></global-ui-stars>
                             </li>
 
                             <li class="flex flex-col mb-2">
                                 <h3>Value</h3>
-                                <stars stars="{{ $review->value_rating }}"></stars>
+                                <global-ui-stars stars="{{ $review->value_rating }}"></global-ui-stars>
                             </li>
 
                             <li class="flex flex-col">
                                 <h3>General</h3>
-                                <stars stars="{{ $review->general_rating }}"></stars>
+                                <global-ui-stars stars="{{ $review->general_rating }}"></global-ui-stars>
                             </li>
                         </ul>
                     </div>
                     <div class="mt-2 text-center sm:w-1/2 sm:text-right flex flex-col">
-                        <static-map :lat="{{ $review->eatery->lat }}" :lng="{{ $review->eatery->lng }}"
-                                    :map-classes="['min-h-map-small']"></static-map>
+                        <map-static :lat="{{ $review->eatery->lat }}" :lng="{{ $review->eatery->lng }}"
+                                    :map-classes="['min-h-map-small']"></map-static>
                         <div>
                             {!! $review->eatery->address !!}
                             @if($review->eatery->phone)
@@ -59,13 +59,13 @@
                 </div>
             </div>
 
-            <google-ad code="2925914349"></google-ad>
+            <global-ui-google-ad code="2925914349"></global-ui-google-ad>
 
             <article>
                 {!! $review->body !!}
             </article>
 
-            <google-ad code="3472709255"></google-ad>
+            <global-ui-google-ad code="3472709255"></global-ui-google-ad>
         </div>
 
         <div class="page-box p-3 mt-3">
@@ -95,7 +95,7 @@
             </div>
         </div>
 
-        <comment-form area="review" :id="{{ $review->id }}"></comment-form>
+        <modules-comment-form area="review" :id="{{ $review->id }}"></modules-comment-form>
 
     </div>
 @endsection
@@ -103,14 +103,14 @@
 @section('secondary-column')
     <div class="flex flex-col">
         <x-widget class="mb-3" title="Search Reviews">
-            <widget-review-search/>
+            <search-ui-review-widget/>
         </x-widget>
 
         <x-widget class="mb-3" title="Sign up to our newsletter">
-            <widget-newsletter-signup />
+            <global-ui-newsletter-signup />
         </x-widget>
 
-        <google-ad code="7266831645"></google-ad>
+        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
 
         @if($featured)
             @include('components.featured-in', $featured)

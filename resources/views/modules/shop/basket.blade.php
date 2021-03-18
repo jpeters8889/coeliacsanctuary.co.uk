@@ -36,7 +36,7 @@
                 </div>
             @endif
 
-            <basket-page></basket-page>
+            <shop-basket-page></shop-basket-page>
         </div>
     </div>
 @endsection

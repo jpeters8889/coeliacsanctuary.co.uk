@@ -2,7 +2,7 @@
     <div class="w-full bg-blue flex justify-between items-center px-2 py-0 text-white text-3xl">
         <global-layout-mobile-nav class="mr-2"></global-layout-mobile-nav>
         <global-layout-coeliac-icon class="text-white xs:hidden" style="height: 1.875rem"></global-layout-coeliac-icon>
-        <header-search></header-search>
+        <search-ui-header></search-ui-header>
     </div>
 
     <div class="w-full bg-blue-light border-yellow border-b-4 mb-2 p-3">

@@ -18,7 +18,7 @@
                                 </tr>
                                 <tr class="text-xl">
                                     <td>
-                                        <basket-quantity-swticher :quantity="item.quantity" :product-id="item.product.id" :variant-id="item.variant.id"></basket-quantity-swticher>
+                                        <shop-basket-ui-quantity-switcher :quantity="item.quantity" :product-id="item.product.id" :variant-id="item.variant.id"></shop-basket-ui-quantity-switcher>
                                     </td>
                                     <td class="text-right" v-html="formatPrice(item.subtotal)"></td>
                                 </tr>

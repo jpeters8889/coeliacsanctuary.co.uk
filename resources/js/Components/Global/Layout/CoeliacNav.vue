@@ -33,7 +33,7 @@
                                     <a :href="item.link + '/' + child.slug">{{ child.title }}</a>
                                 </li>
                                 <li>
-                                    <link-button :href="item.link" rounded>See All {{ item.label }}</link-button>
+                                    <global-ui-link-button :href="item.link" rounded>See All {{ item.label }}</global-ui-link-button>
                                 </li>
                             </ul>
                         </div>

@@ -8,7 +8,7 @@ const Breadcrumbs = () => import("~/Global/Layout/Breadcrumbs" /* webpackChunkNa
 const FullPageLoader = () => import("~/Global/Layout/FullPageLoader" /* webpackChunkName: "chunk-page-loader" */);
 const Announcement = () => import("~/Global/Layout/Announcement" /* webpackChunkName: "chunk-announcements" */);
 
-Vue.component('global-layout-accordion', Announcement);
+Vue.component('global-layout-announcement', Announcement);
 Vue.component('global-layout-breadcrumbs', Breadcrumbs);
 Vue.component('global-layout-coeliac-icon', CoeliacIcon);
 Vue.component('global-layout-footer-newsletter', FooterNewsletter);

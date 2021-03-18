@@ -5,7 +5,7 @@ const BasketSideBar = () => import("~/Shop/Basket/UI/BasketSideBar" /* webpackCh
 const BasketQuickLink = () => import("~/Shop/Basket/UI/BasketQuickLink" /* webpackChunkName: "chunk-basket-quick-link" */);
 const BasketQuantitySwitcher = () => import("~/Shop/Basket/UI/BasketQuantitySwitcher" /* webpackChunkName: "chunk-basket-quantity-switcher" */);
 
-Vue.component('add-basket-trigger', AddBasketTrigger);
-Vue.component('basket-quick-link', BasketQuickLink);
-Vue.component('basket-quantity-swticher', BasketQuantitySwitcher);
-Vue.component('basket-sidebar', BasketSideBar);
+Vue.component('shop-basket-ui-add-product', AddBasketTrigger);
+Vue.component('shop-basket-ui-floating-link', BasketQuickLink);
+Vue.component('shop-basket-ui-quantity-switcher', BasketQuantitySwitcher);
+Vue.component('shop-basket-ui-sidebar', BasketSideBar);

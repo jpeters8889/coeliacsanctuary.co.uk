@@ -22,7 +22,7 @@
         </div>
 
         <div class="page-box p-3">
-            {{--            <google-ad code="7619961534"></google-ad>--}}
+            {{--            <global-ui-google-ad code="7619961534"></google-ad>--}}
 
             @if($collection->body)
                 <article>
@@ -30,7 +30,7 @@
                 </article>
             @endif
 
-            {{--            <google-ad code="6662103082"></google-ad>--}}
+            {{--            <global-ui-google-ad code="6662103082"></google-ad>--}}
         </div>
 
         <div class="page-box p-3 mt-3">
@@ -50,10 +50,10 @@
 @section('secondary-column')
     <div class="flex flex-col">
         <x-widget class="mb-3" title="Sign up to our newsletter">
-            <widget-newsletter-signup />
+            <global-ui-newsletter-signup />
         </x-widget>
 
-        <google-ad code="7266831645"></google-ad>
+        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
 
         @include('components.related-item', $related)
     </div>

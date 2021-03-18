@@ -14,7 +14,7 @@
                 free anymore. Let us know
             </p>
 
-            <wheretoeat-place-request-form></wheretoeat-place-request-form>
+            <wheretoeat-pages-place-request></wheretoeat-pages-place-request>
         </div>
     </div>
 @endsection
@@ -22,10 +22,10 @@
 @section('secondary-column')
     <div class="flex flex-col">
         <x-widget class="mb-3" title="Sign up to our newsletter">
-            <widget-newsletter-signup/>
+            <global-ui-newsletter-signup/>
         </x-widget>
 
-        <google-ad code="7266831645"></google-ad>
+        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
 
         <x-widget title="Random Reviews">
             @foreach($related as $relatedRecipe)

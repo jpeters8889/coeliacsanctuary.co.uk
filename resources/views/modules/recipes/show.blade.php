@@ -22,11 +22,11 @@
         </div>
 
         <div>
-            <recipe-image src="{{ $recipe->main_image }}" alt="{{ $recipe->title }}"></recipe-image>
+            <global-ui-recipe-image src="{{ $recipe->main_image }}" alt="{{ $recipe->title }}"></global-ui-recipe-image>
         </div>
 
         <div class="page-box p-3 flex flex-col">
-            <google-ad code="2137793897"></google-ad>
+            <global-ui-google-ad code="2137793897"></global-ui-google-ad>
 
             <div class="my-2 py-2 border-b border-yellow">
                 <h3 class="text-base font-semibold">This recipe is...</h3>
@@ -74,7 +74,7 @@
             </div>
 
             <div class="my-2 pb-2 flex flex-col main-body">
-                <google-ad code="2137793897"></google-ad>
+                <global-ui-google-ad code="2137793897"></global-ui-google-ad>
 
                 <h3 class="text-base font-semibold">Method</h3>
 
@@ -105,7 +105,7 @@
                     </tr>
                 </table>
 
-                <google-ad code="4702154153"></google-ad>
+                <global-ui-google-ad code="4702154153"></global-ui-google-ad>
             </div>
         </div>
 
@@ -113,11 +113,11 @@
             <h2 class="text-2xl my-2 font-semibold font-coeliac">Your Comments</h2>
 
             <div class="flex flex-col -mb-3">
-                <comments area="recipe" :id="{{ $recipe->id }}"></comments>
+                <module-comments area="recipe" :id="{{ $recipe->id }}"></module-comments>
             </div>
         </div>
 
-        <comment-form area="recipe" :id="{{ $recipe->id }}"></comment-form>
+        <modules-comment-form area="recipe" :id="{{ $recipe->id }}"></modules-comment-form>
 
     </div>
 @endsection
@@ -125,14 +125,14 @@
 @section('secondary-column')
     <div class="flex flex-col">
         <x-widget class="mb-3" title="Search Recipes">
-        <widget-recipe-search/>
+        <search-ui-recipe-widget />
         </x-widget>
 
         <x-widget class="mb-3" title="Sign up to our newsletter">
-            <widget-newsletter-signup />
+            <global-ui-newsletter-signup />
         </x-widget>
 
-        <google-ad code="7266831645"></google-ad>
+        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
 
         @if($featured)
             @include('components.featured-in', $featured)

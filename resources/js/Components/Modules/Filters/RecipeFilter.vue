@@ -1,6 +1,6 @@
 <template>
     <div>
-        <global-layout-accordion group="filters" name="freefrom">
+        <global-ui-accordion group="filters" name="freefrom">
             <template v-slot:title>
                 <div class="border-b border-grey-light p-2">
                     <div class="flex flex-col">
@@ -34,9 +34,9 @@
                     </ul>
                 </div>
             </template>
-        </global-layout-accordion>
+        </global-ui-accordion>
 
-        <global-layout-accordion group="filters" name="meals">
+        <global-ui-accordion group="filters" name="meals">
             <template v-slot:title>
                 <div class="border-b border-grey-light p-2">
                     <div class="flex flex-col">
@@ -70,9 +70,9 @@
                     </ul>
                 </div>
             </template>
-        </global-layout-accordion>
+        </global-ui-accordion>
 
-        <global-layout-accordion group="filters" name="features">
+        <global-ui-accordion group="filters" name="features">
             <template v-slot:title>
                 <div class="border-b border-grey-light p-2">
                     <div class="flex flex-col">
@@ -106,7 +106,7 @@
                     </ul>
                 </div>
             </template>
-        </global-layout-accordion>
+        </global-ui-accordion>
     </div>
 </template>
 

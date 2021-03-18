@@ -61,7 +61,7 @@
                     @endforeach
                 </table>
 
-                <google-ad code="5284484376"></google-ad>
+                <global-ui-google-ad code="5284484376"></global-ui-google-ad>
             </div>
         </div>
 
@@ -75,12 +75,12 @@
                     Go</strong> App to help you easily find places near you to eat Gluten Free!
             </p>
 
-            <link-button title="Coeliac Sanctuary - On the Go App"
+            <global-ui-link-button title="Coeliac Sanctuary - On the Go App"
                          class="px-4 py-2 rounded-lg font-semibold my-2"
                          href="/wheretoeat/coeliac-sanctuary-on-the-go"
             >
                 Find out more...
-            </link-button>
+            </global-ui-link-button>
         </div>
     </div>
 
@@ -107,9 +107,9 @@
                             </a>
                             <p class="flex-1">{{ $review->meta_description }}</p>
                             <div>
-                                <link-button class="py-2 px-4 mt-2" rounded href="/review/{{ $review->slug }}">
+                                <global-ui-link-button class="py-2 px-4 mt-2" rounded href="/review/{{ $review->slug }}">
                                     Read more...
-                                </link-button>
+                                </global-ui-link-button>
                             </div>
                         </div>
                     </div>
@@ -132,14 +132,14 @@
 @section('secondary-column')
     <div class="flex flex-col">
         <x-widget class="mb-3" title="Search Places">
-            <widget-wheretoeat-search />
+            <search-ui-wheretoeat-widget />
         </x-widget>
 
         <x-widget class="mb-3" title="Sign up to our newsletter">
-            <widget-newsletter-signup/>
+            <global-ui-newsletter-signup/>
         </x-widget>
 
-        <google-ad code="7266831645"></google-ad>
+        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
 
         @include('components.related-item', [$title = 'Recent Reviews', $related])
     </div>

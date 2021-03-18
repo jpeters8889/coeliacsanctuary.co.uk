@@ -2,6 +2,6 @@
 
 @section('primary-column')
     <div class="page-box min-h-map">
-        <site-search term="{{ $term }}"></site-search>
+        <search-page term="{{ $term }}"></search-page>
     </div>
 @endsection

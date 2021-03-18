@@ -3,7 +3,7 @@
         <h2 class="text-2xl font-semibold">Average Rating</h2>
 
         <div v-if="ratings.length > 0">
-            <stars :stars="average"></stars>
+            <global-ui-stars :stars="average"></global-ui-stars>
             Average rating of <strong>{{ average }}</strong> from {{ ratings.length }} Reviews<br />
             <a class="font-semibold text-blue transition-color hover:text-grey" @click="showDetails = true">
                 View Comments and Ratings
@@ -43,7 +43,7 @@
                         <template v-if="!rating.body">
                             <div class="font-semibold mb-2 text-center">
                                 {{ formatDate(rating.created_at) }}
-                                <stars :stars="rating.rating.toString()"></stars>
+                                <global-ui-stars :stars="rating.rating.toString()"></global-ui-stars>
                             </div>
                             <div class="mt-1">
                                 <em>Reviewer didn't leave a comment...</em>
@@ -52,7 +52,7 @@
                         <template v-else>
                             <div class="font-semibold mb-2 text-center">
                                 {{ rating.name }}, {{ formatDate(rating.created_at) }}
-                                <stars :stars="rating.rating.toString()"></stars>
+                                <global-ui-stars :stars="rating.rating.toString()"></global-ui-stars>
                             </div>
                             <div class="mt-1">
                                 {{ rating.body }}

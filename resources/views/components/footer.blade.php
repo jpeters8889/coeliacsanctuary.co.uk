@@ -6,7 +6,7 @@
             <global-layout-footer-newsletter></global-layout-footer-newsletter>
         </div>
 
-        <google-ad code="3102132022"></google-ad>
+        <global-ui-google-ad code="3102132022"></global-ui-google-ad>
 
         <div class="mt-6 flex flex-col justify-center items-center sm:flex-row sm:items-start lg:mt-10">
             <div class="flex flex-col sm:w-1/2 sm:mr-3 lg:w-3/5">

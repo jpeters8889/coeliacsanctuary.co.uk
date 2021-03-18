@@ -17,7 +17,7 @@
                     </p>
                 </div>
 
-                <wheretoeat-list search-term="{{ $search->term }}" search-range="{{ $search->range }}">
+                <wheretoeat-page-list search-term="{{ $search->term }}" search-range="{{ $search->range }}">
                     <template v-slot:intro>
                         <p class="mb-4">
                             Here are your search term for places within <strong>{{ $search->range }} miles</strong> of
@@ -27,7 +27,7 @@
                             You can use the tabs above to filter the results to find the type of places you want.
                         </p>
                     </template>
-                </wheretoeat-list>
+                </wheretoeat-page-list>
 
                 <div class="flex flex-col bg-blue-light-50 border text-sm border-blue p-2">
                     <p>
@@ -49,12 +49,12 @@
                     Go</strong> App to help you easily find places near you to eat Gluten Free!
             </p>
 
-            <link-button title="Coeliac Sanctuary - On the Go App"
+            <global-ui-link-button title="Coeliac Sanctuary - On the Go App"
                          class="px-4 py-2 rounded-lg font-semibold my-2"
                          href="/wheretoeat/coeliac-sanctuary-on-the-go"
             >
                 Find out more...
-            </link-button>
+            </global-ui-link-button>
         </div>
     </div>
 @endsection
@@ -62,14 +62,14 @@
 @section('secondary-column')
     <div class="flex flex-col">
         <<x-widget class="mb-3" title="Search Places">
-            <widget-wheretoeat-search />
+            <search-ui-wheretoeat-widget />
         </x-widget>
 
         <x-widget class="mb-3" title="Sign up to our newsletter">
-            <widget-newsletter-signup/>
+            <global-ui-newsletter-signup/>
         </x-widget>
 
-        <google-ad code="7266831645"></google-ad>
+        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
 
         @include('components.related-item', [$title = 'Recent Reviews', $related])
     </div>

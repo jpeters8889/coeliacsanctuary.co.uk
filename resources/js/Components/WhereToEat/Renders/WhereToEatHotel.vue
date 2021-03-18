@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="mt-2 sm:w-1/2">
-                    <static-map :lat="place.lat" :lng="place.lng"></static-map>
+                    <map-static :lat="place.lat" :lng="place.lng"></map-static>
                 </div>
             </div>
             <div class="w-full flex flex-col sm:flex-row">
