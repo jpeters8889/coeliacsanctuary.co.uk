@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature;
+namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
 use Tests\TestCase;
 use Tests\Traits\CreatesWhereToEat;
@@ -37,7 +37,7 @@ class WhereToEatingRatingsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_create_ratings()
+    public function itCanCreateRatings()
     {
         $this->withoutExceptionHandling();
         $this->makeRequest()->assertStatus(200)->content();
@@ -46,7 +46,7 @@ class WhereToEatingRatingsTest extends TestCase
     }
 
     /** @test */
-    public function it_is_not_approved_by_default()
+    public function itIsNotApprovedByDefault()
     {
         $this->makeRequest();
 
@@ -54,7 +54,7 @@ class WhereToEatingRatingsTest extends TestCase
     }
 
     /** @test */
-    public function it_will_only_allow_one_rating_per_ip_address()
+    public function itWillOnlyAllowOneRatingPerIpAddress()
     {
         $this->makeRequest()->assertStatus(200);
 
@@ -67,7 +67,7 @@ class WhereToEatingRatingsTest extends TestCase
     }
 
     /** @test */
-    public function it_approves_empty_ratings()
+    public function itApprovesEmptyRatings()
     {
         $this->makeRequest(['name' => null, 'email' => null, 'comment' => null])
             ->assertStatus(200);
@@ -77,7 +77,7 @@ class WhereToEatingRatingsTest extends TestCase
     }
 
     /** @test */
-    public function it_errors_without_a_rating()
+    public function itErrorsWithoutARating()
     {
         $this->makeRequest(['rating' => null])->assertStatus(422);
 
@@ -85,7 +85,7 @@ class WhereToEatingRatingsTest extends TestCase
     }
 
     /** @test */
-    public function it_errors_with_an_invalid_rating()
+    public function itErrorsWithAnInvalidRating()
     {
         $this->makeRequest(['rating' => 'foo'])->assertStatus(422);
 
@@ -93,7 +93,7 @@ class WhereToEatingRatingsTest extends TestCase
     }
 
     /** @test */
-    public function it_errors_with_a_rating_that_is_lower_than_1()
+    public function itErrorsWithARatingThatIsLowerThan1()
     {
         $this->makeRequest(['rating' => 0])->assertStatus(422);
 
@@ -105,7 +105,7 @@ class WhereToEatingRatingsTest extends TestCase
     }
 
     /** @test */
-    public function it_errors_with_a_rating_that_is_greater_than_5()
+    public function itErrorsWithARatingThatIsGreaterThan5()
     {
         $this->makeRequest(['rating' => 6])->assertStatus(422);
 
@@ -113,7 +113,7 @@ class WhereToEatingRatingsTest extends TestCase
     }
 
     /** @test */
-    public function it_errors_without_a_name()
+    public function itErrorsWithoutAName()
     {
         $this->makeRequest(['name' => null])->assertStatus(422);
 
@@ -121,7 +121,7 @@ class WhereToEatingRatingsTest extends TestCase
     }
 
     /** @test */
-    public function it_errors_without_a_email()
+    public function itErrorsWithoutAEmail()
     {
         $this->makeRequest(['email' => null])->assertStatus(422);
 
@@ -129,7 +129,7 @@ class WhereToEatingRatingsTest extends TestCase
     }
 
     /** @test */
-    public function it_errors_with_an_invalid_email()
+    public function itErrorsWithAnInvalidEmail()
     {
         $this->makeRequest(['email' => 'foo'])->assertStatus(422);
 
@@ -137,7 +137,7 @@ class WhereToEatingRatingsTest extends TestCase
     }
 
     /** @test */
-    public function it_errors_without_a_comment()
+    public function itErrorsWithoutAComment()
     {
         $this->makeRequest(['comment' => null])->assertStatus(422);
 
