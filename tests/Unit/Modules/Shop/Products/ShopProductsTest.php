@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit;
+namespace Tests\Unit\Modules\Shop\Products;
 
 use Tests\TestCase;
 use Tests\Traits\HasImages;
@@ -22,7 +22,7 @@ class ShopProductsTest extends TestCase
     use HasImages;
 
     /** @test */
-    public function it_has_a_category()
+    public function itHasACategory()
     {
         /**
          * @var ShopCategory
@@ -39,7 +39,7 @@ class ShopProductsTest extends TestCase
     }
 
     /** @test */
-    public function it_can_belong_to_many_categories()
+    public function itCanBelongToManyCategories()
     {
         /**
          * @var ShopCategory
@@ -62,7 +62,7 @@ class ShopProductsTest extends TestCase
     }
 
     /** @test */
-    public function it_has_a_shipping_method()
+    public function itHasAShippingMethod()
     {
         /**
          * @var ShopProduct
@@ -73,7 +73,7 @@ class ShopProductsTest extends TestCase
     }
 
     /** @test */
-    public function it_has_a_variant()
+    public function itHasAVariant()
     {
         /**
          * @var ShopProduct
@@ -87,7 +87,7 @@ class ShopProductsTest extends TestCase
     }
 
     /** @test */
-    public function it_has_many_variants()
+    public function itHasManyVariants()
     {
         /**
          * @var ShopProduct
@@ -102,7 +102,7 @@ class ShopProductsTest extends TestCase
     }
 
     /** @test */
-    public function it_has_an_image()
+    public function itHasAnImage()
     {
         /** @var ShopProduct $product */
         $product = $this->createProduct();
