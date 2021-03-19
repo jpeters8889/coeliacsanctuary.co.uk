@@ -31,6 +31,16 @@ trait DisplaysImages
                 ->image_url ?? null;
     }
 
+    public function getMainImageRawAttribute()
+    {
+        return $this->images
+                ->whereIn('image_category_id', [Image::IMAGE_CATEGORY_HEADER, Image::IMAGE_CATEGORY_SQUARE])
+                ->sortBy('image_category_id')
+                ->first()
+                ->image
+                ->raw_url ?? null;
+    }
+
     public function getSocialImageAttribute()
     {
         return $this->images
@@ -45,5 +55,13 @@ trait DisplaysImages
                 ->firstWhere('image_category_id', Image::IMAGE_CATEGORY_SQUARE)
                 ->image
                 ->image_url ?? null;
+    }
+
+    public function getSquareImageRawAttribute()
+    {
+        return $this->images
+                ->firstWhere('image_category_id', Image::IMAGE_CATEGORY_SQUARE)
+                ->image
+                ->raw_url ?? null;
     }
 }

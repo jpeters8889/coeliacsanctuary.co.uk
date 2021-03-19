@@ -88,7 +88,7 @@
                 <mj-section>
                     @foreach($recipes as $recipe)
                         <mj-column padding="3px">
-                            <mj-image padding-bottom="10px" src="{{ $recipe->square_image ?: $recipe->main_image }}"/>
+                            <mj-image padding-bottom="10px" src="{{ $recipe->square_image_raw ?: $recipe->main_image_raw }}"/>
                             <mj-text css-class="blue-links" padding-bottom="10px">
                                 <a href="{{ config('app.url').'/recipe/'.$recipe->slug }}">
                                     <h3>{{ $recipe->title }}</h3>
@@ -126,7 +126,7 @@
                 <mj-section>
                     @foreach($blogs as $blog)
                         <mj-column padding="3px">
-                            <mj-image padding-bottom="10px" src="{{ $blog->main_image }}"/>
+                            <mj-image padding-bottom="10px" src="{{ $blog->main_image_raw }}"/>
                             <mj-text css-class="blue-links" padding-bottom="10px">
                                 <a href="{{ config('app.url').'/blog/'.$blog->slug }}">
                                     <h3>{{ $blog->title }}</h3>
@@ -139,7 +139,7 @@
                 <mj-section>
                     @foreach($reviews as $review)
                         <mj-column padding="3px">
-                            <mj-image padding-bottom="10px" src="{{ $review->main_image }}"/>
+                            <mj-image padding-bottom="10px" src="{{ $review->main_image_raw }}"/>
                             <mj-text css-class="blue-links" padding-bottom="10px">
                                 <a href="{{ config('app.url').'/review/'.$review->slug }}">
                                     <h3>
