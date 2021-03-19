@@ -37,7 +37,7 @@ class CommentsApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_deletes_comments()
+    public function itDeletesComments()
     {
         $this->delete('/cs-adm/api/external/coeliac-comments/delete/'.$this->comment->id)->assertStatus(200);
 
@@ -45,7 +45,7 @@ class CommentsApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_can_approve_comments()
+    public function itCanApproveComments()
     {
         Notification::fake();
 
@@ -71,7 +71,7 @@ class CommentsApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_can_reply_to_comments()
+    public function itCanReplyToComments()
     {
         Notification::fake();
 

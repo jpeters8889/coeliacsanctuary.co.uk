@@ -23,7 +23,7 @@ class ImageManagerApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_uploads_an_image()
+    public function itUploadsAnImage()
     {
         $image = UploadedFile::fake()->image('_test_image.png');
 

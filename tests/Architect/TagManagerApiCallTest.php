@@ -28,7 +28,7 @@ class TagManagerApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_looks_up_values()
+    public function itLooksUpValues()
     {
         $request = $this->post('/cs-adm/api/external/tag-manager/search', [
             'tagSource' => 'blogTags',

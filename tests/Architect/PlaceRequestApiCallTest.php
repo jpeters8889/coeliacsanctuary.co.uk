@@ -27,7 +27,7 @@ class PlaceRequestApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_can_be_deleted()
+    public function itCanBeDeleted()
     {
         $this->delete('/cs-adm/api/external/coeliac-place-request/delete/'.$this->placeRequest->id);
 
@@ -35,7 +35,7 @@ class PlaceRequestApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_can_be_approved()
+    public function itCanBeApproved()
     {
         $this->assertEquals(0, $this->placeRequest->completed);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Architect\Plans\CompetitionEntries;
 
 use JPeters\Architect\Architect;

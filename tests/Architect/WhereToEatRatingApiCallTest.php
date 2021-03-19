@@ -34,7 +34,7 @@ class WhereToEatRatingApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_deletes_ratings()
+    public function itDeletesRatings()
     {
         $this->delete('/cs-adm/api/external/coeliac-wte-ratings/delete/'.$this->rating->id)->assertStatus(200);
 
@@ -42,7 +42,7 @@ class WhereToEatRatingApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_can_approve_comments()
+    public function itCanApproveComments()
     {
         Notification::fake();
 

@@ -22,7 +22,7 @@ class AddressLookupApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_looksup_an_address()
+    public function itLooksupAnAddress()
     {
         $this->post('/cs-adm/api/external/coeliac-address-lookup/lookup', [
            'address' => 'Kings Cross Station, London',
