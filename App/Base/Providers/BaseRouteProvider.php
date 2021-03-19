@@ -34,9 +34,8 @@ abstract class BaseRouteProvider extends BaseRouteServiceProvider
 
         foreach ($this->maps as $map) {
             $router->middleware('web')
-                ->namespace($this->namespace)
                 ->group(function () use ($router, $map) {
-                    require base_path($this->path.$map.'.php');
+                    return require base_path($this->path.$map.'.php');
                 });
         }
     }

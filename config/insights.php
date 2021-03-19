@@ -6,9 +6,11 @@ use ObjectCalisthenics\Sniffs\Files\FunctionLengthSniff;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenTraits;
 use ObjectCalisthenics\Sniffs\Metrics\MaxNestingLevelSniff;
 use NunoMaduro\PhpInsights\Domain\Sniffs\ForbiddenSetterSniff;
+use ObjectCalisthenics\Sniffs\NamingConventions\ElementNameMinimalLengthSniff;
 use ObjectCalisthenics\Sniffs\NamingConventions\NoSetterSniff;
 use NunoMaduro\PhpInsights\Domain\Metrics\Architecture\Classes;
 use ObjectCalisthenics\Sniffs\Metrics\MethodPerClassLimitSniff;
+use PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer;
 use SlevomatCodingStandard\Sniffs\Commenting\EmptyCommentSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenFinalClasses;
@@ -96,7 +98,8 @@ return [
         ReturnTypeHintSniff::class,
         DisallowEmptySniff::class,
         SuperfluousAbstractClassNamingSniff::class,
-        \PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer::class,
+        NoEmptyCommentFixer::class,
+        ElementNameMinimalLengthSniff::class,
     ],
 
     'config' => [

@@ -39,8 +39,7 @@ class PostcodeLookupMock implements Service
     private function getAddress($postcode): array
     {
         switch ($postcode) {
-            case
-            's653lh':
+            case 's653lh':
                 return [
                     '2 Fretwell Road, East Herringthorpe, , , , Rotherham, South Yorkshire',
                     '20 Fretwell Road, East Herringthorpe, , , , Rotherham, South Yorkshire',

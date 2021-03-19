@@ -108,7 +108,7 @@ class ShopDispatchSlipApiCallTest extends TestCase
 //    }
 
     /** @test */
-    public function it_marks_the_order_as_printed()
+    public function itMarksTheOrderAsPrinted()
     {
         $this->assertNotEquals(ShopOrderState::STATE_PRINTED, $this->order->state_id);
 

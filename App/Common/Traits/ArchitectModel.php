@@ -102,11 +102,6 @@ trait ArchitectModel
         }
     }
 
-    /**
-     * @param BaseModel $model
-     *
-     * @return string
-     */
     protected static function imageCacheKey(BaseModel $model): string
     {
         return "{$model->getTable()}-{$model->id}-images-saved";

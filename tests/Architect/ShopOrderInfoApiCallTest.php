@@ -102,7 +102,7 @@ class ShopOrderInfoApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_a_succesful_response()
+    public function itReturnsASuccesfulResponse()
     {
         $this->request->assertStatus(200);
     }
@@ -111,7 +111,7 @@ class ShopOrderInfoApiCallTest extends TestCase
      * @test
      * @dataProvider coreArrayKeys
      */
-    public function it_has_all_required_top_level_keys($key)
+    public function itHasAllRequiredTopLevelKeys($key)
     {
         $this->assertArrayHasKey($key, $this->request->json());
     }
@@ -125,7 +125,7 @@ class ShopOrderInfoApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_the_items_as_an_aray()
+    public function itReturnsTheItemsAsAnAray()
     {
         $this->assertIsArray($this->request->json('items'));
     }
@@ -134,7 +134,7 @@ class ShopOrderInfoApiCallTest extends TestCase
      * @test
      * @dataProvider itemKeys
      */
-    public function it_returns_the_required_items_keys($key)
+    public function itReturnsTheRequiredItemsKeys($key)
     {
         $this->assertArrayHasKey($key, $this->request->json('items.0'));
     }
@@ -148,7 +148,7 @@ class ShopOrderInfoApiCallTest extends TestCase
      * @test
      * @dataProvider userKeys
      */
-    public function it_returns_the_required_user_keys($key)
+    public function itReturnsTheRequiredUserKeys($key)
     {
         $this->assertArrayHasKey($key, $this->request->json('user'));
     }
@@ -162,7 +162,7 @@ class ShopOrderInfoApiCallTest extends TestCase
      * @test
      * @dataProvider addressKeys
      */
-    public function it_returns_the_required_address_keys($key)
+    public function itReturnsTheRequiredAddressKeys($key)
     {
         $this->assertArrayHasKey($key, $this->request->json('address'));
     }
@@ -176,7 +176,7 @@ class ShopOrderInfoApiCallTest extends TestCase
      * @test
      * @dataProvider paymentKeys
      */
-    public function it_returns_the_required_payment_keys($key)
+    public function itReturnsTheRequiredPaymentKeys($key)
     {
         $this->assertArrayHasKey($key, $this->request->json('payment'));
     }
@@ -187,7 +187,7 @@ class ShopOrderInfoApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_the_payment_type()
+    public function itReturnsThePaymentType()
     {
         $this->assertArrayHasKey('type', $this->request->json('payment.type'));
     }

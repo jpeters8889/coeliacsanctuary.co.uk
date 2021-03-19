@@ -49,7 +49,7 @@ class ImageManagerPlanTest extends PlanTestCase
     }
 
     /** @test */
-    public function it_gets_the_current_value()
+    public function itGetsTheCurrentValue()
     {
         $blog = Blog::query()->create(['title' => 'foo', 'slug' => 'foo', 'body' => 'foo']);
 
@@ -105,7 +105,7 @@ class ImageManagerPlanTest extends PlanTestCase
     }
 
     /** @test */
-    public function it_uploads_social_images()
+    public function itUploadsSocialImages()
     {
         Storage::fake();
 
@@ -127,7 +127,7 @@ class ImageManagerPlanTest extends PlanTestCase
     }
 
     /** @test */
-    public function it_uploads_header_images()
+    public function itUploadsHeaderImages()
     {
         Storage::fake();
 
@@ -149,7 +149,7 @@ class ImageManagerPlanTest extends PlanTestCase
     }
 
     /** @test */
-    public function it_uploads_square_images()
+    public function itUploadsSquareImages()
     {
         Storage::fake();
 
@@ -171,7 +171,7 @@ class ImageManagerPlanTest extends PlanTestCase
     }
 
     /** @test */
-    public function it_contains_the_meta_information()
+    public function itContainsTheMetaInformation()
     {
         $this->assertArrayHasKey('buttons', $this->plan->getMetas());
         $this->assertArrayHasKey('insertImageIntoField', $this->plan->getMetas());
@@ -182,7 +182,7 @@ class ImageManagerPlanTest extends PlanTestCase
     }
 
     /** @test */
-    public function insert_into_field_can_be_configured()
+    public function insertIntoFieldCanBeConfigured()
     {
         $this->assertNull($this->plan->getMetas()['insertImageIntoField']);
 
@@ -195,7 +195,7 @@ class ImageManagerPlanTest extends PlanTestCase
      * @test
      * @dataProvider buttonDataSet
      */
-    public function it_lets_social_image_uploads_be_configured($button, $method)
+    public function itLetsSocialImageUploadsBeConfigured($button, $method)
     {
         $this->assertTrue($this->plan->getMetas()['buttons'][$button]);
 

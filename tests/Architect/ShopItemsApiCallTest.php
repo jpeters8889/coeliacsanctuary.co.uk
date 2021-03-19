@@ -51,19 +51,19 @@ class ShopItemsApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_a_succesful_response()
+    public function itReturnsASuccesfulResponse()
     {
         $this->makeRequest()->assertStatus(200);
     }
 
     /** @test */
-    public function it_returns_an_empty_array_when_theres_no_items()
+    public function itReturnsAnEmptyArrayWhenTheresNoItems()
     {
         $this->makeRequest()->assertJson([]);
     }
 
     /** @test */
-    public function it_returns_an_items_details()
+    public function itReturnsAnItemsDetails()
     {
         $this->addItem();
 

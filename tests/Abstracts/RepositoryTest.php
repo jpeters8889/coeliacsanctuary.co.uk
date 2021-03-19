@@ -40,32 +40,32 @@ abstract class RepositoryTest extends TestCase
     }
 
     /** @test */
-    public function it_gets_a_single_value()
+    public function itGetsASingleValue()
     {
         $this->assertInstanceOf($this->model(), $this->repository->get(1));
         $this->assertTrue($this->models[0]->is($this->repository->get(1)));
     }
 
     /** @test */
-    public function it_gets_a_total_number_of_rows()
+    public function itGetsATotalNumberOfRows()
     {
         $this->assertEquals(count($this->models), $this->repository->count());
     }
 
     /** @test */
-    public function it_returns_a_limited_subset_of_rows()
+    public function itReturnsALimitedSubsetOfRows()
     {
         $this->assertEquals(2, $this->repository->take(2)->count());
     }
 
     /** @test */
-    public function it_gets_all_records()
+    public function itGetsAllRecords()
     {
         $this->assertEquals(count($this->models), $this->repository->all()->count());
     }
 
     /** @test */
-    public function it_loads_a_paginated_list_of_resources()
+    public function itLoadsAPaginatedListOfResources()
     {
         $resources = $this->repository->paginated(2);
 
@@ -75,7 +75,7 @@ abstract class RepositoryTest extends TestCase
     }
 
     /** @test */
-    public function it_can_limit_the_columns()
+    public function itCanLimitTheColumns()
     {
         $model = $this->repository
             ->setColumns(['id'])
@@ -86,7 +86,7 @@ abstract class RepositoryTest extends TestCase
     }
 
     /** @test */
-    public function it_can_use_a_raw_query()
+    public function itCanUseARawQuery()
     {
         $model = $this->repository
             ->raw(function ($query) {

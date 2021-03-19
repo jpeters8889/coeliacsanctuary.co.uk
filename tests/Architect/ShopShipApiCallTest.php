@@ -100,7 +100,7 @@ class ShopShipApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_emits_an_order_shipped_event()
+    public function itEmitsAnOrderShippedEvent()
     {
         Event::fake([ShipOrder::class]);
 

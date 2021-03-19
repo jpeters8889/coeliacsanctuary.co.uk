@@ -100,7 +100,7 @@ class ShopCancelApiCallTest extends TestCase
     }
 
     /** @test */
-    public function it_emits_an_order_cancelled_event()
+    public function itEmitsAnOrderCancelledEvent()
     {
         Event::fake([CancelOrder::class]);
 

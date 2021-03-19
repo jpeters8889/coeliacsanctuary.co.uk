@@ -18,7 +18,7 @@ use Coeliac\Modules\Search\Service\Search as SearchService;
 
 class SearchController extends BaseController
 {
-    private array $models;
+    protected array $models;
 
     public function __construct()
     {

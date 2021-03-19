@@ -12,7 +12,7 @@ parameters:
     ignoreErrors:
         - '#Anonymous function has an unused use \$router.#'
 
-    excludes_analyse:
+    excludePaths:
         - ./*/*/*Blueprint.php
         - ./*/*/*Feed.php
 

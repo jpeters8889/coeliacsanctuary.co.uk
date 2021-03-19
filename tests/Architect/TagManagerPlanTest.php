@@ -44,7 +44,7 @@ class TagManagerPlanTest extends PlanTestCase
     }
 
     /** @test */
-    public function it_gets_the_current_value()
+    public function itGetsTheCurrentValue()
     {
         $blog = factory(Blog::class)->create();
 
@@ -61,13 +61,13 @@ class TagManagerPlanTest extends PlanTestCase
     }
 
     /** @test */
-    public function it_tag_source_is_listed_in_the_metas()
+    public function itTagSourceIsListedInTheMetas()
     {
         $this->assertArrayHasKey('tagSource', $this->plan->getMetas());
     }
 
     /** @test */
-    public function the_tag_source_can_be_specified()
+    public function theTagSourceCanBeSpecified()
     {
         $this->assertNull($this->plan->getMetas()['tagSource']);
 
