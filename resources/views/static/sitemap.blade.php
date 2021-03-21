@@ -52,7 +52,7 @@
 
     <!-- Shop -->
     <url>
-        <loc>https://www.coeliacsanctuary.co.uk/blog</loc>
+        <loc>https://www.coeliacsanctuary.co.uk/shop</loc>
         <changefreq>always</changefreq>
         <priority>0.95</priority>
     </url>
