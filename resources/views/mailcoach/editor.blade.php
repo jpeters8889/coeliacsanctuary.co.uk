@@ -109,7 +109,7 @@
             </button>
 
             <button
-                class="link-icon bg-blue-700 text-white p-3 rounded no-underline hover:bg-blue-800 transition-colors" click.prevent="save($event)">
+                class="link-icon bg-blue-700 text-white p-3 rounded no-underline hover:bg-blue-800 transition-colors" @click.prevent="save($event)">
                 <span class="icon-label">
                     <i class="fas fa-fw fa-code"></i>
 
