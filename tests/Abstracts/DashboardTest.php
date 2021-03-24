@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Abstracts;
 
 use Carbon\Carbon;
+use Tests\TestCase;
+use Illuminate\Testing\TestResponse;
 use Coeliac\Modules\Member\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Testing\TestResponse;
-use Tests\TestCase;
 
 abstract class DashboardTest extends TestCase
 {
@@ -35,22 +37,23 @@ abstract class DashboardTest extends TestCase
     }
 
     /** @test */
-    public function it_redirects_if_we_arent_signed_in()
+    public function itRedirectsIfWeArentSignedIn()
     {
         $this->get('/member/logout');
 
         $this->makeRequest()->assertRedirect('/member/login');
 
-        if($this->hasApiEndpoint()) {
+        if ($this->hasApiEndpoint()) {
             $this->makeApiRequest()->assertStatus(401);
         }
     }
 
     /** @test */
-    public function it_errors_if_the_users_email_isnt_verified()
+    public function itErrorsIfTheUsersEmailIsntVerified()
     {
         if (!$this->mustBeVerified()) {
             $this->assertTrue(true);
+
             return;
         }
 
@@ -58,7 +61,7 @@ abstract class DashboardTest extends TestCase
 
         $this->makeRequest()->assertSee('You need to verify your email address');
 
-        if($this->hasApiEndpoint()) {
+        if ($this->hasApiEndpoint()) {
             $this->makeApiRequest()->assertStatus(403);
         }
 
@@ -66,13 +69,12 @@ abstract class DashboardTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_ok_when_the_user_is_signed_in()
+    public function itReturnsOkWhenTheUserIsSignedIn()
     {
         $this->withoutExceptionHandling();
 
         $this->makeRequest()->assertOk();
     }
-
 
     protected function makeRequest(): TestResponse
     {

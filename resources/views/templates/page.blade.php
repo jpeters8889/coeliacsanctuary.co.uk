@@ -28,8 +28,8 @@
         </div>
     </header>
 
-    <breadcrumbs :crumbs='@json($breadcrumbs['crumbs'])'
-                 location="{{ $breadcrumbs['location'] }}" :scrapable="{{ isset($scrapable) ? json_encode($scrapable) : 'false' }}"></breadcrumbs>
+    <global-layout-breadcrumbs :crumbs='@json($breadcrumbs['crumbs'])'
+                 location="{{ $breadcrumbs['location'] }}" :scrapable="{{ isset($scrapable) ? json_encode($scrapable) : 'false' }}"></global-layout-breadcrumbs>
 
     @include('components.competition')
 

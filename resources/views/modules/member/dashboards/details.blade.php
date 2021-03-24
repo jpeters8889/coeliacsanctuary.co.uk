@@ -6,10 +6,10 @@
     </h1>
 
     <div>
-        <dashboard-user-details
+        <member-dashboard-modal-user-details
             name="{{ request()->user()->name }}"
             email="{{ request()->user()->email }}"
             phone="{{ request()->user()->phone }}"
-        ></dashboard-user-details>
+        ></member-dashboard-modal-user-details>
     </div>
 @endsection

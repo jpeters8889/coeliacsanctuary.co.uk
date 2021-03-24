@@ -3,8 +3,10 @@
         <div id="breadcrumb"
              class="my-2 border-grey-off border bg-grey-off-light p-2 leading-none"
              :class="sticky ? 'fixed top-50px slide-down w-full mt-1 z-20' : ''">
-            <div class="leading-none inner-wrapper flex flex-col sm:flex-row sm:items-center" :style="sticky ? 'max-width: 1500px;' : ''">
-                <div class="flex-1 flex-col flex justify-center flex-wrap mb-2 sm:flex-no-wrap sm:flex-row sm:items-center sm:justify-start sm:m-0 sm:pr-3">
+            <div class="leading-none inner-wrapper flex flex-col sm:flex-row sm:items-center"
+                 :style="sticky ? 'max-width: 1500px;' : ''">
+                <div
+                    class="flex-1 flex-col flex justify-center flex-wrap mb-2 sm:flex-no-wrap sm:flex-row sm:items-center sm:justify-start sm:m-0 sm:pr-3">
                     <div class="font-thin text-center sm:pr-1">
                         You're here:
                     </div>
@@ -24,7 +26,9 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center">
+                <div class="flex justify-center relative">
+                    <add-to-scrapbook v-if="scrapable" :area="scrapable.area" :id="scrapable.id"></add-to-scrapbook>
+
                     <div class="mr-2 text-3xl text-grey cursor-pointer hover:text-social-facebook transition-color"
                          @click.prevent="facebookShare()">
                         <font-awesome-icon :icon="['fab', 'facebook-square']"></font-awesome-icon>
@@ -53,9 +57,14 @@
 
 <script>
     import GoogleEvents from "@/Mixins/GoogleEvents";
+    const AddScrapbook = () => import('~/Global/UI/AddScrapbook' /* webpackChunkName: "chunk-add-scrapbook" */)
 
     export default {
         mixins: [GoogleEvents],
+
+        components: {
+            'add-to-scrapbook': AddScrapbook
+        },
 
         props: {
             location: {
@@ -65,6 +74,11 @@
             crumbs: {
                 required: true,
                 type: Array,
+            },
+            scrapable: {
+                required: false,
+                type: Boolean | Object,
+                default: false,
             }
         },
 

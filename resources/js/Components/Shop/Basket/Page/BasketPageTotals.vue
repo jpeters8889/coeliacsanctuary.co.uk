@@ -12,10 +12,14 @@
                 <td class="text-right" v-html="'-'+formatPrice(discount.deduction)"></td>
             </tr>
             <tr>
-                <td>
+                <td v-if="!disabledChange">
                     Postage to
-                    <form-select required name="country" :options="countries" :value="country.toString()"
-                                 padding="p-1"></form-select>
+                    <form-select v-if="!disabledChange" required name="country" :options="countries"
+                                 :value="country.toString()"
+                                 padding="p-1"/>
+                </td>
+                <td v-else>
+                    Postage
                 </td>
                 <td class="text-right" v-html="formatPrice(postage)"></td>
             </tr>
@@ -34,7 +38,8 @@
 
 <script>
     import FormatsPrices from "@/Mixins/FormatsPrices";
-        const FormSelect = () => import('~/Forms/Select' /* webpackChunkName: "chunk-form-select" */)
+
+    const FormSelect = () => import('~/Forms/Select' /* webpackChunkName: "chunk-form-select" */)
 
     export default {
         mixins: [FormatsPrices],
@@ -71,6 +76,7 @@
         data: () => ({
             countries: [],
             selectedCountry: [],
+            disabledChange: false,
         }),
 
         mounted() {
@@ -88,6 +94,22 @@
                     this.selectCountry(country);
                     sessionStorage.setItem('checkout-country', this.countries.find((thisCountry) => country === thisCountry.value).label);
                 }
+            });
+
+            this.$root.$on('select-country', (select) => {
+                const result = this.countries.find((country) => country.label === select);
+
+                if (result) {
+                    this.$root.$emit('country-change', (result.value));
+                }
+            });
+
+            this.$root.$on('disable-country-change', () => {
+                this.disabledChange = true;
+            });
+
+            this.$root.$on('enable-country-change', () => {
+                this.disabledChange = false;
             });
         },
 

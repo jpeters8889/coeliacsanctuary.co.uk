@@ -18,6 +18,6 @@
             button in the grey bar at the top of eligible pages.
         </p>
 
-        <dashboard-scrapbooks />
+        <member-dashboard-page-scrapbooks />
     </div>
 @endsection

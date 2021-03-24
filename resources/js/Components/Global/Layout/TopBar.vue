@@ -5,12 +5,15 @@
              :class="backgroundClasses"
              :style="stickyNav ? 'position: fixed!important;' : ''">
             <div class="flex justify-between items-center inner-wrapper md:relative py-2 md:py-0">
-                <global-layout-mobile-nav class="mr-2 md:hidden"></global-layout-mobile-nav>
+                <global-layout-mobile-nav class="mr-2 md:hidden"/>
                 <a href="/">
-                    <global-layout-coeliac-icon class="js-mob-icon text-white md:hidden" style="height: 1.875rem"></global-layout-coeliac-icon>
+                    <global-layout-coeliac-icon class="js-mob-icon text-white md:hidden" style="height: 1.875rem"/>
                 </a>
-                <coeliac-nav class="hidden md:block" v-if="width > 500"></coeliac-nav>
-                <search-ui-header class="h-full flex items-center md:absolute md:right-0 md:top-0 md:mr-2"></search-ui-header>
+                <coeliac-nav class="hidden md:block" v-if="width > 500"/>
+                <div class="flex md:absolute md:right-0 md:top-0 md:mr-2 leading-none h-full">
+                    <user-manager class="mr-2"/>
+                    <search-ui-header class="h-full flex items-center "/>
+                </div>
             </div>
         </div>
         <div id="top-bar-check"></div>
@@ -19,6 +22,7 @@
 
 <script>
     import CoeliacNav from "~/Global/Layout/CoeliacNav";
+    import UserManager from "~/Global/UI/UserManager";
 
     export default {
         props: {
@@ -35,6 +39,7 @@
 
         components: {
             'coeliac-nav': CoeliacNav,
+            'user-manager': UserManager,
         },
 
         mounted() {

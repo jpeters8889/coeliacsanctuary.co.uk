@@ -42,7 +42,7 @@
                 </div>
 
                 <div>
-                    <wheretoeat-notifications-daily-updates-subscribe :type-id="2" :updatable-id="{{ $id }}"
+                    <wheretoeat-ui-daily-update-subscribe :type-id="2" :updatable-id="{{ $id }}"
                                                                       friendly-name="{{ $county }}"/>
                 </div>
 

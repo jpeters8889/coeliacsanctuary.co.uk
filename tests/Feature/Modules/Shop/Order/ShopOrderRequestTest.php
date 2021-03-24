@@ -8,19 +8,19 @@ use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Support\Str;
 use Tests\Traits\HasImages;
-use Coeliac\Modules\Member\Models\User;
 use Coeliac\Common\Models\Image;
 use Tests\Traits\Shop\CreateProduct;
 use Tests\Traits\Shop\CreateVariant;
-use Coeliac\Modules\Member\Models\UserAddress;
 use Tests\Mocks\StripePaymentProvider;
 use Tests\Traits\Shop\MakesShopOrders;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Basket\Basket;
 use Tests\Traits\Shop\MakeOrderRequest;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Payment\Processor;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Illuminate\Foundation\Testing\WithFaker;
+use Coeliac\Modules\Member\Models\UserAddress;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Shop\Payment\Processors\Stripe;
@@ -351,7 +351,61 @@ class ShopOrderRequestTest extends TestCase
     }
 
     /** @test */
-    public function itUpdatesTheUserAddressIdField()
+    public function itDoesntNeedTheUserInfoIfAUserIsLoggedIn()
+    {
+        $this->mockPaymentProcessor();
+        $this->actingAs(factory(User::class)->create());
+
+        $token = Str::random(8);
+
+        ShopOrder::query()->create([
+            'token' => $token,
+        ]);
+
+        $this->withSession(['basket_token' => $token]);
+
+        $this->post('/api/shop/basket', [
+            'product_id' => $this->product->id,
+            'variant_id' => $this->product->variants()->first()->id,
+            'quantity' => 1,
+        ]);
+
+        $this->makeRequest(['user' => null])->assertOk();
+    }
+
+    /** @test */
+    public function itUsesTheCurrentLoggedInUser()
+    {
+        $this->mockPaymentProcessor();
+        $this->actingAs($user = factory(User::class)->create());
+
+        $this->assertCount(1, User::all());
+
+        $token = Str::random(8);
+
+        $order = ShopOrder::query()->create([
+            'token' => $token,
+        ]);
+
+        $this->assertNull($order->user_id);
+
+        $this->withSession(['basket_token' => $token]);
+
+        $this->post('/api/shop/basket', [
+            'product_id' => $this->product->id,
+            'variant_id' => $this->product->variants()->first()->id,
+            'quantity' => 1,
+        ]);
+
+        $this->makeRequest(['user' => null]);
+
+        $this->assertCount(1, User::all());
+
+        $this->assertEquals($user->id, $order->fresh()->user_id);
+    }
+
+    /** @test */
+    public function itUpdatesTheUserAddressIdFieldInTheOrder()
     {
         $this->mockPaymentProcessor();
 
@@ -462,6 +516,36 @@ class ShopOrderRequestTest extends TestCase
     }
 
     /** @test */
+    public function itCanUseAShippingAddressAlreadyStoredInTheDatabase()
+    {
+        $this->mockPaymentProcessor();
+        $this->actingAs($user = factory(User::class)->create());
+
+        $address = $user->addresses()->create(factory(UserAddress::class)->raw(['type' => 'Shipping']));
+
+        $this->assertCount(1, $user->addresses);
+
+        $token = Str::random(8);
+
+        $order = ShopOrder::query()->create([
+            'token' => $token,
+        ]);
+
+        $this->withSession(['basket_token' => $token]);
+
+        $this->post('/api/shop/basket', [
+            'product_id' => $this->product->id,
+            'variant_id' => $this->product->variants()->first()->id,
+            'quantity' => 1,
+        ]);
+
+        $this->makeRequest(['user' => null, 'shipping.id' => $address->id])->assertOk();
+
+        $this->assertCount(1, $user->addresses);
+        $this->assertEquals($user->addresses[0]->id, $order->fresh()->user_address_id);
+    }
+
+    /** @test */
     public function itCreatesABillingAddressIfOneDoesntExist()
     {
         $this->mockPaymentProcessor();
@@ -549,5 +633,35 @@ class ShopOrderRequestTest extends TestCase
         ]);
 
         $this->assertEquals(1, UserAddress::query()->where('type', 'Billing')->count());
+    }
+
+    /** @test */
+    public function itCanUseABillingAddressAlreadyStoredInTheDatabase()
+    {
+        $this->mockPaymentProcessor();
+        $this->actingAs($user = factory(User::class)->create());
+
+        $address = $user->addresses()->create(factory(UserAddress::class)->raw(['type' => 'Billing']));
+
+        $this->assertCount(1, $user->addresses);
+
+        $token = Str::random(8);
+
+        $order = ShopOrder::query()->create([
+            'token' => $token,
+        ]);
+
+        $this->withSession(['basket_token' => $token]);
+
+        $this->post('/api/shop/basket', [
+            'product_id' => $this->product->id,
+            'variant_id' => $this->product->variants()->first()->id,
+            'quantity' => 1,
+        ]);
+
+        $this->makeRequest(['user' => null, 'shipping.id' => $address->id, 'billing.id' => $address->id])->assertOk();
+
+        $this->assertCount(1, $user->addresses);
+        $this->assertEquals($user->addresses[0]->id, $order->fresh()->user_address_id);
     }
 }

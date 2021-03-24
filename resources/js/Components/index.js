@@ -1,6 +1,7 @@
 import '~/Contact';
 import '~/Global';
 import '~/Maps';
+import '~/Members';
 import '~/Modules';
 import '~/Pages';
 import '~/Search';

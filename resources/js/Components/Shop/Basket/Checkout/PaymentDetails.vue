@@ -12,39 +12,59 @@
             </div>
 
             <template v-if="formData.shippingAddress === '0'">
-                <div class="py-1">
-                    <form-input required placeholder="Billing Name"
-                                name="billingName" :value="formData.billingName"></form-input>
+                <div v-if="savedAddresses.length > 0">
+                    <p class="text-lg mb-3 font-semibold">Choose Saved Address</p>
+
+                    <div class="flex flex-col space-y-3">
+                        <div v-for="address in savedAddresses"
+                             @click="selectSavedAddress(address)"
+                             class="p-2 flex flex-col cursor-pointer transition-bg"
+                             :class="address.id === formData.id ?
+                        'bg-blue-light-20 border-yellow border-4 text-black' :
+                        'border text-black-50 bg-blue-light-50 border-white-80 hover:bg-blue-light-80 hover:border-white'"
+                        >
+                            <span class="font-semibold">{{ address.name }}</span>
+                            <span>{{ formatAddress(address) }}</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="py-1">
-                    <form-input required placeholder="Billing Address Line 1"
-                                name="billingAddress1" :value="formData.billingAddress1"></form-input>
-                </div>
+                <div v-if="formData.billingId === null">
+                    <p v-if="savedAddresses.length > 0" class="text-lg my-3 font-semibold">Or Add New Address</p>
+                    <div class="py-1">
+                        <form-input required placeholder="Billing Name"
+                                    name="billingName" :value="formData.billingName"></form-input>
+                    </div>
 
-                <div class="py-1">
-                    <form-input placeholder="Billing Address Line 2 (Optional)"
-                                name="billingAddress2" :value="formData.billingAddress2"></form-input>
-                </div>
+                    <div class="py-1">
+                        <form-input required placeholder="Billing Address Line 1"
+                                    name="billingAddress1" :value="formData.billingAddress1"></form-input>
+                    </div>
 
-                <div class="py-1">
-                    <form-input placeholder="Billing Address Line 3 (Optional)"
-                                name="billingAddress3" :value="formData.billingAddress3"></form-input>
-                </div>
+                    <div class="py-1">
+                        <form-input placeholder="Billing Address Line 2 (Optional)"
+                                    name="billingAddress2" :value="formData.billingAddress2"></form-input>
+                    </div>
 
-                <div class="py-1">
-                    <form-input required placeholder="Town/City"
-                                name="billingTown" :value="formData.billingTown"></form-input>
-                </div>
+                    <div class="py-1">
+                        <form-input placeholder="Billing Address Line 3 (Optional)"
+                                    name="billingAddress3" :value="formData.billingAddress3"></form-input>
+                    </div>
 
-                <div class="py-1">
-                    <form-input required placeholder="Billing Postcode"
-                                name="billingPostcode" :value="formData.billingPostcode"></form-input>
-                </div>
+                    <div class="py-1">
+                        <form-input required placeholder="Town/City"
+                                    name="billingTown" :value="formData.billingTown"></form-input>
+                    </div>
 
-                <div class="py-1">
-                    <form-input required placeholder="Billing Country"
-                                name="billingCountry" :value="formData.billingCountry"></form-input>
+                    <div class="py-1">
+                        <form-input required placeholder="Billing Postcode"
+                                    name="billingPostcode" :value="formData.billingPostcode"></form-input>
+                    </div>
+
+                    <div class="py-1">
+                        <form-input required placeholder="Billing Country"
+                                    name="billingCountry" :value="formData.billingCountry"></form-input>
+                    </div>
                 </div>
             </template>
 
@@ -61,9 +81,10 @@
 import CheckoutComponent from "@/Mixins/CheckoutComponent";
 import StripeCheckout from "~/Shop/Basket/Payment/StripeCheckout";
 import PayPalCheckout from "~/Shop/Basket/Payment/PayPalCheckout";
+import InteractsWithUser from "@/Mixins/InteractsWithUser";
 
 export default {
-    mixins: [CheckoutComponent],
+    mixins: [CheckoutComponent, InteractsWithUser],
 
     components: {
         'stripe-checkout': StripeCheckout,
@@ -80,6 +101,8 @@ export default {
             {value: '1', label: 'Same as Shipping Address'},
             {value: '0', label: 'Other'},
         ],
+
+        savedAddresses: [],
 
         formData: {
             provider: '',
@@ -108,6 +131,14 @@ export default {
     }),
 
     mounted() {
+        if(this.isLoggedIn() && this.userHasVerifiedEmail()) {
+            this.getUsersAddresses();
+
+            if (this.defaultData.id) {
+                this.formData.billingId = this.defaultData.billingId;
+            }
+        }
+
         this.$root.$emit('shippingAddress-set-value', ('1'));
 
         this.$root.$on('prepare-payment', () => {
@@ -127,6 +158,68 @@ export default {
     },
 
     methods: {
+        getUsersAddresses() {
+            this.savedAddresses = [];
+
+            coeliac().request().get('/api/member/addresses')
+                .then((response) => {
+                    this.savedAddresses = response.data.filter(address => address.type === 'Billing');
+                })
+                .catch(() => {
+                    //
+                });
+        },
+
+        formatAddress(address) {
+            return Array.from(['line_1', 'line_2', 'line_3', 'town', 'postcode', 'country'].map(key => address[key]))
+                .filter(value => value !== null && value !== '')
+                .join(', ');
+        },
+
+        selectSavedAddress(address) {
+            if (this.formData.billingId === address.id) {
+                this.formData.billingId = null;
+
+                this.formData.billingName = '';
+                this.formData.billingAddress1 = '';
+                this.formData.billingAddress2 = '';
+                this.formData.billingAddress3 = '';
+                this.formData.billingTown = '';
+                this.formData.billingPostcode = '';
+                this.formData.billingCountry = '';
+
+                this.updateSessionStorage();
+                return;
+            }
+
+            this.formData.billingId = address.id;
+            this.formData.billingName = address.name;
+            this.formData.billingAddress1 = address.line_1;
+            this.formData.billingAddress2 = address.line_2;
+            this.formData.billingAddress3 = address.line_3;
+            this.formData.billingTown = address.town;
+            this.formData.billingPostcode = address.postcode;
+            this.formData.billingCountry = address.country;
+
+            this.updateSessionStorage();
+        },
+
+        validateForm() {
+            if (this.formData.billingId) {
+                return true;
+            }
+
+            return CheckoutComponent.methods.validateForm.call(this);
+        },
+
+        updateSessionStorage() {
+            let current = JSON.parse(sessionStorage.getItem('checkout-data'));
+
+            current[2].data.id = this.formData.billingId;
+
+            sessionStorage.setItem('checkout-data', JSON.stringify(current));
+        },
+
         initiatePayment() {
             this.$root.$emit('full-page-load');
 
@@ -202,6 +295,16 @@ export default {
                 }
             });
         }
-    }
+    },
+
+    computed: {
+        isDisabled() {
+            if(this.formData.billingId) {
+                return false;
+            }
+
+            return Object.values(this.validity).includes(false);
+        },
+    },
 }
 </script>

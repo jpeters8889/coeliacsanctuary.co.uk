@@ -1,42 +1,71 @@
 <template>
-    <div class="flex flex-col leading-none">
-        <div class="py-1 flex relative">
-            <form-input class="flex-1" required placeholder="Postcode" name="postcode"
-                        :pattern="postcodePattern" pattern-error="Please enter a valid UK Postcode"
-                        :value="formData.postcode"></form-input>
-            <button class="py-2 px-4 text-sm rounded-lg font-semibold bg-yellow ml-2"
-                    v-if="canLookupPostcode()"
-                    @click="lookupPostcode()">
-                Search
-            </button>
-            <div v-if="canLookupPostcode() && displayLookup"
-                 class="absolute w-full bg-grey-lightest border border-grey shadow max-h-map scrollable"
-                 style="top: 100%">
-                <ul v-for="result in lookupResults">
-                    <li class="p-2 border-b border-grey cursor-pointer hover:bg-grey-off-light transition-bg"
-                        @click="selectLookupResult(result)">
-                        {{ result.friendly }}
-                    </li>
-                </ul>
+    <div class="flex flex-col">
+        <div v-if="savedAddresses.length > 0">
+            <p class="text-lg mb-3 font-semibold">Choose Saved Address</p>
+
+            <div class="flex flex-col space-y-3">
+                <div v-for="address in savedAddresses"
+                     @click="selectSavedAddress(address)"
+                     class="p-2 flex flex-col cursor-pointer transition-bg"
+                     :class="address.id === formData.id ?
+                        'bg-blue-light-20 border-yellow border-4 text-black' :
+                        'border text-black-50 bg-blue-light-50 border-white-80 hover:bg-blue-light-80 hover:border-white'"
+                >
+                    <span class="font-semibold">{{ address.name }}</span>
+                    <span>{{ formatAddress(address) }}</span>
+                </div>
             </div>
         </div>
 
-        <div class="py-1">
-            <form-input required placeholder="Address Line 1" name="address1" :value="formData.address1"></form-input>
-        </div>
+        <!-- Add New Address -->
+        <div class="flex flex-col leading-none" v-if="formData.id === null">
+            <p v-if="savedAddresses.length > 0" class="text-lg my-3 font-semibold">Or Add New Address</p>
 
-        <div class="py-1">
-            <form-input placeholder="Address Line 2 (Optional)" name="address2"
-                        :value="formData.address2"></form-input>
-        </div>
+            <div class="py-1 flex relative">
+                <form-input class="flex-1" required placeholder="Postcode" name="postcode"
+                            :pattern="postcodePattern" pattern-error="Please enter a valid UK Postcode"
+                            :disabled="!! formData.id"
+                            :value="formData.postcode"/>
+                <button class="py-2 px-4 text-sm rounded-lg font-semibold bg-yellow ml-2"
+                        v-if="canLookupPostcode()"
+                        :disabled="!! formData.id"
+                        @click="lookupPostcode()">
+                    Search
+                </button>
+                <div v-if="canLookupPostcode() && displayLookup"
+                     class="absolute w-full bg-grey-lightest border border-grey shadow max-h-map scrollable"
+                     style="top: 100%">
+                    <ul v-for="result in lookupResults">
+                        <li class="p-2 border-b border-grey cursor-pointer hover:bg-grey-off-light transition-bg"
+                            @click="selectLookupResult(result)">
+                            {{ result.friendly }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-        <div class="py-1">
-            <form-input placeholder="Address Line 3 (Optional)" name="address3"
-                        :value="formData.address3"></form-input>
-        </div>
+            <div class="py-1">
+                <form-input required placeholder="Address Line 1" name="address1"
+                            :value="formData.address1"
+                            :disabled="!! formData.id"/>
+            </div>
 
-        <div class="py-1">
-            <form-input required placeholder="Town/City" name="town" :value="formData.town"></form-input>
+            <div class="py-1">
+                <form-input placeholder="Address Line 2 (Optional)" name="address2"
+                            :value="formData.address2"
+                            :disabled="!! formData.id"/>
+            </div>
+
+            <div class="py-1">
+                <form-input placeholder="Address Line 3 (Optional)" name="address3"
+                            :value="formData.address3"
+                            :disabled="!! formData.id"/>
+            </div>
+
+            <div class="py-1">
+                <form-input required placeholder="Town/City" name="town" :value="formData.town"
+                            :disabled="!! formData.id"/>
+            </div>
         </div>
 
         <div class="py-1 flex justify-between">
@@ -55,11 +84,14 @@
 
 <script>
     import CheckoutComponent from "@/Mixins/CheckoutComponent";
+    import InteractsWithUser from "@/Mixins/InteractsWithUser";
 
     export default {
-        mixins: [CheckoutComponent],
+        mixins: [CheckoutComponent, InteractsWithUser],
 
         data: () => ({
+            savedAddresses: [],
+
             displayLookup: false,
             lookupResults: [],
 
@@ -80,7 +112,81 @@
             }
         }),
 
+        mounted() {
+            if (this.isLoggedIn() && this.userHasVerifiedEmail()) {
+                this.getUsersAddresses();
+
+                if (this.defaultData.id) {
+                    this.$root.$emit('disable-country-change');
+                    this.formData.id = this.defaultData.id;
+                }
+            }
+        },
+
         methods: {
+            getUsersAddresses() {
+                this.savedAddresses = [];
+
+                coeliac().request().get('/api/member/addresses')
+                    .then((response) => {
+                        this.savedAddresses = response.data.filter(address => address.type === 'Shipping');
+                    })
+                    .catch(() => {
+                        //
+                    });
+            },
+
+            formatAddress(address) {
+                return Array.from(['line_1', 'line_2', 'line_3', 'town', 'postcode', 'country'].map(key => address[key]))
+                    .filter(value => value !== null && value !== '')
+                    .join(', ');
+            },
+
+            validateForm() {
+                if (this.formData.id) {
+                    return true;
+                }
+
+                return CheckoutComponent.methods.validateForm.call(this);
+            },
+
+            selectSavedAddress(address) {
+                if (this.formData.id === address.id) {
+                    this.$root.$emit('enable-country-change');
+                    this.formData.id = null;
+
+                    this.formData.address1 = '';
+                    this.formData.address2 = '';
+                    this.formData.address3 = '';
+                    this.formData.town = '';
+                    this.formData.postcode = '';
+
+                    this.updateSessionStorage();
+                    return;
+                }
+
+                this.formData.address1 = address.line_1;
+                this.formData.address2 = address.line_2;
+                this.formData.address3 = address.line_3;
+                this.formData.town = address.town;
+                this.formData.postcode = address.postcode;
+
+                this.$root.$emit('set-customer-name', (address.name));
+                this.$root.$emit('disable-country-change');
+                this.formData.id = address.id;
+                this.$root.$emit('select-country', (address.country));
+
+                this.updateSessionStorage();
+            },
+
+            updateSessionStorage() {
+                let current = JSON.parse(sessionStorage.getItem('checkout-data'));
+
+                current[1].data.id = this.formData.id;
+
+                sessionStorage.setItem('checkout-data', JSON.stringify(current));
+            },
+
             lookupPostcode() {
                 if(!this.validity.postcode) {
                     coeliac().error('Please enter a valid UK Postcode or change the delivery country above!');
@@ -125,6 +231,14 @@
         },
 
         computed: {
+            isDisabled() {
+                if(this.formData.id) {
+                    return false;
+                }
+
+                return Object.values(this.validity).includes(false);
+            },
+
             postcodePattern() {
                 if(!this.canLookupPostcode()) {
                     return /.*/;

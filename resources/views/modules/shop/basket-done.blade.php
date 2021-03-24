@@ -60,7 +60,7 @@
             <div class="flex flex-col lg:flex-row">
 
                 @if(\Illuminate\Support\Facades\Auth::guest() && $order->user->user_level_id === \Coeliac\Modules\Member\Models\UserLevel::SHOP)
-                <order-complete-create-account name="{{ $order->user->name }}" email="{{ $order->user->email }}"></order-complete-create-account>
+                <member-register-order-complete-cta name="{{ $order->user->name }}" email="{{ $order->user->email }}"></member-register-order-complete-cta>
                 @endif
 
                 <div class="text-center lg:flex-1 lg:text-left">
@@ -166,7 +166,7 @@
 
 @section('footerJavascript')
     <script type="text/javascript">
-        import OrderCompleteCreateAccount from "../../../js/Components/OrderCompleteCreateAccount";
+        import OrderCompleteCreateAccount from "~/Members/Register/OrderCompleteCta";
         window.gtag('event', 'purchase', @json($gtagData));
         export default {
             components: {OrderCompleteCreateAccount}

@@ -18,6 +18,6 @@
                 class="font-semibold hover:text-blue-dark" href="/wheretoeat">Eating Out guide</a>.
         </p>
 
-        <dashboard-daily-updates/>
+        <member-dashboard-page-daily-updates />
     </div>
 @endsection

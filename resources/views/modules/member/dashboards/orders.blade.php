@@ -7,7 +7,7 @@
 
     @if($user->hasVerifiedEmail())
         <div>
-            <dashboard-recent-orders></dashboard-recent-orders>
+            <member-dashboard-page-recent-orders></member-dashboard-page-recent-orders>
         </div>
     @else
         <div>
