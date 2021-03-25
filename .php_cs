@@ -3,7 +3,7 @@
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setFinder(PhpCsFixer\Finder::create()
-        ->exclude('tests')
+        ->exclude('tests\Architect')
         ->in(__DIR__))
     ->setRules([
         '@Symfony' => true,

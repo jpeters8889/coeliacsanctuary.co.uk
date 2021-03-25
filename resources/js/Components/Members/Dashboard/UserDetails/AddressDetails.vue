@@ -209,8 +209,6 @@ export default {
 
             Object.keys(this.validity).forEach((field) => {
                 if (this.validity[field] === false) {
-                    console.log('not valid');
-                    console.log(field);
                     isValid = false;
                 }
             });
