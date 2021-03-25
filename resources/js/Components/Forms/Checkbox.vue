@@ -13,41 +13,41 @@
 </template>
 
 <script>
-    import IsFormField from "@/Mixins/IsFormField";
+import IsFormField from "@/Mixins/IsFormField";
 
-    export default {
-        mixins: [IsFormField],
+export default {
+    mixins: [IsFormField],
 
-        props: {
-            value: {
-                required: true,
-                type: Boolean,
-            },
-            label: {
-                required: true,
-                type: String,
-            },
-            inputSize: {
-                default: 'text-xl',
-                type: String,
-            },
+    props: {
+        value: {
+            required: true,
+            type: Boolean,
         },
+        label: {
+            required: true,
+            type: String,
+        },
+        inputSize: {
+            default: 'text-xl',
+            type: String,
+        },
+    },
 
-        methods: {
-            select() {
-                this.currentValue = !this.currentValue;
-                this.validate()
-            }
+    methods: {
+        select() {
+            this.currentValue = !this.currentValue;
+            this.validate()
         }
     }
+}
 </script>
 
 <style>
-    input:focus {
-        outline: none;
-    }
+input:focus {
+    outline: none;
+}
 
-    input:-webkit-autofill {
-        background: none;
-    }
+input:-webkit-autofill {
+    background: none;
+}
 </style>

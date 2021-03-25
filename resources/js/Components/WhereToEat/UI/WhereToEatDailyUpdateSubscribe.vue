@@ -16,7 +16,8 @@
 
         <portal to="modal" v-if="showUserCta">
             <modal small name="userCta" modal-classes="text-center text-lg">
-                <p>You must be signed in get notifications when places are added to <strong>{{ friendlyName }}</strong>!</p>
+                <p>You must be signed in get notifications when places are added to <strong>{{ friendlyName }}</strong>!
+                </p>
                 <p>
                     <a href="/member/register" class="font-semibold hover:text-blue-dark cursor-pointer">Create an
                         account</a>

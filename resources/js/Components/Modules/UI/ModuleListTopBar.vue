@@ -53,7 +53,7 @@ import VTooltip from "v-tooltip";
 Vue.use(VTooltip);
 
 export default {
-     data: () => ({
+    data: () => ({
         layout: 'tiles',
         searchText: '',
         searchTimeout: null,

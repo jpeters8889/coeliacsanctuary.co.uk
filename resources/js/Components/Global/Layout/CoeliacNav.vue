@@ -16,12 +16,13 @@
                                     :class="index < 2 ? 'border-b border-yellow' : ''">
                                     <a :href="child.link" class="flex">
                                         <div class="w-1/4 mr-1 lg:w-1/6">
-                                            <img :data-src="child.main_image" :src="lazyLoadSrc" loading="lazy" class="lazy"
+                                            <img :data-src="child.main_image" :src="lazyLoadSrc" loading="lazy"
+                                                 class="lazy"
                                                  :alt="child.title">
                                         </div>
                                         <div class="leading-none flex-1">
                                             <h3 class="mb-1 font-medium">{{ child.title }}</h3>
-                                            <p class="text-sm">{{ child.meta_description}}</p>
+                                            <p class="text-sm">{{ child.meta_description }}</p>
                                         </div>
                                     </a>
                                 </li>
@@ -33,7 +34,10 @@
                                     <a :href="item.link + '/' + child.slug">{{ child.title }}</a>
                                 </li>
                                 <li>
-                                    <global-ui-link-button :href="item.link" rounded>See All {{ item.label }}</global-ui-link-button>
+                                    <global-ui-link-button :href="item.link" rounded>See All {{
+                                            item.label
+                                        }}
+                                    </global-ui-link-button>
                                 </li>
                             </ul>
                         </div>
@@ -59,81 +63,81 @@
 </template>
 
 <script>
-    import LazyLoadsImages from "@/Mixins/LazyLoadsImages";
+import LazyLoadsImages from "@/Mixins/LazyLoadsImages";
 
-    export default {
-        mixins: [LazyLoadsImages],
+export default {
+    mixins: [LazyLoadsImages],
 
-        data: () => ({
-            hoveringOn: '',
-            navigation: {
-                home: {
-                    label: 'Home',
-                    link: '/',
-                    children: null,
-                },
-                shop: {
-                    label: 'Shop',
-                    link: '/shop',
-                    children: null,
-                },
-                blogs: {
-                    label: 'Blogs',
-                    link: '/blog',
-                    children: null,
-                },
-                eatingOut: {
-                    label: 'Eating Out',
-                    link: '/eating-out',
-                    children: null,
-                },
-                recipes: {
-                    label: 'Recipes',
-                    link: '/recipe',
-                    children: null,
-                },
-                collections: {
-                    label: 'Collections',
-                    link: '/collection',
-                    children: null,
-                },
-                info: {
-                    label: 'Info',
-                    link: '/info',
-                    children: null,
-                }
+    data: () => ({
+        hoveringOn: '',
+        navigation: {
+            home: {
+                label: 'Home',
+                link: '/',
+                children: null,
+            },
+            shop: {
+                label: 'Shop',
+                link: '/shop',
+                children: null,
+            },
+            blogs: {
+                label: 'Blogs',
+                link: '/blog',
+                children: null,
+            },
+            eatingOut: {
+                label: 'Eating Out',
+                link: '/eating-out',
+                children: null,
+            },
+            recipes: {
+                label: 'Recipes',
+                link: '/recipe',
+                children: null,
+            },
+            collections: {
+                label: 'Collections',
+                link: '/collection',
+                children: null,
+            },
+            info: {
+                label: 'Info',
+                link: '/info',
+                children: null,
             }
-        }),
+        }
+    }),
 
-        mounted() {
-            coeliac().request().get('/api/navigation').then((response) => {
-                Object.keys(response.data).forEach((key) => {
-                    if (this.navigation[key]) {
-                        this.navigation[key].children = response.data[key];
+    mounted() {
+        coeliac().request().get('/api/navigation').then((response) => {
+            Object.keys(response.data).forEach((key) => {
+                if (this.navigation[key]) {
+                    this.navigation[key].children = response.data[key];
+                }
+            });
+
+            if (this.navigation.collections.children === null || this.navigation.collections.children.items.length === 0) {
+                this.$root.$delete(this.navigation, 'collections')
+            }
+
+            this.loadLazyImages();
+        });
+    },
+
+    watch: {
+        hoveringOn: function () {
+            if (Object.values(this.navigation).map(value => value.label).includes(this.hoveringOn)) {
+                // if (this.hoveringOn !== '') {
+                document.querySelectorAll('img.lazy').forEach((image) => {
+                    if (image.hasAttribute('data-src')) {
+                        image.setAttribute('src', image.getAttribute('data-src'));
+                        image.removeAttribute('data-src');
+                        image.classList.remove('lazy');
                     }
                 });
-
-                if(this.navigation.collections.children === null || this.navigation.collections.children.items.length === 0) {
-                    this.$root.$delete(this.navigation, 'collections')
-                }
-
-                this.loadLazyImages();
-            });
-        },
-
-        watch: {
-            hoveringOn: function () {
-                if (Object.values(this.navigation).map(value => value.label).includes(this.hoveringOn)) {
-                // if (this.hoveringOn !== '') {
-                    document.querySelectorAll('img.lazy').forEach((image) => {
-                        if (image.hasAttribute('data-src')) {
-                            image.setAttribute('src', image.getAttribute('data-src'));
-                            image.removeAttribute('data-src');
-                            image.classList.remove('lazy');
-                        }
-                    });
-                }
             }
         }
     }
+}
 </script>

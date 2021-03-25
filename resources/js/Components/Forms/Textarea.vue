@@ -1,7 +1,8 @@
 <template>
     <div class="flex overflow-hidden border border-blue rounded">
         <div class="bg-grey-lightest flex-1">
-            <textarea v-model="currentValue" :name="name" :placeholder="placeholder" :rows="rows" @blur="validate()" :maxlength="max"
+            <textarea v-model="currentValue" :name="name" :placeholder="placeholder" :rows="rows" @blur="validate()"
+                      :maxlength="max"
                       class="w-full bg-transparent border-0 p-3 m-0 text-grey-darkest"></textarea>
         </div>
 
@@ -13,26 +14,26 @@
 </template>
 
 <script>
-    import IsFormField from "@/Mixins/IsFormField";
+import IsFormField from "@/Mixins/IsFormField";
 
-    export default {
-        mixins: [IsFormField],
+export default {
+    mixins: [IsFormField],
 
-        props: {
-            rows: {
-                type: Number,
-                default: 3,
-            },
+    props: {
+        rows: {
+            type: Number,
+            default: 3,
         },
-    }
+    },
+}
 </script>
 
 <style>
-    input:focus {
-        outline: none;
-    }
+input:focus {
+    outline: none;
+}
 
-    input:-webkit-autofill {
-        background: none;
-    }
+input:-webkit-autofill {
+    background: none;
+}
 </style>

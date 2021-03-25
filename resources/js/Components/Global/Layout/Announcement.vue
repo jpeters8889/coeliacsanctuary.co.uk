@@ -3,7 +3,8 @@
         <div class="bg-red-dark p-1 text-center text-white">
             <div class="flex flex-col">
                 <slot name="title" class="mb-2 font-semibold"></slot>
-                <a class="cursor-pointer text-white-80 text-sm hover:text-white hover:underline transition-color" @click="showModal = true">
+                <a class="cursor-pointer text-white-80 text-sm hover:text-white hover:underline transition-color"
+                   @click="showModal = true">
                     Read more
                 </a>
             </div>
@@ -24,32 +25,33 @@
 </template>
 
 <script>
-    import GoogleEvents from "@/Mixins/GoogleEvents";
-    const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
+import GoogleEvents from "@/Mixins/GoogleEvents";
 
-    export default {
-        mixins: [GoogleEvents],
+const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
 
-        components: {
-            'modal': Modal,
-        },
+export default {
+    mixins: [GoogleEvents],
 
-        data: () => ({
-            showModal: false,
-        }),
+    components: {
+        'modal': Modal,
+    },
 
-        mounted() {
-            this.$root.$on('modal-closed', () => {
-                this.showModal = false;
-            });
-        },
+    data: () => ({
+        showModal: false,
+    }),
 
-        watch: {
-            showModal: function() {
-                if(this.showModal) {
-                    this.googleEvent('event', 'viewed-announcement');
-                }
+    mounted() {
+        this.$root.$on('modal-closed', () => {
+            this.showModal = false;
+        });
+    },
+
+    watch: {
+        showModal: function () {
+            if (this.showModal) {
+                this.googleEvent('event', 'viewed-announcement');
             }
         }
     }
+}
 </script>

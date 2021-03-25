@@ -11,7 +11,8 @@
                     <p class="mb-2">{{ subscription.type.description }}</p>
                     <p class="text-sm">
                         <strong>Subscribed To: </strong>
-                        <a :href="subscription.updatable.link" target="_blank" class="font-semibold text-blue-dark hover:underline">
+                        <a :href="subscription.updatable.link" target="_blank"
+                           class="font-semibold text-blue-dark hover:underline">
                             {{ subscription.updatable.name }}
                         </a>
                     </p>
@@ -20,7 +21,8 @@
                         {{ formatDate(subscription.created_at, 'DD/MM/YY HH:mm') }}
                     </p>
                 </div>
-                <div @click="confirmUnsubscribe = subscription" class="ml-2 flex flex-col items-center cursor-pointer pt-2 text-grey opacity-50 hover:opacity-100 hover:text-blue-dark transition-colour">
+                <div @click="confirmUnsubscribe = subscription"
+                     class="ml-2 flex flex-col items-center cursor-pointer pt-2 text-grey opacity-50 hover:opacity-100 hover:text-blue-dark transition-colour">
                     <font-awesome-icon class="text-5xl" :icon="['far', 'trash-alt']"></font-awesome-icon>
                     <span class="text-xs pt-1 font-semibold">Unsubscribe</span>
                 </div>
@@ -29,7 +31,8 @@
 
         <portal to="modal" v-if="confirmUnsubscribe">
             <modal small name="delete-scrapbook">
-                <p>Are you sure you want to delete your {{ confirmUnsubscribe.type.name}} daily update subscription to '{{ confirmUnsubscribe.subscribable.name }}'?</p>
+                <p>Are you sure you want to delete your {{ confirmUnsubscribe.type.name }} daily update subscription to
+                    '{{ confirmUnsubscribe.subscribable.name }}'?</p>
                 <div class="flex space-x-4 justify-center mt-2">
                     <a class="rounded leading-none px-4 py-2 bg-blue hover:bg-blue-light hover:shadow cursor-pointer"
                        @click="closeConfirmationModal">
@@ -71,8 +74,7 @@ export default {
     },
 
     methods: {
-        closeConfirmationModal()
-        {
+        closeConfirmationModal() {
             this.confirmUnsubscribe = null;
             document.querySelector('body').classList.remove('overflow-hidden');
         },
@@ -92,16 +94,16 @@ export default {
 
         unsubscribe() {
             coeliac().request().delete(`/api/member/dashboard/daily-updates/${this.confirmUnsubscribe.id}`)
-            .then(() => {
-                coeliac().success(`You're now unsubscribed from getting daily updates about ${this.confirmUnsubscribe.type.name} ${this.confirmUnsubscribe.subscribable.name}`);
-                this.loadSubscriptions();
-            })
-            .catch(() => {
-                coeliac().error(`There was an error unsubscribing you from ${this.confirmUnsubscribe.subscribable.name}`)
-            })
-            .finally(() => {
-                this.confirmUnsubscribe = null;
-            })
+                .then(() => {
+                    coeliac().success(`You're now unsubscribed from getting daily updates about ${this.confirmUnsubscribe.type.name} ${this.confirmUnsubscribe.subscribable.name}`);
+                    this.loadSubscriptions();
+                })
+                .catch(() => {
+                    coeliac().error(`There was an error unsubscribing you from ${this.confirmUnsubscribe.subscribable.name}`)
+                })
+                .finally(() => {
+                    this.confirmUnsubscribe = null;
+                })
         }
     },
 }

@@ -131,7 +131,7 @@ export default {
     }),
 
     mounted() {
-        if(this.isLoggedIn() && this.userHasVerifiedEmail()) {
+        if (this.isLoggedIn() && this.userHasVerifiedEmail()) {
             this.getUsersAddresses();
 
             if (this.defaultData.id) {
@@ -299,7 +299,7 @@ export default {
 
     computed: {
         isDisabled() {
-            if(this.formData.billingId) {
+            if (this.formData.billingId) {
                 return false;
             }
 

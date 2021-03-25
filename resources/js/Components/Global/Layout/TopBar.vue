@@ -21,53 +21,53 @@
 </template>
 
 <script>
-    import CoeliacNav from "~/Global/Layout/CoeliacNav";
-    import UserManager from "~/Global/UI/UserManager";
+import CoeliacNav from "~/Global/Layout/CoeliacNav";
+import UserManager from "~/Global/UI/UserManager";
 
-    export default {
-        props: {
-          transparent: {
-              required: false,
-              type: Boolean,
-              default: () => false,
-          }
-        },
+export default {
+    props: {
+        transparent: {
+            required: false,
+            type: Boolean,
+            default: () => false,
+        }
+    },
 
-        data: () => ({
-            stickyNav: false,
-        }),
+    data: () => ({
+        stickyNav: false,
+    }),
 
-        components: {
-            'coeliac-nav': CoeliacNav,
-            'user-manager': UserManager,
-        },
+    components: {
+        'coeliac-nav': CoeliacNav,
+        'user-manager': UserManager,
+    },
 
-        mounted() {
-            new IntersectionObserver(entries => {
-                if (window.scrollY === 0) {
-                    this.stickyNav = false;
-                    return;
-                }
-                this.stickyNav = entries[0].intersectionRatio === 0;
-            }).observe(document.querySelector('#top-bar-check'));
-        },
-
-        computed: {
-            backgroundClasses() {
-                if(this.stickyNav) {
-                    return ['top-0', 'bg-blue', 'slide-down']
-                }
-
-                if(!this.transparent) {
-                    return ['bg-blue-80', 'md:bg-blue'];
-                }
-
-                return [];
-            },
-
-            width() {
-                return window.innerWidth;
+    mounted() {
+        new IntersectionObserver(entries => {
+            if (window.scrollY === 0) {
+                this.stickyNav = false;
+                return;
             }
+            this.stickyNav = entries[0].intersectionRatio === 0;
+        }).observe(document.querySelector('#top-bar-check'));
+    },
+
+    computed: {
+        backgroundClasses() {
+            if (this.stickyNav) {
+                return ['top-0', 'bg-blue', 'slide-down']
+            }
+
+            if (!this.transparent) {
+                return ['bg-blue-80', 'md:bg-blue'];
+            }
+
+            return [];
+        },
+
+        width() {
+            return window.innerWidth;
         }
     }
+}
 </script>

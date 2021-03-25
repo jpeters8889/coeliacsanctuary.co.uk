@@ -1,8 +1,8 @@
 <template>
     <div class="flex justify-center items-center">
         <form v-if="!alreadyHasAccount"
-            class="rounded-lg border border-blue p-4 flex flex-col space-y-4 w-full max-w-basket-sidebar bg-grey-lightest"
-            @submit.prevent="submitRegistration">
+              class="rounded-lg border border-blue p-4 flex flex-col space-y-4 w-full max-w-basket-sidebar bg-grey-lightest"
+              @submit.prevent="submitRegistration">
             <div class="mx-auto" style="width: 50px;">
                 <global-layout-coeliac-icon colour="#80CCFC"></global-layout-coeliac-icon>
             </div>
@@ -52,12 +52,15 @@
                 <a class="text-blue hover:text-grey" href="/member/forgot-password">Forgotten Password?</a>
             </div>
         </form>
-        <div v-else class="rounded-lg border border-blue p-4 flex flex-col space-y-4 w-full max-w-basket-sidebar bg-grey-lightest text-lg text-center">
+        <div v-else
+             class="rounded-lg border border-blue p-4 flex flex-col space-y-4 w-full max-w-basket-sidebar bg-grey-lightest text-lg text-center">
             <p>
                 Your email {{ fields.email }} is already associated with an account!
             </p>
             <p class="mt-2">
-                <member-login-trigger class="text-blue cursor-pointer text-semibold hover:text-blue-dark transition-colour">Login now!</member-login-trigger>
+                <member-login-trigger
+                    class="text-blue cursor-pointer text-semibold hover:text-blue-dark transition-colour">Login now!
+                </member-login-trigger>
             </p>
         </div>
     </div>
@@ -139,7 +142,7 @@ export default {
                     window.location = '/member/dashboard';
                 })
                 .catch((err) => {
-                    if(err.response.status === 422 && err.response.data.errors.email && err.response.data.errors.email[0] === 'Your email is already associated with an account!') {
+                    if (err.response.status === 422 && err.response.data.errors.email && err.response.data.errors.email[0] === 'Your email is already associated with an account!') {
                         this.alreadyHasAccount = true;
                         return;
                     }

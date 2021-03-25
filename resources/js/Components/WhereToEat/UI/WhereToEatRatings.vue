@@ -4,7 +4,7 @@
 
         <div v-if="ratings.length > 0">
             <global-ui-stars :stars="average"></global-ui-stars>
-            Average rating of <strong>{{ average }}</strong> from {{ ratings.length }} Reviews<br />
+            Average rating of <strong>{{ average }}</strong> from {{ ratings.length }} Reviews<br/>
             <a class="font-semibold text-blue transition-color hover:text-grey" @click="showDetails = true">
                 View Comments and Ratings
             </a>
@@ -72,98 +72,99 @@
 </template>
 
 <script>
-    import FormatsDates from "@/Mixins/FormatsDates";
-    import GoogleEvents from "@/Mixins/GoogleEvents";
-    const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
-    import WhereToEatCreateRating from "~/WhereToEat/Modals/WhereToEatCreateRating";
+import FormatsDates from "@/Mixins/FormatsDates";
+import GoogleEvents from "@/Mixins/GoogleEvents";
 
-    export default {
-        mixins: [FormatsDates, GoogleEvents],
+const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
+import WhereToEatCreateRating from "~/WhereToEat/Modals/WhereToEatCreateRating";
 
-        components: {
-            'modal': Modal,
-            'wheretoeat-create-rating': WhereToEatCreateRating,
+export default {
+    mixins: [FormatsDates, GoogleEvents],
+
+    components: {
+        'modal': Modal,
+        'wheretoeat-create-rating': WhereToEatCreateRating,
+    },
+
+    props: {
+        id: {
+            type: Number,
+            required: true,
         },
+        name: {
+            type: String,
+            required: true,
+        },
+        ratings: {
+            type: Array,
+            required: true,
+        },
+        average: {
+            type: String | null,
+            required: true,
+        },
+        hasRated: {
+            type: Boolean,
+            required: true,
+            default: false,
+        }
+    },
 
-        props: {
-            id: {
-                type: Number,
-                required: true,
-            },
-            name: {
-                type: String,
-                required: true,
-            },
-            ratings: {
-                type: Array,
-                required: true,
-            },
-            average: {
-                type: String | null,
-                required: true,
-            },
-            hasRated: {
-                type: Boolean,
-                required: true,
-                default: false,
+    data: () => ({
+        hoveringOn: null,
+        showDetails: false,
+        showCreateRating: false,
+        ratingToSubmit: 0,
+
+        hasBeenRated: false,
+    }),
+
+    mounted() {
+        this.hasBeenRated = this.hasRated;
+
+        this.$root.$on('modal-closed', (modal) => {
+            if (modal === 'showDetails') {
+                this.showDetails = false;
+            }
+
+            if (modal === 'showCreate') {
+                this.showCreateRating = false;
+            }
+        });
+
+        this.$root.$on('rated-place', (id) => {
+            if (id === this.id) {
+                this.hasBeenRated = true;
+            }
+        })
+    },
+
+    methods: {
+        rate(rating) {
+            this.ratingToSubmit = rating;
+            this.showCreateRating = true;
+        }
+    },
+
+    watch: {
+        showDetails: function () {
+            if (this.showDetails) {
+                this.googleEvent('event', 'wheretoeat', {
+                    event_category: 'showed-rating-details',
+                    event_label: this.id,
+                });
+
             }
         },
 
-        data: () => ({
-            hoveringOn: null,
-            showDetails: false,
-            showCreateRating: false,
-            ratingToSubmit: 0,
-
-            hasBeenRated: false,
-        }),
-
-        mounted() {
-            this.hasBeenRated = this.hasRated;
-
-            this.$root.$on('modal-closed', (modal) => {
-                if (modal === 'showDetails') {
-                    this.showDetails = false;
-                }
-
-                if (modal === 'showCreate') {
-                    this.showCreateRating = false;
-                }
-            });
-
-            this.$root.$on('rated-place', (id) => {
-                if(id === this.id) {
-                    this.hasBeenRated = true;
-                }
-            })
-        },
-
-        methods: {
-            rate(rating) {
-                this.ratingToSubmit = rating;
-                this.showCreateRating = true;
-            }
-        },
-
-        watch: {
-            showDetails: function() {
-                if(this.showDetails) {
-                    this.googleEvent('event', 'wheretoeat', {
-                        event_category: 'showed-rating-details',
-                        event_label: this.id,
-                    });
-
-                }
-            },
-
-            showCreateRating: function() {
-                if(this.showCreateRating) {
-                    this.googleEvent('event', 'wheretoeat', {
-                        event_category: 'created-rating',
-                        event_label: this.id,
-                    })
-                }
+        showCreateRating: function () {
+            if (this.showCreateRating) {
+                this.googleEvent('event', 'wheretoeat', {
+                    event_category: 'created-rating',
+                    event_label: this.id,
+                })
             }
         }
     }
+}
 </script>

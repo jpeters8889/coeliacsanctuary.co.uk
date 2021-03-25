@@ -23,8 +23,8 @@ export default {
                 queryString += '&' + filterStrings.join('&');
             }
 
-            if(encrypt) {
-                queryString = 'o='+ btoa(queryString);
+            if (encrypt) {
+                queryString = 'o=' + btoa(queryString);
             }
 
             return url + '?' + queryString;

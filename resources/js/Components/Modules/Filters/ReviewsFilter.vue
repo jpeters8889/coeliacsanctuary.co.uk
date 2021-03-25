@@ -87,182 +87,182 @@
 </template>
 
 <script>
-    import FilterableUrls from "@/Mixins/FilterableUrls";
+import FilterableUrls from "@/Mixins/FilterableUrls";
 
-    export default {
-        mixins: [FilterableUrls],
+export default {
+    mixins: [FilterableUrls],
 
-        props: {
-            currentFilters: {
-                type: Object | Array,
-            },
-            currentSearch: {
-                type: String,
-                default: '',
-            }
+    props: {
+        currentFilters: {
+            type: Object | Array,
         },
+        currentSearch: {
+            type: String,
+            default: '',
+        }
+    },
 
-        data: () => ({
-            counties: {},
-            selectedCounties: [],
+    data: () => ({
+        counties: {},
+        selectedCounties: [],
 
-            ratings: {},
-            selectedRatings: {},
+        ratings: {},
+        selectedRatings: {},
 
-            accordions: {
-                counties: false,
-                ratings: false,
+        accordions: {
+            counties: false,
+            ratings: false,
+        }
+    }),
+
+    mounted() {
+        this.getData();
+
+        this.$root.$on('accordion-toggled', (event) => {
+            if (this.accordions[event.name] !== undefined) {
+                this.$set(this.accordions, event.name, event.visible);
             }
-        }),
+        });
 
-        mounted() {
-            this.getData();
+        this.$root.$on('clear-filters', () => {
+            this.selectedTags = [];
+            this.selectedYear = '';
+        });
+    },
 
-            this.$root.$on('accordion-toggled', (event) => {
-                if (this.accordions[event.name] !== undefined) {
-                    this.$set(this.accordions, event.name, event.visible);
-                }
-            });
+    methods: {
+        getData() {
+            coeliac().request().get(this.buildUrl(`/api/reviews/counties`, 1, this.currentSearch, this.currentFilters))
+                .then((response) => {
+                    this.counties = response.data.data;
+                    this.selectedCounties = [];
 
-            this.$root.$on('clear-filters', () => {
-                this.selectedTags = [];
-                this.selectedYear = '';
-            });
-        },
-
-        methods: {
-            getData() {
-                coeliac().request().get(this.buildUrl(`/api/reviews/counties`, 1, this.currentSearch, this.currentFilters))
-                    .then((response) => {
-                        this.counties = response.data.data;
-                        this.selectedCounties = [];
-
-                        if (this.currentFilters) {
-                            this.currentFilters.counties.forEach((currentFilter) => {
-                                Object.keys(this.counties).forEach((country) => {
-                                    Object.keys(this.counties[country]).forEach((county) => {
-                                        if (county === currentFilter) {
-                                            this.selectedCounties.push({
-                                                country,
-                                                county
-                                            })
-                                        }
-                                    });
-                                });
-                            });
-                        }
-                    });
-
-                coeliac().request().get(this.buildUrl('/api/reviews/ratings', 1, this.currentSearch, this.currentFilters))
-                    .then((response) => {
-                        this.ratings = response.data.data;
-                        this.selectedRatings = [];
-
-                        if (this.currentFilters) {
-                            this.currentFilters.ratings.forEach((currentFilter) => {
-                                Object.keys(this.ratings).forEach((rating) => {
-                                    if (rating === currentFilter) {
-                                        this.selectedCounties.push(rating)
+                    if (this.currentFilters) {
+                        this.currentFilters.counties.forEach((currentFilter) => {
+                            Object.keys(this.counties).forEach((country) => {
+                                Object.keys(this.counties[country]).forEach((county) => {
+                                    if (county === currentFilter) {
+                                        this.selectedCounties.push({
+                                            country,
+                                            county
+                                        })
                                     }
                                 });
                             });
-                        }
-                    })
-            },
-
-            selectCounty(county, country) {
-                this.selectedCounties.push({
-                    county,
-                    country,
-                });
-
-                this.$root.$emit('add-filter', {
-                    name: 'counties',
-                    value: county,
-                });
-            },
-
-            removeCounty(county) {
-                this.selectedCounties = this.selectedCounties.filter((thisCounty) => {
-                    return thisCounty.county !== county.county
-                });
-
-
-                this.$root.$emit('remove-filter', {
-                    name: 'counties',
-                    value: county.county,
-                });
-            },
-
-            selectRating(rating) {
-                this.selectedRatings.push(rating);
-
-                this.$root.$emit('add-filter', {
-                    name: 'ratings',
-                    value: rating,
-                });
-            },
-
-            removeRating(rating) {
-                this.selectedRatings = this.selectedRatings.filter((thisRating) => {
-                    return thisRating !== rating;
-                });
-
-                this.$root.$emit('remove-filter', {
-                    name: 'ratings',
-                    value: rating,
-                });
-            },
-
-            iconFor(filter) {
-                return this.accordions[filter] ? 'chevron-up' : 'chevron-down';
-            },
-        },
-
-        computed: {
-            filteredCountries() {
-                let rtr = {};
-
-                Object.keys(this.counties).forEach((country) => {
-                    let thisCountry = {};
-                    Object.keys(this.counties[country]).forEach((county) => {
-                        if (JSON.stringify(this.selectedCounties).indexOf(JSON.stringify({country, county})) === -1) {
-                            this.$set(thisCountry, county, this.counties[country][county]);
-                        }
-                    });
-
-                    this.$set(rtr, country, thisCountry);
-                });
-
-                return rtr;
-            },
-
-            filteredRatings() {
-                let rtr = {};
-
-                Object.keys(this.ratings).forEach((rating) => {
-                    if (this.selectedRatings.indexOf(rating) === -1) {
-                        this.$set(rtr, rating, this.ratings[rating]);
+                        });
                     }
                 });
 
-                return rtr;
-            }
+            coeliac().request().get(this.buildUrl('/api/reviews/ratings', 1, this.currentSearch, this.currentFilters))
+                .then((response) => {
+                    this.ratings = response.data.data;
+                    this.selectedRatings = [];
+
+                    if (this.currentFilters) {
+                        this.currentFilters.ratings.forEach((currentFilter) => {
+                            Object.keys(this.ratings).forEach((rating) => {
+                                if (rating === currentFilter) {
+                                    this.selectedCounties.push(rating)
+                                }
+                            });
+                        });
+                    }
+                })
         },
 
-        watch: {
-            currentFilters: {
-                deep: true,
-                handler: function () {
-                    this.getData();
+        selectCounty(county, country) {
+            this.selectedCounties.push({
+                county,
+                country,
+            });
+
+            this.$root.$emit('add-filter', {
+                name: 'counties',
+                value: county,
+            });
+        },
+
+        removeCounty(county) {
+            this.selectedCounties = this.selectedCounties.filter((thisCounty) => {
+                return thisCounty.county !== county.county
+            });
+
+
+            this.$root.$emit('remove-filter', {
+                name: 'counties',
+                value: county.county,
+            });
+        },
+
+        selectRating(rating) {
+            this.selectedRatings.push(rating);
+
+            this.$root.$emit('add-filter', {
+                name: 'ratings',
+                value: rating,
+            });
+        },
+
+        removeRating(rating) {
+            this.selectedRatings = this.selectedRatings.filter((thisRating) => {
+                return thisRating !== rating;
+            });
+
+            this.$root.$emit('remove-filter', {
+                name: 'ratings',
+                value: rating,
+            });
+        },
+
+        iconFor(filter) {
+            return this.accordions[filter] ? 'chevron-up' : 'chevron-down';
+        },
+    },
+
+    computed: {
+        filteredCountries() {
+            let rtr = {};
+
+            Object.keys(this.counties).forEach((country) => {
+                let thisCountry = {};
+                Object.keys(this.counties[country]).forEach((county) => {
+                    if (JSON.stringify(this.selectedCounties).indexOf(JSON.stringify({country, county})) === -1) {
+                        this.$set(thisCountry, county, this.counties[country][county]);
+                    }
+                });
+
+                this.$set(rtr, country, thisCountry);
+            });
+
+            return rtr;
+        },
+
+        filteredRatings() {
+            let rtr = {};
+
+            Object.keys(this.ratings).forEach((rating) => {
+                if (this.selectedRatings.indexOf(rating) === -1) {
+                    this.$set(rtr, rating, this.ratings[rating]);
                 }
-            },
-            currentSearch: {
-                deep: true,
-                handler: function () {
-                    this.getData();
-                }
+            });
+
+            return rtr;
+        }
+    },
+
+    watch: {
+        currentFilters: {
+            deep: true,
+            handler: function () {
+                this.getData();
+            }
+        },
+        currentSearch: {
+            deep: true,
+            handler: function () {
+                this.getData();
             }
         }
     }
+}
 </script>

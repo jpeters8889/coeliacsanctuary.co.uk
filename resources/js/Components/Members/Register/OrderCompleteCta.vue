@@ -123,7 +123,7 @@ export default {
                     window.location = '/member/dashboard';
                 })
                 .catch((err) => {
-                    if(err.response.status === 422 && err.response.data.errors.email && err.response.data.errors.email[0] === 'Your email is already associated with an account!') {
+                    if (err.response.status === 422 && err.response.data.errors.email && err.response.data.errors.email[0] === 'Your email is already associated with an account!') {
                         coeliac().error('Your email is already associated with an account, please log in to view your order history!');
                         return;
                     }

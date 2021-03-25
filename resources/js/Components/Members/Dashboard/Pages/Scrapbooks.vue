@@ -46,7 +46,8 @@
                     </div>
                     <div class="text-2xl text-right text-grey-off hover:text-grey-dark cursor-pointer transition-colour"
                          v-if="scrapbooks.length > 1" v-show="isHoveringOn === scrapbook.id">
-                        <font-awesome-icon :icon="['far', 'trash-alt']" @click.stop.exact="confirmDelete = scrapbook.id"/>
+                        <font-awesome-icon :icon="['far', 'trash-alt']"
+                                           @click.stop.exact="confirmDelete = scrapbook.id"/>
                     </div>
                 </div>
             </div>
@@ -62,7 +63,8 @@
                     <loader v-if="scrapbookItems.length === 0" :show="true"></loader>
 
                     <div v-else class="flex flex-col space-y-4">
-                        <div v-for="item in scrapbookItems" class="flex flex-col bg-blue-gradient-50 rounded-lg md:flex-row" :key="item.id">
+                        <div v-for="item in scrapbookItems"
+                             class="flex flex-col bg-blue-gradient-50 rounded-lg md:flex-row" :key="item.id">
                             <a :href="item.item.link" target="_blank" class="md:w-1/3 md:p-1">
                                 <img :src="item.item.image" :alt="item.item.title" class="rounded-t-lg md:rounded-lg"/>
                             </a>
@@ -81,7 +83,8 @@
                                         Added {{ formatDate(item.added) }}
                                     </p>
 
-                                    <a class="font-semibold hover:text-blue-dark transition-bg cursor-pointer" @click="removeItem(item.id)">
+                                    <a class="font-semibold hover:text-blue-dark transition-bg cursor-pointer"
+                                       @click="removeItem(item.id)">
                                         Remove
                                     </a>
                                 </div>

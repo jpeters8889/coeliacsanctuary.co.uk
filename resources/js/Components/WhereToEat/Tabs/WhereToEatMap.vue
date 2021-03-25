@@ -6,41 +6,41 @@
 </template>
 
 <script>
-    const Loader = () => import('~/Global/UI/Loader' /* webpackChunkName: "chunk-loader" */)
-    import {loadScript} from "@/Utilities/ScriptLoader";
+const Loader = () => import('~/Global/UI/Loader' /* webpackChunkName: "chunk-loader" */)
+import {loadScript} from "@/Utilities/ScriptLoader";
 
-    export default {
-        data: () => ({
-            loaded: false,
-            map: null,
-        }),
+export default {
+    data: () => ({
+        loaded: false,
+        map: null,
+    }),
 
-        components: {
-            'loader': Loader
-        },
+    components: {
+        'loader': Loader
+    },
 
-        created() {
-            loadScript(coeliac().getAsset('raphael-min.js', 'external/wteMap'));
-            loadScript(coeliac().getAsset('map.js', 'external/wteMap'));
-        },
+    created() {
+        loadScript(coeliac().getAsset('raphael-min.js', 'external/wteMap'));
+        loadScript(coeliac().getAsset('map.js', 'external/wteMap'));
+    },
 
-        mounted() {
-            coeliac().request().get('/api/wheretoeat/settings').then((response) => {
-                this.map = new FlaMap(response.data);
-                this.map.draw('map-container');
+    mounted() {
+        coeliac().request().get('/api/wheretoeat/settings').then((response) => {
+            this.map = new FlaMap(response.data);
+            this.map.draw('map-container');
 
-                this.loaded = true;
+            this.loaded = true;
 
-                setTimeout(() => {
-                    window.dispatchEvent(new Event('resize'));
-                }, 100);
-            });
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+            }, 100);
+        });
 
-            this.$root.$on('tab-map-active', () => {
-                setTimeout(() => {
-                    window.dispatchEvent(new Event('resize'));
-                }, 100);
-            });
-        },
-    }
+        this.$root.$on('tab-map-active', () => {
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+            }, 100);
+        });
+    },
+}
 </script>

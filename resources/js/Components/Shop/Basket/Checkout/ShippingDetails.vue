@@ -83,180 +83,180 @@
 </template>
 
 <script>
-    import CheckoutComponent from "@/Mixins/CheckoutComponent";
-    import InteractsWithUser from "@/Mixins/InteractsWithUser";
+import CheckoutComponent from "@/Mixins/CheckoutComponent";
+import InteractsWithUser from "@/Mixins/InteractsWithUser";
 
-    export default {
-        mixins: [CheckoutComponent, InteractsWithUser],
+export default {
+    mixins: [CheckoutComponent, InteractsWithUser],
 
-        data: () => ({
-            savedAddresses: [],
+    data: () => ({
+        savedAddresses: [],
 
-            displayLookup: false,
-            lookupResults: [],
+        displayLookup: false,
+        lookupResults: [],
 
-            formData: {
-                postcode: '',
-                address1: '',
-                address2: '',
-                address3: '',
-                town: '',
-            },
-
-            validity: {
-                postcode: false,
-                address1: false,
-                address2: true,
-                address3: true,
-                town: false,
-            }
-        }),
-
-        mounted() {
-            if (this.isLoggedIn() && this.userHasVerifiedEmail()) {
-                this.getUsersAddresses();
-
-                if (this.defaultData.id) {
-                    this.$root.$emit('disable-country-change');
-                    this.formData.id = this.defaultData.id;
-                }
-            }
+        formData: {
+            postcode: '',
+            address1: '',
+            address2: '',
+            address3: '',
+            town: '',
         },
 
-        methods: {
-            getUsersAddresses() {
-                this.savedAddresses = [];
+        validity: {
+            postcode: false,
+            address1: false,
+            address2: true,
+            address3: true,
+            town: false,
+        }
+    }),
 
-                coeliac().request().get('/api/member/addresses')
-                    .then((response) => {
-                        this.savedAddresses = response.data.filter(address => address.type === 'Shipping');
-                    })
-                    .catch(() => {
-                        //
-                    });
-            },
+    mounted() {
+        if (this.isLoggedIn() && this.userHasVerifiedEmail()) {
+            this.getUsersAddresses();
 
-            formatAddress(address) {
-                return Array.from(['line_1', 'line_2', 'line_3', 'town', 'postcode', 'country'].map(key => address[key]))
-                    .filter(value => value !== null && value !== '')
-                    .join(', ');
-            },
-
-            validateForm() {
-                if (this.formData.id) {
-                    return true;
-                }
-
-                return CheckoutComponent.methods.validateForm.call(this);
-            },
-
-            selectSavedAddress(address) {
-                if (this.formData.id === address.id) {
-                    this.$root.$emit('enable-country-change');
-                    this.formData.id = null;
-
-                    this.formData.address1 = '';
-                    this.formData.address2 = '';
-                    this.formData.address3 = '';
-                    this.formData.town = '';
-                    this.formData.postcode = '';
-
-                    this.updateSessionStorage();
-                    return;
-                }
-
-                this.formData.address1 = address.line_1;
-                this.formData.address2 = address.line_2;
-                this.formData.address3 = address.line_3;
-                this.formData.town = address.town;
-                this.formData.postcode = address.postcode;
-
-                this.$root.$emit('set-customer-name', (address.name));
+            if (this.defaultData.id) {
                 this.$root.$emit('disable-country-change');
-                this.formData.id = address.id;
-                this.$root.$emit('select-country', (address.country));
+                this.formData.id = this.defaultData.id;
+            }
+        }
+    },
+
+    methods: {
+        getUsersAddresses() {
+            this.savedAddresses = [];
+
+            coeliac().request().get('/api/member/addresses')
+                .then((response) => {
+                    this.savedAddresses = response.data.filter(address => address.type === 'Shipping');
+                })
+                .catch(() => {
+                    //
+                });
+        },
+
+        formatAddress(address) {
+            return Array.from(['line_1', 'line_2', 'line_3', 'town', 'postcode', 'country'].map(key => address[key]))
+                .filter(value => value !== null && value !== '')
+                .join(', ');
+        },
+
+        validateForm() {
+            if (this.formData.id) {
+                return true;
+            }
+
+            return CheckoutComponent.methods.validateForm.call(this);
+        },
+
+        selectSavedAddress(address) {
+            if (this.formData.id === address.id) {
+                this.$root.$emit('enable-country-change');
+                this.formData.id = null;
+
+                this.formData.address1 = '';
+                this.formData.address2 = '';
+                this.formData.address3 = '';
+                this.formData.town = '';
+                this.formData.postcode = '';
 
                 this.updateSessionStorage();
-            },
+                return;
+            }
 
-            updateSessionStorage() {
-                let current = JSON.parse(sessionStorage.getItem('checkout-data'));
+            this.formData.address1 = address.line_1;
+            this.formData.address2 = address.line_2;
+            this.formData.address3 = address.line_3;
+            this.formData.town = address.town;
+            this.formData.postcode = address.postcode;
 
-                current[1].data.id = this.formData.id;
+            this.$root.$emit('set-customer-name', (address.name));
+            this.$root.$emit('disable-country-change');
+            this.formData.id = address.id;
+            this.$root.$emit('select-country', (address.country));
 
-                sessionStorage.setItem('checkout-data', JSON.stringify(current));
-            },
+            this.updateSessionStorage();
+        },
 
-            lookupPostcode() {
-                if(!this.validity.postcode) {
-                    coeliac().error('Please enter a valid UK Postcode or change the delivery country above!');
+        updateSessionStorage() {
+            let current = JSON.parse(sessionStorage.getItem('checkout-data'));
+
+            current[1].data.id = this.formData.id;
+
+            sessionStorage.setItem('checkout-data', JSON.stringify(current));
+        },
+
+        lookupPostcode() {
+            if (!this.validity.postcode) {
+                coeliac().error('Please enter a valid UK Postcode or change the delivery country above!');
+
+                return;
+            }
+
+            coeliac().request().post('/api/shop/lookup', {
+                postcode: this.formData.postcode,
+            }).then((response) => {
+                if (response.status === 200) {
+                    this.lookupResults = response.data.data;
+                    this.displayLookup = true;
 
                     return;
                 }
 
-                coeliac().request().post('/api/shop/lookup', {
-                    postcode: this.formData.postcode,
-                }).then((response) => {
-                    if (response.status === 200) {
-                        this.lookupResults = response.data.data;
-                        this.displayLookup = true;
-
-                        return;
-                    }
-
-                    coeliac().error('There was an error looking up this postcode');
-                }).catch(() => {
-                    coeliac().error('There was an error looking up this postcode');
-                });
-            },
-
-            selectLookupResult(result) {
-                this.formData.address1 = result.address_1;
-                this.formData.address2 = result.address_2 || '';
-                this.formData.address3 = result.address_3 || '';
-                this.formData.town = result.town;
-                this.formData.postcode = result.postcode;
-
-                this.displayLookup = false;
-                this.lookupResults = [];
-
-                Object.keys(this.validity).forEach((key) => {
-                    this.$root.$emit(`${key}-set-value`, (this.formData[key]));
-                });
-            },
-
-            canLookupPostcode() {
-                return this.countryId === 1;
-            }
+                coeliac().error('There was an error looking up this postcode');
+            }).catch(() => {
+                coeliac().error('There was an error looking up this postcode');
+            });
         },
 
-        computed: {
-            isDisabled() {
-                if(this.formData.id) {
-                    return false;
-                }
+        selectLookupResult(result) {
+            this.formData.address1 = result.address_1;
+            this.formData.address2 = result.address_2 || '';
+            this.formData.address3 = result.address_3 || '';
+            this.formData.town = result.town;
+            this.formData.postcode = result.postcode;
 
-                return Object.values(this.validity).includes(false);
-            },
+            this.displayLookup = false;
+            this.lookupResults = [];
 
-            postcodePattern() {
-                if(!this.canLookupPostcode()) {
-                    return /.*/;
-                }
-
-                return /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i;
-            }
+            Object.keys(this.validity).forEach((key) => {
+                this.$root.$emit(`${key}-set-value`, (this.formData[key]));
+            });
         },
 
-        watch: {
-            displayLookup: function (value) {
-                if (value) {
-                    document.querySelector('body').classList.add('overflow-hidden');
-                    return;
-                }
-
-                document.querySelector('body').classList.remove('overflow-hidden');
-            },
+        canLookupPostcode() {
+            return this.countryId === 1;
         }
+    },
+
+    computed: {
+        isDisabled() {
+            if (this.formData.id) {
+                return false;
+            }
+
+            return Object.values(this.validity).includes(false);
+        },
+
+        postcodePattern() {
+            if (!this.canLookupPostcode()) {
+                return /.*/;
+            }
+
+            return /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i;
+        }
+    },
+
+    watch: {
+        displayLookup: function (value) {
+            if (value) {
+                document.querySelector('body').classList.add('overflow-hidden');
+                return;
+            }
+
+            document.querySelector('body').classList.remove('overflow-hidden');
+        },
     }
+}
 </script>

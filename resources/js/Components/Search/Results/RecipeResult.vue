@@ -9,15 +9,15 @@
                     Recipe - {{ result.title }}
                 </a>
             </h2>
-            <p class="text-sm">{{ result.description}}</p>
+            <p class="text-sm">{{ result.description }}</p>
         </div>
     </div>
 </template>
 
 <script>
-    import SearchComponent from "@/Mixins/SearchComponent";
+import SearchComponent from "@/Mixins/SearchComponent";
 
-    export default {
-        mixins: [SearchComponent],
-    }
+export default {
+    mixins: [SearchComponent],
+}
 </script>

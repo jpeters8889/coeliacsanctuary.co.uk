@@ -28,8 +28,9 @@
                             <div class="flex mb-1 sm:flex-col sm:mr-2">
                                 <div class="font-semibold mr-1 sm:mr-0 sm:mb-2">Quantity</div>
                                 <div>
-                                    <shop-basket-ui-quantity-switcher :quantity="item.quantity" :product-id="item.product.id"
-                                                              :variant-id="item.variant.id"></shop-basket-ui-quantity-switcher>
+                                    <shop-basket-ui-quantity-switcher :quantity="item.quantity"
+                                                                      :product-id="item.product.id"
+                                                                      :variant-id="item.variant.id"></shop-basket-ui-quantity-switcher>
                                 </div>
                             </div>
                             <div class="flex mb-1 sm:flex-col sm:mr-2">
@@ -66,6 +67,7 @@ import LazyLoadsImages from "@/Mixins/LazyLoadsImages";
 import BasketCheckoutWrapper from "~/Shop/Basket/Page/BasketCheckoutWrapper";
 import BasketDiscountModal from "~/Shop/Basket/Page/BasketDiscountModal";
 import BasketPageTotals from "~/Shop/Basket/Page/BasketPageTotals";
+
 const Loader = () => import('~/Global/UI/Loader' /* webpackChunkName: "chunk-loader" */)
 
 export default {

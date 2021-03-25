@@ -31,20 +31,20 @@
 </template>
 
 <script>
-    import FormatsDates from "@/Mixins/FormatsDates";
+import FormatsDates from "@/Mixins/FormatsDates";
 
-    export default {
-        mixins: [FormatsDates],
+export default {
+    mixins: [FormatsDates],
 
-        data: () => ({
-            showReviews: false,
-        }),
+    data: () => ({
+        showReviews: false,
+    }),
 
-        props: {
-            reviews: {
-                type: Array,
-                required: true,
-            }
+    props: {
+        reviews: {
+            type: Array,
+            required: true,
         }
     }
+}
 </script>

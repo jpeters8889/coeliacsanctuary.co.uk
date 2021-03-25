@@ -18,7 +18,7 @@ export default {
                     return;
                 }
 
-                if(response.status === 400) {
+                if (response.status === 400) {
                     coeliac().error(response.status.error);
                     return;
                 }

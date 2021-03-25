@@ -7,9 +7,11 @@
                 <global-layout-coeliac-icon colour="#80CCFC"></global-layout-coeliac-icon>
             </div>
 
-            <form-input type="email" required name="email" placeholder="Email Address" :value="fields.email" autocomple="email"/>
+            <form-input type="email" required name="email" placeholder="Email Address" :value="fields.email"
+                        autocomple="email"/>
 
-            <form-input type="password" required name="password" placeholder="Password" :value="fields.password" autocomplete="password"/>
+            <form-input type="password" required name="password" placeholder="Password" :value="fields.password"
+                        autocomplete="password"/>
 
             <button
                 class="rounded-lg bg-blue leading-none text-lg font-semibold text-white hover:bg-blue-light transition-bg flex items-center justify-center"

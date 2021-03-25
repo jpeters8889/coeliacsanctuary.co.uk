@@ -30,7 +30,7 @@
                 <td>
                     <div class="flex text-sm my-2 border-b border-blue last:border-0" v-for="item in order.items">
                         <div class="hidden xs:block w-1/5 mr-2">
-                            <img :src="item.image" alt="" />
+                            <img :src="item.image" alt=""/>
                         </div>
                         <div class="flex flex-col flex-1">
                             <strong>{{ item.product_title }}</strong>
