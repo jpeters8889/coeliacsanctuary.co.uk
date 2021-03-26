@@ -96,6 +96,7 @@ export default {
         lookupResults: [],
 
         formData: {
+            id: null,
             postcode: '',
             address1: '',
             address2: '',
@@ -104,6 +105,7 @@ export default {
         },
 
         validity: {
+            id: false,
             postcode: false,
             address1: false,
             address2: true,

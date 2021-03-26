@@ -19,7 +19,7 @@
                         <div v-for="address in savedAddresses"
                              @click="selectSavedAddress(address)"
                              class="p-2 flex flex-col cursor-pointer transition-bg"
-                             :class="address.id === formData.id ?
+                             :class="address.id === formData.billingId ?
                         'bg-blue-light-20 border-yellow border-4 text-black' :
                         'border text-black-50 bg-blue-light-50 border-white-80 hover:bg-blue-light-80 hover:border-white'"
                         >
@@ -107,6 +107,7 @@ export default {
         formData: {
             provider: '',
             shippingAddress: '1',
+            billingId: '',
             billingName: '',
             billingAddress1: '',
             billingAddress2: '',
@@ -119,6 +120,7 @@ export default {
         validity: {
             provider: false,
             shippingAddress: true,
+            billingId: true,
             billingName: true,
             billingAddress1: true,
             billingAddress2: true,
@@ -218,6 +220,8 @@ export default {
             current[2].data.id = this.formData.billingId;
 
             sessionStorage.setItem('checkout-data', JSON.stringify(current));
+
+            this.$root.$emit('payment-button-disabled', this.isDisabled)
         },
 
         initiatePayment() {
@@ -247,6 +251,7 @@ export default {
                     phone: sections[0].data.phone,
                 },
                 shipping: {
+                    id: sections[1].data.id,
                     address1: sections[1].data.address1,
                     address2: sections[1].data.address2,
                     address3: sections[1].data.address3,
@@ -256,6 +261,7 @@ export default {
                 },
                 billing: {
                     name: this.formData.billingName,
+                    id: this.formData.billingId,
                     address1: this.formData.billingAddress1,
                     address2: this.formData.billingAddress2,
                     address3: this.formData.billingAddress3,

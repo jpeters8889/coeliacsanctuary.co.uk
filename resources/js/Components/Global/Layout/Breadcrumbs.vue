@@ -7,7 +7,7 @@
                  :style="sticky ? 'max-width: 1500px;' : ''">
                 <div
                     class="flex-1 flex-col flex justify-center flex-wrap mb-2 sm:flex-no-wrap sm:flex-row sm:items-center sm:justify-start sm:m-0 sm:pr-3">
-                    <div class="font-thin text-center sm:pr-1">
+                    <div class="font-extralight text-center sm:pr-1">
                         You're here:
                     </div>
                     <div class="flex flex-wrap my-1 justify-center">
