@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Response;
 
-use Carbon\Carbon;
 use Illuminate\Container\Container;
 use Coeliac\Common\Announcements\Repository;
 use JPeters\PageViewBuilder\Page as PageBuilder;
-use Coeliac\Modules\Competition\Models\Competition;
 
 class Page extends PageBuilder
 {

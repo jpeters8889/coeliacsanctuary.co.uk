@@ -9,6 +9,7 @@ use Coeliac\Modules\Member\Controllers\RegisterController;
 use Coeliac\Modules\Member\Controllers\DashboardController;
 use Coeliac\Modules\Member\Controllers\VerifyEmailController;
 use Coeliac\Modules\Member\Controllers\ManageUpdatesController;
+use Coeliac\Modules\Member\Controllers\ResetPasswordController;
 use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookController;
 use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
@@ -24,6 +25,8 @@ $router->group(['prefix' => 'member'], static function () use ($router) {
     $router->group(['middleware' => 'guest'], static function () use ($router) {
         $router->get('login', [LoginController::class, 'show']);
         $router->get('register', [RegisterController::class, 'show']);
+
+        $router->get('reset-password/{token}', [ResetPasswordController::class, 'show']);
     });
 
     $router->group(['middleware' => 'auth'], static function () use ($router) {

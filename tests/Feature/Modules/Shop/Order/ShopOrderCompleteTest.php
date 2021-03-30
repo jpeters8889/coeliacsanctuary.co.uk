@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Shop\Order;
 
 use Carbon\Carbon;
-use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Member\Models\UserLevel;
 use Tests\TestCase;
 use Illuminate\Support\Str;
 use Tests\Traits\HasImages;
@@ -18,8 +16,10 @@ use Tests\Traits\CreatesWhereToEat;
 use Tests\Traits\Shop\CreateProduct;
 use Tests\Traits\Shop\CreateVariant;
 use Tests\Traits\Shop\MakesShopOrders;
+use Coeliac\Modules\Member\Models\User;
 use Tests\Traits\Shop\MakeOrderRequest;
 use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Member\Models\UserLevel;
 use Coeliac\Modules\Shop\Models\ShopPayment;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -112,11 +112,10 @@ class ShopOrderCompleteTest extends TestCase
             'total' => 1,
             'payment_type_id' => 1,
         ]);
-
     }
 
     /** @test */
-    public function it_shows_the_form_to_become_a_member_when_ordering_as_a_guest()
+    public function itShowsTheFormToBecomeAMemberWhenOrderingAsAGuest()
     {
         $this->setupOrder();
 
@@ -127,7 +126,7 @@ class ShopOrderCompleteTest extends TestCase
     }
 
     /** @test */
-    public function it_doesnt_show_the_form_to_register_if_already_logged_in()
+    public function itDoesntShowTheFormToRegisterIfAlreadyLoggedIn()
     {
         $this->setupOrder();
 
@@ -139,7 +138,7 @@ class ShopOrderCompleteTest extends TestCase
     }
 
     /** @test */
-    public function it_doesnt_show_the_register_form_if_the_user_already_exists_but_isnt_logged_in()
+    public function itDoesntShowTheRegisterFormIfTheUserAlreadyExistsButIsntLoggedIn()
     {
         $this->setupOrder();
 

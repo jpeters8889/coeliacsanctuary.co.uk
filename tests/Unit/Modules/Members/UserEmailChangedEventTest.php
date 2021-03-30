@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Modules\Members;
 
-use Coeliac\Modules\Member\Events\UserEmailChanged;
-use Coeliac\Modules\Member\Listeners\SendEmailUpdatedVerificationEmail;
-use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Member\Notifications\EmailChangedAlert;
-use Coeliac\Modules\Member\Notifications\VerifyEmail;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Notifications\AnonymousNotifiable;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Event;
+use Coeliac\Modules\Member\Models\User;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Notifications\AnonymousNotifiable;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Coeliac\Modules\Member\Events\UserEmailChanged;
+use Coeliac\Modules\Member\Notifications\VerifyEmail;
+use Coeliac\Modules\Member\Notifications\EmailChangedAlert;
 
 class UserEmailChangedEventTest extends TestCase
 {
@@ -34,7 +35,7 @@ class UserEmailChangedEventTest extends TestCase
     }
 
     /** @test */
-    public function it_marks_the_email_as_not_verified()
+    public function itMarksTheEmailAsNotVerified()
     {
         $this->assertTrue($this->user->hasVerifiedEmail());
 
@@ -44,7 +45,7 @@ class UserEmailChangedEventTest extends TestCase
     }
 
     /** @test */
-    public function it_alerts_the_old_email_address_that_their_email_has_been_changed()
+    public function itAlertsTheOldEmailAddressThatTheirEmailHasBeenChanged()
     {
         $this->dispatch();
 
@@ -58,7 +59,7 @@ class UserEmailChangedEventTest extends TestCase
     }
 
     /** @test */
-    public function it_send_a_verification_email_to_the_new_email()
+    public function itSendAVerificationEmailToTheNewEmail()
     {
         $this->dispatch();
 

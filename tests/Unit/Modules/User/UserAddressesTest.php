@@ -6,8 +6,8 @@ namespace Tests\Unit\Modules\User;
 
 use Tests\TestCase;
 use Tests\Traits\CreateUser;
-use Coeliac\Modules\Member\Models\User;
 use Tests\Traits\Shop\CreateOrder;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserAddress;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

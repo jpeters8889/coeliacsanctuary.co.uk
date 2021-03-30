@@ -1,20 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Modules\Members;
 
-use Coeliac\Base\Models\BaseModel;
-use Coeliac\Modules\Blog\Models\Blog;
-use Coeliac\Modules\EatingOut\Reviews\Models\Review;
-use Coeliac\Modules\Member\Models\Scrapbook;
-use Coeliac\Modules\Member\Models\ScrapbookItem;
-use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Recipe\Models\Recipe;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\CreatesBlogs;
 use Tests\Traits\CreatesRecipes;
 use Tests\Traits\CreatesReviews;
+use Coeliac\Base\Models\BaseModel;
 use Tests\Traits\CreatesWhereToEat;
+use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Recipe\Models\Recipe;
+use Coeliac\Modules\Member\Models\Scrapbook;
+use Coeliac\Modules\Member\Models\ScrapbookItem;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 
 class ScrapbookTest extends TestCase
 {
@@ -35,14 +37,14 @@ class ScrapbookTest extends TestCase
     }
 
     /** @test */
-    public function it_belongs_to_a_user()
+    public function itBelongsToAUser()
     {
         $this->assertNotNull($this->scrapbook->user);
         $this->assertInstanceOf(User::class, $this->scrapbook->user);
     }
 
     /** @test */
-    public function it_can_have_items()
+    public function itCanHaveItems()
     {
         $this->assertCount(0, $this->scrapbook->refresh()->items);
 
@@ -58,7 +60,7 @@ class ScrapbookTest extends TestCase
     }
 
     /** @test */
-    public function it_can_access_the_individual_item()
+    public function itCanAccessTheIndividualItem()
     {
         $blog = $this->createBlog();
 
@@ -75,7 +77,7 @@ class ScrapbookTest extends TestCase
      * @test
      * @dataProvider itemDataProvider
      */
-    public function it_can_have_items_added($createMethod, $expectedClass)
+    public function itCanHaveItemsAdded($createMethod, $expectedClass)
     {
         /** @var BaseModel $item */
         $item = $this->$createMethod();
@@ -97,7 +99,7 @@ class ScrapbookTest extends TestCase
      * @test
      * @dataProvider itemDataProvider
      */
-    public function it_can_have_items_added_via_a_helper_method($createMethod, $expectedClass)
+    public function itCanHaveItemsAddedViaAHelperMethod($createMethod, $expectedClass)
     {
         /** @var BaseModel $item */
         $item = $this->$createMethod();
@@ -106,7 +108,8 @@ class ScrapbookTest extends TestCase
 
         $this->scrapbook->refresh();
 
-        $this->assertCount(1, $this->scrapbook->items);$this->assertInstanceOf($expectedClass, $relation = $this->scrapbook->items[0]->item);
+        $this->assertCount(1, $this->scrapbook->items);
+        $this->assertInstanceOf($expectedClass, $relation = $this->scrapbook->items[0]->item);
         $this->assertTrue($item->is($relation));
     }
 

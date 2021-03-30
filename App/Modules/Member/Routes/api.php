@@ -7,6 +7,8 @@ use Coeliac\Modules\Member\Controllers\LoginController;
 use Coeliac\Modules\Member\Controllers\AddressController;
 use Coeliac\Modules\Member\Controllers\RegisterController;
 use Coeliac\Modules\Member\Controllers\VerifyEmailController;
+use Coeliac\Modules\Member\Controllers\ResetPasswordController;
+use Coeliac\Modules\Member\Controllers\ForgotPasswordController;
 use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookController;
 use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
@@ -25,6 +27,8 @@ $router->group(['prefix' => 'api/member'], static function () use ($router) {
     $router->group(['middleware' => 'guest', 'throttle:60,1'], static function () use ($router) {
         $router->post('login', [LoginController::class, 'create'])->middleware(['guest', 'throttle:60,1']);
         $router->post('register', [RegisterController::class, 'create'])->middleware(['guest', 'throttle:60,1']);
+        $router->post('forgot-password', [ForgotPasswordController::class, 'create']);
+        $router->post('reset-password', [ResetPasswordController::class, 'update']);
     });
 
     $router->group(['middleware' => 'auth'], static function () use ($router) {

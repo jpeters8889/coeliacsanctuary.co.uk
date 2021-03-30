@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\User;
 
-use Coeliac\Modules\Blog\Models\Blog;
-use Coeliac\Modules\Member\Models\Scrapbook;
-use Coeliac\Modules\Member\Models\ScrapbookItem;
-use Coeliac\Modules\Member\Models\UserLevel;
 use Tests\TestCase;
 use Tests\Traits\CreateUser;
+use Coeliac\Modules\Blog\Models\Blog;
 use Tests\Traits\Shop\MakesShopOrders;
 use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Member\Models\Scrapbook;
+use Coeliac\Modules\Member\Models\UserLevel;
 use Coeliac\Modules\Member\Models\UserAddress;
+use Coeliac\Modules\Member\Models\ScrapbookItem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase
@@ -51,7 +51,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function it_shows_members_arent_approved_by_default()
+    public function itShowsMembersArentApprovedByDefault()
     {
         /** @var User $user */
         $user = $this->createUser();
@@ -60,7 +60,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function it_knows_whether_a_user_is_a_member()
+    public function itKnowsWhetherAUserIsAMember()
     {
         /** @var User $user */
         $user = $this->createUser(['user_level_id' => UserLevel::MEMBER]);
@@ -69,7 +69,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function it_knows_whether_the_user_is_an_admin()
+    public function itKnowsWhetherTheUserIsAnAdmin()
     {
         /** @var User $user */
         $user = $this->createUser(['user_level_id' => UserLevel::ADMIN]);
@@ -79,7 +79,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function normal_and_shop_members_are_not_admins()
+    public function normalAndShopMembersAreNotAdmins()
     {
         $shopUser = $this->createUser();
         $normalUser = $this->createUser(['user_level_id' => UserLevel::MEMBER]);
@@ -89,7 +89,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function it_can_have_scrapbooks()
+    public function itCanHaveScrapbooks()
     {
         $user = $this->createUser();
 
@@ -105,7 +105,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function it_has_scapbook_items()
+    public function itHasScapbookItems()
     {
         $user = $this->createUser();
 

@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Models;
 
 use Carbon\Carbon;
+use Illuminate\Config\Repository;
+use Illuminate\Container\Container;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Notifications\Notifiable;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use JPeters\Architect\Traits\HasArchitectSettings;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Coeliac\Modules\Member\Notifications\ResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
@@ -94,5 +97,16 @@ class User extends Authenticatable implements MustVerifyEmail
                 'hash' => sha1($this->email),
             ]
         );
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $url = implode('/', [
+            Container::getInstance()->make(Repository::class)->get('app.url'),
+            'member',
+            "reset-password?token={$token}",
+        ]);
+
+        $this->notify(new ResetPassword($url));
     }
 }

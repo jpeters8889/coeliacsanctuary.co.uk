@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Base\Http;
 
 use Fruitcake\Cors\HandleCors;
+use Coeliac\Base\Middleware\TrustHosts;
 use Coeliac\Base\Middleware\TrimStrings;
 use Coeliac\Base\Middleware\Authenticate;
 use Coeliac\Base\Middleware\TrustProxies;
@@ -43,6 +44,7 @@ class Kernel extends HttpKernel
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
+        TrustHosts::class,
         TrustProxies::class,
         HandleCors::class,
         CookieConsentMiddleware::class,

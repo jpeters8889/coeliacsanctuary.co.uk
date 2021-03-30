@@ -5,18 +5,16 @@ declare(strict_types=1);
 namespace Tests\Traits\Shop;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
-use Coeliac\Modules\Member\Models\UserAddress;
 use Coeliac\Modules\Shop\Models\ShopOrder;
-use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Coeliac\Modules\Shop\Models\ShopPayment;
+use Illuminate\Foundation\Testing\WithFaker;
+use Coeliac\Modules\Member\Models\UserAddress;
+use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Coeliac\Modules\Shop\Models\ShopPaymentType;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Coeliac\Modules\Shop\Payment\Providers\StripePaymentProvider;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Str;
-use Tests\Mocks\StripePaymentProvider as StripePaymentProviderMock;
-use Tests\Traits\HasImages;
 
 trait MakesShopOrders
 {

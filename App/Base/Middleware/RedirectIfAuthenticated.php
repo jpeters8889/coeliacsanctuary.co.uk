@@ -24,7 +24,7 @@ class RedirectIfAuthenticated
     {
         if (Container::getInstance()->make(Guard::class)->check()) {
             if ($request->wantsJson()) {
-                return new Response([]);
+                return new Response([], 400);
             }
 
             return new RedirectResponse('/member/dashboard');
