@@ -28,6 +28,8 @@
             <mj-button href="{{ $verification_link }}">
                 Verify my email
             </mj-button>
+            <mj-text mj-class="inner">If you cant see the button above copy the link below into your browser</mj-text>
+            <mj-text mj-class="inner">{{ $verification_link }}</mj-text>
             <mj-text mj-class="inner" padding-top="5px">
                 If you didn't register an account on www.coeliacsanctuary.co.uk please
                 <a href="{{ config('app.url') }}/contact">contact us</a>.

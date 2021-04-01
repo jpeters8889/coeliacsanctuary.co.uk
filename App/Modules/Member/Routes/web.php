@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Coeliac\Modules\Member\Controllers\ForgotPasswordController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\Member\Controllers\LoginController;
 use Coeliac\Modules\Member\Controllers\LogoutController;
@@ -26,6 +27,7 @@ $router->group(['prefix' => 'member'], static function () use ($router) {
         $router->get('login', [LoginController::class, 'show']);
         $router->get('register', [RegisterController::class, 'show']);
 
+        $router->get('forgot-password', [ForgotPasswordController::class, 'show']);
         $router->get('reset-password/{token}', [ResetPasswordController::class, 'show']);
     });
 

@@ -1,11 +1,9 @@
 <template>
-    <div class="flex justify-center items-center">
-        <form
-            class="rounded-lg border border-blue p-4 flex flex-col space-y-4 w-full max-w-basket-sidebar bg-grey-lightest"
-            @submit.prevent="attemptLogin">
-            <div class="mx-auto" style="width: 50px;">
-                <global-layout-coeliac-icon colour="#80CCFC"></global-layout-coeliac-icon>
-            </div>
+    <div
+        class="rounded-lg border border-blue bg-blue-gradient-30 p-4">
+        <form class="flex flex-col space-y-4 w-full max-w-basket-sidebar"
+            v-if="!isCompleted"
+              @submit.prevent="submitResetPassword">
 
             <form-input type="email" required name="email" placeholder="Email Address" :value="fields.email"
                         autocomple="email"/>
@@ -13,12 +11,17 @@
             <form-input type="password" required name="password" placeholder="Password" :value="fields.password"
                         autocomplete="password"/>
 
+            <form-input type="password" required name="password_confirmation" placeholder="Confirm your password"
+                        :match="fields.password" :value="fields.password_confirmation"
+                        autocomplete="password_confirmation"/>
+
             <button
                 class="rounded-lg bg-blue leading-none text-lg font-semibold text-white hover:bg-blue-light transition-bg flex items-center justify-center"
                 style="height: 42px;"
                 :class="isSubmitting ? 'py-2' : 'py-3'"
                 :disabled="isSubmitting"
-                @click.prevent="attemptLogin">
+                @click.prevent="submitResetPassword
+               ">
                 <loader background-position=""
                         v-if="isSubmitting"
                         :show="true"
@@ -28,20 +31,17 @@
                         faded-border-color="border-white-50"
                         primary-border-color="white">
                 </loader>
-                <span v-else>Log In</span>
+                <span v-else>Reset Password</span>
             </button>
-
-            <div v-if="needsToVerify" class="border-red border p-2 rounded-sm bg-red-20 text-red font-semibold">
-                You need to verify your email address before you can login,
-                <a href="" class="text-black">Resend verification email</a>.
-            </div>
-
-            <div class="flex justify-between text-xs mt-2 font-semibold">
-                <a class="text-blue hover:text-grey" href="/member/register">Sign up!</a>
-
-                <a class="text-blue hover:text-grey" href="/member/forgot-password">Forgotten Password?</a>
-            </div>
         </form>
+        <template v-else>
+            <p class="text-lg font-semibold text-center">
+                Thanks! We've reset your password, please log in below.
+            </p>
+            <div class="mt-2 text-center">
+                <member-login-form></member-login-form>
+            </div>
+        </template>
     </div>
 </template>
 
@@ -55,22 +55,37 @@ export default {
         'loader': Loader,
     },
 
+    props: {
+        token: {
+            required: true,
+            type: String,
+        },
+    },
+
     data: () => ({
         isSubmitting: false,
         needsToVerify: false,
 
+        isCompleted: false,
+
         fields: {
+            token: '',
             email: '',
             password: '',
+            password_confirmation: '',
         },
 
         validity: {
+            token: true,
             email: false,
             password: false,
+            password_confirmation: false,
         }
     }),
 
     mounted() {
+        this.fields.token = this.token;
+
         Object.keys(this.fields).forEach((field) => {
             this.$root.$on(`${field}-error`, () => {
                 this.validity[field] = false;
@@ -83,29 +98,29 @@ export default {
             this.$root.$on(`${field}-value`, (value) => {
                 this.fields[field] = value;
             });
+
+            this.$root.$on(`${field}-change`, (value) => {
+                this.fields[field] = value;
+            });
         });
     },
 
     methods: {
-        attemptLogin() {
+        submitResetPassword() {
             if (!this.validateForm()) {
-                coeliac().error('Please enter your email and password!')
+                coeliac().error('Make sure you\'ve completed the form!')
                 return;
             }
 
             this.isSubmitting = true;
 
-            coeliac().request().post('/api/member/login', this.fields)
+            coeliac().request().post('/api/member/reset-password', this.fields)
                 .then(() => {
-                    window.location = '/member/dashboard';
+                    coeliac().success("You've changed your password!")
+                    this.isCompleted = true;
                 })
                 .catch((err) => {
-                    this.fields.password = '';
-                    this.validity.password = false;
-
-                    this.$root.$emit('password-set-value', (''));
-
-                    coeliac().error('There was an error logging you in...');
+                    coeliac().error('There was an error resetting your password, please try again!');
                 })
                 .finally(() => {
                     this.isSubmitting = false;
@@ -127,6 +142,6 @@ export default {
 
             return isValid;
         }
-    },
+    }
 }
 </script>

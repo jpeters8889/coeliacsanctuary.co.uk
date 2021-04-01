@@ -8,8 +8,8 @@
 
             <div class="mt-2 absolute w-full left-0" v-if="showMobileOptions" v-click-outside="toggleMobileOptions">
                 <ul class="text-right text-lg bg-white border-blue rounded text-blue font-semibold">
-                    <li class="p-3" @click="showLoginModal">Log In</li>
-                    <li class="p-3" @click="showRegistrationModal">Register</li>
+                    <li class="p-3 cursor-pointer" @click="showLoginModal">Log In</li>
+                    <li class="p-3 cursor-pointer" @click="showRegistrationModal">Register</li>
                 </ul>
             </div>
         </div>
@@ -93,11 +93,11 @@ export default {
         },
 
         showLoginModal() {
-            this.modalComponent = 'login-form';
+            this.modalComponent = 'member-login-form';
         },
 
         showRegistrationModal() {
-            this.modalComponent = 'register-form';
+            this.modalComponent = 'member-register-form';
         }
     }
 }

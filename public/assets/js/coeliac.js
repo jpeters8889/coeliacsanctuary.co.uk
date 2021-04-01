@@ -118,6 +118,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Mem
 
 /***/ }),
 
+/***/ "./resources/js/Components/Members/ForgotPassword/index.js":
+/*!*****************************************************************!*\
+  !*** ./resources/js/Components/Members/ForgotPassword/index.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm.js\");\n\n\nvar ForgotPasswordForm = function ForgotPasswordForm() {\n  return __webpack_require__.e(/*! import() | chunk-forgot-password-form */ \"chunk-forgot-password-form\").then(__webpack_require__.bind(__webpack_require__, /*! ~/Members/ForgotPassword/ForgotPasswordForm */ \"./resources/js/Components/Members/ForgotPassword/ForgotPasswordForm.vue\"));\n};\n\nvue__WEBPACK_IMPORTED_MODULE_0__.default.component('member-forgot-password-form', ForgotPasswordForm);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvQ29tcG9uZW50cy9NZW1iZXJzL0ZvcmdvdFBhc3N3b3JkL2luZGV4LmpzPzViNzMiXSwibmFtZXMiOlsiRm9yZ290UGFzc3dvcmRGb3JtIiwiVnVlIl0sIm1hcHBpbmdzIjoiOztBQUFBOztBQUVBLElBQU1BLGtCQUFrQixHQUFHLFNBQXJCQSxrQkFBcUI7QUFBQSxTQUFNLGtSQUFOO0FBQUEsQ0FBM0I7O0FBRUFDLGtEQUFBLENBQWMsNkJBQWQsRUFBNkNELGtCQUE3QyIsImZpbGUiOiIuL3Jlc291cmNlcy9qcy9Db21wb25lbnRzL01lbWJlcnMvRm9yZ290UGFzc3dvcmQvaW5kZXguanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgVnVlIGZyb20gXCJ2dWVcIjtcblxuY29uc3QgRm9yZ290UGFzc3dvcmRGb3JtID0gKCkgPT4gaW1wb3J0KCd+L01lbWJlcnMvRm9yZ290UGFzc3dvcmQvRm9yZ290UGFzc3dvcmRGb3JtJyAvKiB3ZWJwYWNrQ2h1bmtOYW1lOiBcImNodW5rLWZvcmdvdC1wYXNzd29yZC1mb3JtXCIgKi8pXG5cblZ1ZS5jb21wb25lbnQoJ21lbWJlci1mb3Jnb3QtcGFzc3dvcmQtZm9ybScsIEZvcmdvdFBhc3N3b3JkRm9ybSk7XG4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/Components/Members/ForgotPassword/index.js\n");
+
+/***/ }),
+
 /***/ "./resources/js/Components/Members/Login/index.js":
 /*!********************************************************!*\
   !*** ./resources/js/Components/Members/Login/index.js ***!
@@ -140,6 +151,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue_
 
 /***/ }),
 
+/***/ "./resources/js/Components/Members/ResetPassword/index.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/Components/Members/ResetPassword/index.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.esm.js\");\n\n\nvar ResetPasswordForm = function ResetPasswordForm() {\n  return __webpack_require__.e(/*! import() | chunk-forgot-password-form */ \"chunk-forgot-password-form\").then(__webpack_require__.bind(__webpack_require__, /*! ~/Members/ResetPassword/ResetPasswordForm */ \"./resources/js/Components/Members/ResetPassword/ResetPasswordForm.vue\"));\n};\n\nvue__WEBPACK_IMPORTED_MODULE_0__.default.component('member-reset-password-form', ResetPasswordForm);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvQ29tcG9uZW50cy9NZW1iZXJzL1Jlc2V0UGFzc3dvcmQvaW5kZXguanM/ODM3YiJdLCJuYW1lcyI6WyJSZXNldFBhc3N3b3JkRm9ybSIsIlZ1ZSJdLCJtYXBwaW5ncyI6Ijs7QUFBQTs7QUFFQSxJQUFNQSxpQkFBaUIsR0FBRyxTQUFwQkEsaUJBQW9CO0FBQUEsU0FBTSw4UUFBTjtBQUFBLENBQTFCOztBQUVBQyxrREFBQSxDQUFjLDRCQUFkLEVBQTRDRCxpQkFBNUMiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvQ29tcG9uZW50cy9NZW1iZXJzL1Jlc2V0UGFzc3dvcmQvaW5kZXguanMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgVnVlIGZyb20gXCJ2dWVcIjtcblxuY29uc3QgUmVzZXRQYXNzd29yZEZvcm0gPSAoKSA9PiBpbXBvcnQoJ34vTWVtYmVycy9SZXNldFBhc3N3b3JkL1Jlc2V0UGFzc3dvcmRGb3JtJyAvKiB3ZWJwYWNrQ2h1bmtOYW1lOiBcImNodW5rLWZvcmdvdC1wYXNzd29yZC1mb3JtXCIgKi8pXG5cblZ1ZS5jb21wb25lbnQoJ21lbWJlci1yZXNldC1wYXNzd29yZC1mb3JtJywgUmVzZXRQYXNzd29yZEZvcm0pO1xuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/js/Components/Members/ResetPassword/index.js\n");
+
+/***/ }),
+
 /***/ "./resources/js/Components/Members/UI/index.js":
 /*!*****************************************************!*\
   !*** ./resources/js/Components/Members/UI/index.js ***!
@@ -158,7 +180,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue_
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Members_Dashboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ~/Members/Dashboard */ \"./resources/js/Components/Members/Dashboard/index.js\");\n/* harmony import */ var _Members_Login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ~/Members/Login */ \"./resources/js/Components/Members/Login/index.js\");\n/* harmony import */ var _Members_Register__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ~/Members/Register */ \"./resources/js/Components/Members/Register/index.js\");\n/* harmony import */ var _Members_UI__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ~/Members/UI */ \"./resources/js/Components/Members/UI/index.js\");\n\n\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvQ29tcG9uZW50cy9NZW1iZXJzL2luZGV4LmpzPzY4M2YiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQTtBQUNBO0FBQ0EiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvQ29tcG9uZW50cy9NZW1iZXJzL2luZGV4LmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0ICd+L01lbWJlcnMvRGFzaGJvYXJkJztcbmltcG9ydCAnfi9NZW1iZXJzL0xvZ2luJztcbmltcG9ydCAnfi9NZW1iZXJzL1JlZ2lzdGVyJztcbmltcG9ydCAnfi9NZW1iZXJzL1VJJztcbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/js/Components/Members/index.js\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Members_Dashboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ~/Members/Dashboard */ \"./resources/js/Components/Members/Dashboard/index.js\");\n/* harmony import */ var _Members_ForgotPassword__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ~/Members/ForgotPassword */ \"./resources/js/Components/Members/ForgotPassword/index.js\");\n/* harmony import */ var _Members_Login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ~/Members/Login */ \"./resources/js/Components/Members/Login/index.js\");\n/* harmony import */ var _Members_Register__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ~/Members/Register */ \"./resources/js/Components/Members/Register/index.js\");\n/* harmony import */ var _Members_ResetPassword__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ~/Members/ResetPassword */ \"./resources/js/Components/Members/ResetPassword/index.js\");\n/* harmony import */ var _Members_UI__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ~/Members/UI */ \"./resources/js/Components/Members/UI/index.js\");\n\n\n\n\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvQ29tcG9uZW50cy9NZW1iZXJzL2luZGV4LmpzPzY4M2YiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7OztBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EiLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvQ29tcG9uZW50cy9NZW1iZXJzL2luZGV4LmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0ICd+L01lbWJlcnMvRGFzaGJvYXJkJztcbmltcG9ydCAnfi9NZW1iZXJzL0ZvcmdvdFBhc3N3b3JkJztcbmltcG9ydCAnfi9NZW1iZXJzL0xvZ2luJztcbmltcG9ydCAnfi9NZW1iZXJzL1JlZ2lzdGVyJztcbmltcG9ydCAnfi9NZW1iZXJzL1Jlc2V0UGFzc3dvcmQnO1xuaW1wb3J0ICd+L01lbWJlcnMvVUknO1xuIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./resources/js/Components/Members/index.js\n");
 
 /***/ }),
 

@@ -104,7 +104,8 @@ class User extends Authenticatable implements MustVerifyEmail
         $url = implode('/', [
             Container::getInstance()->make(Repository::class)->get('app.url'),
             'member',
-            "reset-password?token={$token}",
+            'reset-password',
+            $token,
         ]);
 
         $this->notify(new ResetPassword($url));

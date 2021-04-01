@@ -11,7 +11,7 @@
             <label class="text-blue-dark font-semibold mb-1" for="current_password">
                 Current Password
             </label>
-            <form-input id="current_password" type="password" name="current_password" :min="8"
+            <form-input id="current_password" type="password" name="current" :min="8"
                         autocomplete="current_password"/>
         </div>
 
@@ -19,14 +19,14 @@
             <label class="text-blue-dark font-semibold mb-1" for="new_password">
                 New Password
             </label>
-            <form-input id="new_password" type="password" name="new_password" :min="8" autocomplete="new_password"/>
+            <form-input id="new_password" type="password" name="new" :min="8" autocomplete="new_password"/>
         </div>
 
         <div class="py-4">
             <label class="text-blue-dark font-semibold mb-1" for="new_password_confirmation">
                 Confirm New Password
             </label>
-            <form-input id="new_password_confirmation" type="password" name="new_password_confirmation" :min="8"
+            <form-input id="new_password_confirmation" type="password" name="new_confirmation" :min="8"
                         autocomplete="new_password_confirmation" :match="fields.new"/>
         </div>
 

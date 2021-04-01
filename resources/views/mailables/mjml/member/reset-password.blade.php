@@ -18,6 +18,8 @@
             <mj-button href="{{ $reset_url }}">
                 Reset my Password!
             </mj-button>
+            <mj-text mj-class="inner">If you cant see the button above copy the link below into your browser</mj-text>
+            <mj-text mj-class="inner">{{ $reset_url }}</mj-text>
             <mj-text mj-class="inner" padding-top="5px">
                 If you didn't request the resetting of your password please.
                 <a href="{{ config('app.url') }}/contact">contact us</a>.
