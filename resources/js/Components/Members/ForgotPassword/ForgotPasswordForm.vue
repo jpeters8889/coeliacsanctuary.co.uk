@@ -1,7 +1,6 @@
 <template>
-    <div
-        class="rounded-lg border border-blue bg-blue-gradient-30 p-4">
-        <form class="flex flex-col space-y-4 w-full max-w-basket-sidebar"
+    <div class="rounded-lg border border-blue bg-blue-gradient-30 p-4 max-w-lg mx-auto">
+        <form class="flex flex-col space-y-4 w-full max-w-basket-sidebar mx-auto"
             v-if="!isCompleted"
               @submit.prevent="submitForgotPassword">
 
@@ -73,6 +72,10 @@ export default {
             });
 
             this.$root.$on(`${field}-value`, (value) => {
+                this.fields[field] = value;
+            });
+
+            this.$root.$on(`${field}-change`, (value) => {
                 this.fields[field] = value;
             });
         });
