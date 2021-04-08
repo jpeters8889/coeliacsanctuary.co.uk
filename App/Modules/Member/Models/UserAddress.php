@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed|string $id
  * @property User         $user
  * @property mixed|string $name
+ * @property mixed|string $type
  * @property mixed|string $line_1
  * @property mixed|string $line_2
  * @property mixed|string $line_3

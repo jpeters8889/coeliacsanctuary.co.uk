@@ -7,6 +7,7 @@ namespace Coeliac\Modules\Member\Requests;
 use Coeliac\Base\Requests\ApiFormRequest;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Support\Str;
 
 class ViewOrderRequest extends ApiFormRequest
 {
@@ -15,7 +16,7 @@ class ViewOrderRequest extends ApiFormRequest
     public function authorize(Gate $gate)
     {
         $this->order = ShopOrder::query()
-            ->where('order_key', $this->route('key'))
+            ->where('order_key', Str::padLeft($this->route('key'), 8, 0))
             ->firstOrFail();
 
         return $gate->allows('view-shop-order', $this->order);
