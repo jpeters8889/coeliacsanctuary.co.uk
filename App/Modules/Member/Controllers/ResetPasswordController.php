@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers;
 
+use Coeliac\Modules\Member\Events\UserPasswordReset;
+use Coeliac\Modules\Member\Notifications\PasswordResetAlert;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Coeliac\Common\Response\Page;
@@ -23,19 +26,20 @@ class ResetPasswordController extends BaseController
             ->render('modules.member.reset-password', compact('token'));
     }
 
-    public function update(ResetPasswordRequest $request, PasswordBroker $passwordBroker, Hasher $hasher)
+    public function update(ResetPasswordRequest $request, PasswordBroker $passwordBroker, Hasher $hasher, Dispatcher $dispatcher)
     {
         $status = $passwordBroker->reset(
             $request->validated(),
-            function (User $user, $password) use ($hasher) {
+            function (User $user, $password) use ($hasher, $dispatcher) {
                 $user->forceFill([
                     'password' => $hasher->make($password),
                 ])->setRememberToken(Str::random(60));
 
                 $user->save();
 
-                // notification
-            });
+                $dispatcher->dispatch(new UserPasswordReset($user));
+            }
+        );
 
         if ($status === $passwordBroker::PASSWORD_RESET) {
             return ['status' => 'reset-complete'];

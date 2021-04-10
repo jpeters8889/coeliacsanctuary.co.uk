@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Members;
 
+use Coeliac\Modules\Member\Events\UserPasswordReset;
+use Coeliac\Modules\Member\Notifications\PasswordResetAlert;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Event;
 use Coeliac\Modules\Member\Models\User;
@@ -12,7 +14,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Member\Events\UserPasswordUpdated;
 use Coeliac\Modules\Member\Notifications\PasswordChangedAlert;
 
-class UserPasswordUpdatedEventTest extends TestCase
+class UserPasswordUpdatedResetTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -29,7 +31,7 @@ class UserPasswordUpdatedEventTest extends TestCase
 
     public function dispatch()
     {
-        Event::dispatch(new UserPasswordUpdated($this->user, ));
+        Event::dispatch(new UserPasswordReset($this->user, ));
     }
 
     /** @test */
@@ -37,7 +39,7 @@ class UserPasswordUpdatedEventTest extends TestCase
     {
         $this->dispatch();
 
-        Notification::assertSentTo($this->user, PasswordChangedAlert::class);
+        Notification::assertSentTo($this->user, PasswordResetAlert::class);
     }
 
     /** @test */

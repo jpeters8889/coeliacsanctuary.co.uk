@@ -42,7 +42,7 @@ class LoginController extends BaseController
         }
 
         LoginAttempt::recordFailure(
-            $request->input('email'),
+            $request->input('email', ''),
             $request->ip(),
             'Unknown error',
         );

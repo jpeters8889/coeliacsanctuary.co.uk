@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\Login;
 
+use Coeliac\Modules\Member\Models\LoginAttempt;
 use Tests\TestCase;
 use Tests\Traits\CreateUser;
 use Coeliac\Modules\Member\Models\User;
@@ -103,5 +104,72 @@ class LoginTest extends TestCase
         $this->makeLoginRequest();
 
         $this->assertAuthenticatedAs($this->user);
+    }
+
+    /** @test */
+    public function itCanLogAFailedLogin()
+    {
+        $this->assertEmpty(LoginAttempt::all());
+
+        $this->user->update(['user_level_id' => UserLevel::SHOP]);
+
+        $this->makeLoginRequest();
+
+        $this->assertNotEmpty(LoginAttempt::all());
+
+        $this->assertTrue(LoginAttempt::query()->first()->failed);
+    }
+
+    /** @test */
+    public function itCorrectlyLogsValidationErrors()
+    {
+        $this->makeLoginRequest(null, 'asf', 'afasfasf');
+
+        $this->assertNotEmpty(LoginAttempt::all());
+
+        /** @var LoginAttempt $log */
+        $log = LoginAttempt::query()->first();
+
+        $this->assertEquals('Unknown error', $log->response);
+    }
+
+    /** @test */
+    public function itCorrectlyLogsWhenTheUserDoesntExist()
+    {
+        $this->makeLoginRequest('foo@bar.com');
+
+        $this->assertNotEmpty(LoginAttempt::all());
+
+        /** @var LoginAttempt $log */
+        $log = LoginAttempt::query()->first();
+
+        $this->assertEquals("User doesn't exist", $log->response);
+    }
+
+    /** @test */
+    public function itCorrectyLogsWhenAShopUserAttemptsToLogin()
+    {
+        $this->user->update(['user_level_id' => UserLevel::SHOP]);
+
+        $this->makeLoginRequest();
+
+        $this->assertNotEmpty(LoginAttempt::all());
+
+        /** @var LoginAttempt $log */
+        $log = LoginAttempt::query()->first();
+
+        $this->assertEquals('User is shop user only', $log->response);
+    }
+
+    /** @test */
+    public function itLogsASuccessfulLogin()
+    {
+        $this->assertEmpty(LoginAttempt::all());
+
+        $this->makeLoginRequest();
+
+        $this->assertNotEmpty(LoginAttempt::all());
+
+        $this->assertTrue(LoginAttempt::query()->first()->success);
     }
 }

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\ResetPassword;
 
-use Carbon\Factory;
+use Coeliac\Modules\Member\Events\UserPasswordReset;
 use Coeliac\Modules\Member\Models\UserLevel;
+use Coeliac\Modules\Member\Notifications\PasswordResetAlert;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Support\Arr;
 use Illuminate\Container\Container;
@@ -165,5 +167,17 @@ class ResetPasswordTest extends TestCase
         $this->submitForm(['token' => $token]);
 
         $this->assertDatabaseCount('password_resets', 0);
+    }
+
+    /** @test */
+    public function itDispatchesAnEventWhenThePasswordIsReset()
+    {
+        Event::fake();
+
+        $token = $this->generateResetToken();
+
+        $this->submitForm(['token' => $token]);
+
+        Event::assertDispatched(UserPasswordReset::class);
     }
 }

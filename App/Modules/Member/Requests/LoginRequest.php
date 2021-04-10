@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Requests;
 
+use Coeliac\Modules\Member\Models\LoginAttempt;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Base\Requests\ApiFormRequest;
 use Coeliac\Modules\Member\Models\UserLevel;
+use Illuminate\Contracts\Validation\Validator;
 
 class LoginRequest extends ApiFormRequest
 {
