@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Member\Models;
 
 use Coeliac\Base\Models\BaseModel;
 
 /**
- * @property mixed $failed
- * @property mixed $success
- * @property null|string $response
+ * @property mixed       $failed
+ * @property mixed       $success
+ * @property string|null $response
  */
 class LoginAttempt extends BaseModel
 {

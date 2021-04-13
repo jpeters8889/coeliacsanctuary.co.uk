@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Coeliac\Modules\Member\Controllers\ForgotPasswordController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\Member\Controllers\LoginController;
 use Coeliac\Modules\Member\Controllers\LogoutController;
@@ -11,6 +10,7 @@ use Coeliac\Modules\Member\Controllers\DashboardController;
 use Coeliac\Modules\Member\Controllers\VerifyEmailController;
 use Coeliac\Modules\Member\Controllers\ManageUpdatesController;
 use Coeliac\Modules\Member\Controllers\ResetPasswordController;
+use Coeliac\Modules\Member\Controllers\ForgotPasswordController;
 use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookController;
 use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;

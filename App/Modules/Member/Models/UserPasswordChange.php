@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Member\Models;
 
 use Coeliac\Base\Models\BaseModel;

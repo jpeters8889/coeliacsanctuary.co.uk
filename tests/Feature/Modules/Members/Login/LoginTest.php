@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\Login;
 
-use Coeliac\Modules\Member\Models\LoginAttempt;
+use Carbon\Carbon;
 use Tests\TestCase;
 use Tests\Traits\CreateUser;
+use Spatie\TestTime\TestTime;
+use Illuminate\Support\Facades\Auth;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserLevel;
+use Coeliac\Modules\Member\Models\LoginAttempt;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginTest extends TestCase
@@ -171,5 +174,26 @@ class LoginTest extends TestCase
         $this->assertNotEmpty(LoginAttempt::all());
 
         $this->assertTrue(LoginAttempt::query()->first()->success);
+    }
+
+    /** @test */
+    public function itMarksTheUsersLastLoginTime()
+    {
+        TestTime::freeze();
+
+        $this->assertNull($this->user->last_logged_in_at);
+
+        $this->makeLoginRequest();
+
+        $this->assertNotNull($this->user->refresh()->last_logged_in_at);
+        $this->assertEquals(Carbon::now()->toString(), $this->user->last_logged_in_at->toString());
+
+        Auth::logout();
+
+        TestTime::addWeek();
+
+        $this->makeLoginRequest();
+
+        $this->assertEquals(Carbon::now()->toString(), $this->user->refresh()->last_logged_in_at->toString());
     }
 }

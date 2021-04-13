@@ -20,6 +20,9 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 /**
  * @property string $email
  * @property int    $user_level_id
+ * @property Carbon last_logged_in_at
+ * @property Carbon last_visited_at
+ * @property int id
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -29,6 +32,11 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'id' => 'int',
         'user_level_id' => 'int',
+    ];
+
+    protected $dates = [
+        'last_logged_in_at',
+        'last_visited_at',
     ];
 
     protected $guarded = [];

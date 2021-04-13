@@ -8,6 +8,7 @@ use Coeliac\Base\Modules;
 use Coeliac\Modules\Member\Providers\EventServiceProvider;
 use Coeliac\Modules\Member\Providers\RoutesServiceProvider;
 use Coeliac\Modules\Member\Providers\GatewayServiceProvider;
+use Coeliac\Modules\Member\Providers\UserActivityServiceProvider;
 
 class Module extends Modules
 {
@@ -17,6 +18,7 @@ class Module extends Modules
             RoutesServiceProvider::class,
             EventServiceProvider::class,
             GatewayServiceProvider::class,
+            UserActivityServiceProvider::class,
         ];
     }
 }

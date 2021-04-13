@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\ForgotPassword;
 
-use Coeliac\Modules\Member\Models\UserLevel;
 use Tests\TestCase;
 use Spatie\TestTime\TestTime;
 use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Member\Models\UserLevel;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Member\Notifications\ResetPassword;

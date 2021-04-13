@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers;
 
-use Coeliac\Modules\Member\Models\LoginAttempt;
+use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Coeliac\Common\Response\Page;
 use Illuminate\Contracts\Auth\Guard;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Member\Models\LoginAttempt;
 use Coeliac\Modules\Member\Requests\LoginRequest;
 
 class LoginController extends BaseController
@@ -35,7 +36,7 @@ class LoginController extends BaseController
 
         if ($guard->attempt($request->validated(), true)) {
             $request->session()->regenerate();
-
+            $request->user()->update(['last_logged_in_at' => Carbon::now()]);
             LoginAttempt::recordSuccess($request->input('email'), $request->ip());
 
             return new Response([]);

@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\ResetPassword;
 
-use Coeliac\Modules\Member\Events\UserPasswordReset;
-use Coeliac\Modules\Member\Models\UserLevel;
-use Coeliac\Modules\Member\Notifications\PasswordResetAlert;
-use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Support\Arr;
 use Illuminate\Container\Container;
+use Illuminate\Support\Facades\Event;
 use Coeliac\Modules\Member\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;
+use Coeliac\Modules\Member\Models\UserLevel;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Coeliac\Modules\Member\Events\UserPasswordReset;
 use Coeliac\Modules\Member\Notifications\ResetPassword;
 
 class ResetPasswordTest extends TestCase

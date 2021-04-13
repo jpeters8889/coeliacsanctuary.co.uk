@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers;
 
-use Coeliac\Modules\Member\Events\UserPasswordReset;
-use Coeliac\Modules\Member\Notifications\PasswordResetAlert;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 use Coeliac\Common\Response\Page;
 use Coeliac\Modules\Member\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Contracts\Events\Dispatcher;
 use Coeliac\Base\Controllers\BaseController;
 use Illuminate\Contracts\Auth\PasswordBroker;
+use Coeliac\Modules\Member\Events\UserPasswordReset;
 use Coeliac\Modules\Member\Requests\ResetPasswordRequest;
 
 class ResetPasswordController extends BaseController

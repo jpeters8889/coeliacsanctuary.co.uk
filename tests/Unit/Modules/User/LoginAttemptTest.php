@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Modules\User;
 
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Modules\Member\Models\LoginAttempt;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 
 class LoginAttemptTest extends TestCase
 {

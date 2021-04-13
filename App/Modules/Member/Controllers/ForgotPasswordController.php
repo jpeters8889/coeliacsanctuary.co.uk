@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers;
 
-use Coeliac\Common\Response\Page;
-use Coeliac\Modules\Member\Models\UserLevel;
 use Illuminate\Http\Response;
+use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Member\Models\UserLevel;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Coeliac\Modules\Member\Requests\CreateForgotPasswordRequest;
 

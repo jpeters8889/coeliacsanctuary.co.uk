@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Coeliac\Common\Users;
+namespace Coeliac\Modules\Member\Architect;
 
 use JPeters\Architect\Plans\Select;
 use JPeters\Architect\Plans\DateTime;
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Coeliac\Modules\Member\Models\UserLevel;
 use JPeters\Architect\Blueprints\Blueprint as ArchitectBlueprint;
 
-class Blueprint extends ArchitectBlueprint
+class UserBlueprint extends ArchitectBlueprint
 {
     public function model(): string
     {

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Shop\Console;
 
-use Coeliac\Modules\Member\Models\UserAddress;
-use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use Illuminate\Console\Command;
+use Coeliac\Modules\Member\Models\UserAddress;
 
 class CleanUpAddresses extends Command
 {
@@ -19,7 +21,7 @@ class CleanUpAddresses extends Command
         $addresses = UserAddress::query()->get();
         $bar = $this->output->createProgressBar($addresses->count());
 
-        $this->info('Nullifying' . PHP_EOL);
+        $this->info('Nullifying'.PHP_EOL);
 
         $addresses->each(function (UserAddress $address) use ($keys, $bar) {
             $updated = false;
@@ -38,13 +40,14 @@ class CleanUpAddresses extends Command
             $bar->advance();
         });
 
-        $this->info(PHP_EOL . 'Duplicates' . PHP_EOL);
+        $this->info(PHP_EOL.'Duplicates'.PHP_EOL);
 
         $bar->setProgress(0);
 
         $addresses->each(function (UserAddress $address) use ($bar) {
             if (in_array($address->id, $this->processedIds)) {
                 $bar->advance();
+
                 return;
             }
 
@@ -79,7 +82,7 @@ class CleanUpAddresses extends Command
             $bar->advance();
         });
 
-        $this->info(PHP_EOL . 'Dodgy Postcodes' . PHP_EOL);
+        $this->info(PHP_EOL.'Dodgy Postcodes'.PHP_EOL);
 
         $bar->setProgress(0);
 
@@ -88,6 +91,7 @@ class CleanUpAddresses extends Command
                 if ($address->type === 'Billing') {
                     $address->forceDelete();
                     $bar->advance();
+
                     return;
                 }
 

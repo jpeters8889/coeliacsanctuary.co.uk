@@ -23,6 +23,7 @@ use Coeliac\Base\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Routing\Middleware\SubstituteBindings;
+use Coeliac\Modules\Member\Middleware\LogUserActivity;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
@@ -63,6 +64,7 @@ class Kernel extends HttpKernel
             ShareErrorsFromSession::class,
             VerifyCsrfToken::class,
             SubstituteBindings::class,
+            LogUserActivity::class,
         ],
 
         'api' => [
