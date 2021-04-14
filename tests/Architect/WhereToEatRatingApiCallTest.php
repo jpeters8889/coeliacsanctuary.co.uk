@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Architect;
 
 use Tests\TestCase;
-use Coeliac\Modules\Member\Models\User;
 use Tests\Traits\CreatesWhereToEat;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Foundation\Testing\RefreshDatabase;

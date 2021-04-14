@@ -9,6 +9,7 @@ use Coeliac\Common\Architect\HorizonDashboard;
 use Coeliac\Common\Architect\MailcoachDashboard;
 use Coeliac\Modules\Shop\Architect\ShopDashboard;
 use Coeliac\Modules\Shop\Architect\OrderBlueprint;
+use Coeliac\Modules\Member\Architect\UserBlueprint;
 use Coeliac\Modules\Shop\Architect\BasketBlueprint;
 use Coeliac\Modules\Shop\Architect\ProductBlueprint;
 use Coeliac\Modules\Shop\Architect\CategoryBlueprint;
@@ -21,14 +22,13 @@ use Coeliac\Common\Notifications\Blueprint as EmailBlueprint;
 use Coeliac\Modules\Blog\Architect\Blueprint as BlogBlueprint;
 use Coeliac\Modules\Recipe\Architect\Blueprint as RecipeBlueprint;
 use Coeliac\Common\Announcements\Blueprint as AnnouncementBlueprint;
-use Coeliac\Modules\Member\Architect\UserBlueprint as UserBlueprint;
 use JPeters\Architect\Providers\ArchitectApplicationServiceProvider;
 use Coeliac\Common\Comments\Architect\Blueprint as CommentsBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\WhereToEatBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\PlaceRequestBlueprint;
 use Coeliac\Modules\Search\Architect\Blueprint as SearchHistoryBlueprint;
 use Coeliac\Modules\Collection\Architect\Blueprint as CollectionsBlueprint;
-use Coeliac\Modules\Competition\Architect\Blueprint as CompetitonsBlueprint;
+use Coeliac\Modules\Competition\Architect\Blueprint as CompetitionsBlueprint;
 use Coeliac\Modules\EatingOut\Reviews\Architect\Blueprint as ReviewBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\RatingsBlueprint as WteRatingsBlueprint;
 
@@ -44,15 +44,15 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             CollectionsBlueprint::class,
             CommentsBlueprint::class,
             WteRatingsBlueprint::class,
-            CompetitonsBlueprint::class,
-            SearchHistoryBlueprint::class,
+            CompetitionsBlueprint::class,
             AnnouncementBlueprint::class,
             PopupBlueprint::class,
             PlaceRequestBlueprint::class,
             UserBlueprint::class,
-            EmailBlueprint::class,
 
-            //
+            EmailBlueprint::class,
+            SearchHistoryBlueprint::class,
+
             BasketBlueprint::class,
             OrderBlueprint::class,
             DailyStockBlueprint::class,

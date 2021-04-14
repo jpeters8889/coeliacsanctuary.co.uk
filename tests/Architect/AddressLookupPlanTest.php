@@ -28,7 +28,7 @@ class AddressLookupPlanTest extends PlanTestCase
     }
 
     /** @test */
-    public function it_updates_the_model()
+    public function itUpdatesTheModel()
     {
         $eatery = new WhereToEat();
 

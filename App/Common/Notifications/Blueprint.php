@@ -18,6 +18,11 @@ class Blueprint extends ArchitectBlueprint
         return NotificationEmail::class;
     }
 
+    public function blueprintSite(): string
+    {
+        return 'Logs';
+    }
+
     public function blueprintName(): string
     {
         return 'Notification Emails';

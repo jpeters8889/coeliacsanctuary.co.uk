@@ -11,6 +11,11 @@ use JPeters\Architect\Blueprints\Blueprint as Architect;
 
 class Blueprint extends Architect
 {
+    public function blueprintSite(): string
+    {
+        return 'Logs';
+    }
+
     public function model(): string
     {
         return SearchHistory::class;

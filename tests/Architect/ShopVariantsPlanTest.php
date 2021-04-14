@@ -21,7 +21,7 @@ class ShopVariantsPlanTest extends PlanTestCase
         return 'variants';
     }
 
-    public function it_updates_the_model()
+    public function itUpdatesTheModel()
     {
         /** @var ShopCategory $category */
         $category = ShopCategory::query()->create();

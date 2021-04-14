@@ -23,7 +23,7 @@ class ShopPricesPlanTest extends PlanTestCase
         return 'prices';
     }
 
-    public function it_updates_the_model()
+    public function itUpdatesTheModel()
     {
         /** @var ShopCategory $category */
         $category = ShopCategory::query()->create();
