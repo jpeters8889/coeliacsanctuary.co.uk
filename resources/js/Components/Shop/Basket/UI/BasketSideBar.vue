@@ -13,12 +13,15 @@
                             <template v-for="item in data.items">
                                 <tr>
                                     <td colspan="2">
-                                        {{ item.product.title }} <span v-if="item.variant.title !== ''">({{ item.variant.title }})</span>
+                                        {{ item.product.title }} <span
+                                        v-if="item.variant.title !== ''">({{ item.variant.title }})</span>
                                     </td>
                                 </tr>
                                 <tr class="text-xl">
                                     <td>
-                                        <shop-basket-ui-quantity-switcher :quantity="item.quantity" :product-id="item.product.id" :variant-id="item.variant.id"></shop-basket-ui-quantity-switcher>
+                                        <shop-basket-ui-quantity-switcher :quantity="item.quantity"
+                                                                          :product-id="item.product.id"
+                                                                          :variant-id="item.variant.id"></shop-basket-ui-quantity-switcher>
                                     </td>
                                     <td class="text-right" v-html="formatPrice(item.subtotal)"></td>
                                 </tr>
@@ -55,68 +58,68 @@
 </template>
 
 <script>
-    import FormatsPrices from "@/Mixins/FormatsPrices";
-    import GoogleEvents from "@/Mixins/GoogleEvents";
+import FormatsPrices from "@/Mixins/FormatsPrices";
+import GoogleEvents from "@/Mixins/GoogleEvents";
 
-    export default {
-        mixins: [FormatsPrices, GoogleEvents],
+export default {
+    mixins: [FormatsPrices, GoogleEvents],
 
-        data: () => ({
-            showBasket: false,
-            data: {
-                items: [],
-                subtotal: 0,
-            }
-        }),
+    data: () => ({
+        showBasket: false,
+        data: {
+            items: [],
+            subtotal: 0,
+        }
+    }),
 
-        mounted() {
+    mounted() {
+        this.getData();
+
+        this.$root.$on('show-basket', () => {
+            this.showBasket = true;
+        });
+
+        this.$root.$on('product-updated', () => {
             this.getData();
+        });
+    },
 
-            this.$root.$on('show-basket', () => {
-                this.showBasket = true;
-            });
-
-            this.$root.$on('product-updated', () => {
-                this.getData();
-            });
-        },
-
-        methods: {
-            getData() {
-                coeliac().request().get('/api/shop/basket/summary').then((response) => {
-                    this.googleEvent('event', 'checkout-progress', {
-                        event_category: 'opened-basket-sidebar',
-                    });
-
-
-                    if (response.status === 200) {
-                        this.$set(this, 'data', response.data);
-                        return;
-                    }
-
-                    this.data = {
-                        items: [],
-                        subtotal: 0,
-                    }
-                }).catch(() => {
-                    this.data = {
-                        items: [],
-                        subtotal: 0,
-                    }
+    methods: {
+        getData() {
+            coeliac().request().get('/api/shop/basket/summary').then((response) => {
+                this.googleEvent('event', 'checkout-progress', {
+                    event_category: 'opened-basket-sidebar',
                 });
-            }
-        },
 
-        watch: {
-            showBasket: function (value) {
-                if (value) {
-                    document.querySelector('body').classList.add('overflow-hidden');
-                    this.getData();
+
+                if (response.status === 200) {
+                    this.$set(this, 'data', response.data);
                     return;
                 }
 
-                document.querySelector('body').classList.remove('overflow-hidden');
+                this.data = {
+                    items: [],
+                    subtotal: 0,
+                }
+            }).catch(() => {
+                this.data = {
+                    items: [],
+                    subtotal: 0,
+                }
+            });
+        }
+    },
+
+    watch: {
+        showBasket: function (value) {
+            if (value) {
+                document.querySelector('body').classList.add('overflow-hidden');
+                this.getData();
+                return;
             }
+
+            document.querySelector('body').classList.remove('overflow-hidden');
         }
     }
+}
 </script>

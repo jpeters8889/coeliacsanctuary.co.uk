@@ -1,7 +1,7 @@
 <template>
     <div class="bg-blue-gradient w-full rounded-lg p-2 shadow mx-auto max-w-11/12">
         <div class="flex flex-col xs:flex-row xs:justify-between xs:pt-4 mb-4">
-            <template v-for="item in sections">
+            <template v-for="item in sections" v-if="item.enabled">
                 <div class="flex xs:flex-col xs:flex-1" :class="item.canVisit ? 'cursor-pointer' : ''"
                      @click="switchSection(item)">
                     <div class="px-4 relative xs:px-0">
@@ -27,12 +27,13 @@
 
 <script>
 import GoogleEvents from "@/Mixins/GoogleEvents";
+import InteractsWithUser from "@/Mixins/InteractsWithUser";
 import UserDetails from "~/Shop/Basket/Checkout/UserDetails";
 import ShippingDetails from "~/Shop/Basket/Checkout/ShippingDetails";
 import PaymentDetails from "~/Shop/Basket/Checkout/PaymentDetails";
 
 export default {
-    mixins: [GoogleEvents],
+    mixins: [GoogleEvents, InteractsWithUser],
 
     props: {
         countryId: {
@@ -48,6 +49,12 @@ export default {
     },
 
     mounted() {
+        if (this.isLoggedIn()) {
+            this.sections[0].enabled = false;
+            this.sections[0].active = false;
+            this.sections[1].active = true;
+        }
+
         if (sessionStorage.getItem('checkout-data')) {
             this.sections = JSON.parse(sessionStorage.getItem('checkout-data'));
         } else {
@@ -61,6 +68,10 @@ export default {
         this.$root.$on('checkout-back', () => {
             this.goBack();
         });
+
+        this.$root.$on('set-customer-name', (name) => {
+            this.sections[0].data.name = name;
+        })
     },
 
     data: () => ({
@@ -69,6 +80,7 @@ export default {
                 id: 'user-details',
                 title: 'Your Details',
                 component: 'basket-checkout-user-details',
+                enabled: true,
                 completed: true,
                 active: true,
                 canVisit: false,
@@ -83,10 +95,12 @@ export default {
                 id: 'shipping-address',
                 title: 'Shipping Address',
                 component: 'basket-checkout-shipping-details',
+                enabled: true,
                 completed: false,
                 active: false,
                 canVisit: false,
                 data: {
+                    id: null,
                     postcode: '',
                     address1: '',
                     address2: '',
@@ -99,12 +113,14 @@ export default {
                 id: 'payment',
                 title: 'Payment',
                 component: 'basket-checkout-payment-details',
+                enabled: true,
                 completed: false,
                 active: false,
                 canVisit: false,
                 data: {
                     provider: '',
                     shippingAddress: '1',
+                    billingId: null,
                     billingName: '',
                     billingAddress1: '',
                     billingAddress2: '',
@@ -118,6 +134,7 @@ export default {
                 id: 'confirmation',
                 title: 'Confirmation',
                 component: '',
+                enabled: true,
                 completed: false,
                 active: false,
                 canVisit: false,

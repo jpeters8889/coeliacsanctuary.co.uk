@@ -18,6 +18,11 @@ class Blueprint extends ArchitectBlueprint
         return Announcement::class;
     }
 
+    public function blueprintSite(): string
+    {
+        return 'Site';
+    }
+
     public function plans(): array
     {
         return [

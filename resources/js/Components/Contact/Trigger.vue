@@ -1,6 +1,6 @@
 <template>
     <div :class="inline ? 'inline-block' : ''">
-        <div :class="inline ? 'inline-block' : ''"n @click="showContact = true">
+        <div :class="inline ? 'inline-block' : ''" n @click="showContact = true">
             <slot></slot>
         </div>
 
@@ -13,69 +13,70 @@
 </template>
 
 <script>
-    import GoogleEvents from "@/Mixins/GoogleEvents";
-    const ContactForm = () => import('~/Contact/Form' /* webpackChunkName: "chunk-contact-form" */)
-    const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
+import GoogleEvents from "@/Mixins/GoogleEvents";
 
-    export default {
-        mixins: [GoogleEvents],
+const ContactForm = () => import('~/Contact/Form' /* webpackChunkName: "chunk-contact-form" */)
+const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
 
-        components: {
-            'contact-form': ContactForm,
-            'modal': Modal,
+export default {
+    mixins: [GoogleEvents],
+
+    components: {
+        'contact-form': ContactForm,
+        'modal': Modal,
+    },
+
+    props: {
+        open: {
+            type: Boolean,
+            default: false,
         },
+        redirect: {
+            type: String,
+            default: null,
+        },
+        inline: {
+            type: Boolean,
+            default: false
+        }
+    },
 
-        props: {
-            open: {
-                type: Boolean,
-                default: false,
-            },
-            redirect: {
-                type: String,
-                default: null,
-            },
-            inline: {
-                type: Boolean,
-                default: false
+    data: () => ({
+        showContact: false,
+    }),
+
+    mounted() {
+        if (this.open) {
+            this.showContact = true;
+        }
+
+        this.$root.$on('hide-contact-form', () => {
+            this.closeModal();
+        })
+
+        this.$root.$on('modal-closed', () => {
+            this.closeModal();
+        });
+    },
+
+    methods: {
+        closeModal() {
+            this.showContact = false;
+
+            if (this.redirect) {
+                window.location.href = this.redirect;
             }
-        },
+        }
+    },
 
-        data: () => ({
-            showContact: false,
-        }),
-
-        mounted() {
-            if(this.open) {
-                this.showContact = true;
-            }
-
-            this.$root.$on('hide-contact-form', () => {
-                this.closeModal();
-            })
-
-            this.$root.$on('modal-closed', () => {
-                this.closeModal();
-            });
-        },
-
-        methods: {
-            closeModal() {
-                this.showContact = false;
-
-                if(this.redirect) {
-                    window.location.href = this.redirect;
-                }
-            }
-        },
-
-        watch: {
-            showContact: function() {
-                if(this.showContact) {
-                    this.googleEvent('event', 'contact-form', {
-                        event_category: 'toggled',
-                    });
-                }
+    watch: {
+        showContact: function () {
+            if (this.showContact) {
+                this.googleEvent('event', 'contact-form', {
+                    event_category: 'toggled',
+                });
             }
         }
     }
+}
 </script>

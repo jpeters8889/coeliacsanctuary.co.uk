@@ -16,7 +16,11 @@ use Coeliac\Common\Contracts\HasComments;
 use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\DisplaysImages;
 use Illuminate\Database\Eloquent\Collection;
+use Coeliac\Modules\Member\Models\DailyUpdateType;
+use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
+use Coeliac\Modules\Member\Traits\CreatesDailyUpdate;
 use Coeliac\Modules\Collection\Traits\IsCollectionItem;
+use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -35,18 +39,37 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Blog extends BaseModel implements HasComments
 {
     use ArchitectModel;
+    use CanBeAddedToScrapbook;
     use ClearsCache;
     use Commentable;
+    use CreatesDailyUpdate;
     use DisplaysImages;
     use HasRichText;
     use Imageable;
     use IsCollectionItem;
     use Linkable;
+    use PivotEventTrait;
     use Searchable;
 
     protected $appends = ['main_image'];
 
     protected $hidden = ['images'];
+
+    protected static function booted()
+    {
+        self::pivotAttached(function ($model, $relationName) {
+            if ($relationName !== 'tags') {
+                return;
+            }
+
+            static::dispatchDailyUpdate($model);
+        });
+    }
+
+    protected static function dispatchUpdateOnCreate(): bool
+    {
+        return false;
+    }
 
     public function getScoutKey()
     {
@@ -124,5 +147,10 @@ class Blog extends BaseModel implements HasComments
     protected function cacheKey(): string
     {
         return 'blogs';
+    }
+
+    protected static function dailyUpdateType()
+    {
+        return DailyUpdateType::BLOG_TAGS;
     }
 }

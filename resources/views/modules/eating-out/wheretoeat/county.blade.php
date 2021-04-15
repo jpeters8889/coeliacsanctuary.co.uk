@@ -41,6 +41,11 @@
                     </p>
                 </div>
 
+                <div>
+                    <wheretoeat-ui-daily-update-subscribe :type-id="2" :updatable-id="{{ $id }}"
+                                                                      friendly-name="{{ $county }}"/>
+                </div>
+
                 <table class="mt-4 w-full leading-none">
                     <tr class="text-left border-b-2 border-blue">
                         <th class="border-r-2 border-blue p-1 pl-0">Town</th>

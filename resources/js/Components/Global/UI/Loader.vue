@@ -10,61 +10,61 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            show: {
-                type: Boolean,
-                default: false
-            },
-            width: {
-                type: String,
-                default: '50%',
-            },
-            height: {
-                type: String,
-                default: '50%',
-            },
-            maxWidth: {
-                type: String,
-                default: '50px',
-            },
-            maxHeight: {
-                type: String,
-                default: '50px',
-            },
-            background: {
-                type: String,
-                default: 'bg-transparent',
-            },
-            fadedBorderColor: {
-                type: String,
-                default: 'border-blue-20',
-            },
-            primaryBorderColor: {
-                type: String,
-                default: '#80CCFC',
-            },
-            backgroundPosition: {
-                type: String,
-                default: 'absolute',
-            },
-            borderWidth: {
-                type: String,
-                default: '5px',
-            }
+export default {
+    props: {
+        show: {
+            type: Boolean,
+            default: false
         },
+        width: {
+            type: String,
+            default: '50%',
+        },
+        height: {
+            type: String,
+            default: '50%',
+        },
+        maxWidth: {
+            type: String,
+            default: '50px',
+        },
+        maxHeight: {
+            type: String,
+            default: '50px',
+        },
+        background: {
+            type: String,
+            default: 'bg-transparent',
+        },
+        fadedBorderColor: {
+            type: String,
+            default: 'border-blue-20',
+        },
+        primaryBorderColor: {
+            type: String,
+            default: '#80CCFC',
+        },
+        backgroundPosition: {
+            type: String,
+            default: 'absolute',
+        },
+        borderWidth: {
+            type: String,
+            default: '5px',
+        },
+    },
 
-        computed: {
-            loaderStyles() {
-                return {
-                    borderTopColor: this.primaryBorderColor,
-                    borderWidth: this.borderWidth,
-                    width: this.width,
-                    height: this.height,
-                    maxWidth: this.maxWidth,
-                    maxHeight: this.maxHeight,
-                }
+    computed: {
+        loaderStyles() {
+            return {
+                borderTopColor: this.primaryBorderColor,
+                borderWidth: this.borderWidth,
+                width: this.width,
+                height: this.height,
+                maxWidth: this.maxWidth,
+                maxHeight: this.maxHeight,
             }
         }
     }
+}
 </script>

@@ -39,6 +39,7 @@ class WhereToEatCountyController extends BaseController
             ])
             ->setSocialImage(asset("assets/images/wte-shares/{$county->county}.jpg"))
             ->render('modules.eating-out.wheretoeat.county', [
+                'id' => $county->id,
                 'county' => $county->county,
                 'slug' => $county->slug,
                 'towns' => $county->activeTowns,

@@ -9,7 +9,9 @@ use Tests\TestCase;
 use Illuminate\Session\Store;
 use Tests\Traits\Shop\CreateProduct;
 use Tests\Traits\Shop\CreateVariant;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Basket\Basket;
+use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
@@ -136,11 +138,19 @@ class ShopBasketAddTest extends TestCase
     }
 
     /** @test */
-    public function itReturnsSuccessWhenSendingValidDate()
+    public function itReturnsSuccessWhenSendingValidData()
     {
         $this->makeRequest()
             ->assertStatus(200)
             ->assertJson(['data' => 'ok']);
+    }
+
+    /** @test */
+    public function itDoesntHaveAUserIdByDefault()
+    {
+        $this->makeRequest();
+
+        $this->assertNull(ShopOrder::query()->first()->user_id);
     }
 
     /** @test */
@@ -151,5 +161,18 @@ class ShopBasketAddTest extends TestCase
         $this->assertCount(1, ShopOrderItem::query()->get());
         $this->assertTrue($this->product->is(ShopOrderItem::query()->first()->product));
         $this->assertTrue($this->variant->is(ShopOrderItem::query()->first()->variant));
+    }
+
+    /** @test */
+    public function itLinksTheBasketToALoggedInUser()
+    {
+        $this->actingAs($user = factory(User::class)->create());
+
+        $this->makeRequest();
+
+        $basket = ShopOrder::query()->first();
+
+        $this->assertNotNull($basket->user_id);
+        $this->assertEquals($user->id, $basket->user_id);
     }
 }

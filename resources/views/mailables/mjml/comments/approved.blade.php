@@ -15,6 +15,8 @@
             <mj-button href="{{ config('app.url') }}{{ $comment->commentable->link }}">
                 View {{ $comment->what }}
             </mj-button>
+            <mj-text mj-class="inner">If you cant see the button above copy the link below into your browser</mj-text>
+            <mj-text mj-class="inner">{{ $comment->commentable->link }}</mj-text>
         </mj-column>
     </mj-section>
 @endsection

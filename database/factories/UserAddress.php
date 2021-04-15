@@ -5,7 +5,7 @@ declare(strict_types=1);
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
 use Faker\Generator as Faker;
-use Coeliac\Common\Models\UserAddress;
+use Coeliac\Modules\Member\Models\UserAddress;
 
 $factory->define(UserAddress::class, function (Faker $faker) {
     return [

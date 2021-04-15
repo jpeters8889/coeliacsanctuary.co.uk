@@ -27,7 +27,7 @@
                     <div class="w-full flex mb-1">
                         <input type="search" placeholder="Search Tags..."
                                class="text-sm p-1 flex-1 bg-grey-lightest border border-grey-off rounded w-full"
-                               v-model="searchText" />
+                               v-model="searchText"/>
                     </div>
 
                     <ul>
@@ -82,143 +82,143 @@
 </template>
 
 <script>
-    import FilterableUrls from "@/Mixins/FilterableUrls";
+import FilterableUrls from "@/Mixins/FilterableUrls";
 
-    export default {
-        mixins: [FilterableUrls],
+export default {
+    mixins: [FilterableUrls],
 
-        props: {
-            currentFilters: {
-                type: Object | Array,
-            },
-            currentSearch: {
-                type: String,
-                default: '',
+    props: {
+        currentFilters: {
+            type: Object | Array,
+        },
+        currentSearch: {
+            type: String,
+            default: '',
+        }
+    },
+
+    data: () => ({
+        tags: [],
+        selectedTags: [],
+        years: [],
+        selectedYear: null,
+        searchText: '',
+        accordions: {
+            tags: false,
+            year: false,
+        }
+    }),
+
+    mounted() {
+        this.getData();
+
+        this.$root.$on('accordion-toggled', (event) => {
+            if (this.accordions[event.name] !== undefined) {
+                this.$set(this.accordions, event.name, event.visible);
             }
-        },
+        });
 
-        data: () => ({
-            tags: [],
-            selectedTags: [],
-            years: [],
-            selectedYear: null,
-            searchText: '',
-            accordions: {
-                tags: false,
-                year: false,
-            }
-        }),
+        this.$root.$on('clear-filters', () => {
+            this.selectedTags = [];
+            this.selectedYear = '';
+        });
+    },
 
-        mounted() {
-            this.getData();
+    methods: {
+        getData() {
+            coeliac().request().get(this.buildUrl(`/api/blogs/tags`, 1, this.currentSearch, this.currentFilters))
+                .then((response) => {
+                    this.tags = response.data.data;
+                    this.selectedTags = [];
 
-            this.$root.$on('accordion-toggled', (event) => {
-                if (this.accordions[event.name] !== undefined) {
-                    this.$set(this.accordions, event.name, event.visible);
-                }
-            });
-
-            this.$root.$on('clear-filters', () => {
-                this.selectedTags = [];
-                this.selectedYear = '';
-            });
-        },
-
-        methods: {
-            getData() {
-                coeliac().request().get(this.buildUrl(`/api/blogs/tags`, 1, this.currentSearch, this.currentFilters))
-                    .then((response) => {
-                        this.tags = response.data.data;
-                        this.selectedTags = [];
-
-                        if (this.currentFilters) {
-                            this.currentFilters.tags.forEach((currentFilter) => {
-                                this.selectedTags.push(
-                                    this.tags.filter((tag) => {
-                                        return tag.slug === currentFilter;
-                                    })[0]
-                                );
-                            });
-                        }
-                    });
-
-                coeliac().request().get(this.buildUrl('/api/blogs/years', 1, this.currentSearch, this.currentFilters))
-                    .then((response) => {
-                        this.years = response.data.data;
-
-                        this.selectedYear = this.currentFilters.year[0] || null;
-                    });
-            },
-
-            selectTag(tag) {
-                this.selectedTags.push(tag);
-                this.$root.$emit('add-filter', {
-                    name: 'tags',
-                    value: tag.slug,
-                });
-            },
-
-            selectYear(year) {
-                this.selectedYear = year;
-                this.$root.$emit('add-filter', {
-                    name: 'year',
-                    value: year,
-                    single: true,
-                })
-            },
-
-            removeTag(tag) {
-                this.selectedTags = this.selectedTags.filter((tags) => {
-                    return tags.slug !== tag.slug;
-                });
-
-
-                this.$root.$emit('remove-filter', {
-                    name: 'tags',
-                    value: tag.slug,
-                });
-            },
-
-            removeYear() {
-                let current = this.selectedYear;
-                this.selectedYear = null;
-
-                this.$root.$emit('remove-filter', {
-                    name: 'year',
-                    value: current,
-                });
-            },
-
-            iconFor(filter) {
-                return this.accordions[filter] ? 'chevron-up' : 'chevron-down';
-            },
-        },
-
-        computed: {
-            filteredTags() {
-                return this.tags.filter((tag) => {
-                    if (this.searchText !== '') {
-                        return tag.title.toLowerCase().includes(this.searchText) && this.selectedTags.indexOf(tag) === -1;
+                    if (this.currentFilters) {
+                        this.currentFilters.tags.forEach((currentFilter) => {
+                            this.selectedTags.push(
+                                this.tags.filter((tag) => {
+                                    return tag.slug === currentFilter;
+                                })[0]
+                            );
+                        });
                     }
+                });
 
-                    return this.selectedTags.indexOf(tag) === -1;
-                }).slice(0, 14);
-            }
+            coeliac().request().get(this.buildUrl('/api/blogs/years', 1, this.currentSearch, this.currentFilters))
+                .then((response) => {
+                    this.years = response.data.data;
+
+                    this.selectedYear = this.currentFilters.year[0] || null;
+                });
         },
 
-        watch: {
-            currentFilters: {
-                deep: true,
-                handler: function () {
-                    this.getData();
+        selectTag(tag) {
+            this.selectedTags.push(tag);
+            this.$root.$emit('add-filter', {
+                name: 'tags',
+                value: tag.slug,
+            });
+        },
+
+        selectYear(year) {
+            this.selectedYear = year;
+            this.$root.$emit('add-filter', {
+                name: 'year',
+                value: year,
+                single: true,
+            })
+        },
+
+        removeTag(tag) {
+            this.selectedTags = this.selectedTags.filter((tags) => {
+                return tags.slug !== tag.slug;
+            });
+
+
+            this.$root.$emit('remove-filter', {
+                name: 'tags',
+                value: tag.slug,
+            });
+        },
+
+        removeYear() {
+            let current = this.selectedYear;
+            this.selectedYear = null;
+
+            this.$root.$emit('remove-filter', {
+                name: 'year',
+                value: current,
+            });
+        },
+
+        iconFor(filter) {
+            return this.accordions[filter] ? 'chevron-up' : 'chevron-down';
+        },
+    },
+
+    computed: {
+        filteredTags() {
+            return this.tags.filter((tag) => {
+                if (this.searchText !== '') {
+                    return tag.title.toLowerCase().includes(this.searchText) && this.selectedTags.indexOf(tag) === -1;
                 }
-            },
-            currentSearch: {
-                deep: true,
-                handler: function () {
-                    this.getData();
-                }
+
+                return this.selectedTags.indexOf(tag) === -1;
+            }).slice(0, 14);
+        }
+    },
+
+    watch: {
+        currentFilters: {
+            deep: true,
+            handler: function () {
+                this.getData();
+            }
+        },
+        currentSearch: {
+            deep: true,
+            handler: function () {
+                this.getData();
             }
         }
     }
+}
 </script>

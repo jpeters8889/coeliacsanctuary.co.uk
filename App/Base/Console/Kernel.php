@@ -6,7 +6,10 @@ namespace Coeliac\Base\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Coeliac\Modules\Shop\Console\CloseBaskets;
+use Coeliac\Modules\Shop\Console\CleanUpAddresses;
+use Coeliac\Modules\Member\Console\SendDailyUpdates;
 use Coeliac\Modules\Shop\Console\ApplyMassDiscounts;
+use Coeliac\Modules\Member\Console\UpdateUserActivity;
 use Coeliac\Base\Console\Commands\ClearPublicDirectories;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Coeliac\Modules\Recipe\Console\PrefixRecipesWithGlutenFree;
@@ -17,8 +20,11 @@ class Kernel extends ConsoleKernel
         ApplyMassDiscounts::class,
         ClearPublicDirectories::class,
         CloseBaskets::class,
-//        ImportCommand::class,
+        SendDailyUpdates::class,
+        UpdateUserActivity::class,
         PrefixRecipesWithGlutenFree::class,
+
+        CleanUpAddresses::class,
     ];
 
     protected function schedule(Schedule $schedule)
@@ -26,6 +32,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('coeliac:shopCloseBaskets')->everyMinute();
         $schedule->command('coeliac:apply_mass_discounts')->everyMinute();
         $schedule->command('coeliac:clear_public_dirs')->daily();
+        $schedule->command('coeliac:send_daily_updates')->dailyAt('17:00');
+        $schedule->command('coeliac:update-user-activity')->everyFiveMinutes();
 
         $schedule->command('list')->thenPing('http://beats.envoyer.io/heartbeat/8YWokjIDBE2Dkzc');
 

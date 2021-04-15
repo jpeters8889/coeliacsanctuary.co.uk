@@ -19,33 +19,33 @@
 </template>
 
 <script>
-    import IsFormField from "@/Mixins/IsFormField";
+import IsFormField from "@/Mixins/IsFormField";
 
-    export default {
-        mixins: [IsFormField],
+export default {
+    mixins: [IsFormField],
 
-        props: {
-            options: {
-                required: true,
-                type: Array,
-            },
-            padding: {
-                default: 'p-3',
-            },
-            label: {
-                type: String,
-                default: null,
-            }
+    props: {
+        options: {
+            required: true,
+            type: Array,
+        },
+        padding: {
+            default: 'p-3',
+        },
+        label: {
+            type: String,
+            default: null,
         }
     }
+}
 </script>
 
 <style>
-    input:focus {
-        outline: none;
-    }
+input:focus {
+    outline: none;
+}
 
-    input:-webkit-autofill {
-        background: none;
-    }
+input:-webkit-autofill {
+    background: none;
+}
 </style>

@@ -30,25 +30,25 @@
 </template>
 
 <script>
-    import CheckoutComponent from "@/Mixins/CheckoutComponent";
+import CheckoutComponent from "@/Mixins/CheckoutComponent";
 
-    export default {
-        mixins: [CheckoutComponent],
+export default {
+    mixins: [CheckoutComponent],
 
-        data: () => ({
-            formData: {
-                name: '',
-                email: '',
-                emailConfirmation: '',
-                phone: '',
-            },
+    data: () => ({
+        formData: {
+            name: '',
+            email: '',
+            emailConfirmation: '',
+            phone: '',
+        },
 
-            validity: {
-                name: false,
-                email: false,
-                emailConfirmation: false,
-                phone: true,
-            }
-        }),
-    }
+        validity: {
+            name: false,
+            email: false,
+            emailConfirmation: false,
+            phone: true,
+        }
+    }),
+}
 </script>

@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Basket;
 
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Session\Store as SessionStore;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
 
 class Basket
 {
+    protected Request $request;
     protected SessionStore $session;
 
     protected ShopOrder $basketModel;
@@ -29,6 +32,7 @@ class Basket
     public function create()
     {
         $this->basketModel = ShopOrder::query()->create([
+            'user_id' => resolve(Authenticatable::class)->id ?? null,
             'token' => $token = Str::random(8),
         ]);
 

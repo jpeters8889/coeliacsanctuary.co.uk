@@ -21,68 +21,69 @@
 </template>
 
 <script>
-    import GoogleEvents from "@/Mixins/GoogleEvents";
-    const Loader = () => import('~/Global/UI/Loader' /* webpackChunkName: "chunk-loader" */)
-    const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
-    const FormInput = () => import('~/Forms/Input' /* webpackChunkName: "chunk-form-input" */)
+import GoogleEvents from "@/Mixins/GoogleEvents";
 
-    export default {
-        mixins: [GoogleEvents],
+const Loader = () => import('~/Global/UI/Loader' /* webpackChunkName: "chunk-loader" */)
+const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
+const FormInput = () => import('~/Forms/Input' /* webpackChunkName: "chunk-form-input" */)
 
-        components: {
-            'loader': Loader,
-            'modal': Modal,
-            'form-input': FormInput,
+export default {
+    mixins: [GoogleEvents],
+
+    components: {
+        'loader': Loader,
+        'modal': Modal,
+        'form-input': FormInput,
+    },
+
+    data: () => ({
+        discountCode: '',
+        loading: false,
+    }),
+
+    mounted() {
+        this.googleEvent('event', 'checkout-progress', {
+            event_category: 'opened-discount-modal',
+        });
+
+        this.$root.$on('code-change', (value) => {
+            this.discountCode = value;
+        });
+    },
+
+    methods: {
+        validateCode() {
+            this.loading = true;
+            coeliac().request().post('/api/shop/basket/discount', {
+                code: this.discountCode,
+            }).then((response) => {
+                if (response.status === 200) {
+                    this.googleEvent('event', 'checkout-progress', {
+                        event_category: 'applied-discount',
+                        event_label: this.discountCode,
+                    });
+
+                    coeliac().success(`Yay! We've validated your ${response.data.name} discount code and added it to your order!`);
+                    this.$root.$emit('basket-discount-code-validated');
+
+                    return;
+                }
+
+                this.reportError();
+            }).catch(() => {
+                this.reportError();
+            });
         },
 
-        data: () => ({
-            discountCode: '',
-            loading: false,
-        }),
-
-        mounted() {
+        reportError() {
             this.googleEvent('event', 'checkout-progress', {
-                event_category: 'opened-discount-modal',
+                event_category: 'invalid-discount',
+                event_label: this.discountCode,
             });
 
-            this.$root.$on('code-change', (value) => {
-                this.discountCode = value;
-            });
-        },
-
-        methods: {
-            validateCode() {
-                this.loading = true;
-                coeliac().request().post('/api/shop/basket/discount', {
-                    code: this.discountCode,
-                }).then((response) => {
-                    if (response.status === 200) {
-                        this.googleEvent('event', 'checkout-progress', {
-                            event_category: 'applied-discount',
-                            event_label: this.discountCode,
-                        });
-
-                        coeliac().success(`Yay! We've validated your ${response.data.name} discount code and added it to your order!`);
-                        this.$root.$emit('basket-discount-code-validated');
-
-                        return;
-                    }
-
-                    this.reportError();
-                }).catch(() => {
-                    this.reportError();
-                });
-            },
-
-            reportError() {
-                this.googleEvent('event', 'checkout-progress', {
-                    event_category: 'invalid-discount',
-                    event_label: this.discountCode,
-                });
-
-                this.loading = false;
-                coeliac().error('Sorry, there was an error validating your discount code, please check your code and try again.');
-            }
+            this.loading = false;
+            coeliac().error('Sorry, there was an error validating your discount code, please check your code and try again.');
         }
     }
+}
 </script>

@@ -7,11 +7,11 @@
 </template>
 
 <script>
-    export default {
-        methods: {
-            showSearch() {
-                this.$root.$emit('show-quick-search');
-            }
+export default {
+    methods: {
+        showSearch() {
+            this.$root.$emit('show-quick-search');
         }
     }
+}
 </script>

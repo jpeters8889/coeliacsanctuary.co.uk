@@ -21,7 +21,7 @@ export default {
                     return;
                 }
 
-                if(response.status === 409) {
+                if (response.status === 409) {
                     coeliac().error('You\'re already subscribed to our newsletter!');
                     return;
                 }

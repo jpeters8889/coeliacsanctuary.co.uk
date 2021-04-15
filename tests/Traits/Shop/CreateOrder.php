@@ -17,4 +17,9 @@ trait CreateOrder
             'token' => Str::random(8),
         ], $params));
     }
+
+    public function createBasket($params = [])
+    {
+        return $this->createOrder($params);
+    }
 }

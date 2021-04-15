@@ -33,10 +33,14 @@
 </template>
 
 <script>
+import InteractsWithUser from "@/Mixins/InteractsWithUser";
+
 const FormInput = () => import('~/Forms/Input' /* webpackChunkName: "chunk-form-input" */)
 const FormTextarea = () => import('~/Forms/Textarea' /* webpackChunkName: "chunk-form-textarea" */)
 
 export default {
+    mixins: [InteractsWithUser],
+
     components: {
         'form-input': FormInput,
         'form-textarea': FormTextarea,
@@ -81,6 +85,11 @@ export default {
                 this.formData[key] = value;
             });
         });
+
+        if (this.isLoggedIn()) {
+            this.formData.name = window.config.user.name;
+            this.formData.email = window.config.user.email;
+        }
     },
 
     methods: {

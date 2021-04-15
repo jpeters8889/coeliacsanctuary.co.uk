@@ -16,37 +16,37 @@
 </template>
 
 <script>
-    import IsFormField from "@/Mixins/IsFormField";
+import IsFormField from "@/Mixins/IsFormField";
 
-    export default {
-        mixins: [IsFormField],
+export default {
+    mixins: [IsFormField],
 
-        props: {
-            options: {
-                required: true,
-                type: Array,
-            },
-            label: {
-                required: true,
-                type: String,
-            }
+    props: {
+        options: {
+            required: true,
+            type: Array,
         },
+        label: {
+            required: true,
+            type: String,
+        }
+    },
 
-        methods: {
-            changeOption(value) {
-                this.currentValue = value;
-                this.validate()
-            }
+    methods: {
+        changeOption(value) {
+            this.currentValue = value;
+            this.validate()
         }
     }
+}
 </script>
 
 <style>
-    input:focus {
-        outline: none;
-    }
+input:focus {
+    outline: none;
+}
 
-    input:-webkit-autofill {
-        background: none;
-    }
+input:-webkit-autofill {
+    background: none;
+}
 </style>

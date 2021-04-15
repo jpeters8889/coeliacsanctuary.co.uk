@@ -11,24 +11,24 @@
 </template>
 
 <script>
-    import LazyLoadsImages from "@/Mixins/LazyLoadsImages";
+import LazyLoadsImages from "@/Mixins/LazyLoadsImages";
 
-    export default {
-        mixins: [LazyLoadsImages],
+export default {
+    mixins: [LazyLoadsImages],
 
-        props: {
-            src: {
-                required: true,
-                type: String,
-            },
-            alt: {
-                required: true,
-                type: String,
-            },
+    props: {
+        src: {
+            required: true,
+            type: String,
         },
-
-        mounted() {
-            this.loadLazyImages();
+        alt: {
+            required: true,
+            type: String,
         },
-    }
+    },
+
+    mounted() {
+        this.loadLazyImages();
+    },
+}
 </script>

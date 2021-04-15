@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Providers;
 
-use Coeliac\Common\Models\User;
 use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
 use Coeliac\Common\Newsletter\NewsletterService;

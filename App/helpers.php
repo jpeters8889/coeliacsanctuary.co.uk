@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 use Carbon\Carbon;
 
-function admin_user(): Coeliac\Common\Models\User
+function admin_user(): Coeliac\Modules\Member\Models\User
 {
-    return \Coeliac\Common\Models\User::query()->firstWhere('email', 'contact@coeliacsanctuary.co.uk');
+    return \Coeliac\Modules\Member\Models\User::query()->firstWhere('email', 'contact@coeliacsanctuary.co.uk');
 }
 
 function cs_nl2br($string)

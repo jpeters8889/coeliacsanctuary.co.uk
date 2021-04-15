@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Coeliac\Common\Models\User;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Database\Migrations\Migration;
 
 class PopulateUsers extends Migration

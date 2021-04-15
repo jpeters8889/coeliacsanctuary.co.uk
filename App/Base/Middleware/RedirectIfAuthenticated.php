@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Base\Middleware;
 
 use Closure;
+use Illuminate\Http\Response;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\RedirectResponse;
@@ -22,7 +23,11 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Container::getInstance()->make(Guard::class)->check()) {
-            return new RedirectResponse('/');
+            if ($request->wantsJson()) {
+                return new Response([], 400);
+            }
+
+            return new RedirectResponse('/member/dashboard');
         }
 
         return $next($request);

@@ -4,30 +4,38 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Models;
 
-use Coeliac\Common\Models\User;
+use Carbon\Carbon;
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Common\Models\UserAddress;
+use Coeliac\Modules\Member\Models\User;
+use Illuminate\Database\Eloquent\Collection;
+use Coeliac\Modules\Member\Models\UserAddress;
 
 /**
- * @property ShopOrderState     $state
- * @property User               $user
- * @property UserAddress        $address
- * @property mixed|string       $id
- * @property mixed|string       $token
- * @property ShopPostageCountry $postageCountry
- * @property mixed|string       $customer_id
- * @property mixed|string       $customer_address_id
- * @property ShopPayment        $payment
- * @property string             $order_key
- * @property bool               $newsletter_signup
- * @property ShopDiscountCode   $discountCode
+ * @property ShopOrderState            $state
+ * @property User                      $user
+ * @property UserAddress               $address
+ * @property mixed|string              $id
+ * @property mixed|string              $token
+ * @property ShopPostageCountry        $postageCountry
+ * @property mixed|string              $customer_id
+ * @property mixed|string              $customer_address_id
+ * @property ShopPayment               $payment
+ * @property string                    $order_key
+ * @property bool                      $newsletter_signup
+ * @property ShopDiscountCode          $discountCode
+ * @property Carbon                    $created_at
+ * @property int                       $items_count
+ * @property Carbon|null               $shipped_at
+ * @property Collection<ShopOrderItem> $items
  */
 class ShopOrder extends BaseModel
 {
     protected $casts = [
+        'user_id' => 'int',
         'postage_country_id' => 'int',
         'state_id' => 'int',
         'newsletter_signup' => 'bool',
+        'order_key' => 'int',
     ];
 
     protected $dates = ['shipped_at'];
@@ -44,7 +52,7 @@ class ShopOrder extends BaseModel
 
     public function address()
     {
-        return $this->belongsTo(UserAddress::class, 'user_address_id');
+        return $this->belongsTo(UserAddress::class, 'user_address_id')->withTrashed();
     }
 
     public function addProduct(ShopProductVariant $variant, $quantity = 1)

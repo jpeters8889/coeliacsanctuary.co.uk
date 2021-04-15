@@ -6,7 +6,7 @@ namespace Tests\Architect;
 
 use Tests\TestCase;
 use Tests\Traits\CreatesBlogs;
-use Coeliac\Common\Models\User;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use JPeters\Architect\TestHelpers\Traits\LogsInUsers;
 

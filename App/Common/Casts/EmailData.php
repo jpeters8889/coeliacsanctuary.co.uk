@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Coeliac\Common\Casts;
 
 use Carbon\Carbon;
-use Coeliac\Common\Models\User;
 use Coeliac\Common\Models\Comment;
 use Coeliac\Common\Models\CommentReply;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRating;

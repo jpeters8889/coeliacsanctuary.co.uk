@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Payment;
 
 use Illuminate\Http\Request;
-use Coeliac\Common\Models\User;
 use Illuminate\Container\Container;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Basket\Basket;
 use Illuminate\Contracts\Events\Dispatcher;
 use Coeliac\Modules\Shop\Events\CreateOrder;
@@ -41,13 +41,15 @@ abstract class Processor
 
         $this->request = $request;
 
-        $user = User::query()->firstOrCreate(
-            ['email' => $this->request->input('user.email')],
-            [
-                'name' => $this->request->input('user.name'),
-                'phone' => $this->request->input('user.phone'),
-            ],
+        if (!$user = $request->user()) {
+            $user = User::query()->firstOrCreate(
+                ['email' => $this->request->input('user.email')],
+                [
+                    'name' => $this->request->input('user.name'),
+                    'phone' => $this->request->input('user.phone'),
+                ],
             );
+        }
 
         $this->basket->model()->user_id = $user->id;
         $this->processAddresses($user);
@@ -56,29 +58,8 @@ abstract class Processor
 
     protected function processAddresses(User $user)
     {
-        $address = $user->addresses()->firstOrCreate([
-            'type' => 'Shipping',
-            'name' => $this->request->input('user.name'),
-            'line_1' => $this->request->input('shipping.address1'),
-            'line_2' => $this->request->input('shipping.address2'),
-            'line_3' => $this->request->input('shipping.address3'),
-            'town' => $this->request->input('shipping.town'),
-            'postcode' => $this->request->input('shipping.postcode'),
-            'country' => $this->basket->model()->postageCountry->country,
-        ]);
-
-        $user->addresses()->firstOrCreate([
-            'type' => 'Billing',
-            'name' => $this->request->input('billing.name'),
-            'line_1' => $this->request->input('billing.address1'),
-            'line_2' => $this->request->input('billing.address2'),
-            'line_3' => $this->request->input('billing.address3'),
-            'town' => $this->request->input('billing.town'),
-            'postcode' => $this->request->input('billing.postcode'),
-            'country' => $this->request->input('billing.country'),
-        ]);
-
-        $this->basket->model()->user_address_id = $address->id;
+        $this->basket->model()->user_address_id = $this->getShippingAddress($user)->id;
+        $this->getBillingAddress($user);
     }
 
     protected function submitOrderCompleteEvent($provider, $data)
@@ -92,5 +73,44 @@ abstract class Processor
                 $this->basket->discount(),
             )
         );
+    }
+
+    protected function getShippingAddress(User $user): \Illuminate\Database\Eloquent\Model
+    {
+        if ($this->request->has('shipping.id')) {
+            return $user->addresses()->findOrFail($this->request->input('shipping.id'));
+        }
+
+        return $user->addresses()->firstOrCreate([
+            'type' => 'Shipping',
+            'name' => $user->name,
+            'line_1' => $this->request->input('shipping.address1'),
+            'line_2' => $this->request->input('shipping.address2'),
+            'line_3' => $this->request->input('shipping.address3'),
+            'town' => $this->request->input('shipping.town'),
+            'postcode' => $this->request->input('shipping.postcode'),
+            'country' => $this->basket->model()->postageCountry->country,
+        ]);
+    }
+
+    /**
+     * @param User $user
+     */
+    protected function getBillingAddress(User $user): void
+    {
+        if ($this->request->has('billing.id')) {
+            return;
+        }
+
+        $user->addresses()->firstOrCreate([
+            'type' => 'Billing',
+            'name' => $this->request->input('billing.name'),
+            'line_1' => $this->request->input('billing.address1'),
+            'line_2' => $this->request->input('billing.address2'),
+            'line_3' => $this->request->input('billing.address3'),
+            'town' => $this->request->input('billing.town'),
+            'postcode' => $this->request->input('billing.postcode'),
+            'country' => $this->request->input('billing.country'),
+        ]);
     }
 }
