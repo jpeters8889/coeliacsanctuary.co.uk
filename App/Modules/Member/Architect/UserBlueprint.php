@@ -29,7 +29,7 @@ class UserBlueprint extends ArchitectBlueprint
     public function getData(): Builder
     {
         return parent::getData()
-            ->withCount('orders');
+            ->withCount(['orders', 'scrapbooks', 'scrapbookItems', 'subscriptions']);
     }
 
     public function ordering(): array
@@ -46,11 +46,16 @@ class UserBlueprint extends ArchitectBlueprint
 
             Password::generate('password'),
 
-            Label::generate('orders_count', 'Orders'),
-
             Select::generate('user_level_id', 'User Level')
-//                ->hideOnIndex()
                 ->options($this->getUserLevels()->toArray()),
+
+            Label::generate('orders_count', 'Orders')->hideOnForms(),
+
+            Label::generate('scrapbooks_count', 'Scrapbooks')->hideOnForms(),
+
+            Label::generate('scrapbook_items_count', 'Scrapbooked Items')->hideOnForms(),
+
+            Label::generate('subscriptions_count', 'Update Subscriptions')->hideOnForms(),
 
             DateTime::generate('last_visited_at', 'Last Visit')->hideOnForms(),
 

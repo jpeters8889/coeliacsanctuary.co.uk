@@ -18,8 +18,10 @@ use Coeliac\Common\Popups\Blueprint as PopupBlueprint;
 use Coeliac\Modules\Shop\Architect\DailyStockBlueprint;
 use Coeliac\Modules\Shop\Architect\MassDiscountsBlueprint;
 use Coeliac\Modules\Shop\Architect\PostagePricesBlueprint;
+use Coeliac\Modules\Member\Architect\LoginAttemptsBlueprint;
 use Coeliac\Common\Notifications\Blueprint as EmailBlueprint;
 use Coeliac\Modules\Blog\Architect\Blueprint as BlogBlueprint;
+use Coeliac\Modules\Member\Architect\PasswordChangesBlueprint;
 use Coeliac\Modules\Recipe\Architect\Blueprint as RecipeBlueprint;
 use Coeliac\Common\Announcements\Blueprint as AnnouncementBlueprint;
 use JPeters\Architect\Providers\ArchitectApplicationServiceProvider;
@@ -42,15 +44,19 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             RecipeBlueprint::class,
             WhereToEatBlueprint::class,
             CollectionsBlueprint::class,
-            CommentsBlueprint::class,
-            WteRatingsBlueprint::class,
-            CompetitionsBlueprint::class,
-            AnnouncementBlueprint::class,
-            PopupBlueprint::class,
-            PlaceRequestBlueprint::class,
             UserBlueprint::class,
 
+            CommentsBlueprint::class,
+            PlaceRequestBlueprint::class,
+            WteRatingsBlueprint::class,
+
+            AnnouncementBlueprint::class,
+            CompetitionsBlueprint::class,
+            PopupBlueprint::class,
+
             EmailBlueprint::class,
+            LoginAttemptsBlueprint::class,
+            PasswordChangesBlueprint::class,
             SearchHistoryBlueprint::class,
 
             BasketBlueprint::class,

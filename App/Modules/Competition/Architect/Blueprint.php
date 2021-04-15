@@ -24,6 +24,11 @@ class Blueprint extends Architect
         return Competition::class;
     }
 
+    public function blueprintSite(): string
+    {
+        return 'Site';
+    }
+
     public function getData(): Builder
     {
         return parent::getData()->withCount('entries');
