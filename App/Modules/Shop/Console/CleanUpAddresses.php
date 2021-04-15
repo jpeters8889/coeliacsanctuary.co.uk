@@ -27,7 +27,7 @@ class CleanUpAddresses extends Command
             $updated = false;
 
             foreach ($keys as $key) {
-                if (trim($address->$key) === '') {
+                if ($address->$key && trim($address->$key) === '') {
                     $updated = true;
                     $address->$key = null;
                 }
