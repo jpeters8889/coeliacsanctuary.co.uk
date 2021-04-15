@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Response;
 
+use Carbon\Carbon;
 use Illuminate\Container\Container;
 use Coeliac\Common\Announcements\Repository;
 use JPeters\PageViewBuilder\Page as PageBuilder;
+use Coeliac\Modules\Competition\Models\Competition;
 
 class Page extends PageBuilder
 {
@@ -92,6 +94,10 @@ class Page extends PageBuilder
         return parent::collectData(array_merge($data, [
             'breadcrumbs' => $this->breadcrumbs,
             'announcements' => Container::getInstance()->make(Repository::class)->take(1),
+            'promoteCompetition' => Competition::query()->whereDate('start_at', '<', Carbon::now()->format('Y-m-d H:i:s'))
+                ->whereDate('end_at', '>', Carbon::now()->format('Y-m-d H:i:s'))
+                ->where('promote_on_banner', 1)
+                ->first(),
             'prefetch' => array_merge($this->prefetch, [
                 'http://fonts.cdnfonts.com/css/note-this' => 'font',
                 'https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap' => 'style',
