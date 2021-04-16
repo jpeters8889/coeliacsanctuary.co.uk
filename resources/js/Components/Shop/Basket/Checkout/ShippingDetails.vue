@@ -105,7 +105,7 @@ export default {
         },
 
         validity: {
-            id: false,
+            id: true,
             postcode: false,
             address1: false,
             address2: true,
