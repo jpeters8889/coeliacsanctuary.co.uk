@@ -28,6 +28,8 @@ class OrderRequest extends ApiFormRequest
             'shipping' => ['required', 'array'],
             'shipping.id' => [
                 'required_without:shipping.address1,shipping.town,shipping.postcode',
+                'bail',
+                'nullable',
                 Rule::exists('user_addresses', 'id')->where(function (Builder $query) {
                     $query->where('user_id', $this->user()->id);
                 }),
@@ -39,6 +41,8 @@ class OrderRequest extends ApiFormRequest
             'billing' => ['required', 'array'],
             'billing.id' => [
                 'required_without:billing.name,billing.address1,billing.town,billing.postcode,billing.country',
+                'bail',
+                'nullable',
                 Rule::exists('user_addresses', 'id')->where(function (Builder $query) {
                     $query->where('user_id', $this->user()->id);
                 }),

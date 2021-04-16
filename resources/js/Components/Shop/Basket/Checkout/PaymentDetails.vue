@@ -136,7 +136,7 @@ export default {
         if (this.isLoggedIn() && this.userHasVerifiedEmail()) {
             this.getUsersAddresses();
 
-            if (this.defaultData.id) {
+            if (this.defaultData.billingId) {
                 this.formData.billingId = this.defaultData.billingId;
             }
         }
@@ -217,7 +217,7 @@ export default {
         updateSessionStorage() {
             let current = JSON.parse(sessionStorage.getItem('checkout-data'));
 
-            current[2].data.id = this.formData.billingId;
+            current[2].data.billingId = this.formData.billingId;
 
             sessionStorage.setItem('checkout-data', JSON.stringify(current));
 
@@ -290,7 +290,7 @@ export default {
             }
 
             Object.keys(this.validity).forEach((key) => {
-                if (key.includes('billing')) {
+                if (key.includes('billing') && key !== 'billingId') {
                     this.formData[key] = '';
                     this.$root.$emit(`${key}-set-value`, (''));
 

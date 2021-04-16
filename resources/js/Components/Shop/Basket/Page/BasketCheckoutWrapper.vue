@@ -51,6 +51,7 @@ export default {
     mounted() {
         if (this.isLoggedIn()) {
             this.sections[0].enabled = false;
+            this.sections[0].data.name = window.config.user.name;
             this.sections[0].active = false;
             this.sections[1].active = true;
         }
@@ -171,6 +172,7 @@ export default {
                 this.sections[2].data = {
                     provider: '',
                     shippingAddress: '1',
+                    billingId: null,
                     billingName: this.sections[0].data.name,
                     billingAddress1: this.sections[1].data.address1,
                     billingAddress2: this.sections[1].data.address2,
