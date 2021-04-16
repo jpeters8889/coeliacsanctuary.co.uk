@@ -77,7 +77,7 @@ abstract class Processor
 
     protected function getShippingAddress(User $user): \Illuminate\Database\Eloquent\Model
     {
-        if ($this->request->has('shipping.id')) {
+        if ($this->request->input('shipping.id')) {
             return $user->addresses()->findOrFail($this->request->input('shipping.id'));
         }
 
@@ -98,7 +98,7 @@ abstract class Processor
      */
     protected function getBillingAddress(User $user): void
     {
-        if ($this->request->has('billing.id')) {
+        if ($this->request->input('billing.id')) {
             return;
         }
 
