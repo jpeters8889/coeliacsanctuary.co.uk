@@ -107,7 +107,7 @@ export default {
         formData: {
             provider: '',
             shippingAddress: '1',
-            billingId: '',
+            billingId: null,
             billingName: '',
             billingAddress1: '',
             billingAddress2: '',
