@@ -128,9 +128,13 @@ export default {
 
     methods: {
         getFormData() {
+            let images = this.selectedImages;
+
+            images.article = images.article.filter((image, index) => images.article.indexOf(image) === index);
+
             return {
                 name: this.name,
-                value: JSON.stringify(this.selectedImages),
+                value: JSON.stringify(images),
             }
         },
 
