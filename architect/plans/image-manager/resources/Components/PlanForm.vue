@@ -192,7 +192,7 @@ export default {
             this.$set(this.selectedImages, button, imageText);
             this.$set(this.hasImages, button, toSelect);
 
-            if(!this.meta.buttons.insert && this.selectedImages.article.includes(image.filename)) {
+            if(!this.metas.buttons.insert && this.selectedImages.article.includes(image.filename)) {
                 this.$delete(this.selectedImages.article, this.selectedImages.article.indexOf(image.filename));
             }
         },
