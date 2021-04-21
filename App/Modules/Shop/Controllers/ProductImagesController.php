@@ -20,7 +20,7 @@ class ProductImagesController extends BaseController
 
         return [
             'images' => $product->images
-                ->where('image_category_id', Image::IMAGE_CATEGORY_GENERAL)
+                ->whereIn('image_category_id', [Image::IMAGE_CATEGORY_GENERAL, Image::IMAGE_CATEGORY_SHOP_PRODUCT])
                 ->pluck('image.image_url'),
         ];
     }
