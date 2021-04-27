@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <th>Order Date</th>
-                <td>{{ formatDate(order.date, 'D MMMM YYYY HH:mm') }}</td>
+                <td>{{ formatDate(order.order_date, 'D MMMM YYYY HH:mm') }}</td>
             </tr>
             <tr>
                 <th>Order State</th>
