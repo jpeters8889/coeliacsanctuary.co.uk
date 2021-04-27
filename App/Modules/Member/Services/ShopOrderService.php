@@ -23,7 +23,7 @@ class ShopOrderService
     {
         return ShopOrder::query()
             ->where('user_id', $this->user->id)
-            ->whereNotIn('state_id', [ShopOrderState::STATE_BASKET])
+            ->whereNotIn('state_id', [ShopOrderState::STATE_BASKET, ShopOrderState::STATE_EXPIRED])
             ->withCount('items')
             ->with(['payment', 'state', 'address'])
             ->latest()
