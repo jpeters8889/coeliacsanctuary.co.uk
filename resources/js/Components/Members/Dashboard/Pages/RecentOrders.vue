@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <table class="lg:table order-dashboard mt-4">
+            <table class="hidden lg:table order-dashboard mt-4">
                 <thead>
                 <tr>
                     <th v-for="params in orderParameters()">
