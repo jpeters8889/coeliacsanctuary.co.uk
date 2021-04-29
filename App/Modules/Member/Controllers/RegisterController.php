@@ -32,10 +32,12 @@ class RegisterController extends BaseController
             'email' => $request->input('email'),
         ], [
             'name' => $request->input('name'),
-            'password' => $hasher->make($request->input('password')),
         ]);
 
-        $user->update(['user_level_id' => UserLevel::MEMBER]);
+        $user->update([
+            'user_level_id' => UserLevel::MEMBER,
+            'password' => $hasher->make($request->input('password')),
+        ]);
 
         $dispatcher->dispatch(new UserRegistered($user));
 
