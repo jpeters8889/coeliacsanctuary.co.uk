@@ -154,15 +154,17 @@ class RegisterTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $existingUser = factory(User::class)->create(['user_level_id' => UserLevel::SHOP]);
+        $existingUser = factory(User::class)->create(['password' => null, 'user_level_id' => UserLevel::SHOP]);
 
         $this->assertCount(1, User::all());
+        $this->assertNull($existingUser->password);
 
         $this->makeRegistrationRequest(['email' => $existingUser->email]);
 
         $this->assertCount(1, User::all());
 
         $this->assertEquals(UserLevel::MEMBER, $existingUser->fresh()->user_level_id);
+        $this->assertNotNull($existingUser->fresh()->password);
     }
 
     /** @test */
