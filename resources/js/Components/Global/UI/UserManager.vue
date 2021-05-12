@@ -34,18 +34,40 @@
         </portal>
     </div>
 
-    <div v-else class="md:pt-1" @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
-        <a href="/member/dashboard">
+    <div v-else class="md:pt-1" @mouseenter="isGt('md') ? showDropdown = true : null" @mouseleave="isGt('md') ? showDropdown = false : null">
+        <div @click="goToDashboard()">
             <font-awesome-icon :icon="['fas', 'user']"></font-awesome-icon>
-        </a>
+        </div>
 
-        <div v-if="showDropdown" class="absolute right-0 w-40">
+        <div v-if="showDropdown" class="absolute right-0 w-40 z-max">
             <ul class="text-lg bg-white text-black mt-1 rounded-b-lg shadow-lg">
-                <li class="border-blue border-b hover:bg-blue-light-50 transition-bg">
+                <li class="border-blue border-b hover:bg-blue-light-50 transition-bg" v-if="isGt('md')">
                     <a class="block py-2 pl-2" href="/member/dashboard">
                         My Dashboard
                     </a>
                 </li>
+                <template v-else>
+                    <li class="border-blue border-b hover:bg-blue-light-50 transition-bg">
+                        <a class="block py-2 pl-2" href="/member/dashboard/scrapbooks">
+                            My Scrapbooks
+                        </a>
+                    </li>
+                    <li class="border-blue border-b hover:bg-blue-light-50 transition-bg">
+                        <a class="block py-2 pl-2" href="/member/dashboard/orders">
+                            Purchase History
+                        </a>
+                    </li>
+                    <li class="border-blue border-b hover:bg-blue-light-50 transition-bg">
+                        <a class="block py-2 pl-2" href="/member/dashboard/daily-updates">
+                            Daily Updates
+                        </a>
+                    </li>
+                    <li class="border-blue border-b hover:bg-blue-light-50 transition-bg">
+                        <a class="block py-2 pl-2" href="/member/dashboard/details">
+                            My Details
+                        </a>
+                    </li>
+                </template>
                 <li class="hover:bg-blue-light-50 transition-bg">
                     <a class="block py-2 pl-2" href="/member/logout">
                         Log Out
@@ -59,6 +81,7 @@
 <script>
 import InteractsWithUser from "../../../Mixins/InteractsWithUser";
 import ClickOutside from 'vue-click-outside';
+import ResponsiveOptions from "@/Mixins/ResponsiveOptions";
 
 const Modal = () => import('./Modal' /* webpackChunkName: "chunk-modal" */)
 
@@ -67,7 +90,7 @@ export default {
         modal: Modal,
     },
 
-    mixins: [InteractsWithUser],
+    mixins: [InteractsWithUser, ResponsiveOptions],
 
     // do not forget this section
     directives: {
@@ -98,6 +121,16 @@ export default {
 
         showRegistrationModal() {
             this.modalComponent = 'member-register-form';
+        },
+
+        goToDashboard() {
+            if(this.isLte('md')) {
+                this.showDropdown = !this.showDropdown;
+
+                return;
+            }
+
+            window.location = '/member/dashboard';
         }
     }
 }
