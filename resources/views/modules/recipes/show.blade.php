@@ -5,7 +5,7 @@
         <div class="page-box p-3">
             <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">{{ $recipe->title }}</h1>
 
-            <p class="text-lg my-2 font-medium leading-relaxed">{{ $recipe->description }}</p>
+            <p class="text-lg my-2 font-medium leading-relaxed">{!! $recipe->description !!}</p>
 
             <div class="mt-3 p-3 text-sm mt-1 text-grey-darker bg-blue-light-20 flex justify-between">
                 <div class="flex-1">
