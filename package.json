@@ -32,14 +32,20 @@
         "v-tooltip": "^2.0.2",
         "vanilla-lazyload": "^16.1.0",
         "vue": "^2.6.12",
+<<<<<<< HEAD
         "vue-click-outside": "^1.1.0",
+=======
+>>>>>>> facebook-pixel
         "vue-loader": "^15.9.3",
         "vue-scrollto": "^2.18.2",
         "vue-template-compiler": "^2.6.12",
         "vue-toasted": "^1.1.27",
         "webpack-chunk-rename-plugin": "^1.0.3"
+<<<<<<< HEAD
     },
     "dependencies": {
         "autoprefixer": "^10.2.5"
+=======
+>>>>>>> facebook-pixel
     }
 }

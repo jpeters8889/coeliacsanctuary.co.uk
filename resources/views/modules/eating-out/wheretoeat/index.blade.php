@@ -47,11 +47,11 @@
                                         </template>
 
                                         <template v-slot:body>
-                                            @foreach($counties as $county => $details)
-                                                <a href="/wheretoeat/{{ $county }}"
+                                            @foreach($counties as $county)
+                                                <a href="/wheretoeat/{{ $county['slug'] }}"
                                                    class="text-grey text-base p-1 border-b border-blue-light-50 flex flex-col">
-                                                    <h4 class="font-semibold">{{ $county }}</h4>
-                                                    <h5 class="text-sm">{{ $details }}</h5>
+                                                    <h4 class="font-semibold">{{ $county['name'] }}</h4>
+                                                    <h5 class="text-sm">{{ $county['details'] }}</h5>
                                                 </a>
                                             @endforeach
                                         </template>

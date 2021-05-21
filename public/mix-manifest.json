@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=b83eada77147e0708e89",
     "/assets/js/manifest.js": "/assets/js/manifest.js?id=e05c7eeb98b501933145",
     "/assets/js/chunk-contact-trigger.js": "/assets/js/chunk-contact-trigger.js?id=fd8be4648c86ed07e2eb",
@@ -12,6 +13,21 @@
     "/assets/js/chunk-link-button.js": "/assets/js/chunk-link-button.js?id=28343511a91055e64003",
     "/assets/js/chunk-number-count.js": "/assets/js/chunk-number-count.js?id=1262fd19da62cc4cb1c7",
     "/assets/js/chunk-accordion.js": "/assets/js/chunk-accordion.js?id=c4d4fdf98bf893c20961",
+=======
+    "/assets/js/coeliac.js": "/assets/js/coeliac.js?id=45721d0cb35206c7a92b",
+    "/assets/js/manifest.js": "/assets/js/manifest.js?id=0bb7a45f1695237c9ff1",
+    "/assets/js/chunk-contact-trigger.js": "/assets/js/chunk-contact-trigger.js?id=e820041e33e88bdd7c4d",
+    "/assets/js/preload-coeliac-icon.js": "/assets/js/preload-coeliac-icon.js?id=1480441778454fb24392",
+    "/assets/js/preload-mobile-nav.js": "/assets/js/preload-mobile-nav.js?id=7eec9d12c8bdb10e82ee",
+    "/assets/js/preload-top-bar.js": "/assets/js/preload-top-bar.js?id=7fb906021408155a11c2",
+    "/assets/js/chunk-footer-newsletter.js": "/assets/js/chunk-footer-newsletter.js?id=a7f826a3c89e2a976867",
+    "/assets/js/chunk-breadcrumbs.js": "/assets/js/chunk-breadcrumbs.js?id=824e399fc4f9dc50890f",
+    "/assets/js/chunk-page-loader.js": "/assets/js/chunk-page-loader.js?id=8cdfc923981b88ee8092",
+    "/assets/js/chunk-announcements.js": "/assets/js/chunk-announcements.js?id=af00bb387d09ac627ab7",
+    "/assets/js/chunk-link-button.js": "/assets/js/chunk-link-button.js?id=b96ee77c3635a4a453e2",
+    "/assets/js/chunk-number-count.js": "/assets/js/chunk-number-count.js?id=d8914fcdcff621284395",
+    "/assets/js/chunk-accordion.js": "/assets/js/chunk-accordion.js?id=d95ac0dd91d77a6761df",
+>>>>>>> facebook-pixel
     "/assets/js/chunk-newsletter-signup.js": "/assets/js/chunk-newsletter-signup.js?id=f8cf858f5b0789b199cb",
     "/assets/js/chunk-recipe-image.js": "/assets/js/chunk-recipe-image.js?id=494dd3602211658f3af7",
     "/assets/js/chunk-tabs.js": "/assets/js/chunk-tabs.js?id=02f7b1e3a9c55e73c862",
@@ -70,6 +86,11 @@
     "/assets/js/chunk-form-textarea.js": "/assets/js/chunk-form-textarea.js?id=8e5108702953d5d05437",
     "/assets/js/chunk-form-option.js": "/assets/js/chunk-form-option.js?id=54bae211b7eb6b709dc5",
     "/assets/js/tooltip.js": "/assets/js/tooltip.js?id=0d956096e3b4ad9c39c0",
+<<<<<<< HEAD
     "/assets/css/coeliac.css": "/assets/css/coeliac.css?id=b828ebef3a7d6d69ba61",
     "/assets/js/vendor.js": "/assets/js/vendor.js?id=7aa1634d6caf693217c4"
+=======
+    "/assets/css/coeliac.css": "/assets/css/coeliac.css?id=c362d590433743df0cb3",
+    "/assets/js/vendor.js": "/assets/js/vendor.js?id=00a6891e965e51777151"
+>>>>>>> facebook-pixel
 }

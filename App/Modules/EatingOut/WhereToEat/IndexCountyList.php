@@ -22,7 +22,11 @@ class IndexCountyList
 
         $this->resolveList()
             ->each(function ($place) use (&$places) {
-                $places[$place->country][$place->county] = $this->countyComment($place);
+                $places[$place->country][] = [
+                    'name' => $place->county,
+                    'slug' => $place->county_slug,
+                    'details' => $this->countyComment($place),
+                ];
             });
 
         return $places;
@@ -64,7 +68,7 @@ class IndexCountyList
         }
 
         $list = WhereToEat::query()
-            ->selectRaw('wheretoeat_countries.country, wheretoeat_counties.county')
+            ->selectRaw('wheretoeat_countries.country, wheretoeat_counties.county, wheretoeat_counties.slug county_slug')
             ->selectRaw('SUM(CASE WHEN wheretoeat.type_id = 1 THEN 1 ELSE 0 END) wte')
             ->selectRaw('SUM(CASE WHEN wheretoeat.type_id = 2 THEN 1 ELSE 0 END) att')
             ->selectRaw('SUM(CASE WHEN wheretoeat.type_id = 2 THEN 1 ELSE 0 END) hotel')
@@ -72,7 +76,7 @@ class IndexCountyList
             ->leftJoin('wheretoeat_countries', 'country_id', 'wheretoeat_countries.id')
             ->leftJoin('wheretoeat_counties', 'county_id', 'wheretoeat_counties.id')
             ->leftJoin('wheretoeat_types', 'type_id', 'wheretoeat_types.id')
-            ->groupBy('wheretoeat_countries.country', 'wheretoeat_counties.county')
+            ->groupBy('wheretoeat_countries.country', 'wheretoeat_counties.county', 'wheretoeat_counties.slug')
             ->orderBy('country')
             ->orderBy('county')
             ->get();
