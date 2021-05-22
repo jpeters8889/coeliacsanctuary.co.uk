@@ -95,6 +95,7 @@
             stripe: '{{ config('services.shop.payments.stripe.public') }}',
             paypal: '{{ config('app.env') === 'production' ? 'production' : 'sandbox' }}'
         },
+        user: @json(request()->user()),
     }
 </script>
 
@@ -105,7 +106,7 @@
 
 <noscript>
     <img alt='' height="1" width="1" style="display:none"
-         src="https://www.facebook.com/tr?id=530216175003500&ev=PageView&noscript=1"
+         src="https://www.facebook.com/tr?id=376206517120953&ev=PageView&noscript=1"
     />
 </noscript>
 
