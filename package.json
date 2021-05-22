@@ -5,12 +5,13 @@
         "watch": "mix watch",
         "prod": "mix --production"
     },
-    "devDependencies": {
+    "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.32",
         "@fortawesome/free-brands-svg-icons": "^5.15.1",
         "@fortawesome/free-regular-svg-icons": "^5.15.1",
         "@fortawesome/free-solid-svg-icons": "^5.15.1",
         "@fortawesome/vue-fontawesome": "^0.1.10",
+        "autoprefixer": "^10.2.5",
         "axios": "^0.21.1",
         "cross-env": "^7.0",
         "dayjs": "^1.10.3",
@@ -20,7 +21,6 @@
         "in-viewport": "^3.6.0",
         "laravel-mix": "^6.0.6",
         "laravel-mix-bundle-analyzer": "^1.0.5",
-        "laravel-mix-criticalcss": "^1.0.1",
         "moment-locales-webpack-plugin": "^1.2.0",
         "portal-vue": "^2.1.6",
         "postcss": "^8.2.8",
@@ -32,20 +32,11 @@
         "v-tooltip": "^2.0.2",
         "vanilla-lazyload": "^16.1.0",
         "vue": "^2.6.12",
-<<<<<<< HEAD
         "vue-click-outside": "^1.1.0",
-=======
->>>>>>> facebook-pixel
         "vue-loader": "^15.9.3",
         "vue-scrollto": "^2.18.2",
         "vue-template-compiler": "^2.6.12",
         "vue-toasted": "^1.1.27",
         "webpack-chunk-rename-plugin": "^1.0.3"
-<<<<<<< HEAD
-    },
-    "dependencies": {
-        "autoprefixer": "^10.2.5"
-=======
->>>>>>> facebook-pixel
     }
 }
