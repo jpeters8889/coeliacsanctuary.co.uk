@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Blog\Models;
 
 use Coeliac\Base\Models\BaseModel;
+use Coeliac\Modules\Member\Contracts\Updatable;
 
 /**
  * @property mixed $slug
  */
-class BlogTag extends BaseModel
+class BlogTag extends BaseModel implements Updatable
 {
     protected $appends = ['link'];
 
@@ -28,5 +29,15 @@ class BlogTag extends BaseModel
     public function blogs()
     {
         return $this->belongsToMany(Blog::class, 'blog_assigned_tags', 'tag_id', 'blog_id');
+    }
+
+    public function updatableName(): string
+    {
+        return $this->tag;
+    }
+
+    public function updatableLink(): string
+    {
+        return $this->link;
     }
 }

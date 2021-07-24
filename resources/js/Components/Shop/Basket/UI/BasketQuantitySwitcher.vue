@@ -15,24 +15,24 @@
 </template>
 
 <script>
-    import AltersBasketQuantity from "@/Mixins/AltersBasketQuantity";
+import AltersBasketQuantity from "@/Mixins/AltersBasketQuantity";
 
-    export default {
-        mixins: [AltersBasketQuantity],
+export default {
+    mixins: [AltersBasketQuantity],
 
-        props: {
-            quantity: {
-              required: true,
-                type: Number,
-            },
-            productId: {
-                required: true,
-                type: Number,
-            },
-            variantId: {
-                required: true,
-                type: Number,
-            }
+    props: {
+        quantity: {
+            required: true,
+            type: Number,
+        },
+        productId: {
+            required: true,
+            type: Number,
+        },
+        variantId: {
+            required: true,
+            type: Number,
         }
     }
+}
 </script>

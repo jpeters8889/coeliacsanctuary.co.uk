@@ -10,9 +10,11 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Container\Container;
 use Coeliac\Common\Traits\ClearsCache;
 use Illuminate\Database\Eloquent\Collection;
+use Coeliac\Modules\Member\Models\DailyUpdateType;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\Member\Traits\CreatesDailyUpdate;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -37,6 +39,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class WhereToEat extends BaseModel
 {
+    use CreatesDailyUpdate;
     use ClearsCache;
     use Searchable;
 
@@ -210,5 +213,10 @@ class WhereToEat extends BaseModel
     protected function cacheKey(): string
     {
         return 'wheretoeat';
+    }
+
+    protected static function dailyUpdateType()
+    {
+        return [DailyUpdateType::WTE_COUNTY, DailyUpdateType::WTE_TOWN];
     }
 }

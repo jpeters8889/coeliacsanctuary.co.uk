@@ -45,6 +45,11 @@
                     </p>
                 </div>
 
+                <div>
+                    <wheretoeat-ui-daily-update-subscribe :type-id="3" :updatable-id="{{ $town->id }}"
+                                                                      friendly-name="{{ $town->town }}, {{ $county->county }}"/>
+                </div>
+
                 <div class="min-h-map">
                     <wheretoeat-page-list :county-id="{{ $county->id }}" :town-id="{{ $town->id }}"></wheretoeat-page-list>
                 </div>

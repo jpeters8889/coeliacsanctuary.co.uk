@@ -6,8 +6,8 @@ namespace Tests\Architect;
 
 use Tests\TestCase;
 use Tests\Traits\CreatesBlogs;
-use Coeliac\Common\Models\User;
 use Coeliac\Common\Models\Comment;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Foundation\Testing\RefreshDatabase;

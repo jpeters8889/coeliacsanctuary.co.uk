@@ -16,6 +16,7 @@ use Coeliac\Common\Contracts\HasComments;
 use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\DisplaysImages;
 use Coeliac\Modules\Collection\Traits\IsCollectionItem;
+use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
 
@@ -42,6 +43,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
 class Review extends BaseModel implements HasComments
 {
     use ArchitectModel;
+    use CanBeAddedToScrapbook;
     use ClearsCache;
     use Commentable;
     use DisplaysImages;

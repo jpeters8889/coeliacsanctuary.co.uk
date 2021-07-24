@@ -6,12 +6,20 @@
     @apply rounded px-8 py-1 font-semibold;
 }
 
+.tooltip.p-2 .tooltip-inner {
+    @apply p-0;
+}
+
 .tooltip[x-placement^="top"] {
     @apply mb-2;
 }
 
 .tooltip[x-placement^="bottom"] {
     @apply mt-2;
+}
+
+.tooltip[x-placement^="bottom-start"] {
+    @apply mt-2 left-0;
 }
 
 .tooltip[x-placement^="left"] {

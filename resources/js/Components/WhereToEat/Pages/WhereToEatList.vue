@@ -78,6 +78,7 @@
 
 <script>
 import FilterableUrls from "@/Mixins/FilterableUrls";
+
 const Loader = () => import('~/Global/UI/Loader' /* webpackChunkName: "chunk-loader" */)
 const Pagination = () => import('~/Global/UI/Pagination' /* webpackChunkName: "chunk-pagination" */)
 import WhereToEatAttraction from "~/WhereToEat/Renders/WhereToEatAttraction";

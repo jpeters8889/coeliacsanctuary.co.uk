@@ -28,89 +28,90 @@
 </template>
 
 <script>
-    import GoogleEvents from "@/Mixins/GoogleEvents";
-    const ContactForm = () => import('~/Contact/Form' /* webpackChunkName: "chunk-contact-form" */)
-    const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
+import GoogleEvents from "@/Mixins/GoogleEvents";
 
-    export default {
-        mixins: [GoogleEvents],
+const ContactForm = () => import('~/Contact/Form' /* webpackChunkName: "chunk-contact-form" */)
+const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
 
-        components: {
-            'contact-form': ContactForm,
-            'modal': Modal,
-        },
+export default {
+    mixins: [GoogleEvents],
 
-        data: () => ({
-            showNav: false,
-            showContact: false,
-            links: [],
-        }),
+    components: {
+        'contact-form': ContactForm,
+        'modal': Modal,
+    },
 
-        mounted() {
-            this.$root.$on('modal-closed', () => {
-                this.showContact = false;
-            });
+    data: () => ({
+        showNav: false,
+        showContact: false,
+        links: [],
+    }),
 
-            this.links = [
-                {
-                    label: 'Home',
-                    link: '/',
-                },
-                {
-                    label: 'Shop',
-                    link: '/shop',
-                },
-                {
-                    label: 'Blogs',
-                    link: '/blog',
-                },
-                {
-                    label: 'Eating Out',
-                    link: '/eating-out',
-                },
-                {
-                    label: 'Recipes',
-                    link: '/recipe',
-                },
-                {
-                    label: 'Collections',
-                    link: '/collection',
-                },
-                {
-                    label: 'Info',
-                    link: '/info',
-                },
-                {
-                    label: 'About Us',
-                    link: '/about',
-                },
-                {
-                    label: 'FAQ',
-                    link: '/faq',
-                },
-                {
-                    label: 'Contact',
-                    callback: function () {
-                        this.showContact = true;
-                        this.showNav = false;
-                    }.bind(this)
-                },
-            ];
-        },
+    mounted() {
+        this.$root.$on('modal-closed', () => {
+            this.showContact = false;
+        });
 
-        watch: {
-            showNav: function (value) {
-                if (value) {
-                    this.googleEvent('event', 'mobile-nav', {
-                        event_category: 'toggled',
-                    });
+        this.links = [
+            {
+                label: 'Home',
+                link: '/',
+            },
+            {
+                label: 'Shop',
+                link: '/shop',
+            },
+            {
+                label: 'Blogs',
+                link: '/blog',
+            },
+            {
+                label: 'Eating Out',
+                link: '/eating-out',
+            },
+            {
+                label: 'Recipes',
+                link: '/recipe',
+            },
+            {
+                label: 'Collections',
+                link: '/collection',
+            },
+            {
+                label: 'Info',
+                link: '/info',
+            },
+            {
+                label: 'About Us',
+                link: '/about',
+            },
+            {
+                label: 'FAQ',
+                link: '/faq',
+            },
+            {
+                label: 'Contact',
+                callback: function () {
+                    this.showContact = true;
+                    this.showNav = false;
+                }.bind(this)
+            },
+        ];
+    },
 
-                    document.querySelector('body').classList.add('overflow-hidden');
-                    return;
-                }
+    watch: {
+        showNav: function (value) {
+            if (value) {
+                this.googleEvent('event', 'mobile-nav', {
+                    event_category: 'toggled',
+                });
 
-                document.querySelector('body').classList.remove('overflow-hidden');
+                document.querySelector('body').classList.add('overflow-hidden');
+                return;
             }
+
+            document.querySelector('body').classList.remove('overflow-hidden');
         }
     }
+}
 </script>

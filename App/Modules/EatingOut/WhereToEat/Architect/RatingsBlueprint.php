@@ -21,6 +21,11 @@ class RatingsBlueprint extends Blueprint
         return [];
     }
 
+    public function blueprintSite(): string
+    {
+        return 'Approvals';
+    }
+
     public function displayCount(): int
     {
         return WhereToEatRating::query()->where('approved', 0)->count();

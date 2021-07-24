@@ -6,6 +6,9 @@ namespace Coeliac\Modules\Shop\Models;
 
 use Coeliac\Base\Models\BaseModel;
 
+/**
+ * @property string $state
+ */
 class ShopOrderState extends BaseModel
 {
     public const STATE_BASKET = 1;

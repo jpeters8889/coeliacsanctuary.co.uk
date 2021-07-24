@@ -19,85 +19,85 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            current: {
-                required: true,
-                type: Number,
-            },
-            lastPage: {
-                required: true,
-                type: Number,
-            },
-            canGoBack: {
-                required: true,
-                type: Boolean,
-            },
-            canGoForward: {
-                required: true,
-                type: Boolean,
-            }
+export default {
+    props: {
+        current: {
+            required: true,
+            type: Number,
         },
+        lastPage: {
+            required: true,
+            type: Number,
+        },
+        canGoBack: {
+            required: true,
+            type: Boolean,
+        },
+        canGoForward: {
+            required: true,
+            type: Boolean,
+        }
+    },
 
-        computed: {
-            pageArray() {
-                const data = [];
-                const multiples = Math.ceil(this.lastPage / 5);
-                const groups = [];
+    computed: {
+        pageArray() {
+            const data = [];
+            const multiples = Math.ceil(this.lastPage / 5);
+            const groups = [];
 
-                for (let x = 0; x < multiples; x++) {
-                    let group = [];
-                    for (let y = 1; y <= 5; y++) {
-                        group.push((x * 5) + y);
-                    }
-                    groups.push(group);
+            for (let x = 0; x < multiples; x++) {
+                let group = [];
+                for (let y = 1; y <= 5; y++) {
+                    group.push((x * 5) + y);
                 }
+                groups.push(group);
+            }
 
+            data.push({
+                label: '1',
+                goTo: 1,
+            });
+
+            if (this.current > 5) {
                 data.push({
-                    label: '1',
-                    goTo: 1,
-                });
+                    label: '...',
+                    goTo: this.current - 1,
+                })
+            }
 
-                if (this.current > 5) {
+            let currentGroup = groups.findIndex((page) => {
+                return page.indexOf(this.current) !== -1
+            });
+
+            groups[currentGroup].forEach((page) => {
+                if (page > 1 && page < this.lastPage) {
                     data.push({
-                        label: '...',
-                        goTo: this.current - 1,
-                    })
-                }
-
-                let currentGroup = groups.findIndex((page) => {
-                    return page.indexOf(this.current) !== -1
-                });
-
-                groups[currentGroup].forEach((page) => {
-                    if (page > 1 && page < this.lastPage) {
-                        data.push({
-                            label: page.toString(),
-                            goTo: page,
-                        });
-                    }
-                });
-
-                if (currentGroup + 1 < groups.length) {
-                    data.push({
-                        label: '...',
-                        goTo: groups[currentGroup + 1][0],
+                        label: page.toString(),
+                        goTo: page,
                     });
                 }
+            });
 
+            if (currentGroup + 1 < groups.length) {
                 data.push({
-                    label: this.lastPage.toString(),
-                    goTo: this.lastPage,
+                    label: '...',
+                    goTo: groups[currentGroup + 1][0],
                 });
-
-                return data;
             }
-        },
 
-        methods: {
-            goTo(page) {
-                this.$root.$emit('pagination-click', page);
-            }
+            data.push({
+                label: this.lastPage.toString(),
+                goTo: this.lastPage,
+            });
+
+            return data;
+        }
+    },
+
+    methods: {
+        goTo(page) {
+            this.$root.$emit('pagination-click', page);
         }
     }
+}
 </script>

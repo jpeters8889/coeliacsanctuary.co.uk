@@ -20,6 +20,11 @@ class Blueprint extends ArchitectBlueprint
         return Popup::class;
     }
 
+    public function blueprintSite(): string
+    {
+        return 'Site';
+    }
+
     public function makeVisible(): array
     {
         return ['live', 'display_every'];

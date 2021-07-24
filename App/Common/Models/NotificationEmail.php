@@ -7,6 +7,7 @@ namespace Coeliac\Common\Models;
 use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Casts\EmailData;
+use Coeliac\Modules\Member\Models\User;
 
 /**
  * @property string $key

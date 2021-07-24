@@ -20,6 +20,11 @@ class PlaceRequestBlueprint extends Blueprint
         return [];
     }
 
+    public function blueprintSite(): string
+    {
+        return 'Approvals';
+    }
+
     public function card(): ?string
     {
         return Card::class;

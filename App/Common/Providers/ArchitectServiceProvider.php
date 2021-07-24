@@ -9,8 +9,8 @@ use Coeliac\Common\Architect\HorizonDashboard;
 use Coeliac\Common\Architect\MailcoachDashboard;
 use Coeliac\Modules\Shop\Architect\ShopDashboard;
 use Coeliac\Modules\Shop\Architect\OrderBlueprint;
+use Coeliac\Modules\Member\Architect\UserBlueprint;
 use Coeliac\Modules\Shop\Architect\BasketBlueprint;
-use Coeliac\Common\Users\Blueprint as UserBlueprint;
 use Coeliac\Modules\Shop\Architect\ProductBlueprint;
 use Coeliac\Modules\Shop\Architect\CategoryBlueprint;
 use Coeliac\Modules\Shop\Architect\DiscountBlueprint;
@@ -18,8 +18,10 @@ use Coeliac\Common\Popups\Blueprint as PopupBlueprint;
 use Coeliac\Modules\Shop\Architect\DailyStockBlueprint;
 use Coeliac\Modules\Shop\Architect\MassDiscountsBlueprint;
 use Coeliac\Modules\Shop\Architect\PostagePricesBlueprint;
+use Coeliac\Modules\Member\Architect\LoginAttemptsBlueprint;
 use Coeliac\Common\Notifications\Blueprint as EmailBlueprint;
 use Coeliac\Modules\Blog\Architect\Blueprint as BlogBlueprint;
+use Coeliac\Modules\Member\Architect\PasswordChangesBlueprint;
 use Coeliac\Modules\Recipe\Architect\Blueprint as RecipeBlueprint;
 use Coeliac\Common\Announcements\Blueprint as AnnouncementBlueprint;
 use JPeters\Architect\Providers\ArchitectApplicationServiceProvider;
@@ -28,7 +30,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Architect\WhereToEatBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\PlaceRequestBlueprint;
 use Coeliac\Modules\Search\Architect\Blueprint as SearchHistoryBlueprint;
 use Coeliac\Modules\Collection\Architect\Blueprint as CollectionsBlueprint;
-use Coeliac\Modules\Competition\Architect\Blueprint as CompetitonsBlueprint;
+use Coeliac\Modules\Competition\Architect\Blueprint as CompetitionsBlueprint;
 use Coeliac\Modules\EatingOut\Reviews\Architect\Blueprint as ReviewBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\RatingsBlueprint as WteRatingsBlueprint;
 
@@ -42,17 +44,21 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             RecipeBlueprint::class,
             WhereToEatBlueprint::class,
             CollectionsBlueprint::class,
-            CommentsBlueprint::class,
-            WteRatingsBlueprint::class,
-            CompetitonsBlueprint::class,
-            SearchHistoryBlueprint::class,
-            AnnouncementBlueprint::class,
-            PopupBlueprint::class,
-            PlaceRequestBlueprint::class,
             UserBlueprint::class,
-            EmailBlueprint::class,
 
-            //
+            CommentsBlueprint::class,
+            PlaceRequestBlueprint::class,
+            WteRatingsBlueprint::class,
+
+            AnnouncementBlueprint::class,
+            CompetitionsBlueprint::class,
+            PopupBlueprint::class,
+
+            EmailBlueprint::class,
+            LoginAttemptsBlueprint::class,
+            PasswordChangesBlueprint::class,
+            SearchHistoryBlueprint::class,
+
             BasketBlueprint::class,
             OrderBlueprint::class,
             DailyStockBlueprint::class,

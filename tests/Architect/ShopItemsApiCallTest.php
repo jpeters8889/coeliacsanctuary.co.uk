@@ -6,11 +6,11 @@ namespace Tests\Architect;
 
 use Carbon\Carbon;
 use Tests\TestCase;
-use Coeliac\Common\Models\User;
 use Tests\Traits\Shop\CreateOrder;
 use Illuminate\Testing\TestResponse;
 use Tests\Traits\Shop\CreateProduct;
 use Tests\Traits\Shop\CreateVariant;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;

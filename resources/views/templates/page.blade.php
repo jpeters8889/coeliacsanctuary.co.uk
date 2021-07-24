@@ -29,7 +29,7 @@
     </header>
 
     <global-layout-breadcrumbs :crumbs='@json($breadcrumbs['crumbs'])'
-                 location="{{ $breadcrumbs['location'] }}"></global-layout-breadcrumbs>
+                 location="{{ $breadcrumbs['location'] }}" :scrapable="{{ isset($scrapable) ? json_encode($scrapable) : 'false' }}"></global-layout-breadcrumbs>
 
     @include('components.competition')
 

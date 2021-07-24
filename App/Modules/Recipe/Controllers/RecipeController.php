@@ -78,6 +78,7 @@ class RecipeController extends BaseController
                     'title' => 'Recipes',
                 ],
             ], $recipe->title)
+            ->scrapable('recipe', $recipe->id)
             ->setPageTitle($recipe->title.' | Recipes')
             ->setMetaDescription($recipe->meta_description)
             ->setMetaKeywords(explode(',', (string) $recipe->meta_keywords))

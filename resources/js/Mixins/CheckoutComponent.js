@@ -91,7 +91,7 @@ export default {
         validity: {
             deep: true,
             handler: function () {
-                this.$root.$emit('payment-button-disabled', Object.values(this.validity).includes(false))
+                this.$root.$emit('payment-button-disabled', this.isDisabled)
             }
         }
     }

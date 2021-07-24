@@ -4,7 +4,7 @@
             class="flex justify-between items-center p-2 text-2xl bg-blue-gradient-30 border-b-4 border-yellow rounded-t-lg leading-none">
             <h1 class="font-semibold font-coeliac pt-2">Coeliac Sanctuary {{ title }}</h1>
             <a class="pt-1 text-social-rss" :href="feedUrl" target="_blank"
-                  v-tooltip.left="{content: 'RSS Feed', classes: ['bg-social-rss', 'text-white', 'rounded-lg', 'text-sm']}">
+               v-tooltip.left="{content: 'RSS Feed', classes: ['bg-social-rss', 'text-white', 'rounded-lg', 'text-sm']}">
                 <font-awesome-icon :icon="['fas', 'rss-square']"></font-awesome-icon>
             </a>
         </div>
@@ -36,7 +36,8 @@
                     </div>
                 </div>
                 <div class="w-full sm:text-right md:w-auto md:p-2">
-                    <button v-if="showFilterBar" class="w-full inline-block leading-none p-2 bg-blue rounded sm:w-auto" @click.prevent="toggleFilter()">
+                    <button v-if="showFilterBar" class="w-full inline-block leading-none p-2 bg-blue rounded sm:w-auto"
+                            @click.prevent="toggleFilter()">
                         Filter {{ title }}
                     </button>
                 </div>
@@ -51,77 +52,77 @@ import VTooltip from "v-tooltip";
 
 Vue.use(VTooltip);
 
-    export default {
-        data: () => ({
-            layout: 'tiles',
-            searchText: '',
-            searchTimeout: null,
-        }),
+export default {
+    data: () => ({
+        layout: 'tiles',
+        searchText: '',
+        searchTimeout: null,
+    }),
 
-        props: {
-            title: {
-                required: true,
-                type: String,
-            },
-            currentLayout: {
-                type: String,
-                default: 'tiles',
-                validator: (value) => {
-                    return ['tiles', 'list'].indexOf(value) !== -1;
-                }
-            },
-            currentSearch: {
-                type: String,
-                default: '',
-            },
-            urlPrefix: {
-                required: true,
-                type: String,
-            },
-            showFilterBar: {
-                type: Boolean,
-                default: () => false,
+    props: {
+        title: {
+            required: true,
+            type: String,
+        },
+        currentLayout: {
+            type: String,
+            default: 'tiles',
+            validator: (value) => {
+                return ['tiles', 'list'].indexOf(value) !== -1;
             }
         },
+        currentSearch: {
+            type: String,
+            default: '',
+        },
+        urlPrefix: {
+            required: true,
+            type: String,
+        },
+        showFilterBar: {
+            type: Boolean,
+            default: () => false,
+        }
+    },
 
-        mounted() {
-            this.layout = this.currentLayout;
+    mounted() {
+        this.layout = this.currentLayout;
 
-            this.searchText = this.currentSearch;
+        this.searchText = this.currentSearch;
 
-            this.$root.$on('reset-search', () => {
-                this.searchText = '';
-            });
+        this.$root.$on('reset-search', () => {
+            this.searchText = '';
+        });
+    },
+
+    methods: {
+        changeLayout(layout) {
+            this.layout = layout;
+            this.$root.$emit('layout-change', layout);
         },
 
-        methods: {
-            changeLayout(layout) {
-                this.layout = layout;
-                this.$root.$emit('layout-change', layout);
-            },
+        toggleFilter() {
+            this.$root.$emit('toggle-filter-bar');
+        }
+    },
 
-            toggleFilter() {
-                this.$root.$emit('toggle-filter-bar');
-            }
+    watch: {
+        searchText: function (value) {
+            clearTimeout(this.searchTimeout);
+
+            this.searchTimeout = setTimeout(() => {
+                this.$root.$emit('module-search', value);
+            }, 500);
         },
+        currentSearch: function (value) {
+            this.searchText = value;
+        }
+    },
 
-        watch: {
-            searchText: function (value) {
-                clearTimeout(this.searchTimeout);
-
-                this.searchTimeout = setTimeout(() => {
-                    this.$root.$emit('module-search', value);
-                }, 500);
-            },
-            currentSearch: function (value) {
-                this.searchText = value;
-            }
-        },
-
-        computed: {
-            feedUrl() {
-                return `/${this.urlPrefix}/feed`
-            }
+    computed: {
+        feedUrl() {
+            return `/${this.urlPrefix}/feed`
         }
     }
+}
 </script>

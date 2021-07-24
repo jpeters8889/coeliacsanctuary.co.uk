@@ -20,13 +20,13 @@
             </div>
 
             <div class="mb-5 flex-1">
-                <form-input required name="subject" :value="formData.subject"
-                            placeholder="Your Subject..."></form-input>
+                <form-input required name="email" type="email" :value="formData.email"
+                            placeholder="Your email..."></form-input>
             </div>
 
             <div class="mb-5 flex-1">
-                <form-input required name="email" type="email" :value="formData.email"
-                            placeholder="Your e  mail..."></form-input>
+                <form-input required name="subject" :value="formData.subject"
+                            placeholder="Your Subject..."></form-input>
             </div>
 
             <div class="mb-5 flex-1">
@@ -44,84 +44,93 @@
 </template>
 
 <script>
-    const FormInput = () => import('~/Forms/Input' /* webpackChunkName: "chunk-form-input" */)
-    const FormTextarea = () => import('~/Forms/Textarea' /* webpackChunkName: "chunk-form-textarea" */)
+import InteractsWithUser from "@/Mixins/InteractsWithUser";
 
-    export default {
-        components: {
-            'form-input': FormInput,
-            'form-textarea': FormTextarea,
+const FormInput = () => import('~/Forms/Input' /* webpackChunkName: "chunk-form-input" */)
+const FormTextarea = () => import('~/Forms/Textarea' /* webpackChunkName: "chunk-form-textarea" */)
+
+export default {
+    mixins: [InteractsWithUser],
+
+    components: {
+        'form-input': FormInput,
+        'form-textarea': FormTextarea,
+    },
+
+    data: () => ({
+        formData: {
+            name: '',
+            subject: '',
+            email: '',
+            message: '',
         },
 
-        data: () => ({
-            formData: {
-                name: '',
-                subject: '',
-                email: '',
-                message: '',
-            },
+        validity: {
+            name: false,
+            subject: false,
+            email: false,
+            message: false,
+        }
+    }),
 
-            validity: {
-                name: false,
-                subject: false,
-                email: false,
-                message: false,
-            }
-        }),
+    mounted() {
+        if(this.isLoggedIn()) {
+            this.formData.name = window.config.user.name;
+            this.formData.email = window.config.user.email;
+        }
 
-        mounted() {
-            Object.keys(this.validity).forEach((key) => {
-                this.$root.$on(`${key}-error`, () => {
-                    this.validity[key] = false;
-                });
-
-                this.$root.$on(`${key}-valid`, () => {
-                    this.validity[key] = true;
-                });
-
-                this.$root.$on(`${key}-value`, (value) => {
-                    this.formData[key] = value;
-                });
+        Object.keys(this.validity).forEach((key) => {
+            this.$root.$on(`${key}-error`, () => {
+                this.validity[key] = false;
             });
+
+            this.$root.$on(`${key}-valid`, () => {
+                this.validity[key] = true;
+            });
+
+            this.$root.$on(`${key}-value`, (value) => {
+                this.formData[key] = value;
+            });
+        });
+    },
+
+    methods: {
+        submitForm() {
+            if (this.validateForm()) {
+                coeliac().request().post('/api/contact', this.formData)
+                    .then((response) => {
+                        if (response.status === 200) {
+                            Object.keys(this.validity).forEach((key) => {
+                                this.formData[key] = '';
+                                this.$root.$emit(`${key}-reset`);
+                            });
+
+                            coeliac().success('Thanks, your message has been sent!');
+                            return;
+                        }
+
+                        coeliac().error('Sorry, there was an error submitting your message, please try again.');
+                    }).catch(() => {
+                    coeliac().error('Sorry, there was an error submitting your message, please try again.');
+                });
+            }
         },
 
-        methods: {
-            submitForm() {
-                if (this.validateForm()) {
-                    coeliac().request().post('/api/contact', this.formData)
-                        .then((response) => {
-                            if (response.status === 200) {
-                                Object.keys(this.validity).forEach((key) => {
-                                    this.formData[key] = '';
-                                    this.$root.$emit(`${key}-reset`);
-                                });
+        validateForm() {
+            Object.keys(this.validity).forEach((key) => {
+                this.$root.$emit(`${key}-get-value`)
+            });
 
-                                coeliac().success('Thanks, your message has been sent!');
-                                return;
-                            }
+            let isValid = true;
 
-                            coeliac().error('Sorry, there was an error submitting your message, please try again.');
-                        }).catch(() => {
-                        coeliac().error('Sorry, there was an error submitting your message, please try again.');
-                    });
+            Object.keys(this.validity).forEach((key) => {
+                if (this.validity[key] === false) {
+                    isValid = false;
                 }
-            },
+            });
 
-            validateForm() {
-                Object.keys(this.validity).forEach((key) => {
-                    this.$root.$emit(`${key}-get-value`)
-                });
-
-                let isValid = true;
-
-                Object.keys(this.validity).forEach((key) => {
-                    if (this.validity[key] === false) {
-                        isValid = false;
-                    }
-                });
-
-                return isValid;
-            }
+            return isValid;
         }
     }
+}
 </script>

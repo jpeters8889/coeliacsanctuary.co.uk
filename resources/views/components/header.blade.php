@@ -15,7 +15,7 @@
                 </div>
                 <div class="text-center xs:text-left w-full">
                     <h1 class="text-3xl font-coeliac mb-1">Coeliac Sanctuary</h1>
-                    <h2 class="font-thin">Gluten Free Eateries, Blogs, Recipes, Reviews & more</h2>
+                    <h2 class="font-extralight">Gluten Free Eateries, Blogs, Recipes, Reviews & more</h2>
                 </div>
             </div>
             <div class="flex w-full justify-center text-3xl text-white">

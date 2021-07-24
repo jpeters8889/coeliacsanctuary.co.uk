@@ -21,7 +21,7 @@ class TagManagerPlanTest extends PlanTestCase
     }
 
     /** @test */
-    public function it_updates_the_model()
+    public function itUpdatesTheModel()
     {
         $blog = factory(Blog::class)->create();
 

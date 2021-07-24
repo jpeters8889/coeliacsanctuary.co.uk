@@ -12,6 +12,14 @@ export default {
     }),
 
     props: {
+        small: {
+            type: Boolean,
+            default: false,
+        },
+        id: {
+            type: String,
+            default: null
+        },
         type: {
             type: String,
             default: 'text',
@@ -55,6 +63,10 @@ export default {
         match: {
             type: String,
             default: null,
+        },
+        autocomplete: {
+            type: String,
+            default: null,
         }
     },
 
@@ -91,7 +103,7 @@ export default {
         validate() {
             this.showError = true;
 
-            if (this.required && this.currentValue === '') {
+            if (this.required && (this.currentValue === '' || this.currentValue === false)) {
                 this.errorText = 'Field is required';
                 this.pushError();
                 return;

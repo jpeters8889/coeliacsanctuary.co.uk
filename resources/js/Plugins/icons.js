@@ -26,6 +26,14 @@ import {faStarHalf} from "@fortawesome/free-solid-svg-icons";
 import {faMinus} from "@fortawesome/free-solid-svg-icons/faMinus";
 import {faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
 import {faRssSquare} from "@fortawesome/free-solid-svg-icons/faRssSquare";
+import {faUserCog} from "@fortawesome/free-solid-svg-icons/faUserCog";
+import {faUser} from "@fortawesome/free-solid-svg-icons/faUser";
+import {faPen} from "@fortawesome/free-solid-svg-icons/faPen";
+import {faTrashAlt} from "@fortawesome/free-regular-svg-icons/faTrashAlt";
+import {faBookmark} from "@fortawesome/free-regular-svg-icons/faBookmark";
+import {faBookmark as faBookmarkSolid} from "@fortawesome/free-solid-svg-icons/faBookmark";
+import {faBell} from "@fortawesome/free-regular-svg-icons/faBell";
+import {faBell as faBellSolid} from "@fortawesome/free-solid-svg-icons/faBell";
 
 export default () => {
     // Generic
@@ -51,6 +59,14 @@ export default () => {
     library.add(faTh);
     library.add(faThList);
     library.add(faUtensils);
+    library.add(faUserCog);
+    library.add(faUser);
+    library.add(faPen);
+    library.add(faTrashAlt);
+    library.add(faBookmark);
+    library.add(faBookmarkSolid);
+    library.add(faBell);
+    library.add(faBellSolid);
 
     // Social
     library.add(faFacebookSquare);

@@ -17,6 +17,15 @@ use Coeliac\Base\Models\BaseModel;
  */
 class ShopPayment extends BaseModel
 {
+    protected $casts = [
+      'subtotal' => 'int',
+      'discount' => 'int',
+      'postage' => 'int',
+      'total' => 'int',
+    ];
+
+    protected $appends = ['payment_type'];
+
     public function order()
     {
         return $this->belongsTo(ShopOrder::class, 'order_id');
@@ -30,5 +39,10 @@ class ShopPayment extends BaseModel
     public function response()
     {
         return $this->hasOne(ShopPaymentResponse::class, 'payment_id');
+    }
+
+    public function getPaymentTypeAttribute()
+    {
+        return $this->type->type === 'Stripe' ? 'Card' : 'PayPal';
     }
 }

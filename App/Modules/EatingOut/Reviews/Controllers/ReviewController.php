@@ -89,6 +89,7 @@ class ReviewController extends BaseController
                     'title' => 'Reviews',
                 ],
             ], $review->title)
+            ->scrapable('review', $review->id)
             ->setPageTitle($review->title.' | Reviews')
             ->setMetaDescription($review->meta_description)
             ->setMetaKeywords(explode(',', (string) $review->meta_keywords))

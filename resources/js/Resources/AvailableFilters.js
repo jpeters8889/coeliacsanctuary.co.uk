@@ -11,8 +11,8 @@ export default {
     ],
     'recipes': [
         {
-          label: 'Features',
-          value: 'feature',
+            label: 'Features',
+            value: 'feature',
         },
         {
             label: 'Free From',

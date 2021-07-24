@@ -21,6 +21,11 @@ class Blueprint extends ArchitectBlueprint
         return ['email', 'link', 'area', 'commentable', 'commentable_type', 'reply', 'approved', 'id'];
     }
 
+    public function blueprintSite(): string
+    {
+        return 'Approvals';
+    }
+
     public function getData(): Builder
     {
         return parent::getData()

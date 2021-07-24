@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
+use PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer;
 use ObjectCalisthenics\Sniffs\Files\FunctionLengthSniff;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenTraits;
 use ObjectCalisthenics\Sniffs\Metrics\MaxNestingLevelSniff;
 use NunoMaduro\PhpInsights\Domain\Sniffs\ForbiddenSetterSniff;
-use ObjectCalisthenics\Sniffs\NamingConventions\ElementNameMinimalLengthSniff;
 use ObjectCalisthenics\Sniffs\NamingConventions\NoSetterSniff;
 use NunoMaduro\PhpInsights\Domain\Metrics\Architecture\Classes;
 use ObjectCalisthenics\Sniffs\Metrics\MethodPerClassLimitSniff;
-use PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer;
 use SlevomatCodingStandard\Sniffs\Commenting\EmptyCommentSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenFinalClasses;
@@ -32,6 +31,7 @@ use SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff;
 use SlevomatCodingStandard\Sniffs\Classes\SuperfluousExceptionNamingSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\SpaceAfterNotSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
+use ObjectCalisthenics\Sniffs\NamingConventions\ElementNameMinimalLengthSniff;
 use SlevomatCodingStandard\Sniffs\Classes\SuperfluousAbstractClassNamingSniff;
 use SlevomatCodingStandard\Sniffs\Commenting\InlineDocCommentDeclarationSniff;
 use SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff;

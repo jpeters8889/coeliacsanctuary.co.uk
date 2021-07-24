@@ -24,7 +24,7 @@
                         :can-go-forward="!! response.next_page_url"
             ></pagination>
 
-            <div v-if="showFilters">
+            <div>
                 <ul class="flex -m-1">
                     <li v-if="searchText !== ''"
                         class="m-1 bg-blue-light rounded-lg text-xs overflow-hidden flex justify-between">
@@ -36,6 +36,9 @@
                     <template v-for="filter in availableFilters">
                         <li v-for="option in filters[filter.value]"
                             class="m-1 bg-blue-light rounded-lg text-xs overflow-hidden flex justify-between">
+                            <div v-if="filter.value === 'tags' && module === 'blogs'">
+                                <blog-tag-daily-update-subscribe :tag="option"></blog-tag-daily-update-subscribe>
+                            </div>
                             <div class="py-1 px-3">{{ filter.label }}: {{ option }}</div>
                             <div class="bg-yellow py-1 px-3 cursor-pointer" @click="removeFilter(filter.value, option)">
                                 <font-awesome-icon :icon="['fas', 'times']"></font-awesome-icon>
@@ -81,6 +84,7 @@ import GoogleEvents from "@/Mixins/GoogleEvents";
 import ModuleFilterSlider from "~/Modules/UI/ModuleFilterSlider";
 import ModuleListItem from "~/Modules/UI/ModuleListItem";
 import ModuleListTopBar from "~/Modules/UI/ModuleListTopBar";
+import BlogTagDailyUpdateSubscribe from "~/Modules/UI/Blogs/BlogTagDailyUpdateSubscribe";
 
 const Loader = () => import('~/Global/UI/Loader' /* webpackChunkName: "chunk-loader" */)
 const Pagination = () => import('~/Global/UI/Pagination' /* webpackChunkName: "chunk-pagination" */)
@@ -94,6 +98,7 @@ export default {
         'module-list-item': ModuleListItem,
         'module-list-top-bar': ModuleListTopBar,
         'pagination': Pagination,
+        'blog-tag-daily-update-subscribe': BlogTagDailyUpdateSubscribe,
     },
 
     props: {

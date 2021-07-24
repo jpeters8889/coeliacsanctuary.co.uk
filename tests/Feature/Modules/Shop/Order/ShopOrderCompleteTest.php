@@ -16,8 +16,10 @@ use Tests\Traits\CreatesWhereToEat;
 use Tests\Traits\Shop\CreateProduct;
 use Tests\Traits\Shop\CreateVariant;
 use Tests\Traits\Shop\MakesShopOrders;
+use Coeliac\Modules\Member\Models\User;
 use Tests\Traits\Shop\MakeOrderRequest;
 use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Member\Models\UserLevel;
 use Coeliac\Modules\Shop\Models\ShopPayment;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -53,7 +55,7 @@ class ShopOrderCompleteTest extends TestCase
         $this->get('/shop/basket/done')->assertRedirect('/shop');
     }
 
-    private function setupOrder()
+    private function setupOrder($params = [])
     {
         $this->setupPostage();
         $this->setupOrders();
@@ -85,9 +87,12 @@ class ShopOrderCompleteTest extends TestCase
 
         $token = Str::random(8);
 
-        ShopOrder::query()->create([
+        factory(User::class)->create();
+
+        ShopOrder::query()->create(array_merge([
             'token' => $token,
-        ]);
+            'user_id' => 1,
+        ], $params));
 
         $this->withSession(['basket_token' => $token]);
 
@@ -107,6 +112,39 @@ class ShopOrderCompleteTest extends TestCase
             'total' => 1,
             'payment_type_id' => 1,
         ]);
+    }
+
+    /** @test */
+    public function itShowsTheFormToBecomeAMemberWhenOrderingAsAGuest()
+    {
+        $this->setupOrder();
+
+        $user = User::query()->first();
+
+        $this->get('/shop/basket/done')
+            ->assertSee('<member-register-order-complete-cta name="'.$user->name.'" email="'.$user->email.'"></member-register-order-complete-cta>', false);
+    }
+
+    /** @test */
+    public function itDoesntShowTheFormToRegisterIfAlreadyLoggedIn()
+    {
+        $this->setupOrder();
+
+        $user = User::query()->first();
+
+        $this->actingAs($user);
+
+        $this->get('/shop/basket/done')->assertDontSee('order-complete-create-account');
+    }
+
+    /** @test */
+    public function itDoesntShowTheRegisterFormIfTheUserAlreadyExistsButIsntLoggedIn()
+    {
+        $this->setupOrder();
+
+        User::query()->first()->update(['user_level_id' => UserLevel::MEMBER]);
+
+        $this->get('/shop/basket/done')->assertDontSee('order-complete-create-account');
     }
 
     /** @test */

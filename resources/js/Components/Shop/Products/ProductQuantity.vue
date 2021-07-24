@@ -19,12 +19,12 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            quantity: {
-                type: Number,
-                required: true,
-            }
+export default {
+    props: {
+        quantity: {
+            type: Number,
+            required: true,
         }
     }
+}
 </script>

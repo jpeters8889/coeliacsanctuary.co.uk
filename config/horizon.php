@@ -204,14 +204,14 @@ return [
 
         'develop' => [
             'supervisor-1' => [
-                'maxProcesses' => 3,
+                'maxProcesses' => 1,
             ],
 
             'mailcoach-general' => [
                 'connection' => 'mailcoach-redis',
                 'queue' => ['mailcoach', 'mailcoach-feedback', 'send-mail'],
                 'balance' => 'auto',
-                'processes' => 10,
+                'processes' => 2,
                 'tries' => 2,
                 'timeout' => 60 * 60,
             ],
@@ -219,7 +219,7 @@ return [
                 'connection' => 'mailcoach-redis',
                 'queue' => ['send-campaign'],
                 'balance' => 'auto',
-                'processes' => 3,
+                'processes' => 1,
                 'tries' => 1,
                 'timeout' => 60 * 60,
             ],
