@@ -9,8 +9,8 @@ use Illuminate\Container\Container;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Recipe\Models\Recipe;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
-use Spatie\Mailcoach\Models\Concerns\HasHtmlContent;
-use Spatie\Mailcoach\Support\Editor\Editor as MailcoachEditor;
+use Spatie\Mailcoach\Domain\Campaign\Models\Concerns\HasHtmlContent;
+use Spatie\Mailcoach\Domain\Shared\Support\Editor\Editor as MailcoachEditor;
 
 class Editor implements MailcoachEditor
 {
