@@ -65,14 +65,22 @@ class BlogController extends BaseController
                 ->where('live', true)
                 ->with('images', 'images.image')
                 ->latest()
-                ->take(10)
+                ->take(1)
                 ->get();
 
             if ($related->count() < 10) {
-                $related->concat((new Repository())->random()->take(10 - $related->count()));
+                $related = $related->concat(
+                    (new Repository())
+                        ->setColumns(['id', 'title', 'slug', 'meta_description'])
+                        ->random()
+                        ->take(10 - $related->count())
+                );
             }
         } catch (\Throwable $exception) {
-            $related = (new Repository())->random()->take(10);
+            $related = (new Repository())
+                ->setColumns(['id', 'title', 'slug', 'meta_description'])
+                ->random()
+                ->take(10);
         }
 
         $featured = null;
