@@ -1,6 +1,20 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
 
+<style>
+    .p-1 {
+        padding: .25rem;
+    }
+
+    .w-1\/2 {
+        width: 50%;
+    }
+
+    .w-1\/3 {
+        width: 33.33%;
+    }
+</style>
+
 <div id="mailcoach">
     <div class="flex flex-col">
         <input type="hidden" name="html" v-model="renderedHtml" />
@@ -16,7 +30,7 @@
             <div class="flex justify-between -mx-2">
                 <div v-for="(recipe, index) in recipes" class="w-1/3 p-2">
                     <div v-if="!recipe" class="relative">
-                        <input class="p-1 border border-gray-200 w-full" type="text" v-model="recipeSearch[index]"
+                        <input class="p-1 border border-gray-300 w-full" type="text" v-model="recipeSearch[index]"
                                placeholder="Search recipe..." @keyup="searchRecipe(index)"/>
 
                         <ul v-if="recipeResults[index].length > 0"
@@ -44,7 +58,7 @@
             <div class="flex justify-between -mx-2">
                 <div v-for="(blog, index) in blogs" class="w-1/2 p-2">
                     <div v-if="!blog" class="relative">
-                        <input class="p-1 border border-gray-200 w-full" type="text" v-model="blogSearch[index]"
+                        <input class="p-1 border border-gray-300 w-full" type="text" v-model="blogSearch[index]"
                                placeholder="Search blog..." @keyup="searchBlog(index)"/>
 
                         <ul v-if="blogResults[index].length > 0"
@@ -72,7 +86,7 @@
             <div class="flex justify-between -mx-2">
                 <div v-for="(review, index) in reviews" class="w-1/2 p-2">
                     <div v-if="!review" class="relative">
-                        <input class="p-1 border border-gray-200 w-full" type="text" v-model="reviewSearch[index]"
+                        <input class="p-1 border border-gray-300 w-full" type="text" v-model="reviewSearch[index]"
                                placeholder="Search review..." @keyup="searchReview(index)"/>
 
                         <ul v-if="reviewResults[index].length > 0"
@@ -95,9 +109,9 @@
             </div>
         </div>
 
-        <div class="flex justify-around mt-4">
+        <div class="flex mt-4" style="justify-content: space-around;">
             <button
-                class="link-icon bg-blue-700 text-white p-3 rounded no-underline hover:bg-blue-800 transition-colors"
+                class="link-icon bg-blue-400 text-white p-2 rounded no-underline hover:bg-blue-500 transition-colors"
                 @click.prevent="preview()">
                 <span class="icon-label">
                     <i class="fas fa-fw fa-eye"></i>
@@ -109,7 +123,7 @@
             </button>
 
             <button
-                class="link-icon bg-blue-700 text-white p-3 rounded no-underline hover:bg-blue-800 transition-colors" @click.prevent="save($event)">
+                class="link-icon bg-blue-400 text-white p-2 rounded no-underline hover:bg-blue-500 transition-colors" @click.prevent="save($event)">
                 <span class="icon-label">
                     <i class="fas fa-fw fa-code"></i>
 
@@ -259,7 +273,8 @@
             },
 
             save($event) {
-                this.render(() => $event.target.submit())
+                console.log($event);
+                // this.render(() => $event.target.submit())
             }
         }
     })

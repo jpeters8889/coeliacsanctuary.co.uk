@@ -48,8 +48,8 @@
         "spatie/geocoder": "^3.10",
         "spatie/laravel-backup": "^7.3",
         "spatie/laravel-cookie-consent": "^3.0",
-        "spatie/laravel-mailcoach": "^3.0.0",
-        "spatie/laravel-mailcoach-ses-feedback": "^2.0",
+        "spatie/laravel-mailcoach": "^4.0.0",
+        "spatie/laravel-mailcoach-ses-feedback": "^3.0",
         "spatie/laravel-mix-preload": "^1.2",
         "stripe/stripe-php": "^7.57"
     },
