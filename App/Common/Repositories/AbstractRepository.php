@@ -22,6 +22,12 @@ abstract class AbstractRepository
 
     protected bool $random = false;
 
+    protected $rawSelects = [];
+
+    protected $havings = [];
+
+    protected $wheres = [];
+
     abstract protected function model(): string;
 
     public function get($id, $column = 'id'): ?BaseModel
@@ -51,6 +57,27 @@ abstract class AbstractRepository
         return $this->query()->paginate($perPage, $this->getColumns(), $pageName, $startPage);
     }
 
+    public function selectRaw($query, $bindings = []): self
+    {
+        $this->rawSelects[] = [$query, $bindings];
+
+        return $this;
+    }
+
+    public function having(...$params): self
+    {
+        $this->havings[] = $params;
+
+        return $this;
+    }
+
+    public function where(...$params): self
+    {
+        $this->wheres[] = $params;
+
+        return $this;
+    }
+
     protected function query(): Builder
     {
         $model = $this->model();
@@ -65,10 +92,10 @@ abstract class AbstractRepository
                 ->withCount($this->getWithCounts())
         );
 
-        /* @phpstan-ignore-next-line  */
+        /* @phpstan-ignore-next-line */
         if (method_exists($this, 'performSearch') && $this->useSearch && $searchIds = $this->performSearch($model)) {
             $builder->whereIn('id', $searchIds)
-                ->orderByRaw('field(id, '.implode(',', $searchIds).')');
+                ->orderByRaw('field(id, ' . implode(',', $searchIds) . ')');
         } elseif (!$this->isRaw && !$this->random) {
             $this->order($builder);
         }
@@ -79,6 +106,18 @@ abstract class AbstractRepository
 
         if ($this->random) {
             $builder->inRandomOrder();
+        }
+
+        foreach ($this->rawSelects as $rawSelect) {
+            $builder->selectRaw($rawSelect[0], $rawSelect[1]);
+        }
+
+        foreach ($this->wheres as $where) {
+            $builder->where(...$where);
+        }
+
+        foreach ($this->havings as $having) {
+            $builder->having(...$having);
         }
 
         return $builder;

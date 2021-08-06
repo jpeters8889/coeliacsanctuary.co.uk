@@ -18,22 +18,22 @@ use Coeliac\Modules\Member\Traits\CreatesDailyUpdate;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property mixed                            $name
- * @property WhereToEatTown                   $town
- * @property WhereToEatCounty                 $county
- * @property mixed                            $info
- * @property mixed                            $address
- * @property mixed                            $lat
- * @property mixed                            $lng
- * @property mixed                            $live
- * @property mixed                            $id
+ * @property mixed $name
+ * @property WhereToEatTown $town
+ * @property WhereToEatCounty $county
+ * @property mixed $info
+ * @property mixed $address
+ * @property mixed $lat
+ * @property mixed $lng
+ * @property mixed $live
+ * @property mixed $id
  * @property Collection<AttractionRestaurant> $restaurants
- * @property mixed                            $website
- * @property WhereToEatCuisine                $cuisine
- * @property mixed                            $phone
- * @property WhereToEatCountry                $country
- * @property mixed                            $type_id
- * @property mixed                            $review_count
+ * @property mixed $website
+ * @property WhereToEatCuisine $cuisine
+ * @property mixed $phone
+ * @property WhereToEatCountry $country
+ * @property mixed $type_id
+ * @property mixed $review_count
  *
  * @method transform(array $array)
  */
@@ -56,8 +56,6 @@ class WhereToEat extends BaseModel
         'lat' => 'float',
         'lng' => 'float',
     ];
-
-    protected $hidden = ['created_at', 'updated_at'];
 
     protected $table = 'wheretoeat';
 
@@ -88,13 +86,18 @@ class WhereToEat extends BaseModel
         )->withTimestamps();
     }
 
+    public function reports()
+    {
+        return $this->hasMany(WhereToEatPlaceReport::class, 'wheretoeat_id');
+    }
+
     public function getAverageRatingAttribute()
     {
         if (!$this->relationLoaded('ratings')) {
             return null;
         }
 
-        return (string) array_average($this->ratings->pluck('rating')->toArray());
+        return (string)array_average($this->ratings->pluck('rating')->toArray());
     }
 
     public function getHasBeenRatedAttribute()
@@ -110,7 +113,7 @@ class WhereToEat extends BaseModel
 
     public function getIconAttribute()
     {
-        if (!$this->type) {
+        if (!$this->relationLoaded('type')) {
             return null;
         }
 
@@ -124,7 +127,7 @@ class WhereToEat extends BaseModel
             $file = 'hotel.png';
         }
 
-        return asset('assets/images/wte-icons/'.$file);
+        return asset('assets/images/wte-icons/' . $file);
     }
 
     public function venueType(): HasOne
@@ -160,8 +163,8 @@ class WhereToEat extends BaseModel
     public function toSearchableArray(): array
     {
         return $this->transform([
-            'title' => $this->name.', '.$this->town->town,
-            'location' => $this->town->town.', '.$this->county->county,
+            'title' => $this->name . ', ' . $this->town->town,
+            'location' => $this->town->town . ', ' . $this->county->county,
             'town' => $this->town->town,
             'county' => $this->county->county,
             'description' => $this->info,
@@ -178,7 +181,7 @@ class WhereToEat extends BaseModel
 
     public function shouldBeSearchable(): bool
     {
-        return (bool) $this->live;
+        return (bool)$this->live;
     }
 
     public function getScoutKey()
@@ -188,6 +191,10 @@ class WhereToEat extends BaseModel
 
     public function getFullNameAttribute()
     {
+        if (!$this->relationLoaded('town')) {
+            return null;
+        }
+
         return implode(', ', [
             $this->name,
             $this->town->town,
@@ -198,6 +205,10 @@ class WhereToEat extends BaseModel
 
     public function getFullLocationAttribute()
     {
+        if (!$this->relationLoaded('town')) {
+            return null;
+        }
+
         return implode(', ', [
             $this->town->town,
             $this->county->county,
@@ -207,6 +218,10 @@ class WhereToEat extends BaseModel
 
     public function getTypeDescriptionAttribute()
     {
+        if (!$this->relationLoaded('type')) {
+            return null;
+        }
+
         return $this->type->name;
     }
 

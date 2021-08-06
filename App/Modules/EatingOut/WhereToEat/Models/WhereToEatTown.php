@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
- * @property mixed            $town
+ * @property mixed $town
  * @property WhereToEatCounty $county
- * @property string           $slug
+ * @property string $slug
  */
 class WhereToEatTown extends BaseModel implements Updatable
 {
@@ -63,18 +63,24 @@ class WhereToEatTown extends BaseModel implements Updatable
         $return = [];
 
         if ($eateries > 0) {
-            $return[] = $eateries.' Place'.($eateries > 1 ? 's' : '').' to eat';
+            $return[] = '<strong>'.numberToWords($eateries) . '</strong> gluten free place' . ($eateries > 1 ? 's' : '') . ' to eat';
         }
 
         if ($attractions > 0) {
-            $return[] = $attractions.' Attraction'.($attractions > 1 ? 's' : '');
+            $return[] = '<strong>'.numberToWords($attractions) . '</strong> attraction' . ($attractions > 1 ? 's' : '') . ' with gluten free options';
         }
 
         if ($hotels > 0) {
-            $return[] = $hotels.' Hotel'.($hotels > 1 ? 's' : '').' / B&B'.($hotels > 1 ? 's' : '');
+            $return[] = '<strong>'.numberToWords($hotels) . '</strong> hotel' . ($hotels > 1 ? 's' : '') . ' / B&B' . ($hotels > 1 ? 's' : '') . ' with gluten free options';
         }
 
-        return implode(', ', $return);
+        $last = null;
+
+        if (count($return) > 1) {
+            $last = array_pop($return);
+        }
+
+        return implode(', ', $return) . ($last ? ' and '. $last : '');
     }
 
     public function reviews(): HasManyThrough

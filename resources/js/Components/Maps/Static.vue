@@ -30,7 +30,7 @@ export default {
         mapClasses: {
             type: Array,
             default: () => {
-                return ['min-h-map']
+                return ['min-h-map-small md:min-h-map lg:min-h-map-small xl:min-h-map']
             },
         },
     },

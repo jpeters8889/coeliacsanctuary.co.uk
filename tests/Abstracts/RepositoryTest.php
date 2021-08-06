@@ -99,4 +99,14 @@ abstract class RepositoryTest extends TestCase
         $this->assertInstanceOf($this->model(), $model);
         $this->assertEquals(1, $model->id);
     }
+
+    /** @test */
+    public function itCanAddWheres()
+    {
+        $attribute = array_keys($this->models[0]->attributesToArray())[0];
+
+        $this->models[0]->update([$attribute => 'foobarbaz']);
+
+        $this->assertEquals(1, $this->repository->where($attribute, 'foobarbaz')->all()->count());
+    }
 }

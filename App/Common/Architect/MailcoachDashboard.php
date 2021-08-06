@@ -23,7 +23,8 @@ class MailcoachDashboard extends AbstractDashboard
     {
         return [
             Card::generate('')
-                ->setContent(<<<STR
+                ->setContent(
+                    <<<STR
                     <p class="mb-2">Mailcoach is the new newsletter management app.</p>
                     <p><a href="/mailcoach" target="_blank">Go To Mailcoach</a></p>
                     STR

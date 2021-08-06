@@ -158,6 +158,8 @@ class DailyUpdatePreprocessor
 
     protected function pushEatery(WhereToEat $eatery): void
     {
+        $eatery->load(['county', 'town']);
+
         $this->eateries->get('items')->push([
             'id' => $eatery->id,
             'title' => $eatery->name,

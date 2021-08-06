@@ -45,14 +45,16 @@ class PostagePricesBlueprint extends Blueprint
 
             Select::generate('shipping_method_id', 'Shipping Method')
                 ->hideOnIndex()
-                ->options(ShopShippingMethod::all()
+                ->options(
+                    ShopShippingMethod::all()
                     ->mapWithKeys(fn (ShopShippingMethod $method) => [$method->id => $method->shipping_method])
                     ->toArray()
                 ),
 
             Select::generate('postage_country_area_id', 'Postage Area')
                 ->hideOnIndex()
-                ->options(ShopPostageCountryArea::all()
+                ->options(
+                    ShopPostageCountryArea::all()
                     ->mapWithKeys(fn (ShopPostageCountryArea $area) => [$area->id => $area->area])
                     ->toArray()
                 ),

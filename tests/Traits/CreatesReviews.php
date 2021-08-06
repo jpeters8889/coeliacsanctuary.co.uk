@@ -8,9 +8,9 @@ use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 
 trait CreatesReviews
 {
-    protected function createReview($reviewParams = [])
+    protected function createReview($reviewParams = [], $eateryParams = [])
     {
-        $wte = $this->createWhereToEat();
+        $wte = $this->createWhereToEat($eateryParams);
 
         return factory(Review::class)->create(array_merge(['wheretoeat_id' => $wte->id], $reviewParams));
     }

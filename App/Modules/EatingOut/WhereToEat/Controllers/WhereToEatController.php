@@ -10,9 +10,7 @@ use Illuminate\Support\Collection;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Coeliac\Modules\EatingOut\WhereToEat\IndexCountyList;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
-use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
+use Coeliac\Modules\EatingOut\WhereToEat\Support\IndexCountyList;
 
 class WhereToEatController extends BaseController
 {
@@ -38,16 +36,15 @@ class WhereToEatController extends BaseController
             ->setPageTitle('Gluten Free Places to Eat Guide')
             ->setMetaDescription('Coeliac Sanctuary where to eat guide | Places in the UK who can cater to Coeliac and gluten free diets')
             ->setMetaKeywords([
-                'gluten free places to eat', 'gluten free cafes', 'gluten free restaurants', 'gluten free uk', 'places to eat',
-                'cafes', 'restaurants', 'eating out', 'catering to coeliac', 'eating out uk', 'gluten free venues',
-                'gluten free dining', 'gluten free directory', 'gf food', 'gluten free eating out uk', 'uk places to eat',
-                'gluten free attractions', 'gluten free hotels',
+                'gluten free places to eat', 'gluten free cafes', 'gluten free restaurants', 'gluten free uk',
+                'places to eat', 'cafes', 'restaurants', 'eating out', 'catering to coeliac', 'eating out uk',
+                'gluten free venues', 'gluten free dining', 'gluten free directory', 'gf food',
+                'gluten free eating out uk', 'uk places to eat', 'gluten free attractions', 'gluten free hotels',
             ])
             ->setSocialImage(asset('assets/images/shares/wheretoeat.jpg'))
             ->render('modules.eating-out.wheretoeat.index', [
                 'list' => $countyList->getStats(),
-                'nationwide_id' => WhereToEatCounty::query()->where('county', 'Nationwide')->first()->value('id'),
-                'related' => (new ReviewRepository())->random()->take(10),
+                'topPlaces' => $countyList->topPlaces(),
             ]);
     }
 
@@ -62,16 +59,44 @@ class WhereToEatController extends BaseController
                 ->setWiths([
                     'country', 'county', 'town', 'type', 'venueType', 'cuisine', 'features', 'restaurants',
                     'reviews' => function (Relation $builder) {
-                        return $builder->select(['id', 'wheretoeat_id', 'title', 'slug', 'created_at'])->where('live', 1)->latest();
+                        return $builder
+                            ->select(['id', 'wheretoeat_id', 'title', 'slug', 'created_at'])
+                            ->where('live', 1)
+                            ->latest();
                     },
                     'ratings' => function (Relation $builder) {
-                        return $builder->select(['id', 'wheretoeat_id', 'rating', 'name', 'body', 'created_at'])->where('approved', 1)->latest();
+                        return $builder
+                            ->select(['id', 'wheretoeat_id', 'rating', 'name', 'body', 'created_at'])
+                            ->where('approved', 1)
+                            ->latest();
                     },
                 ])
                 ->filter()
                 ->search()
+                ->setColumns('wheretoeat.*')
                 ->paginated($request->get('limit', 10))))
                 ->merge(['appends' => $this->repository->getAppends()]),
         ];
+    }
+
+    public function get($id)
+    {
+        return $this->repository
+            ->setWiths([
+                'country', 'county', 'town', 'type', 'venueType', 'cuisine', 'features', 'restaurants',
+                'reviews' => function (Relation $builder) {
+                    return $builder
+                        ->select(['id', 'wheretoeat_id', 'title', 'slug', 'created_at'])
+                        ->where('live', 1)
+                        ->latest();
+                },
+                'ratings' => function (Relation $builder) {
+                    return $builder
+                        ->select(['id', 'wheretoeat_id', 'rating', 'name', 'body', 'created_at'])
+                        ->where('approved', 1)
+                        ->latest();
+                },
+            ])
+            ->get($id);
     }
 }

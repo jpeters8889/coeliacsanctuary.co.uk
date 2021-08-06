@@ -42,6 +42,29 @@
                             </ul>
                         </div>
                     </template>
+
+                    <template v-if="item.children.layout === '4'">
+                        <div class="flex">
+                            <ul class="w-3/5">
+                                <li v-for="(child, index) in item.children.items"
+                                    class="py-2 mr-4 hover:bg-yellow-40 transition-bg"
+                                    :class="index < 3 ? 'border-b border-yellow' : ''">
+                                    <a :href="child.link" class="flex">
+                                        <div class="w-1/4 mr-1 lg:w-1/6">
+                                            <img :data-src="child.main_image" :src="lazyLoadSrc" loading="lazy"
+                                                 class="lazy"
+                                                 :alt="child.title">
+                                        </div>
+                                        <div class="leading-none flex-1">
+                                            <h3 class="mb-1 font-medium">{{ child.title }}</h3>
+                                            <p class="text-sm">{{ child.meta_description }}</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </template>
+
                     <template v-if="item.children.layout === 'list'">
                         <ul class="flex flex-wrap text-base leading-none py-2">
                             <li v-for="child in item.children.items" class="w-1/2 mb-2 hover:underline">

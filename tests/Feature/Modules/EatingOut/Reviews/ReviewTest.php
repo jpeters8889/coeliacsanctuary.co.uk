@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\EatingOut\Reviews;
 
 use Carbon\Carbon;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
@@ -71,12 +72,13 @@ class ReviewTest extends TestCase
     /** @test */
     public function itOnlyShowsMatchingReviewsWhenFilteredByTags()
     {
-        $visibleReview = $this->createReview(['title' => 'visible-review-title']);
-        $this->createReview(['title' => 'hidden-review-title']);
+        $county = factory(WhereToEatCounty::class)->create(['country_id' => 1]);
+        $hiddenCounty = factory(WhereToEatCounty::class)->create(['country_id' => 1]);
 
-        $county = $visibleReview->county->county;
+        $this->createReview(['title' => 'visible-review-title'], ['county_id' => $county->id]);
+        $this->createReview(['title' => 'hidden-review-title'], ['county_id' => $hiddenCounty->id]);
 
-        $this->get('/api/reviews?filter[counties]='.$county)
+        $this->get('/api/reviews?filter[counties]='.$county->county)
             ->assertSee('visible-review-title', false)
             ->assertDontSee('hidden-review-title');
     }

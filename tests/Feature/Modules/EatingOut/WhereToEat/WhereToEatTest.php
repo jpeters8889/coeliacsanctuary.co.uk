@@ -130,7 +130,6 @@ class WhereToEatTest extends TestCase
         $this->assertEquals($this->wheretoeat->cuisine_id, $data['cuisine_id']);
         $this->assertEquals($this->wheretoeat->live, $data['live']);
         $this->assertEquals($this->wheretoeat->average_rating, $data['average_rating']);
-        $this->assertEquals($this->wheretoeat->icon, $data['icon']);
         $this->assertArrayHasKey('country', $data);
         $this->assertArrayHasKey('county', $data);
         $this->assertArrayHasKey('town', $data);

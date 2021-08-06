@@ -1,77 +1,149 @@
 <template>
-    <div class="w-full my-3">
-        <div>
-            <div class="w-full mb-1">
-                <ul class="flex flex-col leading-none xs:flex-row">
-                    <li v-for="tab in mainTabs" v-if="tab.count > 0"
-                        @click="changeTab(tab)"
-                        class="w-full cursor-pointer py-2 px-4 border-2 w-full block transition-bg mb-px rounded-b xs:w-auto xs:mb-0 xs:mr-px"
-                        :class="currentTab === tab.id ? 'bg-yellow border-yellow hover:bg-yellow-80' : 'bg-blue-light border-blue-light hover:bg-blue-light-80'">
-                        {{ tab.label }} ({{ tab.count }})
-                    </li>
-                </ul>
-            </div>
-
-            <div class="w-full mb-1">
+    <div class="w-full my-3 flex lg:space-x-1">
+        <div
+            v-if="isGte('lg') || showFilterModal"
+            class="fixed flex w-full h-full top-0 left-0 p-4 bg-black-50 z-max lg:relative lg:w-1/3 xl:w-1/4 lg:p-0 lg:bg-none lg:h-auto lg:z-auto"
+        >
+            <div class="bg-white w-full shadow overflow-hidden lg:shadow-none">
                 <div
-                    class="text-sm w-full cursor-pointer py-2 px-4 border-2 w-full block transition-bg mb-px rounded-b bg-yellow-50 border-yellow hover:bg-yellow-40 xs:hidden"
-                    @click="viewTabs = !viewTabs">
-                    View Venue Categories (Currently viewing category: {{ getVenueTypeName() }})
+                    class="flex justify-between mb-2 text-xl py-2 px-4 bg-grey-off-light border-b border-grey-off lg:bg-white">
+                    <h2 class="font-semibold">Filter Results</h2>
+                    <div class="cursor-pointer" @click="showFilterModal = false">
+                        <font-awesome-icon :icon="['fas', 'times']"></font-awesome-icon>
+                    </div>
                 </div>
+                <div class="px-4 overflow-y-scroll h-full pb-12 mb-1">
+                    <div class="border-b border-grey-off-dark pb-2"
+                         v-if="places.length > 0">
+                        <a
+                            class="bg-yellow-50 p-2 border-yellow border flex flex-col items-center justify-center text-center space-y-3"
+                            :href="`/wheretoeat/browse/${places[0].lat},${places[0].lng}/13`"
+                        >
+                            <img :src="mapUrl" alt=""/>
+                            <h3 class="text-lg font-semibold">View map of {{ places[0].town.town }}</h3>
+                            <p class="text-xs">
+                                Check out our interactive map of places to eat in and around {{ places[0].town.town }}!
+                            </p>
+                        </a>
+                    </div>
 
-                <div :class="windowWidth >= 500 || viewTabs ? 'block' : 'hidden'">
-                    <ul class="flex flex-col leading-none xs:flex-row xs:flex-wrap xs:-m-px">
-                        <li @click="changeVenueType({id: 0})"
-                            class="w-full cursor-pointer py-2 px-4 border-2 w-full block transition-bg mb-px rounded-b xs:w-auto xs:m-px"
-                            :class="currentVenueType === 0 ? 'bg-yellow-50 border-yellow hover:bg-yellow-40' : 'bg-blue-light-50 border-blue-light hover:bg-blue-light-40'">
-                            View All
-                        </li>
+                    <div class="border-b border-grey-off-dark pb-2">
+                        <h3 class="text-lg font-semibold mb-2">Show Categories</h3>
 
-                        <li v-for="venueType in venueTypeTabs" v-if="venueType.count > 0"
-                            @click="changeVenueType(venueType)"
-                            class="w-full cursor-pointer py-2 px-4 border-2 w-full block transition-bg mb-px rounded-b xs:w-auto xs:m-px"
-                            :class="currentVenueType === venueType.id ? 'bg-yellow-50 border-yellow hover:bg-yellow-40' : 'bg-blue-light-50 border-blue-light hover:bg-blue-light-40'">
-                            {{ venueType.label }} ({{ venueType.count }})
-                        </li>
-                    </ul>
+                        <ul class="flex flex-col space-y-2">
+                            <li
+                                v-for="category in filters.categories"
+                                class="flex-1 flex cursor-pointer group select-none"
+                                @click="category.checked = !category.checked"
+                            >
+                                <div
+                                    class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-colors flex-shrink-0"
+                                    :class="category.checked ? 'text-white bg-black' : 'bg-white text-grey-off-light group-hover:text-grey-off-dark'"
+                                >
+                                    <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
+                                </div>
+
+                                <div>{{ category.label }} ({{ category.count }})</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="border-b border-grey-off-dark py-2">
+                        <h3 class="text-lg font-semibold mb-2">Show Venue Types</h3>
+
+                        <ul class="flex flex-col space-y-2">
+                            <li
+                                v-for="venueType in filters.venueTypes"
+                                class="flex-1 flex cursor-pointer group select-none"
+                                @click="venueType.checked = !venueType.checked"
+                            >
+                                <div
+                                    class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-colors flex-shrink-0"
+                                    :class="venueType.checked ? 'text-white bg-black' : 'bg-white text-grey-off-light group-hover:text-grey-off-dark'"
+                                >
+                                    <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
+                                </div>
+
+                                <div>{{ venueType.label }} ({{ venueType.count }})</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="border-b border-grey-off-dark py-2">
+                        <h3 class="text-lg font-semibold mb-2">Special Features</h3>
+
+                        <ul class="flex flex-col space-y-2">
+                            <li
+                                v-for="feature in filters.features"
+                                class="flex-1 flex cursor-pointer group select-none"
+                                @click="feature.checked = !feature.checked"
+                            >
+                                <div
+                                    class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-colors flex-shrink-0"
+                                    :class="feature.checked ? 'text-white bg-black' : 'bg-white text-grey-off-light group-hover:text-grey-off-dark'"
+                                >
+                                    <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
+                                </div>
+
+                                <div>{{ feature.label }} ({{ feature.count }})</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="border-b border-grey-off-dark py-2" v-if="countyId !== 1">
+                        <h3 class="text-lg font-semibold mb-2">Average Rating</h3>
+
+                        <ul class="flex flex-col space-y-2">
+                            <li
+                                v-for="rating in filters.ratings"
+                                class="flex-1 flex cursor-pointer group select-none"
+                                @click="rating.checked = !rating.checked"
+                            >
+                                <div
+                                    class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-colors flex-shrink-0"
+                                    :class="rating.checked ? 'text-white bg-black' : 'bg-white text-grey-off-light group-hover:text-grey-off-dark'"
+                                >
+                                    <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
+                                </div>
+
+                                <div>{{ rating.label }} ({{ rating.count }})</div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-
-            <slot name="intro"></slot>
         </div>
 
-        <div>
-            <pagination :current="places.current_page"
-                        :lastPage="places.last_page"
-                        :can-go-back="!! places.prev_page_url"
-                        :can-go-forward="!! places.next_page_url"
-            ></pagination>
-
-            <div v-if="isLoading" class="relative h-64">
-                <loader :show="true"></loader>
+        <div class="fixed bottom-0 right-0 p-5 lg:hidden z-max">
+            <div
+                class="w-16 h-16 rounded-full bg-blue text-white text-3xl flex justify-center items-center cursor-pointer shadow-lg z-max"
+                v-tooltip.left="{content: 'View Filters', classes: ['bg-yellow', 'text-black', 'rounded-lg']}"
+                @click="showFilterModal = true;"
+            >
+                <font-awesome-icon :icon="['fas', 'list']"></font-awesome-icon>
             </div>
+        </div>
 
-            <div v-else-if="noResults">
-                <p class="text-red text-lg my-2">Sorry, no results found!</p>
-            </div>
-
-            <div v-else>
-                <div class="flex flex-col my-2 md:flex-row md:flex-wrap -mx-2">
-                    <component
-                        v-for="(place, index) in places.data"
-                        :key="place.id"
-                        :is="resolveTemplate(place)"
-                        :place="place"
-                        :index="index">
-                    </component>
+        <div class="lg:w-2/3 xl:w-3/4">
+            <div>
+                <div v-if="!isLoading && places.length === 0" class="bg-white w-full p-2 mx-2">
+                    <p class="text-red text-lg my-2">Sorry, no results found!</p>
                 </div>
-            </div>
 
-            <pagination :current="places.current_page"
-                        :lastPage="places.last_page"
-                        :can-go-back="!! places.prev_page_url"
-                        :can-go-forward="!! places.next_page_url"
-            ></pagination>
+                <div v-if="places.length" class="lg:-mt-2 lg:-mr-2">
+                    <div
+                        v-for="(place, index) in places"
+                        :key="place.id"
+                        v-observe-visibility="hasMore && index === places.length - 1 ? {callback: visibilityChanged, once:true} : false"
+                        class="flex flex-col p-3 bg-white m-2"
+                    >
+                        <wheretoeat-ui-place-details :place="place"/>
+                    </div>
+                </div>
+
+                <wheretoeat-ui-sleleton-loader v-if="isLoading"/>
+
+            </div>
         </div>
     </div>
 </template>
@@ -81,21 +153,22 @@ import FilterableUrls from "@/Mixins/FilterableUrls";
 
 const Loader = () => import('~/Global/UI/Loader' /* webpackChunkName: "chunk-loader" */)
 const Pagination = () => import('~/Global/UI/Pagination' /* webpackChunkName: "chunk-pagination" */)
-import WhereToEatAttraction from "~/WhereToEat/Renders/WhereToEatAttraction";
-import WhereToEatEatery from "~/WhereToEat/Renders/WhereToEatEatery";
-import WhereToEatHotel from "~/WhereToEat/Renders/WhereToEatHotel";
-import WhereToEatNationwide from "~/WhereToEat/Tabs/WhereToEatNationwide";
+import Vue from "vue";
+import VueObserveVisibility from 'vue-observe-visibility'
+import ResponsiveOptions from "@/Mixins/ResponsiveOptions";
+import VTooltip from "v-tooltip";
+import WhereToEatPlaceDetails from "~/WhereToEat/UI/WhereToEatPlaceDetails";
+import WhereToEatPlaceSkeletonLoader from "~/WhereToEat/UI/WhereToEatPlaceSkeletonLoader";
+
+Vue.use(VTooltip);
+Vue.use(VueObserveVisibility)
 
 export default {
-    mixins: [FilterableUrls],
+    mixins: [FilterableUrls, ResponsiveOptions],
 
     components: {
-        'loader': Loader,
-        'pagination': Pagination,
-        'wheretoeat-place-attraction': WhereToEatAttraction,
-        'wheretoeat-place-eatery': WhereToEatEatery,
-        'wheretoeat-place-hotel': WhereToEatHotel,
-        'wheretoeat-place-nationwide': WhereToEatNationwide,
+        'wheretoeat-ui-place-details': WhereToEatPlaceDetails,
+        'wheretoeat-ui-sleleton-loader': WhereToEatPlaceSkeletonLoader
     },
 
     props: {
@@ -118,121 +191,136 @@ export default {
     },
 
     data: () => ({
+        showFilterModal: false,
+
         currentPage: 1,
-        viewTabs: false,
-
-        currentTab: 0,
-        currentVenueType: 0,
-        reviews: false,
-
-        mainTabs: [
-            {
-                label: 'View All',
-                count: 0,
-                id: 0,
-            },
-            {
-                label: 'Eateries',
-                count: 0,
-                id: 1,
-            },
-            {
-                label: 'Attractions',
-                count: 0,
-                id: 2,
-            },
-            {
-                label: 'Hotels',
-                count: 0,
-                id: 3,
-            },
-            {
-                label: 'Reviews',
-                count: 0,
-                id: 4,
-            }
-        ],
-
-        venueTypeTabs: [],
+        perPage: 5,
+        hasMore: false,
 
         isLoading: true,
         noResults: false,
 
-        places: {
-            current_page: 1,
-            last_page: 1,
-            prev_page_url: '',
-            next_page_url: '',
-            total: 0,
+        places: [],
+
+        filters: {
+            categories: [
+                {
+                    label: 'Eateries',
+                    count: 0,
+                    id: 1,
+                    checked: true,
+                },
+                {
+                    label: 'Attractions',
+                    count: 0,
+                    id: 2,
+                    checked: true,
+                },
+                {
+                    label: 'Hotels',
+                    count: 0,
+                    id: 3,
+                    checked: true,
+                }
+            ],
+            venueTypes: [],
+            features: [],
+            ratings: [],
         },
+
+        filterTimeout: null,
     }),
 
     mounted() {
         this.getData();
-
-        this.$root.$on('pagination-click', (page) => {
-            if (page === 'next') {
-                page = this.currentPage + 1;
-            }
-
-            if (page === 'prev') {
-                page = this.currentPage - 1;
-            }
-
-            this.currentPage = page;
-
-            this.getData();
-        });
     },
 
     methods: {
-        getData() {
+        async getData() {
             this.isLoading = true;
             this.noResults = false;
-            this.getTabData();
-            this.getVenueTypeData();
+
+            await this.getSummary();
+            await this.getVenueTypes();
+            await this.getFeatures();
+            await this.getRatings();
+
             this.getPlaces();
         },
 
-        getTabData() {
-            coeliac().request()
+        async getSummary() {
+            const response = await coeliac().request()
                 .get(this.buildUrl('/api/wheretoeat/summary', 1, this.searchText, this.currentFilters))
-                .then((response) => {
-                    this.mainTabs[0].count = response.data.total;
-                    this.mainTabs[1].count = response.data.eateries;
-                    this.mainTabs[2].count = response.data.attractions;
-                    this.mainTabs[3].count = response.data.hotels;
-                    this.mainTabs[4].count = response.data.reviews;
-                })
-                .catch(() => {
-                    this.noResults = true;
-                });
+
+            return new Promise(resolve => {
+                this.filters.categories[0].count = response.data.eateries;
+                this.filters.categories[1].count = response.data.attractions;
+                this.filters.categories[2].count = response.data.hotels;
+
+                resolve(true);
+            });
         },
 
-        getVenueTypeData() {
-            coeliac().request()
+        async getVenueTypes() {
+            const response = await coeliac().request()
                 .get(this.buildUrl('/api/wheretoeat/venueTypes', 1, this.searchText, this.currentFilters))
-                .then((response) => {
-                    this.venueTypeTabs = response.data;
-                })
-                .catch(() => {
-                    this.noResults = true;
-                })
+
+            return new Promise((resolve) => {
+                this.filters.venueTypes = response.data.map((data) => {
+                    data['checked'] = false;
+
+                    return data;
+                });
+
+                resolve(true);
+            });
+        },
+
+        async getFeatures() {
+            const response = await coeliac().request()
+                .get(this.buildUrl('/api/wheretoeat/features', 1, this.searchText, this.currentFilters))
+
+            return new Promise((resolve) => {
+                this.filters.features = response.data.map((data) => {
+                    data['checked'] = false;
+
+                    return data;
+                });
+
+                resolve(true);
+            });
+        },
+
+        async getRatings() {
+            const response = await coeliac().request()
+                .get(this.buildUrl('/api/wheretoeat/ratings', 1, this.searchText, this.currentFilters))
+
+            return new Promise((resolve) => {
+                this.filters.ratings = response.data.map((data) => {
+                    data['checked'] = false;
+
+                    return data;
+                });
+
+                resolve(true);
+            });
         },
 
         getPlaces() {
             coeliac().request()
-                .get(this.buildUrl('/api/wheretoeat', this.currentPage, this.searchText, this.currentFilters))
+                .get(this.buildUrl('/api/wheretoeat', this.currentPage, this.searchText, this.currentFilters, false, this.perPage))
                 .then((response) => {
-                    this.places = response.data.data;
+                    this.places.push(...response.data.data.data);
 
-                    this.places.data.forEach((place, index) => {
-                        if (this.places.appends[place.id]) {
-                            Object.keys(this.places.appends[place.id]).forEach((key) => {
-                                this.$set(this.places.data[index], key, this.places.appends[place.id][key])
+                    this.places.forEach((place, index) => {
+                        if (response.data.data.appends[place.id]) {
+                            Object.keys(response.data.data.appends[place.id]).forEach((key) => {
+                                this.$set(this.places[index], key, response.data.data.appends[place.id][key])
                             });
                         }
                     });
+
+                    this.hasMore = this.currentPage < response.data.data.last_page;
                 })
                 .catch(() => {
                     this.noResults = true;
@@ -242,58 +330,37 @@ export default {
                 });
         },
 
-        changeTab(tab) {
-            this.currentTab = tab.id;
-            this.reviews = this.currentTab === 4;
-            this.currentVenueType = 0;
+        visibilityChanged(isVisible) {
+            if (!isVisible) {
+                return;
+            }
 
-            this.getVenueTypeData();
-            this.getPlaces();
+            this.currentPage++
+            this.getData();
         },
-
-        changeVenueType(venueType) {
-            this.currentVenueType = venueType.id;
-            this.getPlaces();
-        },
-
-        getVenueTypeName() {
-            let venueType = this.venueTypeTabs.find(tab => tab.id === this.currentVenueType);
-
-            if (venueType && venueType.label) {
-                return venueType.label;
-            }
-
-            return 'All';
-        },
-
-        resolveTemplate(place) {
-            if (place.country.country === 'Nationwide') {
-                return 'wheretoeat-place-nationwide';
-            }
-
-            if (place.type.type === 'wte') {
-                return 'wheretoeat-place-eatery';
-            }
-
-            if (place.type.type === 'att') {
-                return 'wheretoeat-place-attraction';
-            }
-
-            if (place.type.type === 'hotel') {
-                return 'wheretoeat-place-hotel';
-            }
-        }
     },
 
     computed: {
         currentFilters() {
-            return {
+            const filters = {
                 county: this.countyId,
                 town: this.townId,
-                type: this.currentTab !== 0 && this.currentTab < 4 ? this.currentTab : null,
-                venueType: this.currentVenueType !== 0 ? this.currentVenueType : null,
-                has: this.currentTab === 4 ? 'reviews' : null,
-            };
+                type: this.filters.categories.filter((category) => category.checked).map((category) => category.id),
+            }
+
+            if (this.filters.features.filter(feature => feature.checked).length > 0) {
+                filters['feature'] = this.filters.features.filter((feature) => feature.checked).map((feature) => feature.id);
+            }
+
+            if (this.filters.venueTypes.filter(venueType => venueType.checked).length > 0) {
+                filters['venueType'] = this.filters.venueTypes.filter((venueType) => venueType.checked).map((venueType) => venueType.id);
+            }
+
+            if (this.filters.ratings.filter(rating => rating.checked).length > 0) {
+                filters['rating'] = this.filters.ratings.filter((rating) => rating.checked).map((rating) => rating.id / 2);
+            }
+
+            return filters
         },
 
         windowWidth() {
@@ -309,7 +376,51 @@ export default {
                 term: this.searchTerm,
                 range: this.searchRange,
             });
+        },
+
+        mapUrl() {
+            return `${window.config.baseUrl}/assets/images/shares/wheretoeat-map.jpg`;
         }
-    }
+    },
+
+    watch: {
+        filters: {
+            deep: true,
+            handler: function () {
+                if (this.isLoading) {
+                    return;
+                }
+
+                if (this.isLte('md')) {
+                    return;
+                }
+
+                this.filterTimeout = setTimeout(() => {
+                    this.isLoading = true;
+                    this.currentPage = 1;
+                    this.places = [];
+                    this.getPlaces()
+                }, 500)
+            }
+        },
+
+        showFilterModal: function () {
+            if (this.isGt('md')) {
+                return;
+            }
+
+            if (this.showFilterModal) {
+                document.querySelector('body').classList.add('overflow-hidden');
+
+                return;
+            }
+
+            document.querySelector('body').classList.remove('overflow-hidden');
+            this.isLoading = true;
+            this.currentPage = 1;
+            this.places = [];
+            this.getPlaces();
+        }
+    },
 }
 </script>

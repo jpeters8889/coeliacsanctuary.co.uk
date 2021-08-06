@@ -9,13 +9,15 @@ use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
 use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
 use Coeliac\Modules\EatingOut\WhereToEat\Requests\WhereToEatCountyRequest;
+use Coeliac\Modules\EatingOut\WhereToEat\Support\CountyProcessor;
+use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\DB;
 
 class WhereToEatCountyController extends BaseController
 {
-    public function list(Page $page, WhereToEatCountyRequest $request)
+    public function list(Page $page, CountyProcessor $countyProcessor)
     {
-        /** @var WhereToEatCounty $county */
-        $county = $request->resolveCounty();
+        $county = $countyProcessor->county();
 
         return $page
             ->breadcrumbs([
@@ -28,30 +30,17 @@ class WhereToEatCountyController extends BaseController
                     'title' => 'Places to Eat',
                 ],
             ], $county->county)
-            ->setPageTitle('Gluten Free Places to Eat in '.$county->county)
-            ->setMetaDescription("Coeliac Sanctuary Places in Cheshire | Eateries who can cater to Coeliac and Gluten Free diets in {$county->county}")
-            ->setMetaKeywords([
-                "coeliac {$county->county}", "gluten free {$county->county}", "gluten free food {$county->county}",
-                "gluten free places to eat in {$county->county}", 'gluten free places to eat', 'gluten free cafes',
-                'gluten free restaurants', 'gluten free uk', 'places to eat', 'cafes', 'restaurants', 'eating out',
-                'catering to coeliac', 'eating out uk', 'gluten free venues', 'gluten free dining',
-                'gluten free directory', 'gf food', $county->county,
-            ])
+            ->setPageTitle('Gluten Free Places to Eat in ' . $county->county)
+            ->setMetaDescription("Eateries who can cater to Coeliac and Gluten Free diets in {$county->county} | Gluten free places to eat in {$county->county}")
+            ->setMetaKeywords($countyProcessor->keywords())
             ->setSocialImage(asset("assets/images/wte-shares/{$county->county}.jpg"))
             ->render('modules.eating-out.wheretoeat.county', [
                 'id' => $county->id,
                 'county' => $county->county,
                 'slug' => $county->slug,
                 'towns' => $county->activeTowns,
-                'reviews' => $county->reviews()
-                    ->where('reviews.live', true)
-                    ->with(['eatery', 'eatery.town', 'eatery.county', 'eatery.ratings'])
-                    ->inRandomOrder()
-                    ->take(2)->get(),
-                'related' => (new ReviewRepository())
-                    ->setWiths(['images', 'images.image', 'eatery', 'eatery.town', 'eatery.county'])
-                    ->random()
-                    ->take(5),
+                'topPlaces' => $countyProcessor->topRatedPlaces(),
+                'reviews' => $countyProcessor->reviews(),
             ]);
     }
 }

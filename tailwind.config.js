@@ -131,6 +131,9 @@ module.exports = {
                 map: '300px',
                 'map-small': '200px',
             },
+            minWidth: {
+                72: '18rem',
+            },
             zIndex: {
                 max: '999',
             }
@@ -138,7 +141,11 @@ module.exports = {
     },
     variants: {
         extend: {
-            fontWeight: ['hover']
+            fontWeight: ['hover'],
+            borderWidth: ['last'],
+            margin: ['first'],
+            padding: ['first'],
+            borderRadius: ['group-hover'],
         }
     },
     plugins: [],

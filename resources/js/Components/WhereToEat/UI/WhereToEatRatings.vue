@@ -1,22 +1,24 @@
 <template>
-    <div class="my-2 text-center sm:text-left">
-        <h2 class="text-2xl font-semibold">Average Rating</h2>
-
+    <div class="my-2 w-full">
         <div v-if="ratings.length > 0">
-            <global-ui-stars :stars="average"></global-ui-stars>
-            Average rating of <strong>{{ average }}</strong> from {{ ratings.length }} Reviews<br/>
-            <a class="font-semibold text-blue transition-color hover:text-grey" @click="showDetails = true">
+            <div class="flex justify-between items-center sm:flex-row-reverse">
+                <span class="flex-1 sm:mr-2">
+                    Rated <strong>{{ average }} stars</strong> from
+                    <strong>{{ ratings.length }} review{{ ratings.length > 1 ? 's' : '' }}</strong>
+                </span>
+                <global-ui-stars :stars="average"></global-ui-stars>
+            </div
+            >
+            <a class="mt-2 font-semibold text-blue transition-color hover:text-grey" @click="showDetails = true">
                 View Comments and Ratings
             </a>
         </div>
-
-        <em v-else>This place hasn't been rated yet...</em>
 
         <div class="mt-2">
             <h3>Have you visited {{ name }}? How would you rate it?</h3>
 
             <em v-if="hasBeenRated">Sorry, you've already rated this location...</em>
-            <div v-else class="text-3xl flex justify-center sm:justify-start">
+            <div v-else class="text-3xl flex justify-center sm:justify-start xs:mt-1">
                 <span class="wteRater cursor-pointer" :class="n <= hoveringOn ? 'text-yellow' : 'text-grey-off'"
                       v-for="n in 5"
                       :key="n+1" @mouseover="hoveringOn = n" @mouseleave="hoveringOn = null"
