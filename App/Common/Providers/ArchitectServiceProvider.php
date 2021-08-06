@@ -7,6 +7,7 @@ namespace Coeliac\Common\Providers;
 use Coeliac\Common\ArchitectDashboard;
 use Coeliac\Common\Architect\HorizonDashboard;
 use Coeliac\Common\Architect\MailcoachDashboard;
+use Coeliac\Modules\EatingOut\WhereToEat\Architect\PlaceReportsBlueprint;
 use Coeliac\Modules\Shop\Architect\ShopDashboard;
 use Coeliac\Modules\Shop\Architect\OrderBlueprint;
 use Coeliac\Modules\Member\Architect\UserBlueprint;
@@ -48,6 +49,7 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
 
             CommentsBlueprint::class,
             PlaceRequestBlueprint::class,
+            PlaceReportsBlueprint::class,
             WteRatingsBlueprint::class,
 
             AnnouncementBlueprint::class,

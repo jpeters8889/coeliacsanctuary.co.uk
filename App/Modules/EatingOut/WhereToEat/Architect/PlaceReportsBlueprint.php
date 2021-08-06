@@ -4,20 +4,26 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Architect;
 
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatPlaceReport;
+use Illuminate\Database\Eloquent\Builder;
 use JPeters\Architect\Blueprints\Blueprint;
-use Coeliac\Architect\Cards\PlaceRequestCard\Card;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\PlaceRequest;
+use Coeliac\Architect\Cards\PlaceReportsCard\Card;
 
-class PlaceRequestBlueprint extends Blueprint
+class PlaceReportsBlueprint extends Blueprint
 {
-    public function model(): string
+    public function getData(): Builder
     {
-        return PlaceRequest::class;
+        return $this->model()::query()->with(['eatery', 'eatery.town', 'eatery.county']);
     }
 
     public function canEdit(): bool
     {
         return false;
+    }
+
+    public function model(): string
+    {
+        return WhereToEatPlaceReport::class;
     }
 
     public function plans(): array
@@ -37,11 +43,11 @@ class PlaceRequestBlueprint extends Blueprint
 
     public function blueprintName(): string
     {
-        return 'Place Requests';
+        return 'Place Reports';
     }
 
     public function displayCount(): int
     {
-        return PlaceRequest::query()->where('completed', 0)->count();
+        return WhereToEatPlaceReport::query()->where('completed', 0)->count();
     }
 }

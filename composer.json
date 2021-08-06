@@ -20,6 +20,7 @@
         "coeliac/order-info": "*",
         "coeliac/order-shipped": "*",
         "coeliac/place-request-card": "*",
+        "coeliac/place-reports-card": "*",
         "coeliac/shop-daily-stock": "*",
         "coeliac/shop-order-items": "*",
         "coeliac/shop-product-prices": "*",
@@ -126,6 +127,10 @@
         {
             "type": "path",
             "url": "./architect/cards/place-request-card"
+        },
+        {
+            "type": "path",
+            "url": "./architect/cards/place-reports-card"
         },
         {
             "type": "path",
