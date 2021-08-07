@@ -22,7 +22,7 @@ class CreateWheretoeatPlaceRecommendationTable extends Migration
             $table->string('place_web_address')->nullable();
             $table->unsignedInteger('place_venue_type_id')->nullable();
             $table->text('place_details');
-            $table->boolean('completed')->default('false');
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }

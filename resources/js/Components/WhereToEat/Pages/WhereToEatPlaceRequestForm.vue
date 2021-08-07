@@ -145,11 +145,11 @@ export default {
             coeliac().request().post('/api/wheretoeat/recommend-a-place', {
                 name: this.formData.name,
                 email: this.formData.email,
-                placeName: this.formData.placeName,
-                placeAddress: this.formData.placeAddress,
-                placeWebsite: this.formData.placeWebsite,
-                placeType: this.formData.placeType,
-                placeDetails: this.formData.placeDetails,
+                place_name: this.formData.placeName,
+                place_location: this.formData.placeAddress,
+                place_web_address: this.formData.placeWebsite,
+                place_venue_type_id: this.formData.placeType,
+                place_details: this.formData.placeDetails,
             }).then((response) => {
                 if (response.status === 200) {
                     Object.keys(this.validity).forEach((key) => {
