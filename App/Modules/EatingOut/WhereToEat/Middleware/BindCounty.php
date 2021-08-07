@@ -20,7 +20,7 @@ class BindCounty
     public function resolveCounty(Request $request)
     {
         if ($legacy = WhereToEatCounty::query()->where('legacy', $request->route('county'))->first()) {
-            return redirect_now($this->buildRedirectUrl($legacy));
+            return redirect_now($this->buildRedirectUrl($legacy, $request));
         }
 
         return WhereToEatCounty::query()->where('slug', $request->route('county'))
