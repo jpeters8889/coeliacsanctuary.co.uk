@@ -43,7 +43,7 @@ class RatingsBlueprint extends Blueprint
 
     public function getData(): Builder
     {
-        return parent::getData()->with('eatery')->select('*');
+        return parent::getData()->with(['eatery', 'eatery.county', 'eatery.town'])->select('*');
     }
 
     public function canEdit(): bool
