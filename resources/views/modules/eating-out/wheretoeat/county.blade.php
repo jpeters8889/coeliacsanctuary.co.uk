@@ -8,8 +8,9 @@
             </h1>
 
             <h6 class="text-center -mt-4 pt-1">
-                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="/wheretoeat">Back
-                    to Map/List</a>
+                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="/wheretoeat">
+                    Back to eating out guide...
+                </a>
             </h6>
 
             <div class="flex flex-col mt-2">
@@ -26,7 +27,7 @@
                 <p class="mt-2">
                     Do you know somewhere that offers gluten free that we should add to our guide, or do you know
                     somewhere need removing off our list?
-                    <a class="font-semibold hover:text-grey transition-color" href="/wheretoeat/place-request">
+                    <a class="font-semibold hover:text-grey transition-color" href="/wheretoeat/recommend-a-place">
                         Let us know!
                     </a>
                 </p>

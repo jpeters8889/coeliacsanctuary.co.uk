@@ -28,7 +28,7 @@
 
                 <p>
                     Know somewhere that offers gluten free for us to add or does somewhere need removing off our
-                    list? <a class="font-semibold hover:text-grey transition-color" href="/wheretoeat/place-request">Let us know!</a>
+                    list? <a class="font-semibold hover:text-grey transition-color" href="/wheretoeat/recommend-a-place">Let us know!</a>
                 </p>
 
                 <wheretoeat-ui-daily-update-subscribe :type-id="3" :updatable-id="{{ $town->id }}"

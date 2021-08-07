@@ -15,7 +15,7 @@
                 Most of the places to eat listed in our guide are contributed by people like you, other Coeliac's or
                 people with a gluten intolerance who know of local places in their local area and are kind enough to let
                 us know through our <a class="font-semibold hover:text-blue-dark transition-colour"
-                                       href="/wheretoeat/place-request" target="_blank">Place Request form</a>.
+                                       href="/wheretoeat/recommend-a-place" target="_blank">recommend a place</a> form.
             </p>
             <p class="mt-2">
                 You won't find any nationwide chains in our normal eating out guide simply due to how many places these

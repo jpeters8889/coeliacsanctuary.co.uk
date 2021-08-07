@@ -3,11 +3,15 @@
 @section('primary-column')
     <div class="flex flex-col" chunk>
         <div class="page-box">
-            <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
+            <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
                 Coeliac Sanctuary - On the Go<br/>
-                <a class="text-xs font-sans hover:text-grey transition-color" href="/wheretoeat">Back
-                    to Map/List</a>
             </h1>
+
+            <h6 class="text-center -mt-4 mb-2 pt-1">
+                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="/wheretoeat">
+                    Back to eating out guide...
+                </a>
+            </h6>
 
             <img class="mb-4" src="{{ asset('assets/images/shares/wheretoeat-app.jpg') }}"
                  alt="Coeliac Sanctuary - On the Go"/>
