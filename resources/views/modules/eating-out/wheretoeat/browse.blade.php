@@ -1,5 +1,9 @@
 @extends('layouts.coeliac')
 
+@section('alternateMetas')
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+@endsection
+
 @section('content')
     <header class="flex flex-col bg-blue-light border-yellow border-b-4">
         <global-layout-top-bar>

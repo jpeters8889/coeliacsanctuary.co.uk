@@ -126,6 +126,7 @@ import CircleStyle from "ol/style/Circle";
 import Text from "ol/style/Text";
 import WhereToEatBrowseSideBar from "~/WhereToEat/UI/WhereToEatBrowseSideBar";
 import FilterableUrls from "@/Mixins/FilterableUrls";
+import {boundingExtent} from "ol/extent";
 
 export default {
     mixins: [ResponsiveOptions, FilterableUrls],
@@ -285,13 +286,7 @@ export default {
             this.map.on('click', this.handleMapClick)
 
             this.map.on('pointermove', (event) => {
-                let zoomLimit = 13;
-
-                if (this.isGte('lg')) {
-                    zoomLimit = 11;
-                }
-
-                if (event.dragging || this.getZoom() < zoomLimit) {
+                if (event.dragging ) {
                     return
                 }
 
@@ -424,14 +419,34 @@ export default {
         handleMapClick(event) {
             try {
                 this.getMarkersLayer().getFeatures(event.pixel).then((feature) => {
-                    console.log(feature);
+                    if (!feature.length) {
+                        return;
+                    }
+
                     let zoomLimit = 13;
 
                     if (this.isGte('lg')) {
                         zoomLimit = 11;
                     }
 
-                    if (this.getZoom() < zoomLimit || !feature.length) {
+                    if(this.getZoom() < zoomLimit) {
+                        //cluster view
+                        console.log('cluster');
+
+                        this.getMarkersLayer().getFeatures(event.pixel).then((clickedFeatures) => {
+                            if (clickedFeatures.length) {
+                                // Get clustered Coordinates
+                                const features = clickedFeatures[0].get('features');
+                                if (features.length > 1) {
+                                    const extent = boundingExtent(
+                                        features.map((r) => r.getGeometry().getCoordinates())
+                                    );
+
+                                    this.map.getView().fit(extent, {duration: 500, padding: [50, 50, 50, 50]});
+                                }
+                            }
+                        });
+
                         return;
                     }
 

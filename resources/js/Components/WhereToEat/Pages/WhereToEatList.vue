@@ -43,7 +43,7 @@
                                     <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
                                 </div>
 
-                                <div>{{ category.label }} ({{ category.count }})</div>
+                                <div>{{ category.label }} ({{ category.count || '0' }})</div>
                             </li>
                         </ul>
                     </div>
@@ -64,7 +64,7 @@
                                     <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
                                 </div>
 
-                                <div>{{ venueType.label }} ({{ venueType.count }})</div>
+                                <div>{{ venueType.label }} ({{ venueType.count || '0' }})</div>
                             </li>
                         </ul>
                     </div>
@@ -85,7 +85,7 @@
                                     <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
                                 </div>
 
-                                <div>{{ feature.label }} ({{ feature.count }})</div>
+                                <div>{{ feature.label }} ({{ feature.count || '0' }})</div>
                             </li>
                         </ul>
                     </div>
@@ -106,7 +106,7 @@
                                     <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
                                 </div>
 
-                                <div>{{ rating.label }} ({{ rating.count }})</div>
+                                <div>{{ rating.label }} ({{ rating.count || '0' }})</div>
                             </li>
                         </ul>
                     </div>
@@ -118,7 +118,7 @@
             <div
                 class="w-16 h-16 rounded-full bg-blue text-white text-3xl flex justify-center items-center cursor-pointer shadow-lg z-max"
                 v-tooltip.left="{content: 'View Filters', classes: ['bg-yellow', 'text-black', 'rounded-lg']}"
-                @click="showFilterModal = true;"
+                @click="showFilterModal = !showFilterModal;"
             >
                 <font-awesome-icon :icon="['fas', 'list']"></font-awesome-icon>
             </div>
@@ -250,9 +250,13 @@ export default {
 
         async getSummary() {
             const response = await coeliac().request()
-                .get(this.buildUrl('/api/wheretoeat/summary', 1, this.searchText, this.currentFilters))
+                .get(this.buildUrl('/api/wheretoeat/summary', 1, this.searchText, this.currentFilters), {validateStatus: false})
 
             return new Promise(resolve => {
+                if (response.status !== 200) {
+                    resolve(true);
+                }
+
                 this.filters.categories[0].count = response.data.eateries;
                 this.filters.categories[1].count = response.data.attractions;
                 this.filters.categories[2].count = response.data.hotels;
@@ -263,9 +267,13 @@ export default {
 
         async getVenueTypes() {
             const response = await coeliac().request()
-                .get(this.buildUrl('/api/wheretoeat/venueTypes', 1, this.searchText, this.currentFilters))
+                .get(this.buildUrl('/api/wheretoeat/venueTypes', 1, this.searchText, this.currentFilters), {validateStatus: false})
 
             return new Promise((resolve) => {
+                if (response.status !== 200) {
+                    resolve(true);
+                }
+
                 this.filters.venueTypes = response.data.map((data) => {
                     data['checked'] = false;
 
@@ -278,9 +286,13 @@ export default {
 
         async getFeatures() {
             const response = await coeliac().request()
-                .get(this.buildUrl('/api/wheretoeat/features', 1, this.searchText, this.currentFilters))
+                .get(this.buildUrl('/api/wheretoeat/features', 1, this.searchText, this.currentFilters), {validateStatus: false})
 
             return new Promise((resolve) => {
+                if (response.status !== 200) {
+                    resolve(true);
+                }
+
                 this.filters.features = response.data.map((data) => {
                     data['checked'] = false;
 
@@ -293,9 +305,13 @@ export default {
 
         async getRatings() {
             const response = await coeliac().request()
-                .get(this.buildUrl('/api/wheretoeat/ratings', 1, this.searchText, this.currentFilters))
+                .get(this.buildUrl('/api/wheretoeat/ratings', 1, this.searchText, this.currentFilters), {validateStatus: false})
 
             return new Promise((resolve) => {
+                if (response.status !== 200) {
+                    resolve(true);
+                }
+
                 this.filters.ratings = response.data.map((data) => {
                     data['checked'] = false;
 

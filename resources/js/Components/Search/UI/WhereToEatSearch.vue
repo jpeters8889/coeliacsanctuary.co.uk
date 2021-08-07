@@ -21,7 +21,8 @@
                     <option value="20">within 20 Miles</option>
                 </select>
 
-                <button class="bg-blue text-grey-lightest px-2 rounded-r leading-none h-10 xs:rounded" @click="search()">
+                <button class="bg-blue text-grey-lightest px-2 rounded-r leading-none h-10 xs:rounded"
+                        @click="search()">
                     <font-awesome-icon :icon="['fas', 'search']"></font-awesome-icon>
                 </button>
             </div>
@@ -37,11 +38,33 @@ export default {
         'loader': Loader
     },
 
+    props: {
+        currentTerm: {
+            required: false,
+            default: null,
+        },
+
+        currentRange: {
+            required: false,
+            default: null,
+        }
+    },
+
     data: () => ({
         searchText: '',
         range: '2',
         loading: false,
     }),
+
+    mounted() {
+        if (this.currentTerm) {
+            this.searchText = this.currentTerm;
+        }
+
+        if (this.currentRange) {
+            this.range = this.currentRange;
+        }
+    },
 
     methods: {
         search() {

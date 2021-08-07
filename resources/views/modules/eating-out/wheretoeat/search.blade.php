@@ -16,6 +16,8 @@
                 Here are all the places we have that within <strong>{{ $search->range }} miles</strong> of
                 <strong>{{ $search->term }}</strong>
             </p>
+
+            <search-ui-wheretoeat-widget current-term="{{ $search->term }}" current-range="{{ $search->range }}"></search-ui-wheretoeat-widget>
         </div>
 
         <wheretoeat-page-list search-term="{{ $search->term }}"
