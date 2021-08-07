@@ -7,7 +7,7 @@
                 Find Gluten Free places to eat and visit, reviews, and more
             </h1>
 
-            <div class="grid grid-cols 1 gap-x-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="grid grid-cols 1 gap-y-3 lg:gap-y-0 sm:gap-x-3 sm:grid-cols-2 lg:grid-cols-4">
                 <div class="bg-blue-light-50 rounded-lg p-3">
                     <a title="UK and Ireland Gluten Free Eateries" href="/wheretoeat"
                        class="flex flex-col items-center text-center">

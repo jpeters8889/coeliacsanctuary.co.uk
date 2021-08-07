@@ -7,7 +7,7 @@
                 Find Coeliac information, storecupboard staples, beginners shopping list and more!
             </h1>
 
-            <div class="grid grid-cols 1 gap-x-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="grid grid-cols 1 gap-y-3 lg:gap-y-0 sm:gap-x-3 sm:grid-cols-2 lg:grid-cols-4">
                 <div class="bg-blue-light-50 rounded-lg p-3">
                     <a title="Coeliac Information" href="/info/coeliac" class="flex flex-col items-center text-center">
                         <img src="{{ asset('assets/images/misc/info-index-coeliac.png') }}" alt="">
