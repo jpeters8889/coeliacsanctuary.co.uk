@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatBrowseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatFeaturesController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatPlaceRecommendAPlaceController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatReportPlaceController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatController;
@@ -31,6 +32,7 @@ $router->group(['prefix' => '/api/wheretoeat'], function () use ($router) {
     $router->get('/browse', [WhereToEatBrowseController::class, 'list']);
 
     $router->post('/place-request', [WhereToEatPlaceRequestController::class, 'create']);
+    $router->post('/recommend-a-place', [WhereToEatPlaceRecommendAPlaceController::class, 'create']);
 
     $router->post('/search', [WhereToEatSearchController::class, 'create']);
 

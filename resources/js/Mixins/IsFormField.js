@@ -67,7 +67,11 @@ export default {
         autocomplete: {
             type: String,
             default: null,
-        }
+        },
+        label: {
+            type: String,
+            default: null,
+        },
     },
 
     mounted() {

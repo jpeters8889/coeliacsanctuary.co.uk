@@ -1,24 +1,31 @@
 <template>
-    <div class="flex overflow-hidden border border-blue rounded">
-        <div class="bg-grey-lightest p-0 flex-1">
-            <input v-model="currentValue"
-                   :id="id"
-                   :type="type"
-                   :name="name"
-                   :placeholder="placeholder"
-                   @blur="validate()"
-                   :min="min"
-                   :max="max"
-                   :disabled="disabled"
-                   :autocomplete="autocomplete"
-                   :class="classes()"
-            />
-        </div>
+    <div>
+        <span v-if="label" class="block text-lg text-blue-dark font-semibold">
+            {{ label }}
+            <span v-if="required" class="text-red">*</span>
+        </span>
 
-        <div class="bg-red flex justify-center items-center p-2 text-white" :class="small ? 'text-xs' : ''"
-             v-if="hasError && showError"
-             v-tooltip.left="{content: errorText, classes: ['bg-red', 'border-red', 'text-white'], boundariesElement: 'body'}">
-            <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
+        <div class="flex overflow-hidden border border-blue rounded">
+            <div class="bg-grey-lightest p-0 flex-1">
+                <input v-model="currentValue"
+                       :id="id"
+                       :type="type"
+                       :name="name"
+                       :placeholder="placeholder"
+                       @blur="validate()"
+                       :min="min"
+                       :max="max"
+                       :disabled="disabled"
+                       :autocomplete="autocomplete"
+                       :class="classes()"
+                />
+            </div>
+
+            <div class="bg-red flex justify-center items-center p-2 text-white" :class="small ? 'text-xs' : ''"
+                 v-if="hasError && showError"
+                 v-tooltip.left="{content: errorText, classes: ['bg-red', 'border-red', 'text-white'], boundariesElement: 'body'}">
+                <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
+            </div>
         </div>
     </div>
 </template>

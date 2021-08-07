@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
-use Coeliac\Modules\EatingOut\WhereToEat\Mail\PlaceReported as PlaceReportedMailable;
+use Coeliac\Modules\EatingOut\WhereToEat\Mail\PlaceReportMailable as PlaceReportedMailable;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
