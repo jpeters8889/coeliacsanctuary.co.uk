@@ -134,12 +134,12 @@ class ShopProduct extends BaseModel implements SearchableContract
     {
         return $this->currentPrices()
             ->first()
-            ->price;
+            ?->price;
     }
 
     public function getOldPriceAttribute()
     {
-        if ((bool) $this->currentPrices()->first()->sale_price === true) {
+        if ((bool) $this->currentPrices()->first()?->sale_price === true) {
             return $this->currentPrices()->skip(1)->first()->price;
         }
 

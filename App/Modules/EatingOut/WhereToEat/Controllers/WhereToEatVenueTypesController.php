@@ -13,7 +13,9 @@ class WhereToEatVenueTypesController extends BaseController
 {
     public function get(Repository $repository)
     {
-        $summary = WhereToEatVenueType::all()
+        $summary = WhereToEatVenueType::query()
+            ->orderBy('venue_type')
+            ->get()
             ->mapWithKeys(function ($venueType) {
                 return [
                     $venueType->id => [

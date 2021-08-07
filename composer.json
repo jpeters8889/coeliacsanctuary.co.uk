@@ -20,6 +20,8 @@
         "coeliac/order-info": "*",
         "coeliac/order-shipped": "*",
         "coeliac/place-request-card": "*",
+        "coeliac/place-reports-card": "*",
+        "coeliac/place-recommendations-card": "*",
         "coeliac/shop-daily-stock": "*",
         "coeliac/shop-order-items": "*",
         "coeliac/shop-product-prices": "*",
@@ -37,6 +39,7 @@
         "intervention/image": "^2.5.1",
         "jpeters/architect": "^0.6",
         "jpeters/laravel-page-view": "^0.1.5",
+        "kwn/number-to-words": "^2.0",
         "laravel/framework": "^8.35",
         "laravel/horizon": "^5.7",
         "laravel/scout": "^8.6",
@@ -125,6 +128,14 @@
         {
             "type": "path",
             "url": "./architect/cards/place-request-card"
+        },
+        {
+            "type": "path",
+            "url": "./architect/cards/place-reports-card"
+        },
+        {
+            "type": "path",
+            "url": "./architect/cards/place-recommendations-card"
         },
         {
             "type": "path",

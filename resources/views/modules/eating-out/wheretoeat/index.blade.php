@@ -1,26 +1,21 @@
-@extends('templates.page-two-column')
+@extends('templates.page-single-column')
 
 @section('primary-column')
     <div class="flex flex-col">
-        <div class="min-h-screen page-box">
+        <div class="page-box">
             <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
                 Gluten Free Places to Eat and Visit
             </h1>
 
             <p>
-                Our Where to Eat guide lists 1000s of independent eateries all over the UK and Ireland that offer gluten
-                free options or have a gluten free menu.
+                Our Where to Eat guide lists 1,000s of independent eateries all over the UK and Ireland that offer
+                gluten free options or have a gluten free menu.
             </p>
             <p class="mt-2">
                 Most of the places to eat listed in our guide are contributed by people like you, other Coeliac's or
                 people with a gluten intolerance who know of local places in their local area and are kind enough to let
                 us know through our <a class="font-semibold hover:text-blue-dark transition-colour"
-                                       href="/wheretoeat/place-request" target="_blank">Place Request form</a>.
-            </p>
-            <p class="mt-2">
-                Our eating out guide can be viewed as an interactive map of all the counties across the UK, or as a
-                simple list to make it easier to find what you're looking for. Each county in then broken down into
-                individual cities, towns or even villages, and then you can easily view places in that area.
+                                       href="/wheretoeat/recommend-a-place" target="_blank">recommend a place</a> form.
             </p>
             <p class="mt-2">
                 You won't find any nationwide chains in our normal eating out guide simply due to how many places these
@@ -29,75 +24,79 @@
                     chains</a> on a separate page.
             </p>
 
-            <wheretoeat-ui-quick-search></wheretoeat-ui-quick-search>
+            <search-ui-wheretoeat-widget></search-ui-wheretoeat-widget>
+        </div>
 
-            <global-ui-tabs base-url="wheretoeat">
-                <global-ui-tab title="Map" url="map">
-                    <wheretoeat-tabs-map></wheretoeat-tabs-map>
-                </global-ui-tab>
+        <div class="page-box mt-2">
+            <a class="text-xl text-center flex flex-col space-y-4 justify-center items-center" href="#guide">
+                <p>Or just browse our Eating Out guide...</p>
+                <font-awesome-icon :icon="['fas', 'chevron-down']" class="text-6xl animate-bounce animate-pulse"></font-awesome-icon>
+            </a>
+        </div>
 
-                <global-ui-tab title="List" url="list" mobile-default>
-                    <ul class="flex flex-col">
-                        @foreach($list as $country => $counties)
-                            @if($country !== 'Nationwide')
-                                <li>
-                                    <global-ui-accordion group="countries" name="{{ $country }}">
-                                        <template v-slot:title>
-                                            <h3 class="cursor-pointer border-b border-blue-light-50 p-1 text-lg text-black">{{ $country }}</h3>
-                                        </template>
+        <div class="page-box mt-2">
+            <h2 class="text-2xl text-center font-semibold leading-tight md:text-left">
+                Top rated places to eat gluten free around the UK and Ireland
+            </h2>
 
-                                        <template v-slot:body>
-                                            @foreach($counties as $county)
-                                                <a href="/wheretoeat/{{ $county['slug'] }}"
-                                                   class="text-grey text-base p-1 border-b border-blue-light-50 flex flex-col">
-                                                    <h4 class="font-semibold">{{ $county['name'] }}</h4>
-                                                    <h5 class="text-sm">{{ $county['details'] }}</h5>
-                                                </a>
-                                            @endforeach
-                                        </template>
-                                    </global-ui-accordion>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                </global-ui-tab>
+            <p class="my-2">
+                These are the top rated places to eat gluten free in our eating out guide, voted by people just
+                like you!
+            </p>
 
-                <global-ui-tab title="Nationwide Places" url="nationwide">
-                    <wheretoeat-page-list :county-id="{{ $nationwide_id }}">
-                        <template v-slot:intro>
-                            <p class="mb-4" id="nationwide-eateries">
-                                Here you can find chain restaurants and eateries that offer gluten free. We don't show
-                                these places within our main Where To Eat guide because there is so many of them.
-                            </p>
-                            <p>
-                                You can use the tabs above to filter the results to find the type of places you want.
-                            </p>
-                        </template>
-                    </wheretoeat-page-list>
-                </global-ui-tab>
-            </global-ui-tabs>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-3">
+                @foreach($topPlaces as $topPlace)
+                    <div class="bg-blue-gradient-50 rounded p-2 space-y-2 shadow flex flex-col">
+                        <h3 class="text-xl font-semibold">{{ $topPlace->name }}</h3>
+                        <div class="font-semibold text-grey flex justify-between">
+                            <div class="text-sm">
+                                <a class="hover:underline"
+                                   href="/wheretoeat/{{ $topPlace->county->slug }}/{{ $topPlace->town->slug }}">
+                                    {{ $topPlace->town->town }}
+                                </a><br/>
+                                <a class="hover:underline"
+                                   href="/wheretoeat/{{ $topPlace->county->slug }}">{{ $topPlace->county->county }}</a>
+                            </div>
 
+                            <div class="flex flex-col justify-end text-sm">
+                                <global-ui-stars stars="{{ $topPlace->average_rating }}"
+                                                 align="end"></global-ui-stars>
+                                <span>from {{ $topPlace->ratings->count() }} votes</span>
+                            </div>
+                        </div>
+
+                        <p class="flex-1">{{ $topPlace->info }}</p>
+
+                        <p class="text-xs text-grey">{{ str_replace('<br />', ', ', $topPlace->address) }}</p>
+
+                        <a class="font-semibold hover:underline mt-4 text-grey-darker hover:text-black block text-xs"
+                           href="/wheretoeat/{{ $topPlace->county->slug }}/{{ $topPlace->town->slug }}"
+                        >
+                            View all places in {{ $topPlace->town->town }}
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="page-box mt-2" id="guide">
+            <h2 class="text-2xl text-center font-semibold leading-tight md:text-left">
+                Gluten Free around the UK and Ireland
+            </h2>
+
+            <p class="my-2">
+                Our eating out guide is split into countries, counties and then towns or cities, click or tap on a
+                country below to get started!
+            </p>
+
+            <div class="flex flex-col space-y-2">
+                @foreach($list as $country => $details)
+                    <wheretoeat-ui-index-country
+                        country="{{ $country }}"
+                        :details='@json($details)'
+                    ></wheretoeat-ui-index-country>
+                @endforeach
+            </div>
         </div>
     </div>
 @endsection
-
-@section('secondary-column')
-    <div class="flex flex-col">
-        <x-widget class="mb-3" title="Search Places">
-            <search-ui-wheretoeat-widget />
-        </x-widget>
-
-        <x-widget class="mb-3" title="Sign up to our newsletter">
-            <global-ui-newsletter-signup/>
-        </x-widget>
-
-        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
-
-        @include('components.related-item', [$title = 'Recent Reviews', $related])
-    </div>
-@endsection
-
-{{--@section('footerJavascript')--}}
-{{--    <script async src="{{ asset('assets/external/wteMap/raphael-min.js') }}"></script>--}}
-{{--    <script async src="{{ asset('assets/external/wteMap/map.js') }}"></script>--}}
-{{--@endsection--}}

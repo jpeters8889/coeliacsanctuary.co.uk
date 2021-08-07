@@ -23,7 +23,8 @@ class HorizonDashboard extends AbstractDashboard
     {
         return [
             Card::generate('')
-                ->setContent(<<<STR
+                ->setContent(
+                    <<<STR
                     <p class="mb-2">Horizon is the Queue management and viewing application.</p>
                     <p><a href="/horizon" target="_blank">Go To Horizon</a></p>
                     STR

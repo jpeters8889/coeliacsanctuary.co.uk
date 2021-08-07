@@ -1,6 +1,6 @@
 export default {
     methods: {
-        buildUrl(url, page = 1, search = null, filters = null, encrypt = false) {
+        buildUrl(url, page = 1, search = null, filters = null, encrypt = false, pageLimit = null) {
             let queryString = `page=${page}`;
 
             if (search) {
@@ -21,6 +21,10 @@ export default {
                 });
 
                 queryString += '&' + filterStrings.join('&');
+            }
+
+            if (pageLimit) {
+                queryString += '&limit=' + pageLimit;
             }
 
             if (encrypt) {

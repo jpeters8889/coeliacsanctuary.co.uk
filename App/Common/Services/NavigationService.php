@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Common\Services;
 
 use Carbon\Carbon;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCountry;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Blog\Repository as BlogRepository;
@@ -51,16 +52,14 @@ class NavigationService
                 ->with(['images'])
                 ->take(8)
                 ->get()
-                ->transform(static function (ShopProduct $product) {
-                    return [
-                        'id' => $product->id,
-                        'title' => $product->title,
-                        'slug' => $product->slug,
-                        'meta_description' => $product->meta_description,
-                        'main_image' => $product->first_image,
-                        'link' => $product->link,
-                    ];
-                })
+                ->transform(fn (ShopProduct $product) => [
+                    'id' => $product->id,
+                    'title' => $product->title,
+                    'slug' => $product->slug,
+                    'meta_description' => $product->meta_description,
+                    'main_image' => $product->first_image,
+                    'link' => $product->link,
+                ])
         );
     }
 

@@ -24,11 +24,19 @@ class WhereToEatRating extends BaseModel
 
     public function getAverageRatingAttribute()
     {
+        if (!$this->relationLoaded('eatery')) {
+            return null;
+        }
+
         return number_format($this->eatery->ratings()->average('rating'), 1);
     }
 
     public function getNumberOfRatingsAttribute()
     {
+        if (!$this->relationLoaded('eatery')) {
+            return null;
+        }
+
         return $this->eatery->ratings()->count();
     }
 }

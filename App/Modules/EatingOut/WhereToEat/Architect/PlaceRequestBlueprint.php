@@ -15,6 +15,11 @@ class PlaceRequestBlueprint extends Blueprint
         return PlaceRequest::class;
     }
 
+    public function canEdit(): bool
+    {
+        return false;
+    }
+
     public function plans(): array
     {
         return [];

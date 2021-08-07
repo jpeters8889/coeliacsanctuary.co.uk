@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Carbon\Carbon;
+use NumberToWords\NumberToWords;
 
 function admin_user(): Coeliac\Modules\Member\Models\User
 {
@@ -27,7 +28,7 @@ function formatPrice($price, $withPence = true, $symbol = '£')
         $formattedPrice = trim($formattedPrice, '.00');
     }
 
-    return $symbol.$formattedPrice;
+    return $symbol . $formattedPrice;
 }
 
 function randomNumber($length = 8)
@@ -64,4 +65,15 @@ function array_average(array $values)
     }
 
     return round(array_sum($values) / count($values) * 2) / 2;
+}
+
+function numberToWords(int $number, $max = 10, $min = 0)
+{
+    if ($number <= $min || $number > $max) {
+        return number_format($number);
+    }
+
+    return (new NumberToWords())
+        ->getNumberTransformer('en')
+        ->toWords($number);
 }

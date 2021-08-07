@@ -1,4 +1,4 @@
-@extends('templates.page-two-column')
+@extends('templates.page-single-column')
 
 @section('primary-column')
     <div class="flex flex-col" chunk>
@@ -14,57 +14,35 @@
                 </a>
             </h6>
 
-            <div class="flex flex-col mt-2">
-                <p class="mb-4">
-                    Here you can see all of the places in our Where to Eat guide that offer gluten free options in
+            <div class="flex flex-col mt-2 space-y-2">
+                <p>
+                    Here you can see all of the nationwide chains in our Where to Eat guide that offer gluten free options in
                     {{ $town->town }}, {{ $county->county }}, from cafes, restaurants, to attractions and hotels.
                 </p>
 
-                <p class="mt-2">
+                <p>
                     Most of the places to eat listed in our guide are contributed by people like you, other Coeliac's or
                     people with a gluten intolerance who know of local places in their local area and are kind enough to
                     let us know.
                 </p>
 
-                <p class="mt-2">
-                    You won't find any nationwide chains in our normal eating out guide simply due to how many places
-                    these chains have, the other independent eateries will get lost! Instead, we list
-                    <a class="font-semibold hover:text-blue-dark transition-colour" href="/wheretoeat/nationwide">nationwide
-                        chains</a> on a separate page.
-                </p>
-
                 <p>
-                    You can use the tabs below to filter the results to find the type of places you want.
+                    Know somewhere that offers gluten free for us to add or does somewhere need removing off our
+                    list? <a class="font-semibold hover:text-grey transition-color" href="/wheretoeat/recommend-a-place">Let us know!</a>
                 </p>
 
-                <div class="mt-2 flex flex-col bg-blue-light-50 border text-sm border-blue p-2">
-                    <p>
-                        Know somewhere that offers gluten free for us to add or does somewhere need removing off our
-                        list? <a class="font-semibold hover:text-grey transition-color"
-                                 href="/wheretoeat/place-request">Let us know!</a>
-                    </p>
-                </div>
+                <wheretoeat-ui-daily-update-subscribe :type-id="3" :updatable-id="{{ $town->id }}"
+                                                      friendly-name="{{ $town->town }}, {{ $county->county }}"/>
 
-                <div>
-                    <wheretoeat-ui-daily-update-subscribe :type-id="3" :updatable-id="{{ $town->id }}"
-                                                                      friendly-name="{{ $town->town }}, {{ $county->county }}"/>
-                </div>
-
-                <div class="min-h-map">
-                    <wheretoeat-page-list :county-id="{{ $county->id }}" :town-id="{{ $town->id }}"></wheretoeat-page-list>
-                </div>
-
-                <global-ui-google-ad code="5284484376"></global-ui-google-ad>
-
-                <div class="flex flex-col bg-blue-light-50 border text-sm border-blue p-2">
-                    <p>
-                        Know somewhere that offers gluten free for us to add or does somewhere need removing off our
-                        list? <a class="font-semibold hover:text-grey transition-color"
-                                 href="/wheretoeat/place-request">Let us know!</a>
-                    </p>
-                </div>
             </div>
         </div>
+
+        <div class="min-h-map">
+            <wheretoeat-page-list :county-id="{{ $county->id }}"
+                                  :town-id="{{ $town->id }}"></wheretoeat-page-list>
+        </div>
+
+        <global-ui-google-ad code="5284484376"></global-ui-google-ad>
 
         <div class="page-box mt-2">
             <h2 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
@@ -77,27 +55,11 @@
             </p>
 
             <global-ui-link-button title="Coeliac Sanctuary - On the Go App"
-                         class="px-4 py-2 rounded-lg font-semibold my-2"
-                         href="/wheretoeat/coeliac-sanctuary-on-the-go"
+                                   class="px-4 py-2 rounded-lg font-semibold my-2"
+                                   href="/wheretoeat/coeliac-sanctuary-on-the-go"
             >
                 Find out more...
             </global-ui-link-button>
         </div>
-    </div>
-@endsection
-
-@section('secondary-column')
-    <div class="flex flex-col">
-        <x-widget class="mb-3" title="Search Places">
-            <search-ui-wheretoeat-widget />
-        </x-widget>
-
-        <x-widget class="mb-3" title="Sign up to our newsletter">
-            <global-ui-newsletter-signup/>
-        </x-widget>
-
-        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
-
-        @include('components.related-item', [$title = 'Recent Reviews', $related])
     </div>
 @endsection

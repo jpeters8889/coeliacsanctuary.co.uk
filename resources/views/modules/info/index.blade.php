@@ -1,13 +1,14 @@
-@extends('templates.page-two-column')
+@extends('templates.page-single-column')
 
 @section('primary-column')
     <div class="flex flex-col"chunk>
         <div class="page-box">
-            <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
-                Find Coeliac information, events, storecupboard staples, beginners shopping list and more!
+            <h1 class="my-4 p-3 text-3xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
+                Find Coeliac information, storecupboard staples, beginners shopping list and more!
             </h1>
-            <div class="flex flex-col -mx-3 md:flex-row">
-                <div class="bg-blue-light-50 rounded-lg m-3 p-3">
+
+            <div class="grid grid-cols 1 gap-y-3 lg:gap-y-0 sm:gap-x-3 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="bg-blue-light-50 rounded-lg p-3">
                     <a title="Coeliac Information" href="/info/coeliac" class="flex flex-col items-center text-center">
                         <img src="{{ asset('assets/images/misc/info-index-coeliac.png') }}" alt="">
                         <h2 class="text-lg font-semibold mb-1">Coeliac Information</h2>
@@ -15,7 +16,7 @@
                     </a>
                 </div>
 
-                <div class="bg-blue-light-50 rounded-lg m-3 p-3">
+                <div class="bg-blue-light-50 rounded-lg p-3">
                     <a title="Shopping List" href="/info/shopping-list" class="flex flex-col items-center text-center">
                         <img src="{{ asset('assets/images/misc/info-index-shopping.png') }}" alt="">
                         <h2 class="text-lg font-semibold mb-1">Shopping List</h2>
@@ -23,7 +24,7 @@
                     </a>
                 </div>
 
-                <div class="bg-blue-light-50 rounded-lg m-3 p-3">
+                <div class="bg-blue-light-50 rounded-lg p-3">
                     <a title="Storecupboard Checklist" href="/info/storecupboard-check" class="flex flex-col items-center text-center">
                         <img src="{{ asset('assets/images/misc/info-index-storecupboard.png') }}" alt="">
                         <h2 class="text-lg font-semibold mb-1">Storecupboard Checklist</h2>
@@ -31,7 +32,7 @@
                     </a>
                 </div>
 
-                <div class="bg-blue-light-50 rounded-lg m-3 p-3">
+                <div class="bg-blue-light-50 rounded-lg p-3">
                     <a title="Gluten Challenge" href="/info/gluten-challenge" class="flex flex-col items-center text-center">
                         <img src="{{ asset('assets/images/misc/info-index-challenge.png') }}" alt="">
                         <h2 class="text-lg font-semibold mb-1">Gluten Challenge</h2>
@@ -40,15 +41,5 @@
                 </div>
             </div>
         </div>
-    </div>
-@endsection
-
-@section('secondary-column')
-    <div class="flex flex-col">
-        <x-widget class="mb-3" title="Sign up to our newsletter">
-            <global-ui-newsletter-signup />
-        </x-widget>
-
-        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
     </div>
 @endsection

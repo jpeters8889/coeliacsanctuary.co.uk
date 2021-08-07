@@ -1,11 +1,23 @@
 export default {
     methods: {
+        currentSize() {
+            let currentSize = '';
+
+            Object.keys(this.breakpoints).forEach((breakpoint) => {
+                if (window.innerWidth >= this.breakpoints[breakpoint].from && window.innerWidth < this.breakpoints[breakpoint].to) {
+                    currentSize = breakpoint;
+                }
+            });
+
+            return currentSize
+        },
+
         isLte(breakpoint) {
             if (!Object.keys(this.breakpoints).includes(breakpoint)) {
                 return true;
             }
 
-            return window.innerWidth <= this.breakpoints[breakpoint].to;
+            return window.innerWidth <= this.breakpoints[breakpoint].from;
         },
 
         isLt(breakpoint) {
@@ -13,7 +25,7 @@ export default {
                 return true;
             }
 
-            return window.innerWidth < this.breakpoints[breakpoint].to;
+            return window.innerWidth < this.breakpoints[breakpoint].from;
         },
 
         is(breakpoint) {
@@ -46,7 +58,7 @@ export default {
     computed: {
         breakpoints() {
             return {
-                xss: {
+                xxs: {
                     from: 0,
                     to: 499,
                 },

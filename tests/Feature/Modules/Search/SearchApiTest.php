@@ -23,7 +23,9 @@ class SearchApiTest extends TestCase
 
     protected function makeRequest($term, $params = [])
     {
-        return $this->post('/api/search', [
+        return $this->post(
+            '/api/search',
+            [
                 'term' => $term,
                 'areas' => array_merge([
                     'blogs' => true,

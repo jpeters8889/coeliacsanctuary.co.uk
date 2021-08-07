@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatBrowseController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatFeaturesController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatPlaceRecommendAPlaceController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatReportPlaceController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSearchController;
@@ -22,15 +26,23 @@ $router->group(['prefix' => '/api/wheretoeat'], function () use ($router) {
     $router->get('/', [WhereToEatController::class, 'list']);
     $router->get('/summary', [WhereToEatSummaryController::class, 'get']);
     $router->get('/venueTypes', [WhereToEatVenueTypesController::class, 'get']);
-    $router->get('/settings', [WhereToEatSettingsController::class, 'get']);
+    $router->get('/features', [WhereToEatFeaturesController::class, 'get']);
+    $router->get('/ratings', [WhereToEatRatingsController::class, 'get']);
+
+    $router->get('/browse', [WhereToEatBrowseController::class, 'list']);
 
     $router->post('/place-request', [WhereToEatPlaceRequestController::class, 'create']);
-
-    $router->post('/quick-search', [WhereToEatQuickSearchController::class, 'get']);
+    $router->post('/recommend-a-place', [WhereToEatPlaceRecommendAPlaceController::class, 'create']);
 
     $router->post('/search', [WhereToEatSearchController::class, 'create']);
 
-    $router->group(['middleware' => 'userHasNotRatedEatery'], function () use ($router) {
-        $router->post('/{id}/reviews', [WhereToEatRatingsController::class, 'create']);
+    $router->group(['prefix' => '{id}'], function () use ($router) {
+        $router->get('/', [WhereToEatController::class, 'get']);
+
+        $router->post('report', [WhereToEatReportPlaceController::class, 'create']);
+
+        $router->group(['middleware' => 'userHasNotRatedEatery'], function () use ($router) {
+            $router->post('reviews', [WhereToEatRatingsController::class, 'create']);
+        });
     });
 });

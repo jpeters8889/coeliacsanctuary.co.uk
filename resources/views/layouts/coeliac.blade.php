@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="min-h-screen">
 <head>
-{{--    <!-- Google Tag Manager -->--}}
-{{--    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':--}}
-{{--                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],--}}
-{{--            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=--}}
-{{--            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);--}}
-{{--        })(window,document,'script','dataLayer','GTM-573BRJ');</script>--}}
-{{--    <!-- End Google Tag Manager -->--}}
-
     @include('page-view-builder::header')
 
     <meta name="author" content="Coeliac Sanctuary"/>
@@ -20,6 +12,7 @@
     <meta property="og:updated_time" content="{{ date('c') }}"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="asset-url" content="{{ config('coeliac.assets_url') }}">
+
     @if(config('app.env') !== 'production' || (isset($tracking) && $tracking===false))
         <meta name="robots" content="noindex">
     @endif
@@ -57,12 +50,6 @@
     <link rel="preload stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap" as="style">
     <link rel="preload stylesheet" href="{{ mix('/assets/css/coeliac.css') }}" as="style">
 
-{{--    @if(isset($criticalCss) && file_exists(public_path('assets/css/'.$criticalCss.'_critical.css')))--}}
-{{--        <style type="text/css">--}}
-{{--            {{ file_get_contents(public_path('assets/css/'.$criticalCss.'_critical.css')) }}--}}
-{{--        </style>--}}
-{{--    @endif--}}
-
     <!--iPhone tiles-->
     <link href="/assets/images/apple/apple-touch-icon-57x57.png" rel="apple-touch-icon"/>
     <link href="/assets/images/apple/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72"/>
@@ -87,6 +74,7 @@
 
 <script>
     var config = {
+        baseUrl: '{{ config('app.url') }}',
         googleMaps: {
             static: '{{ config('services.google.maps.static') }}',
             dynamic: '{{ config('services.google.maps.dynamic') }}',

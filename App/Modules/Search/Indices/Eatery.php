@@ -34,7 +34,8 @@ class Eatery extends Index
             return $results;
         }
 
-        return $results->concat(WhereToEat::search()
+        return $results->concat(
+            WhereToEat::search()
             ->with([
                 'getRankingInfo' => true,
                 'aroundLatLng' => implode(', ', [$geocoder['lat'], $geocoder['lng']]),

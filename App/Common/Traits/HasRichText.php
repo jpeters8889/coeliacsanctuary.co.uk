@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Traits;
 
-use function in_array;
 use Illuminate\Database\Eloquent\Model;
+use function in_array;
 
 /** @mixin Model */
 trait HasRichText

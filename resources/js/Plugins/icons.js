@@ -34,6 +34,12 @@ import {faBookmark} from "@fortawesome/free-regular-svg-icons/faBookmark";
 import {faBookmark as faBookmarkSolid} from "@fortawesome/free-solid-svg-icons/faBookmark";
 import {faBell} from "@fortawesome/free-regular-svg-icons/faBell";
 import {faBell as faBellSolid} from "@fortawesome/free-solid-svg-icons/faBell";
+import {faExternalLinkAlt} from "@fortawesome/free-solid-svg-icons/faExternalLinkAlt";
+import {faList} from "@fortawesome/free-solid-svg-icons/faList";
+import {faEllipsisV} from "@fortawesome/free-solid-svg-icons/faEllipsisV";
+import {faChevronLeft} from "@fortawesome/free-solid-svg-icons/faChevronLeft";
+import {faChevronRight} from "@fortawesome/free-solid-svg-icons/faChevronRight";
+import {faFilter} from "@fortawesome/free-solid-svg-icons/faFilter";
 
 export default () => {
     // Generic
@@ -43,6 +49,8 @@ export default () => {
     library.add(faCheck);
     library.add(faChevronDown);
     library.add(faChevronUp);
+    library.add(faChevronLeft);
+    library.add(faChevronRight);
     library.add(faExclamationCircle);
     library.add(faMinus);
     library.add(faNewspaper);
@@ -67,6 +75,10 @@ export default () => {
     library.add(faBookmarkSolid);
     library.add(faBell);
     library.add(faBellSolid);
+    library.add(faExternalLinkAlt);
+    library.add(faList);
+    library.add(faEllipsisV);
+    library.add(faFilter);
 
     // Social
     library.add(faFacebookSquare);
