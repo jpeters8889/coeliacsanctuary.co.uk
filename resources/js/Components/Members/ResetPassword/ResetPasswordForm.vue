@@ -1,6 +1,6 @@
 <template>
     <div
-        class="rounded-lg border border-blue bg-blue-gradient-30 p-4">
+        class="rounded-lg border border-blue bg-gradient-to-br from-blue/30 to-blue-light/30 p-4">
         <form class="flex flex-col space-y-4 w-full max-w-basket-sidebar"
             v-if="!isCompleted"
               @submit.prevent="submitResetPassword">
@@ -16,7 +16,7 @@
                         autocomplete="password_confirmation"/>
 
             <button
-                class="rounded-lg bg-blue leading-none text-lg font-semibold text-white hover:bg-blue-light transition-bg flex items-center justify-center"
+                class="rounded-lg bg-blue leading-none text-lg font-semibold text-white hover:bg-blue-light transition-all flex items-center justify-center"
                 style="height: 42px;"
                 :class="isSubmitting ? 'py-2' : 'py-3'"
                 :disabled="isSubmitting"
@@ -28,7 +28,7 @@
                         height="25px"
                         width="25px"
                         border-width="3px"
-                        faded-border-color="border-white-50"
+                        faded-border-color="border-white border-opacity-50"
                         primary-border-color="white">
                 </loader>
                 <span v-else>Reset Password</span>

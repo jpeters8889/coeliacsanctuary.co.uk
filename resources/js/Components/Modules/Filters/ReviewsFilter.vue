@@ -33,7 +33,7 @@
                             <h3 class="w-full font-semibold text-xl text-blue-dark">{{ country }}</h3>
                             <ul>
                                 <li v-for="(count, county) in countyList"
-                                    class="py-1 border-b border-dashed border-grey-off-dark transition-bg cursor-pointer hover:bg-grey-off-dark"
+                                    class="py-1 border-b border-dashed border-grey-off-dark transition-all cursor-pointer hover:bg-grey-off-dark"
                                     @click.prevent="selectCounty(county, country)">
                                     <span>{{ county }}</span>
                                     <span class="text-xs">({{ count }} Reviews)</span>
@@ -74,7 +74,7 @@
                 <div class="p-2">
                     <ul>
                         <li v-for="(count, rating) in filteredRatings"
-                            class="py-1 border-b border-dashed border-grey-off-dark transition-bg cursor-pointer hover:bg-grey-off-dark"
+                            class="py-1 border-b border-dashed border-grey-off-dark transition-all cursor-pointer hover:bg-grey-off-dark"
                             @click.prevent="selectRating(rating)">
                             <span>{{ rating }}</span>
                             <span class="text-xs">({{ count }} Reviews)</span>

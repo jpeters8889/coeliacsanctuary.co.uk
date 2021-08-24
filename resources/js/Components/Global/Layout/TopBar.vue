@@ -59,7 +59,7 @@ export default {
             }
 
             if (!this.transparent) {
-                return ['bg-blue-80', 'md:bg-blue'];
+                return ['bg-blue', 'bg-opacity-80', 'md:bg-opacity-100'];
             }
 
             return [];

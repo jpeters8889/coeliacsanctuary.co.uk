@@ -1,80 +1,113 @@
 <template>
-    <div class="flex flex-col">
-        <div v-if="savedAddresses.length > 0">
-            <p class="text-lg mb-3 font-semibold">Choose Saved Address</p>
+    <div class="flex flex-col space-y-3">
+        <h3 class="text-xl font-semibold">Shipping Address</h3>
 
-            <div class="flex flex-col space-y-3">
-                <div v-for="address in savedAddresses"
-                     @click="selectSavedAddress(address)"
-                     class="p-2 flex flex-col cursor-pointer transition-bg"
-                     :class="address.id === formData.id ?
-                        'bg-blue-light-20 border-yellow border-4 text-black' :
-                        'border text-black-50 bg-blue-light-50 border-white-80 hover:bg-blue-light-80 hover:border-white'"
-                >
-                    <span class="font-semibold">{{ address.name }}</span>
-                    <span>{{ formatAddress(address) }}</span>
-                </div>
+        <p v-if="!isLoggedIn()">
+            Thanks {{ name }}, next we need to know where to send your order.
+        </p>
+
+        <template v-else>
+            <p>
+                Hi {{ name }}, thanks for buying from our online shop, first we just need to know where to send your order.
+            </p>
+
+            <p v-if="savedAddresses.length > 0">
+                You can either select one of your saved addresses below by clicking or tapping on it, or enter a new address.
+            </p>
+        </template>
+
+        <template v-if="savedAddresses.length > 0">
+            <div v-for="address in savedAddresses"
+                 @click="selectSavedAddress(address)"
+                 class="p-2 flex flex-col cursor-pointer transition-all bg-blue-light"
+                 :class="address.id === formData.id ?
+                        'bg-opacity-20 border-yellow border-4 text-black' :
+                        'border text-black text-opacity-50 bg-opacity-50 border-white border-opacity-80 hover:bg-opacity-80 hover:border-white'"
+            >
+                <span class="font-semibold">{{ address.name }}</span>
+                <span>{{ formatAddress(address) }}</span>
             </div>
-        </div>
+        </template>
 
         <!-- Add New Address -->
-        <div class="flex flex-col leading-none" v-if="formData.id === null">
-            <p v-if="savedAddresses.length > 0" class="text-lg my-3 font-semibold">Or Add New Address</p>
+        <template v-if="formData.id === null">
+            <div class="flex relative">
+                <form-input
+                    class="flex-1"
+                    required
+                    label="Postcode"
+                    name="postcode"
+                    :pattern="postcodePattern"
+                    pattern-error="Please enter a valid UK Postcode"
+                    :disabled="!! formData.id"
+                    :value="formData.postcode"
+                    border-class="border-grey-off"
+                />
 
-            <div class="py-1 flex relative">
-                <form-input class="flex-1" required placeholder="Postcode" name="postcode"
-                            :pattern="postcodePattern" pattern-error="Please enter a valid UK Postcode"
+                <div class="mt-auto">
+                    <button class="py-2 px-4 text-sm rounded-lg font-semibold bg-blue-light ml-2 h-12"
+                            v-if="canLookupPostcode()"
                             :disabled="!! formData.id"
-                            :value="formData.postcode"/>
-                <button class="py-2 px-4 text-sm rounded-lg font-semibold bg-yellow ml-2"
-                        v-if="canLookupPostcode()"
-                        :disabled="!! formData.id"
-                        @click="lookupPostcode()">
-                    Search
-                </button>
+                            @click="lookupPostcode()">
+                        Search
+                    </button>
+                </div>
+
                 <div v-if="canLookupPostcode() && displayLookup"
                      class="absolute w-full bg-grey-lightest border border-grey shadow max-h-map scrollable"
                      style="top: 100%">
                     <ul v-for="result in lookupResults">
-                        <li class="p-2 border-b border-grey cursor-pointer hover:bg-grey-off-light transition-bg"
+                        <li class="p-2 border-b border-grey cursor-pointer hover:bg-grey-off-light transition-all"
                             @click="selectLookupResult(result)">
                             {{ result.friendly }}
                         </li>
                     </ul>
                 </div>
+
             </div>
 
-            <div class="py-1">
-                <form-input required placeholder="Address Line 1" name="address1"
-                            :value="formData.address1"
-                            :disabled="!! formData.id"/>
-            </div>
+            <form-input
+                required
+                label="Address (Line 1)"
+                name="address1"
+                :value="formData.address1"
+                :disabled="!! formData.id"
+                border-class="border-grey-off"
+            />
 
-            <div class="py-1">
-                <form-input placeholder="Address Line 2 (Optional)" name="address2"
-                            :value="formData.address2"
-                            :disabled="!! formData.id"/>
-            </div>
+            <form-input
+                label="Address Line 2"
+                name="address2"
+                :value="formData.address2"
+                :disabled="!! formData.id"
+                border-class="border-grey-off"
+            />
 
-            <div class="py-1">
-                <form-input placeholder="Address Line 3 (Optional)" name="address3"
-                            :value="formData.address3"
-                            :disabled="!! formData.id"/>
-            </div>
+            <form-input
+                label="Address Line 3"
+                name="address3"
+                :value="formData.address3"
+                :disabled="!! formData.id"
+                border-class="border-grey-off"
+            />
 
-            <div class="py-1">
-                <form-input required placeholder="Town/City" name="town" :value="formData.town"
-                            :disabled="!! formData.id"/>
-            </div>
-        </div>
+            <form-input
+                required
+                label="Town/City"
+                name="town"
+                :value="formData.town"
+                :disabled="!! formData.id"
+                border-class="border-grey-off"
+            />
+        </template>
 
         <div class="py-1 flex justify-between">
-            <button class="py-3 px-6 rounded-lg font-semibold bg-yellow" @click="goBack()">
+            <button class="py-3 px-6 rounded-lg font-semibold bg-blue-light" @click="goBack()">
                 Back...
             </button>
 
-            <button class="py-3 px-6 rounded-lg font-semibold"
-                    :class="isDisabled ? 'bg-yellow-50 cursor-not-allowed' : 'bg-yellow'" :disabled="isDisabled"
+            <button class="py-3 px-6 rounded-lg font-semibold bg-blue-light"
+                    :class="isDisabled ? 'bg-opacity-50 cursor-not-allowed' : ''" :disabled="isDisabled"
                     @click="submitForm('shipping-address')">
                 Next...
             </button>

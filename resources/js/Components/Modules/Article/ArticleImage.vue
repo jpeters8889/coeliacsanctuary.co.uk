@@ -7,9 +7,8 @@
         </div>
 
         <portal to="modal" v-if="zoom">
-            <modal>
+            <modal large closable :footer="title">
                 <img :src="src" :alt="title" class="max-w-full"/>
-                <div v-if="title" class="text-center text-sm mt-2 leading-none">{{ title }}</div>
             </modal>
         </portal>
     </div>
@@ -63,7 +62,8 @@ export default {
                 'mx-0',
                 'my-2',
                 'sm:m-2',
-                'bg-blue-20',
+                'bg-blue',
+                'bg-opacity-20'
             ];
 
             if (this.position !== 'fullwidth') {

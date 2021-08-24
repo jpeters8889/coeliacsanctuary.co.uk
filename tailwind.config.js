@@ -2,46 +2,35 @@ module.exports = {
     purge: [
         './resources/**/*.*'
     ],
+    mode: 'jit',
     theme: {
         colors: {
             transparent: 'transparent',
+
             blue: {
                 DEFAULT: '#80CCFC',
-                '80': 'rgba(128,204,252,0.8)',
-                '50': 'rgba(128,204,252,0.5)',
-                '20': 'rgba(128,204,252,0.2)',
                 light: '#addaf9',
-                'light-80': 'rgba(173,218,249,0.8)',
-                'light-50': 'rgba(173,218,249,0.5)',
-                'light-40': 'rgba(173,218,249,0.4)',
-                'light-20': 'rgba(173,218,249,0.2)',
-                lightest: '#eleef7',
                 dark: '#29719f',
                 darkest: '#237cbd',
                 other: '#186ba3',
                 shopping: '#f4f9fd',
             },
+
             yellow: {
                 light: '#ecd14a',
                 DEFAULT: '#DBBC25',
-                '40': 'rgba(219,188,37,0.4)',
-                '50': 'rgba(219,188,37,0.5)',
-                '80': 'rgba(219,188,37,0.8)',
             },
-            gold: '#ffd700',
+
             green: '#0f0',
+
             red: {
                 DEFAULT: '#f00',
                 light: '#ff6060',
                 dark: '#E53E3E',
-                '20': 'rgba(255,0,0,0.2)',
             },
-            black: {
-                DEFAULT: '#000',
-                '80': 'rgba(0,0,0,0.8)',
-                '50': 'rgba(0,0,0,0.5)',
-                '20': 'rgba(0,0,0,0.2)',
-            },
+
+            black:  '#000',
+
             grey: {
                 DEFAULT: '#666',
                 light: '#f7f7f7',
@@ -53,12 +42,8 @@ module.exports = {
                 'off-light': '#e8e8e8',
                 'off-dark': '#bbb',
             },
-            white: {
-                DEFAULT: '#fff',
-                '80': 'rgba(255,255,255,0.8)',
-                '50': 'rgba(255,255,255,0.5)',
-                '20': 'rgba(255,255,255,0.2)',
-            },
+
+            white:  '#fff',
 
             social: {
                 facebook: '#3b5998',
@@ -84,10 +69,16 @@ module.exports = {
             coeliac: ['Note This', 'ui-sans-serif'],
         },
         extend: {
+            opacity: {
+              '15': '0.15',
+            },
             spacing: {
                 '2px': '2px',
+                '3px': '3px',
+                '4px': '4px',
                 '5px': '5px',
                 '115px': '115px',
+                '50px': '50px',
             },
             width: {
                 '98': '98%',
@@ -124,14 +115,18 @@ module.exports = {
                 '250': '250px',
                 'modal-small': '700px',
                 'modal': '1000px',
-                'recipe-feature': '60px',
+                'modal-large': '1200px',
+                'recipe-feature': '50px',
                 'basket-sidebar': '400px',
+                'images': '1200px',
+                '2/5': '20%'
             },
             minHeight: {
                 map: '300px',
                 'map-small': '200px',
             },
             minWidth: {
+                '250': '250px',
                 72: '18rem',
             },
             zIndex: {
@@ -139,14 +134,4 @@ module.exports = {
             }
         },
     },
-    variants: {
-        extend: {
-            fontWeight: ['hover'],
-            borderWidth: ['last'],
-            margin: ['first'],
-            padding: ['first'],
-            borderRadius: ['group-hover'],
-        }
-    },
-    plugins: [],
 }

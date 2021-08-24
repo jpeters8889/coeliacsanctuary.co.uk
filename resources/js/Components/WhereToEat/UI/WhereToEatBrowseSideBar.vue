@@ -12,7 +12,7 @@
         <!-- Black Background -->
         <div
             :class="[
-                    'transition', 'transform', 'absolute', 'top-0', 'h-screen', 'bg-black-50', 'pt-12', 'flex',
+                    'transition', 'transform', 'absolute', 'top-0', 'h-screen', 'bg-black', 'bg-opacity-50', 'pt-12', 'flex',
                     'w-full', 'z-max', 'overflow-hidden', 'lg:bg-transparent', 'lg:p-0', 'lg:relative',
                     'lg:flex-shrink-0', 'lg:w-1/3', 'lg:h-full', 'lg:shadow-lg', 'lg:border-r',
                     'lg:border-grey-off', 'lg:max-h-full', 'lg:z-auto', 'lg:max-w-basket-sidebar'
@@ -25,7 +25,7 @@
                 :enter-to-class="isLt('lg') ? 'translate-y-0 opacity-100 scale-100' : 'translate-x-0'"
                 leave-active-class="duration-200 ease-in"
                 :leave-class="isLt('lg') ? 'translate-y-0 opacity-100' : 'translate-x-0'"
-                leave-to-class="isLt('lg') ? 'translate-y-full opacity-0' : '-translate-x-full'"
+                :leave-to-class="isLt('lg') ? 'translate-y-full opacity-0' : '-translate-x-full'"
             >
                 <!-- Main White Box -->
                 <div class="transition transform bg-white flex-1 rounded-t-xl overflow-y-scroll lg:rounded-none"

@@ -29,7 +29,7 @@
                 <div class="p-2">
                     <ul>
                         <li v-for="allergen in filteredAllergens"
-                            class="py-1 border-b border-dashed border-grey-off-dark transition-bg cursor-pointer hover:bg-grey-off-dark"
+                            class="py-1 border-b border-dashed border-grey-off-dark transition-all cursor-pointer hover:bg-grey-off-dark"
                             @click.prevent="selectAllergen(allergen)">
                             <span>{{ allergen.title }}</span>
                             <span class="text-xs">({{ allergen.recipes_count }} Recipes)</span>
@@ -66,7 +66,7 @@
                 <div class="p-2">
                     <ul>
                         <li v-for="meal in filteredMeals"
-                            class="py-1 border-b border-dashed border-grey-off-dark transition-bg cursor-pointer hover:bg-grey-off-dark"
+                            class="py-1 border-b border-dashed border-grey-off-dark transition-all cursor-pointer hover:bg-grey-off-dark"
                             @click.prevent="selectMeal(meal)">
                             <span>{{ meal.title }}</span>
                             <span class="text-xs">({{ meal.recipes_count }} Recipes)</span>
@@ -104,7 +104,7 @@
                 <div class="p-2">
                     <ul>
                         <li v-for="feature in filteredFeatures"
-                            class="py-1 border-b border-dashed border-grey-off-dark transition-bg cursor-pointer hover:bg-grey-off-dark"
+                            class="py-1 border-b border-dashed border-grey-off-dark transition-all cursor-pointer hover:bg-grey-off-dark"
                             @click.prevent="selectFeature(feature)">
                             <span>{{ feature.title }}</span>
                             <span class="text-xs">({{ feature.recipes_count }} Recipes)</span>

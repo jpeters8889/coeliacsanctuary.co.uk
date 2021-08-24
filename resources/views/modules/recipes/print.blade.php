@@ -1,7 +1,16 @@
-<html>
+<html lang="en">
 <head>
     <title>{{ $recipe->title }} - Coeliac Sanctuary</title>
     <style>
+        html, body {
+            width: 210mm;
+            line-height: 1.5;
+        }
+
+        body {
+            font-family: Open\+Sans, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+        }
+
         table, tr, td, th {
             border: 1px solid black;
             border-collapse: collapse;
@@ -24,31 +33,57 @@
             height: auto;
         }
 
-        a::after{
+        a::after {
             content: " (" attr(href) ") ";
+        }
+
+        .recipe-description {
+            display: flex;
+        }
+
+        .recipe-description * {
+            width: 50%;
+        }
+
+        .recipe-description div img {
+            width: 100%;
+            padding-left: 5px;
         }
     </style>
     <meta name="robots" content="noindex">
 </head>
 <body onload="window.print()">
-<img src="{{ $recipe->main_image }}" alt="{{ $recipe->title }}"
-     style="display:inline;float:right;margin:0 0 10px 10px"/>
+
 <h1 class="-articleHeading">{{ $recipe->title }} - Coeliac Sanctuary</h1>
 https://www.coeliacsanctuary.co.uk{{ $recipe->link }}
+
 <h2>Posted On: {{ $recipe->created_at->format('jS F Y') }}</h2>
-{{ $recipe->description }}<br/>
+
+<div class="recipe-description">
+    <p>{{ $recipe->description }}</p>
+
+    <div>
+        <img src="{{ $recipe->main_image }}" alt="{{ $recipe->title }}"/>
+    </div>
+
+</div>
 @if($recipe->features->count() >= 3)
     <h2>This recipe is...</h2>
     {{ $recipe->features->pluck('feature')->join(', ') }}
 @endif
+
 <hr class="recHR"/>
 <h2 class="recH3">Ingredients</h2>
+
 {!! $recipe->ingredients !!}<br/><br/>
+
 <strong>Preparation Time: </strong> {{ $recipe->prep_time }}<br/>
 <strong>Cooking Time: </strong> {{ $recipe->cook_time }}<br/><br/>
-<h2 class="recH3">This recipe is free from...</h2>
-{{ $recipe->allergens->pluck('allergen')->join(', ') }}
+
+<h2 class="recH3">This recipe contains</h2>
+{{ $recipe->containsAllergens()->pluck('allergen')->join(', ') }}
 <hr class="recHR"/>
+
 <h2 class="recH3">Method</h2>
 {!! $recipe->method !!}
 
@@ -58,6 +93,7 @@ https://www.coeliacsanctuary.co.uk{{ $recipe->link }}
 
 <hr class="recHR"/>
 <h2 class="recH3">This recipe makes {{ $recipe->serving_size }}<br/>Nutritional info per {{ $recipe->per }}</h2>
+
 <table class="nutritional fullTbl">
     <tr>
         <th>Calories</th>
@@ -76,6 +112,7 @@ https://www.coeliacsanctuary.co.uk{{ $recipe->link }}
         <td>{{ $recipe->nutrition->protein }}g</td>
     </tr>
 </table>
+
 <p style="text-align:center;">&copy; {{ \Carbon\Carbon::now()->format('Y') }} Coeliac Sanctuary -
     https://www.coeliacsanctuary.co.uk</p>
 </body>

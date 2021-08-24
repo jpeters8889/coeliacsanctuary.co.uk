@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-blue-light-20 p-2">
+    <div class="bg-blue-light bg-opacity-20 p-2">
         <h3 class="mb-2 font-semibold">Our reviews of {{ name }}</h3>
         <ul>
             <li v-for="review in reviews">

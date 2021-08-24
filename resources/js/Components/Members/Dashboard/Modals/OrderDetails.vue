@@ -115,22 +115,21 @@ export default {
 
 <style lang="scss" scoped>
 table {
-    border: 2px solid #80CCFC;
-    border-radius: 5px;
-
     tr {
         th {
-            background-color: #80CCFC;
-            color: white;
+            background-color: #e8e8e8;
+            color: #666;
             padding: 4px;
             text-align: left;
             vertical-align: top;
-            border-bottom: 1px solid white;
+            border-bottom: 1px solid #666;
+            border-right: 1px solid #666;
+            font-weight: 600;
         }
 
         td {
             padding: 4px;
-            border-bottom: 1px solid #80CCFC;
+            border-bottom: 1px solid #666;
             vertical-align: top;
         }
 

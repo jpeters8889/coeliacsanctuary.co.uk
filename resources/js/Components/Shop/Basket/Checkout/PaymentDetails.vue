@@ -1,15 +1,27 @@
 <template>
-    <div class="flex flex-col leading-none">
-        <div class="py-1">
-            <form-option required name="provider" label="Payment Method" :value="formData.provider"
-                         :options="paymentProviders"></form-option>
-        </div>
+    <div class="flex flex-col space-y-3">
+        <h3 class="text-xl font-semibold">Payment Details</h3>
+
+        <p>
+            Thanks for letting us know where you went your order shipped, next we need to know how you'd like to pay.
+        </p>
+
+        <form-option
+            required
+            name="provider"
+            :value="formData.provider"
+            :options="paymentProviders"
+        ></form-option>
 
         <template v-if="formData.provider === 'stripe'">
-            <div class="py-1">
-                <form-select required label="Billing Address" name="shippingAddress" :value="formData.shippingAddress"
-                             :options="billingOptions"></form-select>
-            </div>
+            <form-select
+                required
+                label="Billing Address"
+                name="shippingAddress"
+                :value="formData.shippingAddress"
+                :options="billingOptions"
+                border-class="border-grey-off"
+            ></form-select>
 
             <template v-if="formData.shippingAddress === '0'">
                 <div v-if="savedAddresses.length > 0">
@@ -18,10 +30,10 @@
                     <div class="flex flex-col space-y-3">
                         <div v-for="address in savedAddresses"
                              @click="selectSavedAddress(address)"
-                             class="p-2 flex flex-col cursor-pointer transition-bg"
+                             class="p-2 flex flex-col cursor-pointer transition-all bg-blue-light"
                              :class="address.id === formData.billingId ?
-                        'bg-blue-light-20 border-yellow border-4 text-black' :
-                        'border text-black-50 bg-blue-light-50 border-white-80 hover:bg-blue-light-80 hover:border-white'"
+                                'bg-opacity-20 border-yellow border-4 text-black' :
+                                'border text-black text-opacity-50 bg-opacity-50 border-white border-opacity-80 hover:bg-opacity-80 hover:border-white'"
                         >
                             <span class="font-semibold">{{ address.name }}</span>
                             <span>{{ formatAddress(address) }}</span>
@@ -29,43 +41,63 @@
                     </div>
                 </div>
 
-                <div v-if="formData.billingId === null">
+                <template v-if="formData.billingId === null">
                     <p v-if="savedAddresses.length > 0" class="text-lg my-3 font-semibold">Or Add New Address</p>
-                    <div class="py-1">
-                        <form-input required placeholder="Billing Name"
-                                    name="billingName" :value="formData.billingName"></form-input>
-                    </div>
 
-                    <div class="py-1">
-                        <form-input required placeholder="Billing Address Line 1"
-                                    name="billingAddress1" :value="formData.billingAddress1"></form-input>
-                    </div>
+                    <form-input
+                        required
+                        label="Payee Name"
+                        name="billingName"
+                        :value="formData.billingName"
+                        border-class="border-grey-off"
+                    />
 
-                    <div class="py-1">
-                        <form-input placeholder="Billing Address Line 2 (Optional)"
-                                    name="billingAddress2" :value="formData.billingAddress2"></form-input>
-                    </div>
+                    <form-input
+                        required
+                        label="Address (Line 1)"
+                        name="billingAddress1"
+                        :value="formData.billingAddress1"
+                        border-class="border-grey-off"
+                    />
 
-                    <div class="py-1">
-                        <form-input placeholder="Billing Address Line 3 (Optional)"
-                                    name="billingAddress3" :value="formData.billingAddress3"></form-input>
-                    </div>
+                    <form-input
+                        label="Address (Line 2)"
+                        name="billingAddress2"
+                        :value="formData.billingAddress2"
+                        border-class="border-grey-off"
+                    />
 
-                    <div class="py-1">
-                        <form-input required placeholder="Town/City"
-                                    name="billingTown" :value="formData.billingTown"></form-input>
-                    </div>
+                    <form-input
+                        label="Address (Line 3)"
+                        name="billingAddress3"
+                        :value="formData.billingAddress3"
+                        border-class="border-grey-off"
+                    />
 
-                    <div class="py-1">
-                        <form-input required placeholder="Billing Postcode"
-                                    name="billingPostcode" :value="formData.billingPostcode"></form-input>
-                    </div>
+                    <form-input
+                        required
+                        label="Town/City"
+                        name="billingTown"
+                        :value="formData.billingTown"
+                        border-class="border-grey-off"
+                    />
 
-                    <div class="py-1">
-                        <form-input required placeholder="Billing Country"
-                                    name="billingCountry" :value="formData.billingCountry"></form-input>
-                    </div>
-                </div>
+                    <form-input
+                        required
+                        label="Postcode"
+                        name="billingPostcode"
+                        :value="formData.billingPostcode"
+                        border-class="border-grey-off"
+                    />
+
+                    <form-input
+                        required
+                        label="Country"
+                        name="billingCountry"
+                        :value="formData.billingCountry"
+                        border-class="border-grey-off"
+                    />
+                </template>
             </template>
 
             <stripe-checkout></stripe-checkout>
@@ -269,6 +301,7 @@ export default {
                     postcode: this.formData.billingPostcode,
                     country: this.formData.billingCountry,
                 },
+                provider: this.formData.provider,
             };
         }
     },

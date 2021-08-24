@@ -12,11 +12,8 @@ use Illuminate\Http\Response;
 use Coeliac\Common\Response\Page;
 use Illuminate\Contracts\Events\Dispatcher;
 use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\EatingOut\WhereToEat\Requests\PlaceRequest;
-use Coeliac\Modules\EatingOut\WhereToEat\Events\PlaceRequestSubmitted;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\PlaceRequest as PlaceRequestModel;
 
-class WhereToEatPlaceRecommendAPlaceController extends BaseController
+class WhereToEatRecommendAPlaceController extends BaseController
 {
     public function get(Page $page)
     {

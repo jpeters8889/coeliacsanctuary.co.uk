@@ -1,4 +1,4 @@
-<footer class="bg-blue-gradient p-3 mt-4 lg:pt-8">
+<footer class="bg-gradient-to-br from-blue to-blue-light p-3 mt-4 lg:pt-8">
     <div class="inner-wrapper flex flex-col">
         <div class="w-5/6 mx-auto lg:w-4/5">
             <h4 class="font-medium text-center mb-2">Enter your email address below to get our newsletter sent straight
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <div class="mt-4 pt-2 border-t border-white-50 text-center text-sm w-11/12 mx-auto">
+        <div class="mt-4 pt-2 border-t border-white border-opacity-50 text-center text-sm w-11/12 mx-auto">
             <p>
                 Copyright &copy; 2014 - {{ date('Y') }} Coeliac Sanctuary
             </p>

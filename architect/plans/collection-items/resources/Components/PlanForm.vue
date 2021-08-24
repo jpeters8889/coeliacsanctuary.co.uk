@@ -80,7 +80,7 @@
                                          class="rounded-b-lg bg-white border border-black overflow-hidden z-50 w-full overflow-y-scroll">
                                         <ul style="max-height: 170px;">
                                             <li v-for="result in addModal.searchResults"
-                                                class="p-2 border-b border-black bg-blue-100 hover:bg-white transition-bg w-full cursor-pointer"
+                                                class="p-2 border-b border-black bg-blue-100 hover:bg-white transition-all w-full cursor-pointer"
                                                 @click="selectItem(result)">
                                                 {{ result.title }}
                                             </li>

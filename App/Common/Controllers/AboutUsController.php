@@ -10,7 +10,7 @@ use Coeliac\Base\Controllers\BaseController;
 
 class AboutUsController extends BaseController
 {
-    public function get(Page $page, Repository $repository)
+    public function get(Page $page)
     {
         return $page
             ->breadcrumbs([], 'About Us')
@@ -18,8 +18,6 @@ class AboutUsController extends BaseController
             ->setMetaDescription('Find out more about Coeliac Sanctuary, our history, and the people who run it!')
             ->setMetaKeywords(['Places to eat', 'gluten free recipes', 'coeliac sanctuary about', 'coeliac sanctuary history'])
             ->setSocialImage(asset('assets/images/shares/about.jpg'))
-            ->render('pages.about', [
-                'related' => $repository->take(7),
-            ]);
+            ->render('pages.about');
     }
 }

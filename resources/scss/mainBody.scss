@@ -1,77 +1,82 @@
-.main-body {
-    a {
-        transition: color 0.5s ease;
-        display: inline !important;
-        font-weight: 600;
-        color: #80CCFC;
+@layer components {
+    .main-body {
+        a {
+            transition: color 0.5s ease;
+            display: inline !important;
+            font-weight: 600;
+            color: #80CCFC;
 
-        &:hover {
-            color: #666;
-        }
-    }
-
-    p {
-        @apply mb-4;
-    }
-
-    ul:not(.list-none) {
-        @apply list-disc list-inside pl-4 mb-4;
-    }
-
-    ol:not(.list-none) {
-        @apply list-decimal pl-4 mb-4;
-    }
-
-    ol[type='a'] {
-        list-style: lower-alpha;
-    }
-
-    ol[type='i'] {
-        list-style: lower-roman;
-    }
-
-    table {
-        @apply w-full mb-4;
-        tr {
-            @apply border-b-2 border-blue;
-            th {
-                @apply bg-blue-light-20 text-center text-xl font-coeliac leading-none;
-                padding: 1rem 0 !important;
+            &:hover {
+                color: #666;
             }
+        }
 
-            td, th {
-                @apply p-1 border-r-2 border-blue align-top;
-                &:last-of-type {
-                    @apply border-0;
+        p {
+            @apply mb-4;
+        }
+
+        ul:not(.list-none) {
+            @apply pl-4 mb-4;
+            list-style-type: decimal;
+            list-style-position: inside;
+        }
+
+        ol:not(.list-none) {
+            @apply pl-4 mb-4;
+            list-style-type: decimal;
+        }
+
+        ol[type='a'] {
+            list-style: lower-alpha;
+        }
+
+        ol[type='i'] {
+            list-style: lower-roman;
+        }
+
+        table {
+            @apply w-full mb-4;
+            tr {
+                @apply border-b-2 border-blue;
+                th {
+                    @apply bg-blue-light bg-opacity-20 text-center text-xl font-coeliac leading-none;
+                    padding: 1rem 0 !important;
+                }
+
+                td, th {
+                    @apply p-1 border-r-2 border-blue align-top;
+                    &:last-of-type {
+                        @apply border-0;
+                    }
                 }
             }
         }
-    }
 
-    table.recipe-table {
-        width: fit-content;
+        table.recipe-table {
+            width: fit-content;
 
-        tr {
-            th, td {
-                width: 16.6666%;
+            tr {
+                th, td {
+                    width: 16.6666%;
+                }
+
+                th {
+                    @apply font-sans text-sm;
+                    padding: 0.5rem !important;
+                }
             }
+        }
 
+        table.order-dashboard {
             th {
                 @apply font-sans text-sm;
                 padding: 0.5rem !important;
+                vertical-align: middle;
             }
         }
-    }
 
-    table.order-dashboard {
-        th {
-            @apply font-sans text-sm;
-            padding: 0.5rem !important;
-            vertical-align: middle;
+        .article-header {
+            @apply border-b border-blue-light font-semibold leading-none py-2 text-lg;
         }
-    }
-
-    .article-header {
-        @apply border-b border-blue-light font-semibold leading-none py-2 text-lg;
     }
 }

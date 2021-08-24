@@ -111,7 +111,7 @@
 
         <div class="flex mt-4" style="justify-content: space-around;">
             <button
-                class="link-icon bg-blue-400 text-white p-2 rounded no-underline hover:bg-blue-500 transition-colors"
+                class="link-icon bg-blue-400 text-white p-2 rounded no-underline hover:bg-blue-500 transition-all"
                 @click.prevent="preview()">
                 <span class="icon-label">
                     <i class="fas fa-fw fa-eye"></i>
@@ -123,7 +123,7 @@
             </button>
 
             <button
-                class="link-icon bg-blue-400 text-white p-2 rounded no-underline hover:bg-blue-500 transition-colors" @click.prevent="save($event)">
+                class="link-icon bg-blue-400 text-white p-2 rounded no-underline hover:bg-blue-500 transition-alls" @click.prevent="save($event)">
                 <span class="icon-label">
                     <i class="fas fa-fw fa-code"></i>
 

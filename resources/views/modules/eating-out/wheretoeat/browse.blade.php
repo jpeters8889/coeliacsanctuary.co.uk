@@ -28,7 +28,7 @@
     </div>
 
     <footer
-        class="bg-blue-gradient p-3 flex flex-col border-t-4 border-yellow text-center text-sm w-full mx-auto">
+        class="bg-gradient-to-br from-blue to-blue-light p-3 flex flex-col border-t-4 border-yellow text-center text-sm w-full mx-auto">
         <p>
             Copyright &copy; 2014 - {{ date('Y') }} Coeliac Sanctuary
         </p>

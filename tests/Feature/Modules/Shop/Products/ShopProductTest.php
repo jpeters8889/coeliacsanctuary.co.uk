@@ -101,13 +101,6 @@ class ShopProductTest extends TestCase
     }
 
     /** @test */
-    public function itHasTheImagesComponent()
-    {
-        $this->get('/shop/product/'.$this->product->slug)
-            ->assertSee('<shop-product-images :product-id="'.$this->product->id, false);
-    }
-
-    /** @test */
     public function itHasTheAddToBasketComponent()
     {
         $this->get('/shop/product/'.$this->product->slug)

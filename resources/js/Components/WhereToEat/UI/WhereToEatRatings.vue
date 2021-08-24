@@ -9,7 +9,7 @@
                 <global-ui-stars :stars="average"></global-ui-stars>
             </div
             >
-            <a class="mt-2 font-semibold text-blue transition-color hover:text-grey" @click="showDetails = true">
+            <a class="mt-2 font-semibold text-blue transition-all cursor-pointer hover:text-grey" @click="showDetails = true">
                 View Comments and Ratings
             </a>
         </div>
@@ -29,13 +29,9 @@
         </div>
 
         <portal to="modal" v-if="showDetails">
-            <modal name="showDetails">
-                <h2 class="text-lg font-semibold mb-2">
-                    Ratings for {{ name }}
-                </h2>
-
-                <div class="flex flex-col">
-                    <p class="pb-2 mb-2 border-b border-blue-50">
+            <modal name="showDetails" :title="'Ratings for '+name">
+                <div class="flex flex-col p-3">
+                    <p class="pb-2 mb-2 border-b border-blue border-opacity-50">
                         All the reviews and ratings below have been submitted by visitors to our website and App,
                         ratings are applied straight away but text reviews must be validated by an admin before
                         they are visible.
@@ -43,7 +39,7 @@
 
                     <div v-for="rating in ratings">
                         <template v-if="!rating.body">
-                            <div class="font-semibold mb-2 text-center">
+                            <div class="font-semibold mb-2">
                                 {{ formatDate(rating.created_at) }}
                                 <global-ui-stars :stars="rating.rating.toString()"></global-ui-stars>
                             </div>
@@ -52,7 +48,7 @@
                             </div>
                         </template>
                         <template v-else>
-                            <div class="font-semibold mb-2 text-center">
+                            <div class="font-semibold mb-2">
                                 {{ rating.name }}, {{ formatDate(rating.created_at) }}
                                 <global-ui-stars :stars="rating.rating.toString()"></global-ui-stars>
                             </div>
@@ -66,7 +62,7 @@
         </portal>
 
         <portal to="modal" v-if="showCreateRating">
-            <modal name="showCreate">
+            <modal name="showCreate" title="Do you want to save a review with your rating?">
                 <wheretoeat-create-rating :id="this.id" :rating="ratingToSubmit"></wheretoeat-create-rating>
             </modal>
         </portal>

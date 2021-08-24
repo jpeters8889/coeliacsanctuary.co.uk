@@ -5,7 +5,7 @@
         </div>
 
         <portal to="modal" v-if="showContact">
-            <modal>
+            <modal title="Contact Us">
                 <contact-form></contact-form>
             </modal>
         </portal>

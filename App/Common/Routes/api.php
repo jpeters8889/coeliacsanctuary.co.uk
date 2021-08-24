@@ -26,7 +26,6 @@ $router->group(['prefix' => 'api'], static function () use ($router) {
     });
 
     $router->post('contact', [ContactController::class, 'store']);
-    $router->get('heros', [HeroController::class, 'get']);
     $router->get('navigation', [NavigationController::class, 'get']);
 
     $router->group(['prefix' => 'popup'], static function () use ($router) {

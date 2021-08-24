@@ -1,9 +1,5 @@
 <template>
-    <div>
-        <h2 class="text-lg font-semibold mb-2">
-            Do you want to save a review with your rating?
-        </h2>
-
+    <div class="p-3">
         <div class="flex flex-col" v-if="!submitted">
             <div class="flex flex-col">
                 <div class="mb-5 flex-1">
@@ -22,7 +18,7 @@
                 </div>
                 <div class="mb-5 flex-1 text-center">
                     <button
-                        class="mt-2 bg-blue-50 border border-blue rounded-lg px-6 py-2 text-xl text-black transition-bg hover:bg-blue-20"
+                        class="mt-2 bg-blue bg-opacity-50 border border-blue rounded-lg px-6 py-2 text-xl text-black transition-all hover:bg-opacity-20"
                         @click.prevent="submitRating()">
                         Submit Comment
                     </button>
@@ -44,7 +40,7 @@
             <p>Thank you for rating this place!</p>
             <div class="mb-5 flex-1 text-center">
                 <button
-                    class="mt-2 bg-blue-50 border border-blue rounded-lg px-6 py-2 text-xl text-black transition-bg hover:bg-blue-20"
+                    class="mt-2 bg-blue bg-opacity-50 border border-blue rounded-lg px-6 py-2 text-xl text-black transition-all hover:bg-opacity-20"
                     @click.prevent="closeModal()">
                     Close
                 </button>

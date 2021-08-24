@@ -1,20 +1,23 @@
 <template>
     <modal modal-classes="w-3/4">
-        <loader :show="loading"></loader>
+        <div class="p-3">
+            <loader :show="loading"></loader>
 
-        <div class="w-full flex flex-col">
-            <div class="mb-2">
-                <p>
-                    Lucky enough to have a discount code? Enter it below and we'll validate it and add it to your order!
-                </p>
-            </div>
-            <div class="mb-2">
-                <form-input name="code" placeholder="Enter your discount code..." :value="discountCode" required/>
-            </div>
-            <div class="text-center">
-                <button class="w-full bg-yellow rounded-lg py-2 px-4 font-semibold" @click="validateCode()">
-                    Validate Discount Code
-                </button>
+            <div class="w-full flex flex-col">
+                <div class="mb-2">
+                    <p>
+                        Lucky enough to have a discount code? Enter it below and we'll validate it and add it to your
+                        order!
+                    </p>
+                </div>
+                <div class="mb-2">
+                    <form-input name="code" placeholder="Enter your discount code..." :value="discountCode" required/>
+                </div>
+                <div class="text-center">
+                    <button class="w-full bg-yellow rounded-lg py-2 px-4 font-semibold" @click="validateCode()">
+                        Validate Discount Code
+                    </button>
+                </div>
             </div>
         </div>
     </modal>

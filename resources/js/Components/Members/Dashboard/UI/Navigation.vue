@@ -4,7 +4,7 @@
             <nav class="flex-1 flex items-center">
                 <ul class="list-none flex flex-col w-full">
                     <li v-for="link in links" v-if="!link.mobileOnly">
-                        <a class="block py-2 pl-2 border-b border-blue hover:bg-blue-light hover:text-white transition-both"
+                        <a class="block py-2 pl-2 border-b border-blue hover:bg-blue-light hover:text-white transition-all"
                            :href="link.link">{{ link.label }}</a>
                     </li>
                 </ul>

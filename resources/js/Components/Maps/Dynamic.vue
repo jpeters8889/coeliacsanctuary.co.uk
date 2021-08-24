@@ -1,5 +1,5 @@
 <template>
-    <div class="h-full" style="min-width: 200px; min-height: 200px" ref='map'></div>
+    <div class="h-80vh" ref='map'></div>
 </template>
 
 <script>

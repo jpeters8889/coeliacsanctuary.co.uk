@@ -69,7 +69,7 @@ class CountyProcessor
     {
         return $this->county->reviews()
             ->where('reviews.live', true)
-            ->with(['eatery', 'eatery.town', 'eatery.county', 'eatery.ratings'])
+            ->with(['eatery', 'eatery.town', 'eatery.county', 'eatery.ratings', 'images'])
             ->inRandomOrder()
             ->take(2)
             ->get();

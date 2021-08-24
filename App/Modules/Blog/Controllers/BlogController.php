@@ -56,33 +56,6 @@ class BlogController extends BaseController
         /* @var Blog $blog */
         abort_if(!$blog = $request->resolveItem(), 404, 'Sorry, this blog can\'t be found');
 
-        try {
-            $related = $blog->tags()
-                ->has('blogs', '>=', 2)
-                ->first()
-                ->blogs()
-                ->where('id', '!=', $blog->id)
-                ->where('live', true)
-                ->with('images', 'images.image')
-                ->latest()
-                ->take(1)
-                ->get();
-
-            if ($related->count() < 10) {
-                $related = $related->concat(
-                    (new Repository())
-                        ->setColumns(['id', 'title', 'slug', 'meta_description'])
-                        ->random()
-                        ->take(10 - $related->count())
-                );
-            }
-        } catch (\Throwable $exception) {
-            $related = (new Repository())
-                ->setColumns(['id', 'title', 'slug', 'meta_description'])
-                ->random()
-                ->take(10);
-        }
-
         $featured = null;
 
         if ($blog->associatedCollections()->count() > 0) {
@@ -106,6 +79,6 @@ class BlogController extends BaseController
             ->setMetaDescription($blog->meta_description)
             ->setMetaKeywords(explode(',', (string) $blog->meta_keywords))
             ->setSocialImage($blog->social_image)
-            ->render('modules.blogs.show', compact('blog', 'related', 'featured'));
+            ->render('modules.blogs.show', compact('blog', 'featured'));
     }
 }

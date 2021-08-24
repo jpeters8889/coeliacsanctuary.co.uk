@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Console;
 
+use Coeliac\Modules\Blog\Models\Blog;
 use Illuminate\Console\Command;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\DailyUpdatesQueue;
@@ -18,17 +19,20 @@ class SendDailyUpdates extends Command
     public function handle()
     {
         DailyUpdatesQueue::query()
+            ->with(['newItem'])
             ->get()
             ->groupBy(function (DailyUpdatesQueue $updatesQueue) {
                 return $updatesQueue['user_id'];
             })
             ->each(function ($updates, $userId) {
                 /** @var User $user */
-                $user = User::query()->find($userId);
+                $user = User::query()
+                    ->with(['subscriptions', 'subscriptions.updatable'])
+                    ->find($userId);
 
                 $updateProcessor = new DailyUpdatePreprocessor(
                     $user->subscriptions->map(fn (UserDailyUpdateSubscription $subscription) => $subscription->updatable),
-                    $updates->map(fn (DailyUpdatesQueue $queue) => $queue->newItem)
+                    $updates->map(fn (DailyUpdatesQueue $queue) => $queue->newItem()->first())
                 );
 
                 $user->notify(new DailyUpdate($updateProcessor));

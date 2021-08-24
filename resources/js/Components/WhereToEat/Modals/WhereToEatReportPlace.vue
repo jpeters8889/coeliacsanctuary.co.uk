@@ -1,9 +1,5 @@
 <template>
-    <div>
-        <h2 class="text-lg font-semibold mb-2">
-            Report a problem with {{ place.name }}
-        </h2>
-
+    <div class="p-3">
         <p class="mb-2">
             Has {{ place.name }} closed down? Or does it no longer do gluten free, or does it not do gluten free
             properly? Or have the gluten free options changed?
@@ -20,7 +16,7 @@
                 </div>
                 <div class="mb-5 flex-1 text-center">
                     <button
-                        class="mt-2 bg-blue-50 border border-blue rounded-lg px-6 py-2 text-xl text-black transition-bg hover:bg-blue-20"
+                        class="mt-2 bg-blue bg-opacity-50 border border-blue rounded-lg px-6 py-2 text-xl text-black transition-all hover:bg-opacity-20"
                         @click.prevent="submitForm()"
                     >
                         Report Place

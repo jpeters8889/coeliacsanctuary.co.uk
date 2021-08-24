@@ -17,6 +17,10 @@ export default {
 
     mounted() {
         this.$root.$on('initiate-payment', (data) => {
+            if(data.provider !== 'paypal') {
+                return;
+            }
+
             this.checkoutData = data;
             this.executePayment();
         });

@@ -1,14 +1,14 @@
-@extends('templates.page-two-column')
+@extends('templates.page-single-column')
 
 @section('primary-column')
-    <div class="flex flex-col"chunk>
+    <div class="flex flex-col">
         <div class="page-box">
             <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
                 Gluten Free Shopping List
             </h1>
 
             <h6 class="text-center -mt-4 pt-1">
-                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="/info">
+                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-all" href="/info">
                     More Coeliac Information
                 </a>
             </h6>
@@ -233,17 +233,5 @@
                 </div>
             </div>
         </div>
-    </div>
-@endsection
-
-@section('secondary-column')
-    <div class="flex flex-col">
-        <x-widget class="mb-3" title="Sign up to our newsletter">
-            <global-ui-newsletter-signup />
-        </x-widget>
-
-        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
-
-        @include('components.related-item', [$related, $title = 'Recent Blogs'])
     </div>
 @endsection

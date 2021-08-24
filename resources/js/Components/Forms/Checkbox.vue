@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-col" :class="hasError ? 'border border-red rounded -mx-2 px-2 bg-red-20' : ''">
-        <div class="flex items-center cursor-pointer" @click="select()">
-            <div class="p-2 pl-0">
+    <div class="flex flex-col" :class="hasError ? 'border border-red rounded -mx-2 px-2 bg-red bg-opacity-20' : ''">
+        <div class="flex items-center cursor-pointer">
+            <div class="p-2 pl-0" @click="select()">
                 <div class="border border-grey-off bg-grey-lightest p-1"
                      :class="inputSize + ' ' + (value ? 'text-green' : 'text-grey-off-light')">
                     <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>

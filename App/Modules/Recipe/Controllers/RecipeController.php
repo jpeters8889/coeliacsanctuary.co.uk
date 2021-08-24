@@ -57,10 +57,6 @@ class RecipeController extends BaseController
         /* @var Recipe $recipe */
         abort_if(!$recipe = $request->resolveItem(), 404, 'Sorry, this recipe can\'t be found');
 
-        $related = $this->repository
-            ->random()
-            ->take(10);
-
         $featured = null;
 
         if ($recipe->associatedCollections()->count() > 0) {
@@ -83,7 +79,7 @@ class RecipeController extends BaseController
             ->setMetaDescription($recipe->meta_description)
             ->setMetaKeywords(explode(',', (string) $recipe->meta_keywords))
             ->setSocialImage($recipe->social_image)
-            ->render('modules.recipes.show', compact('recipe', 'related', 'featured'));
+            ->render('modules.recipes.show', compact('recipe', 'featured'));
     }
 
     public function print(RecipeShowRequest $request)

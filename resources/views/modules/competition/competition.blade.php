@@ -14,7 +14,7 @@
 
                 @if($competition->isOpenForEntries())
                     <a href="#enter-competition"
-                       class="block text-black hover:no-underline my-2 p-2 bg-blue-50 rounded-lg border border-blue text-center text-large font-semibold">
+                       class="block text-black hover:no-underline my-2 p-2 bg-blue bg-opacity-50 rounded-lg border border-blue text-center text-large font-semibold">
                         Enter our fantastic competition below!
                     </a>
                 @endif

@@ -2,23 +2,24 @@
     <div class="hidden xxs:block">
         <div id="breadcrumb"
              class="my-2 border-grey-off border bg-grey-off-light p-2 leading-none"
-             :class="sticky ? 'fixed top-50px slide-down w-full mt-1 z-20' : ''">
-            <div class="leading-none inner-wrapper flex flex-col sm:flex-row sm:items-center"
+             :class="sticky ? 'fixed top-50px slide-down w-full mt-1' : ''">
+            <div class="leading-none inner-wrapper flex flex-col md:flex-row md:items-center"
                  :style="sticky ? 'max-width: 1500px;' : ''">
                 <div
-                    class="flex-1 flex-col flex justify-center flex-wrap mb-2 sm:flex-no-wrap sm:flex-row sm:items-center sm:justify-start sm:m-0 sm:pr-3">
-                    <div class="font-extralight text-center sm:pr-1">
+                    class="flex-1 flex-col flex justify-center flex-wrap mb-2 md:flex-no-wrap md:flex-row md:items-center md:justify-start md:m-0 md:pr-3">
+                    <div class="font-extralight text-center md:pr-1">
                         You're here:
                     </div>
-                    <div class="flex flex-wrap my-1 justify-center">
-                        <div v-for="crumb in crumbs"
-                             class="text-grey-dark font-medium flex justify-start items-center p-1 sm:w-full lg:w-auto">
-                        <span class="flex-1">
-                            <a :href="crumb.link" class="hover:underline">{{ crumb.title }}</a>
-                        </span>
-                            <span class="text-left pl-1">
-                            <font-awesome-icon :icon="['fas', 'angle-double-right']"></font-awesome-icon>
-                        </span>
+                    <div class="flex my-1 justify-center">
+                        <div
+                            v-for="crumb in crumbs"
+                            class="text-grey-dark font-medium flex justify-start items-center p-1 md:w-auto"
+                        >
+                            <a :href="crumb.link" class="flex-1 hover:underline">{{ crumb.title }}</a>
+                            <font-awesome-icon
+                                class="text-left pl-1"
+                                :icon="['fas', 'angle-double-right']"
+                            ></font-awesome-icon>
                         </div>
                     </div>
                     <div class="font-medium text-center">
@@ -29,22 +30,22 @@
                 <div class="flex justify-center relative">
                     <add-to-scrapbook v-if="scrapable" :area="scrapable.area" :id="scrapable.id"></add-to-scrapbook>
 
-                    <div class="mr-2 text-3xl text-grey cursor-pointer hover:text-social-facebook transition-color"
+                    <div class="mr-2 text-3xl text-grey cursor-pointer hover:text-social-facebook transition-all"
                          @click.prevent="facebookShare()">
                         <font-awesome-icon :icon="['fab', 'facebook-square']"></font-awesome-icon>
                     </div>
 
-                    <div class="mr-2 text-3xl text-grey cursor-pointer hover:text-social-twitter transition-color"
+                    <div class="mr-2 text-3xl text-grey cursor-pointer hover:text-social-twitter transition-all"
                          @click.prevent="twitterShare()">
                         <font-awesome-icon :icon="['fab', 'twitter-square']"></font-awesome-icon>
                     </div>
 
-                    <div class="mr-2 text-3xl text-grey cursor-pointer hover:text-social-pinterest transition-color"
+                    <div class="mr-2 text-3xl text-grey cursor-pointer hover:text-social-pinterest transition-all"
                          @click.prevent="pinterestShare()">
                         <font-awesome-icon :icon="['fab', 'pinterest-square']"></font-awesome-icon>
                     </div>
 
-                    <div class="text-3xl text-grey cursor-pointer hover:text-social-reddit transition-color"
+                    <div class="text-3xl text-grey cursor-pointer hover:text-social-reddit transition-all"
                          @click.prevent="redditShare()">
                         <font-awesome-icon :icon="['fab', 'reddit-square']"></font-awesome-icon>
                     </div>

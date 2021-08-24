@@ -107,7 +107,7 @@
         </div>
 
         <portal to="modal" v-if="showModal">
-            <modal name="report-place">
+            <modal name="report-place" :title="'Report a problem with '+place.name">
                 <wheretoeat-modal-report-place :place="place" />
             </modal>
         </portal>

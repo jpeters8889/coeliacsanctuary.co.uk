@@ -1,15 +1,15 @@
 <template>
-    <div class="bg-blue-gradient w-full rounded-lg p-2 shadow mx-auto max-w-11/12">
-        <div class="flex flex-col xs:flex-row xs:justify-between xs:pt-4 mb-4">
+    <div class="flex flex-col space-y-3">
+
+        <div class="page-box flex flex-col xs:flex-row xs:justify-between xs:pt-4">
             <template v-for="item in sections" v-if="item.enabled">
                 <div class="flex xs:flex-col xs:flex-1" :class="item.canVisit ? 'cursor-pointer' : ''"
                      @click="switchSection(item)">
                     <div class="px-4 relative xs:px-0">
                         <div class="w-5 h-5 rounded-full absolute text-white" :class="headerCircleBackground(item)"
                              style="left: 50%; top: 50%; transform: translate(-50%, -50%)">
-
                         </div>
-                        <div class="border-4 border-yellow h-full"></div>
+                        <div class="border-4 border-blue h-full"></div>
                     </div>
                     <div class="flex-1 py-3 xs:text-center"
                          :class="item.completed || item.active || item.canVisit ? 'font-semibold text-black' : 'text-grey'">
@@ -19,8 +19,13 @@
             </template>
         </div>
 
-        <div>
-            <component :is="activeComponent" :default-data="currentData" :country-id="countryId"></component>
+        <div class="page-box">
+            <component
+                :is="activeComponent"
+                :default-data="currentData"
+                :country-id="countryId"
+                :name="sections[0].data.name"
+            />
         </div>
     </div>
 </template>
@@ -147,11 +152,11 @@ export default {
     methods: {
         headerCircleBackground(item) {
             if (item.completed || item.active) {
-                return 'bg-yellow';
+                return 'bg-blue';
             }
 
             if (item.canVisit) {
-                return 'bg-white';
+                return 'bg-blue-light';
             }
 
             return 'bg-grey-off-dark';

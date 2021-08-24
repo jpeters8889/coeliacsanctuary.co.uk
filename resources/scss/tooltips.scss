@@ -1,46 +1,51 @@
-.tooltip {
-    @apply block z-50 shadow-xl;
-}
+@layer components {
+    .tooltip {
+        @apply block z-50 shadow-xl;
 
-.tooltip .tooltip-inner {
-    @apply rounded px-8 py-1 font-semibold;
-}
+        .tooltip-inner {
+            @apply rounded px-8 py-1 font-semibold;
+        }
 
-.tooltip.p-2 .tooltip-inner {
-    @apply p-0;
-}
+        &.p-2 .tooltip-inner {
+            @apply p-0;
+        }
 
-.tooltip[x-placement^="top"] {
-    @apply mb-2;
-}
+        &[x-placement^="top"] {
+            @apply mb-2;
+        }
 
-.tooltip[x-placement^="bottom"] {
-    @apply mt-2;
-}
+        &[x-placement^="bottom"] {
+            @apply mt-2;
+        }
 
-.tooltip[x-placement^="bottom-start"] {
-    @apply mt-2 left-0;
-}
+        &[x-placement^="bottom-start"] {
+            @apply mt-2 left-0;
+        }
 
-.tooltip[x-placement^="left"] {
-    @apply mr-2;
-}
+        &[x-placement^="left"] {
+            @apply mr-2;
+        }
 
-.tooltip.popover .popover-inner {
-    @apply bg-blue p-6 rounded shadow;
-}
+        &.popover {
+            .popover-inner {
+                @apply bg-blue p-6 rounded shadow;
+            }
 
-.tooltip.popover .popover-arrow {
-    border-width: 8px;
-}
+            .popover-arrow {
+                border-width: 8px;
+            }
+        }
 
-.tooltip[aria-hidden='true'] {
-    @apply invisible opacity-0;
-    transition: opacity .15s, visibility .15s;
-}
+        &[aria-hidden='true'] {
+            visibility: hidden;
+            @apply  opacity-0;
+            transition: opacity .15s, visibility .15s;
+        }
 
-.tooltip[aria-hidden='false'] {
-    @apply visible opacity-100;
-
-    transition: opacity .15s;
+        &[aria-hidden='false'] {
+            visibility: visible;
+            @apply opacity-100;
+            transition: opacity .15s;
+        }
+    }
 }

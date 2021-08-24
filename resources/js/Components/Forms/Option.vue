@@ -1,10 +1,14 @@
 <template>
     <div class="flex flex-col">
-        <span class="font-semibold text-lg mb-2">{{ label }}</span>
+        <span class="font-semibold text-lg mb-2" v-if="label">{{ label }}</span>
         <div v-for="option in options" class="flex items-center cursor-pointer" @click="changeOption(option.value)">
             <div class="p-2 pl-0">
-                <div class="border border-grey-off bg-grey-lightest p-1 text-xl"
-                     :class="option.value === currentValue ? 'text-green' : 'text-grey-off-light'">
+                <div
+                    class="border p-1 text-xl rounded"
+                    :class="option.value === currentValue ?
+                        'text-white bg-blue-light border-blue-light' :
+                        'border-grey-off text-grey-off-light bg-grey-lightest'
+                ">
                     <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
                 </div>
             </div>
@@ -26,10 +30,6 @@ export default {
             required: true,
             type: Array,
         },
-        label: {
-            required: true,
-            type: String,
-        }
     },
 
     methods: {

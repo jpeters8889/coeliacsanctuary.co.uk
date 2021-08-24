@@ -158,7 +158,7 @@ class DailyUpdatePreprocessor
 
     protected function pushEatery(WhereToEat $eatery): void
     {
-        $eatery->load(['county', 'town']);
+        $eatery->load(['country', 'county', 'town']);
 
         $this->eateries->get('items')->push([
             'id' => $eatery->id,
@@ -172,6 +172,8 @@ class DailyUpdatePreprocessor
 
     protected function pushBlog(Blog $blog): void
     {
+        $blog->load('images');
+
         $this->blogs->get('items')->push([
             'id' => $blog->id,
             'title' => $blog->title,

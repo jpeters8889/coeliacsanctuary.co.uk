@@ -252,7 +252,7 @@ export default {
                 return base.concat(['bottom-0', 'left-0', 'bg-yellow', 'slide-up', 'w-full', 'z-max', 'lg:bg-grey-lightest', 'fixed', 'lg:sticky', 'lg:no-animation', 'lg:top-130px', 'lg:bottom-auto', 'lg:z-auto'])
             }
 
-            return base.concat(['bg-blue-light-20', 'lg:bg-grey-lightest']);
+            return base.concat(['bg-blue-light', 'bg-opacity-20', 'lg:bg-grey-lightest', 'lg:bg-opacity-100']);
         }
     },
 

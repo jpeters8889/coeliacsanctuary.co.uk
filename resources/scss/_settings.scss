@@ -1,30 +1,23 @@
-//@font-face {
-//    font-family: "Notethis";
-//    src: url('/assets/fonts/Notethis.ttf') format('truetype');
-//    src: url('/assets/fonts/Notethis.eot');
-//    src: url('/assets/fonts/Notethis.eot?iefix') format('embedded-opentype');
-//    src: url('/assets/fonts/Notethis.woff') format('woff');
-//    font-display: swap;
-//}
-
-html {
-    font-size: 16px;
-}
-
-@media only screen and (min-width: 600px) {
+@layer base {
     html {
-        font-size: 18px;
+        font-size: 16px;
     }
-}
 
-@media only screen and (min-width: 950px) {
-    html {
-        font-size: 20px;
+    @media only screen and (min-width: 600px) {
+        html {
+            font-size: 18px;
+        }
     }
-}
 
-@media only screen and (min-width: 1500px) {
-    html {
-        font-size: 22px;
+    @media only screen and (min-width: 950px) {
+        html {
+            font-size: 20px;
+        }
+    }
+
+    @media only screen and (min-width: 1500px) {
+        html {
+            font-size: 22px;
+        }
     }
 }

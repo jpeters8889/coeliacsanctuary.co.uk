@@ -8,7 +8,7 @@
             </h1>
 
             <div class="grid grid-cols 1 gap-y-3 lg:gap-y-0 sm:gap-x-3 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="bg-blue-light-50 rounded-lg p-3">
+                <div class="bg-blue-light bg-opacity-50 rounded-lg p-3">
                     <a title="Coeliac Information" href="/info/coeliac" class="flex flex-col items-center text-center">
                         <img src="{{ asset('assets/images/misc/info-index-coeliac.png') }}" alt="">
                         <h2 class="text-lg font-semibold mb-1">Coeliac Information</h2>
@@ -16,7 +16,7 @@
                     </a>
                 </div>
 
-                <div class="bg-blue-light-50 rounded-lg p-3">
+                <div class="bg-blue-light bg-opacity-50 rounded-lg p-3">
                     <a title="Shopping List" href="/info/shopping-list" class="flex flex-col items-center text-center">
                         <img src="{{ asset('assets/images/misc/info-index-shopping.png') }}" alt="">
                         <h2 class="text-lg font-semibold mb-1">Shopping List</h2>
@@ -24,7 +24,7 @@
                     </a>
                 </div>
 
-                <div class="bg-blue-light-50 rounded-lg p-3">
+                <div class="bg-blue-light bg-opacity-50 rounded-lg p-3">
                     <a title="Storecupboard Checklist" href="/info/storecupboard-check" class="flex flex-col items-center text-center">
                         <img src="{{ asset('assets/images/misc/info-index-storecupboard.png') }}" alt="">
                         <h2 class="text-lg font-semibold mb-1">Storecupboard Checklist</h2>
@@ -32,7 +32,7 @@
                     </a>
                 </div>
 
-                <div class="bg-blue-light-50 rounded-lg p-3">
+                <div class="bg-blue-light bg-opacity-50 rounded-lg p-3">
                     <a title="Gluten Challenge" href="/info/gluten-challenge" class="flex flex-col items-center text-center">
                         <img src="{{ asset('assets/images/misc/info-index-challenge.png') }}" alt="">
                         <h2 class="text-lg font-semibold mb-1">Gluten Challenge</h2>

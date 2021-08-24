@@ -5,7 +5,7 @@
         </div>
 
         <div v-else class="mt-2 flex flex-col space-y-2 sm:flex-wrap sm:flex-row justify-between sm:-mx-1">
-            <div v-for="subscription in subscriptions" class="w-full bg-blue-gradient-30 rounded p-2 flex">
+            <div v-for="subscription in subscriptions" class="w-full bg-gradient-to-br from-blue/30 to-blue-light/30 rounded p-2 flex">
                 <div class="flex flex-col flex-1">
                     <h2 class="text-lg font-semibold">{{ subscription.type.name }}</h2>
                     <p class="mb-2">{{ subscription.type.description }}</p>
@@ -22,7 +22,7 @@
                     </p>
                 </div>
                 <div @click="confirmUnsubscribe = subscription"
-                     class="ml-2 flex flex-col items-center cursor-pointer pt-2 text-grey opacity-50 hover:opacity-100 hover:text-blue-dark transition-colour">
+                     class="ml-2 flex flex-col items-center cursor-pointer pt-2 text-grey opacity-50 hover:opacity-100 hover:text-blue-dark transition-all">
                     <font-awesome-icon class="text-5xl" :icon="['far', 'trash-alt']"></font-awesome-icon>
                     <span class="text-xs pt-1 font-semibold">Unsubscribe</span>
                 </div>
@@ -30,10 +30,9 @@
         </div>
 
         <portal to="modal" v-if="confirmUnsubscribe">
-            <modal small name="delete-scrapbook">
-                <p>Are you sure you want to delete your {{ confirmUnsubscribe.type.name }} daily update subscription to
-                    '{{ confirmUnsubscribe.subscribable.name }}'?</p>
-                <div class="flex space-x-4 justify-center mt-2">
+            <modal small name="delete-scrapbook"
+                   :title="'Are you sure you want to delete your '+confirmUnsubscribe.type.name+' daily update subscription to '+confirmUnsubscribe.updatable.name+'?'">
+                <div class="flex space-x-4 justify-center p-3">
                     <a class="rounded leading-none px-4 py-2 bg-blue hover:bg-blue-light hover:shadow cursor-pointer"
                        @click="closeConfirmationModal">
                         No
@@ -95,7 +94,7 @@ export default {
         unsubscribe() {
             coeliac().request().delete(`/api/member/dashboard/daily-updates/${this.confirmUnsubscribe.id}`)
                 .then(() => {
-                    coeliac().success(`You're now unsubscribed from getting daily updates about ${this.confirmUnsubscribe.type.name} ${this.confirmUnsubscribe.subscribable.name}`);
+                    coeliac().success(`You're now unsubscribed from getting daily updates about ${this.confirmUnsubscribe.type.name} ${this.confirmUnsubscribe.updatable.name}`);
                     this.loadSubscriptions();
                 })
                 .catch(() => {

@@ -25,7 +25,7 @@
         </p>
 
         <button
-            class="mt-2 bg-blue-50 border border-blue rounded-lg px-6 py-2 text-xl text-black transition-bg hover:bg-blue-20"
+            class="mt-2 bg-blue bg-opacity-50 border border-blue rounded-lg px-6 py-2 text-xl text-black transition-all hover:bg-opacity-20"
             @click.prevent="submitForm()">
             Submit Comment
         </button>

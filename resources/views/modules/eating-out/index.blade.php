@@ -8,7 +8,7 @@
             </h1>
 
             <div class="grid grid-cols 1 gap-y-3 lg:gap-y-0 sm:gap-x-3 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="bg-blue-light-50 rounded-lg p-3">
+                <div class="bg-blue-light bg-opacity-50 rounded-lg p-3">
                     <a title="UK and Ireland Gluten Free Eateries" href="/wheretoeat"
                        class="flex flex-col items-center text-center">
                         <img src="{{ asset('assets/images/misc/wte_index_eateries.png') }}" alt="">
@@ -20,7 +20,7 @@
                     </a>
                 </div>
 
-                <div class="bg-blue-light-50 rounded-lg p-3">
+                <div class="bg-blue-light bg-opacity-50 rounded-lg p-3">
                     <a title="UK and Ireland Gluten Free Eateries" href="/wheretoeat/browse"
                        class="flex flex-col items-center text-center">
                         <img src="{{ asset('assets/images/misc/wte_index_map.png') }}" alt="">
@@ -32,7 +32,7 @@
                     </a>
                 </div>
 
-                <div class="bg-blue-light-50 rounded-lg p-3">
+                <div class="bg-blue-light bg-opacity-50 rounded-lg p-3">
                     <a title="Gluten Free Reviews" href="/review" class="flex flex-col items-center text-center">
                         <img src="{{ asset('assets/images/misc/wte_index_reviews.png') }}" alt="">
                         <h2 class="text-lg font-semibold mb-1">Our Reviews</h2>
@@ -40,7 +40,7 @@
                     </a>
                 </div>
 
-                <div class="bg-blue-light-50 rounded-lg p-3">
+                <div class="bg-blue-light bg-opacity-50 rounded-lg p-3">
                     <a title="Coeliac Sanctuary - On the Go Mobile App" href="/wheretoeat/coeliac-sanctuary-on-the-go"
                        class="flex flex-col items-center text-center">
                         <img src="{{ asset('assets/images/misc/wte_index_app.png') }}" alt="">

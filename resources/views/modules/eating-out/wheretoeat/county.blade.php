@@ -8,7 +8,7 @@
             </h1>
 
             <h6 class="text-center -mt-4 pt-1">
-                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="/wheretoeat">
+                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-all" href="/wheretoeat">
                     Back to eating out guide...
                 </a>
             </h6>
@@ -27,7 +27,7 @@
                 <p class="mt-2">
                     Do you know somewhere that offers gluten free that we should add to our guide, or do you know
                     somewhere need removing off our list?
-                    <a class="font-semibold hover:text-grey transition-color" href="/wheretoeat/recommend-a-place">
+                    <a class="font-semibold hover:text-grey transition-all" href="/wheretoeat/recommend-a-place">
                         Let us know!
                     </a>
                 </p>
@@ -61,7 +61,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-3">
                     @foreach($topPlaces as $topPlace)
-                        <div class="bg-blue-gradient-50 rounded p-2 space-y-2 shadow flex flex-col">
+                        <div class="bg-gradient-to-br from-blue/50 to-blue-light/50 rounded p-2 space-y-2 shadow flex flex-col">
                             <h3 class="text-xl font-semibold">{{ $topPlace->name }}</h3>
                             <div class="font-semibold text-grey flex justify-between">
                                 <a href="/wheretoeat/{{ $topPlace->county->slug }}/{{ $topPlace->town->slug }}">
@@ -101,7 +101,7 @@
 
             <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-2 my-3">
                 @foreach($towns as $town)
-                    <div class="block bg-blue-gradient-50 rounded p-2 space-y-2 shadow">
+                    <div class="block bg-gradient-to-br from-blue/50 to-blue-light/50 rounded p-2 space-y-2 shadow">
                         <a href="/wheretoeat/{{ $slug }}/{{ $town->slug }}">
                             <h3 class="text-lg font-semibold mb-2">
                                 {{ $town->town }}
@@ -145,7 +145,7 @@
                 <div class="w-full flex flex-col -mb-4 sm:flex-row">
                     @foreach($reviews as $review)
                         <div
-                            class="w-full sm:w-1/2 rounded-lg overflow-hidden flex flex-col shadow-md mb-4 bg-blue-gradient {{ $loop->first ? 'sm:mr-3' : '' }}">
+                            class="w-full sm:w-1/2 rounded-lg overflow-hidden flex flex-col shadow-md mb-4 bg-gradient-to-br from-blue to-blue-light {{ $loop->first ? 'sm:mr-3' : '' }}">
                             <div>
                                 <img data-src="{{ $review->main_image }}" alt="{{ $review->title }}"
                                      loading="lazy"

@@ -6,7 +6,7 @@
             <h1 class="my-4 p-3 text-3xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
                 Gluten Free Search Results for {{ $search->term }}<br/>
                 <h6 class="text-center -mt-4 pt-1">
-                    <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="/wheretoeat">
+                    <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-all" href="/wheretoeat">
                         Back to the Eating Out guide
                     </a>
                 </h6>

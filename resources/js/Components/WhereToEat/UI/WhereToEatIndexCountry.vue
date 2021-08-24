@@ -1,5 +1,5 @@
 <template>
-    <div class="block bg-blue-gradient-50 rounded p-2 space-y-2 shadow ">
+    <div class="block bg-gradient-to-br from-blue/50 to-blue-light/50 rounded p-2 space-y-2 shadow ">
         <div @click="toggle()" class="cursor-pointer z-10">
             <h3 class="text-lg font-semibold mb-2">{{ country }}</h3>
 

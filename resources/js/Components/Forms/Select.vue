@@ -5,7 +5,7 @@
             <span v-if="required" class="text-red">*</span>
         </span>
 
-        <div class="flex overflow-hidden border border-blue rounded">
+        <div class="flex overflow-hidden border rounded" :class="borderClass">
             <div class="bg-grey-lightest p-0 flex-1">
                 <select :name="name" v-model="currentValue" @blur="validate()"
                         class="w-full bg-transparent border-0 m-0 text-grey-darkest" :class="padding">

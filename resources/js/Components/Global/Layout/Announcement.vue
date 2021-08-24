@@ -3,7 +3,7 @@
         <div class="bg-red-dark p-1 text-center text-white">
             <div class="flex flex-col">
                 <slot name="title" class="mb-2 font-semibold"></slot>
-                <a class="cursor-pointer text-white-80 text-sm hover:text-white hover:underline transition-color"
+                <a class="cursor-pointer text-white text-opacity-80 text-sm hover:text-opacity-100 hover:underline transition-all"
                    @click="showModal = true">
                     Read more
                 </a>

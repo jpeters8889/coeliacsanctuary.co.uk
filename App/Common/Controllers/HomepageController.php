@@ -51,7 +51,6 @@ class HomepageController extends BaseController
                         'count' => $stats->get('wte_count'),
                     ],
                 ],
-                'heros' => $service->hereoImagesArray(),
             ]);
     }
 }
