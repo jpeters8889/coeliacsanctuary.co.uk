@@ -26,6 +26,7 @@ class ApplyMassDiscounts extends Command
                 $discount->assignedCategories
                     ->each(static function (ShopCategory $category) use ($discount) {
                         $category->products()
+                            ->with('prices')
                             ->whereHas('variants', fn ($query) => $query->where('live', 1))
                             ->each(static function (ShopProduct $product) use ($discount) {
                                 $product->prices()->create([

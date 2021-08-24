@@ -1,9 +1,9 @@
-@extends('templates.page-two-column')
+@extends('templates.page-single-column')
 
 @section('primary-column')
     <div class="flex flex-col"chunk>
         <div class="page-box">
-            <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
+            <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
                 Work With Coeliac Sanctuary
             </h1>
 
@@ -20,7 +20,7 @@
                     social media following of over 20,000 spread across Facebook, Instagram and Twitter.
                 </p>
                 <h3>Here is just a few companies I have had the pleasure of working with in the past!</h3>
-                <div class="flex flex-col my-2 py-2 border-t border-b border-blue-light-50">
+                <div class="flex flex-col my-2 py-2 border-t border-b border-blue-light border-opacity-50">
                     <h2 class="font-semibold font-coeliac text-3xl">Juvela</h2>
                     <p>
                         <img
@@ -49,7 +49,7 @@
                     </ul>
                 </div>
 
-                <div class="flex flex-col my-2 py-2 border-b border-blue-light-50">
+                <div class="flex flex-col my-2 py-2 border-b border-blue-light border-opacity-50">
                     <h2 class="font-semibold font-coeliac text-3xl">Hull Pie Company</h2>
                     <p>
                         <img data-src="{{ asset('assets/images/misc/work-with-us/pie-logo.png') }}"
@@ -67,7 +67,7 @@
                     </ul>
                 </div>
 
-                <div class="flex flex-col my-2 py-2 border-b border-blue-light-50">
+                <div class="flex flex-col my-2 py-2 border-b border-blue-light border-opacity-50">
                     <h2 class="font-semibold font-coeliac text-3xl">Schwartz</h2>
                     <p>
                         <img data-src="{{ asset('assets/images/misc/work-with-us/schwartz-logo.png') }}"
@@ -90,7 +90,7 @@
                     </ul>
                 </div>
 
-                <div class="flex flex-col my-2 py-2 border-b border-blue-light-50">
+                <div class="flex flex-col my-2 py-2 border-b border-blue-light border-opacity-50">
                     <h2 class="font-semibold font-coeliac text-3xl">Morrisons</h2>
                     <p>
                         <img data-src="{{ asset('assets/images/misc/work-with-us/morrisons-logo.png') }}"
@@ -112,14 +112,3 @@
     </div>
 @endsection
 
-@section('secondary-column')
-    <div class="flex flex-col">
-        <x-widget class="mb-3" title="Sign up to our newsletter">
-            <global-ui-newsletter-signup />
-        </x-widget>
-
-        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
-
-        @include('components.related-item', [$related, $title = 'Recent Blogs'])
-    </div>
-@endsection

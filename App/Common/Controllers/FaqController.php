@@ -11,7 +11,7 @@ use Coeliac\Base\Controllers\BaseController;
 
 class FaqController extends BaseController
 {
-    public function get(Page $page, Repository $repository)
+    public function get(Page $page)
     {
         return $page
             ->breadcrumbs([], 'FAQ')
@@ -20,8 +20,7 @@ class FaqController extends BaseController
             ->setMetaKeywords(['faq', 'frequently asking questions', 'coeliac questions', 'coeliac diagnosis', 'gluten free diet', 'coeliac sanctuary questions'])
             ->setSocialImage(asset('assets/images/shares/faq.jpg'))
             ->render('pages.faq', [
-                'accordions' => Accordion::query()->faq()->get(),
-                'related' => $repository->take(3),
+                'accordions' => Accordion::query()->faq()->get()
             ]);
     }
 }

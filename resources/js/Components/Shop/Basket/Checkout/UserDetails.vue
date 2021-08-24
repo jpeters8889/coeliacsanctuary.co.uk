@@ -1,31 +1,30 @@
 <template>
-    <div class="flex flex-col leading-none">
-        <div class="py-1">
-            <form-input required placeholder="Your Name" name="name" :value="formData.name"></form-input>
-        </div>
+    <div class="flex flex-col leading-none space-y-3">
+        <h3 class="text-xl font-semibold">Your Details</h3>
 
-        <div class="py-1">
-            <form-input required type="email" placeholder="Your Email" name="email"
-                        :value="formData.email"></form-input>
-        </div>
+        <p class="leading-normal">
+            To start the checkout process we just need some basic details from you including your name, the email
+            address for your order confirmation, and optionally, a telephone number.
+        </p>
 
-        <div class="py-1">
-            <form-input required type="email" placeholder="Confirm your Email" name="emailConfirmation"
-                        :value="formData.emailConfirmation" :match="formData.email"></form-input>
-        </div>
+        <form-input required label="Your Name" name="name" :value="formData.name"
+                    border-class="border-grey-off"></form-input>
 
-        <div class="py-1">
-            <form-input type="tel" placeholder="Your Phone Number (Optional)" name="phone"
-                        :value="formData.phone" :pattern="/[0-9\-+ ]+/"></form-input>
-        </div>
+        <form-input required type="email" label="Your Email" name="email" border-class="border-grey-off"
+                    :value="formData.email"></form-input>
 
-        <div class="py-1 text-right">
-            <button class="py-3 px-6 rounded-lg font-semibold"
-                    :class="isDisabled ? 'bg-yellow-50 cursor-not-allowed' : 'bg-yellow'" :disabled="isDisabled"
-                    @click="submitForm('user-details')">
-                Next...
-            </button>
-        </div>
+        <form-input required type="email" label="Confirm your Email" name="emailConfirmation"
+                    border-class="border-grey-off"
+                    :value="formData.emailConfirmation" :match="formData.email"></form-input>
+
+        <form-input type="tel" label="Your Phone Number" name="phone" border-class="border-grey-off"
+                    :value="formData.phone" :pattern="/[0-9\-+ ]+/"></form-input>
+
+        <button class="py-3 px-6 rounded-lg font-semibold"
+                :class="isDisabled ? 'bg-blue bg-opacity-50 cursor-not-allowed' : 'bg-blue'" :disabled="isDisabled"
+                @click="submitForm('user-details')">
+            Next...
+        </button>
     </div>
 </template>
 

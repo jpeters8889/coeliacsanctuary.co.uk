@@ -53,6 +53,7 @@ class SearchController extends BaseController
             ->shouldSearchReviews($request->input('areas.reviews'))
             ->shouldSearchEateries($request->input('areas.eateries'))
             ->shouldSearchProducts($request->input('areas.products'))
-            ->handle()->paginate(10);
+            ->handle()
+            ->paginate(10);
     }
 }

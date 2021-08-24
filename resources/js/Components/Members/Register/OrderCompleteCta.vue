@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white-50 rounded-lg mb-2 p-2 shadow lg:w-1/3 mr-2">
+    <div class="bg-white bg-opacity-50 rounded-lg mb-2 p-2 shadow lg:w-1/3 mr-2">
         <p class="text-center font-semibold">
             Why not create an account with us to be able to see your order history, create and manage
             personal scrapbooks, get notified about places to eat near you, and much more!
@@ -18,7 +18,7 @@
                            :value="fields.terms"/>
 
             <button
-                class="rounded-lg bg-blue leading-none text-lg font-semibold text-white hover:bg-blue-light transition-bg flex items-center justify-center"
+                class="rounded-lg bg-blue leading-none text-lg font-semibold text-white hover:bg-blue-light transition-all flex items-center justify-center"
                 style="height: 42px;"
                 :class="isSubmitting ? 'py-2' : 'py-3'"
                 :disabled="isSubmitting"
@@ -29,7 +29,7 @@
                         height="25px"
                         width="25px"
                         border-width="3px"
-                        faded-border-color="border-white-50"
+                        faded-border-color="border-white border-opacity-50"
                         primary-border-color="white">
                 </loader>
                 <span v-else>Join now!</span>

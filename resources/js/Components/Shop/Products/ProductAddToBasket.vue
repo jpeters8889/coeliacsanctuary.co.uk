@@ -1,24 +1,56 @@
 <template>
-    <div class="relative w-full bg-blue-light-20 border border-blue p-3 flex flex-col min-h-map-small">
-        <loader :show="loading"></loader>
-        <template v-if="!loading">
-            <div v-if="data.price.old_price" class="text-md text-center">
-                was <span class="font-semibold text-red line-through" v-html="formatPrice(data.price.old_price)"></span>
-                now
-            </div>
-            <div class="text-2xl font-semibold mb-4 text-center"
-                 v-html="formatPrice(data.price.current_price) + ' each'"></div>
-            <div v-if="data.variants.length > 1" class="flex flex-col">
-                <span class="font-semibold ml-1">Select Product Option</span>
-                <form-select required name="variant" :value="formData.variant.toString()"
-                             :options="variantOptions"></form-select>
-            </div>
-            <product-quantity :quantity="availableQuantity"></product-quantity>
-            <form-input required name="quantity" :value="formData.quantity.toString()" type="number"
-                        :min="1"></form-input>
-            <shop-basket-ui-add-product :product-id="productId" :variant-id="parseInt(formData.variant)"
-                                        :quantity="parseInt(formData.quantity)">
-                <button class="w-full p-2 bg-blue-light-80 border-blue text-center rounded mt-4 font-semibold">
+    <div v-if="loading">
+        <slot></slot>
+    </div>
+
+    <div v-else class="flex flex-col space-y-2">
+        <div class="text-lg">
+            <strong class="block text-blue-dark font-semibold">Price:</strong>
+            <template v-if="data.price.old_price">
+                <span>was</span>
+                <span class="font-semibold text-red line-through" v-html="formatPrice(data.price.old_price)"></span>
+                <span>now</span>
+            </template>
+            <span v-html="formatPrice(data.price.current_price)"></span>
+            <span>each</span>
+        </div>
+
+        <div v-if="data.variants.length > 1" class="flex flex-col">
+            <form-select
+                required
+                name="variant"
+                :value="formData.variant.toString()"
+                :options="variantOptions"
+                border-class="border-grey-off"
+                label="Product Option"
+            />
+        </div>
+
+        <div class="italic" v-if="availableQuantity === 0">
+            Sorry, this product is out of stock.
+        </div>
+
+        <template v-else>
+            <form-input
+                required
+                name="quantity"
+                :value="formData.quantity.toString()"
+                type="number"
+                :min="1"
+                border-class="border-grey-off"
+                label="Quantity"
+            />
+
+            <p v-if="availableQuantity <= 5" class="text-red">
+                Order soon, only {{ availableQuantity }} available!
+            </p>
+
+            <shop-basket-ui-add-product
+                :product-id="productId"
+                :variant-id="parseInt(formData.variant)"
+                :quantity="parseInt(formData.quantity)"
+            >
+                <button class="w-full p-2 bg-blue-light bg-opacity-80 border-blue text-center rounded mt-4 font-semibold">
                     Add to Basket
                 </button>
             </shop-basket-ui-add-product>
@@ -29,18 +61,13 @@
 <script>
 import FormatsPrices from "@/Mixins/FormatsPrices";
 
-const Loader = () => import('~/Global/UI/Loader' /* webpackChunkName: "chunk-loader" */)
-import ProductQuantity from "~/Shop/Products/ProductQuantity";
-
-const FormInput = () => import('~/Forms/Input' /* webpackChunkName: "chunk-form-input" */)
-const FormSelect = () => import('~/Forms/Select' /* webpackChunkName: "chunk-form-select" */)
+import FormInput from '~/Forms/Input'
+import FormSelect from '~/Forms/Select';
 
 export default {
     mixins: [FormatsPrices],
 
     components: {
-        'loader': Loader,
-        'product-quantity': ProductQuantity,
         'form-input': FormInput,
         'form-select': FormSelect,
     },
@@ -109,9 +136,10 @@ export default {
                     this.availableQuantity = this.data.variants[0].quantity;
 
                     this.watchers = {...this.formData};
-
-                    this.loading = false;
                 })
+            .finally(() => {
+                this.loading = false;
+            })
         }
     },
 
@@ -127,7 +155,7 @@ export default {
             });
 
             return rtr;
-        }
+        },
     },
 
     watch: {

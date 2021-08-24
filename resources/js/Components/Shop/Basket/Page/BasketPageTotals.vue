@@ -1,39 +1,37 @@
 <template>
-    <div class="bg-yellow rounded-lg p-2">
-        <table class="w-full text-lg">
-            <tr>
-                <td>Subtotal</td>
-                <td class="text-right" v-html="formatPrice(subtotal)"></td>
-            </tr>
-            <tr v-if="discount && Object.keys(discount).length > 0">
-                <td>
-                    {{ discount.name }}
-                </td>
-                <td class="text-right" v-html="'-'+formatPrice(discount.deduction)"></td>
-            </tr>
-            <tr>
-                <td v-if="!disabledChange">
-                    Postage to
-                    <form-select v-if="!disabledChange" required name="country" :options="countries"
-                                 :value="country.toString()"
-                                 padding="p-1"/>
-                </td>
-                <td v-else>
-                    Postage
-                </td>
-                <td class="text-right" v-html="formatPrice(postage)"></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    Usually dispatched in {{ dispatch }} days
-                </td>
-            </tr>
-            <tr class="text-xl font-semibold">
-                <td>Grand Total</td>
-                <td class="text-right" v-html="formatPrice(total)"></td>
-            </tr>
-        </table>
-    </div>
+    <table class="w-full text-lg">
+        <tr class="border-b border-blue-light">
+            <td class="py-2 font-semibold">Subtotal</td>
+            <td class="text-right" v-html="formatPrice(subtotal)"></td>
+        </tr>
+        <tr v-if="discount && Object.keys(discount).length > 0" class="border-b border-blue-light">
+            <td class="py-2 font-semibold">
+                {{ discount.name }}
+            </td>
+            <td class="text-right" v-html="'-'+formatPrice(discount.deduction)"></td>
+        </tr>
+        <tr>
+            <td v-if="!disabledChange" class="pt-2 font-semibold">
+                Postage to
+                <form-select v-if="!disabledChange" required name="country" :options="countries"
+                             :value="country.toString()" border-class="border-grey"
+                             padding="p-1"/>
+            </td>
+            <td v-else class="py-2 font-semibold">
+                Postage
+            </td>
+            <td class="text-right" v-html="formatPrice(postage)"></td>
+        </tr>
+        <tr class="border-b border-blue-light">
+            <td colspan="2" class="pb-2 text-sm">
+                Usually dispatched in {{ dispatch }} days
+            </td>
+        </tr>
+        <tr class="text-xl font-semibold">
+            <td class="py-2">Grand Total</td>
+            <td class="text-right" v-html="formatPrice(total)"></td>
+        </tr>
+    </table>
 </template>
 
 <script>

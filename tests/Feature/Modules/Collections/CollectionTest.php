@@ -33,11 +33,11 @@ class CollectionTest extends TestCase
     {
         $this->get('/collection')
             ->assertStatus(200)
-            ->assertSee('<module-list-index module="collection" title="Collections" url-prefix="collection" :show-filter-bar="false">', false);
+            ->assertSee('<module-list-index module="collection" title="Collections" url-prefix="collection" :show-filter-bar="false"', false);
     }
 
     /** @test */
-    public function itLoadsTheBlogApiEndpoint()
+    public function itLoadsTheCollectionsApiEndpoint()
     {
         $max = [];
 

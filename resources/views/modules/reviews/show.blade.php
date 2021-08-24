@@ -1,18 +1,15 @@
-@extends('templates.page-two-column')
+@extends('templates.page-single-column')
 
 @section('primary-column')
-    <div class="flex flex-col" chunk>
-        <div>
-            <img data-src="{{ $review->main_image }}"
-                 src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 2'%3E%3C/svg%3E"
-                 loading="lazy" class="lazy" alt="{{ $review->title }}"/>
-        </div>
+    <div class="flex flex-col space-y-3 max-w-images mx-auto">
+        <div class="page-box shadow">
+            <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
+                {{ $review->title }}, {{ $review->eatery->town->town }}, {{ $review->eatery->county->county }}
+            </h1>
 
-        <div class="page-box p-3">
-            <div class="bg-blue-gradient-30 -mx-3 my-2 p-3 flex-flex-col">
-                <h1 class="text-3xl font-coeliac text-center font-semibold leading-tight lg:text-left">
-                    {{ $review->title }}, {{ $review->eatery->town->town }}, {{ $review->eatery->county->county }}
-                </h1>
+            <p class="text-lg my-2 font-medium leading-relaxed">{!! $review->eatery->info !!}</p>
+
+            <div class="bg-grey-light border-t border-grey-off-light -m-3 mt-3 p-3 flex flex-col space-y-2">
                 <div class="flex flex-col sm:flex-row">
                     <div class="flex flex-col sm:w-1/2">
                         <ul class="text-center sm:text-left">
@@ -57,30 +54,64 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="border-t border-grey-off">
+                    <p class="mt-2">Added
+                        <time datetime="{{ $review->created_at }}">{{ formatDate($review->created_at) }}</time>
+                    </p>
+                    @if(!$review->updated_at->isSameDay($review->created_at))
+                        <p>Updated
+                            <time datetime="{{ $review->updated_at }}">{{ formatDate($review->updated_at) }}</time>
+                        </p>
+                    @endif
+                </div>
             </div>
+        </div>
 
-            <global-ui-google-ad code="2925914349"></global-ui-google-ad>
+        <div class="shadow">
+            <img data-src="{{ $review->main_image }}"
+                 src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 2'%3E%3C/svg%3E"
+                 loading="lazy" class="lazy" alt="{{ $review->title }}"/>
+        </div>
 
+        @if($featured)
+            <div class="page-box p-3 shadow">
+                <h3 class="font-semibold text-base text-grey-darkest">This blog was featured in:</h3>
+                <ul class="flex flex-row flex-wrap text-sm leading-tight">
+                    @foreach($featured as $feature)
+                        <li>
+                            <a class="font-semibold text-blue-dark hover:text-grey-darker" href="{{ $feature->link }}">
+                                {{ $feature->title  }}</a>@if(!$loop->last),&nbsp;
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <global-ui-google-ad code="2925914349"></global-ui-google-ad>
+
+        <div class="page-box p-3 shadow">
             <article>
                 {!! $review->body !!}
             </article>
-
-            <global-ui-google-ad code="3472709255"></global-ui-google-ad>
         </div>
 
-        <div class="page-box p-3 mt-3">
+        <global-ui-google-ad code="3472709255"></global-ui-google-ad>
+
+        <div class="page-box p-3 shadow">
             <h2 class="text-2xl my-2 font-semibold font-coeliac">Your Comments</h2>
 
             <div class="flex flex-col -mb-3">
                 @forelse($review->comments as $comment)
-                    <div class="flex flex-col bg-blue-gradient-30 p-3 border-l-8 border-yellow shadow mb-3">
+                    <div class="flex flex-col bg-gradient-to-br from-blue/30 to-blue-light/30 p-3 border-l-8 border-yellow shadow mb-3">
                         <div class="mb-2">{!! $comment->comment !!}</div>
                         <div class="flex text-xs font-medium text-grey">
                             <div class="mr-2">{{ $comment->name }}</div>
                             <div>{{ formatDate($comment->created_at) }}</div>
                         </div>
                         @if($comment->reply)
-                            <div class="flex mt-2 flex-col mt-3 bg-white-80 p-3">
+                            <div class="flex mt-2 flex-col mt-3 bg-white bg-opacity-80 p-3">
                                 <strong>Alison @ Coeliac Sanctuary replied to this comment
                                     on {{ formatDate($comment->reply->created_at) }}</strong>
                                 <p>{!! $comment->reply->comment_reply !!}</p>
@@ -97,26 +128,7 @@
 
         <modules-comment-form area="review" :id="{{ $review->id }}"></modules-comment-form>
 
-    </div>
-@endsection
-
-@section('secondary-column')
-    <div class="flex flex-col">
-        <x-widget class="mb-3" title="Search Reviews">
-            <search-ui-review-widget/>
-        </x-widget>
-
-        <x-widget class="mb-3" title="Sign up to our newsletter">
-            <global-ui-newsletter-signup />
-        </x-widget>
-
-        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
-
-        @if($featured)
-            @include('components.featured-in', $featured)
-        @endif
-
-        @include('components.related-item', $related)
+        <global-ui-google-ad code="7206823714"></global-ui-google-ad>
     </div>
 @endsection
 

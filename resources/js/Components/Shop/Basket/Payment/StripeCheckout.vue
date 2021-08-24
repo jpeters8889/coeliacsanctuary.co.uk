@@ -1,20 +1,19 @@
 <template>
     <div>
-        <div class="py-1 mt-4">
-            <span class="block font-semibold text-lg mb-2">
-                Payment Details
+        <div class="mb-3">
+            <span class="block text-lg text-blue-dark font-semibold">
+                Card Details
+                <span class="text-red">*</span>
             </span>
 
             <div id="stripe"></div>
         </div>
 
-        <div class="py-1 mt-4">
-            <button class="py-3 px-6 rounded-lg font-semibold w-full"
-                    :class="isDisabled ? 'bg-yellow-50 cursor-not-allowed' : 'bg-yellow'" :disabled="isDisabled"
-                    @click="initiatePayment()">
-                Pay Now
-            </button>
-        </div>
+        <button class="py-3 px-6 rounded-lg font-semibold w-full bg-blue-light"
+                :class="isDisabled ? 'bg-opacity-50 cursor-not-allowed' : ''" :disabled="isDisabled"
+                @click="initiatePayment()">
+            Pay Now
+        </button>
     </div>
 </template>
 
@@ -49,7 +48,7 @@ export default {
 
             this.cardElement = this.stripeElements.create('card', {
                 classes: {
-                    base: 'text-base border border-blue rounded bg-grey-lightest w-full p-3 m-0 text-grey-darkest text-grey-light'
+                    base: 'text-base border border-grey-off rounded bg-grey-lightest w-full p-3 m-0 text-grey-darkest text-grey-light'
                 },
                 hidePostalCode: true,
             });
@@ -62,6 +61,10 @@ export default {
         });
 
         this.$root.$on('initiate-payment', (data) => {
+            if(data.provider !== 'stripe') {
+                return;
+            }
+
             this.checkoutData = data;
             this.executePayment();
         });

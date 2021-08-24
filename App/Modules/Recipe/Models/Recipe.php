@@ -23,22 +23,22 @@ use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @property Carbon                     $created_at
+ * @property Carbon $created_at
  * @property Collection<RecipeAllergen> $allergens
- * @property mixed                      $live
- * @property mixed                      $title
- * @property mixed                      $author
- * @property mixed                      $meta_description
- * @property mixed                      $prep_time
- * @property mixed                      $cook_time
- * @property mixed                      $serving_size
- * @property RecipeNutrition            $nutrition
- * @property mixed                      $ingredients
- * @property mixed                      $body
- * @property mixed                      $meta_tags
- * @property Collection<RecipeFeature>  $features
- * @property string                     $method
- * @property string                     $description
+ * @property mixed $live
+ * @property mixed $title
+ * @property mixed $author
+ * @property mixed $meta_description
+ * @property mixed $prep_time
+ * @property mixed $cook_time
+ * @property mixed $serving_size
+ * @property RecipeNutrition $nutrition
+ * @property mixed $ingredients
+ * @property mixed $body
+ * @property mixed $meta_tags
+ * @property Collection<RecipeFeature> $features
+ * @property string $method
+ * @property string $description
  *
  * @method transform(array $array)
  */
@@ -72,6 +72,13 @@ class Recipe extends BaseModel implements HasComments
             'recipe_id',
             'allergen_type_id'
         )->withTimestamps();
+    }
+
+    public function containsAllergens()
+    {
+        return RecipeAllergen::query()
+            ->get()
+            ->reject(fn (RecipeAllergen $allergen) => $this->allergens->where('allergen', $allergen->allergen)->count());
     }
 
     public function features(): BelongsToMany
@@ -117,7 +124,7 @@ class Recipe extends BaseModel implements HasComments
 
     public function shouldBeSearchable(): bool
     {
-        return (bool) $this->live;
+        return (bool)$this->live;
     }
 
     public function getScoutKey()

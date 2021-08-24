@@ -5,7 +5,7 @@
 
     <div class="p-2 flex flex-col sm:flex-1 sm:py-0">
         <h2
-            class="text-2xl text-blue-darkest transition-color font-semibold font-coeliac leading-tight">
+            class="text-2xl text-blue-darkest transition-all font-semibold font-coeliac leading-tight">
             {{ $eatery->name }} -
             <a class="text-blue-dark hover:text-grey-dark" target="_blank"
                href="/wheretoeat/{{ $eatery->county->slug }}/{{ $eatery->town->slug }}">{{ $eatery->town->town }}</a>,
@@ -23,7 +23,7 @@
                 <a class="text-blue-dark font-semibold hover:text-black" target="_blank"
                    href="{{ $eatery->county->slug }}">{{ $eatery->county->county }}</a>
             </p>
-            <a class="py-1 px-2 rounded-lg font-semibold bg-blue-gradient-30 text-xs" target="_blank"
+            <a class="py-1 px-2 rounded-lg font-semibold bg-gradient-to-br from-blue/30 to-blue-light/30 text-xs" target="_blank"
                href="/wheretoeat">
                 Place to Eat
             </a>

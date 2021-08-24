@@ -1,6 +1,6 @@
 <template>
-    <div
-        class="mx-2 p-3 border-blue border rounded bg-blue-light-50 my-2 flex flex-col text-center sm:flex-row sm:text-left sm:justify-between">
+    <div id="header-basket-detail"
+        class="mx-2 p-3 border-blue border rounded bg-blue-light bg-opacity-50 my-2 flex flex-col text-center sm:flex-row sm:text-left sm:justify-between">
         <span>You have <strong>{{ items }}</strong> {{ itemText }} in your basket.</span>
         <a class="font-semibold hover:underline cursor-pointer" @click="viewBasket()">
             View Basket

@@ -46,10 +46,7 @@ class WhereToEatSearchController extends BaseController
             ->setPageTitle('Gluten Free Search Results for '.$searchTerm->term)
             ->setMetaDescription('Gluten Free Search Results for '.$searchTerm->term)
             ->render('modules.eating-out.wheretoeat.search', [
-                'search' => $searchTerm,
-                'related' => (new ReviewRepository())
-                    ->random()
-                    ->take(5),
+                'search' => $searchTerm
             ]);
     }
 }

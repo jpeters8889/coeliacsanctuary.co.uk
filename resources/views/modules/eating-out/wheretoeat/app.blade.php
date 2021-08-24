@@ -1,4 +1,4 @@
-@extends('templates.page-two-column')
+@extends('templates.page-single-column')
 
 @section('primary-column')
     <div class="flex flex-col" chunk>
@@ -8,12 +8,12 @@
             </h1>
 
             <h6 class="text-center -mt-4 mb-2 pt-1">
-                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color" href="/wheretoeat">
+                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-all" href="/wheretoeat">
                     Back to eating out guide...
                 </a>
             </h6>
 
-            <img class="mb-4" src="{{ asset('assets/images/shares/wheretoeat-app.jpg') }}"
+            <img class="mb-4 mx-auto" src="{{ asset('assets/images/shares/wheretoeat-app.jpg') }}"
                  alt="Coeliac Sanctuary - On the Go"/>
 
             <p class="mb-4">
@@ -47,32 +47,5 @@
             </p>
 
         </div>
-    </div>
-@endsection
-
-@section('secondary-column')
-    <div class="flex flex-col">
-        <x-widget class="mb-3" title="Sign up to our newsletter">
-            <global-ui-newsletter-signup/>
-        </x-widget>
-
-        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
-
-        <x-widget name="Random Reviews">
-            @foreach($related as $relatedRecipe)
-                <div
-                    class="w-full rounded-lg overflow-hidden flex flex-col shadow-md mb-4 bg-blue-gradient-30 {{ !$loop->last ? 'sm:mb-3' : '' }}">
-                    <div>
-                        <img src="{{ $relatedRecipe->main_image }}" alt="{{ $relatedRecipe->title }}"/>
-                    </div>
-                    <div class="p-2 flex flex-col h-full">
-                        <a href="{{ $relatedRecipe->link }}">
-                            <h3 class="font-bold hover:underline">{{ $relatedRecipe->title }}</h3>
-                        </a>
-                        <p class="flex-1">{{ $relatedRecipe->meta_description }}</p>
-                    </div>
-                </div>
-            @endforeach
-        </x-widget>
     </div>
 @endsection

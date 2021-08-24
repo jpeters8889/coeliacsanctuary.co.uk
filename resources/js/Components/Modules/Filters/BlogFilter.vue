@@ -32,7 +32,7 @@
 
                     <ul>
                         <li v-for="tag in filteredTags"
-                            class="py-1 border-b border-dashed border-grey-off-dark transition-bg cursor-pointer hover:bg-grey-off-dark"
+                            class="py-1 border-b border-dashed border-grey-off-dark transition-all cursor-pointer hover:bg-grey-off-dark"
                             @click.prevent="selectTag(tag)">
                             <span>{{ tag.title }}</span>
                             <span class="text-xs">({{ tag.blogs_count }} Blogs)</span>
@@ -69,7 +69,7 @@
                 <div class="p-2">
                     <ul v-if="years.length > 0">
                         <li v-for="year in years"
-                            class="py-1 border-b border-dashed border-grey-off-dark transition-bg cursor-pointer hover:bg-grey-off-dark"
+                            class="py-1 border-b border-dashed border-grey-off-dark transition-all cursor-pointer hover:bg-grey-off-dark"
                             @click.prevent="selectYear(year.year)">
                             <span>{{ year.year }}</span>
                             <span class="text-xs">({{ year.blogs_count }} Blogs)</span>

@@ -38,7 +38,7 @@ export default {
         },
         fadedBorderColor: {
             type: String,
-            default: 'border-blue-20',
+            default: 'border-blue border-opacity-20',
         },
         primaryBorderColor: {
             type: String,

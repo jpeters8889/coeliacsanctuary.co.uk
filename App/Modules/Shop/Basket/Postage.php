@@ -23,7 +23,7 @@ class Postage
         $weight = 0;
         $shippingMethod = 1;
 
-        $this->basket->model()->items()->with(['product', 'product.shippingMethod'])
+        $this->basket->model()->items()->with(['product', 'variant', 'product.shippingMethod'])
             ->each(static function (ShopOrderItem $item) use (&$weight, &$shippingMethod) {
                 $weight += $item->variant->weight * $item->quantity;
 

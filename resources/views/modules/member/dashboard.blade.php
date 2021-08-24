@@ -2,7 +2,7 @@
 
 @section('primary-column')
     @if(!$user->hasVerifiedEmail())
-        <div class="m-2 bg-red-20 border border-red rounded-lg p-2 text-lg text-red text-center font-semibold">
+        <div class="m-2 bg-red bg-opacity-20 border border-red rounded-lg p-2 text-lg text-red text-center font-semibold">
             <p>You must verify your email address to use your Dashboard!</p>
             <p class="mt-2">
                 <member-ui-verify-email-resend-trigger class="cursor-pointer">Resend verification email.

@@ -1,0 +1,48 @@
+@layer components {
+    .page-box {
+        @apply p-3 bg-white;
+
+        strong {
+            @apply font-semibold;
+        }
+
+        .iframe-wrapper {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%;
+
+            iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        article {
+            a {
+                @apply font-semibold text-blue-dark transition-all;
+
+                &:hover {
+                    @apply text-black;
+                }
+            }
+
+            a.text-black {
+                color: black !important;
+
+                &:hover {
+                    @apply underline;
+                }
+            }
+
+            blockquote {
+                @apply bg-blue-light bg-opacity-50 p-2 rounded shadow text-sm;
+            }
+        }
+    }
+}

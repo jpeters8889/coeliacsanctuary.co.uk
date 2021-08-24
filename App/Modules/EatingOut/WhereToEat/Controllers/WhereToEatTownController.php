@@ -48,9 +48,6 @@ class WhereToEatTownController extends BaseController
             ->render('modules.eating-out.wheretoeat.town', [
                 'county' => $county,
                 'town' => $town,
-                'related' => (new ReviewRepository())
-                    ->random()
-                    ->take(5),
             ]);
     }
 }

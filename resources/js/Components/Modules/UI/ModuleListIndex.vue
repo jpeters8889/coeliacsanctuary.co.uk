@@ -1,30 +1,33 @@
 <template>
     <div>
-        <div v-show="initialLoad">
-            <slot></slot>
-        </div>
+        <module-filter-slider
+            v-if="showFilterBar"
+            :show="showFilters"
+            :title="title"
+            :total-results="response.total"
+            :current-filters="filters"
+            :current-search="searchText"
+        ></module-filter-slider>
 
-        <div v-show="!initialLoad" class="page-box">
-            <module-filter-slider
-                v-if="showFilterBar"
-                :show="showFilters"
-                :title="title"
-                :total-results="response.total"
-                :current-filters="filters"
-                :current-search="searchText"
-            ></module-filter-slider>
+        <div class="flex flex-col space-y-3" v-show="!initialLoad">
 
-            <module-list-top-bar :title="title" :currentLayout="layout" :url-prefix="urlPrefix"
-                                 :show-filter-bar="showFilterBar"
-                                 :currentSearch="searchText"></module-list-top-bar>
+            <div class="bg-white p-4 flex flex-col space-y-3" v-if="showFilterBar || response.last_page > 1">
+                <module-list-top-bar
+                    :title="title"
+                    :show-filter-bar="showFilterBar"
+                    :currentSearch="searchText"
+                ></module-list-top-bar>
 
-            <pagination :current="response.current_page"
-                        :lastPage="response.last_page"
-                        :can-go-back="!! response.prev_page_url"
-                        :can-go-forward="!! response.next_page_url"
-            ></pagination>
+                <pagination
+                    :current="response.current_page"
+                    :lastPage="response.last_page"
+                    :can-go-back="!! response.prev_page_url"
+                    :can-go-forward="!! response.next_page_url"
+                ></pagination>
+            </div>
 
-            <div>
+            <div class="page-box"
+                 v-if="searchText !== '' || Object.values(filters).filter(arr => arr.length > 0).length">
                 <ul class="flex -m-1">
                     <li v-if="searchText !== ''"
                         class="m-1 bg-blue-light rounded-lg text-xs overflow-hidden flex justify-between">
@@ -52,26 +55,28 @@
                 <loader :show="true"></loader>
             </div>
 
-            <div v-else>
-                <div class="flex flex-col my-2 md:flex-row md:flex-wrap -mx-2" ref="items">
-                    <module-list-item
-                        v-for="(item, index) in response.data"
-                        :key="item.id"
-                        :module="module"
-                        :item="item"
-                        :index="index"
-                        :page="currentPage"
-                        :layout="layout"
-                        :has-filters="hasFilters">
-                    </module-list-item>
-                </div>
+            <div v-else class="grid grid-cols-1 gap-y-3 md:grid-cols-6 md:gap-x-3" ref="items">
+                <module-list-item
+                    v-for="(item, index) in response.data"
+                    :key="item.id"
+                    :module="module"
+                    :item="item"
+                    :index="index"
+                    :page="currentPage"
+                    :layout="layout"
+                    :url-prefix="urlPrefix"
+                    :has-filters="hasFilters">
+                </module-list-item>
             </div>
 
-            <pagination :current="response.current_page"
-                        :lastPage="response.last_page"
-                        :can-go-back="!! response.prev_page_url"
-                        :can-go-forward="!! response.next_page_url"
-            ></pagination>
+            <div class="page-box">
+                <pagination
+                    :current="response.current_page"
+                    :lastPage="response.last_page"
+                    :can-go-back="!! response.prev_page_url"
+                    :can-go-forward="!! response.next_page_url"
+                ></pagination>
+            </div>
         </div>
     </div>
 </template>

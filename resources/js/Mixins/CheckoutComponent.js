@@ -10,6 +10,9 @@ export default {
     },
 
     props: {
+        name: {
+            type: String,
+        },
         defaultData: {
             type: Object,
             required: true,

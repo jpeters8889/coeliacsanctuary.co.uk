@@ -7,14 +7,14 @@
         </div>
 
         <div v-if="showSelectScrapbook">
-            <div class="fixed top-0 left-0 bg-black-20 w-screen h-screen z-max" @click="showSelectScrapbook = false"
+            <div class="fixed top-0 left-0 bg-black bg-opacity-20 w-screen h-screen z-max" @click="showSelectScrapbook = false"
                  @keypress.escape="showSelectScrapbook = false"></div>
 
             <div class="absolute w-full bg-white left-0 right-0 shadow-xl rounded z-max mt-2">
                 <ul>
                     <li v-for="scrapbook in scrapbooks"
                         @click="addToScrapbook(scrapbook.id)"
-                        class="py-3 text-center text-lg border-b border-grey-off last:border-0 hover:bg-grey-off-light cursor-pointer transition-bg">
+                        class="py-3 text-center text-lg border-b border-grey-off last:border-0 hover:bg-grey-off-light cursor-pointer transition-all">
                         {{ scrapbook.name }}
                     </li>
                 </ul>
@@ -22,16 +22,19 @@
         </div>
 
         <portal to="modal" v-if="showUserCta">
-            <modal small name="userCta" modal-classes="text-center text-lg">
-                <p>You must be signed in to add this {{ area }} to your scrapbook.</p>
-                <p>
-                    <a href="/member/register" class="font-semibold hover:text-blue-dark cursor-pointer">Create an
-                        account</a>
-                </p>
-                <p>
-                    Already got one? <a href="/member/login" class="font-semibold hover:text-blue-dark cursor-pointer">Log
-                    in now.</a>
-                </p>
+            <modal small name="userCta" modal-classes="text-center text-lg" title="Ooops!">
+                <div class="p-3 flex flex-col space-y-3 leading-tight">
+                    <p>You must be signed in to add this {{ area }} to your scrapbook.</p>
+                    <p>
+                        <a href="/member/register" class="font-semibold hover:text-blue-dark cursor-pointer">Create an
+                            account</a>
+                    </p>
+                    <p>
+                        Already got one? <a href="/member/login"
+                                            class="font-semibold hover:text-blue-dark cursor-pointer">Log
+                        in now.</a>
+                    </p>
+                </div>
             </modal>
         </portal>
     </div>
@@ -39,12 +42,12 @@
 
 <script>
 import Vue from "vue";
-import VTooltip from "v-tooltip";
+import { VTooltip } from "v-tooltip";
 import InteractsWithUser from "@/Mixins/InteractsWithUser";
 
 const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
 
-Vue.use(VTooltip);
+Vue.directive('tooltip', VTooltip);
 
 export default {
     mixins: [InteractsWithUser],

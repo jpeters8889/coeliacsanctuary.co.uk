@@ -1,5 +1,5 @@
 <template>
-    <form class="bg-blue-gradient-30 p-2 rounded-lg mt-2" @submit.prevent="updatePassword">
+    <form class="bg-gradient-to-br from-blue/30 to-blue-light/30 p-2 rounded-lg mt-2" @submit.prevent="updatePassword">
         <h2 class="text-lg text-blue-dark font-semibold">Your Password</h2>
 
         <p class="text-sm ">
@@ -35,15 +35,15 @@
                 :disabled="!fields.current || submittingPassword"
                 @click.prevent="updatePassword"
                 style="min-width: 215px; height: 50px;"
-                :class="fields.current ? 'bg-blue hover:bg-blue-light hover:shadow cursor-pointer' : 'bg-blue-light-50 cursor-not-allowed'"
-                class="leading-none px-6 text-xl transition-bg">
+                :class="fields.current ? 'bg-blue hover:bg-blue-light hover:shadow cursor-pointer' : 'bg-blue-light bg-opacity-50 cursor-not-allowed'"
+                class="leading-none px-6 text-xl transition-all">
                 <loader background-position=""
                         v-if="submittingPassword"
                         :show="true"
                         height="25px"
                         width="25px"
                         border-width="3px"
-                        faded-border-color="border-black-50"
+                        faded-border-color="border-black border-opacity-50"
                         primary-border-color="black">
                 </loader>
                 <span v-else>Update Password</span>

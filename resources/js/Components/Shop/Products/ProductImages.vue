@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="relative w-full bg-blue-light-20 border border-blue p-3 flex flex-col min-h-map-small">
+        <div class="relative w-full flex flex-col min-h-map-small">
             <loader :show="loading"></loader>
             <div v-if="!loading">
                 <img :src="currentImage" alt="" class="w-full mb-3 cursor-pointer" style="max-height: 300px"

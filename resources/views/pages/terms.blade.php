@@ -8,7 +8,7 @@
             </h1>
 
             <div class="flex flex-col mt-4 main-body text-sm">
-                <div class="border-b border-blue-light-50 py-2">
+                <div class="border-b border-blue-light border-opacity-50 py-2">
                     <p>
                         We are not qualified medical professionals, therefore any information you take from Coeliac
                         Sanctuary is adhered to at your own risk. Always consult your doctor if you think you may have
@@ -24,13 +24,13 @@
                         Photography websites.
                     </p>
                 </div>
-                <div class="border-b border-blue-light-50 py-2">
+                <div class="border-b border-blue-light border-opacity-50 py-2">
                     <h2 class="text-blue-dark mb-2 text-xl font-coeliac font-semibold">Recipes</h2>
                     <p>
                         Recipes are developed and belong to Alison Wheatley or Jamie Peters unless otherwise specified.
                     </p>
                 </div>
-                <div class="border-b border-blue-light-50 py-2">
+                <div class="border-b border-blue-light border-opacity-50 py-2">
                     <h2 class="text-blue-dark mb-2 text-xl font-coeliac font-semibold">Eating Out</h2>
                     <p>
                         Where to eat venues are added as and when they are found or recommended to us, if you are a
@@ -51,7 +51,7 @@
                         right to not publish that review, and even remove that eatery from our database.
                     </p>
                 </div>
-                <div class="border-b border-blue-light-50 py-2">
+                <div class="border-b border-blue-light border-opacity-50 py-2">
                     <h2 class="text-blue-dark mb-2 text-xl font-coeliac font-semibold">Our Reviews</h2>
                     <p>
                         Star ratings on all reviews are applied based on the reviewers opinion at the time of visit or
@@ -62,7 +62,7 @@
                         public.
                     </p>
                 </div>
-                <div class="border-b border-blue-light-50 py-2">
+                <div class="border-b border-blue-light border-opacity-50 py-2">
                     <h2 class="text-blue-dark mb-2 text-xl font-coeliac font-semibold">Coeliac Sanctuary Newsletter</h2>
                     <p>
                         The Coeliac Sanctuary newsletter can be signed up to on the majority of pages on the website, by
@@ -82,7 +82,7 @@
                         third parties.
                     </p>
                 </div>
-                <div class="border-b border-blue-light-50 py-2">
+                <div class="border-b border-blue-light border-opacity-50 py-2">
                     <h2 class="text-2xl font-coeliac font-semibold" id="shop"> Coeliac Sanctuary Shop</h2>
                     <p>
                         The following terms and conditions relate to the Coeliac Sanctuary Shop, by ordering from our

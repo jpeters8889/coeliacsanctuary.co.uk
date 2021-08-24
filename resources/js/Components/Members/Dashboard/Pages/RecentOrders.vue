@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div
-                    class="bg-blue text-white font-semibold p-2 hover:bg-blue-light cursor-pointer text-lg text-center border-t border-white transition-bg"
+                    class="bg-blue text-white font-semibold p-2 hover:bg-blue-light cursor-pointer text-lg text-center border-t border-white transition-all"
                     @click="showOrderDetails = order.reference">
                     More Info
                 </div>
@@ -59,7 +59,7 @@
         ></pagination>
 
         <portal to="modal" v-if="showOrderDetails">
-            <modal modal-classes="w-full" small>
+            <modal modal-classes="w-full" small :title="'Order #'+showOrderDetails">
                 <members-dashboard-modals-order-details :id="showOrderDetails"></members-dashboard-modals-order-details>
             </modal>
         </portal>

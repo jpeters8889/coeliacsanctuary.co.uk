@@ -1,24 +1,29 @@
-@extends('templates.page')
+@extends('templates.page-single-column')
 
 @section('inner-content')
     {{--    <global-ui-google-ad code="7619961534"></google-ad>--}}
 
-    <div class="min-h-screen bg-white">
-        <module-list-index module="blogs" title="Blogs" url-prefix="blog">
-            <div class="p-3">
-                <div
-                    class="flex justify-between items-center p-2 text-2xl bg-blue-gradient-30 border-b-4 border-yellow rounded-t-lg leading-none">
-                    <h1 class="font-semibold font-coeliac pt-2">Coeliac Sanctuary Blogs</h1>
-                </div>
+    <div class="page-box">
+        <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">
+            Coeliac Sanctuary Blogs
 
-                <div class="top-0 left-0 flex justify-center items-center w-full h-full z-max bg-transparent absolute">
-                    <div class="rounded-full spin border-blue-light border-8 w-1/2"
-                         style="border-top-color: #80CCFC; height: 50%; max-width: 50px; max-height: 50px;">
-                    </div>
-                </div>
-            </div>
-        </module-list-index>
+            <a class="block text-sm font-semibold font-sans text-social-rss hover:text-blue-dark transition-all"
+               href="/blog/feed" target="_blank">
+                RSS Feed
+                <font-awesome-icon :icon="['fas', 'rss-square']"></font-awesome-icon>
+            </a>
+        </h1>
     </div>
 
-{{--    <global-ui-google-ad code="6662103082"></google-ad>--}}
+    <div class="page-box">
+        <p>
+            Our motto is that we're more than just a gluten free blog, but blogs are still the heart and soul of Coeliac
+            Sanctuary, we'll write about a bit of everything, from coeliac news, new products, guides, and more, we're
+            sure you'll find something you'll love here!
+        </p>
+    </div>
+
+    <module-list-index module="blogs" title="Blogs" url-prefix="blog"/>
+
+    {{--    <global-ui-google-ad code="6662103082"></google-ad>--}}
 @endsection

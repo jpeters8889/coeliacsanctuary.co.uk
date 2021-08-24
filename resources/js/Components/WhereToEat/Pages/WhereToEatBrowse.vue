@@ -47,7 +47,7 @@
                                     @click="category.checked = !category.checked"
                                 >
                                     <div
-                                        class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-colors flex-shrink-0"
+                                        class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-alls flex-shrink-0"
                                         :class="category.checked ? 'text-white bg-black' : 'bg-white text-grey-off-light group-hover:text-grey-off-dark'"
                                     >
                                         <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
@@ -68,7 +68,7 @@
                                     @click="venueType.checked = !venueType.checked"
                                 >
                                     <div
-                                        class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-colors flex-shrink-0"
+                                        class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-alls flex-shrink-0"
                                         :class="venueType.checked ? 'text-white bg-black' : 'bg-white text-grey-off-light group-hover:text-grey-off-dark'"
                                     >
                                         <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
@@ -89,7 +89,7 @@
                                     @click="feature.checked = !feature.checked"
                                 >
                                     <div
-                                        class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-colors flex-shrink-0"
+                                        class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-alls flex-shrink-0"
                                         :class="feature.checked ? 'text-white bg-black' : 'bg-white text-grey-off-light group-hover:text-grey-off-dark'"
                                     >
                                         <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
@@ -434,15 +434,22 @@ export default {
                         console.log('cluster');
 
                         this.getMarkersLayer().getFeatures(event.pixel).then((clickedFeatures) => {
-                            if (clickedFeatures.length) {
+                            console.log(clickedFeatures);
+                            if (clickedFeatures.length > 0) {
                                 // Get clustered Coordinates
                                 const features = clickedFeatures[0].get('features');
-                                if (features.length > 1) {
+                                if (features.length > 0) {
                                     const extent = boundingExtent(
                                         features.map((r) => r.getGeometry().getCoordinates())
                                     );
 
                                     this.map.getView().fit(extent, {duration: 500, padding: [50, 50, 50, 50]});
+
+                                    setTimeout(() => {
+                                        if (this.getZoom() >= 18) {
+                                            this.map.getView().setZoom(18);
+                                        }
+                                    }, 600);
                                 }
                             }
                         });

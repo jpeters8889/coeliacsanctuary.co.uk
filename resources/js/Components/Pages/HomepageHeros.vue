@@ -1,14 +1,14 @@
 <template>
     <div class="hidden xxs:flex flex-1 flex-col justify-center items-center inner-wrapper" @mouseenter="clearTimeout()"
          @mouseleave="setTimeout()">
-        <div class="bg-white-80 p-4 w-full md:w-3/4">
+        <div class="bg-white bg-opacity-80 p-4 w-full md:w-3/4">
             <h2 class="mb-2 text-2xl font-semibold text-center">
                 {{ slides[currentIndex].title }}
             </h2>
             <p class="mb-2">{{ slides[currentIndex].description }}</p>
             <div class="flex justify-center">
                 <a :href="slides[currentIndex].cta.link"
-                   class="bg-yellow px-6 py-2 font-semibold leading-none inline-block text-xl transition-width">
+                   class="bg-yellow px-6 py-2 font-semibold leading-none inline-block text-xl transition-all">
                     {{ slides[currentIndex].cta.label }}
                 </a>
             </div>
@@ -16,8 +16,8 @@
 
         <div class="flex justify-center mt-4 w-full">
             <div v-for="(item, index) in slides">
-                <div class="w-4 h-4 rounded-full mx-1 cursor-pointer border border-white-80"
-                     :class="index === currentIndex ? 'bg-white-80' : ''"
+                <div class="w-4 h-4 rounded-full mx-1 cursor-pointer border border-white border-opacity-80"
+                     :class="index === currentIndex ? 'bg-white bg-opacity-80' : ''"
                      @click.prevent="currentIndex = index">
                 </div>
             </div>

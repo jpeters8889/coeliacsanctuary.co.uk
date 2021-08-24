@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div :class="{'w-full': fullWidth}">
         <span v-if="label" class="block text-lg text-blue-dark font-semibold">
             {{ label }}
             <span v-if="required" class="text-red">*</span>
         </span>
 
-        <div class="flex overflow-hidden border border-blue rounded">
+        <div class="flex overflow-hidden border rounded" :class="borderClass">
             <div class="bg-grey-lightest p-0 flex-1">
                 <input v-model="currentValue"
                        :id="id"
@@ -18,6 +18,7 @@
                        :disabled="disabled"
                        :autocomplete="autocomplete"
                        :class="classes()"
+                       @keyup.enter="handleEnter()"
                 />
             </div>
 
@@ -36,6 +37,17 @@ import IsFormField from "@/Mixins/IsFormField";
 export default {
     mixins: [IsFormField],
 
+    props: {
+        fullWidth: {
+            type: Boolean,
+            default: false,
+        },
+        onEnter: {
+            type: Function,
+            default: null,
+        }
+    },
+
     methods: {
         classes() {
             let base = ['w-full', 'bg-transparent', 'border-0', 'm-0', 'text-grey-darkest']
@@ -47,6 +59,14 @@ export default {
             base.push(this.small ? 'p-1 text-sm' : 'p-3 text-base')
 
             return base;
+        },
+
+        handleEnter() {
+            if(!this.onEnter) {
+                return;
+            }
+
+            this.onEnter();
         }
     }
 }

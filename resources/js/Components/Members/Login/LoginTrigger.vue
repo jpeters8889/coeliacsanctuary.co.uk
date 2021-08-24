@@ -5,7 +5,7 @@
         </a>
 
         <portal to="modal" v-if="showModal">
-            <modal>
+            <modal closable title="Login">
                 <member-login-form></member-login-form>
             </modal>
         </portal>

@@ -1,25 +1,27 @@
 <template>
     <div>
-        <div class="pl-2 text-yellow cursor-pointer hover:text-grey-dark text-lg transition-color"
+        <div class="pl-2 text-yellow cursor-pointer hover:text-grey-dark text-lg transition-all"
              v-tooltip.right="{content: tooltip, classes: ['bg-yellow', 'text-black', 'rounded-lg', 'text-sm', 'ml-2', 'p-2', 'max-w-250']}"
              @click="toggleSubscription()">
             <font-awesome-icon :icon="icon"></font-awesome-icon>
         </div>
 
         <portal to="modal" v-if="showUserCta">
-            <modal small name="userCta" modal-classes="text-center text-lg">
-                <p>You must be signed in to receive updates about blogs tagged with {{ tag }}!</p>
-                <p>
-                    <a href="/member/register" class="font-semibold hover:text-blue-dark cursor-pointer">
-                        Create an account
-                    </a>
-                </p>
-                <p>
-                    Already got one?
-                    <a href="/member/login" class="font-semibold hover:text-blue-dark cursor-pointer">
-                        Log in now.
-                    </a>
-                </p>
+            <modal small name="userCta" modal-classes="text-center text-lg" title="Ooops!">
+                <div class="flex flex-col space-y-3">
+                    <p>You must be signed in to receive updates about blogs tagged with {{ tag }}!</p>
+                    <p>
+                        <a href="/member/register" class="font-semibold hover:text-blue-dark cursor-pointer">
+                            Create an account
+                        </a>
+                    </p>
+                    <p>
+                        Already got one?
+                        <a href="/member/login" class="font-semibold hover:text-blue-dark cursor-pointer">
+                            Log in now.
+                        </a>
+                    </p>
+                </div>
             </modal>
         </portal>
     </div>
@@ -28,12 +30,12 @@
 <script>
 import InteractsWithUser from "@/Mixins/InteractsWithUser";
 import Vue from "vue";
-import VTooltip from "v-tooltip";
+import { VTooltip } from "v-tooltip";
 import SubscribesToDailyUpdates from "@/Mixins/SubscribesToDailyUpdates";
 
 const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
 
-Vue.use(VTooltip);
+Vue.directive('tooltip', VTooltip)
 
 export default {
     components: {

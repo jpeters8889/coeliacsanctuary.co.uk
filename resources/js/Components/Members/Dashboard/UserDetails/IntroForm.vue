@@ -1,5 +1,5 @@
 <template>
-    <form class="bg-blue-gradient-30 p-2 rounded-lg" @submit.prevent="updateDetails">
+    <form class="bg-gradient-to-br from-blue/30 to-blue-light/30 p-2 rounded-lg" @submit.prevent="updateDetails">
         <div>
             <p class="text-sm">
                 Here you can change your name and email address, scroll down to manage your addresses and your
@@ -19,14 +19,14 @@
                 :disabled="submittingDetails"
                 @click.prevent="updateDetails"
                 style="min-width: 130px; height: 50px;"
-                class="bg-blue rounded leading-none px-6 text-xl cursor-pointer transition-bg hover:bg-blue-light hover:shadow">
+                class="bg-blue rounded leading-none px-6 text-xl cursor-pointer transition-all hover:bg-blue-light hover:shadow">
                 <loader background-position=""
                         v-if="submittingDetails"
                         :show="true"
                         height="25px"
                         width="25px"
                         border-width="3px"
-                        faded-border-color="border-black-50"
+                        faded-border-color="border-black border-opacity-50"
                         primary-border-color="black">
                 </loader>
                 <span v-else>Update!</span>

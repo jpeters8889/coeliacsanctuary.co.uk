@@ -1,20 +1,30 @@
 <template>
     <div class="flex justify-center items-center">
-        <form
-            class="rounded-lg border border-blue p-4 flex flex-col space-y-4 w-full max-w-basket-sidebar bg-grey-lightest"
-            @submit.prevent="attemptLogin">
+        <form class="p-4 flex flex-col space-y-4 w-full max-w-lg" @submit.prevent="attemptLogin">
             <div class="mx-auto" style="width: 50px;">
                 <global-layout-coeliac-icon colour="#80CCFC"></global-layout-coeliac-icon>
             </div>
 
-            <form-input type="email" required name="email" placeholder="Email Address" :value="fields.email"
-                        autocomple="email"/>
+            <form-input
+                type="email"
+                required
+                name="email"
+                label="Email Address"
+                :value="fields.email"
+                autocomple="email"
+            />
 
-            <form-input type="password" required name="password" placeholder="Password" :value="fields.password"
-                        autocomplete="password"/>
+            <form-input
+                type="password"
+                required
+                name="password"
+                label="Password"
+                :value="fields.password"
+                autocomplete="password"
+            />
 
             <button
-                class="rounded-lg bg-blue leading-none text-lg font-semibold text-white hover:bg-blue-light transition-bg flex items-center justify-center"
+                class="rounded-lg bg-blue leading-none text-lg font-semibold text-white hover:bg-blue-light transition-all flex items-center justify-center"
                 style="height: 42px;"
                 :class="isSubmitting ? 'py-2' : 'py-3'"
                 :disabled="isSubmitting"
@@ -25,13 +35,13 @@
                         height="25px"
                         width="25px"
                         border-width="3px"
-                        faded-border-color="border-white-50"
+                        faded-border-color="border-white border-opacity-50"
                         primary-border-color="white">
                 </loader>
                 <span v-else>Log In</span>
             </button>
 
-            <div v-if="needsToVerify" class="border-red border p-2 rounded-sm bg-red-20 text-red font-semibold">
+            <div v-if="needsToVerify" class="border-red border p-2 rounded-sm bg-red bg-opacity-20 text-red font-semibold">
                 You need to verify your email address before you can login,
                 <a href="" class="text-black">Resend verification email</a>.
             </div>

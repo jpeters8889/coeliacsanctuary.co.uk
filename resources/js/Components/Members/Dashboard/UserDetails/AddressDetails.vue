@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-blue-gradient-30 p-2 mt-2 rounded-lg">
+    <div class="bg-gradient-to-br from-blue/30 to-blue-light/30 p-2 mt-2 rounded-lg">
         <h2 class="text-lg text-blue-dark font-semibold">Your Addresses</h2>
 
         <p class="text-sm">
@@ -7,7 +7,7 @@
         </p>
 
         <div class="flex flex-col space-y-2">
-            <div v-for="address in addresses" class="flex flex-col p-2 bg-white-50 rounded">
+            <div v-for="address in addresses" class="flex flex-col p-2 bg-white bg-opacity-50 rounded">
                 <strong>{{ address.name }}</strong>
                 <span>{{ formatAddress(address) }}</span>
 
@@ -28,16 +28,19 @@
         </div>
 
         <portal to="modal" v-if="showEditAddressModal">
-            <modal name="edit-address" modal-classes="w-full" small>
-                <form @submit.prevent="saveAddress()" class="flex flex-col">
-                    <div class="py-4 border-b border-blue last:border-0" v-for="input in addressEditableFields()">
-                        <label class="text-blue-dark font-semibold mb-1" :for="`editing_${input.prop}`"
-                               v-html="input.label"/>
-                        <component :is="input.type" :value="editingAddress[input.prop]" :id="`editing_${input.prop}`"
-                                   :name="`editing_${input.prop}`" :required="input.required"
-                                   :pattern="input.pattern ? input.pattern() : null"
-                                   :options="input.options ? input.options() : null"/>
-                    </div>
+            <modal name="edit-address" modal-classes="w-full" small title="Edit Address">
+                <form @submit.prevent="saveAddress()" class="flex flex-col space-y-3 p-3">
+                    <component
+                        v-for="input in addressEditableFields()"
+                        :key="`editing_${input.prop}`"
+                        :is="input.type"
+                        :value="editingAddress[input.prop]"
+                        :id="`editing_${input.prop}`"
+                        :label="input.label"
+                        :name="`editing_${input.prop}`" :required="input.required"
+                        :pattern="input.pattern ? input.pattern() : null"
+                        :options="input.options ? input.options() : null"
+                    />
 
                     <div class="flex space-x-4 justify-center mt-2">
                         <button
@@ -55,10 +58,10 @@
                                     height="25px"
                                     width="25px"
                                     border-width="3px"
-                                    faded-border-color="border-black-50"
+                                    faded-border-color="border-black border-opacity-50"
                                     primary-border-color="black">
                             </loader>
-                            <span v-else>Save Address</span>
+                            <span v-else>Save</span>
                         </button>
                     </div>
                 </form>
@@ -66,17 +69,16 @@
         </portal>
 
         <portal to="modal" v-if="showDeleteAddressModal">
-            <modal name="delete-address">
-                <h3>Are you sure you want to delete this address?</h3>
-                <div class="flex space-x-4 justify-center mt-2">
+            <modal name="delete-address" title="Are you sure you want to delete this address?">
+                <div class="flex space-x-4 justify-center p-3">
                     <a class="rounded leading-none px-4 py-2 bg-blue hover:bg-blue-light hover:shadow cursor-pointer"
                        @click="closeDeleteModal">
-                        No
+                        No, don't delete
                     </a>
 
                     <a class="rounded leading-none px-4 py-2 bg-yellow hover:bg-yellow-light hover:shadow cursor-pointer"
                        @click="deleteAddress()">
-                        Yes
+                        Yes, delete it
                     </a>
                 </div>
             </modal>
@@ -91,9 +93,9 @@ const Loader = () => import('~/Global/UI/Loader' /* webpackChunkName: "chunk-loa
 const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
 
 import Vue from "vue";
-import VTooltip from "v-tooltip";
+import { VTooltip } from "v-tooltip";
 
-Vue.use(VTooltip);
+Vue.directive('tooltip', VTooltip)
 
 export default {
     components: {

@@ -29,7 +29,7 @@
 @section('primary-column')
     <div class="flex flex-col">
         <div class="page-box">
-            <div class="bg-blue-gradient-30 p-6 rounded-lg text-center">
+            <div class="bg-gradient-to-br from-blue/30 to-blue-light/30 p-6 rounded-lg text-center">
                 <h1 class="text-2xl">
                     @yield('title', 'Page not found')
                 </h1>

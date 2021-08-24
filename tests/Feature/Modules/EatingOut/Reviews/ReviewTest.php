@@ -27,7 +27,7 @@ class ReviewTest extends TestCase
     {
         $this->get('/review')
             ->assertStatus(200)
-            ->assertSee('<module-list-index module="reviews" title="Reviews" url-prefix="review">', false);
+            ->assertSee('<module-list-index module="reviews" title="Reviews" url-prefix="review"', false);
     }
 
     /** @test */

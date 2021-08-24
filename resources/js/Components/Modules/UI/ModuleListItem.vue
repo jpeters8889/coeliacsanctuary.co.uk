@@ -1,55 +1,74 @@
 <template>
-    <div :class="wrapperClasses">
-        <div :class="innerWrapperClasses">
-            <div :class="imageClasses" class="flex flex-col">
-                <a :href="item.link">
-                    <img :data-src="item.main_image" :alt="item.title" loading="lazy" class="lazy w-full"
-                         :src="index > 0 ? lazyLoadSrc : item.main_image" v-if="module !== 'recipes'">
-                    <global-ui-recipe-image :src="item.main_image" :alt="item.title" v-else></global-ui-recipe-image>
-                </a>
-                <template v-if="module==='recipes' && layout === 'list'">
-                    <ul class="flex flex-wrap justify-center -mx-2 sm:justify-start">
-                        <li v-for="feature in item.features"
-                            class="w-1/6 m-2 flex flex-col max-w-recipe-feature text-xs leading-none text-center">
-                            <img :data-src="feature.image" loading="lazy" class="lazy" :alt="feature.feature"
-                                 :src="lazyLoadSrc">
-                            <span class="font-semibold mt-1">{{ feature.feature }}</span>
+    <div class="bg-white shadow overflow-hidden flex flex-col md:rounded-md" :class="gridClasses">
+        <a class="w-full flex flex-col" :href="item.link">
+            <img
+                :data-src="item.main_image"
+                :alt="item.title"
+                loading="lazy"
+                class="lazy w-full"
+                :src="index > 0 ? lazyLoadSrc : item.main_image"
+                v-if="module !== 'recipes'"
+            />
+            <global-ui-recipe-image
+                :src="item.main_image"
+                :alt="item.title" v-else
+            />
+        </a>
+
+        <div class="flex-1 flex flex-col p-4">
+            <a :href="item.link"
+               class="text-2xl text-black hover:text-grey-dark transition-all text-semibold leading-tight text-center mb-2"
+            >
+                <h2 v-html="item.title"></h2>
+            </a>
+
+            <p class="mb-1 flex-1 h-full" v-html="description"></p>
+        </div>
+
+        <div :class="footerClasses">
+            <div class="flex flex-col font-semibold transition-all mb-4 lg:mb-0">
+                <template v-if="module === 'blogs'">
+                    <h4 class="">Tagged With:</h4>
+                    <ul class="flex flex-wrap text-xs">
+                        <li v-for="tag in item.tags" class="mr-2">
+                            <a class="text-blue-dark hover:text-black" :href="filteredUrl('tags', tag.slug)">
+                                {{ tag.tag }}
+                            </a>
                         </li>
                     </ul>
                 </template>
-            </div>
-            <div :class="textClasses">
-                <a :href="item.link"
-                   :class="headerClasses">
-                    <h2 v-html="item.title"></h2>
-                </a>
-                <template v-if="module==='reviews'">
-                    <span class="font-semibold text-xs" :class="layout === 'tiles' ? 'text-center' : ''">
-                        {{ item.eatery.type.name }} in {{ item.eatery.town.town }}, {{ item.eatery.county.county }}
-                    </span>
-                    <global-ui-stars class="my-2" :stars="item.overall_rating"></global-ui-stars>
-                </template>
-                <template v-if="module==='recipes'">
-                    <ul class="flex flex-wrap justify-center -mx-2" v-if="layout === 'grid'">
-                        <li v-for="feature in item.features"
-                            class="w-1/4 m-2 flex flex-col max-w-recipe-feature text-xs leading-none text-center">
-                            <img loading="lazy" class="lazy" :data-src="feature.image" :alt="feature.feature"
-                                 :src="lazyLoadSrc">
-                            <span class="font-semibold mt-1">{{ feature.feature }}</span>
+
+                <template v-if="module === 'recipes'">
+                    <h4 class="">This recipe is:</h4>
+                    <ul class="flex flex-wrap text-xs mb-2">
+                        <li v-for="feature in item.features" class="mr-2 text-blue-dark">
+                            <a class="text-blue-dark hover:text-black" :href="filteredUrl('feature', feature.feature)">
+                                {{ feature.feature }}
+                            </a>
                         </li>
                     </ul>
+
                     <p class="mb-1 flex font-semibold">
                         Makes {{ item.serving_size }}<br/>
                         {{ item.nutrition.calories }} Calories per {{ item.per }}
                     </p>
                 </template>
-                <p class="mb-1 flex-1 h-full" v-html="description"></p>
-                <div class="text-sm flex flex-wrap justify-between">
-                    <p>{{ formatDate(item.created_at) }}</p>
-                    <p class="text-right" v-if="module !== 'collection'" v-text="commentsText(item.comments_count)"></p>
-                    <p class="text-right" v-else v-text="collectionItemsText(item.items_count)"></p>
-                </div>
+
+                <template v-if="module === 'reviews'">
+                    <a class="font-semibold text-xs" :href="`/wheretoeat/${item.eatery.county.slug}/${item.eatery.town.slug}`">
+                        {{ item.eatery.type.name }} in {{ item.eatery.town.town }}, {{ item.eatery.county.county }}
+                    </a>
+                    <global-ui-stars class="my-2" :stars="item.overall_rating"></global-ui-stars>
+                </template>
             </div>
+
+            <ul :class="footerMetaClasses">
+                <li>Added on
+                    <time :datetime="item.created_at">{{ formatDate(item.created_at) }}</time>
+                </li>
+                <li v-if="module !== 'collection'" v-text="commentsText(item.comments_count)"></li>
+                <li v-else v-text="collectionItemsText(item.items_count)"></li>
+            </ul>
         </div>
     </div>
 </template>
@@ -57,9 +76,10 @@
 <script>
 import FormatsDates from "@/Mixins/FormatsDates";
 import LazyLoadsImages from "@/Mixins/LazyLoadsImages";
+import ResponsiveOptions from "@/Mixins/ResponsiveOptions";
 
 export default {
-    mixins: [FormatsDates, LazyLoadsImages],
+    mixins: [FormatsDates, LazyLoadsImages, ResponsiveOptions],
 
     props: {
         module: {
@@ -80,16 +100,13 @@ export default {
             required: true,
             type: Number,
         },
-        layout: {
-            type: String,
-            default: 'tiles',
-            validator: (value) => {
-                return ['tiles', 'list'].indexOf(value) !== -1;
-            }
-        },
         hasFilters: {
             type: Boolean,
             default: false,
+        },
+        urlPrefix: {
+            type: String,
+            required: true,
         }
     },
 
@@ -122,6 +139,10 @@ export default {
             }
 
             return `${count} items in this collection`;
+        },
+
+        filteredUrl(filter, key) {
+            return `${window.config.baseUrl}/${this.urlPrefix}?o=${btoa(`filter[${filter}]=${key}`)}`;
         }
     },
 
@@ -134,54 +155,54 @@ export default {
             return this.item.meta_description;
         },
 
-        wrapperClasses() {
-            if (this.layout === 'list') {
-                return ['w-full'];
+        footerClasses() {
+            const classes = ['text-xs', 'p-4', 'bg-grey-light', 'border-t', 'border-grey-off-light', 'flex', 'flex-col']
+
+            if (this.isLt('md') || this.page > 1) {
+                return classes;
             }
 
-            if (this.page === 1 && !this.hasFilters) {
-                if (this.index === 0) {
-                    return ['w-full', 'p-2'];
-                }
-
-                if (this.index > 0 && this.index < 3) {
-                    return ['w-full', 'md:w-1/2', 'p-2'];
-                }
+            if (this.index < 3) {
+                classes.push('lg:flex-row', 'lg:justify-between')
             }
 
-            return ['w-full', 'md:w-1/3', 'p-2'];
+            return classes;
         },
 
-        innerWrapperClasses() {
-            if (this.layout === 'list') {
-                return ['flex', 'flex-col', 'py-3', 'border-b', 'border-grey-off', 'sm:flex-row'];
+        footerMetaClasses() {
+            const classes = ['flex']
+
+            if (this.isLt('md') || this.page > 1 || this.index >= 3) {
+                classes.push('justify-between', 'mt-2');
+
+                return classes;
             }
 
-            return ['bg-blue-gradient-30', 'shadow', 'curved', 'rounded-lg', 'overflow-hidden', 'mb-4', 'md:h-full', 'flex', 'flex-col'];
+            classes.push('lg:flex-col', 'lg:text-right', 'lg:min-w-250')
+
+            return classes;
         },
 
-        imageClasses() {
-            if (this.layout === 'list') {
-                return ['w-full', 'mb-2', 'sm:w-1/2', 'sm:mr-2', 'sm:mb-0', 'lg:w-1/4'];
+        gridClasses() {
+            if (this.isLt('md')) {
+                return;
             }
 
-            return ['w-full'];
-        },
+            const rtr = ['col-span-2'];
 
-        textClasses() {
-            if (this.layout === 'list') {
-                return ['flex-1', 'flex', 'flex-col'];
+            if (this.page > 1) {
+                return rtr
             }
 
-            return ['flex-1', 'flex', 'flex-col', 'p-2'];
-        },
-
-        headerClasses() {
-            if (this.layout === 'list') {
-                return ['text-2xl', 'text-blue', 'hover:text-grey-dark', 'transition-color', 'font-semibold', 'font-coeliac', 'leading-tight']
+            if (this.index === 0) {
+                rtr.push('col-span-6')
             }
 
-            return ['text-2xl', 'text-black', 'hover:text-grey-dark', 'transition-color', 'text-semibold', 'leading-tight', 'text-center', 'mb-1'];
+            if (this.index === 1 || this.index === 2) {
+                rtr.push('col-span-3');
+            }
+
+            return rtr;
         }
     },
 }

@@ -9,7 +9,7 @@
 
     <div class="p-2 flex flex-col sm:flex-1 sm:py-0">
         <a href="{{ $blog->link }}" target="_blank"
-           class="text-2xl text-blue-darkest hover:text-grey-dark transition-color font-semibold font-coeliac leading-tight">
+           class="text-2xl text-blue-darkest hover:text-grey-dark transition-all font-semibold font-coeliac leading-tight">
             <h2>{{ $blog->title }}</h2>
         </a>
 
@@ -17,7 +17,7 @@
 
         <div class="flex justify-between">
             <p class="text-xs mt-2">Originally Posted: {{ formatDate($blog->created_at) }}</p>
-            <a class="py-1 px-2 rounded-lg font-semibold bg-blue-gradient-30 text-xs"
+            <a class="py-1 px-2 rounded-lg font-semibold bg-gradient-to-br from-blue/30 to-blue-light/30 text-xs"
                href="/blog" target="_blank">
                 Blog
             </a>

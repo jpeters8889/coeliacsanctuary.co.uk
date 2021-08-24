@@ -65,9 +65,6 @@ class ReviewController extends BaseController
         /* @var Review $review */
         abort_if(!$review = $request->resolveItem(), 404, 'Sorry, this review can\'t be found');
 
-        $related = $this->repository
-            ->setWiths(['eatery', 'eatery.town', 'eatery.county', 'eatery.country', 'eatery.type', 'images', 'images.image'])
-            ->random()->take(10);
         $featured = null;
 
         if ($review->associatedCollections()->count() > 0) {
@@ -94,6 +91,6 @@ class ReviewController extends BaseController
             ->setMetaDescription($review->meta_description)
             ->setMetaKeywords(explode(',', (string) $review->meta_keywords))
             ->setSocialImage($review->social_image)
-            ->render('modules.reviews.show', compact('review', 'related', 'featured'));
+            ->render('modules.reviews.show', compact('review', 'featured'));
     }
 }

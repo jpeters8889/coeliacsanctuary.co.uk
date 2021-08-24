@@ -8,7 +8,7 @@
             </h1>
 
             <h6 class="text-center -mt-4 pt-1">
-                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-color"
+                <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-all"
                    href="/wheretoeat/{{ $county->slug }}">
                     Back to {{ $county->county }}
                 </a>
@@ -28,7 +28,7 @@
 
                 <p>
                     Know somewhere that offers gluten free for us to add or does somewhere need removing off our
-                    list? <a class="font-semibold hover:text-grey transition-color" href="/wheretoeat/recommend-a-place">Let us know!</a>
+                    list? <a class="font-semibold hover:text-grey transition-all" href="/wheretoeat/recommend-a-place">Let us know!</a>
                 </p>
 
                 <wheretoeat-ui-daily-update-subscribe :type-id="3" :updatable-id="{{ $town->id }}"

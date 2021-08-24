@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="bg-blue-gradient-30 border border-blue rounded-lg p-4 m-2 lg:mx-auto" style="max-width: 1000px;">
+        <div class="bg-gradient-to-br from-blue/30 to-blue-light/30 border border-blue rounded-lg p-4 m-2 lg:mx-auto" style="max-width: 1000px;">
             <div v-if="!hasEntered">
                 <p class="font-semibold text-lg mb-5 text-center">
                     To enter our competition just enter your name and email below!
@@ -26,7 +26,7 @@
 
                 <div class="w-full flex justify-center">
                     <button
-                        class="mt-2 bg-blue-50 border border-blue rounded-lg px-6 py-2 text-xl text-black transition-bg hover:bg-blue-20"
+                        class="mt-2 bg-blue bg-opacity-50 border border-blue rounded-lg px-6 py-2 text-xl text-black transition-all hover:bg-opacity-20"
                         @click.prevent="submitForm()" :disabled="isSubmitting"
                         style="width: 305px; height: 65px;">
                         <loader v-if="isSubmitting" show background-position="relative" width="30px"
@@ -242,7 +242,7 @@ export default {
                     id: 'facebook_like',
                     label: 'Visit and like our Facebook Page',
                     icon: ['fab', 'facebook-square'],
-                    classes: ['text-grey-off-light hover:text-white bg-social-facebook-light hover:bg-social-facebook transition-bg'],
+                    classes: ['text-grey-off-light hover:text-white bg-social-facebook-light hover:bg-social-facebook transition-all'],
                     click: () => {
                         window.open('https://www.facebook.com/coeliacsanctuary');
                         this.addAdditionalEntry('facebook_like');
@@ -255,7 +255,7 @@ export default {
                     id: 'twitter_follow',
                     label: 'Visit and follow us on our Twitter Page',
                     icon: ['fab', 'twitter-square'],
-                    classes: ['text-grey-off-light hover:text-white bg-social-twitter-light hover:bg-social-twitter transition-bg'],
+                    classes: ['text-grey-off-light hover:text-white bg-social-twitter-light hover:bg-social-twitter transition-all'],
                     click: () => {
                         window.open('https://twitter.com/coeliacsanc');
                         this.addAdditionalEntry('twitter_follow');
@@ -268,7 +268,7 @@ export default {
                     id: 'facebook_share',
                     label: 'Share our competition on Facebook',
                     icon: ['fab', 'facebook-square'],
-                    classes: ['text-grey-off-light hover:text-white bg-social-facebook-light hover:bg-social-facebook transition-bg'],
+                    classes: ['text-grey-off-light hover:text-white bg-social-facebook-light hover:bg-social-facebook transition-all'],
                     click: () => {
                         this.openPopup(
                             'https://www.facebook.com/sharer.php?u=' + window.location.href,
@@ -285,7 +285,7 @@ export default {
                     id: 'twitter_tweet',
                     label: 'Share our competition on Twitter',
                     icon: ['fab', 'twitter-square'],
-                    classes: ['text-grey-off-light hover:text-white bg-social-twitter-light hover:bg-social-twitter transition-bg'],
+                    classes: ['text-grey-off-light hover:text-white bg-social-twitter-light hover:bg-social-twitter transition-all'],
                     click: () => {
                         this.openPopup(
                             'https://twitter.com/intent/tweet?text=' + document.querySelector('meta[name=description]').getAttribute('content') + '&via=CoeliacSanc&url=' + window.location.href,
@@ -302,7 +302,7 @@ export default {
                     id: 'shop_purchase',
                     label: 'Purchase from the Coeliac Sanctuary Shop',
                     component: 'coeliac-icon',
-                    classes: ['text-grey-off-light hover:text-white bg-yellow-50 hover:bg-yellow transition-bg'],
+                    classes: ['text-grey-off-light hover:text-white bg-yellow bg-opacity-50 hover:bg-opacity-100 transition-all'],
                     click: () => {
                         window.open('https://www.coeliacsanctuary.co.uk/shop');
                         this.addAdditionalEntry('shop_purchase');

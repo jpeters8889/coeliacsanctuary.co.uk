@@ -5,7 +5,7 @@
             <span v-if="required" class="text-red">*</span>
         </span>
 
-        <div class="flex overflow-hidden border border-blue rounded">
+        <div class="flex overflow-hidden border border-grey-off rounded">
             <div class="bg-grey-lightest flex-1">
             <textarea v-model="currentValue" :name="name" :placeholder="placeholder" :rows="rows" @blur="validate()"
                       :maxlength="max"

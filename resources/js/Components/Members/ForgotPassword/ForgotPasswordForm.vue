@@ -1,38 +1,46 @@
 <template>
-    <div class="rounded-lg border border-blue bg-blue-gradient-30 p-4 max-w-lg mx-auto">
-        <form class="flex flex-col space-y-4 w-full max-w-basket-sidebar mx-auto"
-            v-if="!isCompleted"
-              @submit.prevent="submitForgotPassword">
-
-            <form-input type="email" required name="email" placeholder="Email Address" :value="fields.email"
-                        autocomple="email"/>
-
-            <button
-                class="rounded-lg bg-blue leading-none text-lg font-semibold text-white hover:bg-blue-light transition-bg flex items-center justify-center"
-                style="height: 42px;"
-                :class="isSubmitting ? 'py-2' : 'py-3'"
-                :disabled="isSubmitting"
-                @click.prevent="submitForgotPassword">
-                <loader background-position=""
-                        v-if="isSubmitting"
-                        :show="true"
-                        height="25px"
-                        width="25px"
-                        border-width="3px"
-                        faded-border-color="border-white-50"
-                        primary-border-color="white">
-                </loader>
-                <span v-else>Submit</span>
-            </button>
-        </form>
-        <template v-else>
-            <p class="text-lg font-semibold text-center">
-                Thanks! We've received your request and have sent you a link to reset your email.
+    <div class="page-box p-4 rounded-lg shadow">
+        <div class="max-w-lg mx-auto">
+            <p class="mb-4 text-lg text-center">
+                Forgot your password? Just enter the email associated with your account below and we'll send you a link
+                to
+                reset it!
             </p>
-            <p class="mt-2 text-center">
-                <a href="/">Back Home</a>
-            </p>
-        </template>
+
+            <form class="flex flex-col space-y-4 w-full"
+                  v-if="!isCompleted"
+                  @submit.prevent="submitForgotPassword">
+
+                <form-input type="email" required name="email" placeholder="Email Address" :value="fields.email"
+                            autocomple="email"/>
+
+                <button
+                    class="rounded-lg bg-blue leading-none text-lg font-semibold text-white hover:bg-blue-light transition-all flex items-center justify-center"
+                    style="height: 42px;"
+                    :class="isSubmitting ? 'py-2' : 'py-3'"
+                    :disabled="isSubmitting"
+                    @click.prevent="submitForgotPassword">
+                    <loader background-position=""
+                            v-if="isSubmitting"
+                            :show="true"
+                            height="25px"
+                            width="25px"
+                            border-width="3px"
+                            faded-border-color="border-white border-opacity-50"
+                            primary-border-color="white">
+                    </loader>
+                    <span v-else>Submit</span>
+                </button>
+            </form>
+            <template v-else>
+                <p class="text-lg font-semibold text-center">
+                    Thanks! We've received your request and have sent you a link to reset your email.
+                </p>
+                <p class="mt-2 text-center">
+                    <a href="/">Back Home</a>
+                </p>
+            </template>
+        </div>
     </div>
 </template>
 

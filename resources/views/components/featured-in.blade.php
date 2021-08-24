@@ -1,7 +1,7 @@
 <x-widget class="mb-3" title="As Featured In">
     @foreach($featured as $feature)
         <div
-            class="w-full rounded-lg overflow-hidden flex flex-col shadow-md bg-blue-gradient-30 {{ !$loop->last ? 'mb-4 sm:mb-3' : 'mb-1' }}">
+            class="w-full rounded-lg overflow-hidden flex flex-col shadow-md bg-gradient-to-br from-blue/30 to-blue-light/30 {{ !$loop->last ? 'mb-4 sm:mb-3' : 'mb-1' }}">
             <div>
                 <a href="{{ $feature->link }}">
                     <img data-src="{{ $feature->main_image }}" alt="{{ $feature->title }}" loading="lazy" class="lazy"

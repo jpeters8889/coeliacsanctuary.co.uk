@@ -32,7 +32,6 @@ class CollectionController extends BaseController
             ->breadcrumbs([], 'Collections')
             ->setPageTitle('Collections')
             ->setMetaDescription('Coeliac Sanctuary Collections | Some of our favourite things, all grouped together in collections!')
-//            ->setMetaKeywords(['coeliac sanctuary blog', 'blog index', 'index', 'blog list blog', 'blog tags', 'coeliac blog'])
             ->setSocialImage(asset('assets/images/shares/collection-list.jpg'))
             ->render('modules.collections.index');
     }
@@ -47,8 +46,6 @@ class CollectionController extends BaseController
             'data' => $this->repository
                 ->setWithCounts(['items'])
                 ->setColumns(['id', 'title', 'slug', 'long_description', 'meta_description', 'created_at'])
-//                ->filter()
-//                ->search()
                 ->paginated($request->get('limit', 12)),
         ];
     }
@@ -62,8 +59,6 @@ class CollectionController extends BaseController
             ->items
             ->transform(fn (CollectionItem $item) => Item::resolve($item));
 
-        $related = (new BlogRepository())->random()->take(7);
-
         return $this->page
             ->breadcrumbs([
                 [
@@ -75,6 +70,6 @@ class CollectionController extends BaseController
             ->setMetaDescription($collection->meta_description)
             ->setMetaKeywords(explode(',', (string) $collection->meta_keywords))
             ->setSocialImage($collection->social_image)
-            ->render('modules.collections.show', compact('collection', 'items', 'related'));
+            ->render('modules.collections.show', compact('collection', 'items'));
     }
 }

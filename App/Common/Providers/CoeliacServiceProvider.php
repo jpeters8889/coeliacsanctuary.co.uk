@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Providers;
 
+use Carbon\Laravel\ServiceProvider;
 use DirectoryIterator;
 use Coeliac\Base\Modules;
 use Illuminate\Contracts\Config\Repository;
-use Coeliac\Base\Providers\BaseServiceProvider;
 use Coeliac\Common\MjmlCompiler\CoeliacCompiler;
 use Coeliac\Common\MjmlCompiler\CompilerContract;
 use Coeliac\Common\Notifications\Channels\MailChannel;
 
-class CoeliacServiceProvider extends BaseServiceProvider
+class CoeliacServiceProvider extends ServiceProvider
 {
     /**
      * Register services.

@@ -1,5 +1,5 @@
 <template>
-    <loader background="bg-black-80" background-position="fixed" :show="loading"></loader>
+    <loader background="bg-black bg-opacity-80" background-position="fixed" :show="loading"></loader>
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 import Vue from "vue";
-import VTooltip from "v-tooltip";
+import { VTooltip } from "v-tooltip";
 
-Vue.use(VTooltip);
+Vue.directive('tooltip', VTooltip)
 
 export default {
     data: () => ({
@@ -72,6 +72,10 @@ export default {
             type: String,
             default: null,
         },
+        borderClass: {
+            type: String,
+            default: 'border-grey-off',
+        }
     },
 
     mounted() {

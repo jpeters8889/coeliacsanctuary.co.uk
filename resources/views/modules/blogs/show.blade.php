@@ -1,42 +1,58 @@
-@extends('templates.page-two-column')
+@extends('templates.page-single-column')
 
 @section('primary-column')
-    <div class="flex flex-col">
-        <div class="page-box p-3">
+    <div class="flex flex-col space-y-3 max-w-images mx-auto">
+        <div class="page-box shadow">
             <h1 class="my-4 p-3 text-4xl font-coeliac text-center font-semibold leading-tight border-b border-t border-blue-light">{{ $blog->title }}</h1>
 
             <p class="text-lg my-2 font-medium leading-relaxed">{!! $blog->description !!}</p>
 
-            <div class="mt-3 p-3 text-sm mt-1 text-grey-darker bg-blue-light-20">
-                <div>
-                    <h3 class="font-semibold text-base text-grey-darkest">Tagged with:</h3>
-                    <ul class="flex flex-row flex-wrap text-sm leading-tight">
-                        @foreach($blog->tags as $tag)
-                            <li>
-                                <a class="font-medium hover:underline text-grey-darker" href="{{ $tag->link }}">
-                                    {{ $tag->tag  }}</a>@if(!$loop->last),&nbsp;
-                                @endif
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                <p class="mt-2">Added {{ formatDate($blog->created_at) }}</p>
+            <div class="bg-grey-light border-t border-grey-off-light -m-3 mt-3 p-3">
+                <h3 class="font-semibold text-base text-grey-darkest">Tagged with:</h3>
+                <ul class="flex flex-row flex-wrap text-sm leading-tight">
+                    @foreach($blog->tags as $tag)
+                        <li>
+                            <a class="font-semibold text-blue-dark hover:text-grey-darker" href="{{ $tag->link }}">
+                                {{ $tag->tag  }}</a>@if(!$loop->last),&nbsp;
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+                <p class="mt-2">Added
+                    <time datetime="{{ $blog->created_at }}">{{ formatDate($blog->created_at) }}</time>
+                </p>
                 @if(!$blog->updated_at->isSameDay($blog->created_at))
-                    <p>Updated {{ formatDate($blog->updated_at) }}</p>
+                    <p>Updated
+                        <time datetime="{{ $blog->updated_at }}">{{ formatDate($blog->updated_at) }}</time>
+                    </p>
                 @endif
             </div>
         </div>
 
-        <div class="page-body">
+        <div class="shadow">
             <img data-src="{{ $blog->main_image }}"
                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 2'%3E%3C/svg%3E"
-                 alt="{{ $blog->title }}" width="100%" loading="lazy" class="lazy"/>
+                 alt="{{ $blog->title }}" width="100%" loading="lazy" class="lazy"
+            />
         </div>
 
-        <div class="page-box p-3">
-            {{--            <global-ui-google-ad code="7619961534"></google-ad>--}}
+        @if($featured)
+            <div class="page-box p-3 shadow">
+                <h3 class="font-semibold text-base text-grey-darkest">This blog was featured in:</h3>
+                <ul class="flex flex-row flex-wrap text-sm leading-tight">
+                    @foreach($featured as $feature)
+                        <li>
+                            <a class="font-semibold text-blue-dark hover:text-grey-darker" href="{{ $feature->link }}">
+                                {{ $feature->title  }}</a>@if(!$loop->last),&nbsp;
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-            <article>
+        <div class="page-box p-3 shadow">
+            <article class="leading-relaxed">
                 {!! $blog->body !!}
             </article>
 
@@ -53,26 +69,7 @@
 
         <modules-comment-form area="blog" :id="{{ $blog->id }}"></modules-comment-form>
 
-    </div>
-@endsection
-
-@section('secondary-column')
-    <div class="flex flex-col">
-        <x-widget class="mb-3" title="Search Blogs">
-            <search-ui-blog-widget />
-        </x-widget>
-
-        <x-widget class="mb-3" title="Sign up to our newsletter">
-            <global-ui-newsletter-signup />
-        </x-widget>
-
-        <global-ui-google-ad code="7266831645"></global-ui-google-ad>
-
-        @if($featured)
-            @include('components.featured-in', $featured)
-        @endif
-
-        @include('components.related-item', $related)
+        <global-ui-google-ad code="7206823714"></global-ui-google-ad>
     </div>
 @endsection
 

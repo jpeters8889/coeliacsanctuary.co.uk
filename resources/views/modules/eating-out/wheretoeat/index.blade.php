@@ -14,13 +14,13 @@
             <p class="mt-2">
                 Most of the places to eat listed in our guide are contributed by people like you, other Coeliac's or
                 people with a gluten intolerance who know of local places in their local area and are kind enough to let
-                us know through our <a class="font-semibold hover:text-blue-dark transition-colour"
+                us know through our <a class="font-semibold hover:text-blue-dark transition-all"
                                        href="/wheretoeat/recommend-a-place" target="_blank">recommend a place</a> form.
             </p>
             <p class="mt-2">
                 You won't find any nationwide chains in our normal eating out guide simply due to how many places these
                 chains have, the other independent eateries will get lost! Instead, we list
-                <a class="font-semibold hover:text-blue-dark transition-colour" href="/wheretoeat/nationwide">nationwide
+                <a class="font-semibold hover:text-blue-dark transition-all" href="/wheretoeat/nationwide">nationwide
                     chains</a> on a separate page.
             </p>
 
@@ -46,7 +46,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-3">
                 @foreach($topPlaces as $topPlace)
-                    <div class="bg-blue-gradient-50 rounded p-2 space-y-2 shadow flex flex-col">
+                    <div class="bg-gradient-to-br from-blue/50 to-blue-light/50 rounded p-2 space-y-2 shadow flex flex-col">
                         <h3 class="text-xl font-semibold">{{ $topPlace->name }}</h3>
                         <div class="font-semibold text-grey flex justify-between">
                             <div class="text-sm">

@@ -7,11 +7,11 @@
         </p>
 
         <div class="flex my-2 justify-center space-x-4 text-lg font-semibold">
-            <button class="js-cookie-consent-agree bg-blue-light py-3 px-6 leading-none rounded font-semibold transition-bg hover:bg-blue">
+            <button class="js-cookie-consent-agree bg-blue-light py-3 px-6 leading-none rounded font-semibold transition-all hover:bg-blue">
                 Allow Cookies
             </button>
 
-            <a href="/cookie-policy" class="bg-blue-light-80 py-3 px-6 leading-none rounded transition-bg hover:bg-blue-80">
+            <a href="/cookie-policy" class="bg-blue-light bg-opacity-80 py-3 px-6 leading-none rounded transition-all hover:bg-blue hover:bg-opacity-80">
                 Find out more
             </a>
         </div>

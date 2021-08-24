@@ -122,7 +122,7 @@ class ShopOrderCompleteTest extends TestCase
         $user = User::query()->first();
 
         $this->get('/shop/basket/done')
-            ->assertSee('<member-register-order-complete-cta name="'.$user->name.'" email="'.$user->email.'"></member-register-order-complete-cta>', false);
+            ->assertSee('<member-register-order-complete-cta name="'.$user->name.'"', false);
     }
 
     /** @test */

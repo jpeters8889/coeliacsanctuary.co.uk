@@ -1,5 +1,5 @@
 <template>
-    <div class="my-2 p-2 bg-blue-light-40 rounded font-semibold justify-center items-center">
+    <div class="my-2 p-2 bg-blue-light bg-opacity-40 rounded font-semibold justify-center items-center">
         <p class="mb-2 text-md">
             Looking for somewhere specific? Search by postcode or town below to get places to eat near you!
         </p>

@@ -1,14 +1,9 @@
 <template>
     <div>
         <portal to="modal" v-if="showModal">
-            <modal small>
+            <modal small :footer="modal.text">
                 <a @click.prevent="clickedPopup($event)" :href="modal.link" class="flex flex-col">
-                    <div>
-                        <img :src="modal.image" :alt="modal.text"/>
-                    </div>
-                    <div class="flex justify-center">
-                        <div class="w-3/4 text-center" v-html="modal.text"></div>
-                    </div>
+                    <img :src="modal.image" :alt="modal.text"/>
                 </a>
             </modal>
         </portal>

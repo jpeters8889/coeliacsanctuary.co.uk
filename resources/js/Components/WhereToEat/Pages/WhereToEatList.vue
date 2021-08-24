@@ -2,7 +2,7 @@
     <div class="w-full my-3 flex lg:space-x-1">
         <div
             v-if="isGte('lg') || showFilterModal"
-            class="fixed flex w-full h-full top-0 left-0 p-4 bg-black-50 z-max lg:relative lg:w-1/3 xl:w-1/4 lg:p-0 lg:bg-none lg:h-auto lg:z-auto"
+            class="fixed flex w-full h-full top-0 left-0 p-4 bg-black bg-opacity-50 z-max lg:relative lg:w-1/3 xl:w-1/4 lg:p-0 lg:bg-none lg:h-auto lg:z-auto"
         >
             <div class="bg-white w-full shadow overflow-hidden lg:shadow-none">
                 <div
@@ -16,7 +16,7 @@
                     <div class="border-b border-grey-off-dark pb-2"
                          v-if="places.length > 0">
                         <a
-                            class="bg-yellow-50 p-2 border-yellow border flex flex-col items-center justify-center text-center space-y-3"
+                            class="bg-yellow bg-opacity-50 p-2 border-yellow border flex flex-col items-center justify-center text-center space-y-3"
                             :href="`/wheretoeat/browse/${places[0].lat},${places[0].lng}/13`"
                         >
                             <img :src="mapUrl" alt=""/>
@@ -37,7 +37,7 @@
                                 @click="category.checked = !category.checked"
                             >
                                 <div
-                                    class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-colors flex-shrink-0"
+                                    class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-all flex-shrink-0"
                                     :class="category.checked ? 'text-white bg-black' : 'bg-white text-grey-off-light group-hover:text-grey-off-dark'"
                                 >
                                     <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
@@ -58,7 +58,7 @@
                                 @click="venueType.checked = !venueType.checked"
                             >
                                 <div
-                                    class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-colors flex-shrink-0"
+                                    class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-all flex-shrink-0"
                                     :class="venueType.checked ? 'text-white bg-black' : 'bg-white text-grey-off-light group-hover:text-grey-off-dark'"
                                 >
                                     <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
@@ -79,7 +79,7 @@
                                 @click="feature.checked = !feature.checked"
                             >
                                 <div
-                                    class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-colors flex-shrink-0"
+                                    class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-all flex-shrink-0"
                                     :class="feature.checked ? 'text-white bg-black' : 'bg-white text-grey-off-light group-hover:text-grey-off-dark'"
                                 >
                                     <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
@@ -100,7 +100,7 @@
                                 @click="rating.checked = !rating.checked"
                             >
                                 <div
-                                    class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-colors flex-shrink-0"
+                                    class="mr-2 w-5 h-5 border border-black rounded-sm text-xs leading-none flex justify-center items-center transition-all flex-shrink-0"
                                     :class="rating.checked ? 'text-white bg-black' : 'bg-white text-grey-off-light group-hover:text-grey-off-dark'"
                                 >
                                     <font-awesome-icon :icon="['fas', 'check']"></font-awesome-icon>
@@ -156,11 +156,11 @@ const Pagination = () => import('~/Global/UI/Pagination' /* webpackChunkName: "c
 import Vue from "vue";
 import VueObserveVisibility from 'vue-observe-visibility'
 import ResponsiveOptions from "@/Mixins/ResponsiveOptions";
-import VTooltip from "v-tooltip";
+import { VTooltip } from "v-tooltip";
 import WhereToEatPlaceDetails from "~/WhereToEat/UI/WhereToEatPlaceDetails";
 import WhereToEatPlaceSkeletonLoader from "~/WhereToEat/UI/WhereToEatPlaceSkeletonLoader";
 
-Vue.use(VTooltip);
+Vue.directive('tooltip', VTooltip)
 Vue.use(VueObserveVisibility)
 
 export default {

@@ -10,14 +10,12 @@ use Coeliac\Base\Controllers\BaseController;
 
 class WorkWithUsController extends BaseController
 {
-    public function get(Page $page, Repository $repository)
+    public function get(Page $page)
     {
         return $page
             ->breadcrumbs([], 'Work With Us')
             ->setPageTitle('Work With Coeliac Sanctuary')
             ->setMetaDescription('Want Coeliac Sanctuary to help promote your brand? Find out how we can help here!')
-            ->render('pages.work-with-us', [
-                'related' => $repository->take(3),
-            ]);
+            ->render('pages.work-with-us');
     }
 }

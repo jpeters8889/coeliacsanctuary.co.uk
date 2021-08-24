@@ -67,18 +67,4 @@ class HomepageService
             ])
         );
     }
-
-    public function hereoImagesArray(): array
-    {
-        $key = $this->configRepository->get('coeliac.cache.featured_images.featured_images');
-
-        if (!$this->cacheRepository->has($key)) {
-            return [];
-        }
-
-        /** @var Collection<FeaturedImage> $items */
-        $items = $this->cacheRepository->get($key);
-
-        return $items->pluck('first_image')->toArray();
-    }
 }

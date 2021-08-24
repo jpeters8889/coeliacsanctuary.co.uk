@@ -29,7 +29,7 @@ class RecipeTest extends TestCase
     {
         $this->get('/recipe')
             ->assertStatus(200)
-            ->assertSee('<module-list-index module="recipes" title="Recipes" url-prefix="recipe">', false);
+            ->assertSee('<module-list-index module="recipes" title="Recipes" url-prefix="recipe"', false);
     }
 
     /** @test */

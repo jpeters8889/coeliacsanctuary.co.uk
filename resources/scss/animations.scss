@@ -1,64 +1,66 @@
-.slide-down {
-  transform: translateY(-100%);
-  animation: slide-down .3s ease;
-  animation-fill-mode: forwards;
-}
-
-.slide-up {
-    transform: translateY(-500%);
-    animation: slide-up .3s ease;
-    animation-fill-mode: forwards;
-}
-
-.spin {
-  animation-name: spin;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-duration: .4s;
-}
-
-.pulse {
-    animation-name: coeliacPulse;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-duration: 1.5s;
-}
-
-@responsive {
-    .no-animation {
-        animation: none;
-        transform: none;
+@layer utilities {
+    .slide-down {
+        transform: translateY(-100%);
+        animation: slide-down .3s ease;
+        animation-fill-mode: forwards;
     }
-}
 
-@keyframes spin {
-  from {
-    transform:rotate(0deg);
-  }
-  to {
-    transform:rotate(360deg);
-  }
-}
-
-@keyframes coeliacPulse {
-    0%, 100%{
-        opacity: 0.75;
-        transform: scale(0.75);
+    .slide-up {
+        transform: translateY(-500%);
+        animation: slide-up .3s ease;
+        animation-fill-mode: forwards;
     }
-    50% {
-        opacity: 1;
-        transform: scale(1.5);
+
+    .spin {
+        animation-name: spin;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-duration: .4s;
     }
-}
 
-@keyframes slide-down {
-  100% {
-    transform: translateY(0);
-  }
-}
+    .pulse {
+        animation-name: coeliacPulse;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-duration: 1.5s;
+    }
 
-@keyframes slide-up {
-  100% {
-    transform: translateY(0);
-  }
+    @responsive {
+        .no-animation {
+            animation: none;
+            transform: none;
+        }
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes coeliacPulse {
+        0%, 100% {
+            opacity: 0.75;
+            transform: scale(0.75);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1.5);
+        }
+    }
+
+    @keyframes slide-down {
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes slide-up {
+        100% {
+            transform: translateY(0);
+        }
+    }
 }

@@ -29,10 +29,6 @@ class WhereToEatAppController extends BaseController
                 'Coeliac sanctuary app', 'gluten free places to eat', 'coeliac sanctuary on the go', 'coeliac places to eat', 'android app',
             ])
             ->setSocialImage(asset('assets/images/shares/wheretoeat-app.jpg'))
-            ->render('modules.eating-out.wheretoeat.app', [
-                'related' => (new ReviewRepository())
-                    ->random()
-                    ->take(5),
-            ]);
+            ->render('modules.eating-out.wheretoeat.app');
     }
 }
