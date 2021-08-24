@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Illuminate\Routing\Router;
-use Coeliac\Common\Controllers\HeroController;
 use Coeliac\Common\Controllers\PopupController;
 use Coeliac\Common\Controllers\TokenController;
 use Coeliac\Common\Controllers\CommentController;

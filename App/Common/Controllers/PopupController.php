@@ -61,7 +61,6 @@ class PopupController extends BaseController
         return (new Response())->cookie(
             "CS_SEEN_POPUP_{$popup->id}",
             $now->timestamp,
-            /* @phpstan-ignore-next-line  */
             $now->addDays($popup->display_every)->diffInMinutes($now)
         );
     }

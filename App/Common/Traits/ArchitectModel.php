@@ -81,7 +81,6 @@ trait ArchitectModel
         /** @var BlueprintSubmitRequest $request */
         $request = resolve(BlueprintSubmitRequest::class);
 
-        /** @phpstan-ignore-next-line */
         $images = $model->fresh()->images()->get();
         $index = 0;
         $field = self::bodyField();
