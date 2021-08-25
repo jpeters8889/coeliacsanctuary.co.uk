@@ -1,6 +1,6 @@
 <template>
-    <nav class="text-lg text-black h-full leading-loose w-full js-primary-nav z-max">
-        <ul class="flex relative z-max">
+    <nav class="text-lg text-black h-full leading-loose w-full js-primary-nav z-50">
+        <ul class="flex relative z-50">
             <li
                 v-for="item in navigation"
                 class="border-b-4 border-transparent hover:border-white hover:border-opacity-80 cursor:pointer z-max"

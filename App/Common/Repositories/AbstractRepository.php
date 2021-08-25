@@ -78,6 +78,23 @@ abstract class AbstractRepository
         return $this;
     }
 
+    protected function shouldSearch(): bool
+    {
+        if (!method_exists($this, 'performSearch')) {
+            return false;
+        }
+
+        if (!property_exists($this, 'useSearch')) {
+            return false;
+        }
+
+        return true;
+    }
+
+    protected function performSearch($model) {
+        //
+    }
+
     protected function query(): Builder
     {
         $model = $this->model();
@@ -92,7 +109,7 @@ abstract class AbstractRepository
                 ->withCount($this->getWithCounts())
         );
 
-        if (method_exists($this, 'performSearch') && $this->useSearch && $searchIds = $this->performSearch($model)) {
+        if ($this->shouldSearch() && $searchIds = $this->performSearch($model)) {
             $builder->whereIn('id', $searchIds)
                 ->orderByRaw('field(id, ' . implode(',', $searchIds) . ')');
         } elseif (!$this->isRaw && !$this->random) {
