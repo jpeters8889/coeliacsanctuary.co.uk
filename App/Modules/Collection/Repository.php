@@ -10,7 +10,7 @@ use Coeliac\Common\Repositories\AbstractRepository;
 
 class Repository extends AbstractRepository
 {
-    protected $withs = ['images', 'images.image', 'items', 'items.item', 'items.item.images', 'items.item.images.image'];
+    protected $withs = ['images', 'images.image', 'items', 'items.item'];
 
     protected function model(): string
     {
