@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Collection\Controllers;
 
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Illuminate\Http\Request;
 use Coeliac\Common\Response\Page;
 use Coeliac\Modules\Blog\Models\Blog;
@@ -46,7 +47,20 @@ class CollectionController extends BaseController
             'data' => $this->repository
                 ->setWithCounts(['items'])
                 ->setColumns(['id', 'title', 'slug', 'long_description', 'meta_description', 'created_at'])
-                ->paginated($request->get('limit', 12)),
+                ->paginated($request->get('limit', 12))
+                ->through(function (Collection $collection) {
+                    $collection->items->transform(function(CollectionItem $item) {
+                       if($item->item instanceof WhereToEat) {
+                           return $item;
+                       }
+
+                       $item->load(['item.images', 'item.images.image']);
+
+                       return $item;
+                    });
+
+                    return $collection;
+                }),
         ];
     }
 
@@ -57,7 +71,7 @@ class CollectionController extends BaseController
 
         $items = $collection
             ->items
-            ->transform(fn (CollectionItem $item) => Item::resolve($item));
+            ->transform(fn(CollectionItem $item) => Item::resolve($item));
 
         return $this->page
             ->breadcrumbs([
@@ -66,9 +80,9 @@ class CollectionController extends BaseController
                     'title' => 'Collections',
                 ],
             ], $collection->title)
-            ->setPageTitle($collection->title.' | Collections')
+            ->setPageTitle($collection->title . ' | Collections')
             ->setMetaDescription($collection->meta_description)
-            ->setMetaKeywords(explode(',', (string) $collection->meta_keywords))
+            ->setMetaKeywords(explode(',', (string)$collection->meta_keywords))
             ->setSocialImage($collection->social_image)
             ->render('modules.collections.show', compact('collection', 'items'));
     }
