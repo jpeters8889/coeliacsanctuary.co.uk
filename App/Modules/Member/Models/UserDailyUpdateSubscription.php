@@ -11,12 +11,12 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property int user_id
- * @property int daily_update_type_id
- * @property Updatable updatable
- * @property int id
- * @property DailyUpdateType type
- * @property User user
+ * @property int $user_id
+ * @property int $daily_update_type_id
+ * @property Updatable $updatable
+ * @property string $id
+ * @property DailyUpdateType $type
+ * @property User $user
  */
 class UserDailyUpdateSubscription extends BaseModel
 {
@@ -24,6 +24,7 @@ class UserDailyUpdateSubscription extends BaseModel
     protected $keyType = 'string';
 
     protected $casts = [
+        'id' => 'string',
         'user_id' => 'int',
         'daily_update_type_id' => 'int',
     ];

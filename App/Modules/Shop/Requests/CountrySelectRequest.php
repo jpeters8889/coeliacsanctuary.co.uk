@@ -8,7 +8,7 @@ use Coeliac\Base\Requests\ApiFormRequest;
 
 class CountrySelectRequest extends ApiFormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'country' => ['required', 'numeric', 'exists:shop_postage_countries,id'],

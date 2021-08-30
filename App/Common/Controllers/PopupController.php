@@ -14,16 +14,11 @@ use Coeliac\Base\Controllers\BaseController;
 
 class PopupController extends BaseController
 {
-    private Repository $repository;
-    private Request $request;
-
-    public function __construct(Repository $repository, Request $request)
+    public function __construct(private Repository $repository, private Request $request)
     {
-        $this->repository = $repository;
-        $this->request = $request;
     }
 
-    public function get()
+    public function get(): Popup|array
     {
         $popups = new Collection();
 
@@ -49,9 +44,9 @@ class PopupController extends BaseController
         return $popups->first();
     }
 
-    public function update($id)
+    public function update(mixed $id): Response
     {
-        /* @var ?Popup $popup */
+        /* @var Popup $popup */
         $popup = $this->repository->get($id);
 
         abort_if(!$popup, 404);
@@ -61,6 +56,7 @@ class PopupController extends BaseController
         return (new Response())->cookie(
             "CS_SEEN_POPUP_{$popup->id}",
             $now->timestamp,
+            /** @phpstan-ignore-next-line  */
             $now->addDays($popup->display_every)->diffInMinutes($now)
         );
     }

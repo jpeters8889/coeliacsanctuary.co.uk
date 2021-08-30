@@ -9,10 +9,11 @@ use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Member\Models\Scrapbook;
 use Coeliac\Modules\Member\Models\ScrapbookItem;
 use Coeliac\Modules\Member\Requests\ScrapbookAddItemRequest;
+use Illuminate\Database\Eloquent\Collection;
 
 class ScrapbookItemController extends BaseController
 {
-    public function list(Gate $gate, Scrapbook $scrapbook)
+    public function list(Gate $gate, Scrapbook $scrapbook): Collection
     {
         $gate->authorize('manage-scrapbook', $scrapbook);
 
@@ -24,20 +25,20 @@ class ScrapbookItemController extends BaseController
                 'added' => $item->created_at,
                 'item' => [
                     'area' => class_basename($item->item),
-                    'title' => $item->item->title,
-                    'image' => $item->item->main_image,
-                    'description' => $item->item->meta_description,
-                    'link' => $item->item->link,
+                    'title' => $item->item->getAttribute('title'),
+                    'image' => $item->item->getAttribute('main_image'),
+                    'description' => $item->item->getAttribute('meta_description'),
+                    'link' => $item->item->getAttribute('link'),
                 ],
             ]);
     }
 
-    public function create(ScrapbookAddItemRequest $request, Scrapbook $scrapbook)
+    public function create(ScrapbookAddItemRequest $request, Scrapbook $scrapbook): void
     {
         $request->resolveItem()->addToScrapbook($scrapbook);
     }
 
-    public function delete(Gate $gate, Scrapbook $scrapbook, ScrapbookItem $item)
+    public function delete(Gate $gate, Scrapbook $scrapbook, ScrapbookItem $item): void
     {
         $gate->authorize('manage-scrapbook', $scrapbook);
 

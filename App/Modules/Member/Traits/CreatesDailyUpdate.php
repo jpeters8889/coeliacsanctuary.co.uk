@@ -11,7 +11,7 @@ use Coeliac\Modules\Member\Events\DailyUpdateItemCreated;
 /** @mixin BaseModel */
 trait CreatesDailyUpdate
 {
-    public static function bootCreatesDailyUpdate()
+    public static function bootCreatesDailyUpdate(): void
     {
         static::created(function (BaseModel $model) {
             if (!static::dispatchUpdateOnCreate()) {
@@ -22,7 +22,7 @@ trait CreatesDailyUpdate
         });
     }
 
-    abstract protected static function dailyUpdateType();
+    abstract protected static function dailyUpdateType(): array|int;
 
     protected static function dispatchUpdateOnCreate(): bool
     {

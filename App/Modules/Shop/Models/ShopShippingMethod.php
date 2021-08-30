@@ -17,7 +17,7 @@ class ShopShippingMethod extends BaseModel
         return $this->hasMany(ShopProduct::class);
     }
 
-    public function prices()
+    public function prices(): HasMany
     {
         return $this->hasMany(ShopPostagePrice::class, 'shipping_method_id');
     }

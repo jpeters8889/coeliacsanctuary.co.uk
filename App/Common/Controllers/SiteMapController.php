@@ -11,7 +11,7 @@ use Illuminate\Contracts\View\Factory as ViewFactory;
 
 class SiteMapController extends BaseController
 {
-    public function get(ViewFactory $viewFactory, SiteMapService $service)
+    public function get(ViewFactory $viewFactory, SiteMapService $service): Response
     {
         return new Response(
             $viewFactory->make('static.sitemap', [

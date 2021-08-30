@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Models;
 
 use Coeliac\Base\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserLevel extends BaseModel
 {
@@ -12,7 +13,7 @@ class UserLevel extends BaseModel
     public const MEMBER = 2;
     public const ADMIN = 3;
 
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }

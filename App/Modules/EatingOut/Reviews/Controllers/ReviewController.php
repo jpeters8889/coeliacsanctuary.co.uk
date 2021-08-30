@@ -11,20 +11,15 @@ use Coeliac\Modules\EatingOut\Reviews\Repository;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Coeliac\Modules\Collection\Models\CollectionItem;
 use Coeliac\Modules\EatingOut\Reviews\Requests\ReviewShowRequest;
+use Illuminate\Http\Response;
 
 class ReviewController extends BaseController
 {
-    private Page $page;
-
-    private Repository $repository;
-
-    public function __construct(Page $page, Repository $repository)
+    public function __construct(private Page $page, private Repository $repository)
     {
-        $this->page = $page;
-        $this->repository = $repository;
     }
 
-    public function index()
+    public function index(): Response
     {
         return $this->page
             ->breadcrumbs([
@@ -43,7 +38,7 @@ class ReviewController extends BaseController
             ->render('modules.reviews.index');
     }
 
-    public function list(Request $request)
+    public function list(Request $request): array
     {
         $this->validate($request, [
             'limit' => 'integer,max:50',
@@ -60,7 +55,7 @@ class ReviewController extends BaseController
         ];
     }
 
-    public function show(ReviewShowRequest $request)
+    public function show(ReviewShowRequest $request): Response
     {
         /* @var Review $review */
         abort_if(!$review = $request->resolveItem(), 404, 'Sorry, this review can\'t be found');

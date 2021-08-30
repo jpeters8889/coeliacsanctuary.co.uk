@@ -7,13 +7,14 @@ parameters:
         - App
 
     # The level 8 is the highest level
-    level: 1
+    level: 8
 
     ignoreErrors:
         - '#Anonymous function has an unused use \$router.#'
 
     excludePaths:
         - ./*/*/*Blueprint.php
+        - ./*/*/*Dashboard.php
         - ./*/*/*Feed.php
 
     checkMissingIterableValueType: false

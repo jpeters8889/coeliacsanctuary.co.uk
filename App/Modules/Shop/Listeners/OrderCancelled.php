@@ -11,7 +11,7 @@ use Coeliac\Modules\Shop\Notifications\OrderCancelledNotification;
 
 class OrderCancelled implements ShouldQueue
 {
-    public function handle(CancelOrder $cancelOrderEvent)
+    public function handle(CancelOrder $cancelOrderEvent): void
     {
         $cancelOrderEvent->order()->markAs(ShopOrderState::STATE_CANCELLED);
 

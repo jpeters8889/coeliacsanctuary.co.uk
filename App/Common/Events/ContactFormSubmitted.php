@@ -13,7 +13,7 @@ class ContactFormSubmitted
         $this->request = $request;
     }
 
-    public function request()
+    public function request(): array
     {
         return $this->request;
     }

@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  */
 trait Imageable
 {
-    public static function bootImageable()
+    public static function bootImageable(): void
     {
         self::with(['images', 'images.image']);
     }
@@ -26,7 +26,7 @@ trait Imageable
         return $this->morphMany(ImageAssociations::class, 'imageable');
     }
 
-    public function associateImage(Image $image, $category = Image::IMAGE_CATEGORY_GENERAL)
+    public function associateImage(Image $image, int $category = Image::IMAGE_CATEGORY_GENERAL): static
     {
         $this->images()->create([
             'image_id' => $image->getKey(),

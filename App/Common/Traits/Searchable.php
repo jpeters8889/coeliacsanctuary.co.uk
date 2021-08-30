@@ -9,9 +9,9 @@ use Illuminate\Container\Container;
 
 trait Searchable
 {
-    protected $useSearch = false;
+    protected bool $useSearch = false;
 
-    protected function performSearch($model)
+    protected function performSearch(string $model): array|null
     {
         if (!$this->useSearch) {
             return null;
@@ -26,7 +26,7 @@ trait Searchable
         return null;
     }
 
-    public function search()
+    public function search(): static
     {
         $this->useSearch = true;
 

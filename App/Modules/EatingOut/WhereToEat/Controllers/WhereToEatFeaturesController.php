@@ -8,16 +8,15 @@ use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatFeature;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatVenueType;
 
 class WhereToEatFeaturesController extends BaseController
 {
-    public function get(Repository $repository)
+    public function get(Repository $repository): array
     {
         $summary = WhereToEatFeature::query()
             ->orderBy('feature')
             ->get()
-            ->mapWithKeys(function ($feature) {
+            ->mapWithKeys(function (WhereToEatFeature $feature) {
                 return [
                     $feature->id => [
                         'id' => $feature->id,
@@ -35,7 +34,7 @@ class WhereToEatFeaturesController extends BaseController
             ->setWiths(['features'])
             ->all()
             ->each(function (WhereToEat $eatery) use (&$summary) {
-                return $eatery->features->each(function ($feature) use (&$summary) {
+                $eatery->features->each(function (WhereToEatFeature $feature) use (&$summary) {
                     $summary[$feature->id]['count']++;
                 });
             });

@@ -118,6 +118,7 @@ class ProductBlueprint extends Blueprint
     public function getData(): Builder
     {
         return parent::getData()
+            ->with(['prices', 'images', 'images.category'])
             ->selectRaw(implode(',', [
                 'shop_products.*',
                 'shop_categories.title category_title',

@@ -26,7 +26,7 @@ class ScrapbookSearchRequest extends ApiFormRequest
         throw new RuntimeException('Unknown Area');
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'id' => ['required', 'numeric'],

@@ -44,24 +44,26 @@ class Plan extends ArchitectPlan
         /** @var ImageManager $imageManager */
         $imageManager = resolve(ImageManager::class);
 
-        return $model->fresh()->images->transform(static function (ImageAssociations $imageAssociation) use ($imageManager) {
-            $fileName = $imageAssociation->image->file_name;
-            $category = $imageAssociation->category->category;
+        return $model->fresh()->load(['images', 'images.category', 'images.image'])
+            ->images
+            ->transform(static function (ImageAssociations $imageAssociation) use ($imageManager) {
+                $fileName = $imageAssociation->image->file_name;
+                $category = $imageAssociation->category->category;
 
-            $url = config('architect.upload_directory').'/'.$fileName;
+                $url = config('architect.upload_directory').'/'.$fileName;
 
-            $image = $imageManager
+                $image = $imageManager
                 ->make($imageAssociation->image->raw_url)
                 ->save(public_path($url));
 
-            return [
+                return [
                 'path' => $url,
                 'filename' => $fileName,
                 'type' => !in_array($category, ['general', 'shop_product']) ? $category : 'article',
                 'width' => $image->width(),
                 'height' => $image->height(),
             ];
-        });
+            });
     }
 
     public function handleUpdate(Model $model, $column, $value)

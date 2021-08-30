@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers\Dashboards;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Coeliac\Common\Response\Page;
@@ -26,22 +27,22 @@ class ScrapbookController extends BaseController
             ]);
     }
 
-    public function list(Request $request)
+    public function list(Request $request): Collection
     {
         return $request->user()->scrapbooks()->withCount('items')->orderBy('name')->get();
     }
 
-    public function create(ScrapbookCreateRequest $request)
+    public function create(ScrapbookCreateRequest $request): void
     {
         $request->user()->scrapbooks()->create($request->validated());
     }
 
-    public function update(ScrapbookUpdateRequest $request, Scrapbook $scrapbook)
+    public function update(ScrapbookUpdateRequest $request, Scrapbook $scrapbook): void
     {
         $scrapbook->update($request->validated());
     }
 
-    public function delete(Request $request, Scrapbook $scrapbook, Gate $gate)
+    public function delete(Request $request, Scrapbook $scrapbook, Gate $gate): Response|bool
     {
         $gate->authorize('manage-scrapbook', $scrapbook);
 
@@ -50,5 +51,7 @@ class ScrapbookController extends BaseController
         }
 
         $scrapbook->delete();
+
+        return true;
     }
 }

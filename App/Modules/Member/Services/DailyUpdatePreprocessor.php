@@ -14,16 +14,11 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
 
 class DailyUpdatePreprocessor
 {
-    protected Collection $subscriptions;
-    protected Collection $updates;
-
     protected ?Collection $blogs = null;
     protected ?Collection $eateries = null;
 
-    public function __construct(Collection $subscription, Collection $updates)
+    public function __construct(protected Collection $subscriptions, protected Collection $updates)
     {
-        $this->subscriptions = $subscription;
-        $this->updates = $updates;
     }
 
     public function process(): Collection
@@ -39,6 +34,7 @@ class DailyUpdatePreprocessor
     protected function parseUpdates(): void
     {
         $this->updates->each(function (BaseModel $item) {
+            /** @phpstan-ignore-next-line  */
             if (!$item->live) {
                 return;
             }
@@ -46,11 +42,13 @@ class DailyUpdatePreprocessor
             switch (Str::lower(class_basename($item))) {
                 case 'blog':
                     /* @var Blog $item */
-                    $this->processBlog($item);
+                    /** @phpstan-ignore-next-line  */
+                $this->processBlog($item);
                     break;
                 case 'wheretoeat':
                     /* @var WhereToEat $item */
-                    $this->processEatery($item);
+                    /** @phpstan-ignore-next-line  */
+                $this->processEatery($item);
                     break;
             }
         });
@@ -102,12 +100,12 @@ class DailyUpdatePreprocessor
 
     protected function blogAlreadyProcessed(Blog $blog): bool
     {
-        return $this->blogs->get('items')->contains(fn ($item) => $item['id'] === $blog->id);
+        return $this->blogs?->get('items')->contains(fn ($item) => $item['id'] === $blog->id);
     }
 
     protected function eateryAlreadyProcessed(WhereToEat $eatery): bool
     {
-        return $this->eateries->get('items')->contains(fn ($item) => $item['id'] === $eatery->id);
+        return $this->eateries?->get('items')->contains(fn ($item) => $item['id'] === $eatery->id);
     }
 
     protected function processBlogTag(Blog $blog): void
@@ -121,11 +119,11 @@ class DailyUpdatePreprocessor
                 return;
             }
 
-            if ($this->blogs->get('subscriptions')->contains($tag->tag)) {
+            if ($this->blogs?->get('subscriptions')->contains($tag->tag)) {
                 return;
             }
 
-            $this->blogs->get('subscriptions')->push($tag->tag);
+            $this->blogs?->get('subscriptions')->push($tag->tag);
         });
     }
 
@@ -148,11 +146,11 @@ class DailyUpdatePreprocessor
                 return;
             }
 
-            if ($this->eateries->get('subscriptions')->contains($subscription->$attribute)) {
+            if ($this->eateries?->get('subscriptions')->contains($subscription->$attribute)) {
                 return;
             }
 
-            $this->eateries->get('subscriptions')->push($subscription->$attribute);
+            $this->eateries?->get('subscriptions')->push($subscription->$attribute);
         });
     }
 
@@ -160,7 +158,7 @@ class DailyUpdatePreprocessor
     {
         $eatery->load(['country', 'county', 'town']);
 
-        $this->eateries->get('items')->push([
+        $this->eateries?->get('items')->push([
             'id' => $eatery->id,
             'title' => $eatery->name,
             'location' => $eatery->full_location,
@@ -174,7 +172,7 @@ class DailyUpdatePreprocessor
     {
         $blog->load('images');
 
-        $this->blogs->get('items')->push([
+        $this->blogs?->get('items')->push([
             'id' => $blog->id,
             'title' => $blog->title,
             'link' => $blog->link,

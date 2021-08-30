@@ -28,7 +28,7 @@ class YourDetailsController extends BaseController
             ]);
     }
 
-    public function update(UpdateDetailsRequest $request, Dispatcher $dispatcher)
+    public function update(UpdateDetailsRequest $request, Dispatcher $dispatcher): void
     {
         $currentEmail = $request->user()->email;
 
@@ -43,7 +43,7 @@ class YourDetailsController extends BaseController
         }
     }
 
-    public function password(UpdatePasswordRequest $request, Hasher $hasher, Dispatcher $dispatcher)
+    public function password(UpdatePasswordRequest $request, Hasher $hasher, Dispatcher $dispatcher): void
     {
         $request->user()->update(['password' => $hasher->make($request->input('new'))]);
 

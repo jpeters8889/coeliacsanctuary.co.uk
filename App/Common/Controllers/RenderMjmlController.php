@@ -16,7 +16,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
 class RenderMjmlController extends BaseController
 {
-    public function get(NewsletterRenderRequest $request, ViewFactory $viewFactory, CompilerContract $compiler)
+    public function get(NewsletterRenderRequest $request, ViewFactory $viewFactory, CompilerContract $compiler): string
     {
         $compiled = $compiler->compile(
             $viewFactory->make('mailables.mjml.newsletter-template', [

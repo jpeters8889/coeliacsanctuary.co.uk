@@ -24,7 +24,7 @@ class IndexManager
         $this->bootIndices();
     }
 
-    protected function bootIndices()
+    protected function bootIndices(): void
     {
         $this->indices = [
             'blogs' => Blog::class,
@@ -40,7 +40,7 @@ class IndexManager
         $resultSet = new Collection();
 
         foreach ($this->indices as $key => $index) {
-            if (!$this->searchService->isSearchable($key)) {
+            if (!$this->searchService->isSearchable((string) $key)) {
                 continue;
             }
 

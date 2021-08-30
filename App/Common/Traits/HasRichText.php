@@ -10,7 +10,7 @@ use function in_array;
 /** @mixin Model */
 trait HasRichText
 {
-    public function getRichTextAttribute()
+    public function getRichTextAttribute(): array
     {
         return array_merge([
             '@context' => $this->richTextContext(),
@@ -27,7 +27,7 @@ trait HasRichText
 
     abstract protected function toRichText(): array;
 
-    protected function formatTimeToIso($time): string
+    protected function formatTimeToIso(string $time): string
     {
         $time = str_ireplace([' and', ' a', ' half'], '', $time);
         $bits = explode(' ', $time);

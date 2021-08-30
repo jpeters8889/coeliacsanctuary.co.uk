@@ -16,7 +16,7 @@ class Repository extends AbstractRepository
         return Announcement::class;
     }
 
-    protected function order(Builder &$builder)
+    protected function order(Builder $builder): void
     {
         $builder->orderBy('expires_at')->orderByDesc('created_at');
     }

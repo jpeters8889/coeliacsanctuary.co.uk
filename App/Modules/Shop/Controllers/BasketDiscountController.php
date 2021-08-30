@@ -11,7 +11,7 @@ use Coeliac\Modules\Shop\Requests\ApplyDiscountRequest;
 
 class BasketDiscountController extends BaseController
 {
-    public function get(ApplyDiscountRequest $request, Store $sessionStore)
+    public function get(ApplyDiscountRequest $request, Store $sessionStore): array
     {
         /** @var ShopDiscountCode $discountCode */
         $discountCode = $request->getDiscountCode();

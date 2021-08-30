@@ -11,7 +11,7 @@ use Coeliac\Base\Controllers\BaseController;
 
 class ManageUpdatesController extends BaseController
 {
-    public function __invoke(Request $request, Guard $guard)
+    public function __invoke(Request $request, Guard $guard): RedirectResponse
     {
         if (!$request->user()) {
             $guard->loginUsingId($request->route('id'));

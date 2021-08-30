@@ -8,7 +8,7 @@ use Coeliac\Base\Requests\ApiFormRequest;
 
 class ResetPasswordRequest extends ApiFormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'token' => ['required'],

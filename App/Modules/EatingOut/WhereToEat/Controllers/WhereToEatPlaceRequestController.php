@@ -14,7 +14,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\PlaceRequest as PlaceRequestMode
 class WhereToEatPlaceRequestController extends BaseController
 {
     /** @deprecated  */
-    public function create(PlaceRequest $request, Dispatcher $events)
+    public function create(PlaceRequest $request, Dispatcher $events): Response
     {
         /** @var PlaceRequestModel $placeRequest */
         $placeRequest = PlaceRequestModel::query()->create([

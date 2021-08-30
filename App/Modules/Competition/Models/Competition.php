@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Competition\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Traits\Imageable;
@@ -13,14 +14,14 @@ use Coeliac\Common\Traits\DisplaysImages;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @property int id
- * @property string uuid
- * @property Carbon start_at
- * @property Carbon end_at
- * @property string name
- * @property string meta_description
- * @property string meta_keywords
- * @property string terms
+ * @property int $id
+ * @property string $uuid
+ * @property Carbon $start_at
+ * @property Carbon $end_at
+ * @property string $name
+ * @property string $meta_description
+ * @property string $meta_keywords
+ * @property string $terms
  */
 class Competition extends BaseModel
 {
@@ -41,7 +42,7 @@ class Competition extends BaseModel
         'end_at',
     ];
 
-    public function resolveRouteBinding($value, $field = null)
+    public function resolveRouteBinding($value, $field = null): self|Model|null
     {
         $column = 'slug';
 
@@ -96,7 +97,7 @@ class Competition extends BaseModel
         return 'description';
     }
 
-    protected static function titleField()
+    protected static function titleField(): string
     {
         return 'name';
     }

@@ -10,7 +10,7 @@ use Coeliac\Modules\Shop\PostcodeLookup\Parser as ParserContract;
 
 class Parser implements ParserContract
 {
-    public function parse($response, $postcode): Collection
+    public function parse(object $response, string $postcode): Collection
     {
         if (!$response->addresses) {
             throw new Exception('No results');
@@ -21,7 +21,7 @@ class Parser implements ParserContract
         })->sortBy('house_number')->values();
     }
 
-    private function processAddress($address, $postcode): array
+    private function processAddress(string $address, string $postcode): array
     {
         $parts = (new Collection(explode(',', $address)))
             ->reject(static function ($part) {
@@ -40,7 +40,7 @@ class Parser implements ParserContract
         return $result;
     }
 
-    private function addressArray($postcode, Collection $parts): array
+    private function addressArray(string $postcode, Collection $parts): array
     {
         if ($parts->count() > 2) {
             $county = $parts->pop();

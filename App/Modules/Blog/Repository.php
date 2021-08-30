@@ -15,14 +15,14 @@ class Repository extends AbstractRepository
     use Filterable;
     use Searchable;
 
-    protected $withs = ['images', 'images.image', 'tags'];
+    protected array $withs = ['images', 'images.image', 'tags'];
 
     protected function model(): string
     {
         return Blog::class;
     }
 
-    protected function order(Builder &$builder)
+    protected function order(Builder $builder): void
     {
         $builder->latest();
     }

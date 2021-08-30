@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Search\Indices;
 
-use Laravel\Scout\Builder;
+use Algolia\ScoutExtended\Builder;
 use Spatie\Geocoder\Geocoder;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Collection;
@@ -12,7 +12,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
 class Eatery extends Index
 {
-    protected function model(): Builder
+    protected function model(): Builder|\Laravel\Scout\Builder
     {
         return WhereToEat::search($this->term);
     }
@@ -35,8 +35,8 @@ class Eatery extends Index
         }
 
         return $results->concat(
-            WhereToEat::search()
-            ->with([
+        /** @phpstan-ignore-next-line  */
+        WhereToEat::search()->with([
                 'getRankingInfo' => true,
                 'aroundLatLng' => implode(', ', [$geocoder['lat'], $geocoder['lng']]),
                 'aroundRadius' => (int) round(2 * 1609.344),
@@ -51,6 +51,8 @@ class Eatery extends Index
 
     protected function mergeIntoResult(BaseModel $result): array
     {
+        /** @var WhereToEat $result */
+
         return [
             'lat' => $result->lat,
             'lng' => $result->lng,

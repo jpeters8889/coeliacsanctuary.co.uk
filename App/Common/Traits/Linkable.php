@@ -8,22 +8,22 @@ use Illuminate\Support\Str;
 
 trait Linkable
 {
-    public function initializeLinkable()
+    public function initializeLinkable(): void
     {
         $this->append('link');
     }
 
-    public function getLinkAttribute()
+    public function getLinkAttribute(): string
     {
         return '/'.$this->linkRoot().'/'.$this->linkColumn();
     }
 
-    protected function linkRoot()
+    protected function linkRoot(): string
     {
         return Str::plural(Str::lower(class_basename($this)));
     }
 
-    protected function linkColumn()
+    protected function linkColumn(): string
     {
         return $this->slug;
     }

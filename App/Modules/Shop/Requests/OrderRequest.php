@@ -11,7 +11,7 @@ use Coeliac\Modules\Shop\Rules\ValidPostcode;
 
 class OrderRequest extends ApiFormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         $userRules = [];
 

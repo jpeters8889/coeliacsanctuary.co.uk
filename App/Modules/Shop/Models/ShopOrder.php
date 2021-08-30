@@ -9,6 +9,10 @@ use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Member\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Coeliac\Modules\Member\Models\UserAddress;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
  * @property ShopOrderState            $state
@@ -20,13 +24,14 @@ use Coeliac\Modules\Member\Models\UserAddress;
  * @property mixed|string              $customer_id
  * @property mixed|string              $customer_address_id
  * @property ShopPayment               $payment
- * @property string                    $order_key
+ * @property int                    $order_key
  * @property bool                      $newsletter_signup
  * @property ShopDiscountCode          $discountCode
  * @property Carbon                    $created_at
  * @property int                       $items_count
  * @property Carbon|null               $shipped_at
  * @property Collection<ShopOrderItem> $items
+ * @property int $state_id
  */
 class ShopOrder extends BaseModel
 {
@@ -40,22 +45,22 @@ class ShopOrder extends BaseModel
 
     protected $dates = ['shipped_at'];
 
-    public function state()
+    public function state(): BelongsTo
     {
         return $this->belongsTo(ShopOrderState::class, 'state_id');
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function address()
+    public function address(): BelongsTo
     {
         return $this->belongsTo(UserAddress::class, 'user_address_id')->withTrashed();
     }
 
-    public function addProduct(ShopProductVariant $variant, $quantity = 1)
+    public function addProduct(ShopProductVariant $variant, int $quantity = 1): void
     {
         $title = $variant->product->title;
 
@@ -76,40 +81,40 @@ class ShopOrder extends BaseModel
         $this->touch();
     }
 
-    public function payment()
+    public function payment(): HasOne
     {
         return $this->hasOne(ShopPayment::class, 'order_id');
     }
 
-    public function items()
+    public function items(): HasMany
     {
         return $this->hasMany(ShopOrderItem::class, 'order_id');
     }
 
-    public function postageCountry()
+    public function postageCountry(): BelongsTo
     {
         return $this->belongsTo(ShopPostageCountry::class, 'postage_country_id');
     }
 
-    public function markAs($what)
+    public function markAs(int $what): void
     {
         $this->update([
             'state_id' => $what,
         ]);
     }
 
-    public function markAsPaid()
+    public function markAsPaid(): void
     {
         $this->markAs(ShopOrderState::STATE_PAID);
     }
 
-    public function setPubllicKey()
+    public function setPublicKey(): void
     {
         $this->order_key = $this->generateKey();
         $this->save();
     }
 
-    private function generateKey()
+    private function generateKey(): int
     {
         $key = randomNumber();
 
@@ -120,7 +125,7 @@ class ShopOrder extends BaseModel
         return $this->generateKey();
     }
 
-    public function discountCode()
+    public function discountCode(): HasOneThrough
     {
         return $this->hasOneThrough(ShopDiscountCode::class, ShopDiscountCodesUsed::class, 'order_id', 'id', 'id', 'discount_id');
     }

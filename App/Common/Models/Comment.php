@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property string $name
  * @property string $email
  * @property string $comment
+ * @property string $commentable_type
  */
 class Comment extends BaseModel
 {
@@ -38,7 +39,7 @@ class Comment extends BaseModel
         return $this->morphTo();
     }
 
-    public function getWhatAttribute()
+    public function getWhatAttribute(): string
     {
         return class_basename($this->commentable_type);
     }

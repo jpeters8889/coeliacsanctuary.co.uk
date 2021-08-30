@@ -12,14 +12,14 @@ use Coeliac\Modules\Member\Notifications\ResendVerifyEmail;
 
 class VerifyEmailController extends BaseController
 {
-    public function show(EmailVerificationRequest $request)
+    public function show(EmailVerificationRequest $request): RedirectResponse
     {
         $request->fulfill();
 
         return new RedirectResponse('/member/dashboard');
     }
 
-    public function create(Request $request)
+    public function create(Request $request): void
     {
         $request->user()->notify(new ResendVerifyEmail());
     }

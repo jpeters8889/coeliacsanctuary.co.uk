@@ -53,8 +53,7 @@ class MassDiscountsBlueprint extends Blueprint
 
     public function getCategories(): array
     {
-        return ShopCategory::query()
-            ->withLiveProducts()
+        return ShopCategory::withLiveProducts()
             ->orderBy('title')
             ->get()
             ->transform(static function (ShopCategory $category) {

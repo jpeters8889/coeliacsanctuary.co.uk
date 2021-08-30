@@ -6,9 +6,12 @@ namespace Coeliac\Modules\Blog\Models;
 
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Member\Contracts\Updatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @property mixed $slug
+ * @property string $slug
+ * @property string $tag
+ * @property string $link
  */
 class BlogTag extends BaseModel implements Updatable
 {
@@ -26,7 +29,7 @@ class BlogTag extends BaseModel implements Updatable
         return '/blog?o='.base64_encode('filter[tags]='.$this->slug);
     }
 
-    public function blogs()
+    public function blogs(): BelongsToMany
     {
         return $this->belongsToMany(Blog::class, 'blog_assigned_tags', 'tag_id', 'blog_id');
     }

@@ -6,10 +6,11 @@ namespace Coeliac\Modules\EatingOut\Controllers;
 
 use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
+use Illuminate\Http\Response;
 
 class EatingOutController extends BaseController
 {
-    public function index(Page $page)
+    public function index(Page $page): Response
     {
         return $page
             ->breadcrumbs([], 'Eating Out')

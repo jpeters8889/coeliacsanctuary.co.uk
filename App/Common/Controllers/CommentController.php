@@ -9,17 +9,19 @@ use Coeliac\Modules\Recipe\Models\Recipe;
 use Coeliac\Common\Requests\CommentRequest;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CommentController extends BaseController
 {
-    public function store(CommentRequest $request)
+    public function store(CommentRequest $request): array
     {
         $request->model()->comments()->create($request->only(['name', 'email', 'comment']));
 
         return ['data' => 'Comment Created'];
     }
 
-    public function get($area, $id)
+    public function get(string $area, mixed $id): LengthAwarePaginator
     {
         switch ($area) {
             case 'blog':

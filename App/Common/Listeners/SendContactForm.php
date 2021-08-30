@@ -11,14 +11,11 @@ use Coeliac\Common\Events\ContactFormSubmitted;
 
 class SendContactForm implements ShouldQueue
 {
-    private Mailer $email;
-
-    public function __construct(Mailer $email)
+    public function __construct(private Mailer $email)
     {
-        $this->email = $email;
     }
 
-    public function handle(ContactFormSubmitted $event)
+    public function handle(ContactFormSubmitted $event): void
     {
         $this->email->to('contact@coeliacsanctuary.co.uk')
             ->send(new ContactUs($event->request()));

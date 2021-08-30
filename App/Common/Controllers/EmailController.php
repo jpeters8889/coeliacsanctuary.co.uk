@@ -11,7 +11,7 @@ use Coeliac\Common\Notifications\Messages\MJMLMessage;
 
 class EmailController extends BaseController
 {
-    public function get(EmailRequest $request, CompilerContract $compiler)
+    public function get(EmailRequest $request, CompilerContract $compiler): string
     {
         $email = $request->email();
 

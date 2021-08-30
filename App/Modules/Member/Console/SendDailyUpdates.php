@@ -16,7 +16,7 @@ class SendDailyUpdates extends Command
 {
     protected $signature = 'coeliac:send_daily_updates';
 
-    public function handle()
+    public function handle(): void
     {
         DailyUpdatesQueue::query()
             ->with(['newItem'])

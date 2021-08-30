@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string $type
+ * @property string $name
  */
 class WhereToEatType extends BaseModel
 {

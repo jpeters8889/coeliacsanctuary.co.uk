@@ -11,7 +11,7 @@ class UpdateUserActivity extends Command
 {
     protected $signature = 'coeliac:update-user-activity';
 
-    public function handle(UserActivityMonitor $activityMonitor)
+    public function handle(UserActivityMonitor $activityMonitor): void
     {
         $activityMonitor->all()
             ->each(fn ($item) => $item['user']->update(['last_visited_at' => $item['date']]))

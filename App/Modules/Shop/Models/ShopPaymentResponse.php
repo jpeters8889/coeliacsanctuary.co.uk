@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Models;
 
 use Coeliac\Base\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ShopPaymentResponse extends BaseModel
 {
@@ -12,7 +13,7 @@ class ShopPaymentResponse extends BaseModel
         'response' => 'array',
     ];
 
-    public function payment()
+    public function payment(): BelongsTo
     {
         return $this->belongsTo(ShopPayment::class, 'payment_id');
     }

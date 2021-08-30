@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Recipe\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
@@ -39,6 +40,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property Collection<RecipeFeature> $features
  * @property string $method
  * @property string $description
+ * @property string $link
+ * @property int $id
+ * @property Collection $meals
+ * @property string $meta_keywords
+ * @property string $legacy_slug
+ * @property string $slug
  *
  * @method transform(array $array)
  */
@@ -55,7 +62,7 @@ class Recipe extends BaseModel implements HasComments
     use Linkable;
     use Searchable;
 
-    protected function linkRoot()
+    protected function linkRoot(): string
     {
         return 'recipe';
     }
@@ -74,7 +81,7 @@ class Recipe extends BaseModel implements HasComments
         )->withTimestamps();
     }
 
-    public function containsAllergens()
+    public function containsAllergens(): EloquentCollection
     {
         return RecipeAllergen::query()
             ->get()
@@ -127,22 +134,22 @@ class Recipe extends BaseModel implements HasComments
         return (bool)$this->live;
     }
 
-    public function getScoutKey()
+    public function getScoutKey(): mixed
     {
         return $this->id;
     }
 
-    protected static function bodyField()
+    protected static function bodyField(): string
     {
         return 'method';
     }
 
-    public function getArchitectIngredientsAttribute()
+    public function getArchitectIngredientsAttribute(): string
     {
         return cs_br2nl($this->ingredients);
     }
 
-    public function setArchitectIngredientsAttribute($value)
+    public function setArchitectIngredientsAttribute(string $value): void
     {
         $this->ingredients = cs_nl2br($value);
     }
@@ -203,7 +210,7 @@ class Recipe extends BaseModel implements HasComments
         }
 
         if ($this->features->contains('Vegetarian')) {
-            $suitableFor = 'VegetarianDiet';
+            $suitableFor[] = 'VegetarianDiet';
         }
 
         return $suitableFor;

@@ -12,7 +12,7 @@ class PrefixRecipesWithGlutenFree extends Command
 {
     protected $signature = 'coeliac:prefix-recipes {--prod}';
 
-    public function handle()
+    public function handle(): void
     {
         if ($this->option('prod')) {
             if (!$this->confirm('This is set to run in production mode, are you sure?')) {

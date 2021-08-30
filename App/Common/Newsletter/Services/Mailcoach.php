@@ -18,7 +18,7 @@ class Mailcoach implements NewsletterService
         $this->list = EmailList::query()->where('name', $listName)->first();
     }
 
-    public function subscribe($email, $url)
+    public function subscribe(string $email, ?string $url): void
     {
         throw_if(!$this->list, new RuntimeException('no list'));
 

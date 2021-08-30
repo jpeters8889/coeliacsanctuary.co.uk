@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property BaseModel $item
  * @property string    $description
+ * @property Collection $collection
  */
 class CollectionItem extends BaseModel
 {

@@ -13,7 +13,7 @@ class PostcodeLookupRequest extends ApiFormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'postcode' => ['required', 'min:5'],

@@ -8,32 +8,33 @@ use Coeliac\Common\Traits\Searchable;
 use Illuminate\Database\Eloquent\Builder;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Common\Repositories\AbstractRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProductRepository extends AbstractRepository
 {
     use Searchable;
 
-    protected $withs = ['images', 'images.image', 'prices'];
+    protected array $withs = ['images', 'images.image', 'prices'];
 
     protected function model(): string
     {
         return ShopProduct::class;
     }
 
-    protected function order(Builder &$builder)
+    protected function order(Builder $builder): void
     {
         $builder->orderBy('title');
     }
 
     protected function modifyQuery(Builder $query): Builder
     {
-        return $query->withLiveProducts();
+        return ShopProduct::withLiveProducts($query);
     }
 
-    public function fromCategory($category)
+    public function fromCategory(string $category): Collection
     {
-        return $this->query()->whereHas('categories', static function (Builder $query) use ($category) {
-            return $query->where('slug', $category);
-        })->get();
+        return $this->query()
+            ->whereHas('categories', static fn (Builder $query) => $query->where('slug', $category))
+            ->get();
     }
 }

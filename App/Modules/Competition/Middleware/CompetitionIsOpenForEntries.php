@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Competition\Middleware;
 
 use Closure;
+use Coeliac\Modules\Competition\Models\Competition;
 use Illuminate\Http\Request;
 
 class CompetitionIsOpenForEntries
 {
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
-        abort_if(!$request->route('competition')->isOpenForEntries(), 404);
+        /** @var Competition $competition */
+        $competition = $request->route('competition');
+
+        abort_if(!$competition->isOpenForEntries(), 404);
 
         return $next($request);
     }

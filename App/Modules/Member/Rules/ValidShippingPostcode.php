@@ -26,7 +26,7 @@ class ValidShippingPostcode implements Rule
             return true;
         }
 
-        return preg_match('/^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i', $value);
+        return (bool) preg_match('/^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i', $value);
     }
 
     public function message()

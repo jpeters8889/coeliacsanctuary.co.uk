@@ -10,7 +10,7 @@ use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 
 class ReviewRatingController extends BaseController
 {
-    public function get(Repository $repository)
+    public function get(Repository $repository): array
     {
         $ratings = [];
 

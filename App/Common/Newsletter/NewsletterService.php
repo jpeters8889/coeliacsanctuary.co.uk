@@ -6,5 +6,5 @@ namespace Coeliac\Common\Newsletter;
 
 interface NewsletterService
 {
-    public function subscribe($email, $url);
+    public function subscribe(string $email, ?string $url): void;
 }

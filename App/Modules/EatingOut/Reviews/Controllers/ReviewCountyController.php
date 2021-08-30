@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\Reviews\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
-use Illuminate\Contracts\Cache\Repository as CacheRepository;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
 
 class ReviewCountyController extends BaseController
 {
-    public function get(CacheRepository $cacheRepository, ConfigRepository $configRepository)
+    public function get(): array
     {
         $counties = [];
 

@@ -16,7 +16,7 @@ class CloseBaskets extends Command
 {
     protected $signature = 'coeliac:shopCloseBaskets';
 
-    public function handle()
+    public function handle(): void
     {
         ShopOrder::query()
             ->where('state_id', ShopOrderState::STATE_BASKET)

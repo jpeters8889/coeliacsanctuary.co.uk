@@ -11,17 +11,14 @@ use Coeliac\Modules\EatingOut\WhereToEat\Mail\PlaceRequestMailable as PlaceReque
 
 class SendPlaceRequestEmail implements ShouldQueue
 {
-    private Mailer $email;
-
-    public function __construct(Mailer $email)
+    public function __construct(private Mailer $email)
     {
-        $this->email = $email;
     }
 
     /**
      * Handle the event.
      */
-    public function handle(PlaceRequestSubmitted $placeRequest)
+    public function handle(PlaceRequestSubmitted $placeRequest): void
     {
         $this->email->to('contact@coeliacsanctuary.co.uk')
             ->send(new PlaceRequestMailable($placeRequest->model()));

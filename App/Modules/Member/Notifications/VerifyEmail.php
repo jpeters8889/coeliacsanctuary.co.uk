@@ -5,23 +5,22 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Notifications;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Blog\Repository;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Common\Notifications\Notification;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Notifications\AnonymousNotifiable;
 
 class VerifyEmail extends Notification
 {
-    private bool $newUser;
-
-    public function __construct($newUser = true)
+    public function __construct(protected bool $newUser = true)
     {
-        $this->newUser = $newUser;
     }
 
-    public function toMail($notifiable = null)
+    public function toMail(User|AnonymousNotifiable|null $notifiable = null): MJMLMessage
     {
         $subject = 'Thanks for registering, please confirm your email address!';
 
@@ -29,12 +28,13 @@ class VerifyEmail extends Notification
             $subject = 'Please confirm your email address!';
         }
 
+        /** @var User $notifiable */
         return (new MJMLMessage())
             ->subject($subject)
             ->mjml('mailables.mjml.member.verify-email', [
                 'date' => Carbon::now(),
                 'notifiable' => $notifiable,
-                'reason' => 'because you registed an account at Coeliac Sanctuary and need to confirm your email address.',
+                'reason' => 'because you registered an account at Coeliac Sanctuary and need to confirm your email address.',
                 'newUser' => $this->newUser,
                 'verification_link' => $notifiable->generateEmailVerificationLink(),
                 'relatedTitle' => 'Blogs',
@@ -50,7 +50,7 @@ class VerifyEmail extends Notification
             ]);
     }
 
-    public function via()
+    public function via(): array
     {
         return ['mail'];
     }

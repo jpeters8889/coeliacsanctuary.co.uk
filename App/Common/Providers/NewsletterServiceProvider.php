@@ -15,7 +15,7 @@ use Coeliac\Common\Newsletter\Services\Mailcoach;
 
 class NewsletterServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         Route::mailcoach('mailcoach');
         Route::sesFeedback('ses-feedback');

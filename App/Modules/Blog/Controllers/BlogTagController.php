@@ -12,14 +12,11 @@ use Coeliac\Base\Controllers\BaseController;
 
 class BlogTagController extends BaseController
 {
-    private Repository $repository;
-
-    public function __construct(Repository $repository)
+    public function __construct(private Repository $repository)
     {
-        $this->repository = $repository;
     }
 
-    public function list()
+    public function list(): array
     {
         $tags = new Collection();
 

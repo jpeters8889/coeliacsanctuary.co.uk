@@ -22,7 +22,7 @@ class ShopOrderService
     public function list(): Collection
     {
         return ShopOrder::query()
-            ->where('user_id', $this->user->id)
+            ->where('user_id', $this->user->getAuthIdentifier())
             ->whereNotIn('state_id', [ShopOrderState::STATE_BASKET, ShopOrderState::STATE_EXPIRED])
             ->withCount('items')
             ->with(['payment', 'state', 'address'])

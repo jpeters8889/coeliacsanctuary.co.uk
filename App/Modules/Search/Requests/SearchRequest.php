@@ -8,7 +8,7 @@ use Coeliac\Base\Requests\ApiFormRequest;
 
 class SearchRequest extends ApiFormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'term' => ['required', 'max:50'],

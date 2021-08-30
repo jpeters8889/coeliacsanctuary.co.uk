@@ -6,12 +6,20 @@ namespace Coeliac\Modules\Shop\Models;
 
 use Carbon\Carbon;
 use Coeliac\Base\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
  * @property mixed  $id
  * @property int    $max_claims
  * @property Carbon $start_at
  * @property Carbon $end_at
+ * @property int $deduction
+ * @property int $type_id
+ * @property string $code
+ * @property string $name
+ * @property int $min_spend
  */
 class ShopDiscountCode extends BaseModel
 {
@@ -25,12 +33,12 @@ class ShopDiscountCode extends BaseModel
         'end_at',
     ];
 
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(ShopDiscountCodeType::class, 'type_id');
     }
 
-    public function orders()
+    public function orders(): HasManyThrough
     {
         return $this->hasManyThrough(
             ShopOrder::class,
@@ -42,12 +50,12 @@ class ShopDiscountCode extends BaseModel
         );
     }
 
-    protected function used()
+    protected function used(): HasMany
     {
         return $this->hasMany(ShopDiscountCodesUsed::class, 'discount_id');
     }
 
-    public function associateOrder(ShopOrder $order, $amount)
+    public function associateOrder(ShopOrder $order, int|float $amount): void
     {
         $this->used()->create([
             'order_id' => $order->id,
@@ -55,7 +63,7 @@ class ShopDiscountCode extends BaseModel
         ]);
     }
 
-    public function calculateDeduction($subtotal)
+    public function calculateDeduction(int|float $subtotal): int|float
     {
         $deduction = $this->deduction;
 

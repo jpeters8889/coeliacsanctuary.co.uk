@@ -20,7 +20,7 @@ class Lookup implements Service
         $this->parser = $parser;
     }
 
-    public function lookup($postcode): Collection
+    public function lookup(string $postcode): Collection
     {
         $request = $this->client->get(
             implode('/', [

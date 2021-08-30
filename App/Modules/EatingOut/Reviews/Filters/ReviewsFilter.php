@@ -9,12 +9,12 @@ use Coeliac\Common\Filters\AbstractFilter;
 
 class ReviewsFilter extends AbstractFilter
 {
-    protected $availableFilters = [
+    protected array $availableFilters = [
         'counties',
         'ratings',
     ];
 
-    protected function filterCounties(Builder $builder, $value)
+    protected function filterCounties(Builder $builder, mixed $value): Builder
     {
         foreach (explode(',', $value) as $county) {
             $builder->whereHas('county', static function (Builder $query) use ($county) {
@@ -25,7 +25,7 @@ class ReviewsFilter extends AbstractFilter
         return $builder;
     }
 
-    public function filterRatings(Builder $builder, $value)
+    public function filterRatings(Builder $builder, mixed $value): Builder
     {
         return $builder->whereIn('overall_rating', explode(',', $value));
     }

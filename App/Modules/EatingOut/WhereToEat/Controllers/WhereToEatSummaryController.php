@@ -10,7 +10,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
 class WhereToEatSummaryController extends BaseController
 {
-    public function get(Repository $repository)
+    public function get(Repository $repository): array
     {
         $summary = [
             'total' => 0,

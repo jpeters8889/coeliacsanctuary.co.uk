@@ -19,9 +19,9 @@ class Repository extends AbstractRepository
     use Filterable;
     use Searchable;
 
-    protected $appends = [];
+    protected array $appends = [];
 
-    public function getAppends()
+    public function getAppends(): array
     {
         return $this->appends;
     }
@@ -54,7 +54,7 @@ class Repository extends AbstractRepository
         throw new RuntimeException('No search parameters');
     }
 
-    protected function performSearch($model)
+    protected function performSearch(string $model): array|null
     {
         if (!$this->useSearch) {
             return null;
@@ -66,9 +66,12 @@ class Repository extends AbstractRepository
         if ($request->has('search')) {
             $parameters = json_decode($request->get('search'), true);
 
+            /** @var WhereToEat $model */
+
+            /** @phpstan-ignore-next-line */
             $results = $model::search()
                 ->with([
-                    'aroundLatLng' => implode(', ', $latlng = $this->resolveLatLng(array_filter($parameters))),
+                    'aroundLatLng' => implode(', ', $latlng = $this->resolveLatLng((array) array_filter($parameters))),
                     'aroundRadius' => (int) round(((int) $parameters['range']) * 1609.344),
                     'getRankingInfo' => true,
                 ])
@@ -96,7 +99,7 @@ class Repository extends AbstractRepository
         return $query->where('live', true);
     }
 
-    protected function order(Builder &$builder)
+    protected function order(Builder $builder): void
     {
         $builder->orderBy('name');
     }

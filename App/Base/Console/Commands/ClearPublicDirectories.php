@@ -13,7 +13,7 @@ class ClearPublicDirectories extends Command
 {
     protected $signature = 'coeliac:clear_public_dirs';
 
-    public function handle(Filesystem $filesystem)
+    public function handle(Filesystem $filesystem): void
     {
         $files = $filesystem->allFiles(public_path('cs-adm-uploads'));
 
@@ -21,7 +21,7 @@ class ClearPublicDirectories extends Command
 
         (new Collection($files))
             ->map(static function (SplFileInfo $file) use ($filesystem, $bar) {
-                $filesystem->delete($file->getRealPath());
+                $filesystem->delete((string)$file->getRealPath());
                 $bar->advance();
             });
     }

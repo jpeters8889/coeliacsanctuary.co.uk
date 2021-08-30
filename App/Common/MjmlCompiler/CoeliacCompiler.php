@@ -28,7 +28,7 @@ class CoeliacCompiler implements CompilerContract
         ]);
     }
 
-    public function compile($mjml)
+    public function compile(string $mjml): array
     {
         try {
             $request = $this->client->post('', [

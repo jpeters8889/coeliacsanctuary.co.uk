@@ -6,6 +6,8 @@ namespace Coeliac\Modules\Member\Models;
 
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Shop\Models\ShopOrder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -25,17 +27,17 @@ class UserAddress extends BaseModel
 
     protected $casts = ['user_id' => 'int'];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function orders()
+    public function orders(): HasMany
     {
         return $this->hasMany(ShopOrder::class, 'user_address_id');
     }
 
-    public function getFormattedAddressAttribute()
+    public function getFormattedAddressAttribute(): string
     {
         return implode('<br/>', array_filter([
             $this->name,

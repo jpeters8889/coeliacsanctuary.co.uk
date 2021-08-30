@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Payment;
 
+use Coeliac\Modules\Member\Models\UserAddress;
 use Illuminate\Http\Request;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Member\Models\User;
@@ -25,11 +26,11 @@ abstract class Processor
         $this->paymentProvider = $paymentProvider;
     }
 
-    abstract public function initiatePayment();
+    abstract public function initiatePayment(): mixed;
 
-    abstract public function processPayment(Request $request);
+    abstract public function processPayment(Request $request): mixed;
 
-    public function processRequest(OrderRequest $request)
+    public function processRequest(OrderRequest $request): void
     {
         if (!$this->basket->resolve()) {
             throw new PaymentException('no basket');
@@ -56,13 +57,13 @@ abstract class Processor
         $this->basket->model()->save();
     }
 
-    protected function processAddresses(User $user)
+    protected function processAddresses(User $user): void
     {
         $this->basket->model()->user_address_id = $this->getShippingAddress($user)->id;
         $this->getBillingAddress($user);
     }
 
-    protected function submitOrderCompleteEvent($provider, $data)
+    protected function submitOrderCompleteEvent(string $provider, mixed $data): void
     {
         Container::getInstance()->make(Dispatcher::class)->dispatch(
             new CreateOrder(
@@ -75,7 +76,7 @@ abstract class Processor
         );
     }
 
-    protected function getShippingAddress(User $user): \Illuminate\Database\Eloquent\Model
+    protected function getShippingAddress(User $user): UserAddress
     {
         if ($this->request->input('shipping.id')) {
             return $user->addresses()->findOrFail($this->request->input('shipping.id'));

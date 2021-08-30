@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\Reviews\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Traits\Linkable;
@@ -60,7 +62,7 @@ class Review extends BaseModel implements HasComments
 
     protected $hidden = ['images'];
 
-    protected static function titleField()
+    protected static function titleField(): array
     {
         return ['title', 'eatery.town.town', 'eatery.county.county'];
     }
@@ -80,27 +82,27 @@ class Review extends BaseModel implements HasComments
         });
     }
 
-    public function getArchitectTitleAttribute()
+    public function getArchitectTitleAttribute(): string
     {
-        return $this->title.', '.$this->eatery()->first()->town()->first()->town;
+        return $this->title.', '.$this->eatery->town->town;
     }
 
-    public function eatery()
-    {
-        return $this->hasOne(WhereToEat::class, 'id', 'wheretoeat_id');
-    }
-
-    public function wheretoeat()
+    public function eatery(): HasOne
     {
         return $this->hasOne(WhereToEat::class, 'id', 'wheretoeat_id');
     }
 
-    public function county()
+    public function wheretoeat(): HasOne
+    {
+        return $this->hasOne(WhereToEat::class, 'id', 'wheretoeat_id');
+    }
+
+    public function county(): HasOneThrough
     {
         return $this->hasOneThrough(WhereToEatCounty::class, WhereToEat::class, 'id', 'id', 'wheretoeat_id', 'county_id');
     }
 
-    protected function linkRoot()
+    protected function linkRoot(): string
     {
         return 'review';
     }
@@ -120,7 +122,7 @@ class Review extends BaseModel implements HasComments
         return (bool) $this->live;
     }
 
-    public function getScoutKey()
+    public function getScoutKey(): mixed
     {
         return $this->id;
     }

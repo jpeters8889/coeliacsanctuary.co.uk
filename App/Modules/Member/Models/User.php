@@ -7,6 +7,7 @@ namespace Coeliac\Modules\Member\Models;
 use Carbon\Carbon;
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Notifications\Notifiable;
 use Coeliac\Modules\Shop\Models\ShopOrder;
@@ -20,9 +21,10 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 /**
  * @property string $email
  * @property int    $user_level_id
- * @property Carbon last_logged_in_at
- * @property Carbon last_visited_at
- * @property int id
+ * @property Carbon $last_logged_in_at
+ * @property Carbon $last_visited_at
+ * @property int    $id
+ * @property Collection<UserAddress> $addresses
  */
 class User extends Authenticatable implements MustVerifyEmail
 {

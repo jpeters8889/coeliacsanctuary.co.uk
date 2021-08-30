@@ -9,10 +9,10 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property string id
- * @property string name
- * @property string email
- * @property string entry_type
+ * @property string $id
+ * @property string $name
+ * @property string $email
+ * @property string $entry_type
  */
 class CompetitionEntry extends BaseModel
 {

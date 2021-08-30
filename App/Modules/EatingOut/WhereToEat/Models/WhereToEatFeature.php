@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property mixed $feature
+ * @property int $id
+ * @property int $type_id
  */
 class WhereToEatFeature extends BaseModel
 {
@@ -23,7 +25,7 @@ class WhereToEatFeature extends BaseModel
         return $this->belongsToMany(WhereToEat::class, 'wheretoeat_assigned_features', 'feature_id', 'wheretoeat_id');
     }
 
-    public function getImageAttribute()
+    public function getImageAttribute(): string
     {
         return asset('assets/images/wte-features/'.$this->icon.'.png');
     }

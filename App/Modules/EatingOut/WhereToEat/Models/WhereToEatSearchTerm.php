@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 /**
  * @property Collection<WhereToEatSearch> $searches
  * @property mixed                        $term
+ * @property string $key
  */
 class WhereToEatSearchTerm extends Model
 {
@@ -39,12 +41,12 @@ class WhereToEatSearchTerm extends Model
         });
     }
 
-    public function logSearch()
+    public function logSearch(): void
     {
         $this->searches()->create();
     }
 
-    public function searches()
+    public function searches(): HasMany
     {
         return $this->hasMany(WhereToEatSearch::class, 'search_term_id');
     }

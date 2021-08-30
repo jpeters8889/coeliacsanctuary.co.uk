@@ -7,7 +7,6 @@ namespace Coeliac\Common\Services;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Container\Container;
-use Coeliac\Common\Models\FeaturedImage;
 use Coeliac\Modules\Shop\ProductRepository;
 use Coeliac\Modules\Blog\Repository as BlogRepository;
 use Coeliac\Modules\Recipe\Repository as RecipeRepository;

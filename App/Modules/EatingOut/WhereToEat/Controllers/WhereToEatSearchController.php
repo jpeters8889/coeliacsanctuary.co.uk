@@ -10,10 +10,11 @@ use Coeliac\Modules\EatingOut\WhereToEat\Requests\SearchRequest;
 use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatSearchTerm;
 use Coeliac\Modules\EatingOut\WhereToEat\Requests\SearchCreateRequest;
+use Illuminate\Http\Response;
 
 class WhereToEatSearchController extends BaseController
 {
-    public function create(SearchCreateRequest $request)
+    public function create(SearchCreateRequest $request): array
     {
         /** @var WhereToEatSearchTerm $search */
         $search = WhereToEatSearchTerm::query()->firstOrCreate([
@@ -28,7 +29,7 @@ class WhereToEatSearchController extends BaseController
         ];
     }
 
-    public function get(Page $page, SearchRequest $request)
+    public function get(Page $page, SearchRequest $request): Response
     {
         $searchTerm = $request->resolveSearchTerm();
 

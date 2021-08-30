@@ -9,7 +9,7 @@ use Coeliac\Common\Services\NavigationService;
 
 class NavigationController extends BaseController
 {
-    public function get(NavigationService $navigationService)
+    public function get(NavigationService $navigationService): array
     {
         return [
             'shop' => [

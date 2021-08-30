@@ -14,7 +14,7 @@ class CleanUpAddresses extends Command
 
     protected array $processedIds = [];
 
-    public function handle()
+    public function handle(): void
     {
         $keys = ['line_2', 'line_3'];
 

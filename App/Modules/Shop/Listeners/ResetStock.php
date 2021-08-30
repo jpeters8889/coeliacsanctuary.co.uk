@@ -9,7 +9,7 @@ use Coeliac\Modules\Shop\Models\ShopOrderItem;
 
 class ResetStock
 {
-    public function handle(BasketClosed $event)
+    public function handle(BasketClosed $event): void
     {
         $event->order()->items()->get()
             ->each(static function (ShopOrderItem $item) {

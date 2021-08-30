@@ -8,7 +8,7 @@ use Coeliac\Modules\Member\Contracts\UserEvent;
 
 class LogPasswordChange
 {
-    public function handle(UserEvent $event)
+    public function handle(UserEvent $event): void
     {
         $event->user()->passwordChanges()->create([]);
     }

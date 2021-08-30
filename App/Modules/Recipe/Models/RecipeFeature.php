@@ -7,6 +7,11 @@ namespace Coeliac\Modules\Recipe\Models;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @property string $icon
+ * @property int $id
+ * @property string $feature
+ */
 class RecipeFeature extends BaseModel
 {
     protected $appends = ['image'];
@@ -17,7 +22,7 @@ class RecipeFeature extends BaseModel
         'image',
     ];
 
-    public function getImageAttribute()
+    public function getImageAttribute(): string
     {
         return asset('assets/images/recipe-features/'.$this->icon.'.png');
     }

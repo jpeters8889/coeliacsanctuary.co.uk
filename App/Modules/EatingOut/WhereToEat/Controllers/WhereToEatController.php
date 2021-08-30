@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
+use Coeliac\Base\Models\BaseModel;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Illuminate\Http\Request;
 use Coeliac\Common\Response\Page;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository;
@@ -14,17 +17,11 @@ use Coeliac\Modules\EatingOut\WhereToEat\Support\IndexCountyList;
 
 class WhereToEatController extends BaseController
 {
-    private Page $page;
-
-    private Repository $repository;
-
-    public function __construct(Page $page, Repository $repository)
+    public function __construct(private Page $page, private Repository $repository)
     {
-        $this->page = $page;
-        $this->repository = $repository;
     }
 
-    public function index(IndexCountyList $countyList)
+    public function index(IndexCountyList $countyList): Response
     {
         return $this->page
             ->breadcrumbs([
@@ -48,7 +45,7 @@ class WhereToEatController extends BaseController
             ]);
     }
 
-    public function list(Request $request)
+    public function list(Request $request): array
     {
         $this->validate($request, [
             'limit' => 'integer|max:50',
@@ -59,12 +56,14 @@ class WhereToEatController extends BaseController
                 ->setWiths([
                     'country', 'county', 'town', 'type', 'venueType', 'cuisine', 'features', 'restaurants',
                     'reviews' => function (Relation $builder) {
+                        /** @phpstan-ignore-next-line */
                         return $builder
                             ->select(['id', 'wheretoeat_id', 'title', 'slug', 'created_at'])
                             ->where('live', 1)
                             ->latest();
                     },
                     'ratings' => function (Relation $builder) {
+                        /** @phpstan-ignore-next-line */
                         return $builder
                             ->select(['id', 'wheretoeat_id', 'rating', 'name', 'body', 'created_at'])
                             ->where('approved', 1)
@@ -73,24 +72,26 @@ class WhereToEatController extends BaseController
                 ])
                 ->filter()
                 ->search()
-                ->setColumns('wheretoeat.*')
-                ->paginated($request->get('limit', 10))))
+                ->setColumns(['wheretoeat.*'])
+                ->paginated((int) $request->get('limit', 10))))
                 ->merge(['appends' => $this->repository->getAppends()]),
         ];
     }
 
-    public function get($id)
+    public function get(mixed $id): WhereToEat|BaseModel|null
     {
         return $this->repository
             ->setWiths([
                 'country', 'county', 'town', 'type', 'venueType', 'cuisine', 'features', 'restaurants',
                 'reviews' => function (Relation $builder) {
+                    /** @phpstan-ignore-next-line  */
                     return $builder
                         ->select(['id', 'wheretoeat_id', 'title', 'slug', 'created_at'])
                         ->where('live', 1)
                         ->latest();
                 },
                 'ratings' => function (Relation $builder) {
+                    /** @phpstan-ignore-next-line  */
                     return $builder
                         ->select(['id', 'wheretoeat_id', 'rating', 'name', 'body', 'created_at'])
                         ->where('approved', 1)

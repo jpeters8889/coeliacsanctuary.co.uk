@@ -15,7 +15,7 @@ class Repository extends AbstractRepository
     use Filterable;
     use Searchable;
 
-    protected $withs = ['images', 'images.image'];
+    protected array $withs = ['images', 'images.image'];
 
     protected function model(): string
     {

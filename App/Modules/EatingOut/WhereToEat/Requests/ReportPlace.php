@@ -9,7 +9,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
 class ReportPlace extends ApiFormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'details' => 'required',

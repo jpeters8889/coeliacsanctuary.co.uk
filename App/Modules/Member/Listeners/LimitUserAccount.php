@@ -8,7 +8,7 @@ use Coeliac\Modules\Member\Events\UserEmailChanged;
 
 class LimitUserAccount
 {
-    public function handle(UserEmailChanged $event)
+    public function handle(UserEmailChanged $event): void
     {
         $event->user()->update(['email_verified_at' => null]);
     }

@@ -12,7 +12,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Requests\QuickSearchRequest;
 
 class WhereToEatQuickSearchController extends BaseController
 {
-    public function get(QuickSearchRequest $request)
+    public function get(QuickSearchRequest $request): Collection
     {
         $countyResults = WhereToEatCounty::query()
             ->where('county', 'like', "%{$request->input('term')}%")

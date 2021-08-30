@@ -12,14 +12,11 @@ use Coeliac\Modules\Recipe\Models\RecipeFeature;
 
 class RecipeFeaturesController extends BaseController
 {
-    private Repository $repository;
-
-    public function __construct(Repository $repository)
+    public function __construct(private Repository $repository)
     {
-        $this->repository = $repository;
     }
 
-    public function list()
+    public function list(): array
     {
         $features = new Collection();
 

@@ -10,7 +10,7 @@ use Coeliac\Modules\Member\Rules\ValidShippingPostcode;
 
 class UpdateAddressRequest extends ApiFormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'type' => ['required', 'in:Shipping,Billing'],

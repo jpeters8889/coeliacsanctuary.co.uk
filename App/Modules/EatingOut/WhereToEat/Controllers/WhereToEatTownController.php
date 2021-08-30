@@ -8,12 +8,12 @@ use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
-use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
 use Coeliac\Modules\EatingOut\WhereToEat\Requests\WhereToEatTownRequest;
+use Illuminate\Http\Response;
 
 class WhereToEatTownController extends BaseController
 {
-    public function list(Page $page, WhereToEatTownRequest $request)
+    public function list(Page $page, WhereToEatTownRequest $request): Response
     {
         /** @var WhereToEatCounty $county */
         /** @var WhereToEatTown $town */
