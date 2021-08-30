@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Notifications;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Blog\Repository;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Common\Notifications\Notification;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Notifications\AnonymousNotifiable;
 
 class ResetPassword extends Notification
 {
@@ -21,7 +23,7 @@ class ResetPassword extends Notification
         $this->resetUrl = $resetUrl;
     }
 
-    public function toMail($notifiable = null)
+    public function toMail(User|AnonymousNotifiable|null $notifiable = null): MJMLMessage
     {
         return (new MJMLMessage())
             ->subject('Reset Your password!')
@@ -48,7 +50,7 @@ class ResetPassword extends Notification
         return $this->resetUrl;
     }
 
-    public function via()
+    public function via(): array
     {
         return ['mail'];
     }

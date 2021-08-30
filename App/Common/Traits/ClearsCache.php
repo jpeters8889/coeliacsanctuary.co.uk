@@ -14,7 +14,7 @@ use Illuminate\Contracts\Config\Repository as ConfigRepository;
  */
 trait ClearsCache
 {
-    public static function bootClearsCache()
+    public static function bootClearsCache(): void
     {
         static::saved(function (self $model) {
             $cacheRepository = Container::getInstance()->make(CacheRepository::class);

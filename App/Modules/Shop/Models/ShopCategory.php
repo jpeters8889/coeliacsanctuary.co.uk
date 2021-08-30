@@ -12,6 +12,11 @@ use Coeliac\Common\Traits\DisplaysImages;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @property string $title
+ * @property string $meta_description
+ * @property string $meta_keywords
+ */
 class ShopCategory extends BaseModel
 {
     use ArchitectModel;
@@ -24,8 +29,12 @@ class ShopCategory extends BaseModel
         return $this->belongsToMany(ShopProduct::class, 'shop_product_categories', 'category_id', 'product_id');
     }
 
-    public function scopeLiveProducts(Builder $query)
+    public static function withLiveProducts(?Builder $query = null): Builder
     {
+        if (!$query) {
+            $query = self::query();
+        }
+
         return $query->whereHas('products', static function ($productQuery) {
             /* @var $productQuery Builder */
             return $productQuery->whereHas('variants', static function ($variantQuery) {
@@ -35,12 +44,7 @@ class ShopCategory extends BaseModel
         });
     }
 
-    public function scopeWithLiveProducts(Builder $query)
-    {
-        return $this->scopeLiveProducts($query);
-    }
-
-    protected function linkRoot()
+    protected function linkRoot(): string
     {
         return 'shop';
     }

@@ -11,14 +11,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class BlogYearController extends BaseController
 {
-    private Repository $repository;
-
-    public function __construct(Repository $repository)
+    public function __construct(private Repository $repository)
     {
-        $this->repository = $repository;
     }
 
-    public function list()
+    public function list(): array
     {
         return [
             'data' => $this->repository

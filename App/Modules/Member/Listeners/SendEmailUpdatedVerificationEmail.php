@@ -9,7 +9,7 @@ use Coeliac\Modules\Member\Notifications\VerifyEmail;
 
 class SendEmailUpdatedVerificationEmail
 {
-    public function handle(UserEmailChanged $event)
+    public function handle(UserEmailChanged $event): void
     {
         $event->user()->notify(new VerifyEmail(false));
     }

@@ -9,40 +9,41 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Laravel\Scout\Searchable;
 
 abstract class AbstractRepository
 {
-    protected $columns = ['*'];
+    protected array $columns = ['*'];
 
-    protected $withs = [];
+    protected array $withs = [];
 
-    protected $withCounts = [];
+    protected array $withCounts = [];
 
     protected bool $isRaw = false;
 
     protected bool $random = false;
 
-    protected $rawSelects = [];
+    protected array $rawSelects = [];
 
-    protected $havings = [];
+    protected array $havings = [];
 
-    protected $wheres = [];
+    protected array $wheres = [];
 
     abstract protected function model(): string;
 
-    public function get($id, $column = 'id'): ?BaseModel
+    public function get(mixed $id, string $column = 'id'): ?BaseModel
     {
         return $this->query()
             ->where($column, $id)
             ->first($this->getColumns());
     }
 
-    public function count()
+    public function count(): ?int
     {
         return $this->query()->count();
     }
 
-    public function take($number)
+    public function take(int $number): Collection
     {
         return $this->query()->take($number)->get($this->getColumns());
     }
@@ -52,26 +53,26 @@ abstract class AbstractRepository
         return $this->query()->get($this->getColumns());
     }
 
-    public function paginated($perPage = 12, $pageName = 'page', $startPage = null): LengthAwarePaginator
+    public function paginated(int $perPage = 12, string $pageName = 'page', ?int $startPage = null): LengthAwarePaginator
     {
         return $this->query()->paginate($perPage, $this->getColumns(), $pageName, $startPage);
     }
 
-    public function selectRaw($query, $bindings = []): self
+    public function selectRaw(string $query, array $bindings = []): static
     {
         $this->rawSelects[] = [$query, $bindings];
 
         return $this;
     }
 
-    public function having(...$params): self
+    public function having(mixed ...$params): static
     {
         $this->havings[] = $params;
 
         return $this;
     }
 
-    public function where(...$params): self
+    public function where(mixed ...$params): static
     {
         $this->wheres[] = $params;
 
@@ -91,8 +92,9 @@ abstract class AbstractRepository
         return true;
     }
 
-    protected function performSearch($model) {
-        //
+    protected function performSearch(string $model): array|null
+    {
+        return null;
     }
 
     protected function query(): Builder
@@ -144,55 +146,55 @@ abstract class AbstractRepository
         return $query;
     }
 
-    protected function getColumns()
+    protected function getColumns(): array
     {
         return $this->columns;
     }
 
-    protected function getWiths()
+    protected function getWiths(): array
     {
         return $this->withs;
     }
 
-    protected function getWithCounts()
+    protected function getWithCounts(): array
     {
         return $this->withCounts;
     }
 
-    public function setColumns($columns = '*')
+    public function setColumns(array $columns = ['*']): static
     {
         $this->columns = $columns;
 
         return $this;
     }
 
-    protected function order(Builder &$builder)
+    protected function order(Builder $builder): void
     {
         //
     }
 
-    public function raw(Closure $closure)
+    public function raw(Closure $closure): mixed
     {
         $this->isRaw = true;
 
         return $closure($this->query());
     }
 
-    public function random()
+    public function random(): static
     {
         $this->random = true;
 
         return $this;
     }
 
-    public function setWiths($withs = [])
+    public function setWiths(array $withs = []): static
     {
         $this->withs = $withs;
 
         return $this;
     }
 
-    public function setWithCounts($withCounts = [])
+    public function setWithCounts(array $withCounts = []): static
     {
         $this->withCounts = $withCounts;
 

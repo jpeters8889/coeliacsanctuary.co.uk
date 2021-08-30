@@ -13,7 +13,7 @@ use Coeliac\Common\Events\ContactFormSubmitted;
 
 class ContactController extends BaseController
 {
-    public function get(Page $page)
+    public function get(Page $page): Response
     {
         return $page
             ->breadcrumbs([], 'Contact Us')
@@ -23,7 +23,7 @@ class ContactController extends BaseController
             ->render('pages.contact');
     }
 
-    public function store(ContactRequest $request, Dispatcher $events)
+    public function store(ContactRequest $request, Dispatcher $events): Response
     {
         $events->dispatch(new ContactFormSubmitted($request->validated()));
 

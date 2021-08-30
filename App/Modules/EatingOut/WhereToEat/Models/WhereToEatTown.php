@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Member\Contracts\Updatable;
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property mixed $town
  * @property WhereToEatCounty $county
  * @property string $slug
+ * @property Collection $liveEateries
  */
 class WhereToEatTown extends BaseModel implements Updatable
 {
@@ -50,7 +52,7 @@ class WhereToEatTown extends BaseModel implements Updatable
         return $this->belongsTo(WhereToEatCounty::class, 'county_id');
     }
 
-    public function getSnippetAttribute()
+    public function getSnippetAttribute(): string
     {
         $eateries = $this->liveEateries->where('type_id', 1)->count();
         $attractions = $this->liveEateries->where('type_id', 2)->count();

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Models;
 
 use Coeliac\Base\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ShopFeedback extends BaseModel
 {
@@ -12,7 +13,7 @@ class ShopFeedback extends BaseModel
 
     protected $guarded = [];
 
-    public function product()
+    public function product(): BelongsTo
     {
         return $this->belongsTo(ShopProduct::class, 'product_id');
     }

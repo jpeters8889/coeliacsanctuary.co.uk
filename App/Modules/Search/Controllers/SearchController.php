@@ -15,6 +15,8 @@ use Coeliac\Modules\Search\Requests\SearchRequest;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\Search\Service\Search as SearchService;
+use Illuminate\Http\Response;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class SearchController extends BaseController
 {
@@ -31,7 +33,7 @@ class SearchController extends BaseController
         ];
     }
 
-    public function get(Page $page, Request $request)
+    public function get(Page $page, Request $request): Response
     {
         if ($request->get('q')) {
             SearchHistory::query()->firstOrCreate(['term' => $request->get('q')])->increment('number_of_searches');
@@ -45,7 +47,7 @@ class SearchController extends BaseController
             ]);
     }
 
-    public function create(SearchRequest $request, SearchService $searchService)
+    public function create(SearchRequest $request, SearchService $searchService): LengthAwarePaginator
     {
         return $searchService->searchFor($request->input('term'))
             ->shouldSearchBlogs($request->input('areas.blogs'))

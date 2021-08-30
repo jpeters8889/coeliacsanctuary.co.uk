@@ -9,7 +9,7 @@ use Coeliac\Modules\Member\Notifications\PasswordChangedAlert;
 
 class SendPasswordChangedAlert
 {
-    public function handle(UserPasswordUpdated $event)
+    public function handle(UserPasswordUpdated $event): void
     {
         $event->user()->notify(new PasswordChangedAlert());
     }

@@ -6,16 +6,12 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
 use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
-use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
-use Coeliac\Modules\EatingOut\WhereToEat\Requests\WhereToEatCountyRequest;
 use Coeliac\Modules\EatingOut\WhereToEat\Support\CountyProcessor;
-use Illuminate\Database\Query\JoinClause;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
 
 class WhereToEatCountyController extends BaseController
 {
-    public function list(Page $page, CountyProcessor $countyProcessor)
+    public function list(Page $page, CountyProcessor $countyProcessor): Response
     {
         $county = $countyProcessor->county();
 

@@ -12,17 +12,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendPlaceReportEmail implements ShouldQueue
 {
-    private Mailer $email;
-
-    public function __construct(Mailer $email)
+    public function __construct(private Mailer $email)
     {
-        $this->email = $email;
     }
 
     /**
      * Handle the event.
      */
-    public function handle(PlaceReportSubmitted $placeReport)
+    public function handle(PlaceReportSubmitted $placeReport): void
     {
         $this->email->to('contact@coeliacsanctuary.co.uk')
             ->send(new PlaceReportedMailable($placeReport->model()));

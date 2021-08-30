@@ -4,17 +4,13 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Common\Response\Page;
-use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository;
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
+use Illuminate\Http\Response;
 
 class WhereToEatBrowseController extends BaseController
 {
-    public function index(Page $page)
+    public function index(Page $page): Response
     {
         return $page
             ->breadcrumbs([
@@ -32,7 +28,7 @@ class WhereToEatBrowseController extends BaseController
             ->render('modules.eating-out.wheretoeat.browse');
     }
 
-    public function list(Repository $repository, Request $request)
+    public function list(Repository $repository, Request $request): array
     {
         return [
             'data' => $repository

@@ -43,8 +43,7 @@ class NavigationService
         return $this->cacheRepository->remember(
             $this->configRepository->get('coeliac.cache.shop.navigation'),
             Carbon::now()->addDay(),
-            fn () => ShopProduct::query()
-                ->withLiveProducts()
+            fn () => ShopProduct::withLiveProducts()
                 ->orderByRaw('(select sum(shop_order_items.quantity)
                 from shop_order_items
                 left join shop_orders on shop_order_items.order_id = shop_orders.id

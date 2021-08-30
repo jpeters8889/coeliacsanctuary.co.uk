@@ -66,22 +66,22 @@ class ShopCategoriesTest extends TestCase
          */
         $category = $this->createCategory();
 
-        $this->assertEquals(0, ShopCategory::query()->where('id', $category->id)->withLiveProducts()->count());
+        $this->assertEquals(0, ShopCategory::withLiveProducts()->where('id', $category->id)->count());
 
         $product = $this->createProduct($category);
 
-        $this->assertEquals(0, ShopCategory::query()->where('id', $category->id)->withLiveProducts()->count());
+        $this->assertEquals(0, ShopCategory::withLiveProducts()->where('id', $category->id)->count());
 
         /** @var ShopProductVariant */
         $variant = $this->createVariant($product, ['live' => false]);
 
-        $this->assertEquals(0, ShopCategory::query()->where('id', $category->id)->withLiveProducts()->count());
+        $this->assertEquals(0, ShopCategory::withLiveProducts()->where('id', $category->id)->count());
 
         $variant->live = true;
         $variant->update();
 
         $variant->fresh();
 
-        $this->assertEquals(1, ShopCategory::query()->where('id', $category->id)->withLiveProducts()->count());
+        $this->assertEquals(1, ShopCategory::withLiveProducts()->where('id', $category->id)->count());
     }
 }

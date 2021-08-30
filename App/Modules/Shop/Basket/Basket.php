@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Basket;
 
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Container\Container;
@@ -16,7 +17,6 @@ use Coeliac\Modules\Shop\Models\ShopDiscountCode;
 class Basket
 {
     protected Request $request;
-    protected SessionStore $session;
 
     protected ShopOrder $basketModel;
 
@@ -24,15 +24,20 @@ class Basket
 
     protected ?Postage $postage = null;
 
-    public function __construct(SessionStore $session)
+    public function __construct(protected SessionStore $session)
     {
-        $this->session = $session;
     }
 
-    public function create()
+    public function create(): void
     {
+        $user = null;
+
+        if (resolve(Authenticatable::class) instanceof User) {
+            $user = resolve(Authenticatable::class)->id;
+        }
+
         $this->basketModel = ShopOrder::query()->create([
-            'user_id' => resolve(Authenticatable::class)->id ?? null,
+            'user_id' => $user,
             'token' => $token = Str::random(8),
         ]);
 
@@ -58,7 +63,7 @@ class Basket
         return $this->postage;
     }
 
-    public function subtotal()
+    public function subtotal(): float|int
     {
         return array_sum($this->model()->items->pluck('subtotal')->toArray());
     }
@@ -84,15 +89,16 @@ class Basket
         return $this->basketModel;
     }
 
-    public function resolve()
+    public function resolve(): bool
     {
         if ($this->session->has('basket_token')) {
+            /** @var ShopOrder $model */
             $model = ShopOrder::query()
                 ->where('token', $this->session->get('basket_token'))
                 ->where('state_id', ShopOrderState::STATE_BASKET)
                 ->first();
 
-            if ($model) {
+            if ($model instanceof ShopOrder) {
                 $this->basketModel = $model;
 
                 return true;

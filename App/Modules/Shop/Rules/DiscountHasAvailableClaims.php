@@ -11,6 +11,7 @@ class DiscountHasAvailableClaims implements Rule
 {
     public function passes($attribute, $value)
     {
+        /** @var ShopDiscountCode $code */
         $code = ShopDiscountCode::query()->firstWhere('code', $value);
 
         return !($code->max_claims > 0 && $code->orders()->count() >= $code->max_claims);

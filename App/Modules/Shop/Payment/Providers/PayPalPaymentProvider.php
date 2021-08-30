@@ -14,6 +14,7 @@ use PayPal\Api\Transaction;
 use Illuminate\Http\Request;
 use PayPal\Api\RedirectUrls;
 use Illuminate\Session\Store;
+use PayPal\Common\PayPalModel;
 use PayPal\Api\ShippingAddress;
 use PayPal\Api\PaymentExecution;
 use Illuminate\Support\Collection;
@@ -23,15 +24,14 @@ use Coeliac\Modules\Shop\Payment\Provider;
 use Illuminate\Contracts\Config\Repository;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use PayPal\Rest\ApiContext as PaypalApiContext;
-use Coeliac\Modules\Shop\Models\ShopDiscountCode;
 
 class PayPalPaymentProvider implements Provider
 {
-    private $total;
-    private $postage;
-    private $discount;
+    private float $total;
+    private float $postage;
     private Payer $payer;
-    private $subtotal;
+    private float $discount;
+    private float $subtotal;
     private Amount $amount;
     private ?Basket $basket;
     private Details $details;
@@ -50,13 +50,13 @@ class PayPalPaymentProvider implements Provider
         }
     }
 
-    public function initiatePayment($params)
+    public function initiatePayment(mixed $params): PayPalModel|array
     {
         $this->basket = resolve(Basket::class);
 
-        $subtotal = $this->basket->subtotal() / 100;
-        $this->postage = $this->basket->postage()->calculate() / 100;
-        $this->discount = $this->basket->discount() ? $this->basket->discount()->calculateDeduction($subtotal) : 0;
+        $subtotal = (float) $this->basket->subtotal() / 100;
+        $this->postage = (float) ($this->basket->postage()->calculate() / 100);
+        $this->discount = $this->basket->discount() ? (float) $this->basket->discount()?->calculateDeduction($subtotal) : 0;
         $this->subtotal = $subtotal - $this->discount;
         $this->total = $this->subtotal + $this->postage;
 
@@ -74,7 +74,7 @@ class PayPalPaymentProvider implements Provider
         return $this->payment->toArray();
     }
 
-    public function processPayment($params)
+    public function processPayment(mixed $params): PayPalModel|array
     {
         /** @var Request $params */
         $payment = Payment::get($params->input('payment.id'), $this->paypalContext);
@@ -88,7 +88,7 @@ class PayPalPaymentProvider implements Provider
     {
         $items = new Collection();
 
-        $this->basket->model()->items->each(function (ShopOrderItem $item) use (&$items) {
+        $this->basket?->model()->items->each(function (ShopOrderItem $item) use (&$items) {
             $currentItem = new Item();
             $currentItem->setName($item->product->title)
                 ->setCurrency('GBP')
@@ -99,21 +99,15 @@ class PayPalPaymentProvider implements Provider
             $items->push($currentItem);
         });
 
-        if ($this->discount > 0) {
-            /** @var Store $store */
-            $store = Container::getInstance()->make(Store::class);
-            $discount = ShopDiscountCode::query()->where('code', $store->get('basket_discount_code'))->first();
+        if ($this->discount > 0 && $this->basket?->discount()) {
+            $thisItem = new Item();
+            $thisItem->setName($this->basket->discount()->name)
+                ->setCurrency('GBP')
+                ->setQuantity((string) 1)
+                ->setSku($this->basket->discount()->code)
+                ->setPrice('-'.number_format($this->discount, 2));
 
-            if ($discount) {
-                $thisItem = new Item();
-                $thisItem->setName($this->basket->discount()->name)
-                    ->setCurrency('GBP')
-                    ->setQuantity((string) 1)
-                    ->setSku($this->basket->discount()->code)
-                    ->setPrice('-'.number_format($this->discount, 2));
-
-                $items->push($thisItem);
-            }
+            $items->push($thisItem);
         }
 
         return $items;
@@ -123,13 +117,16 @@ class PayPalPaymentProvider implements Provider
     {
         $this->itemList = new ItemList();
 
+        /** @var ShopOrderItem $shopOrder */
+        $shopOrder = $this->basket?->model();
+
         $shipping_address = (new ShippingAddress())
-            ->setRecipientName($this->basket->model()->address->name)
-            ->setLine1($this->basket->model()->address->line_1)
-            ->setLine2($this->basket->model()->address->line_2)
-            ->setCity($this->basket->model()->address->town)
-            ->setPostalCode($this->basket->model()->address->postcode)
-            ->setCountryCode($this->basket->model()->postageCountry->iso_code);
+            ->setRecipientName($shopOrder->address->name)
+            ->setLine1($shopOrder->address->line_1)
+            ->setLine2($shopOrder->address->line_2)
+            ->setCity($shopOrder->address->town)
+            ->setPostalCode($shopOrder->address->postcode)
+            ->setCountryCode($shopOrder->postageCountry->iso_code);
 
         $this->itemList->setItems($this->getItems()->toArray())
             ->setShippingAddress($shipping_address);
@@ -154,8 +151,8 @@ class PayPalPaymentProvider implements Provider
     {
         $this->transaction = (new Transaction())->setAmount($this->amount)
             ->setItemList($this->itemList)
-            ->setDescription("Coeliac Sanctuary Order - {$this->basket->model()->order_key}")
-            ->setInvoiceNumber($this->basket->model()->order_key);
+            ->setDescription("Coeliac Sanctuary Order - {$this->basket?->model()->order_key}")
+            ->setInvoiceNumber((string) $this->basket?->model()->order_key);
     }
 
     private function generateRedirectUrls(): void

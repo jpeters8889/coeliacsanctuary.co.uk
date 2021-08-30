@@ -10,20 +10,20 @@ use Coeliac\Common\Repositories\AbstractRepository;
 
 class CategoryRepository extends AbstractRepository
 {
-    protected $withs = ['images', 'images.image', 'products', 'products.variants', 'products.prices'];
+    protected array $withs = ['images', 'images.image', 'products', 'products.variants', 'products.prices'];
 
     protected function model(): string
     {
         return ShopCategory::class;
     }
 
-    protected function order(Builder &$builder)
+    protected function order(Builder $builder): void
     {
         $builder->orderBy('title');
     }
 
     protected function modifyQuery(Builder $query): Builder
     {
-        return $query->withLiveProducts();
+        return ShopCategory::withLiveProducts($query);
     }
 }

@@ -9,11 +9,9 @@ use Coeliac\Modules\Shop\Models\ShopProductVariant;
 
 class VariantBelongsToProduct implements Rule
 {
-    private $productId;
-
-    public function __construct($productId)
+    public function __construct(private int $productId)
     {
-        $this->productId = $productId;
+        //
     }
 
     /**

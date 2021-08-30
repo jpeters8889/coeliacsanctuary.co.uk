@@ -16,12 +16,12 @@ use Coeliac\Base\Models\BaseModel;
  */
 trait DisplaysImages
 {
-    public function getFirstImageAttribute()
+    public function getFirstImageAttribute(): ?string
     {
         return $this->images->first()->image->image_url ?? null;
     }
 
-    public function getMainImageAttribute()
+    public function getMainImageAttribute(): ?string
     {
         return $this->images
                 ->whereIn('image_category_id', [Image::IMAGE_CATEGORY_HEADER, Image::IMAGE_CATEGORY_SQUARE])
@@ -31,7 +31,7 @@ trait DisplaysImages
                 ->image_url ?? null;
     }
 
-    public function getMainImageRawAttribute()
+    public function getMainImageRawAttribute(): ?string
     {
         return $this->images
                 ->whereIn('image_category_id', [Image::IMAGE_CATEGORY_HEADER, Image::IMAGE_CATEGORY_SQUARE])
@@ -41,7 +41,7 @@ trait DisplaysImages
                 ->raw_url ?? null;
     }
 
-    public function getSocialImageAttribute()
+    public function getSocialImageAttribute(): ?string
     {
         return $this->images
                 ->firstWhere('image_category_id', Image::IMAGE_CATEGORY_SOCIAL)
@@ -49,7 +49,7 @@ trait DisplaysImages
                 ->image_url ?? null;
     }
 
-    public function getSquareImageAttribute()
+    public function getSquareImageAttribute(): ?string
     {
         return $this->images
                 ->firstWhere('image_category_id', Image::IMAGE_CATEGORY_SQUARE)
@@ -57,7 +57,7 @@ trait DisplaysImages
                 ->image_url ?? null;
     }
 
-    public function getSquareImageRawAttribute()
+    public function getSquareImageRawAttribute(): ?string
     {
         return $this->images
                 ->firstWhere('image_category_id', Image::IMAGE_CATEGORY_SQUARE)

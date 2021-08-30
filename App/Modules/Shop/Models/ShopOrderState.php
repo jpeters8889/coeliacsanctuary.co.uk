@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Models;
 
 use Coeliac\Base\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string $state
@@ -20,7 +21,7 @@ class ShopOrderState extends BaseModel
     public const STATE_CANCELLED = 7;
     public const STATE_EXPIRED = 8;
 
-    public function order()
+    public function order(): HasMany
     {
         return $this->hasMany(ShopOrder::class, 'state_id');
     }

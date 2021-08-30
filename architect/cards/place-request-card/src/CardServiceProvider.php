@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 
 class CardServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         Architect::isRunning(function () {
             /** @var Architect $architect */

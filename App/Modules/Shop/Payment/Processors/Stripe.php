@@ -10,7 +10,7 @@ use Coeliac\Modules\Shop\Exceptions\PaymentException;
 
 class Stripe extends Processor
 {
-    public function initiatePayment()
+    public function initiatePayment(): array
     {
         $subtotal = $this->basket->subtotal();
         $discount = $this->basket->discount();
@@ -30,12 +30,12 @@ class Stripe extends Processor
         );
     }
 
-    public function processPayment(Request $request)
+    public function processPayment(Request $request): array
     {
         return $this->validateIntent($this->paymentProvider->processPayment($request->input('payment.token')));
     }
 
-    protected function validateIntent($intent)
+    protected function validateIntent(object $intent): array
     {
         if (
             ($intent->status === 'requires_action' && $intent->next_action->type === 'use_stripe_sdk') ||

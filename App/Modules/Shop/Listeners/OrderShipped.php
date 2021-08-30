@@ -15,7 +15,7 @@ use Coeliac\Modules\Shop\Notifications\OrderShippedNotification;
 
 class OrderShipped implements ShouldQueue
 {
-    public function handle(ShipOrder $shipOrderEvent)
+    public function handle(ShipOrder $shipOrderEvent): void
     {
         $shipOrderEvent->order()->markAs(ShopOrderState::STATE_SHIPPED);
         $shipOrderEvent->order()->update(['shipped_at' => Carbon::now()]);

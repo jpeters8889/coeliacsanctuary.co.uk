@@ -12,6 +12,7 @@ class ActiveOrder implements Rule
 {
     public function passes($attribute, $value)
     {
+        /** @var ShopOrder $order */
         $order = ShopOrder::query()->findOrFail($value);
 
         if (!in_array($order->state_id, [ShopOrderState::STATE_PAID, ShopOrderState::STATE_PRINTED])) {

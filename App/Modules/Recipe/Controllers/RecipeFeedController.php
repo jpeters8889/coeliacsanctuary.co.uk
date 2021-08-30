@@ -11,7 +11,7 @@ use Coeliac\Base\Controllers\BaseController;
 
 class RecipeFeedController extends BaseController
 {
-    public function list(Repository $repository, RecipeFeed $feed)
+    public function list(Repository $repository, RecipeFeed $feed): Response
     {
         return new Response(
             $feed->render($repository->all()),

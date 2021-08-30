@@ -27,7 +27,8 @@ class Blueprint extends ArchitectBlueprint
 
     public function getData(): Builder
     {
-        return parent::getData()->addSelect('title', 'id', 'wheretoeat_id', 'live', 'meta_description', 'created_at');
+        return parent::getData()->addSelect('title', 'slug', 'id', 'wheretoeat_id', 'live', 'meta_description', 'created_at')
+            ->with(['eatery', 'eatery.town', 'eatery.county', 'eatery.country', 'images']);
     }
 
     public function plans(): array

@@ -16,7 +16,8 @@ class VariantIsLive implements Rule
         }
 
         /* @var ShopProductVariant $variant */
-        return $variant->live = true;
+        /** @phpstan-ignore-next-line  */
+        return $variant->live === true;
     }
 
     /**

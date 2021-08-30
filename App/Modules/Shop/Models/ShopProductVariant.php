@@ -21,6 +21,7 @@ class ShopProductVariant extends BaseModel
         'price' => 'int',
         'sale_price' => 'bool',
         'quantity' => 'int',
+        'live' => 'bool',
     ];
 
     protected $visible = [

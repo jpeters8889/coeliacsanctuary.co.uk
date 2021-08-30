@@ -11,18 +11,15 @@ use Illuminate\Database\Eloquent\Builder;
 
 abstract class AbstractFilter
 {
-    private Request $request;
+    protected array $availableFilters = [];
 
-    protected $availableFilters = [];
+    protected array $rawFilters = [];
 
-    protected $rawFilters = [];
-
-    public function __construct(Request $request)
+    public function __construct(protected Request $request)
     {
-        $this->request = $request;
     }
 
-    public function filter(Builder $builder)
+    public function filter(Builder $builder): Builder
     {
         if (!$this->request->has('filter')) {
             return $builder;

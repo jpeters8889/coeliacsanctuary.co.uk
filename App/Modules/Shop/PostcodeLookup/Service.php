@@ -11,5 +11,5 @@ interface Service
 {
     public function __construct(Client $client, Parser $parser);
 
-    public function lookup($postcode): Collection;
+    public function lookup(string $postcode): Collection;
 }

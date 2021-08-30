@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Coeliac\Modules\Shop\Payment\Processor;
 use Coeliac\Modules\Shop\Exceptions\PaymentException;
+use PayPal\Common\PayPalModel;
 
 class PayPal extends Processor
 {
-    public function initiatePayment()
+    public function initiatePayment(): PayPalModel|array
     {
         try {
             return $this->paymentProvider->initiatePayment($this->basket);
@@ -22,7 +23,7 @@ class PayPal extends Processor
         }
     }
 
-    public function processPayment(Request $request)
+    public function processPayment(Request $request): PayPalModel|array
     {
         try {
             $return = $this->paymentProvider->processPayment($request);

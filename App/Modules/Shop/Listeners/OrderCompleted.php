@@ -10,7 +10,7 @@ use Coeliac\Modules\Shop\Models\ShopOrderState;
 
 class OrderCompleted implements ShouldQueue
 {
-    public function handle(CompleteOrder $completeOrderEvent)
+    public function handle(CompleteOrder $completeOrderEvent): void
     {
         $completeOrderEvent->order()->markAs(ShopOrderState::STATE_COMPLETE);
     }

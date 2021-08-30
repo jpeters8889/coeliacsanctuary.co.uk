@@ -20,18 +20,21 @@ use Coeliac\Modules\Collection\Traits\IsCollectionItem;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @property int                            $currentPrice
- * @property mixed|string                   $oldPrice
- * @property mixed|string                   $id
- * @property mixed|string                   $title
- * @property mixed|string                   $slug
- * @property mixed|string                   $short_description
- * @property mixed|string                   $long_description
- * @property ShopShippingMethod             $shippingMethod
- * @property mixed|string                   $mainImage
- * @property mixed|string                   $meta_tags
+ * @property int $currentPrice
+ * @property mixed|string $oldPrice
+ * @property mixed|string $id
+ * @property mixed|string $title
+ * @property mixed|string $slug
+ * @property mixed|string $short_description
+ * @property mixed|string $long_description
+ * @property ShopShippingMethod $shippingMethod
+ * @property mixed|string $mainImage
+ * @property mixed|string $meta_tags
  * @property Collection<ShopProductVariant> $variants
- * @property Collection<ShopProductPrice>   $prices
+ * @property Collection<ShopProductPrice> $prices
+ * @property string $description
+ * @property string $meta_keywords
+ * @property string $meta_description
  *
  * @method transform(array $array)
  */
@@ -57,7 +60,7 @@ class ShopProduct extends BaseModel implements SearchableContract
         'first_image',
     ];
 
-    protected function linkRoot()
+    protected function linkRoot(): string
     {
         return 'shop/product';
     }
@@ -74,16 +77,16 @@ class ShopProduct extends BaseModel implements SearchableContract
     public function shouldBeSearchable(): bool
     {
         return $this->variants->filter(static function ($query) {
-            return (bool) $query->live;
+            return (bool)$query->live;
         })->count() > 0;
     }
 
-    public function feedback()
+    public function feedback(): HasMany
     {
         return $this->hasMany(ShopFeedback::class, 'product_id');
     }
 
-    public function getScoutKey()
+    public function getScoutKey(): mixed
     {
         return $this->id;
     }
@@ -122,7 +125,7 @@ class ShopProduct extends BaseModel implements SearchableContract
         return $this->hasMany(ShopProductPrice::class, 'product_id');
     }
 
-    public function currentPrices()
+    public function currentPrices(): Collection
     {
         return $this->prices
             ->filter(fn (ShopProductPrice $price) => $price->start_at->lessThan(Carbon::now()))
@@ -130,30 +133,34 @@ class ShopProduct extends BaseModel implements SearchableContract
             ->sortByDesc('start_at');
     }
 
-    public function getCurrentPriceAttribute()
+    public function getCurrentPriceAttribute(): mixed
     {
         return $this->currentPrices()
             ->first()
             ?->price;
     }
 
-    public function getOldPriceAttribute()
+    public function getOldPriceAttribute(): mixed
     {
-        if ((bool) $this->currentPrices()->first()?->sale_price === true) {
+        if ((bool)$this->currentPrices()->first()?->sale_price === true) {
             return $this->currentPrices()->skip(1)->first()->price;
         }
 
         return null;
     }
 
-    public function scopeWithLiveProducts(Builder $builder)
+    public static function withLiveProducts(?Builder $builder = null): Builder
     {
+        if (!$builder) {
+            $builder = static::query();
+        }
+
         return $builder->whereHas('variants', static function (Builder $query) {
             return $query->where('live', true);
         });
     }
 
-    protected static function bodyField()
+    protected static function bodyField(): string
     {
         return 'long_description';
     }

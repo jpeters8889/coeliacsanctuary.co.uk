@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
 use Coeliac\Base\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class WhereToEatRecommendation extends BaseModel
 {
@@ -14,7 +15,7 @@ class WhereToEatRecommendation extends BaseModel
         'completed' => 'bool',
     ];
 
-    public function venueType()
+    public function venueType(): BelongsTo
     {
         return $this->belongsTo(WhereToEatVenueType::class, 'place_venue_type_id');
     }

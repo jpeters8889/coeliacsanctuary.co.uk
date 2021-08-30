@@ -12,6 +12,7 @@ use Coeliac\Modules\Member\Models\User;
 use Coeliac\Common\Notifications\Notification;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Notifications\AnonymousNotifiable;
 
 class EmailChangedAlert extends Notification
 {
@@ -22,7 +23,7 @@ class EmailChangedAlert extends Notification
         $this->user = $user;
     }
 
-    public function toMail($notifiable = null)
+    public function toMail(User|AnonymousNotifiable|null $notifiable = null): MJMLMessage
     {
         return (new MJMLMessage())
             ->subject('You changed your email address!')
@@ -43,7 +44,7 @@ class EmailChangedAlert extends Notification
             ]);
     }
 
-    public function via()
+    public function via(): array
     {
         return ['mail'];
     }

@@ -22,6 +22,11 @@ class Blueprint extends ArchitectBlueprint
         return Blog::class;
     }
 
+    public function getData(): Builder
+    {
+        return parent::getData()->addSelect(['*'])->with(['images']);
+    }
+
     public function plans(): array
     {
         return [

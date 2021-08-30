@@ -7,13 +7,10 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Filters;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRating;
 use Illuminate\Database\Eloquent\Builder;
 use Coeliac\Common\Filters\AbstractFilter;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Database\Query\JoinClause;
-use Illuminate\Support\Facades\DB;
 
 class WhereToEatFilter extends AbstractFilter
 {
-    protected $availableFilters = [
+    protected array $availableFilters = [
         'county',
         'town',
         'type',
@@ -23,36 +20,36 @@ class WhereToEatFilter extends AbstractFilter
         'feature',
     ];
 
-    protected $rawFilters = [
+    protected array $rawFilters = [
         'rating'
     ];
 
-    protected function filterCounty(Builder $builder, $value)
+    protected function filterCounty(Builder $builder, mixed $value): Builder
     {
         return $builder->where('county_id', $value);
     }
 
-    protected function filterTown(Builder $builder, $value)
+    protected function filterTown(Builder $builder, mixed $value): Builder
     {
         return $builder->where('town_id', $value);
     }
 
-    protected function filterType(Builder $builder, $value)
+    protected function filterType(Builder $builder, mixed $value): Builder
     {
         return $builder->whereIn('type_id', explode(',', $value));
     }
 
-    protected function filterVenueType(Builder $builder, $value)
+    protected function filterVenueType(Builder $builder, mixed $value): Builder
     {
         return $builder->whereIn('venue_type_id', explode(',', $value));
     }
 
-    protected function filterCuisine(Builder $builder, $value)
+    protected function filterCuisine(Builder $builder, mixed $value): Builder
     {
         return $builder->where('cuisine_id', $value);
     }
 
-    protected function filterFeature(Builder $builder, $value)
+    protected function filterFeature(Builder $builder, mixed $value): Builder
     {
         foreach (explode(',', $value) as $feature) {
             $builder->orWhereHas('features', fn (Builder $query) => $query->where('id', $feature));
@@ -61,7 +58,7 @@ class WhereToEatFilter extends AbstractFilter
         return $builder;
     }
 
-    protected function filterRating(Builder $builder, $value)
+    protected function filterRating(Builder $builder, mixed $value): Builder
     {
         $value = explode(',', $value);
         $having = 'average_rating in (' . trim(str_repeat('?,', count($value)), ',') . ')';
@@ -76,7 +73,7 @@ class WhereToEatFilter extends AbstractFilter
             ->havingRaw($having, $value);
     }
 
-    protected function filterHas(Builder $builder, $value)
+    protected function filterHas(Builder $builder, mixed $value): Builder
     {
         if ($value !== 'reviews') {
             return $builder;

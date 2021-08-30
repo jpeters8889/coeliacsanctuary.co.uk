@@ -203,7 +203,7 @@ class WhereToEatTest extends TestCase
             'link' => $review->link,
             'main_image' => null,
             'architect_title' => $review->architect_title,
-//            'eatery' => $review->eatery->toArray(),
+            'eatery' => $review->eatery->toArray(),
         ], $data['reviews'][0]);
     }
 }

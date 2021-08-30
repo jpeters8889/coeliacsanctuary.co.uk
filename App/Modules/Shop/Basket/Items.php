@@ -11,20 +11,17 @@ use Coeliac\Modules\Shop\Exceptions\BasketException;
 
 class Items
 {
-    private Basket $basket;
-
     private array $request = [
         'product' => null,
         'variant' => null,
         'quantity' => 0,
     ];
 
-    public function __construct(Basket $basket)
+    public function __construct(private Basket $basket)
     {
-        $this->basket = $basket;
     }
 
-    public function add(ShopProduct $product, ShopProductVariant $variant, $quantity = 1)
+    public function add(ShopProduct $product, ShopProductVariant $variant, int $quantity = 1): void
     {
         $this->request = [
             'product' => $product,
@@ -45,12 +42,12 @@ class Items
         $this->basket->model()->addProduct($variant, $quantity);
     }
 
-    public function decreaseQuantity(ShopProduct $product, ShopProductVariant $variant)
+    public function decreaseQuantity(ShopProduct $product, ShopProductVariant $variant): void
     {
         $this->updateProduct($product, $variant, 'decrease');
     }
 
-    protected function delete(ShopOrderItem $item)
+    protected function delete(ShopOrderItem $item): void
     {
         $item->variant->increment('quantity', $item->quantity);
         $item->delete();
@@ -66,12 +63,12 @@ class Items
             ->first();
     }
 
-    public function increaseQuantity(ShopProduct $product, ShopProductVariant $variant)
+    public function increaseQuantity(ShopProduct $product, ShopProductVariant $variant): void
     {
         $this->updateProduct($product, $variant);
     }
 
-    protected function updateProduct(ShopProduct $product, ShopProductVariant $variant, $action = 'increase')
+    protected function updateProduct(ShopProduct $product, ShopProductVariant $variant, string $action = 'increase'): void
     {
         if (!$this->basket->resolve()) {
             throw new BasketException('No basket found');
@@ -106,7 +103,7 @@ class Items
         $this->basket->model()->touch();
     }
 
-    protected function validate()
+    protected function validate(): void
     {
         if (!$this->request['variant']->live) {
             throw new BasketException('This product can\'t be found.');

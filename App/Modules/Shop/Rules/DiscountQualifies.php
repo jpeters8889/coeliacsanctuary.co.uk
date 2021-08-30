@@ -16,6 +16,7 @@ class DiscountQualifies implements Rule
         /** @var Basket $basket */
         $basket = Container::getInstance()->make(Basket::class);
 
+        /** @var ShopDiscountCode $code */
         $code = ShopDiscountCode::query()->firstWhere('code', $value);
 
         if (!$basket->resolve()) {

@@ -19,7 +19,7 @@ abstract class Item
         $this->viewFactory = Container::getInstance()->make(ViewFactory::class);
     }
 
-    public static function resolve(CollectionItem $item): self
+    public static function resolve(CollectionItem $item): static
     {
         $className = class_basename($item->item);
 

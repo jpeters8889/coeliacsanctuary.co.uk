@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Search\Indices;
 
-use Laravel\Scout\Builder;
+use Algolia\ScoutExtended\Builder;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review as ReviewModel;
 
 class Review extends Index
 {
-    protected function model(): Builder
+    protected function model(): Builder|\Laravel\Scout\Builder
     {
         return ReviewModel::search($this->term);
     }
@@ -25,6 +25,8 @@ class Review extends Index
 
     protected function mergeIntoResult(BaseModel $result): array
     {
+        /** @var ReviewModel $result */
+
         return ['title' => $result->title.', '.$result->eatery->town->town.', '.$result->eatery->county->county];
     }
 }

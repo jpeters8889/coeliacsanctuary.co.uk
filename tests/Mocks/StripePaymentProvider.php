@@ -8,7 +8,7 @@ use Coeliac\Modules\Shop\Payment\Provider;
 
 class StripePaymentProvider implements Provider
 {
-    protected function call(...$params)
+    protected function call(...$params): mixed
     {
         $params = $params[0];
 
@@ -33,12 +33,12 @@ class StripePaymentProvider implements Provider
         ]), false);
     }
 
-    public function initiatePayment($params)
+    public function initiatePayment(mixed $params): mixed
     {
         return $this->call($params);
     }
 
-    public function processPayment($params)
+    public function processPayment(mixed $params): mixed
     {
         return $this->call($params);
     }

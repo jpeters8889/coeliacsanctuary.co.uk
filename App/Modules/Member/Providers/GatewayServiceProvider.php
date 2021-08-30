@@ -14,7 +14,7 @@ use Coeliac\Modules\Member\Models\UserDailyUpdateSubscription;
 
 class GatewayServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         /** @var Gate $gate */
         $gate = $this->app->make(Gate::class);

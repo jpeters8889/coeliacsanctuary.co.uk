@@ -24,7 +24,7 @@ class PostcodeLookupMock implements Service
         $this->client = $client;
     }
 
-    public function lookup($postcode): Collection
+    public function lookup(string $postcode): Collection
     {
         $response = json_encode([
             'addresses' => $this->getAddress(strtolower(trim($postcode))),

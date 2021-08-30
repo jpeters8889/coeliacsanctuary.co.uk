@@ -11,7 +11,7 @@ use Coeliac\Modules\Shop\Rules\DiscountHasAvailableClaims;
 
 class ApplyDiscountRequest extends ApiFormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'code' => [

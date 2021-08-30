@@ -15,14 +15,11 @@ use Coeliac\Modules\Shop\Payment\Processor as PaymentProcessor;
 
 class OrderController extends BaseController
 {
-    private PaymentProcessor $paymentProcessor;
-
-    public function __construct(PaymentProcessor $processor)
+    public function __construct(private PaymentProcessor $paymentProcessor)
     {
-        $this->paymentProcessor = $processor;
     }
 
-    public function create(OrderRequest $request)
+    public function create(OrderRequest $request): mixed
     {
         try {
             $this->paymentProcessor->processRequest($request);
@@ -39,7 +36,7 @@ class OrderController extends BaseController
         }
     }
 
-    public function update(OrderUpdateRequest $request)
+    public function update(OrderUpdateRequest $request): mixed
     {
         try {
             return $this->paymentProcessor->processPayment($request);

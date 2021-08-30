@@ -39,12 +39,12 @@ class Collection extends BaseModel
         return $this->hasMany(CollectionItem::class)->orderBy('position');
     }
 
-    protected function linkRoot()
+    protected function linkRoot(): string
     {
         return 'collection';
     }
 
-    public function addItem(BaseModel $item, string $description, $position = null): self
+    public function addItem(BaseModel $item, string $description, ?int $position = null): static
     {
         $this->items()->create([
             'item_id' => $item->getKey(),

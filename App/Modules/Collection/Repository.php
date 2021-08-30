@@ -10,14 +10,14 @@ use Coeliac\Common\Repositories\AbstractRepository;
 
 class Repository extends AbstractRepository
 {
-    protected $withs = ['images', 'images.image', 'items', 'items.item'];
+    protected array $withs = ['images', 'images.image', 'items', 'items.item'];
 
     protected function model(): string
     {
         return Collection::class;
     }
 
-    protected function order(Builder &$builder)
+    protected function order(Builder $builder): void
     {
         $builder->orderByDesc('updated_at');
     }

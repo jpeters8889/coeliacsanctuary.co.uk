@@ -9,13 +9,13 @@ use Coeliac\Common\Filters\AbstractFilter;
 
 class RecipeFilter extends AbstractFilter
 {
-    protected $availableFilters = [
+    protected array $availableFilters = [
         'feature',
         'freefrom',
         'meal',
     ];
 
-    protected function filterFeature(Builder $builder, $value)
+    protected function filterFeature(Builder $builder, mixed $value): Builder
     {
         foreach (explode(',', $value) as $feature) {
             $builder->whereHas('features', static function (Builder $query) use ($feature) {
@@ -26,7 +26,7 @@ class RecipeFilter extends AbstractFilter
         return $builder;
     }
 
-    protected function filterFreefrom(Builder $builder, $value)
+    protected function filterFreefrom(Builder $builder, mixed $value): Builder
     {
         foreach (explode(',', $value) as $allergen) {
             $builder->whereHas('allergens', static function (Builder $query) use ($allergen) {
@@ -37,7 +37,7 @@ class RecipeFilter extends AbstractFilter
         return $builder;
     }
 
-    protected function filterMeal(Builder $builder, $value)
+    protected function filterMeal(Builder $builder, mixed $value): Builder
     {
         foreach (explode(',', $value) as $meal) {
             $builder->whereHas('meals', static function (Builder $query) use ($meal) {

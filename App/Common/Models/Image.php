@@ -6,6 +6,7 @@ namespace Coeliac\Common\Models;
 
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Container\Container;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Filesystem\FilesystemManager;
 
 /**
@@ -36,17 +37,17 @@ class Image extends BaseModel
         });
     }
 
-    public function associations()
+    public function associations(): HasMany
     {
         return $this->hasMany(ImageAssociations::class);
     }
 
-    public function getRawUrlAttribute()
+    public function getRawUrlAttribute(): string
     {
         return Container::getInstance()->make(FilesystemManager::class)->disk('images')->url($this->directory.'/'.$this->file_name);
     }
 
-    public function getImageUrlAttribute()
+    public function getImageUrlAttribute(): string
     {
         if (config('app.env') === 'testing') {
             // @todo this sucks

@@ -6,6 +6,7 @@ namespace Coeliac\Modules\Shop\Models;
 
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property ShopPostageCountryArea $area
@@ -26,7 +27,7 @@ class ShopPostageCountry extends BaseModel
         return $this->belongsTo(ShopPostageCountryArea::class, 'postage_area_id');
     }
 
-    public function orders()
+    public function orders(): HasMany
     {
         return $this->hasMany(ShopOrder::class, 'postage_country_id');
     }

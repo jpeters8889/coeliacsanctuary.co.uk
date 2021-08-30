@@ -10,5 +10,5 @@ interface SearchableContract
 
     public function shouldBeSearchable(): bool;
 
-    public function getScoutKey();
+    public function getScoutKey(): mixed;
 }

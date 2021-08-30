@@ -16,6 +16,7 @@ class EmailData implements CastsAttributes
 {
     /**
      * {@inheritdoc}
+     * @return array
      */
     public function get($model, string $key, $value, array $attributes)
     {

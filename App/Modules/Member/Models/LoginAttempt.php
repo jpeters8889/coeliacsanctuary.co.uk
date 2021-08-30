@@ -18,7 +18,7 @@ class LoginAttempt extends BaseModel
         'failed' => 'bool',
     ];
 
-    public static function recordFailure(string $email, string $ip, string $error): self
+    public static function recordFailure(string $email, string $ip, string $error): static|self
     {
         return self::query()->create([
            'email' => $email,
@@ -28,7 +28,7 @@ class LoginAttempt extends BaseModel
         ]);
     }
 
-    public static function recordSuccess(string $email, string $ip): self
+    public static function recordSuccess(string $email, string $ip): static|self
     {
         return self::query()->create([
             'email' => $email,

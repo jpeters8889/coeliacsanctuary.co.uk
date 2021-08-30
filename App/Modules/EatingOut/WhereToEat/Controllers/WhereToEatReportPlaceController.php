@@ -13,7 +13,7 @@ use Coeliac\Base\Controllers\BaseController;
 
 class WhereToEatReportPlaceController extends BaseController
 {
-    public function create(ReportPlace $request, Dispatcher $events)
+    public function create(ReportPlace $request, Dispatcher $events): Response
     {
         /** @var WhereToEatPlaceReport $placeReport */
         $placeReport = $request->eatery()->reports()->create([

@@ -10,7 +10,7 @@ use Coeliac\Modules\Member\Requests\ScrapbookSearchRequest;
 
 class ScrapbookSearchController extends BaseController
 {
-    public function __invoke(ScrapbookSearchRequest $request)
+    public function __invoke(ScrapbookSearchRequest $request): Response|array
     {
         $item = $request->user()->scrapbookItems()
             ->where('item_type', $request->resolveItem())

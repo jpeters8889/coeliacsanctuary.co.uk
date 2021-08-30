@@ -8,7 +8,7 @@ use Coeliac\Modules\Member\Events\UserRegistered;
 
 class CreateUserScrapbook
 {
-    public function handle(UserRegistered $event)
+    public function handle(UserRegistered $event): void
     {
         $event->user()->scrapbooks()->create();
     }

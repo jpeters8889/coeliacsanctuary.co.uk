@@ -27,39 +27,39 @@ class Search
         'products' => true,
     ];
 
-    public function searchFor($term): self
+    public function searchFor(string $term): static
     {
         $this->term = $term;
 
         return $this;
     }
 
-    public function shouldSearchBlogs(bool $shouldSearch): self
+    public function shouldSearchBlogs(bool $shouldSearch): static
     {
         return $this->shouldSearch('blogs', $shouldSearch);
     }
 
-    public function shouldSearchRecipes(bool $shouldSearch): self
+    public function shouldSearchRecipes(bool $shouldSearch): static
     {
         return $this->shouldSearch('recipes', $shouldSearch);
     }
 
-    public function shouldSearchReviews(bool $shouldSearch): self
+    public function shouldSearchReviews(bool $shouldSearch): static
     {
         return $this->shouldSearch('reviews', $shouldSearch);
     }
 
-    public function shouldSearchEateries(bool $shouldSearch): self
+    public function shouldSearchEateries(bool $shouldSearch): static
     {
         return $this->shouldSearch('eateries', $shouldSearch);
     }
 
-    public function shouldSearchProducts(bool $shouldSearch): self
+    public function shouldSearchProducts(bool $shouldSearch): static
     {
         return $this->shouldSearch('products', $shouldSearch);
     }
 
-    public function shouldSearch(string $what, bool $value = true): self
+    public function shouldSearch(string $what, bool $value = true): static
     {
         $this->verifyIndex($what);
 
@@ -68,7 +68,7 @@ class Search
         return $this;
     }
 
-    public function isSearchable($what)
+    public function isSearchable(string $what): bool
     {
         $this->verifyIndex($what);
 

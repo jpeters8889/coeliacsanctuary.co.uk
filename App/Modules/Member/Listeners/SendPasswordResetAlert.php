@@ -9,7 +9,7 @@ use Coeliac\Modules\Member\Notifications\PasswordResetAlert;
 
 class SendPasswordResetAlert
 {
-    public function handle(UserPasswordReset $event)
+    public function handle(UserPasswordReset $event): void
     {
         $event->user()->notify(new PasswordResetAlert());
     }

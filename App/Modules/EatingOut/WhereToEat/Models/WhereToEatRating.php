@@ -7,6 +7,9 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property WhereToEat $eatery
+ */
 class WhereToEatRating extends BaseModel
 {
     protected $table = 'wheretoeat_ratings';
@@ -22,7 +25,7 @@ class WhereToEatRating extends BaseModel
         return $this->belongsTo(WhereToEat::class, 'wheretoeat_id', 'id');
     }
 
-    public function getAverageRatingAttribute()
+    public function getAverageRatingAttribute(): ?string
     {
         if (!$this->relationLoaded('eatery')) {
             return null;
@@ -31,7 +34,7 @@ class WhereToEatRating extends BaseModel
         return number_format($this->eatery->ratings()->average('rating'), 1);
     }
 
-    public function getNumberOfRatingsAttribute()
+    public function getNumberOfRatingsAttribute(): int|null
     {
         if (!$this->relationLoaded('eatery')) {
             return null;

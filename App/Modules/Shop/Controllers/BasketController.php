@@ -18,14 +18,11 @@ use Coeliac\Modules\Shop\Requests\BasketUpdateRequest;
 
 class BasketController extends BaseController
 {
-    private Basket $basket;
-
-    public function __construct(Basket $basket)
+    public function __construct(private Basket $basket)
     {
-        $this->basket = $basket;
     }
 
-    public function index()
+    public function index(): array
     {
         $items = 0;
         $quantity = 0;
@@ -43,7 +40,7 @@ class BasketController extends BaseController
         ];
     }
 
-    public function create(AddToBasketRequest $request)
+    public function create(AddToBasketRequest $request): array|Response
     {
         try {
             $this->basket
@@ -60,7 +57,7 @@ class BasketController extends BaseController
         }
     }
 
-    public function get(Store $sessionStore)
+    public function get(Store $sessionStore): array
     {
         $items = [];
         $subtotal = 0;
@@ -107,7 +104,7 @@ class BasketController extends BaseController
         ];
     }
 
-    public function update(BasketUpdateRequest $request)
+    public function update(BasketUpdateRequest $request): array|Response
     {
         try {
             $method = $request->input('action').'Quantity';
@@ -125,7 +122,7 @@ class BasketController extends BaseController
         }
     }
 
-    public function show(ShopPage $page)
+    public function show(ShopPage $page): Response
     {
         return $page
             ->breadcrumbs([

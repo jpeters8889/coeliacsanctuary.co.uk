@@ -6,6 +6,7 @@ namespace Coeliac\Common\Comments\Notifications;
 
 use Carbon\Carbon;
 use Coeliac\Common\Models\Comment;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Blog\Repository;
 use Coeliac\Modules\Blog\Models\Blog;
@@ -13,6 +14,7 @@ use Coeliac\Common\Models\CommentReply;
 use Coeliac\Common\Notifications\Notification;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Notifications\AnonymousNotifiable;
 
 class CommentRepliedNotification extends Notification
 {
@@ -26,12 +28,12 @@ class CommentRepliedNotification extends Notification
         $this->commentReply = $commentReply;
     }
 
-    public function comment()
+    public function comment(): Comment
     {
         return $this->comment;
     }
 
-    public function toMail($notifiable = null)
+    public function toMail(User|AnonymousNotifiable|null $notifiable = null): MJMLMessage
     {
         return (new MJMLMessage())
             ->subject('Coeliac Sanctuary - A Reply has been left on your Comment')
@@ -55,7 +57,7 @@ class CommentRepliedNotification extends Notification
             ]);
     }
 
-    public function via()
+    public function via(): array
     {
         return ['mail'];
     }

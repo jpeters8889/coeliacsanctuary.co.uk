@@ -7,17 +7,15 @@ namespace Coeliac\Modules\Info\Controllers;
 use Coeliac\Common\Response\Page;
 use Coeliac\Common\Models\Accordion;
 use Coeliac\Base\Controllers\BaseController;
+use Illuminate\Http\Response;
 
 class InfoController extends BaseController
 {
-    private Page $page;
-
-    public function __construct(Page $page)
+    public function __construct(private Page $page)
     {
-        $this->page = $page;
     }
 
-    public function index()
+    public function index(): Response
     {
         return $this->page
             ->breadcrumbs([], 'Info')
@@ -28,7 +26,7 @@ class InfoController extends BaseController
             ->render('modules.info.index');
     }
 
-    public function coeliacInfo()
+    public function coeliacInfo(): Response
     {
         return $this->page
             ->breadcrumbs([
@@ -46,7 +44,7 @@ class InfoController extends BaseController
             ]);
     }
 
-    public function shoppingList()
+    public function shoppingList(): Response
     {
         return $this->page
             ->breadcrumbs([
@@ -62,7 +60,7 @@ class InfoController extends BaseController
             ->render('modules.info.shopping');
     }
 
-    public function storecupboard()
+    public function storecupboard(): Response
     {
         return $this->page
             ->breadcrumbs([
@@ -78,7 +76,7 @@ class InfoController extends BaseController
             ->render('modules.info.storecupboard');
     }
 
-    public function glutenChallenge()
+    public function glutenChallenge(): Response
     {
         return $this->page
             ->breadcrumbs([

@@ -8,12 +8,12 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
 
 class WhereToEatTownRequest extends WhereToEatCountyRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [];
     }
 
-    public function resolveCountyTown()
+    public function resolveCountyTown(): array
     {
         $county = $this->resolveCounty();
 

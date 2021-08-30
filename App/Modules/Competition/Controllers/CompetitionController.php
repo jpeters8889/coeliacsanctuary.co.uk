@@ -13,7 +13,7 @@ use Coeliac\Modules\Competition\Requests\CompetitionAdditionalEntryRequest;
 
 class CompetitionController extends BaseController
 {
-    public function get(Competition $competition, Page $page)
+    public function get(Competition $competition, Page $page): Response
     {
         abort_if(!$competition->isActive(), 404);
 
@@ -26,7 +26,7 @@ class CompetitionController extends BaseController
             ->render('modules.competition.competition', compact('competition'));
     }
 
-    public function create(CompetitionInitialEntryRequest $request, Competition $competition)
+    public function create(CompetitionInitialEntryRequest $request, Competition $competition): Response|array
     {
         if ($request->userHasAlreadyEntered()) {
             return new Response(['error' => 'duplicate entry'], 422);
@@ -39,7 +39,7 @@ class CompetitionController extends BaseController
         ])->only('id');
     }
 
-    public function update(CompetitionAdditionalEntryRequest $request, Competition $competition)
+    public function update(CompetitionAdditionalEntryRequest $request, Competition $competition): Response|bool
     {
         $primaryEntry = $request->getPrimaryEntry();
 
@@ -52,5 +52,7 @@ class CompetitionController extends BaseController
             'email' => $primaryEntry->email,
             'entry_type' => $request->input('type'),
         ]);
+
+        return true;
     }
 }

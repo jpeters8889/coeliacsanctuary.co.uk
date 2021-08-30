@@ -15,7 +15,7 @@ use Coeliac\Base\Controllers\BaseController;
 
 class WhereToEatRecommendAPlaceController extends BaseController
 {
-    public function get(Page $page)
+    public function get(Page $page): Response
     {
         return $page
             ->breadcrumbs([
@@ -46,7 +46,7 @@ class WhereToEatRecommendAPlaceController extends BaseController
             ]);
     }
 
-    public function create(RecommendAPlaceRequest $request, Dispatcher $events)
+    public function create(RecommendAPlaceRequest $request, Dispatcher $events): Response
     {
         /** @var WhereToEatRecommendation $recommendation */
         $recommendation = WhereToEatRecommendation::query()->create([

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Competition\Requests;
 
+use Coeliac\Modules\Competition\Models\Competition;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Query\Builder;
 use Coeliac\Base\Requests\ApiFormRequest;
@@ -14,7 +15,10 @@ class CompetitionAdditionalEntryRequest extends ApiFormRequest
 {
     public function userHasAlreadyEnteredAdditionalType(CompetitionEntry $entry): bool
     {
-        return $this->route('competition')
+        /** @var Competition $competition */
+        $competition = $this->route('competition');
+
+        return $competition
             ->entries()
             ->where('name', $entry->name)
             ->where('email', $entry->email)
@@ -24,24 +28,30 @@ class CompetitionAdditionalEntryRequest extends ApiFormRequest
 
     public function getPrimaryEntry(): CompetitionEntry
     {
-        return $this->route('competition')
+        /** @var Competition $competition */
+        $competition = $this->route('competition');
+
+        return $competition
             ->entries()
-            ->firstWhere('id', $this->input('id'));
+            ->findOrFail($this->input('id'));
     }
 
-    public function rules()
+    public function rules(): array
     {
+        /** @var Competition $competition */
+        $competition = $this->route('competition');
+
         return [
             'id' => [
                 'required',
                 Rule::exists('competition_entries')
-                    ->where(fn (Builder $query) => $query->where('competition_id', $this->route('competition')->id)
+                    ->where(fn (Builder $query) => $query->where('competition_id', $competition->id)
                         ->where('entry_type', 'primary')),
             ],
             'type' => [
                 'required',
                 Rule::in(['facebook_like', 'facebook_share', 'twitter_follow', 'twitter_tweet', 'shop_purchase']),
-                new ValidEntryType($this->route('competition')),
+                new ValidEntryType($competition),
             ],
         ];
     }

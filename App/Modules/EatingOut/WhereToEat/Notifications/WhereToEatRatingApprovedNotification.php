@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\WhereToEat\Notifications;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Blog\Repository;
 use Coeliac\Modules\Blog\Models\Blog;
@@ -12,6 +13,7 @@ use Coeliac\Common\Notifications\Notification;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRating;
+use Illuminate\Notifications\AnonymousNotifiable;
 
 class WhereToEatRatingApprovedNotification extends Notification
 {
@@ -23,12 +25,12 @@ class WhereToEatRatingApprovedNotification extends Notification
         $this->date = Carbon::now();
     }
 
-    public function rating()
+    public function rating(): WhereToEatRating
     {
         return $this->rating;
     }
 
-    public function toMail($notifiable = null)
+    public function toMail(User|AnonymousNotifiable|null $notifiable = null): MJMLMessage
     {
         return (new MJMLMessage())
             ->subject('Coeliac Sanctuary - Place Review Approved')
@@ -51,7 +53,7 @@ class WhereToEatRatingApprovedNotification extends Notification
             ]);
     }
 
-    public function via()
+    public function via(): array
     {
         return ['mail'];
     }

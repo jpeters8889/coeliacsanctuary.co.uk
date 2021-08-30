@@ -10,7 +10,7 @@ use Coeliac\Modules\Member\Models\Scrapbook;
 /** @mixin BaseModel */
 trait CanBeAddedToScrapbook
 {
-    public function addToScrapbook(Scrapbook $scrapbook)
+    public function addToScrapbook(Scrapbook $scrapbook): void
     {
         $scrapbook->items()->create([
             'item_id' => $this->getKey(),

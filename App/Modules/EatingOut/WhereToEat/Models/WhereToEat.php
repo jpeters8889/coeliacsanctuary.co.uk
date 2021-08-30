@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
@@ -34,6 +35,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property WhereToEatCountry $country
  * @property mixed $type_id
  * @property mixed $review_count
+ * @property Collection<WhereToEatFeature> $features
+ * @property Collection $ratings
+ * @property WhereToEatType $type
+ * @property string $full_location
+ * @property WhereToEatVenueType $venueType
  *
  * @method transform(array $array)
  */
@@ -76,7 +82,7 @@ class WhereToEat extends BaseModel
         return $this->belongsTo(WhereToEatCountry::class, 'country_id');
     }
 
-    public function features()
+    public function features(): BelongsToMany
     {
         return $this->belongsToMany(
             WhereToEatFeature::class,
@@ -86,12 +92,12 @@ class WhereToEat extends BaseModel
         )->withTimestamps();
     }
 
-    public function reports()
+    public function reports(): HasMany
     {
         return $this->hasMany(WhereToEatPlaceReport::class, 'wheretoeat_id');
     }
 
-    public function getAverageRatingAttribute()
+    public function getAverageRatingAttribute(): ?string
     {
         if (!$this->relationLoaded('ratings')) {
             return null;
@@ -100,7 +106,7 @@ class WhereToEat extends BaseModel
         return (string)array_average($this->ratings->pluck('rating')->toArray());
     }
 
-    public function getHasBeenRatedAttribute()
+    public function getHasBeenRatedAttribute(): ?bool
     {
         if (!$this->relationLoaded('ratings')) {
             return null;
@@ -111,7 +117,7 @@ class WhereToEat extends BaseModel
                 ->count() > 0;
     }
 
-    public function getIconAttribute()
+    public function getIconAttribute(): ?string
     {
         if (!$this->relationLoaded('type')) {
             return null;
@@ -184,12 +190,12 @@ class WhereToEat extends BaseModel
         return (bool)$this->live;
     }
 
-    public function getScoutKey()
+    public function getScoutKey(): mixed
     {
         return $this->id;
     }
 
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): ?string
     {
         if (!$this->relationLoaded('town')) {
             return null;
@@ -203,7 +209,7 @@ class WhereToEat extends BaseModel
         ]);
     }
 
-    public function getFullLocationAttribute()
+    public function getFullLocationAttribute(): ?string
     {
         if (!$this->relationLoaded('town')) {
             return null;
@@ -216,7 +222,7 @@ class WhereToEat extends BaseModel
         ]);
     }
 
-    public function getTypeDescriptionAttribute()
+    public function getTypeDescriptionAttribute(): ?string
     {
         if (!$this->relationLoaded('type')) {
             return null;
@@ -230,7 +236,7 @@ class WhereToEat extends BaseModel
         return 'wheretoeat';
     }
 
-    protected static function dailyUpdateType()
+    protected static function dailyUpdateType(): array
     {
         return [DailyUpdateType::WTE_COUNTY, DailyUpdateType::WTE_TOWN];
     }

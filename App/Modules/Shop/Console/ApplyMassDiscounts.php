@@ -15,7 +15,7 @@ class ApplyMassDiscounts extends Command
 {
     protected $signature = 'coeliac:apply_mass_discounts';
 
-    public function handle()
+    public function handle(): void
     {
         ShopMassDiscount::query()
             ->whereDate('start_at', '<=', Carbon::now())

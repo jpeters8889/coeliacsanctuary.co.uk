@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Models;
 
+use Carbon\Carbon;
 use Coeliac\Base\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * @property BaseModel item
+ * @property BaseModel $item
+ * @property int $id
+ * @property Carbon $created_at
  */
 class ScrapbookItem extends BaseModel
 {
@@ -15,12 +20,12 @@ class ScrapbookItem extends BaseModel
       'scrapbook_id' => 'int',
     ];
 
-    public function item()
+    public function item(): MorphTo
     {
         return $this->morphTo('item');
     }
 
-    public function scrapbook()
+    public function scrapbook(): BelongsTo
     {
         return $this->belongsTo(Scrapbook::class);
     }

@@ -13,7 +13,7 @@ trait Filterable
     /** @var AbstractFilter */
     protected $filterable;
 
-    public function filter()
+    public function filter(): static
     {
         $thisNamespace = explode('\\', self::class);
         array_pop($thisNamespace);

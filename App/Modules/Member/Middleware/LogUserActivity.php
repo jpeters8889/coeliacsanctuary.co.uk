@@ -10,14 +10,11 @@ use Coeliac\Modules\Member\Contracts\UserActivityMonitor;
 
 class LogUserActivity
 {
-    private UserActivityMonitor $activityMonitor;
-
-    public function __construct(UserActivityMonitor $activityMonitor)
+    public function __construct(private UserActivityMonitor $activityMonitor)
     {
-        $this->activityMonitor = $activityMonitor;
     }
 
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         if (!$request->user()) {
             return $next($request);

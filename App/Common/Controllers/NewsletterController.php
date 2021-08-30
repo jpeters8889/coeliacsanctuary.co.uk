@@ -14,7 +14,7 @@ use Coeliac\Common\Newsletter\Exceptions\AlreadySubscribedException;
 
 class NewsletterController extends BaseController
 {
-    public function store(NewsletterSignupRequest $request, NewsletterService $newsletterService)
+    public function store(NewsletterSignupRequest $request, NewsletterService $newsletterService): Response
     {
         try {
             $newsletterService->subscribe($request->input('email'), $request->input('url'));

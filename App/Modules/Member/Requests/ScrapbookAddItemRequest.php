@@ -14,31 +14,25 @@ use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 
 class ScrapbookAddItemRequest extends ApiFormRequest
 {
-    public function authorize(Gate $gate)
+    public function authorize(Gate $gate): bool
     {
         return $gate->allows('manage-scrapbook', $this->route('scrapbook'));
     }
 
-    public function resolveItem(): BaseModel
+    public function resolveItem(): Blog|Review|Recipe
     {
-        switch ($this->input('type')) {
-            case 'blog':
-                $builder = Blog::query();
-                break;
-            case 'review':
-                $builder = Review::query();
-                break;
-            case 'recipe':
-                $builder = Recipe::query();
-                break;
-            default:
-                throw new RuntimeException('Unexpected value');
-        }
+        $builder = match ($this->input('type')) {
+            'blog' => Blog::query(),
+            'review' => Review::query(),
+            'recipe' => Recipe::query(),
+            default => throw new RuntimeException('Unexpected value'),
+        };
 
+        /** @phpstan-ignore-next-line  */
         return $builder->where('live', 1)->findOrFail($this->input('id'));
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'id' => ['required', 'numeric'],

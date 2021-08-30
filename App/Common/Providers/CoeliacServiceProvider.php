@@ -11,6 +11,7 @@ use Illuminate\Contracts\Config\Repository;
 use Coeliac\Common\MjmlCompiler\CoeliacCompiler;
 use Coeliac\Common\MjmlCompiler\CompilerContract;
 use Coeliac\Common\Notifications\Channels\MailChannel;
+use Illuminate\Notifications\Channels\MailChannel as IlluminateMailChannel;
 
 class CoeliacServiceProvider extends ServiceProvider
 {
@@ -29,12 +30,12 @@ class CoeliacServiceProvider extends ServiceProvider
 
         $this->app->instance(CompilerContract::class, new CoeliacCompiler());
 
-        $this->app->alias(MailChannel::class, 'Illuminate\Notifications\Channels\MailChannel');
+        $this->app->alias(MailChannel::class, IlluminateMailChannel::class);
 
         $this->bootstrapModules();
     }
 
-    private function bootstrapModules()
+    private function bootstrapModules(): void
     {
         $directory = app_path('Modules');
 

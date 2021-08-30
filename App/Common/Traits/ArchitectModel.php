@@ -18,7 +18,7 @@ use JPeters\Architect\Http\Requests\BlueprintSubmitRequest;
  */
 trait ArchitectModel
 {
-    public static function bootArchitectModel()
+    public static function bootArchitectModel(): void
     {
         static::creating(static function (BaseModel $model) {
             self::onCreate($model);
@@ -29,8 +29,9 @@ trait ArchitectModel
         });
     }
 
-    protected static function resolveTitleField(BaseModel $model)
+    protected static function resolveTitleField(BaseModel $model): mixed
     {
+        /** @phpstan-ignore-next-line  */
         if (is_array(self::titleField())) {
             $titles = [];
 
@@ -41,17 +42,18 @@ trait ArchitectModel
             return implode(' ', $titles);
         }
 
+        /** @phpstan-ignore-next-line  */
         return $model->{self::titleField()};
     }
 
-    protected static function onCreate(BaseModel $model)
+    protected static function onCreate(BaseModel $model): void
     {
         if (!$model->{self::slugField()}) {
             $model->{self::slugField()} = Str::slug(self::resolveTitleField($model));
         }
     }
 
-    protected static function requiresImageProcessing($model): bool
+    protected static function requiresImageProcessing(BaseModel $model): bool
     {
         if (!self::usesImages()) {
             return false;
@@ -72,7 +74,7 @@ trait ArchitectModel
         return true;
     }
 
-    protected static function onSave(BaseModel $model)
+    protected static function onSave(BaseModel $model): void
     {
         if (!self::requiresImageProcessing($model)) {
             return;
@@ -81,6 +83,7 @@ trait ArchitectModel
         /** @var BlueprintSubmitRequest $request */
         $request = resolve(BlueprintSubmitRequest::class);
 
+        /** @phpstan-ignore-next-line  */
         $images = $model->fresh()->images()->get();
         $index = 0;
         $field = self::bodyField();
@@ -106,7 +109,7 @@ trait ArchitectModel
         return "{$model->getTable()}-{$model->id}-images-saved";
     }
 
-    public function getArchitectBodyAttribute()
+    public function getArchitectBodyAttribute(): string
     {
         $current = $this->{self::bodyField()};
 
@@ -132,7 +135,7 @@ trait ArchitectModel
         return $current;
     }
 
-    public function setArchitectBodyAttribute($value)
+    public function setArchitectBodyAttribute(string $value): void
     {
         $value = cs_nl2br($value);
 
@@ -149,10 +152,7 @@ trait ArchitectModel
         return 'slug';
     }
 
-    /**
-     * @return string|array<string>
-     */
-    protected static function titleField()
+    protected static function titleField(): string|array
     {
         return 'title';
     }

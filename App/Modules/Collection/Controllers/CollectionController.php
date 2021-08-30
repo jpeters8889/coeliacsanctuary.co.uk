@@ -7,27 +7,21 @@ namespace Coeliac\Modules\Collection\Controllers;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Illuminate\Http\Request;
 use Coeliac\Common\Response\Page;
-use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Collection\Items\Item;
 use Coeliac\Modules\Collection\Repository;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Collection\Models\Collection;
 use Coeliac\Modules\Collection\Models\CollectionItem;
-use Coeliac\Modules\Blog\Repository as BlogRepository;
 use Coeliac\Modules\Collection\Requests\CollectionShowRequest;
+use Illuminate\Http\Response;
 
 class CollectionController extends BaseController
 {
-    private Page $page;
-    private Repository $repository;
-
-    public function __construct(Page $page, Repository $repository)
+    public function __construct(private Page $page, private Repository $repository)
     {
-        $this->page = $page;
-        $this->repository = $repository;
     }
 
-    public function index()
+    public function index(): Response
     {
         return $this->page
             ->breadcrumbs([], 'Collections')
@@ -37,7 +31,7 @@ class CollectionController extends BaseController
             ->render('modules.collections.index');
     }
 
-    public function list(Request $request)
+    public function list(Request $request): array
     {
         $this->validate($request, [
             'limit' => 'integer,max:50',
@@ -49,14 +43,14 @@ class CollectionController extends BaseController
                 ->setColumns(['id', 'title', 'slug', 'long_description', 'meta_description', 'created_at'])
                 ->paginated($request->get('limit', 12))
                 ->through(function (Collection $collection) {
-                    $collection->items->transform(function(CollectionItem $item) {
-                       if($item->item instanceof WhereToEat) {
-                           return $item;
-                       }
+                    $collection->items->transform(function (CollectionItem $item) {
+                        if ($item->item instanceof WhereToEat) {
+                            return $item;
+                        }
 
-                       $item->load(['item.images', 'item.images.image']);
+                        $item->load(['item.images', 'item.images.image']);
 
-                       return $item;
+                        return $item;
                     });
 
                     return $collection;
@@ -64,14 +58,14 @@ class CollectionController extends BaseController
         ];
     }
 
-    public function show(CollectionShowRequest $request)
+    public function show(CollectionShowRequest $request): Response
     {
         /* @var Collection $collection */
         abort_if(!$collection = $request->resolveItem(), 404, 'Sorry, this collection can\'t be found');
 
         $items = $collection
             ->items
-            ->transform(fn(CollectionItem $item) => Item::resolve($item));
+            ->transform(fn (CollectionItem $item) => Item::resolve($item));
 
         return $this->page
             ->breadcrumbs([

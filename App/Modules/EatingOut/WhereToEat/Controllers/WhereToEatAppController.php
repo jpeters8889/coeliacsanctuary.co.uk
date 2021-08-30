@@ -6,11 +6,11 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
 use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
+use Illuminate\Http\Response;
 
 class WhereToEatAppController extends BaseController
 {
-    public function get(Page $page)
+    public function get(Page $page): Response
     {
         return $page
             ->breadcrumbs([

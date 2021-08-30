@@ -19,7 +19,7 @@ class ValidDailyUpdatable implements Rule
 
     public function passes($attribute, $value)
     {
-        /** @var DailyUpdateType $dailyUpdate */
+        /** @var DailyUpdateType|null $dailyUpdate */
         $dailyUpdate = DailyUpdateType::query()->find($this->request->input('type'));
 
         if (!$dailyUpdate) {

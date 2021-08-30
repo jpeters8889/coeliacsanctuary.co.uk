@@ -19,6 +19,7 @@ class MailChannel extends NotificationChannel
     public function send($notifiable, Notification $notification)
     {
         /** @var MJMLMessage $message */
+        /** @phpstan-ignore-next-line  */
         $message = $notification->toMail($notifiable);
 
         if (!isset($message->mjml)) {
@@ -50,7 +51,7 @@ class MailChannel extends NotificationChannel
         parent::send($notifiable, $notification);
     }
 
-    protected function buildMjml(MJMLMessage $message)
+    protected function buildMjml(MJMLMessage $message): mixed
     {
         $view = Container::getInstance()->make(ViewFactory::class);
         $compiler = Container::getInstance()->make(CompilerContract::class);

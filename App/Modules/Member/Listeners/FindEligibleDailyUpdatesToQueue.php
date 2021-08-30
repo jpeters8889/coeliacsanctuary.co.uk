@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Listeners;
 
+use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use RuntimeException;
 use Coeliac\Modules\Blog\Models\BlogTag;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,11 +19,11 @@ use Coeliac\Modules\Member\Models\UserDailyUpdateSubscription;
 
 class FindEligibleDailyUpdatesToQueue implements ShouldQueue
 {
-    public $delay = 60;
+    public int $delay = 60;
 
-    protected ?DailyUpdateItemCreated $event = null;
+    protected DailyUpdateItemCreated $event;
 
-    public function handle(DailyUpdateItemCreated $event)
+    public function handle(DailyUpdateItemCreated $event): void
     {
         $this->event = $event;
 
@@ -42,19 +44,21 @@ class FindEligibleDailyUpdatesToQueue implements ShouldQueue
 
     protected function handleBlogCreated(): void
     {
-        $tags = $this->event->model()->tags()->get();
+        /** @var Blog $blog */
+        $blog = $this->event->model();
 
-        if (!$tags) {
-            return;
-        }
+        $tags = $blog->tags()->get();
 
         $tags->each(fn (BlogTag $tag) => $this->processUpdatable($tag));
     }
 
     protected function handleWhereToEatCreated(): void
     {
-        $this->processUpdatable($this->event->model()->county);
-        $this->processUpdatable($this->event->model()->town);
+        /** @var WhereToEat $eatery */
+        $eatery = $this->event->model();
+
+        $this->processUpdatable($eatery->county);
+        $this->processUpdatable($eatery->town);
     }
 
     protected function processUpdatable(Updatable $updatable): void

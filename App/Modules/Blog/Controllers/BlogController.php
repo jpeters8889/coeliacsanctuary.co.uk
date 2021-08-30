@@ -11,20 +11,15 @@ use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Blog\Requests\BlogShowRequest;
 use Coeliac\Modules\Collection\Models\CollectionItem;
+use Illuminate\Http\Response;
 
 class BlogController extends BaseController
 {
-    private Page $page;
-
-    private Repository $repository;
-
-    public function __construct(Page $page, Repository $repository)
+    public function __construct(private Page $page, private Repository $repository)
     {
-        $this->page = $page;
-        $this->repository = $repository;
     }
 
-    public function index()
+    public function index(): Response
     {
         return $this->page
             ->breadcrumbs([], 'Blogs')
@@ -35,7 +30,7 @@ class BlogController extends BaseController
             ->render('modules.blogs.index');
     }
 
-    public function list(Request $request)
+    public function list(Request $request): array
     {
         $this->validate($request, [
             'limit' => 'integer,max:50',
@@ -51,7 +46,7 @@ class BlogController extends BaseController
         ];
     }
 
-    public function show(BlogShowRequest $request)
+    public function show(BlogShowRequest $request): Response
     {
         /* @var Blog $blog */
         abort_if(!$blog = $request->resolveItem(), 404, 'Sorry, this blog can\'t be found');

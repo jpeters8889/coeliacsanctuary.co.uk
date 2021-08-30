@@ -19,7 +19,7 @@ class WhereToEatRatingRequest extends ApiFormRequest
         return $this->input('name') === null && $this->input('email') === null && $this->input('comment') === null;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'rating' => ['required', 'numeric', 'min:1', 'max:5'],

@@ -26,7 +26,7 @@ class Popup extends BaseModel
         'image',
     ];
 
-    public function getImageAttribute()
+    public function getImageAttribute(): ?string
     {
         return $this->first_image;
     }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property mixed|string $venue_type
+ * @property int $id
  */
 class WhereToEatVenueType extends BaseModel
 {

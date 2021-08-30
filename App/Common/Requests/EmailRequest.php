@@ -11,7 +11,7 @@ class EmailRequest extends FormRequest
 {
     protected ?NotificationEmail $email = null;
 
-    public function rules()
+    public function rules(): array
     {
         return [];
     }

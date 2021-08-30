@@ -11,7 +11,7 @@ use Coeliac\Modules\EatingOut\Reviews\Feed\ReviewFeed;
 
 class ReviewFeedController extends BaseController
 {
-    public function list(Repository $repository, ReviewFeed $feed)
+    public function list(Repository $repository, ReviewFeed $feed): Response
     {
         return new Response(
             $feed->render($repository->all()),

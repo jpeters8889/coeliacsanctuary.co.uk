@@ -7,6 +7,7 @@ namespace Coeliac\Modules\Shop\Controllers;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Response\ShopPage;
 use Coeliac\Base\Controllers\BaseController;
+use Illuminate\Http\Response;
 use Illuminate\Session\Store as SessionStore;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Blog\Repository as BlogRepository;
@@ -15,7 +16,7 @@ use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
 
 class BasketDoneController extends BaseController
 {
-    public function show(ShopPage $page, SessionStore $store)
+    public function show(ShopPage $page, SessionStore $store): Response
     {
         sleep(1);
 

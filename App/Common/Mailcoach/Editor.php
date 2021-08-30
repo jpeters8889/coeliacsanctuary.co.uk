@@ -23,7 +23,7 @@ class Editor implements MailcoachEditor
         $reviews = [null, null];
 
         if ($model->getStructuredHtml()) {
-            $data = json_decode($model->getStructuredHtml(), true);
+            $data = json_decode((string) $model->getStructuredHtml(), true);
 
             $introText = $data['introText'];
             $recipes = Recipe::query()->whereIn('id', $data['recipes'])->get();

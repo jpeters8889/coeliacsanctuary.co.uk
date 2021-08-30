@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Search\Indices;
 
-use Laravel\Scout\Builder;
+use Algolia\ScoutExtended\Builder;
 use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Collection;
+use Laravel\Scout\Searchable;
 
 abstract class Index
 {
@@ -18,7 +19,7 @@ abstract class Index
         $this->term = $term;
     }
 
-    abstract protected function model(): Builder;
+    abstract protected function model(): Builder|\Laravel\Scout\Builder;
 
     protected function withRelations(): array
     {
@@ -27,6 +28,7 @@ abstract class Index
 
     public function handle(): Collection
     {
+        /** @phpstan-ignore-next-line  */
         $results = $this->model()
             ->with([
                 'getRankingInfo' => true,
@@ -53,14 +55,14 @@ abstract class Index
             'score' => $result->scoutMetadata()['_rankingInfo']['userScore'] ?? 0,
             'type' => $this->resultType(),
             'id' => $result->getKey(),
-            'link' => $result->link,
-            'title' => $result->title,
-            'description' => $result->meta_description,
-            'image' => $result->main_image ?? $result->first_image,
+            'link' => $result->getAttribute('link'),
+            'title' => $result->getAttribute('title'),
+            'description' => $result->getAttribute('meta_description'),
+            'image' => $result->getAttribute('main_image') ?? $result->getAttribute('first_image'),
         ], $this->mergeIntoResult($result));
     }
 
-    protected function resultType()
+    protected function resultType(): string
     {
         return Str::lower(Str::plural(class_basename($this)));
     }

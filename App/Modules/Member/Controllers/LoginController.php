@@ -27,7 +27,7 @@ class LoginController extends BaseController
         if (!$request->userExists() || !$request->userIsActive()) {
             LoginAttempt::recordFailure(
                 $request->input('email'),
-                $request->ip(),
+                (string) $request->ip(),
                 !$request->userExists() ? "User doesn't exist" : 'User is shop user only'
             );
 
@@ -37,14 +37,14 @@ class LoginController extends BaseController
         if ($guard->attempt($request->validated(), true)) {
             $request->session()->regenerate();
             $request->user()->update(['last_logged_in_at' => Carbon::now()]);
-            LoginAttempt::recordSuccess($request->input('email'), $request->ip());
+            LoginAttempt::recordSuccess($request->input('email'), (string) $request->ip());
 
             return new Response([]);
         }
 
         LoginAttempt::recordFailure(
             $request->input('email', ''),
-            $request->ip(),
+            (string) $request->ip(),
             'Unknown error',
         );
 

@@ -11,20 +11,15 @@ use Coeliac\Modules\Recipe\Models\Recipe;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Collection\Models\CollectionItem;
 use Coeliac\Modules\Recipe\Requests\RecipeShowRequest;
+use Illuminate\Http\Response;
 
 class RecipeController extends BaseController
 {
-    private Page $page;
-
-    private Repository $repository;
-
-    public function __construct(Page $page, Repository $repository)
+    public function __construct(private Page $page, private Repository $repository)
     {
-        $this->page = $page;
-        $this->repository = $repository;
     }
 
-    public function index()
+    public function index(): Response
     {
         return $this->page
             ->breadcrumbs([], 'Recipes')
@@ -35,7 +30,7 @@ class RecipeController extends BaseController
             ->render('modules.recipes.index');
     }
 
-    public function list(Request $request)
+    public function list(Request $request): array
     {
         $this->validate($request, [
             'limit' => 'integer,max:50',
@@ -52,7 +47,7 @@ class RecipeController extends BaseController
         ];
     }
 
-    public function show(RecipeShowRequest $request)
+    public function show(RecipeShowRequest $request): Response
     {
         /* @var Recipe $recipe */
         abort_if(!$recipe = $request->resolveItem(), 404, 'Sorry, this recipe can\'t be found');
@@ -82,7 +77,7 @@ class RecipeController extends BaseController
             ->render('modules.recipes.show', compact('recipe', 'featured'));
     }
 
-    public function print(RecipeShowRequest $request)
+    public function print(RecipeShowRequest $request): Response
     {
         /* @var Recipe $recipe */
         abort_if(!$recipe = $request->resolveItem(), 404, 'Sorry, this recipe can\'t be found');

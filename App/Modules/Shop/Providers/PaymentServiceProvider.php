@@ -20,7 +20,7 @@ use Coeliac\Modules\Shop\Payment\Providers\StripePaymentProvider;
 
 class PaymentServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->app->bind(Processor::class, static function () {
             /** @var OrderRequest $request */

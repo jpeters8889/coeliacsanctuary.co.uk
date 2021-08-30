@@ -17,7 +17,7 @@ class ValidPostcode implements Rule
         $basket = Container::getInstance()->make(Basket::class);
 
         if ($basket->resolve() && $basket->model()->postage_country_id === ShopPostageCountry::UK) {
-            return preg_match('/^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i', $value);
+            return (bool) preg_match('/^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i', $value);
         }
 
         return true;

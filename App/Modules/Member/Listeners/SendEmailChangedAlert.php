@@ -10,7 +10,7 @@ use Coeliac\Modules\Member\Notifications\EmailChangedAlert;
 
 class SendEmailChangedAlert
 {
-    public function handle(UserEmailChanged $event)
+    public function handle(UserEmailChanged $event): void
     {
         (new AnonymousNotifiable())
             ->route('mail', $event->oldEmail())

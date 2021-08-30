@@ -7,7 +7,9 @@ namespace Coeliac\Modules\Member\Notifications;
 use Carbon\Carbon;
 use Coeliac\Common\Notifications\Notification;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Services\DailyUpdatePreprocessor;
+use Illuminate\Notifications\AnonymousNotifiable;
 
 class DailyUpdate extends Notification
 {
@@ -21,8 +23,10 @@ class DailyUpdate extends Notification
         $this->processor = $processor;
     }
 
-    public function toMail($notifiable = null)
+    public function toMail(User|AnonymousNotifiable|null $notifiable = null): MJMLMessage
     {
+        /** @var User $notifiable */
+
         return (new MJMLMessage())
             ->subject('Your Daily Update')
             ->mjml('mailables.mjml.member.daily-update', [
@@ -33,7 +37,7 @@ class DailyUpdate extends Notification
             ]);
     }
 
-    public function via()
+    public function via(): array
     {
         return ['mail'];
     }

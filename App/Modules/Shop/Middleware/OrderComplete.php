@@ -11,7 +11,7 @@ use Coeliac\Modules\Shop\Models\ShopOrderState;
 
 class OrderComplete
 {
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         if (!$request->session()->has('basket_token')) {
             return redirect('/shop');

@@ -40,7 +40,7 @@ class WhereToEatBlueprint extends Blueprint
             ->join('wheretoeat_countries', 'wheretoeat.country_id', '=', 'wheretoeat_countries.id')
             ->join('wheretoeat_counties', 'wheretoeat.county_id', '=', 'wheretoeat_counties.id')
             ->join('wheretoeat_towns', 'wheretoeat.town_id', '=', 'wheretoeat_towns.id')
-            ->with(['country', 'county', 'town', 'type'])
+            ->with(['country', 'county', 'town', 'type', 'county.country'])
             ->without('ratings')
             ->addSelect([
                 'wheretoeat.id', 'wheretoeat.town_id', 'wheretoeat.county_id', 'wheretoeat.country_id', 'type_id',
@@ -191,6 +191,7 @@ class WhereToEatBlueprint extends Blueprint
     private function getCounties()
     {
         return WhereToEatCounty::query()
+            ->with(['country'])
             ->get()
             ->transform(function (WhereToEatCounty $county) {
                 return [

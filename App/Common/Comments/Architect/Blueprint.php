@@ -29,7 +29,7 @@ class Blueprint extends ArchitectBlueprint
     public function getData(): Builder
     {
         return parent::getData()
-            ->with('commentable', 'reply')
+            ->with(['commentable', 'reply', 'commentable.images'])
             ->select('*');
     }
 

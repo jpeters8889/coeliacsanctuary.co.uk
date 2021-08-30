@@ -13,7 +13,7 @@ class DailyUpdateSubscribeRequest extends ApiFormRequest
 {
     protected ?DailyUpdateType $dailyUpdate = null;
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'type' => ['required', 'numeric', 'exists:daily_update_types,id'],
@@ -24,15 +24,21 @@ class DailyUpdateSubscribeRequest extends ApiFormRequest
     public function dailyUpdate(): DailyUpdateType
     {
         if (!$this->dailyUpdate) {
-            $this->dailyUpdate = DailyUpdateType::query()->find($this->input('type'));
+            /** @phpstan-ignore-next-line  */
+            $this->dailyUpdate = DailyUpdateType::query()->findOrFail($this->input('type'));
         }
 
+        /** @phpstan-ignore-next-line  */
         return $this->dailyUpdate;
     }
 
-    public function updatable(): Updatable
+    public function updatable(): ?Updatable
     {
-        $subscribable = $this->dailyUpdate->updatable_type;
+        if (!$this->dailyUpdate() instanceof DailyUpdateType) {
+            return null;
+        }
+
+        $subscribable = $this->dailyUpdate()->updatable_type;
         $prop = 'id';
 
         if ($this->input('type') === DailyUpdateType::BLOG_TAGS) {

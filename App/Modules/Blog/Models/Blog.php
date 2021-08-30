@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property mixed               $live
  * @property Carbon              $created_at
  * @property string              $description
+ * @property Carbon $updated_at
  *
  * @method transform(array $array)
  */
@@ -71,12 +72,12 @@ class Blog extends BaseModel implements HasComments
         return false;
     }
 
-    public function getScoutKey()
+    public function getScoutKey(): mixed
     {
         return $this->id;
     }
 
-    protected function linkRoot()
+    protected function linkRoot(): string
     {
         return 'blog';
     }
@@ -149,7 +150,7 @@ class Blog extends BaseModel implements HasComments
         return 'blogs';
     }
 
-    protected static function dailyUpdateType()
+    protected static function dailyUpdateType(): array|int
     {
         return DailyUpdateType::BLOG_TAGS;
     }

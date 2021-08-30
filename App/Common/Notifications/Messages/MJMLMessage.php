@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Notifications\Messages;
 
+use Coeliac\Common\Casts\EmailData;
 use Illuminate\Notifications\Messages\MailMessage;
 use Spatie\Mailcoach\Domain\TransactionalMail\Mails\Concerns\StoresMail;
 
@@ -11,15 +12,15 @@ class MJMLMessage extends MailMessage
 {
     use StoresMail;
 
-    public $mjml;
+    public string $mjml;
 
-    public function mjml($view, array $data = [])
+    public function mjml(string $view, array|EmailData $data = []): static
     {
         $this->mjml = $this->view = $view;
 
         $this->markdown = null;
 
-        $this->viewData = $data;
+        $this->viewData = (array) $data;
 
         return $this;
     }

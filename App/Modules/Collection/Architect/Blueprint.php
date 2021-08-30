@@ -24,7 +24,7 @@ class Blueprint extends ArchitectBlueprint
 
     public function getData(): Builder
     {
-        return parent::getData()->withCount('items');
+        return parent::getData()->with(['images'])->withCount('items');
     }
 
     public function plans(): array

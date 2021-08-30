@@ -8,10 +8,11 @@ use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
+use Illuminate\Http\Response;
 
 class WhereToEatNationwideController extends BaseController
 {
-    public function get(Page $page)
+    public function get(Page $page): Response
     {
         return $page
             ->breadcrumbs([
@@ -34,8 +35,8 @@ class WhereToEatNationwideController extends BaseController
                 'gluten free directory', 'gf food', 'nandos', 'tgi fridays', 'hickories', 'leon', 'leon restaurant',
             ])
             ->render('modules.eating-out.wheretoeat.nationwide', [
-                'county_id' => WhereToEatCounty::query()->where('slug', 'nationwide')->first()->id,
-                'town_id' => WhereToEatTown::query()->where('slug', 'nationwide')->first()->id,
+                'county_id' => WhereToEatCounty::query()->where('slug', 'nationwide')->first()?->id,
+                'town_id' => WhereToEatTown::query()->where('slug', 'nationwide')->first()?->id,
             ]);
     }
 }

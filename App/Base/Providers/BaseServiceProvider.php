@@ -11,7 +11,7 @@ use Coeliac\Common\Providers\ArchitectServiceProvider;
 
 class BaseServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         BaseModel::preventLazyLoading(! $this->app->isProduction());
     }

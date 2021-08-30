@@ -6,5 +6,5 @@ namespace Coeliac\Common\MjmlCompiler;
 
 interface CompilerContract
 {
-    public function compile($mjml);
+    public function compile(string $mjml): array;
 }

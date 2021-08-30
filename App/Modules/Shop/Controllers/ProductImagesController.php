@@ -11,7 +11,7 @@ use Coeliac\Modules\Shop\Models\ShopProduct;
 
 class ProductImagesController extends BaseController
 {
-    public function get(ProductRepository $repository, $id)
+    public function get(ProductRepository $repository, mixed $id): array
     {
         /** @var ?ShopProduct $product */
         $product = $repository->get($id);

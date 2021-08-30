@@ -8,23 +8,24 @@ use Coeliac\Modules\Shop\Basket\Basket;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Shop\Models\ShopPostageCountry;
 use Coeliac\Modules\Shop\Requests\CountrySelectRequest;
+use Illuminate\Support\Collection;
 
 class CountryController extends BaseController
 {
-    public function index()
+    public function index(): Collection
     {
         return ShopPostageCountry::query()
             ->orderBy('country')
             ->get()
             ->transform(static function (ShopPostageCountry $country) {
                 return [
-                'value' => $country->id,
-                'label' => $country->country,
-            ];
+                    'value' => $country->id,
+                    'label' => $country->country,
+                ];
             });
     }
 
-    public function update(CountrySelectRequest $request, Basket $basket)
+    public function update(CountrySelectRequest $request, Basket $basket): array
     {
         abort_if(!$basket->resolve(), 400);
 

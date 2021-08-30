@@ -19,6 +19,7 @@ class ProductIsLive implements Rule
         }
 
         /* @var ShopProduct $product */
+        /** @phpstan-ignore-next-line  */
         return in_array(true, $product->variants->pluck('live')->toArray());
     }
 

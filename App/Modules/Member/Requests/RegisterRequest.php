@@ -34,7 +34,7 @@ class RegisterRequest extends ApiFormRequest
             ->exists();
     }
 
-    public function userIsVerified()
+    public function userIsVerified(): bool
     {
         return User::query()
             ->where('email', $this->input('email'))

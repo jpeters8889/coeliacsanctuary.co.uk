@@ -9,7 +9,7 @@ use Coeliac\Modules\Competition\Models\Competition;
 
 class CompetitionTermsController extends BaseController
 {
-    public function __invoke(Competition $competition)
+    public function __invoke(Competition $competition): string
     {
         return $competition->terms;
     }

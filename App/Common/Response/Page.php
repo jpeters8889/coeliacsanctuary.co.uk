@@ -32,7 +32,66 @@ class Page extends PageBuilder
         'location' => '',
     ];
 
-    public function breadcrumbs(array $breadcrumbs, $location): self
+    public function hideFacebook(): static
+    {
+        $this->displayFacebook = false;
+
+        return $this;
+    }
+
+    public function hideTwitter(): static
+    {
+        $this->displayTwitter = false;
+
+        return $this;
+    }
+
+    /** @phpstan-ignore-next-line  */
+    public function setMetaDescription($description): static
+    {
+        $this->metaDescription = $description;
+
+        return $this;
+    }
+
+    public function setMetaKeywords(array $keywords): static
+    {
+        $this->metaKeywords = array_merge($this->metaKeywords, $keywords);
+
+        return $this;
+    }
+
+    /** @phpstan-ignore-next-line  */
+    public function setSocialImage($image): static
+    {
+        $this->metaImage = $image;
+
+        return $this;
+    }
+
+    /** @phpstan-ignore-next-line  */
+    public function setPageTitle($title): static
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function showFacebook(): static
+    {
+        $this->displayFacebook = true;
+
+        return $this;
+    }
+
+    public function showTwitter(): static
+    {
+        $this->displayTwitter = true;
+
+        return $this;
+    }
+
+    public function breadcrumbs(array $breadcrumbs, string $location): static
     {
         $this->breadcrumbs['location'] = $location;
 
@@ -51,28 +110,28 @@ class Page extends PageBuilder
         return $this;
     }
 
-    public function addPrefetch(array $items): self
+    public function addPrefetch(array $items): static
     {
         $this->prefetch = array_merge($this->prefetch, $items);
 
         return $this;
     }
 
-    public function loadCriticalCss(string $path): self
+    public function loadCriticalCss(string $path): static
     {
         $this->criticalCss = $path;
 
         return $this;
     }
 
-    public function doNotIndex(): self
+    public function doNotIndex(): static
     {
         $this->tracking = false;
 
         return $this;
     }
 
-    public function scrapable(string $area, int $id): self
+    public function scrapable(string $area, int $id): static
     {
         $this->scrapable = true;
         $this->scrapableData = ['area' => $area, 'id' => $id];
@@ -80,7 +139,7 @@ class Page extends PageBuilder
         return $this;
     }
 
-    protected function getScrapableData()
+    protected function getScrapableData(): bool|array
     {
         if (!$this->scrapable) {
             return false;

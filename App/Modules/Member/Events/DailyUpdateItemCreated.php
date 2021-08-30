@@ -9,14 +9,10 @@ use Coeliac\Modules\Member\Models\DailyUpdateType;
 
 class DailyUpdateItemCreated
 {
-    protected BaseModel $model;
-    protected int $dailyUpdateTypeId;
     protected ?DailyUpdateType $dailyUpdateType = null;
 
-    public function __construct(BaseModel $model, int $dailyUpdateTypeId)
+    public function __construct(protected BaseModel $model, protected int $dailyUpdateTypeId)
     {
-        $this->model = $model;
-        $this->dailyUpdateTypeId = $dailyUpdateTypeId;
     }
 
     public function model(): BaseModel
@@ -27,7 +23,7 @@ class DailyUpdateItemCreated
     public function dailyUpdateType(): DailyUpdateType
     {
         if (!$this->dailyUpdateType) {
-            $this->dailyUpdateType = DailyUpdateType::query()->find($this->dailyUpdateTypeId);
+            $this->dailyUpdateType = DailyUpdateType::query()->findOrFail($this->dailyUpdateTypeId);
         }
 
         return $this->dailyUpdateType;

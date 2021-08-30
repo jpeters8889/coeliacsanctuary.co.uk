@@ -13,7 +13,7 @@ use Coeliac\Modules\Shop\Rules\VariantBelongsToProduct;
 
 class BasketUpdateRequest extends ApiFormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'product' => ['required', 'exists:shop_products,id', new ProductIsLive()],
@@ -21,7 +21,7 @@ class BasketUpdateRequest extends ApiFormRequest
                 'required',
                 'exists:shop_product_variants,id',
                 new VariantIsLive(),
-                new VariantBelongsToProduct($this->input('product')),
+                new VariantBelongsToProduct((int) $this->input('product')),
             ],
             'action' => ['required', 'in:increase,decrease'],
         ];
@@ -29,11 +29,13 @@ class BasketUpdateRequest extends ApiFormRequest
 
     public function resolveProduct(): ShopProduct
     {
+        /** @phpstan-ignore-next-line  */
         return ShopProduct::query()->where('id', $this->input('product'))->first();
     }
 
     public function resolveVariant(): ShopProductVariant
     {
+        /** @phpstan-ignore-next-line  */
         return ShopProductVariant::query()->where('id', $this->input('variant'))->first();
     }
 }

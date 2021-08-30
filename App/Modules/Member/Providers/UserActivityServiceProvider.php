@@ -11,7 +11,7 @@ use Coeliac\Modules\Member\Contracts\UserActivityMonitor as UserActivityContract
 
 class UserActivityServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->app->instance(UserActivityContract::class, new UserActivityMonitor(app(Factory::class)));
     }

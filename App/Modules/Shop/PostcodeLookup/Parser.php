@@ -8,5 +8,5 @@ use Illuminate\Support\Collection;
 
 interface Parser
 {
-    public function parse($response, $postcode): Collection;
+    public function parse(object $response, string $postcode): Collection;
 }

@@ -11,7 +11,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatVenueType;
 
 class WhereToEatVenueTypesController extends BaseController
 {
-    public function get(Repository $repository)
+    public function get(Repository $repository): array
     {
         $summary = WhereToEatVenueType::query()
             ->orderBy('venue_type')

@@ -6,7 +6,7 @@ namespace Coeliac\Modules\Shop\Payment;
 
 interface Provider
 {
-    public function initiatePayment($params);
+    public function initiatePayment(mixed $params): mixed;
 
-    public function processPayment($params);
+    public function processPayment(mixed $params): mixed;
 }

@@ -13,7 +13,7 @@ use Coeliac\Modules\Shop\Requests\PostcodeLookupRequest;
 
 class LookupController extends BaseController
 {
-    public function get(PostcodeLookupRequest $request, Service $postcodeService)
+    public function get(PostcodeLookupRequest $request, Service $postcodeService): array|Response
     {
         try {
             return [

@@ -21,11 +21,13 @@ class UserActivityMonitor implements Contract
 
     public function mark(User $user): void
     {
+        /** @phpstan-ignore-next-line  */
         $this->factory->hset('user.lastActivity', $user->id, Carbon::now());
     }
 
     public function lastVisitForUser(User $user): ?Carbon
     {
+        /** @phpstan-ignore-next-line  */
         $lastVisit = $this->factory->hget('user.lastActivity', $user->id);
 
         if ($lastVisit) {
@@ -37,6 +39,7 @@ class UserActivityMonitor implements Contract
 
     public function all(): Collection
     {
+        /** @phpstan-ignore-next-line  */
         return (new Collection($this->factory->hgetall('user.lastActivity')))
             ->map(fn ($date, $userId) => [
                 'user' => User::query()->find($userId),
@@ -47,6 +50,7 @@ class UserActivityMonitor implements Contract
 
     public function delete(User $user): void
     {
+        /** @phpstan-ignore-next-line  */
         $this->factory->hdel('user.lastActivity', $user->id);
     }
 }

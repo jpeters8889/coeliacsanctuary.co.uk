@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 
 class WhereToEatRatingsController extends BaseController
 {
-    public function create(WhereToEatRatingRequest $request)
+    public function create(WhereToEatRatingRequest $request): void
     {
         $request->resolveWhereToEat()->ratings()->create([
             'rating' => $request->input('rating'),
@@ -25,7 +25,7 @@ class WhereToEatRatingsController extends BaseController
         ]);
     }
 
-    public function get(Repository $repository)
+    public function get(Repository $repository): array
     {
         $summary = (new Collection([0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]))
             ->mapWithKeys(function ($rating, $index) {

@@ -17,7 +17,7 @@ use Coeliac\Modules\Member\Requests\ResetPasswordRequest;
 
 class ResetPasswordController extends BaseController
 {
-    public function show(Page $page, $token)
+    public function show(Page $page, string $token): Response
     {
         return $page->doNotIndex()
             ->breadcrumbs([], 'Reset Password')
@@ -25,7 +25,7 @@ class ResetPasswordController extends BaseController
             ->render('modules.member.reset-password', compact('token'));
     }
 
-    public function update(ResetPasswordRequest $request, PasswordBroker $passwordBroker, Hasher $hasher, Dispatcher $dispatcher)
+    public function update(ResetPasswordRequest $request, PasswordBroker $passwordBroker, Hasher $hasher, Dispatcher $dispatcher): array|Response
     {
         $status = $passwordBroker->reset(
             $request->validated(),

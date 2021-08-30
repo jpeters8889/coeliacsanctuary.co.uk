@@ -9,7 +9,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatSearchTerm;
 
 class SearchRequest extends FormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [];
     }

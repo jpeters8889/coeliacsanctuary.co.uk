@@ -10,12 +10,12 @@ use Coeliac\Common\Filters\AbstractFilter;
 
 class BlogFilter extends AbstractFilter
 {
-    protected $availableFilters = [
+    protected array $availableFilters = [
         'tags',
         'year',
     ];
 
-    protected function filterTags(Builder $builder, $value)
+    protected function filterTags(Builder $builder, mixed $value): Builder
     {
         foreach (explode(',', $value) as $tag) {
             $builder->whereHas('tags', static function (Builder $query) use ($tag) {
@@ -26,11 +26,12 @@ class BlogFilter extends AbstractFilter
         return $builder;
     }
 
-    protected function filterYear(Builder $builder, $value)
+    protected function filterYear(Builder $builder, mixed $value): Builder
     {
-        $start = Carbon::createFromFormat('Y', $value)->startOfYear();
-        $end = Carbon::createFromFormat('Y', $value)->endOfYear();
+        /** @var Carbon $carbon */
+        $carbon = Carbon::createFromFormat('Y', $value);
 
-        return $builder->whereBetween('created_at', [$start, $end]);
+        return $builder->whereDate('created_at', '>=', $carbon->startOfYear())
+            ->whereDate('created_at', '<=', $carbon->endOfYear());
     }
 }

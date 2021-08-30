@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Models;
 
 use Coeliac\Base\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property ShopOrder           $order
@@ -26,22 +28,22 @@ class ShopPayment extends BaseModel
 
     protected $appends = ['payment_type'];
 
-    public function order()
+    public function order(): BelongsTo
     {
         return $this->belongsTo(ShopOrder::class, 'order_id');
     }
 
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(ShopPaymentType::class, 'payment_type_id');
     }
 
-    public function response()
+    public function response(): HasOne
     {
         return $this->hasOne(ShopPaymentResponse::class, 'payment_id');
     }
 
-    public function getPaymentTypeAttribute()
+    public function getPaymentTypeAttribute(): string
     {
         return $this->type->type === 'Stripe' ? 'Card' : 'PayPal';
     }

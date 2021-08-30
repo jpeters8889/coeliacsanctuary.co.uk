@@ -15,7 +15,7 @@ class Repository extends AbstractRepository
         return Popup::class;
     }
 
-    protected function order(Builder &$builder)
+    protected function order(Builder $builder): void
     {
         $builder->orderByDesc('created_at');
     }

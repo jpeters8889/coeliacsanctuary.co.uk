@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers\Dashboards;
 
+use Coeliac\Modules\Member\Contracts\Updatable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Coeliac\Common\Response\Page;
@@ -26,7 +28,7 @@ class DailyUpdatesController extends BaseController
             ]);
     }
 
-    public function list(Request $request)
+    public function list(Request $request): Collection
     {
         return $request->user()
             ->subscriptions()
@@ -57,12 +59,14 @@ class DailyUpdatesController extends BaseController
             ->values();
     }
 
-    public function create(DailyUpdateSubscribeRequest $request)
+    public function create(DailyUpdateSubscribeRequest $request): void
     {
+        abort_if(!$request->updatable() instanceof Updatable, 400);
+
         $request->dailyUpdate()->subscribe($request->user(), $request->updatable());
     }
 
-    public function delete(UserDailyUpdateSubscription $dailyUpdate, Gate $gate)
+    public function delete(UserDailyUpdateSubscription $dailyUpdate, Gate $gate): void
     {
         $gate->authorize('manage-daily-updates', $dailyUpdate);
 

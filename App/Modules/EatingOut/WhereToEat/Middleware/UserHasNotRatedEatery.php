@@ -11,7 +11,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
 class UserHasNotRatedEatery
 {
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         /** @var WhereToEat $eatery */
         $eatery = WhereToEat::query()->findOrFail($request->route('id'));

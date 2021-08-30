@@ -13,43 +13,37 @@ class CreateOrder
 {
     use SerializesModels;
 
-    private ShopOrder $model;
-    private $postage;
-    private $paymentResponse;
-    private $paymentMethod;
-    private ?ShopDiscountCode $discountCode = null;
-
-    public function __construct(ShopOrder $model, $postage, $paymentMethod, $paymentResponse, ?ShopDiscountCode $discountCode = null)
-    {
-        $this->model = $model;
-        $this->postage = $postage;
-        $this->paymentMethod = $paymentMethod;
-        $this->paymentResponse = $paymentResponse;
-        $this->discountCode = $discountCode;
+    public function __construct(
+        private ShopOrder $model,
+        private int $postage,
+        private string $paymentMethod,
+        private array|object $paymentResponse,
+        private ?ShopDiscountCode $discountCode = null
+    ) {
     }
 
-    public function discountCode()
+    public function discountCode(): ?ShopDiscountCode
     {
         return $this->discountCode;
     }
 
-    public function model()
+    public function model(): ShopOrder
     {
         return $this->model;
     }
 
-    public function postage()
+    public function postage(): int
     {
         return $this->postage;
     }
 
-    public function paymentMethod()
+    public function paymentMethod(): string
     {
         return $this->paymentMethod;
     }
 
-    public function paymentResponse()
+    public function paymentResponse(): string
     {
-        return json_encode($this->paymentResponse);
+        return (string) json_encode($this->paymentResponse);
     }
 }

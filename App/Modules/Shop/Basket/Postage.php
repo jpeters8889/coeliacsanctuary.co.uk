@@ -6,6 +6,7 @@ namespace Coeliac\Modules\Shop\Basket;
 
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Exceptions\BasketException;
+use Coeliac\Modules\Shop\Models\ShopPostagePrice;
 
 class Postage
 {
@@ -16,7 +17,7 @@ class Postage
         $this->basket = $basket;
     }
 
-    public function calculate()
+    public function calculate(): int
     {
         $postageArea = $this->basket->model()->postageCountry->area;
 
@@ -32,6 +33,7 @@ class Postage
                 }
             });
 
+        /** @var ?ShopPostagePrice $postage */
         $postage = $postageArea->postagePrices()
             ->where('max_weight', '>=', $weight)
             ->where('shipping_method_id', $shippingMethod)

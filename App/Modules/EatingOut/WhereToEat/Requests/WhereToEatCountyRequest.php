@@ -9,15 +9,18 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
 
 class WhereToEatCountyRequest extends FormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [];
     }
 
-    public function resolveCounty()
+    public function resolveCounty(): WhereToEatCounty
     {
-        if ($legacy = WhereToEatCounty::query()->where('legacy', $this->route('county'))->first()) {
-            return redirect_now($this->buildRedirectUrl($legacy));
+        /** @var WhereToEatCounty $legacy */
+        $legacy = WhereToEatCounty::query()->where('legacy', $this->route('county'))->first();
+
+        if ($legacy instanceof WhereToEatCounty) {
+            redirect_now($this->buildRedirectUrl($legacy));
         }
 
         return WhereToEatCounty::query()->where('slug', $this->route('county'))

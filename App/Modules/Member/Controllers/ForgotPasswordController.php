@@ -13,7 +13,7 @@ use Coeliac\Modules\Member\Requests\CreateForgotPasswordRequest;
 
 class ForgotPasswordController extends BaseController
 {
-    public function show(Page $page)
+    public function show(Page $page): Response
     {
         return $page->doNotIndex()
             ->breadcrumbs([], 'Forgot Password')
@@ -21,7 +21,7 @@ class ForgotPasswordController extends BaseController
             ->render('modules.member.forgot-password');
     }
 
-    public function create(CreateForgotPasswordRequest $request, PasswordBroker $passwordBroker)
+    public function create(CreateForgotPasswordRequest $request, PasswordBroker $passwordBroker): array|Response
     {
         $status = $passwordBroker->sendResetLink(array_merge($request->validated(), [
             'user_level_id' => [UserLevel::MEMBER, UserLevel::ADMIN],

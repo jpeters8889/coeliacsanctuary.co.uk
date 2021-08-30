@@ -10,20 +10,15 @@ use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Shop\CategoryRepository;
 use Coeliac\Modules\Shop\Models\ShopCategory;
 use Coeliac\Modules\Shop\Requests\CategoryShowRequest;
+use Illuminate\Http\Response;
 
 class CategoryController extends BaseController
 {
-    private Page $page;
-
-    private CategoryRepository $repository;
-
-    public function __construct(ShopPage $page, CategoryRepository $repository)
+    public function __construct(private ShopPage $page, private CategoryRepository $repository)
     {
-        $this->page = $page;
-        $this->repository = $repository;
     }
 
-    public function index()
+    public function index(): Response
     {
         return $this->page
             ->breadcrumbs([], 'Shop')
@@ -39,7 +34,7 @@ class CategoryController extends BaseController
             ]);
     }
 
-    public function show(CategoryShowRequest $request)
+    public function show(CategoryShowRequest $request): Response
     {
         /* @var ShopCategory $category */
         $category = $request->resolveItem();
