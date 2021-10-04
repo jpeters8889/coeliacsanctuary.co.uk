@@ -4,18 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
+use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatFeature;
 use Tests\TestCase;
-use Tests\Traits\CreatesReviews;
-use Tests\Traits\CreatesWhereToEat;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
 class WhereToEatTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreatesWhereToEat;
-    use CreatesReviews;
-
     /** @var WhereToEat */
     private $wheretoeat;
 
@@ -23,47 +18,37 @@ class WhereToEatTest extends TestCase
     {
         parent::setUp();
 
-        /* @var WhereToEat wheretoeat */
-        $this->wheretoeat = $this->createWhereToEat(['name' => 'AAAA']);
+        $this->wheretoeat = $this->build(WhereToEat::class)
+            ->has($this->build(WhereToEatFeature::class), 'features')
+            ->create();
     }
 
     /** @test */
     public function itLoadsTheCountyPage()
     {
-        $county = $this->wheretoeat->county_id;
-        $first = $this->createWhereToEat(['county_id' => $county, 'type_id' => 1]);
-        $second = $this->createWhereToEat(['county_id' => $county, 'type_id' => 1]);
-        $third = $this->createWhereToEat(['county_id' => $county, 'town_id' => 1, 'type_id' => 1]);
-        $fourth = $this->createWhereToEat(['county_id' => $county, 'type_id' => 1]);
+        [$first, $second, $third] = $this->build(WhereToEat::class)
+            ->count(3)
+            ->create();
 
-        $this->createWhereToEat(['county_id' => $county, 'town_id' => 2, 'type_id' => 2]);
-        $this->createWhereToEat(['county_id' => $county, 'town_id' => 3, 'type_id' => 3]);
+        $this->build(Review::class)
+            ->at($first)
+            ->create([
+                'title' => 'First Review',
+            ]);
 
-        $this->createWhereToEat(['county_id' => $county, 'town_id' => 4, 'type_id' => 2]);
-        $this->createWhereToEat(['county_id' => $county, 'town_id' => 4, 'type_id' => 3]);
+        $this->build(Review::class)
+            ->at($third)
+            ->create([
+                'title' => 'Second Review',
+            ]);
 
-        $this->createWhereToEat(['county_id' => $county, 'type_id' => 2]);
-        $this->createWhereToEat(['county_id' => $county, 'type_id' => 3]);
-
-        $this->createReview([
-            'wheretoeat_id' => 2,
-            'title' => 'First Review',
-        ]);
-
-        $this->createReview([
-            'wheretoeat_id' => 4,
-            'title' => 'Second Review',
-        ]);
-
-        $request = $this->get('/wheretoeat/'.$this->wheretoeat->county->slug);
-
-        $request->assertSee($this->wheretoeat->town->town, false);
-        $request->assertSee($first->town->town, false);
-        $request->assertSee($second->town->town, false);
-        $request->assertSee($third->town->town, false);
-        $request->assertSee($fourth->town->town, false);
-        $request->assertSee('First Review', false);
-        $request->assertSee('Second Review', false);
+        $this->get('/wheretoeat/' . $this->wheretoeat->county->slug)
+            ->assertSee($this->wheretoeat->town->town, false)
+            ->assertSee($first->town->town, false)
+            ->assertSee($second->town->town, false)
+            ->assertSee($third->town->town, false)
+            ->assertSee('First Review', false)
+            ->assertSee('Second Review', false);
     }
 
     /** @test */
@@ -188,15 +173,15 @@ class WhereToEatTest extends TestCase
     /** @test */
     public function itHasReviewsOnPlaceDetails()
     {
-        $review = $this->createReview(['wheretoeat_id' => 1]);
+        $review = $this->build(Review::class)->at($this->wheretoeat)->create();
 
         $data = $this->get('/api/wheretoeat')->json('data.data.0');
 
         $this->assertIsArray($data['reviews']);
 
         $this->assertEquals([
-            'id' => (int) $review->id,
-            'wheretoeat_id' => (string) $this->wheretoeat->id,
+            'id' => (int)$review->id,
+            'wheretoeat_id' => (string)$this->wheretoeat->id,
             'title' => $review->title,
             'slug' => $review->slug,
             'created_at' => $review->created_at->toJson(),

@@ -14,13 +14,18 @@ use Coeliac\Modules\Member\Models\UserLevel;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
 use Coeliac\Modules\Member\Events\UserRegistered;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Member\Notifications\VerifyEmail;
 
 class RegisterTest extends TestCase
 {
-    use RefreshDatabase;
     use WithFaker;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        User::query()->truncate();
+    }
 
     /** @test */
     public function itLoadsTheRegisterPage()
@@ -33,7 +38,7 @@ class RegisterTest extends TestCase
     /** @test */
     public function itRedirectsToTheDashboardIfTheUserIsLoggedIn()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs($this->create(User::class));
 
         $this->get('/member/register')
             ->assertRedirect('/member/dashboard');
@@ -73,7 +78,11 @@ class RegisterTest extends TestCase
     /** @test */
     public function itErrorsIfTheEmailAlreadyExists()
     {
-        factory(User::class)->create(['email' => 'me@you.com', 'user_level_id' => UserLevel::MEMBER]);
+        $this->build(User::class)
+            ->asMember()
+            ->create([
+                'email' => 'me@you.com',
+            ]);
 
         $this->makeRegistrationRequest(['email' => 'me@you.com'])->assertStatus(422);
     }
@@ -152,9 +161,9 @@ class RegisterTest extends TestCase
     /** @test */
     public function itAttachesToAnExistingInactiveShopPurchaser()
     {
-        $this->withoutExceptionHandling();
-
-        $existingUser = factory(User::class)->create(['password' => null, 'user_level_id' => UserLevel::SHOP]);
+        $existingUser = $this->build(User::class)
+            ->asShop()
+            ->create();
 
         $this->assertCount(1, User::all());
         $this->assertNull($existingUser->password);

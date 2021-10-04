@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Recipes;
 
+use Coeliac\Modules\Recipe\Models\RecipeAllergen;
+use Coeliac\Modules\Recipe\Models\RecipeFeature;
+use Coeliac\Modules\Recipe\Models\RecipeMeal;
+use Coeliac\Modules\Recipe\Models\RecipeNutrition;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
-use Tests\Traits\CreatesRecipes;
 use Coeliac\Common\Models\Comment;
-use Tests\Traits\ClearingCacheTest;
+use Tests\Traits\ClearsCache;
 use Coeliac\Modules\Recipe\Models\Recipe;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RecipeModelTest extends TestCase
 {
-    use ClearingCacheTest;
-    use CreatesRecipes;
+    use ClearsCache;
     use HasImages;
-    use RefreshDatabase;
 
     /** @var Recipe */
     private $recipe;
@@ -27,34 +27,35 @@ class RecipeModelTest extends TestCase
     {
         parent::setUp();
 
-        $this->recipe = $this->createRecipe();
+        $this->recipe = $this->build(Recipe::class)
+            ->has($this->build(RecipeFeature::class), 'features')
+            ->has($this->build(RecipeAllergen::class), 'allergens')
+            ->has($this->build(RecipeMeal::class), 'meals')
+            ->has($this->build(RecipeNutrition::class), 'nutrition')
+            ->create();
     }
 
     /** @test */
     public function itHasAFeature()
     {
-        $this->recipe->features()->attach($this->createRecipeFeature());
         $this->assertEquals(1, $this->recipe->features()->count());
     }
 
     /** @test */
     public function itHasAnAllergen()
     {
-        $this->recipe->allergens()->attach($this->createRecipeAllergen());
         $this->assertEquals(1, $this->recipe->allergens->count());
     }
 
     /** @test */
     public function itHasAMealType()
     {
-        $this->recipe->meals()->attach($this->createRecipeMeal());
         $this->assertEquals(1, $this->recipe->meals->count());
     }
 
     /** @test */
     public function itHasNutrition()
     {
-        $this->createRecipeNutrition(['recipe_id' => $this->recipe->id]);
         $this->assertEquals(1, $this->recipe->nutrition->count());
     }
 
@@ -92,12 +93,9 @@ class RecipeModelTest extends TestCase
     /** @test */
     public function itCanSaveComments()
     {
-        $comment = factory(Comment::class)->create([
-            'commentable_id' => $this->recipe->id,
-            'commentable_type' => Recipe::class,
-        ]);
-
-        $this->recipe->comments()->save($comment);
+        $this->build(Comment::class)
+            ->on($this->recipe)
+            ->create();
 
         $this->assertEquals(1, $this->recipe->allComments->count());
     }
@@ -109,6 +107,6 @@ class RecipeModelTest extends TestCase
 
     protected function makeCachedModel(): void
     {
-        $this->createRecipe();
+        $this->create(Recipe::class);
     }
 }

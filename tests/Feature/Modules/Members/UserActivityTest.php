@@ -6,20 +6,15 @@ namespace Tests\Feature\Modules\Members;
 
 use Carbon\Carbon;
 use Tests\TestCase;
-use Tests\Traits\CreateUser;
 use Spatie\TestTime\TestTime;
 use Tests\Mocks\UserActivityMock;
 use Illuminate\Support\Facades\Auth;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserLevel;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Member\Contracts\UserActivityMonitor;
 
 class UserActivityTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreateUser;
-
     protected User $user;
     protected UserActivityMonitor $activityMonitor;
 
@@ -29,10 +24,9 @@ class UserActivityTest extends TestCase
 
         $this->app->instance(UserActivityMonitor::class, new UserActivityMock());
 
-        $this->user = $this->createUser([
-            'email' => 'me@you.com',
-            'user_level_id' => UserLevel::MEMBER,
-        ]);
+        $this->user = $this->build(User::class)
+            ->asMember()
+            ->create();
 
         $this->actingAs($this->user);
 

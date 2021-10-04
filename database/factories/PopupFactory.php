@@ -1,17 +1,20 @@
 <?php
 
-declare(strict_types=1);
+namespace Database\Factories;
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-
-use Faker\Generator as Faker;
 use Coeliac\Common\Models\Popup;
 
-$factory->define(Popup::class, function (Faker $faker) {
-    return [
-        'text' => $faker->paragraph,
-        'link' => $faker->url,
-        'display_every' => random_int(1, 7),
-        'live' => true,
-    ];
-});
+class PopupFactory extends Factory
+{
+    protected $model = Popup::class;
+
+    public function definition()
+    {
+        return [
+            'text' => $this->faker->paragraph,
+            'link' => $this->faker->url,
+            'display_every' => random_int(1, 7),
+            'live' => true,
+        ];
+    }
+}

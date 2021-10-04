@@ -9,13 +9,10 @@ use Illuminate\Support\Str;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Blog\Models\BlogTag;
 use Coeliac\Modules\Member\Models\DailyUpdateType;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Member\Models\UserDailyUpdateSubscription;
 
 class SubscriptionsModelTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected User $user;
     protected DailyUpdateType $dailyUpdateType;
     protected BlogTag $updatable;
@@ -25,16 +22,14 @@ class SubscriptionsModelTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
-        $this->dailyUpdateType = factory(DailyUpdateType::class)->create();
-        $this->updatable = factory(BlogTag::class)->create();
+        $this->user = $this->create(User::class);
+        $this->dailyUpdateType = DailyUpdateType::query()->first();
+        $this->updatable = $this->create(BlogTag::class);
 
-        $this->subscription = UserDailyUpdateSubscription::query()->create([
-            'user_id' => $this->user->id,
-            'daily_update_type_id' => $this->dailyUpdateType->id,
-            'updatable_type' => get_class($this->updatable),
-            'updatable_id' => $this->updatable->id,
-        ]);
+        $this->subscription = $this->build(UserDailyUpdateSubscription::class)
+            ->on($this->updatable)
+            ->forUser($this->user)
+            ->create();
     }
 
     /** @test */

@@ -4,19 +4,18 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Common\Comments;
 
+use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\Blog\Models\BlogTag;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
 use Tests\Traits\CreatesBlogs;
 use Coeliac\Common\Models\Image;
 use Coeliac\Common\Models\Comment;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CommentsTest extends TestCase
 {
-    use CreatesBlogs;
     use HasImages;
-    use RefreshDatabase;
     use WithFaker;
 
     private $blog;
@@ -25,11 +24,11 @@ class CommentsTest extends TestCase
     {
         parent::setUp();
 
-        $this->blog = $this->createBlog()
-        ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER)
-        ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SOCIAL);
-
-        $this->blog->tags()->attach($this->createBlogTag());
+        $this->blog = $this->build(Blog::class)
+            ->has($this->build(BlogTag::class), 'tags')
+            ->create()
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER)
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SOCIAL);
     }
 
     /** @test */
@@ -73,7 +72,7 @@ class CommentsTest extends TestCase
     /** @test */
     public function itRejectsCommentsWithoutAnName()
     {
-        $response = $this->post('api/comments', [
+        $this->post('api/comments', [
             'email' => $this->faker->email,
             'comment' => $this->faker->sentence,
             'id' => 1,
@@ -85,7 +84,7 @@ class CommentsTest extends TestCase
     /** @test */
     public function itRejectsCommentsWithoutAnEmail()
     {
-        $response = $this->post('api/comments', [
+        $this->post('api/comments', [
             'name' => $this->faker->name,
             'comment' => $this->faker->sentence,
             'id' => 1,
@@ -97,7 +96,7 @@ class CommentsTest extends TestCase
     /** @test */
     public function itRejectsCommentsWithoutAComment()
     {
-        $response = $this->post('api/comments', [
+        $this->post('api/comments', [
             'name' => $this->faker->name,
             'email' => $this->faker->email,
             'id' => 1,
@@ -129,7 +128,7 @@ class CommentsTest extends TestCase
 
         $this->assertEquals(0, $comment->approved);
 
-        $request = $this->get('/api/comments/blog/'.$this->blog->id);
+        $request = $this->get('/api/comments/blog/' . $this->blog->id);
 
         $request->assertDontSee($params['name']);
         $request->assertDontSee($params['comment']);
@@ -138,7 +137,6 @@ class CommentsTest extends TestCase
     /** @test */
     public function itCanBeApproved()
     {
-        $this->withoutExceptionHandling();
         $params = [
             'name' => $this->faker->name,
             'email' => $this->faker->email,
@@ -156,7 +154,7 @@ class CommentsTest extends TestCase
 
         $this->assertEquals(1, $comment->approved);
 
-        $request = $this->get('/api/comments/blog/'.$this->blog->id);
+        $request = $this->get('/api/comments/blog/' . $this->blog->id);
 
         $request->assertSee($params['name'], false);
         $request->assertSee($params['comment'], false);

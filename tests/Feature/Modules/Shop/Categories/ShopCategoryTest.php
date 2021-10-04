@@ -5,41 +5,33 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Shop\Categories;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Shop\Models\ShopProduct;
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
-use Tests\Traits\Shop\CreateCategory;
 use Coeliac\Modules\Shop\Models\ShopCategory;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ShopCategoryTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreateCategory;
-    use CreateProduct;
-    use CreateVariant;
     use HasImages;
 
-    /**
-     * @var ShopCategory
-     */
-    private $category;
+    private ShopCategory $category;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->category = $this->createCategory();
-        $this->category->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_CATEGORY);
+        $this->category = $this->create(ShopCategory::class)
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_CATEGORY);
     }
 
     /** @test */
     public function itDoesntLoadAPageWithNoProducts()
     {
-        $request = $this->get('/shop/'.$this->category->slug);
+        $request = $this->get('/shop/' . $this->category->slug);
 
         $request->assertStatus(404);
     }
@@ -47,10 +39,13 @@ class ShopCategoryTest extends TestCase
     /** @test */
     public function itDoesntLoadPageWithNoLiveProducts()
     {
-        $product = $this->createProduct($this->category);
-        $variant = $this->createVariant($product, ['live' => false]);
+        $this->category->products()->attach(
+            $this->build(ShopProduct::class)
+            ->has($this->build(ShopProductVariant::class)->notLive(), 'variants')
+            ->create()
+        );
 
-        $request = $this->get('/shop/'.$this->category->slug);
+        $request = $this->get('/shop/' . $this->category->slug);
 
         $request->assertStatus(404);
     }
@@ -58,58 +53,48 @@ class ShopCategoryTest extends TestCase
     /** @test */
     public function itListsProductsOnThePage()
     {
-        $this->withoutExceptionHandling();
+        [$product, $product2] = $this->build(ShopProduct::class)
+            ->count(2)
+            ->has($this->build(ShopProductVariant::class), 'variants')
+            ->state(new Sequence(
+                ['title' => 'First Product'],
+                ['title' => 'Second Product'],
+            ))
+            ->create()
+            ->each(fn (ShopProduct $product) => $product->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT));
 
-        $product = $this->createProduct($this->category, ['title' => 'First Product']);
-        $product2 = $this->createProduct($this->category, ['title' => 'Second Product']);
+        $this->category->products()->attach($product);
+        $this->category->products()->attach($product2);
 
-        $this->createVariant($product, ['live' => true]);
-        $this->createVariant($product2, ['live' => true]);
+        $this->build(ShopProductPrice::class)
+            ->in($product)
+            ->create(['price' => 500]);
 
-        $product->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
-        $product2->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
+        $this->build(ShopProductPrice::class)
+            ->in($product2)
+            ->create(['price' => 600]);
 
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
-
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $product2->id,
-            'price' => 600,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
-
-        $request = $this->get('/shop/'.$this->category->slug);
-
-        $request->assertStatus(200);
-        $request->assertSee($this->category->description, false);
-
-        $request->assertSee('First Product', false);
-        $request->assertSee('Second Product', false);
-        $request->assertSee('£5.00', false);
-        $request->assertSee('£6.00', false);
-
-        $request->assertSee('Find out more', false);
-        $request->assertSee('Add to Basket', false);
+        $this->get('/shop/' . $this->category->slug)
+            ->assertStatus(200)
+            ->assertSee($this->category->description, false)
+            ->assertSee('First Product', false)
+            ->assertSee('Second Product', false)
+            ->assertSee('£5.00', false)
+            ->assertSee('£6.00', false)
+            ->assertSee('Find out more', false)
+            ->assertSee('Add to Basket', false);
     }
 
     /** @test */
     public function itDisplaysAMessageWhenAProductIsOutOfStock()
     {
-        $product = $this->createProduct($this->category, ['title' => 'First Product']);
-        $this->createVariant($product, ['live' => true, 'quantity' => 0]);
+        $this->category->products()->attach(
+            $this->build(ShopProduct::class)
+                ->has($this->build(ShopProductVariant::class)->outOfStock(), 'variants')
+                ->create()
+        );
 
-        $product->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
-
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
-
-        $request = $this->get('/shop/'.$this->category->slug);
+        $request = $this->get('/shop/' . $this->category->slug);
 
         $request->assertDontSee('Add to Basket');
         $request->assertSee('Out of stock', false);
@@ -118,19 +103,12 @@ class ShopCategoryTest extends TestCase
     /** @test */
     public function itDoesntShowAddToBasketOnProductsWithMultipleVariants()
     {
-        $product = $this->createProduct($this->category, ['title' => 'First Product']);
-        $this->createVariant($product, ['live' => true]);
-        $this->createVariant($product, ['live' => true]);
+        $this->build(ShopProduct::class)
+            ->has($this->build(ShopProductVariant::class)->outOfStock(), 'variants')
+            ->has($this->build(ShopProductPrice::class), 'prices')
+            ->create();
 
-        $product->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
-
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
-
-        $request = $this->get('/shop/'.$this->category->slug);
+        $request = $this->get('/shop/' . $this->category->slug);
 
         $request->assertDontSee('Add to Basket');
     }

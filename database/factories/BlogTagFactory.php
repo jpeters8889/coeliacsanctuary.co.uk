@@ -1,12 +1,18 @@
 <?php
 
-declare(strict_types=1);
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Coeliac\Modules\Blog\Models\BlogTag;
 
-$factory->define(\Coeliac\Modules\Blog\Models\BlogTag::class, function (Faker $faker) {
-    return [
-        'tag' => $faker->word,
-        'slug' => $faker->word,
-    ];
-});
+class BlogTagFactory extends Factory
+{
+    protected $model = BlogTag::class;
+
+    public function definition()
+    {
+        return [
+            'tag' => $this->faker->word,
+            'slug' => $this->faker->word,
+        ];
+    }
+}

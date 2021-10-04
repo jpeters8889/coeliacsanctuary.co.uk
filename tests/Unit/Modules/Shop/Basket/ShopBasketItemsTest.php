@@ -7,22 +7,15 @@ namespace Tests\Unit\Modules\Shop\Basket;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Session\Store;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
 use Coeliac\Modules\Shop\Basket\Basket;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Coeliac\Modules\Shop\Exceptions\BasketException;
 
 class ShopBasketItemsTest extends TestCase
 {
-    use CreateProduct;
-    use CreateVariant;
-    use RefreshDatabase;
-
     private Store $session;
     private Basket $basket;
     private ShopProduct $product;
@@ -37,13 +30,13 @@ class ShopBasketItemsTest extends TestCase
 
         $this->basket->create();
 
-        $this->product = $this->createProduct();
-        $this->variant = $this->createVariant($this->product, ['live' => true]);
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $this->product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
+        $this->product = $this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+            ->create();
+
+        $this->variant = $this->build(ShopProductVariant::class)
+            ->in($this->product)
+            ->create();
     }
 
     /** @test */
@@ -150,14 +143,6 @@ class ShopBasketItemsTest extends TestCase
     /** @test */
     public function itErrorsWhenTryingToAlterAnItemThatIsntInTheBasket()
     {
-        $product = $this->createProduct();
-        $variant = $this->createVariant($product, ['live' => true]);
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
-
         $this->expectException(BasketException::class);
         $this->expectExceptionMessage('Item isn\'t available in your basket');
 

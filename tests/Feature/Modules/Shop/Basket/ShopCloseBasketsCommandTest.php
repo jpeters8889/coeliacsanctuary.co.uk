@@ -10,12 +10,9 @@ use Illuminate\Support\Facades\Event;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Events\BasketClosed;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ShopCloseBasketsCommandTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected ShopOrder $basket;
 
     protected function setUp(): void
@@ -24,10 +21,9 @@ class ShopCloseBasketsCommandTest extends TestCase
 
         TestTime::freeze();
 
-        $this->basket = ShopOrder::query()->create([
-            'token' => 'foo',
-            'state_id' => ShopOrderState::STATE_BASKET,
-        ]);
+        $this->basket = $this->build(ShopOrder::class)
+            ->asBasket()
+            ->create();
     }
 
     /** @test */

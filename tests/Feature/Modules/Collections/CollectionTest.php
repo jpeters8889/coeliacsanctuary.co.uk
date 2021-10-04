@@ -5,27 +5,19 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Collections;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
+use Coeliac\Modules\Recipe\Models\Recipe;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Tests\Traits\CreatesBlogs;
 use Coeliac\Common\Models\Image;
-use Tests\Traits\CreatesRecipes;
-use Tests\Traits\CreatesReviews;
-use Tests\Traits\CreatesWhereToEat;
-use Tests\Traits\Shop\CreateProduct;
 use Coeliac\Modules\Collection\Items\Item;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Collection\Models\Collection;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CollectionTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreatesBlogs;
-    use CreatesRecipes;
-    use CreatesWhereToEat;
-    use CreatesReviews;
-    use CreateProduct;
     use HasImages;
 
     /** @test */
@@ -39,19 +31,18 @@ class CollectionTest extends TestCase
     /** @test */
     public function itLoadsTheCollectionsApiEndpoint()
     {
-        $max = [];
-
-        for ($collectionX = 0; $collectionX < 13; ++$collectionX) {
-            /** @var Collection $collection */
-            $collection = factory(Collection::class)->create([
-                'title' => 'collection-'.$collectionX,
-                'created_at' => Carbon::now()->subDays($collectionX),
-            ]);
-
-            for ($x = 0; $x <= $collectionX; ++$x) {
-                $collection->addItem($this->createBlog(), 'foobar');
-            }
-        }
+        $this->build(Collection::class)
+            ->count(13)
+            ->sequence(fn ($sequence) => [
+                'title' => "Collection {$sequence->index}",
+                'created_at' => Carbon::now()->subMonth()->addDay($sequence->index)
+            ])
+            ->create()
+            ->each(function (Collection $collection, $index) {
+                for ($x = 0; $x <= $index; $x++) {
+                    $collection->addItem($this->create(Blog::class), 'foobar');
+                }
+            });
 
         $request = $this->get('/api/collection');
 
@@ -73,8 +64,8 @@ class CollectionTest extends TestCase
         ]);
 
         for ($collectionX = 0; $collectionX < 12; ++$collectionX) {
-            $request->assertSee('collection-'.$collectionX, false);
-            $request->assertJsonFragment(['items_count' => (string) ($collectionX + 1)]);
+            $request->assertSee('collection-' . $collectionX, false);
+            $request->assertJsonFragment(['items_count' => (string)($collectionX + 1)]);
         }
 
         $request->assertDontSee('collection-12');
@@ -83,13 +74,11 @@ class CollectionTest extends TestCase
     /** @test */
     public function itShowsCollectionPage()
     {
-        /** @var Collection $collection */
-        $collection = factory(Collection::class)->create();
-
-        $collection->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER)
+        $collection = $this->create(Collection::class)
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER)
             ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SOCIAL);
 
-        $this->get('/collection/'.$collection->slug)
+        $this->get('/collection/' . $collection->slug)
             ->assertStatus(200)
             ->assertSee($collection->title, false)
             ->assertSee($collection->body, false)
@@ -100,15 +89,12 @@ class CollectionTest extends TestCase
     /** @test */
     public function itShowsCollectionItems()
     {
-        /** @var Collection $collection */
-        $collection = factory(Collection::class)->create();
+        $collection = $this->create(Collection::class)
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER)
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SOCIAL)
+            ->addItem($this->create(Blog::class, ['title' => 'Test Blog']), 'Test Description');
 
-        $collection->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER)
-            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SOCIAL);
-
-        $collection->addItem($this->createBlog(['title' => 'Test Blog']), 'Test Description');
-
-        $this->get('/collection/'.$collection->slug)
+        $this->get('/collection/' . $collection->slug)
             ->assertSee('Test Blog')
             ->assertSee('Test Description');
     }
@@ -117,34 +103,27 @@ class CollectionTest extends TestCase
      * @test
      * @dataProvider itemDataProvider
      */
-    public function itShowsARenderedItems($method)
+    public function itShowsARenderedItems($class)
     {
-        /** @var Collection $collection */
-        $collection = factory(Collection::class)->create();
-
-        $collection->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER)
-            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SOCIAL);
-
-        $collection->addItem($this->$method(), 'foobar');
-
-        if ($method === 'createProduct') {
-            ShopProduct::query()->first()->prices()->create(['price' => 1000]);
-        }
+        $collection = $this->create(Collection::class)
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER)
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SOCIAL)
+            ->addItem($this->create($class), 'Test Description');
 
         $renderedContent = Item::resolve($collection->items[0])->render();
 
-        $this->get('/collection/'.$collection->slug)
+        $this->get('/collection/' . $collection->slug)
             ->assertSee($renderedContent, false);
     }
 
     public function itemDataProvider()
     {
         return [
-            ['createBlog'],
-            ['createRecipe'],
-            ['createReview'],
-            ['createWhereToEat'],
-            ['createProduct'],
+            [Blog::class],
+            [Recipe::class],
+            [Review::class],
+            [WhereToEat::class],
+            [ShopProduct::class],
         ];
     }
 }

@@ -5,17 +5,13 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Shop\Order;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\Recipe\Models\Recipe;
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Tests\TestCase;
 use Illuminate\Support\Str;
-use Tests\Traits\HasImages;
-use Tests\Traits\CreatesBlogs;
-use Coeliac\Common\Models\Image;
-use Tests\Traits\CreatesRecipes;
-use Tests\Traits\CreatesReviews;
-use Tests\Traits\CreatesWhereToEat;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
-use Tests\Traits\Shop\MakesShopOrders;
 use Coeliac\Modules\Member\Models\User;
 use Tests\Traits\Shop\MakeOrderRequest;
 use Coeliac\Modules\Shop\Models\ShopOrder;
@@ -25,23 +21,13 @@ use Coeliac\Modules\Shop\Models\ShopProduct;
 use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Shop\Payment\Providers\StripePaymentProvider;
 use Tests\Mocks\StripePaymentProvider as StripePaymentProviderMock;
 
 class ShopOrderCompleteTest extends TestCase
 {
-    use RefreshDatabase;
-    use MakesShopOrders;
     use MakeOrderRequest;
-    use CreateProduct;
-    use CreateVariant;
     use WithFaker;
-    use CreatesBlogs;
-    use CreatesRecipes;
-    use CreatesReviews;
-    use CreatesWhereToEat;
-    use HasImages;
 
     /** @var ShopProduct */
     private $product;
@@ -57,41 +43,18 @@ class ShopOrderCompleteTest extends TestCase
 
     private function setupOrder($params = [])
     {
-        $this->setupPostage();
-        $this->setupOrders();
-
-        $this->product = $this->createProduct(null, ['shipping_method_id' => 1]);
-        $this->product2 = $this->createProduct(null, ['shipping_method_id' => 1]);
-
-        $this->createVariant($this->product, ['live' => 1, 'quantity' => 2]);
-        $this->createVariant($this->product2, ['live' => 1, 'quantity' => 0]);
-
-        $this->createAdminUser();
-
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $this->product->id,
-            'price' => 100,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
-
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $this->product2->id,
-            'price' => 100,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
-
-        $this->product->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
-        $this->product2->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
+        $this->product = $this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+            ->has($this->build(ShopProductVariant::class)->state(['quantity' => 2]), 'variants')
+            ->create();
 
         $this->app->instance(StripePaymentProvider::class, new StripePaymentProviderMock());
 
         $token = Str::random(8);
 
-        factory(User::class)->create();
-
         ShopOrder::query()->create(array_merge([
             'token' => $token,
-            'user_id' => 1,
+            'user_id' => $this->create(User::class)->id,
         ], $params));
 
         $this->withSession(['basket_token' => $token]);
@@ -119,7 +82,7 @@ class ShopOrderCompleteTest extends TestCase
     {
         $this->setupOrder();
 
-        $user = User::query()->first();
+        $user = User::query()->where('email', '!=', 'contact@coeliacsanctuary.co.uk')->first();
 
         $this->get('/shop/basket/done')
             ->assertSee('<member-register-order-complete-cta name="'.$user->name.'"', false);
@@ -130,9 +93,7 @@ class ShopOrderCompleteTest extends TestCase
     {
         $this->setupOrder();
 
-        $user = User::query()->first();
-
-        $this->actingAs($user);
+        $this->actingAs(User::query()->where('email', '!=', 'contact@coeliacsanctuary.co.uk')->first());
 
         $this->get('/shop/basket/done')->assertDontSee('order-complete-create-account');
     }
@@ -142,7 +103,10 @@ class ShopOrderCompleteTest extends TestCase
     {
         $this->setupOrder();
 
-        User::query()->first()->update(['user_level_id' => UserLevel::MEMBER]);
+        User::query()
+            ->where('email', '!=', 'contact@coeliacsanctuary.co.uk')
+            ->first()
+            ->update(['user_level_id' => UserLevel::MEMBER]);
 
         $this->get('/shop/basket/done')->assertDontSee('order-complete-create-account');
     }
@@ -152,20 +116,14 @@ class ShopOrderCompleteTest extends TestCase
     {
         $this->setupOrder();
 
-        $this->createBlog([
-            'title' => 'First Blog',
-            'created_at' => Carbon::now()->subDays(3),
-        ]);
-
-        $this->createBlog([
-            'title' => 'Second Blog',
-            'created_at' => Carbon::now()->subDays(2),
-        ]);
-
-        $this->createBlog([
-            'title' => 'Third Blog',
-            'created_at' => Carbon::now()->subDays(1),
-        ]);
+        $this->build(Blog::class)
+            ->count(3)
+            ->state(new Sequence(
+                ['title' => 'First Blog', 'created_at' => Carbon::now()->subDays(3)],
+                ['title' => 'Second Blog', 'created_at' => Carbon::now()->subDays(2)],
+                ['title' => 'Third Blog', 'created_at' => Carbon::now()->subDay()],
+            ))
+            ->create();
 
         $this->get('/shop/basket/done')
             ->assertSee('Latest Blogs', false)
@@ -179,25 +137,15 @@ class ShopOrderCompleteTest extends TestCase
     {
         $this->setupOrder();
 
-        $this->createRecipe([
-            'title' => 'First Recipe',
-            'created_at' => Carbon::now()->subDays(3),
-        ]);
-
-        $this->createRecipe([
-            'title' => 'Second Recipe',
-            'created_at' => Carbon::now()->subDays(2),
-        ]);
-
-        $this->createRecipe([
-            'title' => 'Third Recipe',
-            'created_at' => Carbon::now()->subDays(1),
-        ]);
-
-        $this->createRecipe([
-            'title' => 'Fourth Recipe',
-            'created_at' => Carbon::now(),
-        ]);
+        $this->build(Recipe::class)
+            ->count(4)
+            ->state(new Sequence(
+                ['title' => 'First Recipe', 'created_at' => Carbon::now()->subDays(3)],
+                ['title' => 'Second Recipe', 'created_at' => Carbon::now()->subDays(2)],
+                ['title' => 'Third Recipe', 'created_at' => Carbon::now()->subDay()],
+                ['title' => 'Fourth Recipe', 'created_at' => Carbon::now()],
+            ))
+            ->create();
 
         $this->get('/shop/basket/done')
             ->assertSee('Latest Recipes', false)
@@ -212,20 +160,14 @@ class ShopOrderCompleteTest extends TestCase
     {
         $this->setupOrder();
 
-        $this->createReview([
-            'title' => 'First Review',
-            'created_at' => Carbon::now()->subDays(2),
-        ]);
-
-        $this->createReview([
-            'title' => 'Second Review',
-            'created_at' => Carbon::now()->subDays(1),
-        ]);
-
-        $this->createReview([
-            'title' => 'Third Review',
-            'created_at' => Carbon::now(),
-        ]);
+        $this->build(Review::class)
+            ->count(3)
+            ->state(new Sequence(
+                ['title' => 'First Review', 'created_at' => Carbon::now()->subDays(2)],
+                ['title' => 'Second Review', 'created_at' => Carbon::now()->subDay()],
+                ['title' => 'Third Review', 'created_at' => Carbon::now()],
+            ))
+            ->create();
 
         $this->get('/shop/basket/done')
             ->assertSee('Latest Reviews', false)

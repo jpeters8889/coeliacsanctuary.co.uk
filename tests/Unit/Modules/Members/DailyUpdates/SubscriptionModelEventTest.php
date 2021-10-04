@@ -4,20 +4,16 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Members\DailyUpdates;
 
+use Coeliac\Modules\Collection\Items\WhereToEat;
 use Tests\TestCase;
-use Tests\Traits\CreatesWhereToEat;
 use Coeliac\Modules\Blog\Models\Blog;
 use Illuminate\Support\Facades\Event;
 use Coeliac\Modules\Blog\Models\BlogTag;
 use Coeliac\Modules\Member\Models\DailyUpdateType;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Member\Events\DailyUpdateItemCreated;
 
 class SubscriptionModelEventTest extends TestCase
 {
-    use CreatesWhereToEat;
-    use RefreshDatabase;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -28,10 +24,9 @@ class SubscriptionModelEventTest extends TestCase
     /** @test */
     public function itDispatchesTheDailyUpdateQueueEventWhenABlogIsAddedWithASubscibedTag()
     {
-        $tag = factory(BlogTag::class)->create();
-        $blog = factory(Blog::class)->create();
-
-        $blog->tags()->attach($tag);
+        $blog = $this->build(Blog::class)
+            ->has($this->build(BlogTag::class), 'tags')
+            ->create();
 
         Event::assertDispatched(
             DailyUpdateItemCreated::class,
@@ -43,7 +38,7 @@ class SubscriptionModelEventTest extends TestCase
     /** @test */
     public function itDispatchesTheDailyUpdateQueueEventWhenAPlateToEatIsAdded()
     {
-        $eatery = $this->createWhereToEat();
+        $eatery = $this->create(WhereToEat::class);
 
         Event::assertDispatched(
             DailyUpdateItemCreated::class,

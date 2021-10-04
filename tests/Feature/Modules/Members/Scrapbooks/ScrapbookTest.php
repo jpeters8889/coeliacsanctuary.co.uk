@@ -8,19 +8,18 @@ use Spatie\TestTime\TestTime;
 use Tests\Abstracts\DashboardTest;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\Scrapbook;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ScrapbookTest extends DashboardTest
 {
-    use RefreshDatabase;
-
     protected Scrapbook $scrapbook;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->scrapbook = factory(Scrapbook::class)->create(['user_id' => $this->user->id]);
+        $this->scrapbook = $this->build(Scrapbook::class)
+            ->in($this->user)
+            ->create();
     }
 
     protected function page(): string
@@ -42,7 +41,7 @@ class ScrapbookTest extends DashboardTest
         $this->assertIsArray($request->json());
         $this->assertCount(1, $request->json());
 
-        $request->assertJsonFragment(['user_id' => 1]);
+        $request->assertJsonFragment(['user_id' => $this->user->id]);
         $request->assertJsonFragment(['name' => 'My Scrapbook']);
         $request->assertJsonFragment(['items_count' => '0']);
     }
@@ -50,10 +49,7 @@ class ScrapbookTest extends DashboardTest
     /** @test */
     public function itOnlyShowsTheLoggedInUsersScrapbooks()
     {
-        factory(Scrapbook::class)->create([
-            'user_id' => factory(User::class)->create()->id,
-            'name' => 'Another Scrapbook',
-        ]);
+        $this->create(Scrapbook::class, ['name' => 'Another Scrapbook']);
 
         $this->makeApiRequest()
             ->assertJsonCount(1)
@@ -91,7 +87,7 @@ class ScrapbookTest extends DashboardTest
     public function itCanHaveItsNameChanged()
     {
         $this->patch("/api/member/dashboard/scrapbooks/{$this->scrapbook->id}", [
-           'name' => 'Updated Name',
+            'name' => 'Updated Name',
         ])->assertOk();
 
         $this->assertEquals('Updated Name', $this->scrapbook->fresh()->name);
@@ -100,10 +96,7 @@ class ScrapbookTest extends DashboardTest
     /** @test */
     public function itErrorsWhenTryingToUpdateSomeoneElsesScrapbook()
     {
-        $scrapbook = factory(Scrapbook::class)->create([
-            'user_id' => factory(User::class)->create()->id,
-            'name' => 'Another Scrapbook',
-        ]);
+        $scrapbook = $this->create(Scrapbook::class);
 
         $this->patch("/api/member/dashboard/scrapbooks/{$scrapbook->id}", [
             'name' => 'foo',
@@ -123,7 +116,9 @@ class ScrapbookTest extends DashboardTest
     /** @test */
     public function itCanDeleteAScrapbook()
     {
-        $scrapbook = factory(Scrapbook::class)->create(['user_id' => $this->user->id]);
+        $scrapbook = $this->build(Scrapbook::class)
+            ->in($this->user)
+            ->create();
 
         $this->assertCount(2, Scrapbook::all());
 
@@ -135,10 +130,7 @@ class ScrapbookTest extends DashboardTest
     /** @test */
     public function itErrorsWhenTryingToDeleteAnotherUsersScrapbook()
     {
-        $scrapbook = factory(Scrapbook::class)->create([
-            'user_id' => factory(User::class)->create()->id,
-            'name' => 'Another Scrapbook',
-        ]);
+        $scrapbook = $this->create(Scrapbook::class);
 
         $this->assertCount(2, Scrapbook::all());
 

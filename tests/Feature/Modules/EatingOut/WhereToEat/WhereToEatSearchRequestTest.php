@@ -6,13 +6,11 @@ namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatSearch;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatSearchTerm;
 
 class WhereToEatSearchRequestTest extends TestCase
 {
-    use RefreshDatabase;
     use WithFaker;
 
     protected function setUp(): void

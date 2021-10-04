@@ -4,22 +4,18 @@ declare(strict_types=1);
 
 namespace Tests\Abstracts;
 
+use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Common\Repositories\AbstractRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 abstract class RepositoryTest extends TestCase
 {
-    use RefreshDatabase;
-
     /*** @var AbstractRepository */
     protected AbstractRepository $repository;
 
-    /** @var array<Model> */
-    protected $models;
+    protected array|Collection $models;
 
     abstract protected function loadRepository(): AbstractRepository;
 
@@ -36,36 +32,38 @@ abstract class RepositoryTest extends TestCase
 
         $this->repository = $this->loadRepository();
 
-        $this->models = factory($this->model(), 5)->create($this->factoryParameters());
+        $this->models = $this->build($this->model())
+            ->count(5)
+            ->create($this->factoryParameters());
     }
 
     /** @test */
-    public function itGetsASingleValue()
+    public function itGetsASingleValue(): void
     {
         $this->assertInstanceOf($this->model(), $this->repository->get(1));
         $this->assertTrue($this->models[0]->is($this->repository->get(1)));
     }
 
     /** @test */
-    public function itGetsATotalNumberOfRows()
+    public function itGetsATotalNumberOfRows(): void
     {
         $this->assertEquals(count($this->models), $this->repository->count());
     }
 
     /** @test */
-    public function itReturnsALimitedSubsetOfRows()
+    public function itReturnsALimitedSubsetOfRows(): void
     {
         $this->assertEquals(2, $this->repository->take(2)->count());
     }
 
     /** @test */
-    public function itGetsAllRecords()
+    public function itGetsAllRecords(): void
     {
         $this->assertEquals(count($this->models), $this->repository->all()->count());
     }
 
     /** @test */
-    public function itLoadsAPaginatedListOfResources()
+    public function itLoadsAPaginatedListOfResources(): void
     {
         $resources = $this->repository->paginated(2);
 
@@ -75,7 +73,7 @@ abstract class RepositoryTest extends TestCase
     }
 
     /** @test */
-    public function itCanLimitTheColumns()
+    public function itCanLimitTheColumns(): void
     {
         $model = $this->repository
             ->setColumns(['id'])
@@ -86,7 +84,7 @@ abstract class RepositoryTest extends TestCase
     }
 
     /** @test */
-    public function itCanUseARawQuery()
+    public function itCanUseARawQuery(): void
     {
         $model = $this->repository
             ->raw(function ($query) {
@@ -101,7 +99,7 @@ abstract class RepositoryTest extends TestCase
     }
 
     /** @test */
-    public function itCanAddWheres()
+    public function itCanAddWheres(): void
     {
         $attribute = array_keys($this->models[0]->attributesToArray())[0];
 

@@ -6,18 +6,13 @@ namespace Tests\Feature\Modules\Members\Login;
 
 use Tests\TestCase;
 use Coeliac\Modules\Member\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LogoutTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function itLogsOutUsers()
     {
-        $this->withoutExceptionHandling();
-
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs($this->create(User::class));
 
         $this->get('/member/logout')->assertRedirect('/');
 

@@ -8,21 +8,18 @@ use Tests\TestCase;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Blog\Models\BlogTag;
 use Coeliac\Modules\Member\Models\DailyUpdateType;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Coeliac\Modules\Member\Models\UserDailyUpdateSubscription;
 
 class DailyUpdatesTypeModelTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected DailyUpdateType $dailyUpdateType;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->dailyUpdateType = factory(DailyUpdateType::class)->create();
+        $this->dailyUpdateType = DailyUpdateType::query()->firstWhere('name', 'Blog Tags');
     }
 
     /** @test */
@@ -31,12 +28,7 @@ class DailyUpdatesTypeModelTest extends TestCase
         $this->assertInstanceOf(HasMany::class, $this->dailyUpdateType->subscriptions());
         $this->assertEmpty($this->dailyUpdateType->subscriptions);
 
-        $subscription = UserDailyUpdateSubscription::query()->create([
-            'user_id' => factory(User::class)->create()->id,
-            'daily_update_type_id' => $this->dailyUpdateType->id,
-            'updatable_type' => BlogTag::class,
-            'updatable_id' => 1,
-        ]);
+        $subscription = $this->create(UserDailyUpdateSubscription::class);
 
         $this->assertNotEmpty($this->dailyUpdateType->fresh()->subscriptions);
         $this->assertCount(1, $this->dailyUpdateType->fresh()->subscriptions);
@@ -49,8 +41,8 @@ class DailyUpdatesTypeModelTest extends TestCase
         $this->assertEmpty($this->dailyUpdateType->subscriptions);
 
         $this->dailyUpdateType->subscribe(
-            factory(User::class)->create(),
-            factory(BlogTag::class)->create()
+            $this->create(User::class),
+            $this->create(BlogTag::class)
         );
 
         $this->assertNotEmpty($this->dailyUpdateType->fresh()->subscriptions);

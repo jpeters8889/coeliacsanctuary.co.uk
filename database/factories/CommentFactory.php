@@ -1,13 +1,29 @@
 <?php
 
-declare(strict_types=1);
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Coeliac\Common\Comments\Commentable;
+use Coeliac\Common\Contracts\HasComments;
+use Coeliac\Common\Models\Comment;
 
-$factory->define(\Coeliac\Common\Models\Comment::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->email,
-        'comment' => $faker->paragraph,
-    ];
-});
+class CommentFactory extends Factory
+{
+    protected $model = Comment::class;
+
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'comment' => $this->faker->paragraph,
+        ];
+    }
+
+    public function on(HasComments $commentable)
+    {
+        return $this->state(fn (array $attributes) => [
+           'commentable_type' => $commentable::class,
+           'commentable_id' => $commentable->id,
+        ]);
+    }
+}

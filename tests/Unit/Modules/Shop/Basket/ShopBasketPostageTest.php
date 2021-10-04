@@ -5,25 +5,20 @@ declare(strict_types=1);
 namespace Tests\Unit\Modules\Shop\Basket;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Shop\Models\ShopProduct;
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Tests\TestCase;
 use Illuminate\Session\Store;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
 use Coeliac\Modules\Shop\Basket\Basket;
-use Tests\Traits\Shop\HasPostageOptions;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Shop\Exceptions\BasketException;
 
 class ShopBasketPostageTest extends TestCase
 {
-    use CreateProduct;
-    use CreateVariant;
-    use RefreshDatabase;
-    use HasPostageOptions;
-
     private Store $session;
     private Basket $basket;
+    private ShopProduct $product;
+    private ShopProductVariant $variant;
 
     protected function setUp(): void
     {
@@ -34,7 +29,13 @@ class ShopBasketPostageTest extends TestCase
 
         $this->basket->create();
 
-        $this->setupPostage();
+        $this->product = $this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 500]), 'prices')
+            ->create();
+
+        $this->variant = $this->build(ShopProductVariant::class)
+            ->in($this->product)
+            ->create();
     }
 
     /**
@@ -43,15 +44,10 @@ class ShopBasketPostageTest extends TestCase
      */
     public function itCalculatesPostage($expected, $shippingMethod, $productWeight)
     {
-        $product = $this->createProduct(null, ['shipping_method_id' => $shippingMethod]);
-        $variant = $this->createVariant($product, ['live' => true, 'weight' => $productWeight]);
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
+        $this->product->update(['shipping_method_id' => $shippingMethod]);
+        $this->variant->update(['weight' => $productWeight]);
 
-        $this->basket->items()->add($product, $variant);
+        $this->basket->items()->add($this->product, $this->variant);
 
         $this->assertEquals($expected, $this->basket->postage()->calculate());
     }
@@ -72,15 +68,9 @@ class ShopBasketPostageTest extends TestCase
     /** @test */
     public function itErrorsWhenThePostageCantBeFound()
     {
-        $product = $this->createProduct(null, ['shipping_method_id' => 1]);
-        $variant = $this->createVariant($product, ['live' => true, 'weight' => 300]);
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
+        $this->variant->update(['weight' => 300]);
 
-        $this->basket->items()->add($product, $variant);
+        $this->basket->items()->add($this->product, $this->variant);
 
         $this->expectException(BasketException::class);
         $this->expectExceptionMessage("Can't find postage option");

@@ -11,12 +11,10 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class MailcoachNewsletterTest extends TestCase
 {
-    use RefreshDatabase;
     use WithFaker;
 
     private EmailList $list;
@@ -80,7 +78,6 @@ class MailcoachNewsletterTest extends TestCase
     {
         $this->assertEmpty($this->list->subscribers);
 
-        $this->withoutExceptionHandling();
         $this->post('/api/newsletter', ['email' => 'me@you.com', 'url' => ''])
             ->assertStatus(200);
 

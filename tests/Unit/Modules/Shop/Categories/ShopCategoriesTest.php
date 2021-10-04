@@ -5,33 +5,18 @@ declare(strict_types=1);
 namespace Tests\Unit\Modules\Shop\Categories;
 
 use Tests\TestCase;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
-use Tests\Traits\Shop\CreateCategory;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopCategory;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
 
 class ShopCategoriesTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreateCategory;
-    use CreateProduct;
-    use CreateVariant;
-
     /** @test */
     public function itHasProducts()
     {
-        /**
-         * @var ShopCategory
-         */
-        $category = $this->createCategory();
-
-        /**
-         * @var ShopProduct
-         */
-        $product = $this->createProduct($category);
+        $category = $this->create(ShopCategory::class);
+        $product = $this->create(ShopProduct::class);
+        $category->products()->attach($product);
 
         $this->assertEquals(1, $category->products()->count());
         $this->assertEquals($product->title, $category->products()->first()->title);
@@ -40,20 +25,11 @@ class ShopCategoriesTest extends TestCase
     /** @test */
     public function itHasManyProducts()
     {
-        /**
-         * @var ShopCategory
-         */
-        $category = $this->createCategory();
+        $category = $this->create(ShopCategory::class);
 
-        /*
-         * @var ShopProduct
-         */
-        $this->createProduct($category, ['title' => 'Product 1']);
+        $this->build(ShopProduct::class)->count(2)->create();
 
-        /*
-         * @var ShopProduct
-         */
-        $this->createProduct($category, ['title' => 'Product 2']);
+        ShopProduct::query()->get()->each(fn (ShopProduct $product) => $product->categories()->attach($category));
 
         $this->assertEquals(2, $category->products()->count());
     }
@@ -61,19 +37,19 @@ class ShopCategoriesTest extends TestCase
     /** @test */
     public function itHasCustomWhereClauseForProducts()
     {
-        /**
-         * @var ShopCategory
-         */
-        $category = $this->createCategory();
+        $category = $this->create(ShopCategory::class);
 
         $this->assertEquals(0, ShopCategory::withLiveProducts()->where('id', $category->id)->count());
 
-        $product = $this->createProduct($category);
+        $product = $this->create(ShopProduct::class);
+        $category->products()->attach($product);
 
         $this->assertEquals(0, ShopCategory::withLiveProducts()->where('id', $category->id)->count());
 
         /** @var ShopProductVariant */
-        $variant = $this->createVariant($product, ['live' => false]);
+        $variant = $this->build(ShopProductVariant::class)
+            ->in($product)
+            ->create(['live' => false]);
 
         $this->assertEquals(0, ShopCategory::withLiveProducts()->where('id', $category->id)->count());
 

@@ -10,11 +10,9 @@ use Illuminate\Testing\TestResponse;
 use Coeliac\Modules\Member\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Modules\Member\Models\UserAddress;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserAddressTest extends TestCase
 {
-    use RefreshDatabase;
     use WithFaker;
 
     protected User $user;
@@ -24,12 +22,10 @@ class UserAddressTest extends TestCase
         parent::setUp();
         $this->faker = $this->makeFaker('en_GB');
 
-        $this->user = factory(User::class)->create();
-
-        $this->user->addresses()->insert([
-            factory(UserAddress::class)->raw(['user_id' => $this->user->id, 'type' => 'Shipping']),
-            factory(UserAddress::class)->raw(['user_id' => $this->user->id, 'type' => 'Billing']),
-        ]);
+        $this->user = $this->build(User::class)
+            ->has($this->build(UserAddress::class)->asShipping(), 'addresses')
+            ->has($this->build(UserAddress::class)->asBilling(), 'addresses')
+            ->create();
 
         $this->actingAs($this->user);
     }
@@ -38,6 +34,7 @@ class UserAddressTest extends TestCase
     public function itDoesntLoadThePageIfNoUserIsSignedIn()
     {
         Auth::logout();
+
         $this->assertFalse($this->isAuthenticated());
 
         $this->getJson('/api/member/addresses')->assertStatus(401);
@@ -84,8 +81,9 @@ class UserAddressTest extends TestCase
     /** @test */
     public function itDoesntReturnAddressesThatDontBelongToTheUser()
     {
-        $user = factory(User::class)->create();
-        factory(UserAddress::class)->create(['line_1' => 'Another Address', 'user_id' => $user->id]);
+        $this->build(User::class)
+            ->has($this->build(UserAddress::class)->state(['line_1' => 'Another Address']), 'addresses')
+            ->create();
 
         $request = $this->get('/api/member/addresses');
 
@@ -121,12 +119,13 @@ class UserAddressTest extends TestCase
     /** @test */
     public function itDoesntDeleteAddressesThatDontBelongToTheUser()
     {
-        $user = factory(User::class)->create();
-        $address = factory(UserAddress::class)->create(['line_1' => 'Another Address', 'user_id' => $user->id]);
+        $user = $this->build(User::class)
+            ->has($this->build(UserAddress::class)->state(['line_1' => 'Another Address']), 'addresses')
+            ->create();
 
         $this->assertCount(1, $user->addresses);
 
-        $this->delete("/api/member/addresses/{$address->id}")->assertStatus(403);
+        $this->delete("/api/member/addresses/{$user->addresses[0]->id}")->assertStatus(403);
 
         $this->assertCount(1, $user->fresh()->addresses);
     }
@@ -244,8 +243,11 @@ class UserAddressTest extends TestCase
     /** @test */
     public function itErrorsWhenTryingToUpdateAnAddressForAnotherUser()
     {
-        $user = factory(User::class)->create();
-        $address = factory(UserAddress::class)->create(['line_1' => 'Another Address', 'user_id' => $user->id]);
+        $user = $this->build(User::class)
+            ->has($this->build(UserAddress::class)->state(['line_1' => 'Another Address']), 'addresses')
+            ->create();
+
+        $address = $user->addresses[0];
 
         $this->makeUpdateRequest(['line_1' => 'Changed Address'], $address)->assertStatus(403);
 

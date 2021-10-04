@@ -4,38 +4,30 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\User;
 
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Tests\TestCase;
-use Tests\Traits\CreateUser;
 use Coeliac\Modules\Blog\Models\Blog;
-use Tests\Traits\Shop\MakesShopOrders;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\Scrapbook;
 use Coeliac\Modules\Member\Models\UserLevel;
 use Coeliac\Modules\Member\Models\UserAddress;
 use Coeliac\Modules\Member\Models\ScrapbookItem;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase
 {
-    use RefreshDatabase;
-    use MakesShopOrders;
-    use CreateUser;
-
     /** @test */
     public function itHasOrders()
     {
         /** @var User $user */
-        $user = $this->createUser();
+        $user = $this->build(User::class)
+            ->has($this->build(UserAddress::class)->asShipping(), 'addresses')
+            ->create();
 
-        $this->createOrder([
-            'user_id' => $user->id,
-            'user_address_id' => $user->addresses()->first()->id,
-        ]);
-
-        $this->createOrder([
-            'user_id' => $user->id,
-            'user_address_id' => $user->addresses()->first()->id,
-        ]);
+        $this->build(ShopOrder::class)
+            ->to($user)
+            ->count(2)
+            ->create();
 
         $this->assertEquals(2, $user->orders()->count());
     }
@@ -44,8 +36,9 @@ class UserTest extends TestCase
     public function itHasAddresses()
     {
         /** @var User $user */
-        $user = $this->createUser();
-        factory(UserAddress::class)->create(['user_id' => $user->id]);
+        $user = $this->build(User::class)
+            ->has($this->build(UserAddress::class)->count(2), 'addresses')
+            ->create();
 
         $this->assertEquals(2, $user->addresses()->count());
     }
@@ -54,7 +47,7 @@ class UserTest extends TestCase
     public function itShowsMembersArentApprovedByDefault()
     {
         /** @var User $user */
-        $user = $this->createUser();
+        $user = $this->create(User::class);
 
         $this->assertFalse($user->isMember());
     }
@@ -63,7 +56,9 @@ class UserTest extends TestCase
     public function itKnowsWhetherAUserIsAMember()
     {
         /** @var User $user */
-        $user = $this->createUser(['user_level_id' => UserLevel::MEMBER]);
+        $user = $this->build(User::class)
+            ->asMember()
+            ->create();
 
         $this->assertTrue($user->isMember());
     }
@@ -71,8 +66,9 @@ class UserTest extends TestCase
     /** @test */
     public function itKnowsWhetherTheUserIsAnAdmin()
     {
-        /** @var User $user */
-        $user = $this->createUser(['user_level_id' => UserLevel::ADMIN]);
+        $user = $this->build(User::class)
+            ->asAdmin()
+            ->create();
 
         $this->assertTrue($user->isMember());
         $this->assertTrue($user->isAdmin());
@@ -81,8 +77,13 @@ class UserTest extends TestCase
     /** @test */
     public function normalAndShopMembersAreNotAdmins()
     {
-        $shopUser = $this->createUser();
-        $normalUser = $this->createUser(['user_level_id' => UserLevel::MEMBER]);
+        [$shopUser, $normalUser] = $this->build(User::class)
+            ->count(2)
+            ->state(new Sequence(
+                ['user_level_id' => UserLevel::SHOP],
+                ['user_level_id' => UserLevel::MEMBER],
+            ))
+            ->create();
 
         $this->assertFalse($shopUser->isAdmin());
         $this->assertFalse($normalUser->isAdmin());
@@ -91,15 +92,15 @@ class UserTest extends TestCase
     /** @test */
     public function itCanHaveScrapbooks()
     {
-        $user = $this->createUser();
+        $user = $this->create(User::class);
 
         $this->assertCount(0, $user->scrapbooks);
 
-        factory(Scrapbook::class)->create(['user_id' => $user->id]);
+        $this->build(Scrapbook::class)->in($user)->create();
 
         $this->assertCount(1, $user->fresh()->scrapbooks);
 
-        factory(Scrapbook::class)->create(['user_id' => $user->id]);
+        $this->build(Scrapbook::class)->in($user)->create();
 
         $this->assertCount(2, $user->fresh()->scrapbooks);
     }
@@ -107,18 +108,16 @@ class UserTest extends TestCase
     /** @test */
     public function itHasScapbookItems()
     {
-        $user = $this->createUser();
+        $user = $this->build(User::class)
+            ->has($this->build(Scrapbook::class), 'scrapbooks')
+            ->create();
 
         $this->assertEmpty($user->fresh()->scrapbookItems);
 
-        factory(Scrapbook::class)->create(['user_id' => $user->id]);
-        $item = ScrapbookItem::query()->create([
-            'scrapbook_id' => 1,
-            'item_type' => Blog::class,
-            'item_id' => 1,
-        ]);
+        $item = $this->build(ScrapbookItem::class)
+            ->in($user->scrapbooks[0])
+            ->create();
 
-        $this->assertNotEmpty($user->fresh()->scrapbookItems);
         $this->assertCount(1, $user->scrapbookItems);
 
         $this->assertTrue($user->scrapbookItems[0]->is($item));

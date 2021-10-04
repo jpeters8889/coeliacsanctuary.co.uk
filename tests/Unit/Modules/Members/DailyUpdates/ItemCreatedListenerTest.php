@@ -4,34 +4,29 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Members\DailyUpdates;
 
+use Coeliac\Modules\Collection\Items\WhereToEat;
 use Tests\TestCase;
-use Tests\Traits\CreatesWhereToEat;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Blog\Models\BlogTag;
 use Coeliac\Modules\Member\Models\DailyUpdateType;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Member\Models\DailyUpdatesQueue;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCountry;
 
 class ItemCreatedListenerTest extends TestCase
 {
-    use CreatesWhereToEat;
-    use RefreshDatabase;
-
     /** @test */
     public function itQueuesAnUpdateForASubscribedBlogTag()
     {
-        $user = factory(User::class)->create();
-        $tag = factory(BlogTag::class)->create();
+        $user = $this->create(User::class);
+        $tag = $this->create(BlogTag::class);
 
         DailyUpdateType::query()->find(DailyUpdateType::BLOG_TAGS)->subscribe($user, $tag);
 
         $this->assertEmpty(DailyUpdatesQueue::all());
 
-        $blog = factory(Blog::class)->create();
+        $blog = $this->create(Blog::class);
         $blog->tags()->attach($tag);
 
         $this->assertNotEmpty(DailyUpdatesQueue::all());
@@ -47,9 +42,8 @@ class ItemCreatedListenerTest extends TestCase
     /** @test */
     public function itDoesntQueueTwoUpdatesForTheSameBlogWhenSubscribedToTwoTags()
     {
-        $user = factory(User::class)->create();
-        $firstTag = factory(BlogTag::class)->create();
-        $secondTag = factory(BlogTag::class)->create();
+        $user = $this->create(User::class);
+        [$firstTag, $secondTag] = $this->build(BlogTag::class)->count(2)->create();
 
         /** @var DailyUpdateType $dailyUpdateType */
         $dailyUpdateType = DailyUpdateType::query()->find(DailyUpdateType::BLOG_TAGS);
@@ -59,7 +53,7 @@ class ItemCreatedListenerTest extends TestCase
 
         $this->assertEmpty(DailyUpdatesQueue::all());
 
-        $blog = factory(Blog::class)->create();
+        $blog = $this->create(Blog::class);
         $blog->tags()->attach([$firstTag->id, $secondTag->id]);
 
         $this->assertCount(2, $blog->fresh()->tags);
@@ -71,17 +65,16 @@ class ItemCreatedListenerTest extends TestCase
     /** @test */
     public function itWillQueueUpdatesForTwoDifferentBlogs()
     {
-        $user = factory(User::class)->create();
-        $tag = factory(BlogTag::class)->create();
+        $user = $this->create(User::class);
+        $tag = $this->create(BlogTag::class);
 
         DailyUpdateType::query()->find(DailyUpdateType::BLOG_TAGS)->subscribe($user, $tag);
 
         $this->assertEmpty(DailyUpdatesQueue::all());
 
-        $firstBlog = factory(Blog::class)->create();
-        $firstBlog->tags()->attach($tag);
+        [$firstBlog, $secondBlog] = $this->build(Blog::class)->count(2)->create();
 
-        $secondBlog = factory(Blog::class)->create();
+        $firstBlog->tags()->attach($tag);
         $secondBlog->tags()->attach($tag);
 
         $this->assertNotEmpty(DailyUpdatesQueue::all());
@@ -91,20 +84,15 @@ class ItemCreatedListenerTest extends TestCase
     /** @test */
     public function itWillQueueAnUpdateForACounty()
     {
-        $user = factory(User::class)->create();
+        $user = $this->create(User::class);
 
-        $country = factory(WhereToEatCountry::class)->create();
-        $county = factory(WhereToEatCounty::class)->create(['country_id' => $country->id]);
-        $town = factory(WhereToEatTown::class)->create(['county_id' => $county->id]);
-
-        DailyUpdateType::query()->find(DailyUpdateType::WTE_COUNTY)->subscribe($user, $county);
+        DailyUpdateType::query()
+            ->find(DailyUpdateType::WTE_COUNTY)
+            ->subscribe($user, WhereToEatCounty::query()->first());
 
         $this->assertEmpty(DailyUpdatesQueue::all());
 
-        $eatery = $this->createWhereToEat([
-            'county_id' => $county->id,
-            'town_id' => $town->id,
-        ]);
+        $eatery = $this->create(WhereToEat::class);
 
         $this->assertNotEmpty(DailyUpdatesQueue::all());
 
@@ -117,20 +105,15 @@ class ItemCreatedListenerTest extends TestCase
     /** @test */
     public function itWillQueueAnUpdateForATown()
     {
-        $user = factory(User::class)->create();
+        $user = $this->create(User::class);
 
-        $country = factory(WhereToEatCountry::class)->create();
-        $county = factory(WhereToEatCounty::class)->create(['country_id' => $country->id]);
-        $town = factory(WhereToEatTown::class)->create(['county_id' => $county->id]);
-
-        DailyUpdateType::query()->find(DailyUpdateType::WTE_TOWN)->subscribe($user, $town);
+        DailyUpdateType::query()
+            ->find(DailyUpdateType::WTE_TOWN)
+            ->subscribe($user, WhereToEatTown::query()->first());
 
         $this->assertEmpty(DailyUpdatesQueue::all());
 
-        $eatery = $this->createWhereToEat([
-            'county_id' => $county->id,
-            'town_id' => $town->id,
-        ]);
+        $eatery = $this->create(WhereToEat::class);
 
         $this->assertNotEmpty(DailyUpdatesQueue::all());
 
@@ -143,21 +126,19 @@ class ItemCreatedListenerTest extends TestCase
     /** @test */
     public function ifAUserIsSubscribedToACountyAndTownAndAPlaceIsAddedThatMatchesBothItOnlyQueuesOneUpdate()
     {
-        $user = factory(User::class)->create();
+        $user = $this->create(User::class);
 
-        $country = factory(WhereToEatCountry::class)->create();
-        $county = factory(WhereToEatCounty::class)->create(['country_id' => $country->id]);
-        $town = factory(WhereToEatTown::class)->create(['county_id' => $county->id]);
+        DailyUpdateType::query()
+            ->find(DailyUpdateType::WTE_COUNTY)
+            ->subscribe($user, WhereToEatCounty::query()->first());
 
-        DailyUpdateType::query()->find(DailyUpdateType::WTE_COUNTY)->subscribe($user, $county);
-        DailyUpdateType::query()->find(DailyUpdateType::WTE_TOWN)->subscribe($user, $town);
+        DailyUpdateType::query()
+            ->find(DailyUpdateType::WTE_TOWN)
+            ->subscribe($user, WhereToEatTown::query()->first());
 
         $this->assertEmpty(DailyUpdatesQueue::all());
 
-        $eatery = $this->createWhereToEat([
-            'county_id' => $county->id,
-            'town_id' => $town->id,
-        ]);
+        $eatery = $this->create(WhereToEat::class);
 
         $this->assertNotEmpty(DailyUpdatesQueue::all());
         $this->assertCount(1, DailyUpdatesQueue::all());

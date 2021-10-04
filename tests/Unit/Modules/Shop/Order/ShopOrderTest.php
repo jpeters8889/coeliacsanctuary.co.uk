@@ -4,13 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop\Order;
 
-use Carbon\Carbon;
 use Tests\TestCase;
-use Tests\Traits\CreateUser;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
-use Tests\Traits\Shop\MakesShopOrders;
-use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopPayment;
 use Coeliac\Modules\Shop\Models\ShopProduct;
@@ -19,106 +13,67 @@ use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Coeliac\Modules\Shop\Models\ShopDiscountCodesUsed;
 
 class ShopOrderTest extends TestCase
 {
-    use RefreshDatabase;
-    use MakesShopOrders;
-    use CreateProduct;
-    use CreateVariant;
-    use CreateUser;
+    protected ShopOrder $order;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->order = $this->create(ShopOrder::class);
+    }
 
     /** @test */
     public function itHasAState()
     {
-        /** @var ShopOrder $order */
-        $order = $this->createOrder();
-
-        $this->assertEquals(1, $order->state()->count());
-        $this->assertSame(ShopOrderState::query()->first()->toArray(), $order->state->toArray());
+        $this->assertEquals(1, $this->order->state()->count());
+        $this->assertSame(ShopOrderState::query()->first()->toArray(), $this->order->state->toArray());
     }
 
     /** @test */
     public function itHasACustomer()
     {
-        /** @var User $user */
-        $user = $this->createUser();
-
-        /** @var ShopOrder $order */
-        $order = $this->createOrder(['user_id' => $user->id]);
-
-        $this->assertEquals(1, $order->user()->count());
-        $this->assertSame(User::query()->latest()->first()->toArray(), $order->user->toArray());
+        $this->assertEquals(1, $this->order->user()->count());
     }
 
     /** @test */
     public function itHasAShippingAddress()
     {
-        /** @var User $user */
-        $user = $this->createUser();
-
-        /** @var ShopOrder $order */
-        $order = $this->createOrder([
-            'user_id' => $user->id,
-            'user_address_id' => $user->addresses()->first()->id,
-        ]);
-
-        $this->assertSame(UserAddress::query()->first()->toArray(), $order->address->toArray());
+        $this->assertSame(UserAddress::query()->first()->toArray(), $this->order->fresh()->address->toArray());
     }
 
     /** @test */
     public function itHasAPostageCountry()
     {
-        /** @var ShopOrder $order */
-        $order = $this->createOrder();
-
-        $this->assertNotNull($order->postageCountry);
+        $this->assertNotNull($this->order->postageCountry);
     }
 
     /** @test */
     public function itHasItems()
     {
-        /** @var ShopOrder $order */
-        $order = $this->createOrder();
+        $this->build(ShopOrderItem::class)
+            ->to($this->order)
+            ->add($this->build(ShopProductVariant::class)
+                ->in($this->build(ShopProduct::class)
+                    ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+                    ->create())
+                ->create(['weight' => 10]))
+            ->create();
 
-        /** @var ShopProduct $product */
-        $product = $this->createProduct();
-
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
-
-        /** @var ShopProductVariant $variant */
-        $variant = $this->createVariant($product);
-
-        $item = factory(ShopOrderItem::class)->create([
-            'order_id' => 1,
-            'product_id' => $product->id,
-            'product_variant_id' => $variant->id,
-            'product_title' => $product->title,
-            'product_price' => $product->currentPrice,
-        ]);
-
-//        $order->items()->create($item);
-
-        $this->assertEquals(1, $order->items()->count());
-        $this->assertSame(ShopOrderItem::query()->first()->toArray(), $order->items()->first()->toArray());
+        $this->assertEquals(1, $this->order->items()->count());
+        $this->assertSame(ShopOrderItem::query()->first()->toArray(), $this->order->items()->first()->toArray());
     }
 
     /** @test */
     public function itHasAPayment()
     {
-        /** @var ShopOrder $order */
-        $order = $this->createOrder();
-
         /** @var ShopPayment $payment */
         $payment = ShopPayment::query()->create([
-            'order_id' => $order->id,
+            'order_id' => $this->order->id,
             'subtotal' => 200,
             'discount' => 0,
             'postage' => 100,
@@ -126,29 +81,24 @@ class ShopOrderTest extends TestCase
             'payment_type_id' => 1,
         ]);
 
-        $order = $order->fresh();
-
-        $this->assertSame($payment->order->toArray(), $order->toArray());
+        $this->assertSame($payment->order->toArray(), $this->order->fresh()->toArray());
     }
 
     /** @test */
     public function itHasADiscountCode()
     {
-        /** @var ShopOrder $order */
-        $order = $this->createOrder();
-
-        $this->assertNull($order->discountCode);
+        $this->assertNull($this->order->discountCode);
 
         /** @var ShopDiscountCode $code */
-        $code = factory(ShopDiscountCode::class)->create();
+        $code = $this->create(ShopDiscountCode::class);
 
         ShopDiscountCodesUsed::query()->create([
             'discount_id' => $code->id,
-            'order_id' => $order->id,
+            'order_id' => $this->order->id,
             'discount_amount' => 123,
         ]);
 
-        $order = $order->fresh();
+        $order = $this->order->fresh();
 
         $this->assertNotNull($order->discountCode);
         $this->assertTrue($code->is($order->discountCode));

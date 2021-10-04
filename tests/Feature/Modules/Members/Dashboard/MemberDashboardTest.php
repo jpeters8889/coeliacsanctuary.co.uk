@@ -7,19 +7,16 @@ namespace Tests\Feature\Modules\Members\Dashboard;
 use Tests\TestCase;
 use Illuminate\Testing\TestResponse;
 use Coeliac\Modules\Member\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MemberDashboardTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected User $user;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = $this->create(User::class);
         $this->actingAs($this->user);
     }
 
@@ -43,7 +40,6 @@ class MemberDashboardTest extends TestCase
      */
     public function itLoadsTheScrapbooksPage($page)
     {
-        $this->withoutExceptionHandling();
         $this->makeRequest($page)->assertOk();
     }
 

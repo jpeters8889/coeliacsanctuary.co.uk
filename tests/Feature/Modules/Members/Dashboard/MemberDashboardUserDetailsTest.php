@@ -78,7 +78,7 @@ class MemberDashboardUserDetailsTest extends DashboardTest
     /** @test */
     public function itErrorsWhenUpdatingToAnEmailAlreadyRegistered()
     {
-        factory(User::class)->create(['email' => 'foo@bar.com']);
+        $this->create(User::class, ['email' => 'foo@bar.com']);
 
         $this->makeUpdateDetailsRequest(['email' => 'foo@bar.com'])->assertStatus(422);
     }

@@ -7,23 +7,16 @@ namespace Tests\Feature\Modules\Shop\Basket;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Session\Store;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Basket\Basket;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
 
 class ShopBasketAddTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreateVariant;
-    use CreateProduct;
-
     private Store $session;
     private Basket $basket;
     private ShopProduct $product;
@@ -36,13 +29,13 @@ class ShopBasketAddTest extends TestCase
         $this->session = resolve(Store::class);
         $this->basket = resolve(Basket::class);
 
-        $this->product = $this->createProduct();
-        $this->variant = $this->createVariant($this->product, ['live' => true]);
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $this->product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
+        $this->product = $this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 500]), 'prices')
+            ->create();
+
+        $this->variant = $this->build(ShopProductVariant::class)
+            ->in($this->product)
+            ->create();
     }
 
     protected function makeRequest($params = [])
@@ -99,13 +92,11 @@ class ShopBasketAddTest extends TestCase
     /** @test */
     public function itErrorsWhenTryingToAddAVariantThatDoesntBelongToTheProduct()
     {
-        $product = $this->createProduct();
-        $variant = $this->createVariant($product, ['live' => true]);
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
+        $variant = $this->build(ShopProductVariant::class)
+            ->in($this->build(ShopProduct::class)
+                ->has($this->build(ShopProductPrice::class), 'prices')
+                ->create())
+            ->create();
 
         $this->makeRequest(['variant_id' => $variant->id])->assertStatus(422);
     }
@@ -166,7 +157,7 @@ class ShopBasketAddTest extends TestCase
     /** @test */
     public function itLinksTheBasketToALoggedInUser()
     {
-        $this->actingAs($user = factory(User::class)->create());
+        $this->actingAs($user = $this->create(User::class));
 
         $this->makeRequest();
 

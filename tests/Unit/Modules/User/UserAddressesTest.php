@@ -4,37 +4,28 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\User;
 
+use Coeliac\Modules\Shop\Models\ShopOrder;
 use Tests\TestCase;
-use Tests\Traits\CreateUser;
-use Tests\Traits\Shop\CreateOrder;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserAddress;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserAddressesTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreateUser;
-    use CreateOrder;
-
     /** @test */
     public function itHasOrders()
     {
         /** @var User $user */
-        $user = $this->createUser();
+        $user = $this->build(User::class)
+            ->has($this->build(UserAddress::class), 'addresses')
+            ->create();
 
         /** @var UserAddress $address */
         $address = $user->addresses()->first();
 
-        $this->createOrder([
-            'user_id' => $user->id,
-            'user_address_id' => $address->id,
-        ]);
-
-        $this->createOrder([
-            'user_id' => $user->id,
-            'user_address_id' => $address->id,
-        ]);
+        $this->build(ShopOrder::class)
+            ->to($user, $address)
+            ->count(2)
+            ->create();
 
         $this->assertEquals(2, $address->orders()->count());
     }
@@ -43,7 +34,9 @@ class UserAddressesTest extends TestCase
     public function itHasACustomer()
     {
         /** @var User $user */
-        $user = $this->createUser();
+        $user = $this->build(User::class)
+            ->has($this->build(UserAddress::class), 'addresses')
+            ->create();
 
         /** @var UserAddress $address */
         $address = $user->addresses()->first();

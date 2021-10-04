@@ -4,26 +4,22 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Members\DailyUpdates;
 
+use Coeliac\Modules\Collection\Items\WhereToEat;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Tests\TestCase;
 use Illuminate\Support\Str;
-use Tests\Traits\CreatesWhereToEat;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Blog\Models\BlogTag;
 use Illuminate\Support\Facades\Notification;
 use Coeliac\Modules\Member\Models\DailyUpdateType;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Member\Models\DailyUpdatesQueue;
 use Coeliac\Modules\Member\Notifications\DailyUpdate;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCountry;
 
 class SendCommandTest extends TestCase
 {
-    use CreatesWhereToEat;
-    use RefreshDatabase;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -42,14 +38,14 @@ class SendCommandTest extends TestCase
     /** @test */
     public function itSendsANotificationWhenTheUserHasOneQueud()
     {
-        $user = factory(User::class)->create();
-        $tag = factory(BlogTag::class)->create();
+        $user = $this->create(User::class);
+        $tag = $this->create(BlogTag::class);
 
         DailyUpdateType::query()->find(DailyUpdateType::BLOG_TAGS)->subscribe($user, $tag);
 
         $this->assertEmpty(DailyUpdatesQueue::all());
 
-        $blog = factory(Blog::class)->create();
+        $blog = $this->create(Blog::class);
         $blog->tags()->attach($tag);
 
         $this->artisan('coeliac:send_daily_updates');
@@ -60,12 +56,12 @@ class SendCommandTest extends TestCase
     /** @test */
     public function itOnlySendsTheBlogUpdate()
     {
-        $user = factory(User::class)->create();
-        $tag = factory(BlogTag::class)->create();
+        $user = $this->create(User::class);
+        $tag = $this->create(BlogTag::class);
 
         DailyUpdateType::query()->find(DailyUpdateType::BLOG_TAGS)->subscribe($user, $tag);
 
-        $blog = factory(Blog::class)->create();
+        $blog = $this->create(Blog::class);
         $blog->tags()->attach($tag);
 
         $this->artisan('coeliac:send_daily_updates');
@@ -92,14 +88,13 @@ class SendCommandTest extends TestCase
     /** @test */
     public function itSendsTheWhereToEatUpdate()
     {
-        $user = factory(User::class)->create();
-        $country = factory(WhereToEatCountry::class)->create();
-        $county = factory(WhereToEatCounty::class)->create(['country_id' => $country->id]);
-        $town = factory(WhereToEatTown::class)->create(['county_id' => $county->id]);
+        $user = $this->create(User::class);
 
-        DailyUpdateType::query()->find(DailyUpdateType::WTE_COUNTY)->subscribe($user, $county);
+        DailyUpdateType::query()
+            ->find(DailyUpdateType::WTE_COUNTY)
+            ->subscribe($user, $county = WhereToEatCounty::query()->first());
 
-        $eatery = $this->createWhereToEat(['county_id' => $county->id, 'town_id' => $town->id]);
+        $eatery = $this->create(WhereToEat::class);
 
         $this->artisan('coeliac:send_daily_updates');
 
@@ -127,20 +122,18 @@ class SendCommandTest extends TestCase
     /** @test */
     public function itSendsTheBlogAndWhereToEatInOneNotification()
     {
-        $user = factory(User::class)->create();
-        $country = factory(WhereToEatCountry::class)->create();
-        $county = factory(WhereToEatCounty::class)->create(['country_id' => $country->id]);
-        $town = factory(WhereToEatTown::class)->create(['county_id' => $county->id]);
+        $user = $this->create(User::class);
 
-        DailyUpdateType::query()->find(DailyUpdateType::WTE_COUNTY)->subscribe($user, $county);
+        DailyUpdateType::query()
+            ->find(DailyUpdateType::WTE_COUNTY)
+            ->subscribe($user, $county = WhereToEatCounty::query()->first());
 
-        $eatery = $this->createWhereToEat(['county_id' => $county->id, 'town_id' => $town->id]);
-
-        $tag = factory(BlogTag::class)->create();
+        $eatery = $this->create(WhereToEat::class);
+        $tag = $this->create(BlogTag::class);
 
         DailyUpdateType::query()->find(DailyUpdateType::BLOG_TAGS)->subscribe($user, $tag);
 
-        $blog = factory(Blog::class)->create();
+        $blog = $this->create(Blog::class);
         $blog->tags()->attach($tag);
 
         $this->artisan('coeliac:send_daily_updates');
@@ -174,14 +167,13 @@ class SendCommandTest extends TestCase
     /** @test */
     public function itDoesntMentionBlogTagsIfNoneArePresent()
     {
-        $user = factory(User::class)->create();
-        $country = factory(WhereToEatCountry::class)->create();
-        $county = factory(WhereToEatCounty::class)->create(['country_id' => $country->id]);
-        $town = factory(WhereToEatTown::class)->create(['county_id' => $county->id]);
+        $user = $this->create(User::class);
 
-        DailyUpdateType::query()->find(DailyUpdateType::WTE_COUNTY)->subscribe($user, $county);
+        DailyUpdateType::query()
+            ->find(DailyUpdateType::WTE_COUNTY)
+            ->subscribe($user, $county = WhereToEatCounty::query()->first());
 
-        $eatery = $this->createWhereToEat(['county_id' => $county->id, 'town_id' => $town->id]);
+        $this->create(WhereToEat::class);
 
         $this->artisan('coeliac:send_daily_updates');
 
@@ -199,12 +191,12 @@ class SendCommandTest extends TestCase
     /** @test */
     public function itDoesntMentionWhereToEatIfNoneArePresent()
     {
-        $user = factory(User::class)->create();
-        $tag = factory(BlogTag::class)->create();
+        $user = $this->create(User::class);
+        $tag = $this->create(BlogTag::class);
 
         DailyUpdateType::query()->find(DailyUpdateType::BLOG_TAGS)->subscribe($user, $tag);
 
-        $blog = factory(Blog::class)->create();
+        $blog = $this->create(Blog::class);
         $blog->tags()->attach($tag);
 
         $this->artisan('coeliac:send_daily_updates');
@@ -223,17 +215,28 @@ class SendCommandTest extends TestCase
     /** @test */
     public function itHasMultipleBlogsListedIfMultipleAreAdded()
     {
-        $user = factory(User::class)->create();
-        $firstTag = factory(BlogTag::class)->create(['tag' => 'First Tag']);
-        $secondTag = factory(BlogTag::class)->create(['tag' => 'Second Tag']);
+        $user = $this->create(User::class);
+
+        [$firstTag, $secondTag] = $this->build(BlogTag::class)
+            ->state(new Sequence(
+                ['tag' => 'First Tag'],
+                ['tag' => 'Second Tag'],
+            ))
+            ->count(2)
+            ->create();
 
         DailyUpdateType::query()->find(DailyUpdateType::BLOG_TAGS)->subscribe($user, $firstTag);
         DailyUpdateType::query()->find(DailyUpdateType::BLOG_TAGS)->subscribe($user, $secondTag);
 
-        $firstBlog = factory(Blog::class)->create(['title' => 'First Blog']);
-        $firstBlog->tags()->attach($firstTag);
+        [$firstBlog, $secondBlog] = $this->build(Blog::class)
+            ->state(new Sequence(
+                ['title' => 'First Blog'],
+                ['title' => 'Second Blog'],
+            ))
+            ->count(2)
+            ->create();
 
-        $secondBlog = factory(Blog::class)->create(['title' => 'Second Blog']);
+        $firstBlog->tags()->attach($firstTag);
         $secondBlog->tags()->attach($secondTag);
 
         $this->artisan('coeliac:send_daily_updates');
@@ -258,17 +261,23 @@ class SendCommandTest extends TestCase
     /** @test */
     public function itHasMultipleEateriesListedIfMultipleArePresent()
     {
-        $user = factory(User::class)->create();
-        $country = factory(WhereToEatCountry::class)->create();
-        $county = factory(WhereToEatCounty::class)->create(['country_id' => $country->id]);
-        $firstTown = factory(WhereToEatTown::class)->create(['town' => 'First Town', 'county_id' => $county->id]);
-        $secondTown = factory(WhereToEatTown::class)->create(['town' => 'Second Town', 'county_id' => $county->id]);
+        $user = $this->create(User::class);
+
+        $firstTown = $this->create(
+            WhereToEatTown::class,
+            ['town' => 'First Town', 'county_id' => WhereToEatCounty::query()->first()->id]
+        );
+
+        $secondTown = $this->create(
+            WhereToEatTown::class,
+            ['town' => 'Second Town', 'county_id' => WhereToEatCounty::query()->first()->id]
+        );
 
         DailyUpdateType::query()->find(DailyUpdateType::WTE_TOWN)->subscribe($user, $firstTown);
         DailyUpdateType::query()->find(DailyUpdateType::WTE_TOWN)->subscribe($user, $secondTown);
 
-        $this->createWhereToEat(['county_id' => $county->id, 'town_id' => $firstTown->id, 'name' => 'First Place']);
-        $this->createWhereToEat(['county_id' => $county->id, 'town_id' => $secondTown->id, 'name' => 'Second Place']);
+        $this->create(WhereToEat::class, ['town_id' => $firstTown->id, 'name' => 'First Place']);
+        $this->create(WhereToEat::class, ['town_id' => $secondTown->id, 'name' => 'Second Place']);
 
         $this->artisan('coeliac:send_daily_updates');
 
@@ -292,17 +301,16 @@ class SendCommandTest extends TestCase
     /** @test */
     public function itCanSendToMultipleUsers()
     {
-        $firstUser = factory(User::class)->create();
-        $secondUser = factory(User::class)->create();
+        [$firstUser, $secondUser] = $this->build(User::class)->count(2)->create();
 
-        $tag = factory(BlogTag::class)->create();
+        $tag = $this->create(BlogTag::class);
 
         DailyUpdateType::query()->find(DailyUpdateType::BLOG_TAGS)->subscribe($firstUser, $tag);
         DailyUpdateType::query()->find(DailyUpdateType::BLOG_TAGS)->subscribe($secondUser, $tag);
 
         $this->assertEmpty(DailyUpdatesQueue::all());
 
-        $blog = factory(Blog::class)->create();
+        $blog = $this->create(Blog::class);
         $blog->tags()->attach($tag);
 
         $this->artisan('coeliac:send_daily_updates');
@@ -314,14 +322,14 @@ class SendCommandTest extends TestCase
     /** @test */
     public function itDeletesTheQueudNotificationsAfterTheyAreSent()
     {
-        $user = factory(User::class)->create();
-        $tag = factory(BlogTag::class)->create();
+        $user = $this->create(User::class);
+        $tag = $this->create(BlogTag::class);
 
         DailyUpdateType::query()->find(DailyUpdateType::BLOG_TAGS)->subscribe($user, $tag);
 
         $this->assertEmpty(DailyUpdatesQueue::all());
 
-        $blog = factory(Blog::class)->create();
+        $blog = $this->create(Blog::class);
         $blog->tags()->attach($tag);
 
         $this->assertNotEmpty(DailyUpdatesQueue::all());
@@ -334,12 +342,12 @@ class SendCommandTest extends TestCase
     /** @test */
     public function itIncludesAManagePreferencesLink()
     {
-        $user = factory(User::class)->create();
-        $tag = factory(BlogTag::class)->create();
+        $user = $this->create(User::class);
+        $tag = $this->create(BlogTag::class);
 
         DailyUpdateType::query()->find(DailyUpdateType::BLOG_TAGS)->subscribe($user, $tag);
 
-        $blog = factory(Blog::class)->create();
+        $blog = $this->create(Blog::class);
         $blog->tags()->attach($tag);
 
         $this->artisan('coeliac:send_daily_updates');

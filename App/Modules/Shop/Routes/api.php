@@ -23,7 +23,7 @@ $router->group(['prefix' => 'api/shop'], static function () use ($router) {
         $router->post('/', [BasketController::class, 'create']);
         $router->put('/', [BasketController::class, 'update']);
         $router->get('summary', [BasketController::class, 'get']);
-        $router->post('/discount', [BasketDiscountController::class, 'get']);
+        $router->post('discount', [BasketDiscountController::class, 'create']);
     });
 
     $router->group(['prefix' => 'product/{id}'], static function () use ($router) {

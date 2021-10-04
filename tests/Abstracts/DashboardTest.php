@@ -8,12 +8,9 @@ use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Testing\TestResponse;
 use Coeliac\Modules\Member\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 abstract class DashboardTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected User $user;
 
     abstract protected function page(): string;
@@ -32,7 +29,7 @@ abstract class DashboardTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = $this->create(User::class);
         $this->actingAs($this->user);
     }
 
@@ -71,8 +68,6 @@ abstract class DashboardTest extends TestCase
     /** @test */
     public function itReturnsOkWhenTheUserIsSignedIn()
     {
-        $this->withoutExceptionHandling();
-
         $this->makeRequest()->assertOk();
     }
 

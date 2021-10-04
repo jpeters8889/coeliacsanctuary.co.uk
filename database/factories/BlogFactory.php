@@ -1,19 +1,31 @@
 <?php
 
-declare(strict_types=1);
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Coeliac\Modules\Blog\Models\Blog;
+use Illuminate\Support\Str;
 
-$factory->define(Coeliac\Modules\Blog\Models\Blog::class, function (Faker $faker) {
-    $title = $faker->sentence;
+class BlogFactory extends Factory
+{
+    protected $model = Blog::class;
 
-    return [
-        'title' => $title,
-        'slug' => \Illuminate\Support\Str::slug($title),
-        'description' => $faker->paragraph,
-        'body' => $faker->paragraph,
-        'live' => true,
-        'meta_tags' => $faker->paragraph,
-        'meta_description' => $faker->paragraph,
-    ];
-});
+    public function definition()
+    {
+        $title = $this->faker->sentence;
+
+        return [
+            'title' => $title,
+            'slug' => Str::slug($title),
+            'description' => $this->faker->paragraph,
+            'body' => $this->faker->paragraph,
+            'live' => true,
+            'meta_tags' => $this->faker->paragraph,
+            'meta_description' => $this->faker->paragraph,
+        ];
+    }
+
+    public function notLive()
+    {
+        return $this->state(fn () => ['live' => false]);
+    }
+}

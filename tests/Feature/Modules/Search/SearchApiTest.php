@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Search;
 
+use Coeliac\Modules\Blog\Models\Blog;
 use Tests\TestCase;
 use Illuminate\Support\Str;
-use Tests\Traits\CreatesBlogs;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SearchApiTest extends TestCase
 {
-    use CreatesBlogs;
-    use RefreshDatabase;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -64,7 +60,7 @@ class SearchApiTest extends TestCase
     /** @test */
     public function itReturnsAnExpectedResult()
     {
-        $this->createBlog(['title' => 'foo bar']);
+        $this->create(Blog::class, ['title' => 'foo bar']);
 
         $this->makeRequest('foo')
             ->assertJsonCount(1, 'data')
@@ -74,7 +70,10 @@ class SearchApiTest extends TestCase
     /** @test */
     public function itDoesntReturnTheResultIfItsNotLive()
     {
-        $this->createBlog(['title' => 'foo bar', 'live' => 0]);
+        $this->build(Blog::class)
+            ->notLive()
+            ->state(['title' => 'foo bar'])
+            ->create();
 
         $this->makeRequest('foo')
             ->assertJsonCount(0, 'data');
@@ -83,7 +82,7 @@ class SearchApiTest extends TestCase
     /** @test */
     public function itDoesntReturnABlogIfWeDontSearchForABlog()
     {
-        $this->createBlog(['title' => 'foo bar']);
+        $this->create(Blog::class, ['title' => 'foo bar']);
 
         $this->makeRequest('foo', ['blogs' => false])
             ->assertJsonCount(0, 'data');

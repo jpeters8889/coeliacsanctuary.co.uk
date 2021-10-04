@@ -51,7 +51,7 @@ class BlogRepositoryTest extends RepositoryTest
     /** @test */
     public function itHasTheTagsIncluded()
     {
-        $this->models[0]->tags()->attach(factory(BlogTag::class)->create());
+        $this->models[0]->tags()->attach($this->create(BlogTag::class));
 
         $this->assertNotNull($this->repository->get(1)->tags);
     }

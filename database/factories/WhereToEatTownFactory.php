@@ -1,16 +1,23 @@
 <?php
 
-declare(strict_types=1);
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
+use Illuminate\Support\Str;
 
-$factory->define(WhereToEatTown::class, function (Faker $faker) {
-    $town = $faker->city;
+class WhereToEatTownFactory extends Factory
+{
+    protected $model = WhereToEatTown::class;
 
-    return [
-        'town' => $town,
-        'slug' => \Illuminate\Support\Str::slug($town),
-        'legacy' => \Illuminate\Support\Str::slug($town),
-    ];
-});
+    public function definition()
+    {
+        $town = $this->faker->city;
+
+        return [
+            'county_id' => 1,
+            'town' => $town,
+            'slug' => Str::slug($town),
+            'legacy' => Str::slug($town),
+        ];
+    }
+}

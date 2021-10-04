@@ -5,16 +5,29 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Members\Dashboard;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Member\Models\UserAddress;
+use Coeliac\Modules\Shop\Models\ShopOrderItem;
+use Coeliac\Modules\Shop\Models\ShopPayment;
+use Coeliac\Modules\Shop\Models\ShopProduct;
+use Coeliac\Modules\Shop\Models\ShopProductPrice;
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Tests\Abstracts\DashboardTest;
 use Illuminate\Testing\TestResponse;
-use Tests\Traits\Shop\MakesShopOrders;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
 
 class MemberDashboardOrderDetailsTest extends DashboardTest
 {
-    use MakesShopOrders;
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->build(UserAddress::class)
+            ->asShipping()
+            ->to($this->user)
+            ->create();
+    }
 
     protected function page(): string
     {
@@ -50,7 +63,11 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     /** @test */
     public function itReturnsTheOrdersInTheCorrectFormat()
     {
-        $this->createFullOrder(['user_id' => $this->user->id]);
+        $this->build(ShopOrder::class)
+            ->to($this->user)
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
 
         $this->makeApiRequest()
             ->assertJsonStructure([
@@ -67,8 +84,20 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     /** @test */
     public function itShowsTheCorrectNumberOfItems()
     {
-        /** @var ShopOrder $order */
-        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+        $order = $this->build(ShopOrder::class)
+            ->to($this->user)
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
+
+        $this->build(ShopOrderItem::class)
+            ->to($order)
+            ->add($this->build(ShopProductVariant::class)
+                ->in($this->build(ShopProduct::class)
+                    ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+                    ->create())
+                ->create(['weight' => 10]))
+            ->create();
 
         $this->makeApiRequest()->assertJsonFragment(['number_of_items' => 1]);
 
@@ -86,8 +115,11 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     /** @test */
     public function itShowsTheCorrectState()
     {
-        /** @var ShopOrder $order */
-        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+        $order = $this->build(ShopOrder::class)
+            ->to($this->user)
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
 
         $this->makeApiRequest()->assertJsonFragment(['state' => 'Order']);
 
@@ -99,8 +131,11 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     /** @test */
     public function itShowsTheShippedAtDate()
     {
-        /** @var ShopOrder $order */
-        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+        $order = $this->build(ShopOrder::class)
+            ->to($this->user)
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
 
         $this->makeApiRequest()->assertJsonFragment(['shipped_at' => null]);
 
@@ -112,13 +147,20 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     /** @test */
     public function itDoesntShowBasketsThatDidntConvert()
     {
-        $this->createFullOrder(['user_id' => $this->user->id]);
+        $this->build(ShopOrder::class)
+            ->to($this->user)
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
 
         $response = $this->makeApiRequest()->json();
 
         $this->assertCount(1, $response['data']);
 
-        $this->createBasket(['user_id' => $this->user->id]);
+        $this->build(ShopOrder::class)
+            ->asBasket()
+            ->to($this->user)
+            ->create();
 
         $response = $this->makeApiRequest()->json();
 
@@ -128,11 +170,17 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     /** @test */
     public function itDoesntShowOrdersNotLinkedToTheAccount()
     {
-        $myOrder = $this->createFullOrder(['user_id' => $this->user->id]);
+        $myOrder = $this->build(ShopOrder::class)
+            ->to($this->user)
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
 
-        $secondUser = factory(User::class)->create();
-
-        $otherOrder = $this->createFullOrder(['user_id' => $secondUser->id]);
+        $otherOrder = $this->build(ShopOrder::class)
+            ->to($this->build(User::class)->has($this->build(UserAddress::class)->asShipping(), 'addresses')->create())
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
 
         $this->makeApiRequest()
             ->assertJsonFragment(['reference' => $myOrder->order_key])
@@ -142,9 +190,11 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     /** @test */
     public function itErrorsWhenTryingToLoadAnOrderDetailPageForAnotherUser()
     {
-        $secondUser = factory(User::class)->create();
-
-        $otherOrder = $this->createFullOrder(['user_id' => $secondUser->id]);
+        $otherOrder = $this->build(ShopOrder::class)
+            ->to($this->build(User::class)->has($this->build(UserAddress::class)->asShipping(), 'addresses')->create())
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
 
         $this->get("/api/member/dashboard/orders/{$otherOrder->order_key}")->assertStatus(403);
     }
@@ -153,7 +203,11 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     public function itLoadsTheOrderDetailPageForTheCorrectUser()
     {
         /** @var ShopOrder $order */
-        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+        $order = $this->build(ShopOrder::class)
+            ->to($this->user)
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
 
         $this->get("/api/member/dashboard/orders/{$order->order_key}")->assertStatus(200);
     }
@@ -162,7 +216,11 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     public function itReturnsTheOrdersData()
     {
         /** @var ShopOrder $order */
-        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+        $order = $this->build(ShopOrder::class)
+            ->to($this->user)
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
 
         $response = $this->makeOrderInfoRequest($order)->json();
 
@@ -177,7 +235,11 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     public function itReturnsTheCorrectShippingAddress()
     {
         /** @var ShopOrder $order */
-        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+        $order = $this->build(ShopOrder::class)
+            ->to($this->user)
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
 
         $order->address->update($params = [
             'line_1' => 'First Line',
@@ -200,7 +262,11 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     public function itReturnsAnArrayOfItems()
     {
         /** @var ShopOrder $order */
-        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+        $order =$this->build(ShopOrder::class)
+            ->to($this->user)
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
 
         $request = $this->makeOrderInfoRequest($order)->json();
 
@@ -211,7 +277,20 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     public function itReturnsTheItemsInTheCorrectFormat()
     {
         /** @var ShopOrder $order */
-        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+        $order = $this->build(ShopOrder::class)
+            ->to($this->user)
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
+
+        $this->build(ShopOrderItem::class)
+            ->to($order)
+            ->add($this->build(ShopProductVariant::class)
+                ->in($this->build(ShopProduct::class)
+                    ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+                    ->create())
+                ->create(['weight' => 10]))
+            ->create();
 
         $request = $this->makeOrderInfoRequest($order)->json();
 
@@ -229,7 +308,11 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     public function itReturnsThePaymentInformation()
     {
         /** @var ShopOrder $order */
-        $order = $this->createFullOrder(['user_id' => $this->user->id]);
+        $order = $this->build(ShopOrder::class)
+            ->to($this->user)
+            ->asPaid()
+            ->has($this->build(ShopPayment::class), 'payment')
+            ->create();
 
         $request = $this->makeOrderInfoRequest($order)->json();
 

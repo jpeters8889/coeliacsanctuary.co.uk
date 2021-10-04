@@ -8,22 +8,19 @@ use Tests\TestCase;
 use Spatie\TestTime\TestTime;
 use Coeliac\Modules\Member\Models\User;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Member\Notifications\ResendVerifyEmail;
 
 class VeryEmailTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected User $user;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create([
-            'email_verified_at' => null,
-        ]);
+        $this->user = $this->build(User::class)
+            ->notVerified()
+            ->create();
 
         $this->actingAs($this->user);
     }
@@ -62,7 +59,7 @@ class VeryEmailTest extends TestCase
     /** @test */
     public function itErrorsIfYouAttemptToVerifyADifferentUser()
     {
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs($this->create(User::class));
 
         $this->get($this->user->generateEmailVerificationLink())->assertStatus(403);
     }
@@ -84,7 +81,7 @@ class VeryEmailTest extends TestCase
 
         Notification::fake();
 
-        $this->actingAs($user = factory(User::class)->create(['email_verified_at' => null]));
+        $this->actingAs($user = $this->build(User::class)->notVerified()->create());
 
         $this->post('/api/member/verify-email');
 

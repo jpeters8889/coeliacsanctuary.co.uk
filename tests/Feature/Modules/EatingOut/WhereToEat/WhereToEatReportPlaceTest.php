@@ -10,15 +10,11 @@ use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\EatingOut\WhereToEat\Events\PlaceReportSubmitted;
-use Tests\Traits\CreatesWhereToEat;
 
 class WhereToEatReportPlaceTest extends TestCase
 {
-    use RefreshDatabase;
     use WithFaker;
-    use CreatesWhereToEat;
 
     protected WhereToEat $eatery;
 
@@ -26,7 +22,7 @@ class WhereToEatReportPlaceTest extends TestCase
     {
         parent::setUp();
 
-        $this->eatery = $this->createWhereToEat();
+        $this->eatery = $this->create(WhereToEat::class);
         $this->setUpFaker();
     }
 
@@ -40,8 +36,6 @@ class WhereToEatReportPlaceTest extends TestCase
     /** @test */
     public function itReturnsASuccesfulResponseWhenAllValidDataIsSent()
     {
-        $this->withoutExceptionHandling();
-
         Event::fake();
 
         $this->makeReportPlaceRequest()->assertStatus(200);

@@ -6,18 +6,13 @@ namespace Tests\Feature\Modules\Members;
 
 use Carbon\Carbon;
 use Tests\TestCase;
-use Tests\Traits\CreateUser;
 use Spatie\TestTime\TestTime;
 use Tests\Mocks\UserActivityMock;
 use Coeliac\Modules\Member\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Member\Contracts\UserActivityMonitor;
 
 class UpdateUserActivityCommandTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreateUser;
-
     protected User $firstUser;
     protected User $secondUser;
     protected UserActivityMonitor $activityMonitor;
@@ -28,8 +23,8 @@ class UpdateUserActivityCommandTest extends TestCase
 
         $this->app->instance(UserActivityMonitor::class, new UserActivityMock());
 
-        $this->firstUser = $this->createUser();
-        $this->secondUser = $this->createUser();
+        $this->firstUser = $this->build(User::class)->asMember()->create();
+        $this->secondUser = $this->build(User::class)->asMember()->create();
 
         TestTime::freeze();
 
