@@ -1,7 +1,7 @@
 <template>
     <div class="hidden xxs:block">
         <div id="breadcrumb"
-             class="my-2 border-grey-off border bg-grey-off-light p-2 leading-none"
+             class="my-2 border-grey-off border bg-grey-off-light p-2 leading-none z-10"
              :class="sticky ? 'fixed top-50px slide-down w-full mt-1' : ''">
             <div class="leading-none inner-wrapper flex flex-col md:flex-row md:items-center"
                  :style="sticky ? 'max-width: 1500px;' : ''">

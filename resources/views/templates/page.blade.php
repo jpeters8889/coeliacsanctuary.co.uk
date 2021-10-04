@@ -3,7 +3,7 @@
 @section('content')
     @include('components.announcement')
 
-    <header class="flex flex-col bg-blue-light border-yellow border-b-4">
+    <header class="flex flex-col bg-blue-light border-yellow border-b-4 z-20">
         <div style="min-height: 60px">
             <global-layout-top-bar>
                 <global-layout-mobile-nav class="mr-2 md:hidden"></global-layout-mobile-nav>
