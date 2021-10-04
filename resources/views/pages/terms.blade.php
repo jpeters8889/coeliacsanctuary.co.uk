@@ -27,7 +27,8 @@
                 <div class="border-b border-blue-light border-opacity-50 py-2">
                     <h2 class="text-blue-dark mb-2 text-xl font-coeliac font-semibold">Recipes</h2>
                     <p>
-                        Recipes are developed and belong to Alison Wheatley or Jamie Peters unless otherwise specified.
+                        Recipes are developed and belong to Alison Peters (Née Wheatley) or Jamie Peters unless
+                        otherwise specified.
                     </p>
                 </div>
                 <div class="border-b border-blue-light border-opacity-50 py-2">
@@ -39,23 +40,37 @@
                         believe one of our listings is wrong please <a href="/wheretoeat/place-request">contact us</a>.
                     </p>
                     <p>
+                        When we get a recommendation of place to add we do a quick basic check which involves checking
+                        the establishments website, menus, social media and reviews to check they offer gluten free and
+                        have positive reviews from people eating gluten free.
+                    </p>
+                    <p>
+                        Unfortunately we do not have the capability to give a thorough or in person check to any place
+                        added to our website.
+                    </p>
+                    <p>
                         Locations may be added or removed from the eating out guide at any time.
                     </p>
                     <p>
-                        All ratings on places to eat are added by website visitors or through our app, any star ratings
-                        are automatically approved, but any ratings that include a small review will go through an
-                        approval process.
+                        All ratings on places in our eating out guide are added by website visitors or through our app,
+                        any star ratings are automatically approved, but any ratings that include a small review will go
+                        through an approval process.
                     </p>
                     <p>
                         If a review is mostly negative or says that a location has closed or changed, we reserve the
                         right to not publish that review, and even remove that eatery from our database.
                     </p>
+                    <p>
+                        A location being listed in our eating guide is in no way an endorsement of that establishment
+                        and we are not liable for any issues you may get from eating there. If you are unsure please
+                        check with the establishment themselves about their procedures.
+                    </p>
                 </div>
                 <div class="border-b border-blue-light border-opacity-50 py-2">
                     <h2 class="text-blue-dark mb-2 text-xl font-coeliac font-semibold">Our Reviews</h2>
                     <p>
-                        Star ratings on all reviews are applied based on the reviewers opinion at the time of visit or
-                        at time of visiting the location.
+                        Any star ratings and our reviews are written based on our opinion at the time of visit, their
+                        procedures, the quality of the food and value for money.
                     </p>
                     <p>
                         All of our visits are unannounced and we just visit the locations as normal members of the
@@ -150,7 +165,7 @@
                     </p>
                     <p>
                         New language cards can and will be added at any time, if you have purchased a full set in the
-                        past you will not be entitled to receive any new cards in the future unless you purchase them
+                        past are not be entitled to receive any new cards in the future unless you purchase them
                         separately.
                     </p>
                 </div>
