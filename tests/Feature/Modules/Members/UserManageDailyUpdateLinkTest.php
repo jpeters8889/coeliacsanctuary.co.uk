@@ -7,19 +7,17 @@ namespace Tests\Feature\Modules\Members;
 use Tests\TestCase;
 use Spatie\TestTime\TestTime;
 use Coeliac\Modules\Member\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserManageDailyUpdateLinkTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected User $user;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = $this->create(User::class);
+
         TestTime::freeze();
     }
 
@@ -48,7 +46,7 @@ class UserManageDailyUpdateLinkTest extends TestCase
     /** @test */
     public function itDoesntLogInADifferentUser()
     {
-        $user = factory(User::class)->create();
+        $user = $this->create(User::class);
 
         $this->actingAs($user);
 

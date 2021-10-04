@@ -5,18 +5,17 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Blogs;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\Blog\Models\BlogTag;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Tests\Traits\CreatesBlogs;
 use Coeliac\Common\Models\Image;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BlogTest extends TestCase
 {
-    use CreatesBlogs;
     use HasImages;
-    use RefreshDatabase;
     use WithFaker;
 
     /** @test */
@@ -30,102 +29,117 @@ class BlogTest extends TestCase
     /** @test */
     public function itLoadsTheBlogApiEndpoint()
     {
-        for ($blog = 0; $blog < 13; ++$blog) {
-            $this->createBlog([
-                'title' => 'blog-'.$blog,
-                'created_at' => Carbon::now()->subDays($blog),
+        $this->build(Blog::class)
+            ->count(13)
+            ->sequence(fn ($sequence) => ['created_at' => Carbon::now()->subMonth()->addDay($sequence->index)])
+            ->create();
+
+        $this->get('/api/blogs')
+            ->assertJsonStructure([
+                'data' => [
+                    'current_page',
+                    'data',
+                    'first_page_url',
+                    'from',
+                    'last_page',
+                    'last_page_url',
+                    'next_page_url',
+                    'path',
+                    'per_page',
+                    'prev_page_url',
+                    'to',
+                    'total',
+                ],
             ])
-                ->associateImage($this->makeImage(['file_name' => 'image-'.$blog]), Image::IMAGE_CATEGORY_HEADER)
-                ->tags()->attach($this->createBlogTag(['tag' => 'tag-'.$blog]));
-        }
-
-        $request = $this->get('/api/blogs');
-
-        $request->assertJsonStructure([
-            'data' => [
-                'current_page',
-                'data',
-                'first_page_url',
-                'from',
-                'last_page',
-                'last_page_url',
-                'next_page_url',
-                'path',
-                'per_page',
-                'prev_page_url',
-                'to',
-                'total',
-            ],
-        ]);
-
-        for ($blog = 0; $blog < 12; ++$blog) {
-            $request->assertSee('blog-'.$blog, false);
-            $request->assertSee('image-'.$blog, false);
-            $request->assertSee('tag-'.$blog, false);
-        }
-
-        $request->assertDontSee('blog-12');
-        $request->assertDontSee('image-12');
-        $request->assertDontSee('tag-12');
+            ->assertJsonMissing(['id' => 1]);
     }
 
     /** @test */
     public function itOnlyShowsMatchingBlogsWhenFilteredByTags()
     {
-        $visibleBlog = $this->createBlog(['title' => 'visible-blog-title']);
-        $hiddenBlog = $this->createBlog(['title' => 'hidden-blog-title']);
+        [$visibleBlog, $hiddenBlog] = $this->build(Blog::class)
+            ->count(2)
+            ->state(new Sequence(
+                ['title' => 'Visible Blog'],
+                ['title' => 'Hidden Blog'],
+            ))
+            ->create();
 
-        $visibleBlog->tags()->attach($this->createBlogTag(['slug' => 'visible']));
-        $hiddenBlog->tags()->attach($this->createBlogTag(['slug' => 'hidden']));
+        [$visibleTag, $hiddenTag] = $this->build(BlogTag::class)
+            ->count(2)
+            ->state(new Sequence(
+                ['slug' => 'visible'],
+                ['slug' => 'hidden'],
+            ))
+            ->create();
+
+        $visibleBlog->tags()->attach($visibleTag);
+        $hiddenBlog->tags()->attach($hiddenTag);
 
         $this->get('/api/blogs?filter[tags]=visible')
-            ->assertSee('visible-blog-title', false)
-            ->assertDontSee('hidden-blog-title');
+            ->assertSee('Visible Blog', false)
+            ->assertDontSee('Hidden Blog');
     }
 
     /** @test */
     public function itOnlyShowsMatchingBlogsWhenFilteredByYears()
     {
-        $this->createBlog(['title' => 'visible-blog-title']);
-        $this->createBlog(['title' => 'hidden-blog-title', 'created_at' => Carbon::now()->subYear()]);
+        $this->build(Blog::class)
+            ->count(2)
+            ->state(new Sequence(
+                ['title' => 'Visible Blog'],
+                ['title' => 'Hidden Blog', 'created_at' => Carbon::now()->subYear()],
+            ))
+            ->create();
 
-        $this->get('/api/blogs?filter[year]='.date('Y'))
-            ->assertSee('visible-blog-title', false)
-            ->assertDontSee('hidden-blog-title');
+        $this->get('/api/blogs?filter[year]=' . date('Y'))
+            ->assertSee('Visible Blog', false)
+            ->assertDontSee('Hidden Blog');
     }
 
     /** @test */
     public function itShowsAndFiltersTheBlogYearsPage()
     {
-        $first = $this->createBlog(['title' => 'this-year-blog-one']);
-        $second = $this->createBlog(['title' => 'this-year-blog-two']);
-        $third = $this->createBlog(['title' => 'last-year-blog', 'created_at' => Carbon::now()->subYear()]);
+        [$first, , $third] = $this->build(Blog::class)
+            ->count(3)
+            ->state(new Sequence([], [], ['created_at' => Carbon::now()->subYear()]))
+            ->create();
 
-        $first->tags()->attach($tag = $this->createBlogTag(['slug' => 'tag']));
+        $tag = $this->create(BlogTag::class, ['slug' => 'tag']);
+
+        $first->tags()->attach($tag);
         $third->tags()->attach($tag);
 
         $this->get('/api/blogs/years')
             ->assertStatus(200)
-            ->assertJsonFragment(['year' => (int) date('Y'), 'blogs_count' => 2])
-            ->assertJsonFragment(['year' => (int) date('Y') - 1, 'blogs_count' => 1]);
+            ->assertJsonFragment(['year' => (int)date('Y'), 'blogs_count' => 2])
+            ->assertJsonFragment(['year' => (int)date('Y') - 1, 'blogs_count' => 1]);
 
         $this->get('/api/blogs/years?filter[tags]=tag')
             ->assertStatus(200)
-            ->assertJsonFragment(['year' => (int) date('Y'), 'blogs_count' => 1])
-            ->assertJsonFragment(['year' => (int) date('Y') - 1, 'blogs_count' => 1]);
+            ->assertJsonFragment(['year' => (int)date('Y'), 'blogs_count' => 1])
+            ->assertJsonFragment(['year' => (int)date('Y') - 1, 'blogs_count' => 1]);
     }
 
     /** @test */
     public function itShowsAndFiltersTheBlogTagsPage()
     {
-        $first = $this->createBlog(['title' => 'this-year-blog-one']);
-        $second = $this->createBlog(['title' => 'this-year-blog-two']);
-        $third = $this->createBlog(['title' => 'last-year-blog', 'created_at' => Carbon::now()->subYear()]);
+        [$first, $second, $third] = $this->build(Blog::class)
+            ->count(3)
+            ->state(new Sequence([], [], ['created_at' => Carbon::now()->subYear()]))
+            ->create();
 
-        $first->tags()->attach($tag = $this->createBlogTag(['tag' => 'Tag', 'slug' => 'tag']));
+        [$tag, $tag2] = $this->build(BlogTag::class)
+            ->count(2)
+            ->state(new Sequence(
+                ['tag' => 'Tag', 'slug' => 'tag'],
+                ['tag' => 'Tag 2', 'slug' => 'tag2'],
+            ))
+            ->create();
+
+        $first->tags()->attach($tag);
         $third->tags()->attach($tag);
-
-        $second->tags()->attach($tag2 = $this->createBlogTag(['tag' => 'Tag 2', 'slug' => 'tag2']));
+        $second->tags()->attach($tag2);
 
         $this->get('/api/blogs/tags')
             ->assertJsonFragment([
@@ -139,9 +153,9 @@ class BlogTest extends TestCase
                 'blogs_count' => 1,
             ]);
 
-        $year = (int) date('Y') - 1;
+        $year = (int)date('Y') - 1;
 
-        $this->get('/api/blogs/tags?filter[year]='.$year)
+        $this->get('/api/blogs/tags?filter[year]=' . $year)
             ->assertJsonFragment([
                 'slug' => 'tag',
                 'title' => 'Tag',
@@ -156,15 +170,13 @@ class BlogTest extends TestCase
     /** @test */
     public function itShowsBlogContent()
     {
-        $this->withoutExceptionHandling();
-
-        $blog = $this->createBlog();
+        $blog = $this->create(Blog::class);
 
         $blog->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER)
             ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SOCIAL)
-            ->tags()->attach($tag = $this->createBlogTag());
+            ->tags()->attach($tag = $this->create(BlogTag::class));
 
-        $this->get('/blog/'.$blog->slug)
+        $this->get('/blog/' . $blog->slug)
             ->assertStatus(200)
             ->assertSee($blog->title, false)
             ->assertSee($blog->body, false)
@@ -176,10 +188,8 @@ class BlogTest extends TestCase
     /** @test */
     public function itDoesntLoadBlogsThatArentLive()
     {
-        $blog = $this->createBlog(['live' => false]);
+        $blog = $this->build(Blog::class)->notLive()->create();
 
-        $response = $this->get('/blog/'.$blog->slug);
-
-        $response->assertNotFound();
+        $this->get('/blog/' . $blog->slug)->assertNotFound();
     }
 }

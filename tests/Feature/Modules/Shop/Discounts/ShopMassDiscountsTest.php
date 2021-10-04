@@ -5,24 +5,17 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Shop\Discounts;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Tests\TestCase;
 use Spatie\TestTime\TestTime;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
-use Tests\Traits\Shop\CreateCategory;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopCategory;
 use Coeliac\Modules\Shop\Models\ShopMassDiscount;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ShopMassDiscountsTest extends TestCase
 {
-    use CreateProduct;
-    use CreateCategory;
-    use CreateVariant;
-    use RefreshDatabase;
-
     private ShopProduct $firstProduct;
     private ShopProduct $secondProduct;
 
@@ -32,37 +25,34 @@ class ShopMassDiscountsTest extends TestCase
 
         TestTime::freeze();
 
-        $firstCategory = $this->createCategory(['title' => 'First Category']);
-        $secondCategory = $this->createCategory(['title' => 'Second Category']);
+        [$this->firstProduct, $this->secondProduct] = $this->build(ShopProduct::class)
+            ->count(2)
+            ->state(new Sequence(
+                ['title' => 'First Product'],
+                ['title' => 'Second Product'],
+            ))
+            ->has($this->build(ShopProductPrice::class), 'prices')
+            ->has($this->build(ShopProductVariant::class), 'variants')
+            ->create();
 
-        $this->firstProduct = $this->createProduct($firstCategory, ['title' => 'First Product']);
-        $this->secondProduct = $this->createProduct($secondCategory, ['title' => 'Second Product']);
+        $this->create(ShopCategory::class)
+            ->products()
+            ->attach($this->firstProduct);
 
-        $this->createVariant($this->firstProduct, ['live' => true]);
-        $this->createVariant($this->secondProduct, ['live' => true]);
-
-        factory(ShopProductPrice::class)->create([
-            'product_id' => 1,
-            'price' => 100,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
-
-        factory(ShopProductPrice::class)->create([
-            'product_id' => 2,
-            'price' => 200,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
+        $this->create(ShopCategory::class)
+            ->products()
+            ->attach($this->secondProduct);
     }
 
     /** @test */
     public function itCanHaveCategories()
     {
         /** @var ShopMassDiscount $discount */
-        $discount = factory(ShopMassDiscount::class)->create();
+        $discount = $this->create(ShopMassDiscount::class);
 
         $this->assertEmpty($discount->assignedCategories);
 
-        $discount->assignedCategories()->attach(1);
+        $discount->assignedCategories()->attach($this->create(ShopCategory::class));
 
         $this->assertCount(1, $discount->fresh()->assignedCategories);
     }
@@ -71,7 +61,7 @@ class ShopMassDiscountsTest extends TestCase
     public function itAppliesTheDiscountToAllProducts()
     {
         /** @var ShopMassDiscount $discount */
-        $discount = factory(ShopMassDiscount::class)->create();
+        $discount = $this->create(ShopMassDiscount::class);
         $discount->assignedCategories()->attach([1, 2]);
 
         $this->assertCount(1, $this->firstProduct->prices);
@@ -88,16 +78,13 @@ class ShopMassDiscountsTest extends TestCase
     /** @test */
     public function itDoesntApplyTheDiscountsToNotLiveProducts()
     {
-        $notLiveProduct = $this->createProduct(ShopCategory::query()->first(), ['title' => 'First Product']);
-        $this->createVariant($notLiveProduct, ['live' => true]);
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $notLiveProduct->id,
-            'price' => 100,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
+        $notLiveProduct = $this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class), 'prices')
+            ->has($this->build(ShopProductVariant::class)->notLive(), 'variants')
+            ->create();
 
         /** @var ShopMassDiscount $discount */
-        $discount = factory(ShopMassDiscount::class)->create();
+        $discount = $this->create(ShopMassDiscount::class);
         $discount->assignedCategories()->attach(1);
 
         $this->assertCount(1, $notLiveProduct->prices);
@@ -113,7 +100,7 @@ class ShopMassDiscountsTest extends TestCase
     public function itDoesntApplyTheDiscountToCategoriesNotInTheDiscount()
     {
         /** @var ShopMassDiscount $discount */
-        $discount = factory(ShopMassDiscount::class)->create();
+        $discount = $this->create(ShopMassDiscount::class);
         $discount->assignedCategories()->attach(2);
 
         $this->assertCount(1, $this->firstProduct->prices);
@@ -129,7 +116,8 @@ class ShopMassDiscountsTest extends TestCase
     public function itAppliesTheCorrectDiscounts()
     {
         /** @var ShopMassDiscount $discount */
-        $discount = factory(ShopMassDiscount::class)->create(['percentage' => 10]);
+        $discount = $this->create(ShopMassDiscount::class, ['percentage' => 10]);
+
         $discount->assignedCategories()->attach([1, 2]);
 
         $prices = [$this->firstProduct->currentPrice, $this->secondProduct->currentPrice];
@@ -138,7 +126,10 @@ class ShopMassDiscountsTest extends TestCase
         $this->artisan('coeliac:apply_mass_discounts');
 
         foreach ([$this->firstProduct->fresh(), $this->secondProduct->fresh()] as $index => $product) {
+            $this->assertGreaterThan(1, $product->prices->count());
+
             /** @var ShopProduct $product */
+            /** @var ShopProductPrice $latestPrice */
             $latestPrice = $product->prices()->latest()->first();
 
             $this->assertTrue($discount->start_at->eq($latestPrice->start_at));
@@ -155,8 +146,10 @@ class ShopMassDiscountsTest extends TestCase
     public function itShowsTheNewPriceOnThePage()
     {
         /** @var ShopMassDiscount $discount */
-        $discount = factory(ShopMassDiscount::class)->create(['percentage' => 10]);
+        $discount = $this->create(ShopMassDiscount::class, ['percentage' => 10]);
         $discount->assignedCategories()->attach(1);
+
+        $this->firstProduct->prices->first()->update(['price' => 100]);
 
         $this->get('/api/shop/product/'.$this->firstProduct->id)
             ->assertJsonStructure(['data' => ['price' => ['current_price']]])
@@ -177,7 +170,10 @@ class ShopMassDiscountsTest extends TestCase
     public function itDoesntReturnAfterTheEndDateHasAssed()
     {
         /** @var ShopMassDiscount $discount */
-        $discount = factory(ShopMassDiscount::class)->create(['percentage' => 10, 'end_at' => Carbon::today()]);
+        $discount = $this->create(ShopMassDiscount::class, ['percentage' => 10, 'end_at' => Carbon::today()]);
+
+        $this->firstProduct->prices->first()->update(['price' => 100]);
+
         $discount->assignedCategories()->attach(1);
 
         TestTime::addMinute();

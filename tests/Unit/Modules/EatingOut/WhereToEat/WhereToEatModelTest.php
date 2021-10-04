@@ -4,26 +4,25 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\EatingOut\WhereToEat;
 
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatFeature;
 use Tests\TestCase;
-use Tests\Traits\ClearingCacheTest;
-use Tests\Traits\CreatesWhereToEat;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Traits\ClearsCache;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
 class WhereToEatModelTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreatesWhereToEat;
-    use ClearingCacheTest;
+    use ClearsCache;
 
     /** @var WhereToEat */
-    private $wheretoeat;
+    private WhereToEat $wheretoeat;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->wheretoeat = $this->createWhereToEat();
+        $this->wheretoeat = $this->build(WhereToEat::class)
+            ->has($this->build(WhereToEatFeature::class), 'features')
+            ->create();
     }
 
     /** @test */
@@ -69,6 +68,6 @@ class WhereToEatModelTest extends TestCase
 
     protected function makeCachedModel(): void
     {
-        $this->createWhereToEat();
+        $this->create(WhereToEat::class);
     }
 }

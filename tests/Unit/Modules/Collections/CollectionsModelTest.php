@@ -6,21 +6,17 @@ namespace Tests\Unit\Modules\Collections;
 
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Tests\Traits\CreatesBlogs;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Collection\Models\Collection;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CollectionsModelTest extends TestCase
 {
-    use RefreshDatabase;
     use HasImages;
-    use CreatesBlogs;
 
     /** @test */
     public function itCreatesASlug()
     {
-        $collection = factory(Collection::class)->create(['title' => 'Test Collection']);
+        $collection = $this->create(Collection::class, ['title' => 'Test Collection']);
 
         $this->assertNotNull($collection->slug);
         $this->assertEquals('test-collection', $collection->slug);
@@ -30,7 +26,7 @@ class CollectionsModelTest extends TestCase
     public function itCanHaveAnImageAssociatedWithTheCollection()
     {
         /** @var Collection $collection */
-        $collection = factory(Collection::class)->create();
+        $collection = $this->create(Collection::class);
 
         $collection->associateImage($this->makeImage());
 
@@ -41,12 +37,12 @@ class CollectionsModelTest extends TestCase
     public function itCanHaveItemsAddedToTheCollection()
     {
         /** @var Collection $collection */
-        $collection = factory(Collection::class)->create();
+        $collection = $this->create(Collection::class);
 
         $this->assertEmpty($collection->items);
 
         /** @var Blog $blog */
-        $blog = $this->createBlog();
+        $blog = $this->create(Blog::class);
 
         $collection->addItem($blog, $blog->meta_description)->refresh();
 

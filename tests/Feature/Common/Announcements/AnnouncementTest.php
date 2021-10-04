@@ -7,12 +7,9 @@ namespace Tests\Feature\Common\Announcements;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Coeliac\Common\Models\Announcement;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AnnouncementTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function itDoesntShowAnAnnouncentWhenThereIsntAnyAnnouncements()
     {
@@ -28,7 +25,7 @@ class AnnouncementTest extends TestCase
     /** @test */
     public function itDoesntShowAnAnnouncementWhenItIsntLive()
     {
-        factory(Announcement::class)->create(['live' => false]);
+        $this->build(Announcement::class)->hidden()->create();
 
         $this->get('/')
             ->assertStatus(200)
@@ -42,7 +39,7 @@ class AnnouncementTest extends TestCase
     /** @test */
     public function itDoesntShowAnAnnouncementThatHasExpired()
     {
-        factory(Announcement::class)->create(['expires_at' => Carbon::now()->subHour()]);
+        $this->build(Announcement::class)->hasExpired()->create();
 
         $this->get('/')
             ->assertStatus(200)
@@ -56,7 +53,7 @@ class AnnouncementTest extends TestCase
     /** @test */
     public function itLoadsAnAnnouncement()
     {
-        $announcement = factory(Announcement::class)->create();
+        $announcement = $this->create(Announcement::class);
 
         $this->get('/')
             ->assertStatus(200)

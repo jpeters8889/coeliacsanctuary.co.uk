@@ -8,12 +8,9 @@ use Tests\TestCase;
 use Illuminate\Session\Store;
 use Coeliac\Modules\Shop\Basket\Basket;
 use Coeliac\Modules\Shop\Models\ShopOrder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ShopBasketTest extends TestCase
 {
-    use RefreshDatabase;
-
     private Store $session;
     private Basket $basket;
 

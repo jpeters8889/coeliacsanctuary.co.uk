@@ -9,18 +9,16 @@ use Tests\TestCase;
 use Illuminate\Support\Str;
 use Tests\Traits\HasImages;
 use Spatie\TestTime\TestTime;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Competition\Models\Competition;
 
 class CompetitionModelTest extends TestCase
 {
-    use RefreshDatabase;
     use HasImages;
 
     /** @test */
     public function itCreatesAUuidWhenCreatingARow()
     {
-        $competition = factory(Competition::class)->create();
+        $competition = $this->create(Competition::class);
 
         $this->assertNotNull($competition->uuid);
         $this->assertTrue(Str::isUuid($competition->uuid));
@@ -29,7 +27,7 @@ class CompetitionModelTest extends TestCase
     /** @test */
     public function itCanHaveImages()
     {
-        $competition = factory(Competition::class)->create();
+        $competition = $this->create(Competition::class);
 
         $competition->associateImage($this->makeImage());
 
@@ -39,9 +37,7 @@ class CompetitionModelTest extends TestCase
     /** @test */
     public function itKnowsIfItsActive()
     {
-        $competition = factory(Competition::class)->create();
-
-        $this->assertIsBool($competition->isActive());
+        $this->assertIsBool($this->create(Competition::class)->isActive());
     }
 
     /** @test */
@@ -49,9 +45,10 @@ class CompetitionModelTest extends TestCase
     {
         TestTime::freeze();
 
-        $competition = factory(Competition::class)->create([
-            'start_at' => Carbon::tomorrow()->addWeek()->startOfDay(),
-        ]);
+        $competition = $this->build(Competition::class)
+            ->that()
+            ->startsNextWeek()
+            ->create();
 
         $this->assertFalse($competition->isActive());
 
@@ -65,9 +62,10 @@ class CompetitionModelTest extends TestCase
     {
         TestTime::freeze();
 
-        $competition = factory(Competition::class)->create([
-            'end_At' => Carbon::now()->addWeek()->endOfDay(),
-        ]);
+        $competition = $this->build(Competition::class)
+            ->that()
+            ->endsNextWeek()
+            ->create();
 
         $this->assertTrue($competition->isActive());
 
@@ -85,10 +83,10 @@ class CompetitionModelTest extends TestCase
     {
         TestTime::freeze();
 
-        $competition = factory(Competition::class)->create([
-            'start_at' => Carbon::tomorrow()->startOfDay(),
-            'end_at' => Carbon::tomorrow()->endOfDay(),
-        ]);
+        $competition = $this->build(Competition::class)
+            ->that()
+            ->isForOneDayOnly()
+            ->create();
 
         $this->assertFalse($competition->isOpenForEntries());
 

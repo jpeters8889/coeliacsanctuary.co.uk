@@ -5,26 +5,21 @@ declare(strict_types=1);
 namespace Tests\Unit\Modules\EatingOut\WhereToEat;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatSearchTerm;
 
 class WhereToEatSearchTermTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function itGeneratesAKeyWhenARowIsCreated()
     {
-        $searchTerm = factory(WhereToEatSearchTerm::class)->create();
-
-        $this->assertNotNull($searchTerm->key);
+        $this->assertNotNull($this->create(WhereToEatSearchTerm::class)->key);
     }
 
     /** @test */
     public function itCanHaveSearchesAppliedToIt()
     {
         /** @var WhereToEatSearchTerm $searchTerm */
-        $searchTerm = factory(WhereToEatSearchTerm::class)->create();
+        $searchTerm = $this->create(WhereToEatSearchTerm::class);
 
         $this->assertEmpty($searchTerm->searches);
 

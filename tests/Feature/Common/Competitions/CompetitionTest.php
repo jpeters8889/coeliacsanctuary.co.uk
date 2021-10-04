@@ -8,13 +8,11 @@ use Carbon\Carbon;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
 use Spatie\TestTime\TestTime;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Competition\Models\Competition;
 
 class CompetitionTest extends TestCase
 {
     use HasImages;
-    use RefreshDatabase;
 
     /** @test */
     public function itErrorsWhenAccessingTheRootCompetitionsUrl()
@@ -33,10 +31,9 @@ class CompetitionTest extends TestCase
     {
         TestTime::freeze();
 
-        $competition = factory(Competition::class)->create([
-            'start_at' => Carbon::tomorrow()->addWeek()->startOfDay(),
-            'end_at' => Carbon::tomorrow()->addWeek()->endOfDay(),
-        ]);
+        $competition = $this->build(Competition::class)
+            ->startsNextWeek()
+            ->create();
 
         $this->get('/competition/'.$competition->slug)->assertNotFound();
 
@@ -50,10 +47,9 @@ class CompetitionTest extends TestCase
     {
         TestTime::freeze();
 
-        $competition = factory(Competition::class)->create([
-            'start_at' => Carbon::yesterday()->startOfDay(),
-            'end_at' => Carbon::yesterday()->addWeek()->endOfDay(),
-        ]);
+        $competition = $this->build(Competition::class)
+            ->startedYesterday()
+            ->create();
 
         $competition->associateImage($this->makeImage());
 
@@ -63,9 +59,7 @@ class CompetitionTest extends TestCase
     /** @test */
     public function itCanReturnTheTerms()
     {
-        $this->withoutExceptionHandling();
-
-        $competition = factory(Competition::class)->create();
+        $competition = $this->create(Competition::class);
 
         $request = $this->get("/api/competition/{$competition->uuid}/terms");
 

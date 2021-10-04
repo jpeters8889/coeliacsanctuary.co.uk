@@ -6,12 +6,9 @@ namespace Tests\Feature\Modules\Search;
 
 use Tests\TestCase;
 use Coeliac\Modules\Search\Models\SearchHistory;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SearchTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function itReturnsSuccessWithAValidSearchString()
     {

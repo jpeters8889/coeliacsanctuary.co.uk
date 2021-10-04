@@ -10,18 +10,15 @@ use Tests\Traits\HasImages;
 use Spatie\TestTime\TestTime;
 use Coeliac\Common\Models\Image;
 use Coeliac\Common\Models\Popup;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PopupTest extends TestCase
 {
     use HasImages;
-    use RefreshDatabase;
 
     protected function createPopup($data = [])
     {
-        /** @var Popup $popup */
-        $popup = factory(Popup::class)->create($data);
-        $popup->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_POPUP);
+        return $this->create(Popup::class, $data)
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_POPUP);
 
         return $popup;
     }
@@ -97,7 +94,7 @@ class PopupTest extends TestCase
 
         $popup = $this->createPopup(['display_every' => 1]);
 
-        $this->withCookie("CS_SEEN_POPUP_{$popup->id}", $now = (string) Carbon::now()->timestamp);
+        $this->withCookie("CS_SEEN_POPUP_{$popup->id}", $now = (string)Carbon::now()->timestamp);
 
         $this->get('/api/popup')->assertJson([]);
 

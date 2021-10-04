@@ -1,27 +1,41 @@
 <?php
 
-declare(strict_types=1);
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Coeliac\Modules\Recipe\Models\Recipe;
+use Illuminate\Support\Str;
 
-$factory->define(\Coeliac\Modules\Recipe\Models\Recipe::class, function (Faker $faker) {
-    $title = $faker->sentence;
+class RecipeFactory extends Factory
+{
+    protected $model = Recipe::class;
 
-    return [
-        'title' => $title,
-        'slug' => \Illuminate\Support\Str::slug($title),
-        'meta_tags' => $faker->paragraph,
-        'meta_description' => $faker->paragraph,
-        'description' => $faker->paragraph,
-        'ingredients' => $faker->text,
-        'method' => $faker->paragraphs(5, true),
-        'author' => $faker->name,
-        'serving_size' => '8 Slices',
-        'per' => 'slice',
-        'search_tags' => $faker->words(5, true),
-        'df_to_not_df' => '',
-        'prep_time' => '1 Hour',
-        'cook_time' => '1 Hour',
-        'live' => true,
-    ];
-});
+    public function definition()
+    {
+        {
+            $title = $this->faker->sentence;
+
+            return [
+                'title' => $title,
+                'slug' => Str::slug($title),
+                'meta_tags' => $this->faker->paragraph,
+                'meta_description' => $this->faker->paragraph,
+                'description' => $this->faker->paragraph,
+                'ingredients' => $this->faker->text,
+                'method' => $this->faker->paragraphs(5, true),
+                'author' => $this->faker->name,
+                'serving_size' => '8 Slices',
+                'per' => 'slice',
+                'search_tags' => $this->faker->words(5, true),
+                'df_to_not_df' => '',
+                'prep_time' => '1 Hour',
+                'cook_time' => '1 Hour',
+                'live' => true,
+            ];
+        }
+    }
+
+    public function notLive()
+    {
+        return $this->state(fn () => ['live' => false]);
+    }
+}

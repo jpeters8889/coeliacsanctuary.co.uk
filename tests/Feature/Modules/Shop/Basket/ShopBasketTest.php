@@ -9,24 +9,16 @@ use Tests\TestCase;
 use Tests\Traits\HasImages;
 use Illuminate\Session\Store;
 use Coeliac\Common\Models\Image;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
 use Coeliac\Modules\Shop\Basket\Basket;
-use Tests\Traits\Shop\HasPostageOptions;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Coeliac\Modules\Shop\Models\ShopDiscountCodeType;
 
 class ShopBasketTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreateVariant;
-    use CreateProduct;
-    use HasPostageOptions;
     use HasImages;
 
     private Store $session;
@@ -41,17 +33,14 @@ class ShopBasketTest extends TestCase
         $this->session = resolve(Store::class);
         $this->basket = resolve(Basket::class);
 
-        $this->product = $this->createProduct(null, ['shipping_method_id' => 1]);
-        $this->variant = $this->createVariant($this->product, ['live' => true]);
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $this->product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
+        $this->product = $this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 500]), 'prices')
+            ->create()
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
 
-        $this->product->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
-
-        $this->setupPostage();
+        $this->variant = $this->build(ShopProductVariant::class)
+            ->in($this->product)
+            ->create();
     }
 
     /** @test */
@@ -147,15 +136,14 @@ class ShopBasketTest extends TestCase
         $this->get('/api/shop/basket/summary')
             ->assertJsonFragment(['subtotal' => 500]);
 
-        $product = $this->createProduct(null, ['shipping_method_id' => 1]);
-        $variant = $this->createVariant($product, ['live' => true]);
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $product->id,
-            'price' => 250,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
+        $product = $this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 250]), 'prices')
+            ->create()
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
 
-        $product->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
+        $variant = $this->build(ShopProductVariant::class)
+            ->in($product)
+            ->create();
 
         $this->basket->items()->add($product, $variant);
 
@@ -171,15 +159,17 @@ class ShopBasketTest extends TestCase
         $this->get('/api/shop/basket/summary')
             ->assertJsonFragment(['postage' => 150]);
 
-        $product = $this->createProduct(null, ['shipping_method_id' => 1]);
-        $variant = $this->createVariant($product, ['live' => true, 'weight' => 110]);
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $product->id,
-            'price' => 250,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
+        $this->get('/api/shop/basket/summary')
+            ->assertJsonFragment(['subtotal' => 500]);
 
-        $product->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
+        $product = $this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 250]), 'prices')
+            ->create(['shipping_method_id' => 1])
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
+
+        $variant = $this->build(ShopProductVariant::class)
+            ->in($product)
+            ->create(['weight' => 100]);
 
         $this->basket->items()->add($product, $variant);
 
@@ -217,13 +207,10 @@ class ShopBasketTest extends TestCase
             ->assertJsonFragment(['total' => 650]);
 
         /** @var ShopDiscountCode $code */
-        $code = factory(ShopDiscountCode::class)->create([
-            'code' => 'foo',
-            'name' => 'Foo Discount',
-            'type_id' => ShopDiscountCodeType::PERCENTAGE,
-            'deduction' => 10,
-            'start_at' => Carbon::now()->subHour(),
-        ]);
+        $code = $this->build(ShopDiscountCode::class)
+            ->percentageDiscount()
+            ->state(['code' => 'foo', 'name' => 'Foo Discount'])
+            ->create();
 
         // invalid code
         $this->withSession(['basket_discount_code' => 'foobar']);

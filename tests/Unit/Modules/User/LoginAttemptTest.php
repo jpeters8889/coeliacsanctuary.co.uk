@@ -7,11 +7,9 @@ namespace Tests\Unit\Modules\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Modules\Member\Models\LoginAttempt;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginAttemptTest extends TestCase
 {
-    use RefreshDatabase;
     use WithFaker;
 
     /** @test */

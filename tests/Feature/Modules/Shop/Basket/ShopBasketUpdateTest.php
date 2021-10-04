@@ -5,23 +5,18 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Shop\Basket;
 
 use Carbon\Carbon;
+use Coeliac\Common\Models\Image;
 use Tests\TestCase;
 use Illuminate\Session\Store;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
 use Coeliac\Modules\Shop\Basket\Basket;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
 
 class ShopBasketUpdateTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreateVariant;
-    use CreateProduct;
     use WithFaker;
 
     private Store $session;
@@ -38,13 +33,13 @@ class ShopBasketUpdateTest extends TestCase
         $this->session = resolve(Store::class);
         $this->basket = resolve(Basket::class);
 
-        $this->product = $this->createProduct();
-        $this->variant = $this->createVariant($this->product, ['live' => true]);
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $this->product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
+        $this->product = $this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 500]), 'prices')
+            ->create();
+
+        $this->variant = $this->build(ShopProductVariant::class)
+            ->in($this->product)
+            ->create();
     }
 
     protected function makeRequest($params = [])
@@ -101,13 +96,11 @@ class ShopBasketUpdateTest extends TestCase
     /** @test */
     public function itErrorsWhenTryingToUpdateAVariantThatDoesntBelongToTheProduct()
     {
-        $product = $this->createProduct();
-        $variant = $this->createVariant($product, ['live' => true]);
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
+        $variant = $this->build(ShopProductVariant::class)
+            ->in($this->build(ShopProduct::class)
+                ->has($this->build(ShopProductPrice::class)->state(['price' => 500]), 'prices')
+                ->create())
+            ->create();
 
         $this->makeRequest(['variant' => $variant->id])->assertStatus(422);
     }
@@ -127,13 +120,13 @@ class ShopBasketUpdateTest extends TestCase
     /** @test */
     public function itErrorsWhenTryingToUpdateAProductThatIsntInTheBasket()
     {
-        $product = $this->createProduct();
-        $variant = $this->createVariant($product, ['live' => true]);
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
+        $product = $this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 500]), 'prices')
+            ->create();
+
+        $variant = $this->build(ShopProductVariant::class)
+            ->in($product)
+            ->create();
 
         $this->basket->items()->add($product, $variant);
 

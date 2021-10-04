@@ -4,40 +4,36 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Blogs;
 
+use Coeliac\Modules\Blog\Models\BlogTag;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Tests\Traits\CreatesBlogs;
 use Coeliac\Common\Models\Image;
 use Coeliac\Common\Models\Comment;
-use Tests\Traits\ClearingCacheTest;
+use Tests\Traits\ClearsCache;
 use Coeliac\Modules\Blog\Models\Blog;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BlogModelTest extends TestCase
 {
-    use ClearingCacheTest;
-    use CreatesBlogs;
+    use ClearsCache;
     use HasImages;
-    use RefreshDatabase;
-    use WithFaker;
 
-    /** @var Blog */
-    private $blog;
+    private Blog $blog;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->blog = $this->createBlog();
-        $this->blog->tags()->attach($this->createBlogTag());
+        $this->blog = $this->build(Blog::class)
+            ->has($this->build(BlogTag::class)->count(5), 'tags')
+            ->create();
+
         $this->blog->associateImage($this->makeImage());
     }
 
     /** @test */
-    public function itHasATag()
+    public function itHasTags()
     {
-        $this->assertEquals(1, $this->blog->tags()->count());
+        $this->assertEquals(5, $this->blog->tags()->count());
     }
 
     /** @test */
@@ -65,10 +61,7 @@ class BlogModelTest extends TestCase
     /** @test */
     public function itCanSaveComments()
     {
-        $comment = factory(Comment::class)->create([
-            'commentable_id' => $this->blog->id,
-            'commentable_type' => Blog::class,
-        ]);
+        $comment = $this->build(Comment::class)->on($this->blog)->create();
 
         $this->blog->comments()->save($comment);
 
@@ -82,6 +75,6 @@ class BlogModelTest extends TestCase
 
     protected function makeCachedModel(): void
     {
-        $this->createBlog();
+        $this->create(Blog::class);
     }
 }

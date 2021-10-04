@@ -1,15 +1,21 @@
 <?php
 
-declare(strict_types=1);
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Coeliac\Modules\Collection\Models\Collection;
 
-$factory->define(\Coeliac\Modules\Collection\Models\Collection::class, function (Faker $faker) {
-    return [
-        'title' => $faker->sentence,
-        'meta_keywords' => implode(',', $faker->words(5)),
-        'meta_description' => $description = $faker->paragraph,
-        'long_description' => $description,
-        'body' => $faker->paragraphs(3, true),
-    ];
-});
+class CollectionFactory extends Factory
+{
+    protected $model = Collection::class;
+
+    public function definition()
+    {
+        return [
+            'title' => $this->faker->sentence,
+            'meta_keywords' => implode(',', $this->faker->words(5)),
+            'meta_description' => $description = $this->faker->paragraph,
+            'long_description' => $description,
+            'body' => $this->faker->paragraphs(3, true),
+        ];
+    }
+}

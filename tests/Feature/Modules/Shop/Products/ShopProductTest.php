@@ -4,56 +4,51 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Shop\Products;
 
-use Carbon\Carbon;
-use Tests\TestCase;
-use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
-use Illuminate\Support\Collection;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
-use Tests\Traits\Shop\CreateCategory;
+use Tests\TestCase;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopCategory;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Tests\Traits\HasImages;
 
 class ShopProductTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreateCategory;
-    use CreateProduct;
-    use CreateVariant;
     use HasImages;
 
     /** @var ShopCategory */
-    private $category;
+    private ShopCategory $category;
 
     /** @var ShopProduct */
-    private $product;
+    private ShopProduct $product;
 
     /** @var ShopProductVariant */
-    private $variant;
-
-    /** @var Collection */
-    private $images;
+    private ShopProductVariant $variant;
 
     /** @var ShopProductPrice */
-    private $price;
+    private ShopProductPrice $price;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->category = $this->createCategory();
-        $this->product = $this->createProduct($this->category);
-        $this->variant = $this->createVariant($this->product, ['live' => true, 'quantity' => 15]);
+        $this->category = $this->create(ShopCategory::class);
+
+        $this->product = $this->create(ShopProduct::class);
+        $this->product->categories()->attach($this->category);
+
+        $this->variant = $this->build(ShopProductVariant::class)
+            ->in($this->product)
+            ->state(['quantity' => 15])
+            ->create();
+
+        // here
+        $this->price = $this->build(ShopProductPrice::class)
+            ->in($this->product)
+            ->state(['price' => 500])
+            ->create();
+
         $this->product->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
-        $this->price = factory(ShopProductPrice::class)->create([
-            'product_id' => $this->product->id,
-            'price' => 500,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
     }
 
     /** @test */
@@ -65,7 +60,8 @@ class ShopProductTest extends TestCase
     /** @test */
     public function itErrorsIfTheProductDoesntHaveAVariant()
     {
-        $product = $this->createProduct($this->category);
+        $product = $this->create(ShopProduct::class);
+        $product->categories()->attach($this->category);
 
         $this->get('/shop/product/'.$product->slug)->assertStatus(404);
     }

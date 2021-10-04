@@ -8,14 +8,12 @@ use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\PlaceRequest;
 use Coeliac\Modules\EatingOut\WhereToEat\Events\PlaceRequestSubmitted;
-use Coeliac\Modules\EatingOut\WhereToEat\Mail\PlaceRequestMailable as PlaceRequestMailable;
+use Coeliac\Modules\EatingOut\WhereToEat\Mail\PlaceRequestMailable;
 
 class WhereToEatPlaceRequestTest extends TestCase
 {
-    use RefreshDatabase;
     use WithFaker;
 
     protected function setUp(): void

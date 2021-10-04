@@ -8,21 +8,18 @@ use Tests\TestCase;
 use Illuminate\Support\Facades\Event;
 use Coeliac\Modules\Member\Models\User;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Member\Events\UserPasswordReset;
 use Coeliac\Modules\Member\Notifications\PasswordResetAlert;
 
 class UserPasswordUpdatedResetTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected User $user;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = $this->create(User::class);
 
         Notification::fake();
     }

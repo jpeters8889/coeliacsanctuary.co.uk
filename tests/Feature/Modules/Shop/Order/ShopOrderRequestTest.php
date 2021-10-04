@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Shop\Order;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Tests\TestCase;
 use Illuminate\Support\Str;
 use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
 use Tests\Mocks\StripePaymentProvider;
-use Tests\Traits\Shop\MakesShopOrders;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Basket\Basket;
 use Tests\Traits\Shop\MakeOrderRequest;
@@ -22,24 +20,16 @@ use Coeliac\Modules\Shop\Models\ShopProduct;
 use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Modules\Member\Models\UserAddress;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Shop\Payment\Processors\Stripe;
 
 class ShopOrderRequestTest extends TestCase
 {
-    use RefreshDatabase;
-    use MakesShopOrders;
     use WithFaker;
     use MakeOrderRequest;
-    use CreateProduct;
-    use CreateVariant;
     use HasImages;
 
     /** @var ShopProduct */
-    private $product;
-
-    /** @var ShopProduct */
-    private $product2;
+    private ShopProduct $product;
 
     protected function setUp(): void
     {
@@ -47,34 +37,18 @@ class ShopOrderRequestTest extends TestCase
 
         $this->faker = $this->makeFaker('en_gb');
 
-        $this->setupPostage();
-        $this->setupOrders();
-
-        $this->product = $this->createProduct(null, ['shipping_method_id' => 1]);
-        $this->product2 = $this->createProduct(null, ['shipping_method_id' => 1]);
-
-        $this->createVariant($this->product, ['live' => 1, 'quantity' => 2]);
-        $this->createVariant($this->product2, ['live' => 1, 'quantity' => 0]);
-
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $this->product->id,
-            'price' => 100,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
-
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $this->product2->id,
-            'price' => 100,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
-
-        $this->product->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
-        $this->product2->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
+        $this->product = $this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+            ->has($this->build(ShopProductVariant::class)->state(['quantity' => 2]), 'variants')
+            ->create();
     }
 
     protected function mockPaymentProcessor()
     {
-        $this->app->instance(Processor::class, new Stripe(resolve(Basket::class), new StripePaymentProvider()));
+        $this->app->instance(
+            Processor::class,
+            new Stripe(resolve(Basket::class), new StripePaymentProvider())
+        );
     }
 
     protected function makeRequest($params = [], $provider = 'stripe', $token = '123abc')
@@ -347,14 +321,14 @@ class ShopOrderRequestTest extends TestCase
 
         $this->makeRequest(['user.email' => 'me@you.com']);
 
-        $this->assertEquals(1, User::query()->count());
+        $this->assertEquals(1, User::query()->where('email', '!=', 'contact@coeliacsanctuary.co.uk')->count());
     }
 
     /** @test */
     public function itDoesntNeedTheUserInfoIfAUserIsLoggedIn()
     {
         $this->mockPaymentProcessor();
-        $this->actingAs(factory(User::class)->create());
+        $this->actingAs($this->create(User::class));
 
         $token = Str::random(8);
 
@@ -377,9 +351,9 @@ class ShopOrderRequestTest extends TestCase
     public function itUsesTheCurrentLoggedInUser()
     {
         $this->mockPaymentProcessor();
-        $this->actingAs($user = factory(User::class)->create());
+        $this->actingAs($user = $this->create(User::class));
 
-        $this->assertCount(1, User::all());
+        $this->assertCount(1, User::query()->where('email', '!=', 'contact@coeliacsanctuary.co.uk')->get());
 
         $token = Str::random(8);
 
@@ -399,7 +373,7 @@ class ShopOrderRequestTest extends TestCase
 
         $this->makeRequest(['user' => null]);
 
-        $this->assertCount(1, User::all());
+        $this->assertCount(1, User::query()->where('email', '!=', 'contact@coeliacsanctuary.co.uk')->get());
 
         $this->assertEquals($user->id, $order->fresh()->user_id);
     }
@@ -519,9 +493,12 @@ class ShopOrderRequestTest extends TestCase
     public function itCanUseAShippingAddressAlreadyStoredInTheDatabase()
     {
         $this->mockPaymentProcessor();
-        $this->actingAs($user = factory(User::class)->create());
+        $this->actingAs($user = $this->create(User::class));
 
-        $address = $user->addresses()->create(factory(UserAddress::class)->raw(['type' => 'Shipping']));
+        $address = $this->build(UserAddress::class)
+            ->to($user)
+            ->asShipping()
+            ->create();
 
         $this->assertCount(1, $user->addresses);
 
@@ -639,9 +616,12 @@ class ShopOrderRequestTest extends TestCase
     public function itCanUseABillingAddressAlreadyStoredInTheDatabase()
     {
         $this->mockPaymentProcessor();
-        $this->actingAs($user = factory(User::class)->create());
+        $this->actingAs($user = $this->create(User::class));
 
-        $address = $user->addresses()->create(factory(UserAddress::class)->raw(['type' => 'Billing']));
+        $address = $this->build(UserAddress::class)
+            ->to($user)
+            ->asBilling()
+            ->create();
 
         $this->assertCount(1, $user->addresses);
 

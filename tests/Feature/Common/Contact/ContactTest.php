@@ -10,11 +10,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Common\Events\ContactFormSubmitted;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ContactTest extends TestCase
 {
-    use RefreshDatabase;
     use WithFaker;
 
     protected function setUp(): void

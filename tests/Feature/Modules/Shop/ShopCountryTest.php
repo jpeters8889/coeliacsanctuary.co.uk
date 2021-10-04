@@ -7,13 +7,10 @@ namespace Tests\Feature\Modules\Shop;
 use Tests\TestCase;
 use Coeliac\Modules\Shop\Basket\Basket;
 use Coeliac\Modules\Shop\Models\ShopOrder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Shop\Models\ShopPostageCountry;
 
 class ShopCountryTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function itLoadsTheCountryList()
     {

@@ -9,13 +9,11 @@ use Tests\TestCase;
 use Spatie\TestTime\TestTime;
 use Illuminate\Testing\TestResponse;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Competition\Models\Competition;
 use Coeliac\Modules\Competition\Models\CompetitionEntry;
 
 class CompetitionEntryTest extends TestCase
 {
-    use RefreshDatabase;
     use WithFaker;
 
     protected Competition $competition;
@@ -25,7 +23,7 @@ class CompetitionEntryTest extends TestCase
         parent::setUp();
 
         TestTime::freeze();
-        $this->competition = factory(Competition::class)->create(['start_at' => Carbon::now()]);
+        $this->competition = $this->create(Competition::class, ['start_at' => Carbon::now()]);
     }
 
     protected function makeRequest(array $params = []): TestResponse

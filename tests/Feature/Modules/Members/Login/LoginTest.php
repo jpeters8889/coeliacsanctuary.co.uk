@@ -6,29 +6,21 @@ namespace Tests\Feature\Modules\Members\Login;
 
 use Carbon\Carbon;
 use Tests\TestCase;
-use Tests\Traits\CreateUser;
 use Spatie\TestTime\TestTime;
 use Illuminate\Support\Facades\Auth;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserLevel;
 use Coeliac\Modules\Member\Models\LoginAttempt;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreateUser;
-
     protected User $user;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->user = $this->createUser([
-            'email' => 'me@you.com',
-            'user_level_id' => UserLevel::MEMBER,
-        ]);
+        $this->user = $this->build(User::class)->asMember()->create();
     }
 
     /** @test */

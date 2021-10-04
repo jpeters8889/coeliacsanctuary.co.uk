@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Recipes;
 
+use Coeliac\Modules\Recipe\Models\Recipe;
+use Coeliac\Modules\Recipe\Models\RecipeNutrition;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Tests\TestCase;
 use Illuminate\Support\Str;
 use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
-use Tests\Traits\CreatesRecipes;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RecipePrefixCommandTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreatesRecipes;
     use HasImages;
 
     /** @test */
@@ -27,7 +26,7 @@ class RecipePrefixCommandTest extends TestCase
     /** @test */
     public function itDoesntUpdateRowsWhenExitingInProdMode()
     {
-        $recipe = $this->createRecipe();
+        $recipe = $this->create(Recipe::class);
 
         $this->artisan('coeliac:prefix-recipes --prod')
             ->expectsConfirmation('This is set to run in production mode, are you sure?')
@@ -46,7 +45,7 @@ class RecipePrefixCommandTest extends TestCase
     /** @test */
     public function itShowsTheTitle()
     {
-        $recipe = $this->createRecipe();
+        $recipe = $this->create(Recipe::class);
 
         $this->artisan('coeliac:prefix-recipes')
             ->expectsOutput("Processing {$recipe->title}");
@@ -55,7 +54,7 @@ class RecipePrefixCommandTest extends TestCase
     /** @test */
     public function itPreparesToSetTheLegacySlug()
     {
-        $recipe = $this->createRecipe();
+        $recipe = $this->create(Recipe::class);
 
         $this->artisan('coeliac:prefix-recipes')
             ->expectsOutput('Setting the legacy slug')
@@ -65,7 +64,7 @@ class RecipePrefixCommandTest extends TestCase
     /** @test */
     public function itPreparesToPrefixTitle()
     {
-        $recipe = $this->createRecipe();
+        $recipe = $this->create(Recipe::class);
 
         $this->artisan('coeliac:prefix-recipes')
             ->expectsOutput('Prefixing the title...')
@@ -75,7 +74,7 @@ class RecipePrefixCommandTest extends TestCase
     /** @test */
     public function itPreparesToSetTheUpdatedSlug()
     {
-        $recipe = $this->createRecipe();
+        $recipe = $this->create(Recipe::class);
 
         $expectedSlug = Str::slug("Gluten Free {$recipe->title}");
 
@@ -87,7 +86,7 @@ class RecipePrefixCommandTest extends TestCase
     /** @test */
     public function itShowsALinebreakBetweenEachRow()
     {
-        $this->createRecipe();
+        $this->create(Recipe::class);
 
         $this->artisan('coeliac:prefix-recipes')
             ->expectsOutput('--------');
@@ -96,7 +95,7 @@ class RecipePrefixCommandTest extends TestCase
     /** @test */
     public function itErrorsIfTheTitleAlreadyHasGlutenFreeInTheTitle()
     {
-        $this->createRecipe(['title' => 'Gluten Free']);
+        $this->create(Recipe::class, ['title' => 'Gluten Free']);
 
         $this->artisan('coeliac:prefix-recipes')
             ->expectsOutput("Gluten Free already contains 'gluten free', skipping...");
@@ -105,9 +104,10 @@ class RecipePrefixCommandTest extends TestCase
     /** @test */
     public function itShowsASummaryAtTheEnd()
     {
-        $this->createRecipe();
-        $this->createRecipe();
-        $this->createRecipe(['title' => 'Gluten Free']);
+        $this->build(Recipe::class)
+            ->count(3)
+            ->state(new Sequence([], [], ['title' => 'Gluten Free']))
+            ->create();
 
         $this->artisan('coeliac:prefix-recipes')
             ->expectsTable([], [
@@ -120,7 +120,7 @@ class RecipePrefixCommandTest extends TestCase
     /** @test */
     public function itContinuesTheRoutineInProdutionMode()
     {
-        $recipe = $this->createRecipe();
+        $recipe = $this->create(Recipe::class);
 
         $expectedSlug = Str::slug("Gluten Free {$recipe->title}");
 
@@ -144,7 +144,7 @@ class RecipePrefixCommandTest extends TestCase
     /** @test */
     public function itDoesntUpdateRecipesThatAlreadyHaveGlutenFreeInProductionMode()
     {
-        $recipe = $this->createRecipe(['title' => 'Gluten Free']);
+        $recipe = $this->create(Recipe::class, ['title' => 'Gluten Free']);
 
         $this->artisan('coeliac:prefix-recipes --prod')
             ->expectsConfirmation('This is set to run in production mode, are you sure?', 'yes')
@@ -156,7 +156,7 @@ class RecipePrefixCommandTest extends TestCase
     /** @test */
     public function itUpdatesTheRecipeInProductionMode()
     {
-        $recipe = $this->createRecipe();
+        $recipe = $this->create(Recipe::class);
 
         $expectedSlug = Str::slug("Gluten Free {$recipe->title}");
 
@@ -175,11 +175,11 @@ class RecipePrefixCommandTest extends TestCase
     /** @test */
     public function itRedirectsToTheNewPageWhenLoadingTheLegacySlug()
     {
-        $recipe = $this->createRecipe();
-        $this->createRecipeNutrition(['recipe_id' => 1]);
-
-        $recipe->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER);
-        $recipe->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SOCIAL);
+        $recipe = $this->build(Recipe::class)
+            ->has($this->build(RecipeNutrition::class), 'nutrition')
+            ->create()
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER)
+            ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SOCIAL);
 
         $this->get("/recipe/{$recipe->slug}")->assertStatus(200);
 

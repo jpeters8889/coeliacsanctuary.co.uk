@@ -16,9 +16,9 @@
         </include>
     </coverage>
     <testsuites>
-        <testsuite name="Architect">
-            <directory suffix="Test.php">./tests/Architect</directory>
-        </testsuite>
+<!--        <testsuite name="Architect">-->
+<!--            <directory suffix="Test.php">./tests/Architect</directory>-->
+<!--        </testsuite>-->
         <testsuite name="Feature">
             <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>

@@ -1,12 +1,19 @@
 <?php
 
-declare(strict_types=1);
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Coeliac\Common\Models\Image;
+use Illuminate\Support\Str;
 
-$factory->define(\Coeliac\Common\Models\Image::class, function (Faker $faker) {
-    return [
-        'file_name' => \Illuminate\Support\Str::random(),
-        'directory' => '',
-    ];
-});
+class ImageFactory extends Factory
+{
+    protected $model = Image::class;
+
+    public function definition()
+    {
+        return [
+            'file_name' => Str::random(),
+            'directory' => '',
+        ];
+    }
+}

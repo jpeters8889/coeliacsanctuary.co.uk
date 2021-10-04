@@ -4,35 +4,23 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop\Products;
 
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
-use Tests\Traits\Shop\CreateCategory;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopCategory;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ShopProductsTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreateProduct;
-    use CreateCategory;
-    use CreateVariant;
     use HasImages;
 
     /** @test */
     public function itHasACategory()
     {
-        /**
-         * @var ShopCategory
-         */
-        $category = $this->createCategory();
+        $category = $this->create(ShopCategory::class);
 
-        /**
-         * @var ShopProduct
-         */
-        $product = $this->createProduct($category);
+        $product = $this->create(ShopProduct::class);
+        $category->products()->attach($product);
 
         $this->assertEquals(1, $category->products()->count());
         $this->assertEquals($product->title, $category->products()->first()->title);
@@ -41,21 +29,13 @@ class ShopProductsTest extends TestCase
     /** @test */
     public function itCanBelongToManyCategories()
     {
-        /**
-         * @var ShopCategory
-         */
-        $category = $this->createCategory();
+        [$category, $category2] = $this->build(ShopCategory::class)
+            ->count(2)
+            ->create();
 
-        /**
-         * @var ShopCategory
-         */
-        $category2 = $this->createCategory();
+        $product = $this->create(ShopProduct::class);
 
-        /**
-         * @var ShopProduct
-         */
-        $product = $this->createProduct($category);
-
+        $category->products()->attach($product);
         $category2->products()->attach($product);
 
         $this->assertEquals(2, $product->categories()->count());
@@ -64,10 +44,7 @@ class ShopProductsTest extends TestCase
     /** @test */
     public function itHasAShippingMethod()
     {
-        /**
-         * @var ShopProduct
-         */
-        $product = $this->createProduct();
+        $product = $this->create(ShopProduct::class);
 
         $this->assertEquals(1, $product->shippingMethod()->count());
     }
@@ -75,12 +52,11 @@ class ShopProductsTest extends TestCase
     /** @test */
     public function itHasAVariant()
     {
-        /**
-         * @var ShopProduct
-         */
-        $product = $this->createProduct();
+        $product = $this->create(ShopProduct::class);
 
-        $variant = $this->createVariant($product);
+        $variant = $this->build(ShopProductVariant::class)
+            ->in($product)
+            ->create();
 
         $this->assertEquals(1, $product->variants()->count());
         $this->assertEquals($variant->title, $product->variants()->first()->title);
@@ -89,14 +65,12 @@ class ShopProductsTest extends TestCase
     /** @test */
     public function itHasManyVariants()
     {
-        /**
-         * @var ShopProduct
-         */
-        $product = $this->createProduct();
+        $product = $this->create(ShopProduct::class);
 
-        $this->createVariant($product);
-        $this->createVariant($product);
-        $this->createVariant($product);
+        $this->build(ShopProductVariant::class)
+            ->count(3)
+            ->in($product)
+            ->create();
 
         $this->assertEquals(3, $product->variants()->count());
     }
@@ -105,7 +79,7 @@ class ShopProductsTest extends TestCase
     public function itHasAnImage()
     {
         /** @var ShopProduct $product */
-        $product = $this->createProduct();
+        $product = $this->create(ShopProduct::class);
 
         $product->associateImage($this->makeImage());
 

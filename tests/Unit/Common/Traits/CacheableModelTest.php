@@ -4,19 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Common\Traits;
 
+use Coeliac\Modules\Blog\Models\Blog;
 use Tests\TestCase;
 use Illuminate\Support\Arr;
-use Tests\Traits\CreatesBlogs;
 use Illuminate\Container\Container;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class CacheableModelTest extends TestCase
 {
-    use RefreshDatabase;
-    use CreatesBlogs;
-
     /** @test */
     public function itEmptiesTheCacheWhenAModelIsSaved()
     {
@@ -29,7 +25,7 @@ class CacheableModelTest extends TestCase
 
         $this->assertNotNull($cacheRepository->get($key));
 
-        $blog = $this->createBlog();
+        $blog = $this->create(Blog::class);
 
         $this->assertNull($cacheRepository->get($key));
 

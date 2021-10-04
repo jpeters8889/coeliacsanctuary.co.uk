@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
 use Tests\Abstracts\RepositoryTest;
-use Tests\Traits\CreatesWhereToEat;
 use Coeliac\Modules\EatingOut\Reviews\Repository;
 use Coeliac\Common\Repositories\AbstractRepository;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
@@ -16,7 +15,6 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
 class ReviewRepositoryTest extends RepositoryTest
 {
-    use CreatesWhereToEat;
     use HasImages;
 
     protected WhereToEat $whereToEat;
@@ -24,7 +22,7 @@ class ReviewRepositoryTest extends RepositoryTest
     protected function factoryParameters(): array
     {
         if (!isset($this->whereToEat)) {
-            $this->whereToEat = $this->createWhereToEat();
+            $this->whereToEat = $this->create(WhereToEat::class);
         }
 
         return [

@@ -207,8 +207,7 @@
             "Coeliac\\": "App/"
         },
         "classmap": [
-            "database/seeds",
-            "database/factories"
+            "database/seeds"
         ],
         "files": [
             "App/helpers.php"
@@ -216,7 +215,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Database\\Factories\\": "database/factories"
         }
     },
     "minimum-stability": "dev",

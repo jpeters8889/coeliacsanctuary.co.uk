@@ -8,21 +8,15 @@ use Tests\TestCase;
 use Coeliac\Common\Models\Comment;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Common\Models\CommentReply;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CommentsTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function itIsNotApprovedByDefault()
     {
-        $blog = factory(Blog::class)->create();
-
-        $comment = factory(Comment::class)->create([
-            'commentable_id' => $blog->id,
-            'commentable_type' => Blog::class,
-        ]);
+        $comment = $this->build(Comment::class)
+            ->on($this->create(Blog::class))
+            ->create();
 
         $this->assertFalse($comment->approved);
     }
@@ -30,16 +24,14 @@ class CommentsTest extends TestCase
     /** @test */
     public function itCanBeRepliedTo()
     {
-        $blog = factory(Blog::class)->create();
+        $comment = $this->build(Comment::class)
+            ->on($this->create(Blog::class))
+            ->create();
 
-        $comment = factory(Comment::class)->create([
-            'commentable_id' => $blog->id,
-            'commentable_type' => Blog::class,
-            'approved' => true,
-        ]);
+        $this->build(CommentReply::class)
+            ->on($comment)
+            ->create();
 
-        $comment->reply()->save(factory(CommentReply::class)->create(['comment_id' => $comment->id]));
-
-        $this->assertEquals(1, $comment->reply->count());
+        $this->assertEquals(1, $comment->reply->fresh()->count());
     }
 }

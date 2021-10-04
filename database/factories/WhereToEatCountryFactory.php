@@ -1,11 +1,17 @@
 <?php
 
-declare(strict_types=1);
+namespace Database\Factories;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCountry;
 
-$factory->define(WhereToEatCountry::class, function () {
-    return [
-        'country' => 'England',
-    ];
-});
+class WhereToEatCountryFactory extends Factory
+{
+    protected $model = WhereToEatCountry::class;
+
+    public function definition()
+    {
+        return [
+            'country' => 'England',
+        ];
+    }
+}

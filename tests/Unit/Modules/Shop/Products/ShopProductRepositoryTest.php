@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop\Products;
 
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
 use Tests\Abstracts\RepositoryTest;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
 use Coeliac\Modules\Shop\ProductRepository;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Common\Repositories\AbstractRepository;
@@ -16,8 +15,6 @@ use Coeliac\Common\Repositories\AbstractRepository;
 class ShopProductRepositoryTest extends RepositoryTest
 {
     use HasImages;
-    use CreateProduct;
-    use CreateVariant;
 
     protected function setUp(): void
     {
@@ -26,7 +23,7 @@ class ShopProductRepositoryTest extends RepositoryTest
         foreach ($this->models as $model) {
             /* @var ShopProduct $model */
             $model->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
-            $this->createVariant($model, ['live' => true]);
+            $this->build(ShopProductVariant::class)->in($model)->create();
         }
     }
 

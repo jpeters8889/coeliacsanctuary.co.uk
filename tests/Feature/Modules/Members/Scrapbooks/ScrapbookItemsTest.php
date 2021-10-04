@@ -6,27 +6,17 @@ namespace Tests\Feature\Modules\Members\Scrapbooks;
 
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Tests\Traits\CreatesBlogs;
 use Coeliac\Common\Models\Image;
-use Tests\Traits\CreatesRecipes;
-use Tests\Traits\CreatesReviews;
-use Tests\Traits\CreatesWhereToEat;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Recipe\Models\Recipe;
 use Coeliac\Modules\Member\Models\Scrapbook;
 use Coeliac\Modules\Member\Models\UserLevel;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 
 class ScrapbookItemsTest extends TestCase
 {
-    use CreatesBlogs;
-    use CreatesReviews;
-    use CreatesRecipes;
-    use CreatesWhereToEat;
     use HasImages;
-    use RefreshDatabase;
 
     protected User $user;
     protected Scrapbook $scrapbook;
@@ -35,8 +25,13 @@ class ScrapbookItemsTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create(['user_level_id' => UserLevel::MEMBER]);
-        $this->scrapbook = factory(Scrapbook::class)->create(['user_id' => $this->user->id]);
+        $this->user = $this->build(User::class)
+            ->asMember()
+            ->create();
+
+        $this->scrapbook = $this->build(Scrapbook::class)
+            ->in($this->user)
+            ->create();
 
         $this->actingAs($this->user);
     }
@@ -84,11 +79,11 @@ class ScrapbookItemsTest extends TestCase
      * @test
      * @dataProvider itemsDataProvider
      */
-    public function itAddsAnToTheItems($method, $type, $class)
+    public function itAddsAnToTheItems($type, $class)
     {
         $this->assertCount(0, $this->scrapbook->items);
 
-        $item = $this->$method();
+        $item = $this->create($class);
 
         $this->makeAddItemRequest([
             'id' => $item->id,
@@ -103,11 +98,11 @@ class ScrapbookItemsTest extends TestCase
      * @test
      * @dataProvider itemsDataProvider
      */
-    public function itErrorsIfTheItemIsntLive($method, $type)
+    public function itErrorsIfTheItemIsntLive($type, $class)
     {
         $this->assertCount(0, $this->scrapbook->items);
 
-        $item = $this->$method();
+        $item = $this->create($class);
 
         $item->update(['live' => 0]);
 
@@ -123,7 +118,7 @@ class ScrapbookItemsTest extends TestCase
      * @test
      * @dataProvider itemsDataProvider
      */
-    public function itErrorsIfTheItemDoesntExist($method, $type)
+    public function itErrorsIfTheItemDoesntExist($type)
     {
         $this->assertCount(0, $this->scrapbook->items);
 
@@ -138,21 +133,16 @@ class ScrapbookItemsTest extends TestCase
     public function itemsDataProvider()
     {
         return [
-            ['createBlog', 'blog', Blog::class],
-            ['createReview', 'review', Review::class],
-            ['createRecipe', 'recipe', Recipe::class],
+            ['blog', Blog::class],
+            ['review', Review::class],
+            ['recipe', Recipe::class],
         ];
     }
 
     /** @test */
     public function itErrorsWhenTryingToAddToAnotherUsersScrapbook()
     {
-        $scrapbook = factory(Scrapbook::class)->create([
-            'user_id' => factory(User::class)->create()->id,
-            'name' => 'Another Scrapbook',
-        ]);
-
-        $this->createBlog();
+        $scrapbook = $this->create(Scrapbook::class);
 
         $this->makeAddItemRequest([], $scrapbook)->assertStatus(403);
     }
@@ -160,7 +150,7 @@ class ScrapbookItemsTest extends TestCase
     /** @test */
     public function itErrorsWhenTryingToDeleteAnItemNotInTheScrapbook()
     {
-        $this->createBlog();
+        $this->create(Blog::class);
 
         $this->makeAddItemRequest();
 
@@ -174,7 +164,7 @@ class ScrapbookItemsTest extends TestCase
     /** @test */
     public function itCanDeleteAnItemFromAScrapbook()
     {
-        $this->createBlog();
+        $this->create(Blog::class);
 
         $this->makeAddItemRequest();
 
@@ -188,13 +178,9 @@ class ScrapbookItemsTest extends TestCase
     /** @test */
     public function itErrorsWhenTryingToDeleteAnotherUsersItems()
     {
-        $scrapbook = factory(Scrapbook::class)->create([
-            'user_id' => factory(User::class)->create()->id,
-            'name' => 'Another Scrapbook',
-        ]);
+        $scrapbook = $this->create(Scrapbook::class);
 
-        $blog = $this->createBlog();
-        $blog->addToScrapbook($scrapbook);
+        $this->create(Blog::class)->addToScrapbook($scrapbook);
 
         $this->assertCount(1, $scrapbook->fresh()->items);
 
@@ -224,7 +210,8 @@ class ScrapbookItemsTest extends TestCase
     /** @test */
     public function itCanSeeWhetherAnItemIsInTheScrapbook()
     {
-        $blog = $this->createBlog();
+        $blog = $this->create(Blog::class);
+
         $blog->addToScrapbook($this->scrapbook);
 
         $this->post('/api/member/dashboard/scrapbooks/search', [
@@ -263,7 +250,7 @@ class ScrapbookItemsTest extends TestCase
     /** @test */
     public function itHasTheNeededDataInTheItemsEndpoint()
     {
-        $blog = $this->createBlog();
+        $blog = $this->create(Blog::class);
         $blog->addToScrapbook($this->scrapbook);
 
         $this->get("/api/member/dashboard/scrapbooks/{$this->scrapbook->id}")
@@ -274,9 +261,9 @@ class ScrapbookItemsTest extends TestCase
      * @test
      * @dataProvider scrapbookItemsDataProvider
      */
-    public function itReturnsTheRequiredItemInformation($method, $area)
+    public function itReturnsTheRequiredItemInformation($area, $class)
     {
-        $item = $this->$method();
+        $item = $this->create($class);
         $item->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER);
         $item->addToScrapbook($this->scrapbook);
 
@@ -294,9 +281,9 @@ class ScrapbookItemsTest extends TestCase
     public function scrapbookItemsDataProvider()
     {
         return [
-            ['createBlog', 'Blog'],
-            ['createRecipe', 'Recipe'],
-            ['createReview', 'Review'],
+            ['Blog', Blog::class],
+            ['Recipe', Recipe::class],
+            ['Review', Review::class],
         ];
     }
 
@@ -309,10 +296,7 @@ class ScrapbookItemsTest extends TestCase
     /** @test */
     public function itErrorsWhenTryingToViewAnotherUsersItems()
     {
-        $scrapbook = factory(Scrapbook::class)->create([
-            'user_id' => factory(User::class)->create()->id,
-            'name' => 'Another Scrapbook',
-        ]);
+        $scrapbook = $this->create(Scrapbook::class);
 
         $this->get("/api/member/dashboard/scrapbooks/{$scrapbook->id}")->assertStatus(403);
     }

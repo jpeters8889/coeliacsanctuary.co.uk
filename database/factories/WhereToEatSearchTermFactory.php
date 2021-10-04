@@ -1,13 +1,18 @@
 <?php
 
-declare(strict_types=1);
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatSearchTerm;
 
-$factory->define(WhereToEatSearchTerm::class, function (Faker $faker) {
-    return [
-        'term' => $faker->word,
-        'range' => $faker->randomElement(['1', '2', '5', '10', '20']),
-    ];
-});
+class WhereToEatSearchTermFactory extends Factory
+{
+    protected $model = WhereToEatSearchTerm::class;
+
+    public function definition()
+    {
+        return [
+            'term' => $this->faker->word,
+            'range' => $this->faker->randomElement(['1', '2', '5', '10', '20']),
+        ];
+    }
+}

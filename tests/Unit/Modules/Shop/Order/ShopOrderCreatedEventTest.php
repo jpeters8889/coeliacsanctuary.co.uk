@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace Tests\Unit\Modules\Shop\Order;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Shop\Models\ShopPayment;
 use Tests\TestCase;
 use Illuminate\Support\Str;
-use Tests\Traits\HasImages;
 use Illuminate\Session\Store;
 use Coeliac\Common\Models\Image;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
 use Illuminate\Support\Facades\Event;
-use Tests\Traits\Shop\MakesShopOrders;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Basket\Basket;
 use Coeliac\Modules\Shop\Models\ShopOrder;
@@ -25,37 +22,14 @@ use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Coeliac\Modules\Shop\Notifications\OrderCreatedNotification;
 
 class ShopOrderCreatedEventTest extends TestCase
 {
-    use MakesShopOrders;
-    use RefreshDatabase;
-    use CreateVariant;
-    use CreateProduct;
-    use HasImages;
+    private Basket $basket;
 
-    /**
-     * @var ShopProductVariant
-     */
-    private $variant;
-
-    /**
-     * @var ShopProduct
-     */
-    private $product;
-
-    /**
-     * @var Basket
-     */
-    private $basket;
-
-    /**
-     * @var ShopOrder
-     */
-    private $order;
+    private ShopOrder $order;
 
     private User $user;
 
@@ -65,56 +39,27 @@ class ShopOrderCreatedEventTest extends TestCase
 
         Notification::fake();
 
-        $this->setupPostage();
-        $this->setupOrders();
+        $this->user = $this->build(User::class)
+            ->has($this->build(UserAddress::class)->asShipping(), 'addresses')
+            ->create();
 
-        $this->product = $this->createProduct(null, ['shipping_method_id' => 1]);
-        $this->variant = $this->createVariant($this->product, ['weight' => 10]);
+        $this->order = $this->build(ShopOrder::class)
+            ->asBasket()
+            ->to($this->user)
+            ->create();
 
-        $this->user = factory(User::class)->create([
-            'email' => 'foo@bar.com',
-            'name' => 'Foo Bar',
-        ]);
+        $this->build(ShopOrderItem::class)
+            ->to($this->order)
+            ->add($this->build(ShopProductVariant::class)
+                ->in($this->build(ShopProduct::class)
+                    ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+                    ->create())
+                ->create(['weight' => 10]))
+            ->create();
 
-        $this->createAdminUser();
+        $this->app->make(Store::class)->push('basket_token', $this->order->token);
 
-        factory(UserAddress::class)->create([
-            'user_id' => 1,
-            'type' => 'Shipping',
-        ]);
-
-        factory(ShopProductPrice::class)->create([
-            'product_id' => $this->product->id,
-            'price' => 100,
-            'start_at' => Carbon::now()->subHour()->toDateTimeString(),
-        ]);
-
-        $this->product->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SHOP_PRODUCT);
-
-        $token = Str::random(8);
-
-        $this->order = ShopOrder::query()->create([
-            'token' => $token,
-            'postage_country_id' => 1,
-            'user_id' => 1,
-            'user_address_id' => 1,
-            'newsletter_signup' => true,
-        ]);
-
-        $sessionStore = $this->app->make(Store::class);
-
-        $sessionStore->push('basket_token', $token);
-
-        ShopOrderItem::query()->create([
-            'order_id' => 1,
-            'product_id' => $this->product->id,
-            'product_variant_id' => $this->variant->id,
-            'quantity' => 1,
-            'product_title' => $this->product->title,
-            'product_price' => $this->product->currentPrice,
-        ]);
-
-        $this->basket = new Basket($sessionStore);
+        $this->basket = new Basket($this->app->make(Store::class));
 
         $this->basket->resolve();
 
@@ -157,17 +102,12 @@ class ShopOrderCreatedEventTest extends TestCase
     /** @test */
     public function itStoresTheDiscountAmmountWhenAnOrderIncludesADiscount()
     {
-        $code = factory(ShopDiscountCode::class)->create([
-            'code' => 'foo',
-            'deduction' => 10,
-        ]);
-
         Event::dispatch(new CreateOrder(
             $this->basket->model(),
             $this->basket->postage()->calculate(),
             'stripe',
             ['token' => '123abc'],
-            $code
+            $this->create(ShopDiscountCode::class)
         ));
 
         $this->order->fresh();
@@ -181,11 +121,7 @@ class ShopOrderCreatedEventTest extends TestCase
     /** @test */
     public function itStoresARecordAgainstTheDiscountForTheOrder()
     {
-        /** @var ShopDiscountCode $code */
-        $code = factory(ShopDiscountCode::class)->create([
-            'code' => 'foo',
-            'deduction' => 10,
-        ]);
+        $code = $this->create(ShopDiscountCode::class);
 
         $this->assertEmpty($code->orders);
 
@@ -194,7 +130,7 @@ class ShopOrderCreatedEventTest extends TestCase
             $this->basket->postage()->calculate(),
             'stripe',
             ['token' => '123abc'],
-            $code
+            $code,
         ));
 
         $this->order->fresh();
