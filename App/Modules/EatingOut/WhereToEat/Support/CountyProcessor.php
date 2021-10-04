@@ -45,7 +45,7 @@ class CountyProcessor
             ->addSelect($this->database->raw('count(wheretoeat_ratings.wheretoeat_id) as rating_count'))
             ->with(['county', 'town'])
             ->groupBy('wheretoeat.id')
-            ->orderByRaw('rating_count desc, rating desc')
+            ->orderByRaw('rating desc, rating_count desc')
             ->take(3)
             ->get();
 
