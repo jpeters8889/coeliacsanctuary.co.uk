@@ -1,5 +1,5 @@
-import Vue from "vue";
+import Vue from 'vue';
 
-const SiteSearch = () => import('~/Search/Pages/SiteSearch' /* webpackChunkName: "chunk-site-search" */)
+const SiteSearch = () => import('~/Search/Pages/SiteSearch' /* webpackChunkName: "chunk-site-search" */);
 
-Vue.component('search-page', SiteSearch);
+Vue.component('SearchPage', SiteSearch);

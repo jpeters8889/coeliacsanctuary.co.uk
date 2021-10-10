@@ -1,5 +1,5 @@
-import Vue from "vue";
+import Vue from 'vue';
 
-const ModuleListIndex = () => import("~/Modules/UI/ModuleListIndex" /* webpackChunkName: "chunk-module-list-index" */);
+const ModuleListIndex = () => import('~/Modules/UI/ModuleListIndex' /* webpackChunkName: "chunk-module-list-index" */);
 
-Vue.component('module-list-index', ModuleListIndex);
+Vue.component('ModuleListIndex', ModuleListIndex);

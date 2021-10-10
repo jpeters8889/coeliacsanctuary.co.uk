@@ -1,35 +1,46 @@
 <template>
-    <div>
-        <a @click.prevent="showModal = true" :class="classes">
-            <slot></slot>
-        </a>
+  <div>
+    <a
+      :class="classes"
+      @click.prevent="showModal = true"
+    >
+      <slot />
+    </a>
 
-        <portal to="modal" v-if="showModal">
-            <modal title="Register">
-                <member-register-form></member-register-form>
-            </modal>
-        </portal>
-    </div>
+    <portal
+      v-if="showModal"
+      to="modal"
+    >
+      <modal title="Register">
+        <member-register-form />
+      </modal>
+    </portal>
+  </div>
 </template>
 
 <script>
-const Modal = () => import('./Modal' /* webpackChunkName: "chunk-modal" */)
+const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */);
 
 export default {
-    components: {
-        'modal': Modal,
+  components: {
+    modal: Modal,
+  },
+
+  props: {
+    classes: {
+      type: Array,
+      default: () => [],
     },
+  },
 
-    data: () => ({
-        showModal: false,
-    }),
+  data: () => ({
+    showModal: false,
+  }),
 
-    props: ['classes'],
-
-    mounted() {
-        this.$root.$on('modal-closed', () => {
-            this.showModal = false;
-        });
-    }
-}
+  mounted() {
+    this.$root.$on('modal-closed', () => {
+      this.showModal = false;
+    });
+  },
+};
 </script>

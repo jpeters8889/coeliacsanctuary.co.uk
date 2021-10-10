@@ -25,6 +25,7 @@ class RecipeMealsController extends BaseController
             ->filter()
             ->setColumns(['id'])
             ->all()
+            ->load('meals')
             ->each(function (Recipe $recipe) use (&$meals) {
                 $recipe->meals->each(function (RecipeMeal $meal) use ($recipe, &$meals) {
                     if (isset($meals[$meal->id])) {

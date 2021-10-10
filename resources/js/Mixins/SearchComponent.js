@@ -1,8 +1,8 @@
 export default {
-    props: {
-        result: {
-            type: Object,
-            required: true,
-        }
-    }
-}
+  props: {
+    result: {
+      type: Object,
+      required: true,
+    },
+  },
+};

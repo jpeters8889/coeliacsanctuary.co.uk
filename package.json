@@ -3,7 +3,9 @@
     "scripts": {
         "dev": "mix",
         "watch": "mix watch",
-        "prod": "mix --production"
+        "prod": "mix --production",
+        "lint": "eslint ./resources/js --ext .js,.vue",
+        "lint-fix": "eslint ./resources/js --ext .js,.vue --fix"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -19,9 +21,11 @@
         "html-critical-webpack-plugin": "^1.1.0",
         "i18n-iso-countries": "^6.1.0",
         "in-viewport": "^3.6.0",
+        "intersection-observer": "^0.12.0",
         "laravel-mix": "^6.0.6",
         "laravel-mix-bundle-analyzer": "^1.0.5",
         "moment-locales-webpack-plugin": "^1.2.0",
+        "ol": "^6.6.1",
         "portal-vue": "^2.1.6",
         "postcss": "^8.2.8",
         "query-string": "^6.13.5",
@@ -34,12 +38,20 @@
         "vue": "^2.6.12",
         "vue-click-outside": "^1.1.0",
         "vue-loader": "^15.9.3",
+        "vue-observe-visibility": "^1.0.0",
         "vue-scrollto": "^2.18.2",
         "vue-template-compiler": "^2.6.12",
         "vue-toasted": "^1.1.27",
-        "webpack-chunk-rename-plugin": "^1.0.3",
-        "intersection-observer": "^0.12.0",
-        "ol": "^6.6.1",
-        "vue-observe-visibility": "^1.0.0"
+        "webpack-chunk-rename-plugin": "^1.0.3"
+    },
+    "devDependencies": {
+        "eslint": "^7.32.0",
+        "eslint-config-airbnb-base": "^14.2.1",
+        "eslint-import-resolver-alias": "^1.1.2",
+        "eslint-import-resolver-webpack": "^0.13.1",
+        "eslint-plugin-import": "^2.24.2",
+        "eslint-plugin-vue": "^7.19.1",
+        "laravel-mix-modernizr": "^1.0.2",
+        "webpack-modernizr-loader": "^5.0.0"
     }
 }

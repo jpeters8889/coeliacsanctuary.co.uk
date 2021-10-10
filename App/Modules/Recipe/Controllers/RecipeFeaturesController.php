@@ -25,6 +25,7 @@ class RecipeFeaturesController extends BaseController
             ->filter()
             ->setColumns(['id'])
             ->all()
+            ->load('features')
             ->each(function (Recipe $recipe) use (&$features) {
                 $recipe->features->each(function (RecipeFeature $feature) use ($recipe, &$features) {
                     if (isset($features[$feature->id])) {

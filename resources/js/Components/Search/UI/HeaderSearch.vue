@@ -1,17 +1,20 @@
 <template>
-    <div>
-        <div @click="showSearch()" class="js-search-icon cursor-pointer">
-            <font-awesome-icon :icon="['fas', 'search']"></font-awesome-icon>
-        </div>
+  <div>
+    <div
+      class="js-search-icon cursor-pointer"
+      @click="showSearch()"
+    >
+      <font-awesome-icon :icon="['fas', 'search']" />
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    methods: {
-        showSearch() {
-            this.$root.$emit('show-quick-search');
-        }
-    }
-}
+  methods: {
+    showSearch() {
+      this.$root.$emit('show-quick-search');
+    },
+  },
+};
 </script>

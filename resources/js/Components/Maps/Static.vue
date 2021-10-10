@@ -1,75 +1,84 @@
 <template>
-    <div class="h-full mb-1">
-        <div class="w-full" :data-bg="backgroundUrl()" :class="fullClasses" :style="styles()"
-             @click.stop="showDetails = true"></div>
+  <div class="h-full mb-1">
+    <div
+      class="w-full"
+      :data-bg="backgroundUrl()"
+      :class="fullClasses"
+      :style="styles()"
+      @click.stop="showDetails = true"
+    />
 
-        <portal to="modal" v-if="showDetails">
-            <modal modal-classes="w-full h-full">
-                <dynamic-map :lat="lat" :lng="lng"></dynamic-map>
-            </modal>
-        </portal>
-    </div>
+    <portal
+      v-if="showDetails"
+      to="modal"
+    >
+      <modal modal-classes="w-full h-full">
+        <dynamic-map
+          :lat="lat"
+          :lng="lng"
+        />
+      </modal>
+    </portal>
+  </div>
 </template>
 
 <script>
-import HasGoogleMap from "@/Mixins/HasGoogleMap";
-import LazyLoadsImages from "@/Mixins/LazyLoadsImages";
-import DynamicMap from "~/Maps/Dynamic";
+import HasGoogleMap from '@/Mixins/HasGoogleMap';
+import LazyLoadsImages from '@/Mixins/LazyLoadsImages';
+import DynamicMap from '~/Maps/Dynamic';
 
-const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */)
+const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */);
 
 export default {
-    mixins: [HasGoogleMap, LazyLoadsImages],
 
-    components: {
-        'dynamic-map': DynamicMap,
-        'modal': Modal,
+  components: {
+    'dynamic-map': DynamicMap,
+    modal: Modal,
+  },
+  mixins: [HasGoogleMap, LazyLoadsImages],
+
+  props: {
+    mapClasses: {
+      type: Array,
+      default: () => ['min-h-map-small md:min-h-map lg:min-h-map-small xl:min-h-map'],
+    },
+  },
+
+  data: () => ({
+    showDetails: false,
+  }),
+
+  computed: {
+    fullClasses() {
+      const classes = this.mapClasses;
+
+      classes.push('lazy');
+
+      return classes;
+    },
+  },
+
+  mounted() {
+    this.$root.$on('modal-closed', () => {
+      this.showDetails = false;
+    });
+
+    this.loadLazyImages();
+  },
+
+  methods: {
+    styles() {
+      return {
+        // background: `url(${this.backgroundUrl()}) no-repeat 50% 50%`,
+        background: 'no-repeat 50% 50%',
+        lineHeight: 0,
+        cursor: 'pointer',
+      };
     },
 
-    props: {
-        mapClasses: {
-            type: Array,
-            default: () => {
-                return ['min-h-map-small md:min-h-map lg:min-h-map-small xl:min-h-map']
-            },
-        },
+    backgroundUrl() {
+      return `https://maps.googleapis.com/maps/api/staticmap?center${this.lat},${this.lng}&size=600x1500&maptype=roadmap&markers=color:green%7Clabel:%7C${this.lat},${this.lng}&key=${window.config.googleMaps.static}`;
     },
-
-    data: () => ({
-        showDetails: false,
-    }),
-
-    mounted() {
-        this.$root.$on('modal-closed', () => {
-            this.showDetails = false;
-        });
-
-        this.loadLazyImages();
-    },
-
-    methods: {
-        styles() {
-            return {
-                // background: `url(${this.backgroundUrl()}) no-repeat 50% 50%`,
-                background: `no-repeat 50% 50%`,
-                lineHeight: 0,
-                cursor: 'pointer',
-            }
-        },
-
-        backgroundUrl() {
-            return `https://maps.googleapis.com/maps/api/staticmap?center${this.lat},${this.lng}&size=600x1500&maptype=roadmap&markers=color:green%7Clabel:%7C${this.lat},${this.lng}&key=${window.config.googleMaps.static}`
-        },
-    },
-
-    computed: {
-        fullClasses() {
-            let classes = this.mapClasses;
-
-            classes.push('lazy');
-
-            return classes;
-        }
-    }
-}
+  },
+};
 </script>
