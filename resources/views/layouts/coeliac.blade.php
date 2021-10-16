@@ -87,10 +87,10 @@
     }
 </script>
 
-<script async defer src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script defer src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-53299243-1"></script>
+<script defer src="https://www.googletagmanager.com/gtag/js?id=UA-53299243-1"></script>
 
 <noscript>
     <img alt='' height="1" width="1" style="display:none"
@@ -116,12 +116,11 @@
             n.version = '2.0';
             n.queue = [];
             t = b.createElement(e);
-            t.async = !0;
+            t.defer = !0;
             t.src = v;
             s = b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t, s);
-        }(window, document, 'script',
-            'https://connect.facebook.net/en_US/fbevents.js'));
+        }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'));
         fbq('init', '376206517120953');
         fbq('track', 'PageView');
     }, 5000);
