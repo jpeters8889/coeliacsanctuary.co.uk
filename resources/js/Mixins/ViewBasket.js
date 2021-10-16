@@ -1,7 +1,7 @@
 export default {
-    methods: {
-        viewBasket() {
-            this.$root.$emit('show-basket');
-        }
-    }
-}
+  methods: {
+    viewBasket() {
+      this.$root.$emit('show-basket');
+    },
+  },
+};

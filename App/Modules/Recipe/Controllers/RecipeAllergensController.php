@@ -25,6 +25,7 @@ class RecipeAllergensController extends BaseController
             ->filter()
             ->setColumns(['id'])
             ->all()
+            ->load('allergens')
             ->each(function (Recipe $recipe) use (&$allergens) {
                 $recipe->allergens->each(function (RecipeAllergen $allergen) use ($recipe, &$allergens) {
                     if (isset($allergens[$allergen->id])) {

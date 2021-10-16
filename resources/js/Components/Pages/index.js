@@ -1,7 +1,7 @@
-import Vue from "vue";
+import Vue from 'vue';
 
-const HomepageHeros = () => import("~/Pages/HomepageHeros" /* webpackChunkName: "chunk-home-heros" */);
-const Competition = () => import('~/Pages/Competition' /* webpackChunkName: "chunk-competition" */)
+const HomepageHeros = () => import('~/Pages/HomepageHeros' /* webpackChunkName: "chunk-home-heros" */);
+const Competition = () => import('~/Pages/Competition' /* webpackChunkName: "chunk-competition" */);
 
-Vue.component('page-home-heros', HomepageHeros);
-Vue.component('page-competition', Competition);
+Vue.component('PageHomeHeros', HomepageHeros);
+Vue.component('PageCompetition', Competition);

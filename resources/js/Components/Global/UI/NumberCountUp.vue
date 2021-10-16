@@ -1,38 +1,43 @@
 <template>
-    <span v-text="count"></span>
+  <span v-text="count" />
 </template>
 
 <script>
 import inView from 'in-viewport';
 
 export default {
-    props: ['to'],
-
-    data: () => ({
-        count: 0,
-        interval: null
-    }),
-
-    computed: {
-        increment() {
-            return Math.ceil(this.to / 30);
-        }
+  props: {
+    to: {
+      type: Number,
+      required: true,
     },
+  },
 
-    mounted() {
-        inView(this.$el, () => {
-            this.interval = setInterval(this.tick, 40);
-        });
+  data: () => ({
+    count: 0,
+    interval: null,
+  }),
+
+  computed: {
+    increment() {
+      return Math.ceil(this.to / 30);
     },
+  },
 
-    methods: {
-        tick() {
-            if (this.count + this.increment >= this.to) {
-                this.count = this.to;
-                return clearInterval(this.interval);
-            }
-            this.count += this.increment;
-        }
-    }
+  mounted() {
+    inView(this.$el, () => {
+      this.interval = setInterval(this.tick, 40);
+    });
+  },
+
+  methods: {
+    tick() {
+      if (this.count + this.increment >= this.to) {
+        this.count = this.to;
+        return clearInterval(this.interval);
+      }
+      this.count += this.increment;
+    },
+  },
 };
 </script>

@@ -1,0 +1,83 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "airbnb-base",
+        "plugin:vue/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "vue"
+    ],
+    "globals": {
+        "coeliac": true,
+        "dataLayer": true,
+        "fbq": true,
+        "Stripe": true,
+        "paypal": true,
+        "google": true,
+        "adsbygoogle": true
+    },
+    "rules": {
+        "indent": [
+            "error",
+            2,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-param-reassign": "off",
+        "import/extensions": [
+            "off"
+        ],
+        "import/no-unresolved": "off",
+        "max-len": "off",
+        "vue/max-len": [
+            "error",
+            {
+                "code": 140,
+                "ignoreStrings": true,
+                "ignoreRegExpLiterals": true,
+                "ignoreComments": true,
+                "ignoreTrailingComments": true,
+                "ignorePattern": "^const (.*) = \\(\\) => import\\('(.*)' \\/\\* webpackChunkName: \"(.*)\" \\*\\/\\);$",
+                "ignoreTemplateLiterals": true,
+                "ignoreHTMLAttributeValues": true,
+                "ignoreHTMLTextContents": true
+            }
+        ],
+        "prefer-destructuring": [
+            "error",
+            {
+                "array": false,
+                "object": true
+            },
+            {
+                "enforceForRenamedProperties": false
+            }
+        ],
+        "vue/no-v-html": "off",
+        "radix": ["error", "as-needed"],
+        "no-restricted-globals": "off",
+        "consistent-return": "off",
+        "class-methods-use-this": "off"
+    }
+}

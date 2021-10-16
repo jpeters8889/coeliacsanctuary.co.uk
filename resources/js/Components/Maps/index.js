@@ -1,5 +1,5 @@
-import Vue from "vue";
+import Vue from 'vue';
 
-const StaticMap = () => import("~/Maps/Static" /* webpackChunkName: "chunk-static-map" */);
+const StaticMap = () => import('~/Maps/Static' /* webpackChunkName: "chunk-static-map" */);
 
-Vue.component('map-static', StaticMap);
+Vue.component('MapStatic', StaticMap);

@@ -1,75 +1,88 @@
 <template>
-    <div :class="{'w-full': fullWidth}">
-        <span v-if="label" class="block text-lg text-blue-dark font-semibold">
-            {{ label }}
-            <span v-if="required" class="text-red">*</span>
-        </span>
+  <div :class="{'w-full': fullWidth}">
+    <span
+      v-if="label"
+      class="block text-lg text-blue-dark font-semibold"
+    >
+      {{ label }}
+      <span
+        v-if="required"
+        class="text-red"
+      >*</span>
+    </span>
 
-        <div class="flex overflow-hidden border rounded" :class="borderClass">
-            <div class="bg-grey-lightest p-0 flex-1">
-                <input v-model="currentValue"
-                       :id="id"
-                       :type="type"
-                       :name="name"
-                       :placeholder="placeholder"
-                       @blur="validate()"
-                       :min="min"
-                       :max="max"
-                       :disabled="disabled"
-                       :autocomplete="autocomplete"
-                       :class="classes()"
-                       @keyup.enter="handleEnter()"
-                />
-            </div>
+    <div
+      class="flex overflow-hidden border rounded"
+      :class="borderClass"
+    >
+      <div class="bg-grey-lightest p-0 flex-1">
+        <input
+          :id="id"
+          v-model="currentValue"
+          :type="type"
+          :name="name"
+          :placeholder="placeholder"
+          :min="min"
+          :max="max"
+          :disabled="disabled"
+          :autocomplete="autocomplete"
+          :class="classes()"
+          @blur="validate()"
+          @keyup.enter="handleEnter()"
+        >
+      </div>
 
-            <div class="bg-red flex justify-center items-center p-2 text-white" :class="small ? 'text-xs' : ''"
-                 v-if="hasError && showError"
-                 v-tooltip.left="{content: errorText, classes: ['bg-red', 'border-red', 'text-white'], boundariesElement: 'body'}">
-                <font-awesome-icon :icon="['fas', 'exclamation-circle']"></font-awesome-icon>
-            </div>
-        </div>
+      <div
+        v-if="hasError && showError"
+        v-tooltip.left="{content: errorText, classes: ['bg-red', 'border-red', 'text-white'], boundariesElement: 'body'}"
+        class="bg-red flex justify-center items-center p-2 text-white"
+        :class="small ? 'text-xs' : ''"
+      >
+        <font-awesome-icon :icon="['fas', 'exclamation-circle']" />
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import IsFormField from "@/Mixins/IsFormField";
+import IsFormField from '@/Mixins/IsFormField';
 
 export default {
-    mixins: [IsFormField],
+  mixins: [IsFormField],
 
-    props: {
-        fullWidth: {
-            type: Boolean,
-            default: false,
-        },
-        onEnter: {
-            type: Function,
-            default: null,
-        }
+  props: {
+    fullWidth: {
+      type: Boolean,
+      default: false,
+    },
+    onEnter: {
+      type: Function,
+      default: null,
+    },
+  },
+
+  methods: {
+    classes() {
+      const base = ['w-full', 'bg-transparent', 'border-0', 'm-0', 'text-grey-darkest'];
+
+      if (this.disabled) {
+        base.push('text-grey-light', 'cursor:not-allowed');
+      }
+
+      base.push(this.small ? 'p-1 text-sm' : 'p-3 text-base');
+
+      return base;
     },
 
-    methods: {
-        classes() {
-            let base = ['w-full', 'bg-transparent', 'border-0', 'm-0', 'text-grey-darkest']
+    handleEnter() {
+      if (!this.onEnter) {
+        return;
+      }
 
-            if (this.disabled) {
-                base.push('text-grey-light', 'cursor:not-allowed');
-            }
-
-            base.push(this.small ? 'p-1 text-sm' : 'p-3 text-base')
-
-            return base;
-        },
-
-        handleEnter() {
-            if(!this.onEnter) {
-                return;
-            }
-
-            this.onEnter();
-        }
-    }
-}
+      this.onEnter();
+    },
+  },
+};
 </script>
 
 <style>
