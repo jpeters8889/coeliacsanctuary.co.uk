@@ -58,6 +58,7 @@ class WhereToEatController extends BaseController
                     'reviews' => function (Relation $builder) {
                         /** @phpstan-ignore-next-line */
                         return $builder
+                            ->with(['eatery', 'eatery.town', 'eatery.county', 'eatery.country', 'images'])
                             ->select(['id', 'wheretoeat_id', 'title', 'slug', 'created_at'])
                             ->where('live', 1)
                             ->latest();
