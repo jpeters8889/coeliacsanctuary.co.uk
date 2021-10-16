@@ -38,12 +38,14 @@ document.querySelectorAll('.page-box iframe').forEach((iframe) => {
 
 window.dataLayer = window.dataLayer || [];
 
-function gtag(...args) {
-  dataLayer.push(args);
-}
+// function gtag(...args) {
+//   dataLayer.push(args);
+// }
+//
+// gtag('js', new Date());
+//
+// gtag('config', 'UA-53299243-1');
 
-gtag('js', new Date());
-
-gtag('config', 'UA-53299243-1');
+import('./Utilities/Analytics.js').then((analytics) => analytics.init());
 
 /// /////
