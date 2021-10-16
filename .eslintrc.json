@@ -22,7 +22,8 @@
         "Stripe": true,
         "paypal": true,
         "google": true,
-        "adsbygoogle": true
+        "adsbygoogle": true,
+        "ga": true
     },
     "rules": {
         "indent": [
