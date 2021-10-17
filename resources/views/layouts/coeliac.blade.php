@@ -103,6 +103,16 @@
 <script src="{{ mix('/assets/js/coeliac.js') }}" async></script>
 
 <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag(...args) {
+        dataLayer.push(args);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-53299243-1');
+
     setTimeout(() => {
         !(function (f, b, e, v, n, t, s) {
             if (f.fbq) return;

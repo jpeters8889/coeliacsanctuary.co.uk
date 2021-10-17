@@ -36,16 +36,4 @@ document.querySelectorAll('.page-box iframe').forEach((iframe) => {
   }, 500);
 });
 
-window.dataLayer = window.dataLayer || [];
-
-// function gtag(...args) {
-//   dataLayer.push(args);
-// }
-//
-// gtag('js', new Date());
-//
-// gtag('config', 'UA-53299243-1');
-
-import('./Utilities/Analytics.js').then((analytics) => analytics.init());
-
 /// /////
