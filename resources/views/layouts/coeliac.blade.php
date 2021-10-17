@@ -56,6 +56,16 @@
     <link href="/assets/images/apple/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114"/>
     <link href="/assets/images/apple/apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152"/>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53299243-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-53299243-1');
+    </script>
+
     @yield('headerJavaScript', '')
 </head>
 
@@ -89,9 +99,6 @@
 
 <script async defer src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-53299243-1"></script>
-
 <noscript>
     <img alt='' height="1" width="1" style="display:none"
          src="https://www.facebook.com/tr?id=376206517120953&ev=PageView&noscript=1"
@@ -103,16 +110,6 @@
 <script src="{{ mix('/assets/js/coeliac.js') }}" async></script>
 
 <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag(...args) {
-        dataLayer.push(args);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'UA-53299243-1');
-
     setTimeout(() => {
         !(function (f, b, e, v, n, t, s) {
             if (f.fbq) return;
