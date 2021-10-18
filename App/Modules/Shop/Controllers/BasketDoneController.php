@@ -18,8 +18,6 @@ class BasketDoneController extends BaseController
 {
     public function show(ShopPage $page, SessionStore $store): Response
     {
-        sleep(1);
-
         /** @var ShopOrder $order */
         $order = ShopOrder::query()
             ->where('token', $store->get('basket_token'))
@@ -31,16 +29,16 @@ class BasketDoneController extends BaseController
             'value' => $order->payment->subtotal / 100,
             'currency' => 'GBP',
             'shipping' => $order->payment->postage / 100,
-            'items' => $order->items()->get()->transform(function (ShopOrderItem $item) {
-                return [
-                    'id' => $item->product_id,
-                    'sku' => "{$item->product_id} - {$item->product_variant_id}",
-                    'name' => $item->product_title,
-                    'variant' => $item->product_variant_id,
-                    'quantity' => $item->quantity,
-                    'price' => $item->product_price / 100,
-                ];
-            })->toArray(),
+            'tax' => 0,
+            'affiliation' => 'Coeliac Sanctuary',
+            'items' => $order->items->transform(fn (ShopOrderItem $item) => [
+                'id' => $item->product_id,
+                'sku' => "{$item->product_id} - {$item->product_variant_id}",
+                'name' => $item->product_title,
+                'variant' => $item->product_variant_id,
+                'quantity' => $item->quantity,
+                'price' => $item->product_price / 100,
+            ])->toArray(),
         ];
 
         return $page
