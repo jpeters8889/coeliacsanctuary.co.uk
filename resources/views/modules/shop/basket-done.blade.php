@@ -171,11 +171,6 @@
 
 @section('footerJavascript')
     <script type="text/javascript">
-        import OrderCompleteCreateAccount from "~/Members/Register/OrderCompleteCta";
-
-        window.gtag('event', 'purchase', @json($gtagData));
-        export default {
-            components: {OrderCompleteCreateAccount}
-        }
+        gtag('event', 'purchase', @json($gtagData));
     </script>
 @endsection

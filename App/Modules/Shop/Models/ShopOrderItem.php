@@ -9,14 +9,17 @@ use Coeliac\Modules\Member\Models\UserAddress;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * @property ShopProduct        $product
- * @property int                $product_price
+ * @property ShopProduct $product
+ * @property int $product_price
  * @property ShopProductVariant $variant
- * @property int                $quantity
- * @property mixed|string       $id
- * @property ShopOrder          $order
+ * @property int $quantity
+ * @property mixed|string $id
+ * @property ShopOrder $order
  * @property UserAddress $address
  * @property ShopPostageCountry $postageCountry
+ * @property int $product_id
+ * @property int $product_variant_id
+ * @property string $product_title
  */
 class ShopOrderItem extends BaseModel
 {
