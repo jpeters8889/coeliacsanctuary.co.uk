@@ -101,7 +101,7 @@ export default {
     },
     discount: {
       required: true,
-      type: [Object, Array],
+      type: [Object, Array, null],
     },
   },
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Shop\Basket;
 
 use Carbon\Carbon;
+use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 use Illuminate\Session\Store;
 use Coeliac\Modules\Member\Models\User;
@@ -38,7 +39,7 @@ class ShopBasketAddTest extends TestCase
             ->create();
     }
 
-    protected function makeRequest($params = [])
+    protected function makeRequest($params = []): TestResponse
     {
         return $this->post('/api/shop/basket', array_merge([
             'product_id' => $this->product->id,
@@ -133,7 +134,7 @@ class ShopBasketAddTest extends TestCase
     {
         $this->makeRequest()
             ->assertStatus(200)
-            ->assertJson(['data' => 'ok']);
+            ->assertJsonStructure(['data' => ['quantity', 'product_title', 'product_price', 'subtotal']]);
     }
 
     /** @test */
