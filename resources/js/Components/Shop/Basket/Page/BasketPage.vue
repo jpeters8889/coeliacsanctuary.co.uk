@@ -105,6 +105,7 @@ import LazyLoadsImages from '@/Mixins/LazyLoadsImages';
 import BasketCheckoutWrapper from '~/Shop/Basket/Page/BasketCheckoutWrapper';
 import BasketDiscountModal from '~/Shop/Basket/Page/BasketDiscountModal';
 import BasketPageTotals from '~/Shop/Basket/Page/BasketPageTotals';
+import GoogleEvents from '@/Mixins/GoogleEvents';
 
 export default {
 
@@ -114,9 +115,10 @@ export default {
     'basket-page-totals': BasketPageTotals,
   },
 
-  mixins: [FormatsPrices, LazyLoadsImages],
+  mixins: [FormatsPrices, LazyLoadsImages, GoogleEvents],
 
   data: () => ({
+    firstLoad: true,
     loading: true,
     showDiscountModal: false,
     data: {
@@ -126,6 +128,7 @@ export default {
       country: 1,
       delivery: '1 - 2',
       total: 0,
+      discount: [],
     },
   }),
 
@@ -161,6 +164,20 @@ export default {
           if (response.status === 200) {
             this.data = response.data;
             this.loading = false;
+
+            if (this.firstLoad && this.data.items.length) {
+              this.googleEvent('event', 'begin-checkout', {
+                items: this.data.items.map((item) => ({
+                  id: item.product.id,
+                  name: item.product_title,
+                  variant: item.variant.title ?? '',
+                  quantity: item.quantity,
+                  price: item.product_price / 100,
+                })),
+              });
+
+              this.firstLoad = false;
+            }
 
             if (this.data.items.length === 0) {
               sessionStorage.removeItem('checkout-data');

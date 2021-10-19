@@ -39,6 +39,7 @@ class ShopOrderItem extends BaseModel
         'subtotal',
         'product',
         'variant',
+        'product_title',
     ];
 
     public function getSubtotalAttribute(): int

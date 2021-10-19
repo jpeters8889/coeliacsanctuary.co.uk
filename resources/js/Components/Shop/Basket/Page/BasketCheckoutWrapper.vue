@@ -207,6 +207,11 @@ export default {
         };
       }
 
+      this.googleEvent('event', 'set_checkout_option', {
+        checkout_step: currentSectionId,
+        checkout_option: data.id,
+      });
+
       sessionStorage.setItem('checkout-data', JSON.stringify(this.sections));
     },
 

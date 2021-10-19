@@ -37,7 +37,8 @@ export default {
             items: [
               {
                 id: this.productId,
-                variant: this.variantId,
+                name: response.data.data.product_title,
+                price: response.data.data.product_price / 100,
                 quantity: this.quantity,
               },
             ],

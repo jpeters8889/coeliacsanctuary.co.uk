@@ -48,7 +48,7 @@ class BasketController extends BaseController
                 ->add($request->resolveProduct(), $request->resolveVariant(), $request->input('quantity'));
 
             return [
-                'data' => 'ok',
+                'data' => $this->basket->model()->items()->latest()->first(),
             ];
         } catch (BasketException $exception) {
             return new Response([
@@ -72,7 +72,8 @@ class BasketController extends BaseController
                 ->items()
                 ->with('product', 'variant', 'product.images', 'product.images.image', 'product.prices', 'product.shippingMethod')
                 ->get()
-                ->makeVisible(['product.first_image']);
+                ->makeVisible(['product.first_image'])
+            ->transform(fn ($item) => array_merge($item->toArray(), ['id' => sha1((string) $item['id'])]));
 
             $subtotal = array_sum($items->pluck('subtotal')->toArray());
             $postage = $this->basket->postage()->calculate();

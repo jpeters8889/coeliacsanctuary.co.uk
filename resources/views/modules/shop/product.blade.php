@@ -1,5 +1,18 @@
 @extends('templates.shop')
 
+@section('footerJavascript')
+    <script type="text/javascript">
+        gtag('event', 'view_item', {
+            "items": [
+                {
+                    "id": {{ $product->id }},
+                    "name": "{{ $product->title }}",
+                }
+            ]
+        });
+    </script>
+@endsection
+
 @section('primary-column')
     <div class="space-y-3">
         <div class="page-box">
