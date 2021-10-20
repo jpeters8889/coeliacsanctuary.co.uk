@@ -193,9 +193,9 @@ export default {
     });
 
     this.$root.$on('pagination-click', (page) => {
-      this.googleEvent('event', this.title, {
-        event_category: 'navigate-page',
-        event_label: page,
+      this.googleEvent('event', this.module, {
+        event_category: 'site-search-navigate-page',
+        event_label: `navigated-to-page-${page}`,
       });
 
       if (page === 'next') {

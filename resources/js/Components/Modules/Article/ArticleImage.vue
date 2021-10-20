@@ -102,7 +102,7 @@ export default {
       if (this.zoom) {
         this.googleEvent('event', 'article', {
           event_category: 'viewed-image',
-          event_label: this.src,
+          event_label: `viewed-${this.src}`,
         });
       }
     },

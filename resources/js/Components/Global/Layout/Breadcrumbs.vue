@@ -118,7 +118,7 @@ export default {
   methods: {
     facebookShare() {
       this.googleEvent('event', 'share', {
-        event_label: 'facebook',
+        event_label: 'share-facebook',
       });
 
       this.openPopup(
@@ -129,7 +129,7 @@ export default {
 
     twitterShare() {
       this.googleEvent('event', 'share', {
-        event_label: 'twitter',
+        event_label: 'share-twitter',
       });
 
       this.openPopup(
@@ -140,7 +140,7 @@ export default {
 
     pinterestShare() {
       this.googleEvent('event', 'share', {
-        event_label: 'pinterest',
+        event_label: 'share-pinterest',
       });
 
       this.openPopup(
@@ -151,7 +151,7 @@ export default {
 
     redditShare() {
       this.googleEvent('event', 'share', {
-        event_label: 'reddit',
+        event_label: 'share-reddit',
       });
 
       this.openPopup(

@@ -122,7 +122,7 @@ export default {
       if (value) {
         this.googleEvent('event', 'modules', {
           event_category: 'opened-filter-bar',
-          event_label: this.title,
+          event_label: `opened-filter-bar-on-${this.title}`,
         });
 
         document.querySelector('html').classList.add('bg-black', 'bg-opacity-80', 'overflow-hidden');

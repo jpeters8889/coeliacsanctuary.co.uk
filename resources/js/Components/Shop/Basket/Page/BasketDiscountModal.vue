@@ -71,7 +71,7 @@ export default {
         if (response.status === 200) {
           this.googleEvent('event', 'checkout_progress', {
             event_category: 'applied-discount',
-            event_label: this.discountCode,
+            event_label: `applied-discount-${this.discountCode}`,
           });
 
           coeliac().success(`Yay! We've validated your ${response.data.name} discount code and added it to your order!`);
@@ -90,7 +90,7 @@ export default {
     reportError() {
       this.googleEvent('event', 'checkout_progress', {
         event_category: 'invalid-discount',
-        event_label: this.discountCode,
+        event_label: `used-invalid-discount-${this.discountCode}`,
       });
 
       this.loading = false;

@@ -15,8 +15,8 @@ export default {
 
   mounted() {
     this.googleEvent('event', 'dynamic-map', {
-      event_category: 'toggled',
-      event_label: `${this.lat},${this.lng}`,
+      event_category: 'dynamic-map',
+      event_label: `dynamic-map-viewed-${this.lat},${this.lng}`,
     });
 
     loadScript(`https://maps.google.com/maps/api/js?key=${window.config.googleMaps.dynamic}`).then(() => {

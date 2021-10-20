@@ -235,9 +235,9 @@ export default {
 
     events() {
       this.$root.$on('pagination-click', (page) => {
-        this.googleEvent('event', this.title, {
-          event_category: 'navigate-page',
-          event_label: page,
+        this.googleEvent('event', this.module, {
+          event_category: `${this.module}-navigate-page`,
+          event_label: `navigated-to-page-${page}`,
         });
 
         if (page === 'next') {
@@ -256,21 +256,10 @@ export default {
         });
       });
 
-      this.$root.$on('layout-change', (layout) => {
-        this.googleEvent('event', this.title, {
-          event_category: 'layout-change',
-          event_label: layout,
-        });
-
-        this.layout = layout;
-
-        this.loadLazyImages();
-      });
-
       this.$root.$on('add-filter', (filter) => {
-        this.googleEvent('event', this.title, {
-          event_category: 'added-filter',
-          event_label: filter.name,
+        this.googleEvent('event', this.module, {
+          event_category: `${this.module}-added-filter`,
+          event_label: `added-filter-${filter.name}`,
         });
 
         if (filter.single) {
@@ -284,7 +273,7 @@ export default {
       });
 
       this.$root.$on('clear-filters', () => {
-        this.googleEvent('event', this.title, {
+        this.googleEvent('event', this.module, {
           event_category: 'cleared-filters',
         });
 
@@ -297,9 +286,9 @@ export default {
       });
 
       this.$root.$on('remove-filter', (filter) => {
-        this.googleEvent('event', this.title, {
-          event_category: 'removed-filter',
-          event_label: filter.name,
+        this.googleEvent('event', this.module, {
+          event_category: `${this.module}-removed-filter`,
+          event_label: `removed-filter-${filter.name}`,
         });
 
         this.filters[filter.name] = this.filters[filter.name].filter((thisFilter) => thisFilter !== filter.value);
@@ -312,9 +301,9 @@ export default {
       });
 
       this.$root.$on('module-search', (search) => {
-        this.googleEvent('event', this.title, {
-          event_category: 'used-search',
-          event_label: search,
+        this.googleEvent('event', this.module, {
+          event_category: `${this.module}-used-search`,
+          event_label: `searched-for-${search}`,
         });
 
         this.searchText = search;

@@ -150,7 +150,7 @@ export default {
       if (this.showDetails) {
         this.googleEvent('event', 'wheretoeat', {
           event_category: 'showed-rating-details',
-          event_label: this.id,
+          event_label: `viewed-ratings-for-${this.id}`,
         });
       }
     },
@@ -159,7 +159,7 @@ export default {
       if (this.showCreateRating) {
         this.googleEvent('event', 'wheretoeat', {
           event_category: 'created-rating',
-          event_label: this.id,
+          event_label: `viewed-ratings-for-${this.id}`,
         });
       }
     },
