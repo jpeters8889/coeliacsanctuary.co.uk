@@ -58,7 +58,7 @@ export default {
         provider: 'paypal',
       };
 
-      this.googleEvent('event', 'set-checkout-option', {
+      this.googleEvent('event', 'set_checkout_option', {
         event_label: 'paypal',
       });
 

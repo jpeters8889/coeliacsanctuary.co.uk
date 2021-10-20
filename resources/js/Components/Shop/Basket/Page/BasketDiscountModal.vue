@@ -53,7 +53,7 @@ export default {
   }),
 
   mounted() {
-    this.googleEvent('event', 'checkout-progress', {
+    this.googleEvent('event', 'checkout_progress', {
       event_category: 'opened-discount-modal',
     });
 
@@ -69,7 +69,7 @@ export default {
         code: this.discountCode,
       }).then((response) => {
         if (response.status === 200) {
-          this.googleEvent('event', 'checkout-progress', {
+          this.googleEvent('event', 'checkout_progress', {
             event_category: 'applied-discount',
             event_label: this.discountCode,
           });
@@ -88,7 +88,7 @@ export default {
     },
 
     reportError() {
-      this.googleEvent('event', 'checkout-progress', {
+      this.googleEvent('event', 'checkout_progress', {
         event_category: 'invalid-discount',
         event_label: this.discountCode,
       });

@@ -157,7 +157,7 @@ export default {
   methods: {
     getData() {
       coeliac().request().get('/api/shop/basket/summary').then((response) => {
-        this.googleEvent('event', 'checkout-progress', {
+        this.googleEvent('event', 'checkout_progress', {
           event_category: 'opened-basket-sidebar',
         });
 
