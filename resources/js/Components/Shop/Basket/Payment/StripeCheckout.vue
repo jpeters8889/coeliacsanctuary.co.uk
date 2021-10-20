@@ -88,7 +88,7 @@ export default {
       this.isDisabled = true;
 
       this.googleEvent('event', 'set_checkout_option', {
-        event_label: 'stripe',
+        event_label: 'set-payment-method-stripe',
       });
 
       this.stripe.createPaymentMethod('card', this.cardElement, {

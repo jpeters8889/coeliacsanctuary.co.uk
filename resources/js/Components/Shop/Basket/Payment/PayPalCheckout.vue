@@ -59,7 +59,7 @@ export default {
       };
 
       this.googleEvent('event', 'set_checkout_option', {
-        event_label: 'paypal',
+        event_label: 'set-payment-method-paypal',
       });
 
       coeliac().request().post('/api/shop/order', this.checkoutData)

@@ -49,7 +49,7 @@ export default {
   methods: {
     toggleAccordion() {
       this.googleEvent('event', 'accordion', {
-        event_category: 'toggled',
+        event_category: `toggled-accordion-${this.name}`,
         event_label: this.name,
       });
 

@@ -73,7 +73,7 @@ export default {
   mounted() {
     this.$root.$on('show-quick-search', () => {
       this.googleEvent('event', 'search', {
-        event_label: 'opened',
+        event_label: 'opened-quick-search-box',
       });
 
       this.show();
@@ -87,7 +87,8 @@ export default {
   methods: {
     search() {
       this.googleEvent('event', 'search', {
-        event_label: this.searchText,
+        event_category: 'ran-search',
+        event_label: `searched-for-${this.searchText}`,
       });
 
       window.location.href = `/search?q=${this.searchText}`;

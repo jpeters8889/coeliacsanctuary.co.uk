@@ -232,7 +232,7 @@ export default {
         this.sections.find((item) => item.id === section.id).active = true;
 
         this.googleEvent('event', 'checkout_progress', {
-          event_label: section.title,
+          event_label: `checkout-progress-${section.title}`,
           checkout_step: this.sections.findIndex((item) => item.id === section.id),
           checkout_option: this.sections.find((item) => item.id === section.id).id,
         });

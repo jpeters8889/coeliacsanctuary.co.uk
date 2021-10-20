@@ -73,7 +73,7 @@ export default {
     showNav(value) {
       if (value) {
         this.googleEvent('event', 'mobile-nav', {
-          event_category: 'toggled',
+          event_category: 'opened-mobile-nav',
         });
 
         document.querySelector('body').classList.add('overflow-hidden');

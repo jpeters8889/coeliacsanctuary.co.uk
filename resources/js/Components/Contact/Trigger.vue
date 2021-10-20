@@ -56,7 +56,7 @@ export default {
     showContact() {
       if (this.showContact) {
         this.googleEvent('event', 'contact-form', {
-          event_category: 'toggled',
+          event_category: 'opened-contact-form',
         });
       }
     },

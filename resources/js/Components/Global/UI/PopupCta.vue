@@ -53,7 +53,7 @@ export default {
         setTimeout(() => {
           this.showModal = true;
           this.googleEvent('event', 'view_promotion', {
-            event_label: 'loaded',
+            event_label: 'loaded-global-shop-cta',
           });
         }, 6000);
       }
@@ -71,7 +71,7 @@ export default {
   methods: {
     clickedPopup() {
       this.googleEvent('event', 'view_promotion', {
-        event_label: 'clicked',
+        event_label: 'clicked-global-shop-cta',
         promotions: [
           {
             id: 'shop-popup',
