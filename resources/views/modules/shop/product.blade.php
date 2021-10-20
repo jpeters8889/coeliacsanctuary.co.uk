@@ -3,10 +3,10 @@
 @section('footerJavascript')
     <script type="text/javascript">
         gtag('event', 'view_item', {
-            "items": [
+            items: [
                 {
-                    "id": {{ $product->id }},
-                    "name": "{{ $product->title }}",
+                    id: {{ $product->id }},
+                    name: "{{ $product->title }}",
                 }
             ]
         });

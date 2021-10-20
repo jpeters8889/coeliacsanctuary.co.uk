@@ -33,7 +33,7 @@ export default {
         quantity: this.quantity,
       }).then((response) => {
         if (response.status === 200) {
-          this.googleEvent('event', 'add-to-cart', {
+          this.googleEvent('event', 'add_to_cart', {
             items: [
               {
                 id: this.productId,

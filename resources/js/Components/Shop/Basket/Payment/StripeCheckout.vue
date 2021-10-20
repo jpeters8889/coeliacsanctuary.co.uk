@@ -87,7 +87,7 @@ export default {
       this.hasStartedPayment = true;
       this.isDisabled = true;
 
-      this.googleEvent('event', 'set-checkout-option', {
+      this.googleEvent('event', 'set_checkout_option', {
         event_label: 'stripe',
       });
 

@@ -52,7 +52,7 @@ export default {
 
         setTimeout(() => {
           this.showModal = true;
-          this.googleEvent('event', 'view-promotion', {
+          this.googleEvent('event', 'view_promotion', {
             event_label: 'loaded',
           });
         }, 6000);
@@ -70,8 +70,14 @@ export default {
 
   methods: {
     clickedPopup() {
-      this.googleEvent('event', 'view-promotion', {
+      this.googleEvent('event', 'view_promotion', {
         event_label: 'clicked',
+        promotions: [
+          {
+            id: 'shop-popup',
+            name: 'global-shop-popup',
+          },
+        ],
       });
 
       window.location.href = this.modal.link;

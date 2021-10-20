@@ -166,7 +166,7 @@ export default {
             this.loading = false;
 
             if (this.firstLoad && this.data.items.length) {
-              this.googleEvent('event', 'begin-checkout', {
+              this.googleEvent('event', 'begin_checkout', {
                 items: this.data.items.map((item) => ({
                   id: item.product.id,
                   name: item.product_title,
