@@ -11,6 +11,7 @@ use Coeliac\Common\Models\Popup;
 use Illuminate\Support\Collection;
 use Coeliac\Common\Popups\Repository;
 use Coeliac\Base\Controllers\BaseController;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class PopupController extends BaseController
 {
@@ -46,18 +47,16 @@ class PopupController extends BaseController
 
     public function update(mixed $id): Response
     {
-        /* @var Popup $popup */
         $popup = $this->repository->get($id);
 
         abort_if(!$popup, 404);
 
         $now = Carbon::now();
 
-        return (new Response())->cookie(
+        return (new Response())->cookie(new Cookie(
             "CS_SEEN_POPUP_{$popup->id}",
-            $now->timestamp,
-            /** @phpstan-ignore-next-line  */
-            $now->addDays($popup->display_every)->diffInMinutes($now)
-        );
+            (string) $now->timestamp,
+            $now->addDays($popup->display_every),
+        ));
     }
 }
