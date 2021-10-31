@@ -79,6 +79,7 @@ export default {
         'sm:m-2',
         'bg-blue',
         'bg-opacity-20',
+        'max-w-half',
       ];
 
       if (this.position !== 'fullwidth') {

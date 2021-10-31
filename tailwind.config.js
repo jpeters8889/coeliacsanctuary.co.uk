@@ -120,6 +120,7 @@ module.exports = {
         'basket-sidebar': '400px',
         images: '1200px',
         '2/5': '40%',
+        half: '50%',
       },
       minHeight: {
         map: '300px',
