@@ -144,7 +144,7 @@
                             </a>
                         </div>
                         <div class="p-2 flex flex-col h-full">
-                            <a href="/recipe/{{ $recipe->slug }}" class="flex-1">
+                            <a href="/recipe/{{ $recipe->slug }}">
                                 <h3 class="font-semibold hover:underline">{{ $recipe->title }}</h3>
                             </a>
                             <p>{{ $recipe->meta_description }}</p>
