@@ -1,5 +1,9 @@
 @extends('layouts.coeliac')
 
+@section('headerJavaScript')
+    <link rel="preload" as="image" href="{{ config('app.url') }}/assets/images/misc/stickers.jpg">
+@endsection
+
 @section('content')
     @include('components.announcement')
 
