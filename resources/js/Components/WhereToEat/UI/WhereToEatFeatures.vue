@@ -20,6 +20,8 @@
             :src="feature.image"
             :alt="feature.feature"
             class="filter saturate-0 w-full"
+            width="100%"
+            height="100%"
           >
         </div>
 
