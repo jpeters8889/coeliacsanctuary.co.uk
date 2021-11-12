@@ -33,6 +33,7 @@ export default {
   components: {
     modal: Modal,
   },
+
   mixins: [GoogleEvents],
 
   data: () => ({
@@ -46,6 +47,10 @@ export default {
   }),
 
   mounted() {
+    if (window.innerWidth <= 360) {
+      return;
+    }
+
     coeliac().request().get('/api/popup').then((response) => {
       if (response.status === 200 && Object.values(response.data).length > 0) {
         this.modal = response.data;
