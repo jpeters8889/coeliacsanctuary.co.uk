@@ -19,7 +19,7 @@
           <img
             :src="feature.image"
             :alt="feature.feature"
-            class="filter saturate-0"
+            class="filter saturate-0 w-full"
           >
         </div>
 
