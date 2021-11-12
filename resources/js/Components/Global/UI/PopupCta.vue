@@ -57,7 +57,10 @@ export default {
 
         setTimeout(() => {
           this.showModal = true;
+          coeliac().request().patch(`/api/popup/${this.modal.id}`);
+
           this.googleEvent('event', 'view_promotion', {
+            event_category: 'view-main-shop-popup',
             event_label: 'loaded-global-shop-cta',
           });
         }, 6000);
@@ -66,10 +69,6 @@ export default {
 
     this.$root.$on('modal-closed', () => {
       this.showModal = false;
-
-      if (this.modal.id) {
-        coeliac().request().patch(`/api/popup/${this.modal.id}`);
-      }
     });
   },
 
