@@ -1,5 +1,4 @@
 import Vue from 'vue';
+import Trigger from '~/Contact/Trigger';
 
-const ContactTrigger = () => import('~/Contact/Trigger' /* webpackChunkName: "chunk-contact-trigger" */);
-
-Vue.component('ContactTrigger', ContactTrigger);
+Vue.component('ContactTrigger', Trigger);
