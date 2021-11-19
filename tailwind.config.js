@@ -91,6 +91,7 @@ module.exports = {
         xxs: '0.6rem',
       },
       height: {
+        20: '5rem',
         200: '200px',
         400: '400px',
         600: '600px',

@@ -7,12 +7,15 @@ use Coeliac\Modules\Shop\Controllers\BasketController;
 use Coeliac\Modules\Shop\Controllers\ProductController;
 use Coeliac\Modules\Shop\Controllers\CategoryController;
 use Coeliac\Modules\Shop\Controllers\BasketDoneController;
+use Coeliac\Modules\Shop\Controllers\TravelCardsLandingPageController;
 
 /* @var Router $router */
 
 if (!isset($router)) {
     return;
 }
+
+$router->get('gluten-free-travel-translation-cards', TravelCardsLandingPageController::class);
 
 $router->group(['prefix' => 'shop'], static function () use ($router) {
     $router->get('/', [CategoryController::class, 'index']);
