@@ -14,10 +14,11 @@
             </h6>
         </div>
 
-        <div class="grid gap-3 px-3">
-            <div class="page-box p-3 shadow flex flex-col space-y-4 sm:flex-row sm:space-x-6">
-                <div class="flex justify-center items-center m-12 text-blue sm:m-0 sm:p-4 sm:pr-0 sm:w-1/4 sm:flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1198.67 906.27" class="fill-current">
+        <div class="grid gap-3 px-3 lg:grid-cols-2 lg:-mx-3">
+            <x-shop.landing-card>
+                <x-slot name="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1198.67 906.27" class="fill-current"
+                         lg:max-h-logo>
                         <path
                             d="M230.66,666.29V567.78h-103c-39.87,0-72.33-34.52-72.33-76.95V268.7c0-42.44,32.44-77,72.33-77H588.27c39.87,0,72.3,34.54,72.3,77V490.83c0,42.43-32.43,76.95-72.3,76.95v54c69.64,0,126.3-58.75,126.3-131V268.7c0-72.21-56.65-131-126.3-131H127.66C58,137.73,1.33,196.49,1.33,268.7V490.83c0,72.21,56.67,131,126.33,131h49V717.5a36,36,0,0,0,35.76,35.42,33.93,33.93,0,0,0,26-12.14L339,621.8H439.3v-54H313.91Z"
                             transform="translate(-1.33 -137.73)"/>
@@ -31,22 +32,19 @@
                             d="M722.23,727.7c0,27.59,17.64,45.49,46.39,45.49,34.55-.73,68.73-22.66,79.85-32.56s41.08-44.36,54.31-71.63c16.73,7.9,24.66,21.14,24.66,35.79,0,31.71-30.54,50.1-79.27,55.68l23.64,32.74c76.33-10,102.3-42.05,102.3-89,0-39.65-25-63.73-56.94-74.27.59-2.91,1.66-6,2.26-8.89l-43.38-7.73c-.29,4.39-1.17,5.19-2,9.59a174.2,174.2,0,0,0-38.46,2.63c0-7.93.29-29.08.59-36.7,36.11-1.46,71.61-4.38,104.49-9.38l-3.82-42.84a691,691,0,0,1-98.33,12c.86-8.53,2.07-32.64,2.07-32.64l-45.81-3.49c-.6,11.75-.86,25.55-1.45,37.57-20.28.29-44.31.29-57,0l2,41.4h5c12,0,31.73-.61,49.36-1.19,0,11.43.28,36.1.58,47.26C751.89,654.87,722.23,686.9,722.23,727.7Zm138-66.35a156.29,156.29,0,0,1-21.72,32.86c-1.2-9.69-1.78-19.66-2.36-30.22C839.35,663.41,852.27,661.35,860.21,661.35Zm-64.59,17c1.47,16.44,3.24,32.29,5.87,46.67-7.62,3.82-14.94,6.17-21.73,6.47-14.69.59-14.69-8.79-14.69-12.92C765.08,703,777.12,688.66,795.62,678.38Z"
                             transform="translate(-1.33 -137.73)"/>
                     </svg>
-                </div>
+                </x-slot>
+                <x-slot name="title">Professionally Translated</x-slot>
+                <x-slot name="body">
+                    We don't just run our cards through automated software like Google Translate, all of gluten free
+                    travel and translation cards are professionally translated by native speakers, giving you the
+                    assurance that anyone reading the card is given accurate information, and that it makes sense!
+                </x-slot>
+            </x-shop.landing-card>
 
-                <div class="flex flex-col space-y-4 sm:w-3/4">
-                    <h3 class="text-2xl text-blue font-semibold text-center sm:text-left sm:-mt-4">Professionally Translated</h3>
-
-                    <p>
-                        We don't just run our cards through automated software like Google Translate, all of gluten free
-                        travel and translation cards are professionally translated by native speakers, giving you the
-                        assurance that anyone reading the card is given accurate information, and that it makes sense!
-                    </p>
-                </div>
-            </div>
-
-            <div class="page-box p-3 shadow flex flex-col space-y-4 sm:flex-row sm:space-x-6">
-                <div class="flex justify-center items-center m-12 text-blue sm:m-0 sm:p-4 sm:pr-0 sm:w-1/4 sm:flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487.46 430.75" class="fill-current">
+            <x-shop.landing-card>
+                <x-slot name="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 487.46 430.75"
+                         class="fill-current lg:max-h-logo">
                         <polygon
                             points="304.5 353 185.5 353 185.5 0 195.5 0 195.5 343 294.5 343 294.5 0 304.5 0 304.5 353"/>
                         <path d="M654.5,610" transform="translate(-355 -610)"/>
@@ -75,22 +73,19 @@
                         <path d="M677,862.38l-21.34-20L677,821.08ZM662.81,842.3l9.15,8.55v-17.7Z"
                               transform="translate(-355 -610)"/>
                     </svg>
-                </div>
+                </x-slot>
+                <x-slot name="title">Ultra thick and durable</x-slot>
+                <x-slot name="body">
+                    We don't produce our gluten free travel and translation cards on flimsy bits of card, all of our
+                    cards are extra thick at 3mm, meaning they're extra durable and will survive your entire trip no
+                    matter how many restaurants you take them too!
+                </x-slot>
+            </x-shop.landing-card>
 
-                <div class="flex flex-col space-y-4 sm:w-3/4">
-                    <h3 class="text-2xl text-blue font-semibold text-center sm:text-left sm:-mt-4">Ultra thick and durable</h3>
-
-                    <p>
-                        We don't produce our gluten free travel and translation cards on flimsy bits of card, all of our
-                        cards are extra thick at 3mm, meaning they're extra durable and will survive your entire trip no
-                        matter how many restaurants you take them too!
-                    </p>
-                </div>
-            </div>
-
-            <div class="page-box p-3 shadow flex flex-col space-y-4 sm:flex-row sm:space-x-6">
-                <div class="flex justify-center items-center m-12 text-blue sm:m-0 sm:p-4 sm:pr-0 sm:w-1/4 sm:flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1012.35 1200" class="fill-current">
+            <x-shop.landing-card>
+                <x-slot name="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1012.35 1200"
+                         class="fill-current lg:max-h-logo">
                         <path
                             d="M109.22,581.19h974.85a18.73,18.73,0,0,0,18.75-18.75V18.75A18.73,18.73,0,0,0,1084.07,0H109.22A18.73,18.73,0,0,0,90.47,18.75V562.44A18.73,18.73,0,0,0,109.22,581.19ZM128,37.5h937.35V543.69H128Z"
                             transform="translate(-90.47 0)"/>
@@ -124,58 +119,67 @@
                         <path d="M690.9,1012.54h-.21a18.86,18.86,0,1,0,.21,0Z" transform="translate(-90.47 0)"/>
                         <path d="M690.9,1068.79h-.21a18.86,18.86,0,1,0,.21,0Z" transform="translate(-90.47 0)"/>
                     </svg>
-                </div>
+                </x-slot>
+                <x-slot name="title">Double Sided</x-slot>
+                <x-slot name="body">
+                    Our gluten free travel and translation cards are all double sided, on our standard cards you get two
+                    languages, and on our Coeliac and Other Allergy travel cards you have a series of checkboxes to mark
+                    any other allergens or foods you can't eat.
+                </x-slot>
+            </x-shop.landing-card>
 
-                <div class="flex flex-col space-y-4 sm:w-3/4">
-                    <h3 class="text-2xl text-blue font-semibold text-center sm:text-left sm:-mt-4">Double Sided</h3>
-
-                    <p>
-                        Our gluten free travel and translation cards are all double sided, on our standard cards you get
-                        two languages, and on our Coeliac and Other Allergy travel cards you have a series of checkboxes
-                        to mark any other allergens or foods you can't eat.
-                    </p>
-                </div>
-            </div>
-
-            <div class="page-box p-3 shadow flex flex-col space-y-4 sm:flex-row sm:space-x-6">
-                <div class="flex justify-center items-center m-12 text-blue sm:m-0 sm:p-4 sm:pr-0 sm:w-1/4 sm:flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1191.03 800.22" class="fill-current">
-                        <path d="M1172.42,738.85a18.59,18.59,0,0,1-18.61-18.61V255H521.07V701.63a18.61,18.61,0,1,1-37.21,0V236.39a18.59,18.59,0,0,1,18.61-18.61h670A18.59,18.59,0,0,1,1191,236.39V720.24A18.59,18.59,0,0,1,1172.42,738.85Z"
-                              transform="translate(0 -217.78)"/>
+            <x-shop.landing-card>
+                <x-slot name="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1191.03 800.22" class="fill-current"
+                         lg:max-h-logo>
+                        <path
+                            d="M1172.42,738.85a18.59,18.59,0,0,1-18.61-18.61V255H521.07V701.63a18.61,18.61,0,1,1-37.21,0V236.39a18.59,18.59,0,0,1,18.61-18.61h670A18.59,18.59,0,0,1,1191,236.39V720.24A18.59,18.59,0,0,1,1172.42,738.85Z"
+                            transform="translate(0 -217.78)"/>
                         <path d="M502.47,478.32H335a18.61,18.61,0,0,1,0-37.22H502.47a18.61,18.61,0,0,1,0,37.22Z"
                               transform="translate(0 -217.78)"/>
-                        <path d="M167.49,627.19a18.61,18.61,0,0,1-12.36-32.51L322.62,445.8a18.6,18.6,0,1,1,24.71,27.81L179.85,622.49A18.51,18.51,0,0,1,167.49,627.19Z"
-                              transform="translate(0 -217.78)"/>
+                        <path
+                            d="M167.49,627.19a18.61,18.61,0,0,1-12.36-32.51L322.62,445.8a18.6,18.6,0,1,1,24.71,27.81L179.85,622.49A18.51,18.51,0,0,1,167.49,627.19Z"
+                            transform="translate(0 -217.78)"/>
                         <path d="M483.86,943.56H167.49a18.61,18.61,0,0,1,0-37.22H483.86a18.61,18.61,0,1,1,0,37.22Z"
                               transform="translate(0 -217.78)"/>
-                        <path d="M502.47,720.24a18.61,18.61,0,0,1-12.08-32.77L625.55,572.26a18.6,18.6,0,0,1,24.14,28.3L514.52,715.78A18.36,18.36,0,0,1,502.47,720.24Z"
-                              transform="translate(0 -217.78)"/>
-                        <path d="M483.84,943.56a18.61,18.61,0,0,1-13.18-31.75l242-242.87A18.6,18.6,0,1,1,739,695.21L497,938.09A18.49,18.49,0,0,1,483.84,943.56Z"
-                              transform="translate(0 -217.78)"/>
+                        <path
+                            d="M502.47,720.24a18.61,18.61,0,0,1-12.08-32.77L625.55,572.26a18.6,18.6,0,0,1,24.14,28.3L514.52,715.78A18.36,18.36,0,0,1,502.47,720.24Z"
+                            transform="translate(0 -217.78)"/>
+                        <path
+                            d="M483.84,943.56a18.61,18.61,0,0,1-13.18-31.75l242-242.87A18.6,18.6,0,1,1,739,695.21L497,938.09A18.49,18.49,0,0,1,483.84,943.56Z"
+                            transform="translate(0 -217.78)"/>
                         <path d="M1172.42,738.85H687.76a18.61,18.61,0,0,1,0-37.22h484.66a18.61,18.61,0,0,1,0,37.22Z"
                               transform="translate(0 -217.78)"/>
-                        <path d="M167.49,962.17a18.59,18.59,0,0,1-18.61-18.61V571.36a18.61,18.61,0,1,1,37.22,0v372.2A18.59,18.59,0,0,1,167.49,962.17Z"
-                              transform="translate(0 -217.78)"/>
+                        <path
+                            d="M167.49,962.17a18.59,18.59,0,0,1-18.61-18.61V571.36a18.61,18.61,0,1,1,37.22,0v372.2A18.59,18.59,0,0,1,167.49,962.17Z"
+                            transform="translate(0 -217.78)"/>
                         <path d="M167.49,590H111.66a18.61,18.61,0,1,1,0-37.22h55.83a18.61,18.61,0,0,1,0,37.22Z"
                               transform="translate(0 -217.78)"/>
                         <path d="M167.49,962.17H111.66a18.61,18.61,0,0,1,0-37.22h55.83a18.61,18.61,0,1,1,0,37.22Z"
                               transform="translate(0 -217.78)"/>
-                        <path d="M111.66,1018h-93a18.61,18.61,0,1,1,0-37.22H93.05V534.14H18.61a18.61,18.61,0,1,1,0-37.21h93.05a18.59,18.59,0,0,1,18.61,18.6V999.39A18.59,18.59,0,0,1,111.66,1018Z"
-                              transform="translate(0 -217.78)"/>
-                        <path d="M725.78,700.68a18.61,18.61,0,0,1-13.28-31.63,46.53,46.53,0,0,0-63-68.36,18.6,18.6,0,0,1-23.84-28.56,83.74,83.74,0,0,1,113.37,123A18.48,18.48,0,0,1,725.78,700.68Z"
-                              transform="translate(0 -217.78)"/>
-                        <path d="M789.88,827.55a18.6,18.6,0,0,1-13.44-31.47l84.77-88.7a18.61,18.61,0,0,1,26.89,25.74l-84.77,88.7A18.64,18.64,0,0,1,789.88,827.55Z"
-                              transform="translate(0 -217.78)"/>
-                        <path d="M744.75,850.51a18.61,18.61,0,1,1,0-37.22c11.22,0,16.75-2.31,32-17.51a18.6,18.6,0,1,1,26.31,26.31C784.61,840.52,769.85,850.51,744.75,850.51Z"
-                              transform="translate(0 -217.78)"/>
-                        <path d="M696.49,827.55a18.6,18.6,0,0,1-13.44-31.47l84.77-88.7a18.61,18.61,0,0,1,26.89,25.74L710,821.82A18.71,18.71,0,0,1,696.49,827.55Z"
-                              transform="translate(0 -217.78)"/>
-                        <path d="M651.34,850.51a18.61,18.61,0,0,1,0-37.22c11.23,0,16.75-2.31,32-17.51a18.61,18.61,0,1,1,26.32,26.31C691.22,840.52,676.47,850.51,651.34,850.51Z"
-                              transform="translate(0 -217.78)"/>
+                        <path
+                            d="M111.66,1018h-93a18.61,18.61,0,1,1,0-37.22H93.05V534.14H18.61a18.61,18.61,0,1,1,0-37.21h93.05a18.59,18.59,0,0,1,18.61,18.6V999.39A18.59,18.59,0,0,1,111.66,1018Z"
+                            transform="translate(0 -217.78)"/>
+                        <path
+                            d="M725.78,700.68a18.61,18.61,0,0,1-13.28-31.63,46.53,46.53,0,0,0-63-68.36,18.6,18.6,0,0,1-23.84-28.56,83.74,83.74,0,0,1,113.37,123A18.48,18.48,0,0,1,725.78,700.68Z"
+                            transform="translate(0 -217.78)"/>
+                        <path
+                            d="M789.88,827.55a18.6,18.6,0,0,1-13.44-31.47l84.77-88.7a18.61,18.61,0,0,1,26.89,25.74l-84.77,88.7A18.64,18.64,0,0,1,789.88,827.55Z"
+                            transform="translate(0 -217.78)"/>
+                        <path
+                            d="M744.75,850.51a18.61,18.61,0,1,1,0-37.22c11.22,0,16.75-2.31,32-17.51a18.6,18.6,0,1,1,26.31,26.31C784.61,840.52,769.85,850.51,744.75,850.51Z"
+                            transform="translate(0 -217.78)"/>
+                        <path
+                            d="M696.49,827.55a18.6,18.6,0,0,1-13.44-31.47l84.77-88.7a18.61,18.61,0,0,1,26.89,25.74L710,821.82A18.71,18.71,0,0,1,696.49,827.55Z"
+                            transform="translate(0 -217.78)"/>
+                        <path
+                            d="M651.34,850.51a18.61,18.61,0,0,1,0-37.22c11.23,0,16.75-2.31,32-17.51a18.61,18.61,0,1,1,26.32,26.31C691.22,840.52,676.47,850.51,651.34,850.51Z"
+                            transform="translate(0 -217.78)"/>
                         <path d="M744.75,850.51H576.53a18.61,18.61,0,1,1,0-37.22H744.75a18.61,18.61,0,1,1,0,37.22Z"
                               transform="translate(0 -217.78)"/>
-                        <path d="M697.87,496.93a83.75,83.75,0,1,1,83.74-83.75A83.86,83.86,0,0,1,697.87,496.93Zm0-130.27a46.53,46.53,0,1,0,46.52,46.52A46.57,46.57,0,0,0,697.87,366.66Z"
-                              transform="translate(0 -217.78)"/>
+                        <path
+                            d="M697.87,496.93a83.75,83.75,0,1,1,83.74-83.75A83.86,83.86,0,0,1,697.87,496.93Zm0-130.27a46.53,46.53,0,1,0,46.52,46.52A46.57,46.57,0,0,0,697.87,366.66Z"
+                            transform="translate(0 -217.78)"/>
                         <path d="M1042.15,385.27H856.05a18.61,18.61,0,1,1,0-37.22h186.1a18.61,18.61,0,0,1,0,37.22Z"
                               transform="translate(0 -217.78)"/>
                         <path d="M1042.15,552.75H911.88a18.61,18.61,0,0,1,0-37.22h130.27a18.61,18.61,0,0,1,0,37.22Z"
@@ -189,55 +193,15 @@
                         <path d="M856.61,627.19a18.61,18.61,0,0,1-.2-37.22h.2a18.61,18.61,0,0,1,0,37.22Z"
                               transform="translate(0 -217.78)"/>
                     </svg>
-                </div>
-
-                <div class="flex flex-col space-y-4 sm:w-3/4">
-                    <h3 class="text-2xl text-blue font-semibold text-center sm:text-left sm:-mt-4">Battle Tested</h3>
-
-                    <p>
-                        We've sold thousands of our gluten free travel and translation cards since we launched our range
-                        helping people eat safely all over the world and have received lots of great feedback on our
-                        social media platforms, and even from attendees when we have exhibited at various allergy shows
-                        around the UK.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="shadow">
-            <img
-                data-src="https://images.coeliacsanctuary.co.uk/products/spanish-and-italian-gluten-free-language-travel-cards/Kw8EcDXu7L3D0knniUkUgizubh3BZc0hGxDa68O0.jpg"
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 2'%3E%3C/svg%3E"
-                alt="Gluten Free Travel and Translation Cards" width="100%" loading="lazy" class="lazy"
-            />
-        </div>
-
-        <div class="page-box p-3 shadow flex flex-col space-y-4">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab aperiam at beatae blanditiis cupiditate
-                ducimus eligendi enim est eveniet impedit inventore mollitia nam nesciunt perferendis quos, reiciendis.
-                Ea, in.
-            </p>
-            <p>
-                Debitis dolorum natus numquam odit tempora. Accusamus aliquam, asperiores, corporis cupiditate earum,
-                ipsam labore laudantium magnam officia officiis pariatur porro possimus ratione rerum voluptatibus.
-                Commodi harum laborum minus molestias numquam.
-            </p>
-            <p>
-                Aut commodi eius explicabo labore laboriosam libero magni praesentium. Architecto atque culpa ex
-                facilis ipsam, magnam mollitia numquam officiis quo quod reiciendis repellat reprehenderit rerum, ullam
-                unde veritatis vero. Rem.
-            </p>
-            <p>
-                Asperiores assumenda consequatur, consequuntur cupiditate delectus dolorem excepturi facere harum hic
-                illum in iste labore libero molestias nihil nostrum obcaecati, praesentium quasi quibusdam sapiente
-                similique sint soluta ullam vel voluptates?
-            </p>
-            <p>
-                Dolore eveniet ex exercitationem fuga fugit ipsum porro, tempore totam! Amet dolor doloremque dolores,
-                explicabo inventore libero minima nam nesciunt numquam obcaecati perferendis quam quia quidem, quo quod
-                sed voluptas?
-            </p>
+                </x-slot>
+                <x-slot name="title">Battle Tested</x-slot>
+                <x-slot name="body">
+                    We've sold thousands of our gluten free travel and translation cards since we launched our range
+                    helping people eat safely all over the world and have received lots of great feedback on our social
+                    media platforms, and even from attendees when we have exhibited at various allergy shows around the
+                    UK.
+                </x-slot>
+            </x-shop.landing-card>
         </div>
 
         <div class="page-box p-3 mt-3">
