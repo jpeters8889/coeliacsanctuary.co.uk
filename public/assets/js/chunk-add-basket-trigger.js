@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use strict";
 /*
  * ATTENTION: An "eval-source-map" devtool has been used.
@@ -86,3 +87,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ })
 
 }]);
+=======
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[8783],{7960:(t,e,r)=>{r.r(e),r.d(e,{default:()=>i});const a={mixins:[r(9081).Z],props:{productId:{required:!0,type:Number},variantId:{required:!0,type:Number},quantity:{type:Number,default:1}},methods:{click:function(){var t=this;coeliac().request().post("/api/shop/basket",{product_id:this.productId,variant_id:this.variantId,quantity:this.quantity}).then((function(e){if(200===e.status)return t.googleEvent("event","add_to_cart",{items:[{id:t.productId,name:e.data.data.product_title,price:e.data.data.product_price/100,quantity:t.quantity}]}),coeliac().success("Product added to basket!"),t.$root.$emit("basket-updated"),void t.$root.$emit("show-basket");coeliac().error("There was an error adding this product to your basket, please try again")})).catch((function(t){var e="There was an error adding this product to your basket, please try again";422===t.response.status&&t.response.data.error&&(e=t.response.data.error),coeliac().error(e)}))}}};const i=(0,r(1900).Z)(a,(function(){var t=this,e=t.$createElement;return(t._self._c||e)("div",{on:{click:function(e){return t.click()}}},[t._t("default")],2)}),[],!1,null,null,null).exports}}]);
+>>>>>>> develop

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use strict";
 /*
  * ATTENTION: An "eval-source-map" devtool has been used.
@@ -76,3 +77,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ })
 
 }]);
+=======
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[1640],{6698:(e,l,t)=>{t.r(l),t.d(l,{default:()=>s});const n={};const s=(0,t(1900).Z)(n,(function(e,l){return(0,l._c)("h2",{staticClass:"border-b border-blue-light font-semibold leading-none py-2 text-lg"},[l._t("default")],2)}),[],!0,null,null,null).exports}}]);
+>>>>>>> develop

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use strict";
 /*
  * ATTENTION: An "eval-source-map" devtool has been used.
@@ -76,3 +77,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ })
 
 }]);
+=======
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[7141],{4578:(t,o,n)=>{n.r(o),n.d(o,{default:()=>l});const e={components:{modal:function(){return n.e(5441).then(n.bind(n,1024))}},props:{classes:{type:Array,default:function(){return[]}}},data:function(){return{showModal:!1}},mounted:function(){var t=this;this.$root.$on("modal-closed",(function(){t.showModal=!1}))}};const l=(0,n(1900).Z)(e,(function(){var t=this,o=t.$createElement,n=t._self._c||o;return n("div",[n("a",{class:t.classes,on:{click:function(o){o.preventDefault(),t.showModal=!0}}},[t._t("default")],2),t._v(" "),t.showModal?n("portal",{attrs:{to:"modal"}},[n("modal",{attrs:{closable:"",title:"Login"}},[n("member-login-form")],1)],1):t._e()],1)}),[],!1,null,null,null).exports}}]);
+>>>>>>> develop

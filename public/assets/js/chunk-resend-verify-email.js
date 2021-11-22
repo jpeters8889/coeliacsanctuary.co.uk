@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use strict";
 /*
  * ATTENTION: An "eval-source-map" devtool has been used.
@@ -76,3 +77,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ })
 
 }]);
+=======
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[1441],{6111:(e,n,t)=>{t.r(n),t.d(n,{default:()=>i});const s={props:{classes:{type:Array,default:function(){return[]}}},methods:{resendEmail:function(){coeliac().request().post("/api/member/verify-email").then((function(){coeliac().success("We've just sent you another verification email, the link will expire in 60 minutes.")})).catch((function(){coeliac().error("There was an error resending your validation email, please try again.")}))}}};const i=(0,t(1900).Z)(s,(function(){var e=this,n=e.$createElement;return(e._self._c||n)("div",{class:e.classes,on:{click:function(n){return e.resendEmail()}}},[e._t("default")],2)}),[],!1,null,null,null).exports}}]);
+>>>>>>> develop

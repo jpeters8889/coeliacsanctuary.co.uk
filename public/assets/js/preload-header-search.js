@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use strict";
 /*
  * ATTENTION: An "eval-source-map" devtool has been used.
@@ -76,3 +77,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ })
 
 }]);
+=======
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[8661],{3398:(s,e,t)=>{t.r(e),t.d(e,{default:()=>n});const c={methods:{showSearch:function(){this.$root.$emit("show-quick-search")}}};const n=(0,t(1900).Z)(c,(function(){var s=this,e=s.$createElement,t=s._self._c||e;return t("div",[t("div",{staticClass:"js-search-icon cursor-pointer",on:{click:function(e){return s.showSearch()}}},[t("font-awesome-icon",{attrs:{icon:["fas","search"]}})],1)])}),[],!1,null,null,null).exports}}]);
+>>>>>>> develop

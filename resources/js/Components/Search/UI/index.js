@@ -1,7 +1,7 @@
 import Vue from 'vue';
+import QuickSearch from '~/Search/UI/QuickSearch';
+import HeaderSearch from '~/Search/UI/HeaderSearch';
 
-const HeaderSearch = () => import('~/Search/UI/HeaderSearch' /* webpackChunkName: "preload-header-search" */);
-const QuickSearch = () => import('~/Search/UI/QuickSearch' /* webpackChunkName: "preload-quick-search" */);
 const BlogSearch = () => import('~/Search/UI/BlogSearch' /* webpackChunkName: "chunk-blog-search" */);
 const RecipeSearch = () => import('~/Search/UI/RecipeSearch' /* webpackChunkName: "chunk-recipe-search" */);
 const ReviewSearch = () => import('~/Search/UI/ReviewSearch' /* webpackChunkName: "chunk-review-search" */);

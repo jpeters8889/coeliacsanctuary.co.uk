@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use strict";
 /*
  * ATTENTION: An "eval-source-map" devtool has been used.
@@ -76,3 +77,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ })
 
 }]);
+=======
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[3749],{4148:(t,e,s)=>{s.r(e),s.d(e,{default:()=>n});const a={props:{stars:{required:!0,type:String},align:{type:String,default:"center"}},data:function(){return{wholeNumber:0,hasHalf:!1}},mounted:function(){var t=this.stars.split(".");this.wholeNumber=parseInt(t[0]);var e=t[1]?parseInt(t[1].charAt(0)):0;this.hasHalf=e>3&&e<7,e>0&&e<=3&&(this.wholeNumber-=1),e>=7&&(this.wholeNumber+=1)}};const n=(0,s(1900).Z)(a,(function(){var t=this,e=t.$createElement,s=t._self._c||e;return s("div",{staticClass:"flex text-yellow text-lg",class:"center"===t.align?"justify-center sm:justify-start":"justify-end"},[t._l(t.wholeNumber,(function(t){return s("font-awesome-icon",{key:t,attrs:{icon:["fas","star"]}})})),t._v(" "),t.hasHalf?s("font-awesome-icon",{attrs:{icon:["fas","star-half"]}}):t._e()],2)}),[],!1,null,null,null).exports}}]);
+>>>>>>> develop
