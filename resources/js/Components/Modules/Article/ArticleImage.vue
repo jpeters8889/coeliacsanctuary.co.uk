@@ -79,11 +79,11 @@ export default {
         'sm:m-2',
         'bg-blue',
         'bg-opacity-20',
-        'max-w-half',
+        'w-full',
       ];
 
       if (this.position !== 'fullwidth') {
-        classes.push('sm:max-w-1/2', 'lg:max-w-2/5');
+        classes.push('max-w-half sm:max-w-1/2', 'lg:max-w-2/5');
       }
 
       if (this.position === 'left') {
