@@ -7,6 +7,7 @@ namespace Coeliac\Common\Controllers;
 use Illuminate\Support\Collection;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Recipe\Models\Recipe;
+use Illuminate\Support\HtmlString;
 use Illuminate\View\Factory as ViewFactory;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Common\MjmlCompiler\CompilerContract;
@@ -16,7 +17,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
 class RenderMjmlController extends BaseController
 {
-    public function get(NewsletterRenderRequest $request, ViewFactory $viewFactory, CompilerContract $compiler): string
+    public function get(NewsletterRenderRequest $request, ViewFactory $viewFactory, CompilerContract $compiler): string|HtmlString
     {
         $compiled = $compiler->compile(
             $viewFactory->make('mailables.mjml.newsletter-template', [
