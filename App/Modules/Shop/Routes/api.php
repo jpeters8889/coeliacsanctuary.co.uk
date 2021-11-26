@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Coeliac\Modules\Shop\Controllers\TravelCardSearchController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\Shop\Controllers\OrderController;
 use Coeliac\Modules\Shop\Controllers\BasketController;
@@ -38,4 +39,7 @@ $router->group(['prefix' => 'api/shop'], static function () use ($router) {
 
     $router->post('order', [OrderController::class, 'create']);
     $router->patch('order', [OrderController::class, 'update']);
+
+    $router->post('travel-card-search', [TravelCardSearchController::class, 'index']);
+    $router->get('travel-card-search/{id}', [TravelCardSearchController::class, 'get']);
 });

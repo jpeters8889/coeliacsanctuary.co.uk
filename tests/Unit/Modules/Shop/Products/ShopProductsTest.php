@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Modules\Shop\Products;
 
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Coeliac\Modules\Shop\Models\TravelCardSearchTerm;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
 use Coeliac\Modules\Shop\Models\ShopProduct;
@@ -84,5 +85,17 @@ class ShopProductsTest extends TestCase
         $product->associateImage($this->makeImage());
 
         $this->assertEquals(1, $product->images()->count());
+    }
+
+    /** @test */
+    public function itHasTravelCardSearchTerms()
+    {
+        $product = $this->create(ShopProduct::class);
+
+        $searchTerm = $this->create(TravelCardSearchTerm::class);
+
+        $product->travelCardSearchTerms()->attach($searchTerm);
+
+        $this->assertCount(1, $product->travelCardSearchTerms);
     }
 }

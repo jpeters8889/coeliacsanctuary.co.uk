@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $description
  * @property string $meta_keywords
  * @property string $meta_description
+ * @property Collection<ShopCategory> $categories
  *
  * @method transform(array $array)
  */
@@ -77,8 +78,8 @@ class ShopProduct extends BaseModel implements SearchableContract
     public function shouldBeSearchable(): bool
     {
         return $this->variants->filter(static function ($query) {
-            return (bool)$query->live;
-        })->count() > 0;
+                return (bool)$query->live;
+            })->count() > 0;
     }
 
     public function feedback(): HasMany
@@ -128,8 +129,8 @@ class ShopProduct extends BaseModel implements SearchableContract
     public function currentPrices(): Collection
     {
         return $this->prices
-            ->filter(fn (ShopProductPrice $price) => $price->start_at->lessThan(Carbon::now()))
-            ->filter(fn (ShopProductPrice $price) => !$price->end_at || $price->end_at->endOfDay()->greaterThan(Carbon::now()))
+            ->filter(fn(ShopProductPrice $price) => $price->start_at->lessThan(Carbon::now()))
+            ->filter(fn(ShopProductPrice $price) => !$price->end_at || $price->end_at->endOfDay()->greaterThan(Carbon::now()))
             ->sortByDesc('start_at');
     }
 
@@ -158,6 +159,16 @@ class ShopProduct extends BaseModel implements SearchableContract
         return $builder->whereHas('variants', static function (Builder $query) {
             return $query->where('live', true);
         });
+    }
+
+    public function travelCardSearchTerms(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            TravelCardSearchTerm::class,
+            'shop_product_assigned_travel_card_search_terms',
+            'product_id',
+            'search_term_id',
+        );
     }
 
     protected static function bodyField(): string

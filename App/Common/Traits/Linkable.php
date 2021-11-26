@@ -6,6 +6,9 @@ namespace Coeliac\Common\Traits;
 
 use Illuminate\Support\Str;
 
+/**
+ * @property mixed $link
+ */
 trait Linkable
 {
     public function initializeLinkable(): void
@@ -15,7 +18,7 @@ trait Linkable
 
     public function getLinkAttribute(): string
     {
-        return '/'.$this->linkRoot().'/'.$this->linkColumn();
+        return '/' . $this->linkRoot() . '/' . $this->linkColumn();
     }
 
     protected function linkRoot(): string

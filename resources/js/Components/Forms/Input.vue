@@ -27,8 +27,10 @@
           :disabled="disabled"
           :autocomplete="autocomplete"
           :class="classes()"
+          @focus="onFocus()"
           @blur="validate()"
           @keyup.enter="handleEnter()"
+          @keyup.escape="handleEscape()"
         >
       </div>
 
@@ -59,9 +61,23 @@ export default {
       type: Function,
       default: null,
     },
+    onEscape: {
+      type: Function,
+      default: null,
+    },
   },
 
   methods: {
+    validate() {
+      this.$root.$emit(`${this.name}-blur`);
+
+      IsFormField.methods.validate.bind(this)();
+    },
+
+    onFocus() {
+      this.$root.$emit(`${this.name}-focus`);
+    },
+
     classes() {
       const base = ['w-full', 'bg-transparent', 'border-0', 'm-0', 'text-grey-darkest'];
 
@@ -80,6 +96,14 @@ export default {
       }
 
       this.onEnter();
+    },
+
+    handleEscape() {
+      if (!this.onEscape) {
+        return;
+      }
+
+      this.onEscape();
     },
   },
 };

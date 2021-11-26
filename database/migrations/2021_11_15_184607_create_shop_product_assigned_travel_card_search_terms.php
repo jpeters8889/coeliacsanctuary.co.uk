@@ -18,7 +18,7 @@ class CreateShopProductAssignedTravelCardSearchTerms extends Migration
             $table->unsignedInteger('product_id');
             $table->timestamps();
 
-            $table->primary(['search_term_id', 'product_id']);
+            $table->primary(['search_term_id', 'product_id'], 'joint_key');
         });
     }
 

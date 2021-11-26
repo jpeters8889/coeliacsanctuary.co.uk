@@ -205,7 +205,7 @@
         </div>
 
         <div class="page-box p-3 mt-3">
-
+            <shop-pages-travel-card-search />
         </div>
 
         <div class="grid md:grid-cols-2 gap-4">

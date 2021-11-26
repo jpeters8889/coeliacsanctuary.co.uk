@@ -15,7 +15,8 @@ class CreateShopProductTravelCardsSearchTerms extends Migration
     {
         Schema::create('shop_product_travel_cards_search_terms', function (Blueprint $table) {
             $table->id();
-            $table->string('search_term');
+            $table->string('term');
+            $table->enum('type', ['country', 'language']);
             $table->unsignedInteger('hits');
             $table->timestamps();
         });
