@@ -37,13 +37,17 @@ class TravelCardSearchController extends BaseController
             'term' => Str::title($searchTerm->term),
             'type' => $searchTerm->type,
             'products' => $searchTerm->products
-                ->load(['categories', 'prices'])
+                ->load(['variants', 'categories', 'prices', 'images'])
                 ->transform(fn(ShopProduct $product) => [
                     'title' => $product->title,
                     'link' => $product->link,
                     'price' => $product->currentPrice,
                     'image' => $product->mainImage,
                     'category' => $product->categories[0]->title,
+                    'description' => $product->description,
+                    'id' => $product->id,
+                    'variant_id' => $product->variants[0]->id,
+                    'inStock' => $product->variants[0]->quantity > 0
                 ]),
         ];
     }
