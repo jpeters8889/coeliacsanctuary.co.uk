@@ -205,7 +205,7 @@
         </div>
 
         <div class="page-box p-3 mt-3">
-            <shop-pages-travel-card-search />
+            <shop-pages-travel-card-search/>
         </div>
 
         <div class="grid md:grid-cols-2 gap-4">
@@ -216,15 +216,15 @@
 
                 <div class="flex flex-col space-y-3">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci, amet
-                        consectetur distinctio dolorem expedita magni maiores nobis, optio pariatur quae, sequi
-                        veritatis? Cumque facilis itaque nihil nostrum, repellendus temporibus!
+                        Our standard coeliac gluten free travel and translation cards come in two languages for the
+                        price of one card, one on each side of the card, and available in over 50 different languages!
                     </p>
 
                     <p>
-                        Ab, adipisci aliquid amet aspernatur eaque, enim eveniet fugiat illo ipsum iste labore
-                        laboriosam nam nihil nulla odit perferendis quidem repellendus sequi sint suscipit tempore totam
-                        voluptate? Officia, sequi, sit?
+                        Our standard gluten free travel cards are perfect for those who have coeliac without any other
+                        allergies or foods they must avoid, each language is professionally translated to explain
+                        coeliac disease and a gluten free diet, what you can and can't eat, cross contamination, and
+                        what to look out for.
                     </p>
 
                     <button
@@ -241,15 +241,15 @@
 
                 <div class="flex flex-col space-y-3">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci, amet
-                        consectetur distinctio dolorem expedita magni maiores nobis, optio pariatur quae, sequi
-                        veritatis? Cumque facilis itaque nihil nostrum, repellendus temporibus!
+                        Unlike our standard travel and translation cards, our coeliac and other dietary need travel and
+                        translation cards come in just one language per card, and available in over 20 languages.
                     </p>
 
                     <p>
-                        Ab, adipisci aliquid amet aspernatur eaque, enim eveniet fugiat illo ipsum iste labore
-                        laboriosam nam nihil nulla odit perferendis quidem repellendus sequi sint suscipit tempore totam
-                        voluptate? Officia, sequi, sit?
+                        The first side of the card covers the gluten free diet, professionally translated to explain
+                        coeliac disease and a gluten free diet, what you can and can't eat, cross contamination, and
+                        what to look out for, the other side of the card has a series of checkboxes for you to check any
+                        other allergens you have or foods you must avoid.
                     </p>
 
                     <button

@@ -40,25 +40,36 @@ class NavigationService
 
     public function products(): EloquentCollection
     {
-        return $this->cacheRepository->remember(
-            $this->configRepository->get('coeliac.cache.shop.navigation'),
-            Carbon::now()->addDay(),
-            fn () => ShopProduct::withLiveProducts()
-                ->orderByRaw('(select sum(shop_order_items.quantity)
+        $products = ShopProduct::withLiveProducts()
+            ->orderByRaw('(select sum(shop_order_items.quantity)
                 from shop_order_items
                 left join shop_orders on shop_order_items.order_id = shop_orders.id
                 where shop_order_items.product_id = shop_products.id and shop_orders.state_id in(2,3,4,5)) desc')
-                ->with(['images'])
-                ->take(8)
-                ->get()
-                ->transform(fn (ShopProduct $product) => [
-                    'id' => $product->id,
-                    'title' => $product->title,
-                    'slug' => $product->slug,
-                    'meta_description' => $product->meta_description,
-                    'main_image' => $product->first_image,
-                    'link' => $product->link,
-                ])
+            ->with(['images'])
+            ->take(7)
+            ->get()
+            ->transform(fn(ShopProduct $product) => [
+                'id' => $product->id,
+                'title' => $product->title,
+                'slug' => $product->slug,
+                'meta_description' => $product->meta_description,
+                'main_image' => $product->first_image,
+                'link' => $product->link,
+            ]);
+
+        $products->prepend([
+            'id' => 0,
+            'title' => 'Gluten Free Travel and Translation Cards',
+            'slug' => '',
+            'meta_description' => 'Travel the world and eat out safely with our fantastic range of gluten free travel and translation cards!',
+            'main_image' => '/assets/images/misc/shop-travel-cards.jpg',
+            'link' => $this->configRepository->get('app.url').'/gluten-free-travel-translation-cards',
+        ]);
+
+        return $this->cacheRepository->remember(
+            $this->configRepository->get('coeliac.cache.shop.navigation'),
+            Carbon::now()->addDay(),
+            fn () => $products
         );
     }
 

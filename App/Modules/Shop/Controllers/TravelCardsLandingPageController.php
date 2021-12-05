@@ -27,8 +27,11 @@ class TravelCardsLandingPageController extends BaseController
                 'link' => '/shop',
             ]], 'Gluten Free Travel and Translation Cards')
             ->setPageTitle('Gluten Free Travel and Translation Cards')
-            ->setMetaDescription('...')
-            ->setMetaKeywords(['...'])
+            ->setMetaDescription('Travel the world and eat out safely with our fantastic range of gluten free travel and translation cards!')
+            ->setMetaKeywords([
+                'coeliac travel card', 'coeliac translation card', 'gluten free travel card', 'gluten free translation card',
+                'allergy card', 'allergy translation card', 'allergy travel card', 'allergen travel card', 'allergen translation card',
+            ])
             ->render('modules.shop.landing.travel-cards', [
                 'feedback' => ShopFeedback::query()
                     ->whereIn('product_id', $productIds)
