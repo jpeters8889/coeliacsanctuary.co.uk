@@ -17,7 +17,7 @@ class TravelCardsLandingPageController extends BaseController
             ->whereIn('slug', ['standard-coeliac-travel-cards', 'coeliac-and-other-dietary-needs-travel-cards'])
             ->with('products')
             ->get()
-            ->each(function(ShopCategory $category) use (&$productIds) {
+            ->each(function (ShopCategory $category) use (&$productIds) {
                 $productIds += $category->products()->pluck('id')->toArray();
             });
 

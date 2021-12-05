@@ -19,14 +19,15 @@
         "coeliac/order-dispatch-slip": "*",
         "coeliac/order-info": "*",
         "coeliac/order-shipped": "*",
-        "coeliac/place-request-card": "*",
-        "coeliac/place-reports-card": "*",
         "coeliac/place-recommendations-card": "*",
+        "coeliac/place-reports-card": "*",
+        "coeliac/place-request-card": "*",
         "coeliac/shop-daily-stock": "*",
         "coeliac/shop-order-items": "*",
         "coeliac/shop-product-prices": "*",
         "coeliac/shop-product-sold-count": "*",
         "coeliac/shop-product-variants": "*",
+        "coeliac/shop-travel-card-search-terms": "dev-master",
         "coeliac/tag-manager": "*",
         "coeliac/wte-attractions": "*",
         "coeliac/wte-ratings-card": "*",
@@ -200,6 +201,10 @@
         {
             "type": "path",
             "url": "./architect/plans/competition-entries"
+        },
+        {
+            "type": "path",
+            "url": "./architect/plans/shop-travel-card-search-terms"
         }
     ],
     "autoload": {

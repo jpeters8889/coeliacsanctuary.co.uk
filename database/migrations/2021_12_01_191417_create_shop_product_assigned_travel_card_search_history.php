@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateShopProductTravelCardsSearchTerms extends Migration
+class CreateShopProductAssignedTravelCardSearchHistory extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateShopProductTravelCardsSearchTerms extends Migration
      */
     public function up()
     {
-        Schema::create('shop_product_travel_cards_search_terms', function (Blueprint $table) {
+        Schema::create('shop_product_travel_card_search_history', function (Blueprint $table) {
             $table->id();
             $table->string('term');
-            $table->enum('type', ['country', 'language']);
             $table->unsignedInteger('hits')->default(0);
             $table->timestamps();
         });
@@ -29,6 +28,6 @@ class CreateShopProductTravelCardsSearchTerms extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shop_product_travel_cards_search_terms');
+        Schema::dropIfExists('shop_product_assigned_travel_card_search_history');
     }
 }

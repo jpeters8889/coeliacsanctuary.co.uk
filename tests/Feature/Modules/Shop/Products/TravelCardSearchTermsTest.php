@@ -8,6 +8,7 @@ use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Coeliac\Modules\Shop\Models\TravelCardSearchTerm;
+use Coeliac\Modules\Shop\Models\TravelCardSearchTermHistory;
 use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
@@ -123,6 +124,38 @@ class TravelCardSearchTermsTest extends TestCase
     }
 
     /** @test */
+    public function itLogsTheSearch(): void
+    {
+        $this->assertEmpty(TravelCardSearchTermHistory::all());
+
+        $this->makeRequest('spain');
+
+        $this->assertNotEmpty(TravelCardSearchTermHistory::all());
+    }
+
+    /** @test */
+    public function itIncrementsTheTermHistoryHits()
+    {
+        $this->makeRequest('spain');
+
+        $this->assertEquals(1, TravelCardSearchTermHistory::first()->hits);
+    }
+
+    /** @test */
+    public function itResusesAnExistingTermHistory()
+    {
+        $this->makeRequest('spain');
+
+        $this->assertCount(1, TravelCardSearchTermHistory::all());
+        $this->assertEquals(1, TravelCardSearchTermHistory::first()->hits);
+
+        $this->makeRequest('spain');
+
+        $this->assertCount(1, TravelCardSearchTermHistory::all());
+        $this->assertEquals(2, TravelCardSearchTermHistory::first()->hits);
+    }
+
+    /** @test */
     public function itReturnsNotFoundWhenGettingInfo(): void
     {
         $this->get('api/shop/travel-card-search/999')->assertNotFound();
@@ -135,7 +168,7 @@ class TravelCardSearchTermsTest extends TestCase
     }
 
     /** @test */
-    public function itReturnsTheSearchTermInfo()
+    public function itReturnsTheSearchTermInfo(): void
     {
         $this->get('api/shop/travel-card-search/1')
             ->assertJsonStructure([
@@ -151,5 +184,15 @@ class TravelCardSearchTermsTest extends TestCase
                     ],
                 ],
             ]);
+    }
+
+    /** @test */
+    public function itIncrementsTheHitsCountWhenSelectingATerm()
+    {
+        $this->assertEquals(0, TravelCardSearchTerm::query()->first()->hits);
+
+        $this->get('api/shop/travel-card-search/1');
+
+        $this->assertEquals(1, TravelCardSearchTerm::query()->first()->hits);
     }
 }

@@ -13,7 +13,7 @@ class Blueprint extends Architect
 {
     public function blueprintSite(): string
     {
-        return 'Logs';
+        return 'Search';
     }
 
     public function model(): string

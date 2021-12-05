@@ -16,7 +16,7 @@ class TravelCardSearchTerm extends BaseModel
 {
     protected $table = 'shop_product_travel_cards_search_terms';
 
-    protected $visible = ['id', 'term', 'type'];
+//    protected $visible = ['id', 'term', 'type'];
 
     protected $casts = [
         'hits' => 'int',
