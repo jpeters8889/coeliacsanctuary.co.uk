@@ -51,9 +51,12 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * @param string $what
-     * @param array $attributes
-     * @return BaseModel
+     * @template T
+     *
+     * @param class-string<T> $what
+     * @param array           $attributes
+     *
+     * @return T
      */
     protected function create(string $what, array $attributes = []): Model
     {

@@ -26,6 +26,8 @@ use Coeliac\Modules\Blog\Architect\Blueprint as BlogBlueprint;
 use Coeliac\Modules\Member\Architect\PasswordChangesBlueprint;
 use Coeliac\Modules\Recipe\Architect\Blueprint as RecipeBlueprint;
 use Coeliac\Common\Announcements\Blueprint as AnnouncementBlueprint;
+use Coeliac\Modules\Shop\Architect\TravelCardSearchHistoryBlueprint;
+use Coeliac\Modules\Shop\Architect\TravelCardSearchTermsBlueprint;
 use JPeters\Architect\Providers\ArchitectApplicationServiceProvider;
 use Coeliac\Common\Comments\Architect\Blueprint as CommentsBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\WhereToEatBlueprint;
@@ -61,7 +63,10 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             EmailBlueprint::class,
             LoginAttemptsBlueprint::class,
             PasswordChangesBlueprint::class,
+
             SearchHistoryBlueprint::class,
+            TravelCardSearchTermsBlueprint::class,
+            TravelCardSearchHistoryBlueprint::class,
 
             BasketBlueprint::class,
             OrderBlueprint::class,
