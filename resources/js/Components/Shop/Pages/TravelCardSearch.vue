@@ -14,6 +14,7 @@
           <form-input
             name="term"
             :value="term"
+            placeholder="Search for a country or a language..."
             border-class="border-grey-off rounded-none rounded-t"
             :on-escape="() => showResultsBox = false"
           />

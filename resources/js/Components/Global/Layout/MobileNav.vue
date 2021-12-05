@@ -99,6 +99,10 @@ export default {
         link: '/shop',
       },
       {
+        label: 'Gluten Free Travel Cards',
+        link: '/gluten-free-travel-translation-cards',
+      },
+      {
         label: 'Blogs',
         link: '/blog',
       },
