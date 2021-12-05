@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $description
  * @property string $meta_keywords
  * @property string $meta_description
+ * @property Collection<ShopCategory> $categories
  *
  * @method transform(array $array)
  */
@@ -158,6 +159,16 @@ class ShopProduct extends BaseModel implements SearchableContract
         return $builder->whereHas('variants', static function (Builder $query) {
             return $query->where('live', true);
         });
+    }
+
+    public function travelCardSearchTerms(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            TravelCardSearchTerm::class,
+            'shop_product_assigned_travel_card_search_terms',
+            'product_id',
+            'search_term_id',
+        );
     }
 
     protected static function bodyField(): string

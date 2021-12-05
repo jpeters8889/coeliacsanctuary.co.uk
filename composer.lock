@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db25b1297e53c857c3045a8a54f43234",
+    "content-hash": "d1120cd4b99d67edd656375e8a5c92a7",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1306,6 +1306,34 @@
             "autoload": {
                 "psr-4": {
                     "Coeliac\\Architect\\Plans\\ShopProductVariants\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "coeliac/shop-travel-card-search-terms",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./architect/plans/shop-travel-card-search-terms",
+                "reference": "6225ffe9dcb475153ae769bf40a5cbdee444f581"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Coeliac\\Architect\\Plans\\ShopTravelCardSearchTerms\\PlanServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Coeliac\\Architect\\Plans\\ShopTravelCardSearchTerms\\": "src/"
                 }
             },
             "license": [
@@ -15967,7 +15995,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "coeliac/shop-travel-card-search-terms": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

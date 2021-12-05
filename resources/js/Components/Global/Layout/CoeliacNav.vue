@@ -44,32 +44,34 @@
                 <template v-if="item.children.layout === '3x5' || item.children.layout === '3'">
                   <div class="flex">
                     <ul class="w-3/5">
-                      <li
-                        v-for="(child, x) in item.children.items"
-                        :key="x"
-                        class="py-2 mr-4 hover:bg-yellow hover:bg-opacity-40 transition-all"
-                        :class="x < 2 ? 'border-b border-yellow' : ''"
-                      >
-                        <a
+                      <template v-for="(child, x) in item.children.items">
+                        <li
                           v-if="x < 3"
-                          :href="child.link"
-                          class="flex"
+                          :key="x"
+                          class="py-2 mr-4 transition-all hover:bg-yellow hover:bg-opacity-40"
+                          :class="x < 2 ? 'border-b border-yellow ' : ''"
                         >
-                          <div class="w-1/4 mr-1 lg:w-1/6">
-                            <img
-                              :data-src="child.main_image"
-                              :src="lazyLoadSrc"
-                              loading="lazy"
-                              class="lazy"
-                              :alt="child.title"
-                            >
-                          </div>
-                          <div class="leading-none flex-1">
-                            <h3 class="mb-1 font-medium">{{ child.title }}</h3>
-                            <p class="text-sm">{{ child.meta_description }}</p>
-                          </div>
-                        </a>
-                      </li>
+                          <a
+                            v-if="x < 3"
+                            :href="child.link"
+                            class="flex"
+                          >
+                            <div class="w-1/4 mr-1 lg:w-1/6">
+                              <img
+                                :data-src="child.main_image"
+                                :src="lazyLoadSrc"
+                                loading="lazy"
+                                class="lazy"
+                                :alt="child.title"
+                              >
+                            </div>
+                            <div class="leading-none flex-1">
+                              <h3 class="mb-1 font-medium">{{ child.title }}</h3>
+                              <p class="text-sm">{{ child.meta_description }}</p>
+                            </div>
+                          </a>
+                        </li>
+                      </template>
                     </ul>
                     <ul
                       v-if="item.children.layout === '3x5'"
