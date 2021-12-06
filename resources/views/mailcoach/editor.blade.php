@@ -273,7 +273,15 @@
             },
 
             save($event) {
-                this.render(() => setTimeout(console.log($event.target.closest('form')), 300));
+                if(!this.renderedHtml) {
+                    alert('Please preview the email first!');
+                }
+
+                if(!confirm('Have you previewed the email?')) {
+                    return;
+                }
+
+                $event.target.closest('form').subit();
             }
         }
     })
