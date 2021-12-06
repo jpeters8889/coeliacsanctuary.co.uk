@@ -34,7 +34,7 @@
                                placeholder="Search recipe..." @keyup="searchRecipe(index)"/>
 
                         <ul v-if="recipeResults[index].length > 0"
-                            class="absolute border border-gray-500 shadow w-full bg-white z-50">
+                            class="absolute border border-gray-500 shadow w-full bg-white z-20">
                             <li v-for="result in recipeResults[index]" @click="selectRecipe(result, index)"
                                 class="p-2 border-b border-gray-300 hover:bg-grey-200">
                                 @{{ result.title }}
@@ -62,7 +62,7 @@
                                placeholder="Search blog..." @keyup="searchBlog(index)"/>
 
                         <ul v-if="blogResults[index].length > 0"
-                            class="absolute border border-gray-500 shadow w-full bg-white z-50">
+                            class="absolute border border-gray-500 shadow w-full bg-white z-20">
                             <li v-for="result in blogResults[index]" @click="selectBlog(result, index)"
                                 class="p-2 border-b border-gray-300 hover:bg-grey-200">
                                 @{{ result.title }}
@@ -90,7 +90,7 @@
                                placeholder="Search review..." @keyup="searchReview(index)"/>
 
                         <ul v-if="reviewResults[index].length > 0"
-                            class="absolute border border-gray-500 shadow w-full bg-white z-50">
+                            class="absolute border border-gray-500 shadow w-full bg-white z-20">
                             <li v-for="result in reviewResults[index]" @click="selectReview(result, index)"
                                 class="p-2 border-b border-gray-300 hover:bg-grey-200">
                                 @{{ result.architect_title }}
@@ -273,7 +273,8 @@
             },
 
             save($event) {
-                this.render(() => $event.target.closest('form').submit())
+                console.log($event);
+                // this.render(() => $event.target.closest('form').submit())
             }
         }
     })
