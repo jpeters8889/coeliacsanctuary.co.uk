@@ -273,7 +273,7 @@
             },
 
             save($event) {
-                this.render(() => setTimeout($event.target.closest('form').submit(), 300));
+                this.render(() => setTimeout(console.log($event.target.closest('form')), 300));
             }
         }
     })
