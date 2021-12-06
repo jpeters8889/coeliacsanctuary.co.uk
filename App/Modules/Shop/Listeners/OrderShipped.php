@@ -20,7 +20,7 @@ class OrderShipped implements ShouldQueue
         if ($shipOrderEvent->order()->state !== ShopOrderState::STATE_PRINTED) {
             return;
         }
-        
+
         $shipOrderEvent->order()->markAs(ShopOrderState::STATE_SHIPPED);
         $shipOrderEvent->order()->update(['shipped_at' => Carbon::now()]);
 
