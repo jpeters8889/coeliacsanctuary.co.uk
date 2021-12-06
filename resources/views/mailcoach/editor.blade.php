@@ -273,8 +273,7 @@
             },
 
             save($event) {
-                console.log($event);
-                // this.render(() => $event.target.closest('form').submit())
+                this.render(() => $event.target.closest('form').submit());
             }
         }
     })
