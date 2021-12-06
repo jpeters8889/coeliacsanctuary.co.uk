@@ -8,10 +8,11 @@ use Coeliac\Common\Requests\EmailRequest;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Common\MjmlCompiler\CompilerContract;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
+use Illuminate\Support\HtmlString;
 
 class EmailController extends BaseController
 {
-    public function get(EmailRequest $request, CompilerContract $compiler): string
+    public function get(EmailRequest $request, CompilerContract $compiler): string|HtmlString
     {
         $email = $request->email();
 
