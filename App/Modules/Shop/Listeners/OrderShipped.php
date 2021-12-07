@@ -17,7 +17,7 @@ class OrderShipped implements ShouldQueue
 {
     public function handle(ShipOrder $shipOrderEvent): void
     {
-        if ($shipOrderEvent->order()->state !== ShopOrderState::STATE_PRINTED) {
+        if ($shipOrderEvent->order()->state_id !== ShopOrderState::STATE_PRINTED) {
             return;
         }
 

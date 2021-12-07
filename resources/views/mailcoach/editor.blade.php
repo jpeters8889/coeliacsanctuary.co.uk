@@ -275,13 +275,14 @@
             save($event) {
                 if(!this.renderedHtml) {
                     alert('Please preview the email first!');
+                    return;
                 }
 
                 if(!confirm('Have you previewed the email?')) {
                     return;
                 }
 
-                $event.target.closest('form').subit();
+                $event.target.closest('form').submit();
             }
         }
     })
