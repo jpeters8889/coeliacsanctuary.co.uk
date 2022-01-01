@@ -9,11 +9,11 @@ use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 
 abstract class AbstractRssFeed
 {
-    private EloquentCollection $items;
+    private Collection $items;
     private ResponseFactory $responseFactory;
 
     public function __construct(ResponseFactory $responseFactory)
@@ -48,7 +48,7 @@ abstract class AbstractRssFeed
         ];
     }
 
-    public function render(EloquentCollection $items)
+    public function render(Collection $items)
     {
         $this->items = $items;
 
