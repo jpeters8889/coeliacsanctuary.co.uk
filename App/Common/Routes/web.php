@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Coeliac\Common\Controllers\FeedController;
 use Illuminate\Routing\Router;
 use Coeliac\Common\Controllers\FaqController;
 use Coeliac\Common\Controllers\EmailController;
@@ -29,5 +30,7 @@ $router->get('email/{key}', [EmailController::class, 'get']);
 $router->get('privacy-policy', [PrivacyPolicyController::class, 'get']);
 $router->get('terms-of-use', [TermsOfUseController::class, 'get']);
 $router->get('work-with-us', [WorkWithUsController::class, 'get']);
+
+$router->get('feed', FeedController::class);
 
 $router->get('sitemap.xml', [SiteMapController::class, 'get']);
