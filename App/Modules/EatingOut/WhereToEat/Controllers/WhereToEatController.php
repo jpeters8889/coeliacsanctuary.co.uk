@@ -47,9 +47,9 @@ class WhereToEatController extends BaseController
 
     public function list(Request $request): array
     {
-        $this->validate($request, [
-            'limit' => 'integer|max:50',
-        ]);
+//        $this->validate($request, [
+//            'limit' => 'integer|max:50',
+//        ]);
 
         return [
             'data' => (new Collection($this->repository
