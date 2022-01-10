@@ -8,8 +8,8 @@
         <webMaster>contact@coeliacsanctuary.co.uk (Coeliac Sanctuary)</webMaster>
         <lastBuildDate>{{ $date }}</lastBuildDate>
         <atom:link href="{{ $link }}/feed" rel="self" type="application/rss+xml"/>
-        <item>
-            @foreach($items as $item)
+        @foreach($items as $item)
+         <item>
                 @foreach($item as $tag => $data)
                     <{{ $tag }}
                         @isset($data['params'])
@@ -35,7 +35,7 @@
                         </{{ $tag }}>
                     @endif
                 @endforeach
-            @endforeach
-        </item>
+           </item>
+        @endforeach
     </channel>
 </rss>
