@@ -21,9 +21,9 @@ class FeedController
             function () use ($feed) {
                 $columns = ['id', 'title', 'slug', 'meta_description', 'created_at'];
 
-                $blogs = resolve(BlogRepository::class)->setColumns($columns)->all();
-                $reviews = resolve(ReviewRepository::class)->setColumns($columns)->all();
-                $recipes = resolve(RecipeRepository::class)->setColumns($columns)->all();
+                $blogs = resolve(BlogRepository::class)->setColumns($columns)->take(10);
+                $reviews = resolve(ReviewRepository::class)->setColumns($columns)->take(10);
+                $recipes = resolve(RecipeRepository::class)->setColumns($columns)->take(10);
 
                 $combined = (new Collection([
                     ...$blogs,
@@ -32,7 +32,7 @@ class FeedController
                 ]))->sortByDesc('created_at');
 
                 return new Response(
-                    $feed->render($combined),
+                    $feed->render($combined->take(10)),
                     200,
                     ['Content-type' => 'text/xml'],
                 );
