@@ -14,7 +14,7 @@ class RecipeFeedController extends BaseController
     public function list(Repository $repository, RecipeFeed $feed): Response
     {
         return new Response(
-            $feed->render($repository->all()),
+            $feed->render($repository->take(10)),
             200,
             ['Content-type' => 'text/xml']
         );
