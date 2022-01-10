@@ -11,7 +11,7 @@ class QuickSearchRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-          'term' => ['required', 'alpha_num'],
+          'term' => ['required'],
         ];
     }
 }
