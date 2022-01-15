@@ -33,7 +33,7 @@ class BlogController extends BaseController
     public function list(Request $request): array
     {
         $this->validate($request, [
-            'limit' => 'integer,max:50',
+            'limit' => ['integer','max:50'],
         ]);
 
         return [
