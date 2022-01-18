@@ -194,7 +194,7 @@ export default {
 
         const adElement = document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]');
 
-        if (!adElement) {
+        if (!adElement || adElement.offsetHeight === 0) {
           return;
         }
 
