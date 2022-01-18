@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
- * @property mixed  $id
- * @property int    $max_claims
+ * @property mixed $id
+ * @property int $max_claims
  * @property Carbon $start_at
  * @property Carbon $end_at
  * @property int $deduction
@@ -68,6 +68,10 @@ class ShopDiscountCode extends BaseModel
         $deduction = $this->deduction;
 
         if ($this->type_id === ShopDiscountCodeType::PERCENTAGE) {
+            if (!is_int($subtotal)) {
+                $subtotal *= 100;
+            }
+
             $deduction = $subtotal / 100 * $deduction;
         }
 

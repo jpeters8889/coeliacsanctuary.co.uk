@@ -35,7 +35,10 @@
             </div>
 
             <template v-if="data.items.length > 0">
-              <div class="flex flex-col h-full">
+              <div
+                ref="basketItemsContainer"
+                class="flex flex-col h-full"
+              >
                 <div class="flex-1 scrollable">
                   <table class="font-semibold">
                     <template v-for="item in data.items">
@@ -128,6 +131,8 @@ export default {
 
   watch: {
     showBasket(value) {
+      this.offsetAd();
+
       if (value) {
         document.querySelector('body').classList.add('overflow-hidden');
         this.getData();
@@ -140,6 +145,8 @@ export default {
 
   mounted() {
     this.getData();
+
+    this.offsetAd();
 
     this.$root.$on('background-entered', () => {
       this.hasBackground = true;
@@ -177,6 +184,18 @@ export default {
             subtotal: 0,
           };
         });
+    },
+
+    offsetAd() {
+      const adElement = document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]');
+
+      if (!adElement) {
+        return;
+      }
+
+      const height = adElement.offsetHeight + 50;
+
+      this.$refs.basketItemsContainer.style.paddingBottom = `${height}px`;
     },
   },
 };
