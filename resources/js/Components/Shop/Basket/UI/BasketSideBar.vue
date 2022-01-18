@@ -187,19 +187,21 @@ export default {
     },
 
     offsetAd() {
-      if (!this.$refs.basketItemsContainer) {
-        return;
-      }
+      this.$nextTick(() => {
+        if (!this.$refs.basketItemsContainer) {
+          return;
+        }
 
-      const adElement = document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]');
+        const adElement = document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]');
 
-      if (!adElement) {
-        return;
-      }
+        if (!adElement) {
+          return;
+        }
 
-      const height = adElement.offsetHeight + 50;
+        const height = adElement.offsetHeight + 50;
 
-      this.$refs.basketItemsContainer.style.paddingBottom = `${height}px`;
+        this.$refs.basketItemsContainer.style.paddingBottom = `${height}px`;
+      });
     },
   },
 };
