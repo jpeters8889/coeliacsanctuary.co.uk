@@ -187,6 +187,10 @@ export default {
     },
 
     offsetAd() {
+      if (!this.$refs.basketItemsContainer) {
+        return;
+      }
+
       const adElement = document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]');
 
       if (!adElement) {
