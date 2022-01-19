@@ -13,7 +13,7 @@
         content: 'View your basket',
         classes: ['bg-blue-light', 'text-white', 'rounded-lg', 'mr-2', 'p-2', 'max-w-250', 'shadow']
       }"
-      class="transition-all transform fixed bottom-1 right-1 leading-none bg-blue-light p-3 text-3xl text-white shadow-lg rounded cursor-pointer mb-20"
+      class="transition-all transform fixed bottom-1 right-1 leading-none bg-blue-light p-3 text-3xl text-white shadow-lg rounded cursor-pointer mb-20 lg:mb-24"
       @click="showBasket()"
     >
       <font-awesome-icon :icon="['fas', 'shopping-basket']" />
