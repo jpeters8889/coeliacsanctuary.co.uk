@@ -55,31 +55,24 @@ export default {
     },
 
     offsetIcon() {
-      console.log('one');
       this.$nextTick(() => {
-        console.log('two');
         if (!this.$refs.openBasketIcon) {
-          console.log('end');
           return;
         }
 
         const adElement = document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]');
 
         if (!adElement || adElement.offsetHeight === 0) {
-          console.log('end 2');
           return;
         }
 
-        console.log(adElement.style.top);
-
         if (adElement.style.top === '0px') {
-          console.log('end 3');
           return;
         }
 
         const height = adElement.offsetHeight + 10;
 
-        this.$refs.openBasketIcon.style.margin = `${height}px`;
+        this.$refs.openBasketIcon.style.marginTop = `${height}px`;
       });
     },
   },
