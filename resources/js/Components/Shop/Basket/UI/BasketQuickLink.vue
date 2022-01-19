@@ -47,6 +47,7 @@ export default {
     new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((node) => {
+          console.log(node);
           if (node === document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]')) {
             console.log('found');
             this.offsetIcon();
