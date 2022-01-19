@@ -92,7 +92,7 @@ export default {
 
         const height = adElement.offsetHeight + 10;
 
-        this.$refs.openBasketIcon.style.paddingBottom = `${height}px`;
+        this.$refs.openBasketIcon.style.margin = `${height}px`;
       });
     },
   },
