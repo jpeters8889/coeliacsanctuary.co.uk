@@ -9,6 +9,7 @@
   >
     <div
       v-if="isVisible"
+      ref="openBasketIcon"
       v-tooltip.left="{
         content: 'View your basket',
         classes: ['bg-blue-light', 'text-white', 'rounded-lg', 'mr-2', 'p-2', 'max-w-250', 'shadow']
@@ -32,6 +33,12 @@ export default {
     isVisible: false,
   }),
 
+  watch: {
+    isVisible() {
+      this.offsetIcon();
+    },
+  },
+
   mounted() {
     new IntersectionObserver((entries) => {
       this.isVisible = entries[0].intersectionRatio === 0;
@@ -41,6 +48,28 @@ export default {
   methods: {
     showBasket() {
       this.$root.$emit('show-basket');
+    },
+
+    offsetIcon() {
+      this.$nextTick(() => {
+        if (!this.$refs.openBasketIcon) {
+          return;
+        }
+
+        const adElement = document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]');
+
+        if (!adElement || adElement.offsetHeight === 0) {
+          return;
+        }
+
+        if (adElement.style.top === '0px') {
+          return;
+        }
+
+        const height = adElement.offsetHeight;
+
+        this.$refs.basketItemsContainer.style.paddingBottom = `${height}px`;
+      });
     },
   },
 };
