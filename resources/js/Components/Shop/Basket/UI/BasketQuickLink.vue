@@ -86,12 +86,12 @@ export default {
 
         const adElement = document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]');
 
-        console.log(adElement.style.top);
-
         if (!adElement || adElement.offsetHeight === 0) {
           console.log('end 2');
           return;
         }
+
+        console.log(adElement.style.top);
 
         if (adElement.style.top === '0px') {
           console.log('end 3');
