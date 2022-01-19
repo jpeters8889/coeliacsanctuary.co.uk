@@ -198,9 +198,15 @@ export default {
           return;
         }
 
-        const height = adElement.offsetHeight + 50;
+        let style = 'paddingBottom';
 
-        this.$refs.basketItemsContainer.style.paddingBottom = `${height}px`;
+        if (adElement.style.top === '0px') {
+          style = 'paddingTop';
+        }
+
+        const height = adElement.offsetHeight + 20;
+
+        this.$refs.basketItemsContainer.style[style] = `${height}px`;
       });
     },
   },
