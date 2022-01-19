@@ -58,6 +58,7 @@ export default {
           }
 
           if (node === document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]')) {
+            console.log('found');
             this.offsetIcon();
             this.foundElement = true;
             this.observer = null;
@@ -75,18 +76,25 @@ export default {
     },
 
     offsetIcon() {
+      console.log('one');
       this.$nextTick(() => {
+        console.log('two');
         if (!this.$refs.openBasketIcon) {
+          console.log('end');
           return;
         }
 
         const adElement = document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]');
 
+        console.log(adElement.style.top);
+
         if (!adElement || adElement.offsetHeight === 0) {
+          console.log('end 2');
           return;
         }
 
         if (adElement.style.top === '0px') {
+          console.log('end 3');
           return;
         }
 
