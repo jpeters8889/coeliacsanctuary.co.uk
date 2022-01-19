@@ -30,8 +30,6 @@ Vue.directive('tooltip', VTooltip);
 
 export default {
   data: () => ({
-    observer: null,
-    foundElement: false,
     isVisible: false,
   }),
 
@@ -46,17 +44,9 @@ export default {
       this.isVisible = entries[0].intersectionRatio === 0;
     }).observe(document.querySelector('#header-basket-detail'));
 
-    this.observer = new MutationObserver((mutations) => {
+    new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (this.foundElement) {
-          return;
-        }
-
         mutation.addedNodes.forEach((node) => {
-          if (this.foundElement) {
-            return;
-          }
-
           if (node === document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]')) {
             console.log('found');
             this.offsetIcon();
@@ -65,9 +55,7 @@ export default {
           }
         });
       });
-    });
-
-    this.observer.observe(document.querySelector('body'), { attributes: true, childList: true, subtree: true });
+    }).observe(document.querySelector('body'), { attributes: true, childList: true, subtree: true });
   },
 
   methods: {
