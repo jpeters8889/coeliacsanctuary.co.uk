@@ -57,10 +57,7 @@ export default {
             return;
           }
 
-          console.log(node);
-
           if (node === document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]')) {
-            console.log('here');
             this.offsetIcon();
             this.foundElement = true;
             this.observer = null;
