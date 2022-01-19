@@ -86,6 +86,7 @@ export default {
           return;
         }
 
+        console.log(adElement.style.top);
         if (adElement.style.top === '0px') {
           return;
         }
