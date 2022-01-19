@@ -42,21 +42,11 @@ export default {
   mounted() {
     new IntersectionObserver((entries) => {
       this.isVisible = entries[0].intersectionRatio === 0;
-    }).observe(document.querySelector('#header-basket-detail'));
 
-    new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          console.log(node);
-          if (node === document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]')) {
-            console.log('found');
-            this.offsetIcon();
-            this.foundElement = true;
-            this.observer = null;
-          }
-        });
-      });
-    }).observe(document.querySelector('body'), { attributes: true, childList: true, subtree: true });
+      if (this.isVisible) {
+        this.offsetIcon();
+      }
+    }).observe(document.querySelector('#header-basket-detail'));
   },
 
   methods: {
