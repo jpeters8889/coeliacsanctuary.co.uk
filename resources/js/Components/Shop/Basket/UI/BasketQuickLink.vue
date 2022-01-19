@@ -30,6 +30,8 @@ Vue.directive('tooltip', VTooltip);
 
 export default {
   data: () => ({
+    observer: null,
+    foundElement: false,
     isVisible: false,
   }),
 
@@ -43,6 +45,31 @@ export default {
     new IntersectionObserver((entries) => {
       this.isVisible = entries[0].intersectionRatio === 0;
     }).observe(document.querySelector('#header-basket-detail'));
+
+    this.observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (this.foundElement) {
+          return;
+        }
+
+        mutation.addedNodes.forEach((node) => {
+          if (this.foundElement) {
+            return;
+          }
+
+          console.log(node);
+
+          if (node === document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]')) {
+            console.log('here');
+            this.offsetIcon();
+            this.foundElement = true;
+            this.observer = null;
+          }
+        });
+      });
+    });
+
+    this.observer.observe(document.querySelector('body'), { attributes: true, childList: true, subtree: true });
   },
 
   methods: {
@@ -66,9 +93,9 @@ export default {
           return;
         }
 
-        const height = adElement.offsetHeight;
+        const height = adElement.offsetHeight + 10;
 
-        this.$refs.basketItemsContainer.style.paddingBottom = `${height}px`;
+        this.$refs.openBasketIcon.style.paddingBottom = `${height}px`;
       });
     },
   },
