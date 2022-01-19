@@ -43,9 +43,7 @@ export default {
     new IntersectionObserver((entries) => {
       this.isVisible = entries[0].intersectionRatio === 0;
 
-      if (this.isVisible) {
-        this.offsetIcon();
-      }
+      this.offsetIcon();
     }).observe(document.querySelector('#header-basket-detail'));
   },
 
@@ -72,7 +70,7 @@ export default {
 
         const height = adElement.offsetHeight + 10;
 
-        this.$refs.openBasketIcon.style.marginTop = `${height}px`;
+        this.$refs.openBasketIcon.style.marginBottom = `${height}px`;
       });
     },
   },
