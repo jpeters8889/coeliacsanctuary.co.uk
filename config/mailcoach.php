@@ -8,7 +8,7 @@ return [
         'mailer' => null,
 
         'ses_feedback' => [
-            'configuration_set' => 'mailcoach',
+            'configuration_set' => 'mailcoach-coeliac',
         ],
 
         /*
