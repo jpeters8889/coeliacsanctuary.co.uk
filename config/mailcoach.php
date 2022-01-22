@@ -1,15 +1,15 @@
 <?php
 
 return [
+    'ses_feedback' => [
+        'configuration_set' => 'mailcoach-coeliac',
+    ],
+
     'campaigns' => [
         /*
          * The default mailer used by Mailcoach for sending campaigns.
          */
         'mailer' => null,
-
-        'ses_feedback' => [
-            'configuration_set' => 'mailcoach-coeliac',
-        ],
 
         /*
          * Replacers are classes that can make replacements in the html of a campaign.
