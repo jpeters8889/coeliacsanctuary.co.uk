@@ -21,6 +21,8 @@ class Repository extends AbstractRepository
 
     protected array $appends = [];
 
+    protected string|array $orderByColumn = 'name';
+
     public function getAppends(): array
     {
         return $this->appends;
@@ -71,8 +73,8 @@ class Repository extends AbstractRepository
             /** @phpstan-ignore-next-line */
             $results = $model::search()
                 ->with([
-                    'aroundLatLng' => implode(', ', $latlng = $this->resolveLatLng((array) array_filter($parameters))),
-                    'aroundRadius' => (int) round(((int) $parameters['range']) * 1609.344),
+                    'aroundLatLng' => implode(', ', $latlng = $this->resolveLatLng((array)array_filter($parameters))),
+                    'aroundRadius' => (int)round(((int)$parameters['range']) * 1609.344),
                     'getRankingInfo' => true,
                 ])
                 ->get();
@@ -101,6 +103,19 @@ class Repository extends AbstractRepository
 
     protected function order(Builder $builder): void
     {
-        $builder->orderBy('name');
+        $params = $this->orderByColumn;
+
+        if (is_string($params)) {
+            $params = [$params, 'asc'];
+        }
+
+        $builder->orderBy(...$params);
+    }
+
+    public function latest(): self
+    {
+        $this->orderByColumn = ['created_at', 'desc'];
+
+        return $this;
     }
 }
