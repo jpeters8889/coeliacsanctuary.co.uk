@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatBrowseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatFeaturesController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatLatestPlacesController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatLatLngController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatRecommendAPlaceController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatReportPlaceController;
@@ -25,10 +26,12 @@ if (!isset($router)) {
 
 $router->group(['prefix' => '/api/wheretoeat'], function () use ($router) {
     $router->get('/', [WhereToEatController::class, 'list']);
+    $router->get('latest', WhereToEatLatestPlacesController::class);
     $router->get('/summary', [WhereToEatSummaryController::class, 'get']);
     $router->get('/venueTypes', [WhereToEatVenueTypesController::class, 'get']);
     $router->get('/features', [WhereToEatFeaturesController::class, 'get']);
     $router->get('/ratings', [WhereToEatRatingsController::class, 'get']);
+    $router->get('/ratings/latest', [WhereToEatRatingsController::class, 'index']);
 
     $router->get('/browse', [WhereToEatBrowseController::class, 'list']);
 

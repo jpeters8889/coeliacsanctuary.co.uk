@@ -6,6 +6,7 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRating;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository;
 use Coeliac\Modules\EatingOut\WhereToEat\Requests\WhereToEatRatingRequest;
 use Illuminate\Support\Collection;
@@ -54,5 +55,20 @@ class WhereToEatRatingsController extends BaseController
             });
 
         return array_values($summary);
+    }
+
+    public function index()
+    {
+        return WhereToEatRating::query()
+            ->with(['eatery', 'eatery.country', 'eatery.county', 'eatery.town'])
+            ->latest()
+            ->take(5)
+            ->get()
+            ->transform(fn (WhereToEatRating $rating) => [
+                'id' => $rating->id,
+                'location' => $rating->eatery->full_name,
+                'rating' => $rating->rating,
+                'created_at' => $rating->created_at->diffForHumans(),
+            ]);
     }
 }
