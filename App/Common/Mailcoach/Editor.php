@@ -20,7 +20,7 @@ class Editor implements MailcoachEditor
         $introText = '';
         $recipes = [null, null, null];
         $blogs = [null, null];
-        $reviews = [null, null];
+//        $reviews = [null, null];
 
         if ($model->getStructuredHtml()) {
             $data = json_decode((string) $model->getStructuredHtml(), true);
@@ -28,7 +28,7 @@ class Editor implements MailcoachEditor
             $introText = $data['introText'];
             $recipes = Recipe::query()->whereIn('id', $data['recipes'])->get();
             $blogs = Blog::query()->whereIn('id', $data['blogs'])->get();
-            $reviews = Review::query()->whereIn('id', $data['reviews'])->get();
+//            $reviews = Review::query()->whereIn('id', $data['reviews'])->get();
         }
 
         return Container::getInstance()->make(Factory::class)
@@ -38,7 +38,7 @@ class Editor implements MailcoachEditor
                 'introText' => $introText,
                 'recipes' => $recipes,
                 'blogs' => $blogs,
-                'reviews' => $reviews,
+//                'reviews' => $reviews,
             ])
             ->render();
     }

@@ -81,33 +81,33 @@
             </div>
         </div>
 
-        <div class="mt-2">
-            <h2 class="text-xl mb-2">Reviews</h2>
-            <div class="flex justify-between -mx-2">
-                <div v-for="(review, index) in reviews" class="w-1/2 p-2">
-                    <div v-if="!review" class="relative">
-                        <input class="p-1 border border-gray-300 w-full" type="text" v-model="reviewSearch[index]"
-                               placeholder="Search review..." @keyup="searchReview(index)"/>
+{{--        <div class="mt-2">--}}
+{{--            <h2 class="text-xl mb-2">Reviews</h2>--}}
+{{--            <div class="flex justify-between -mx-2">--}}
+{{--                <div v-for="(review, index) in reviews" class="w-1/2 p-2">--}}
+{{--                    <div v-if="!review" class="relative">--}}
+{{--                        <input class="p-1 border border-gray-300 w-full" type="text" v-model="reviewSearch[index]"--}}
+{{--                               placeholder="Search review..." @keyup="searchReview(index)"/>--}}
 
-                        <ul v-if="reviewResults[index].length > 0"
-                            class="absolute border border-gray-500 shadow w-full bg-white z-20">
-                            <li v-for="result in reviewResults[index]" @click="selectReview(result, index)"
-                                class="p-2 border-b border-gray-300 hover:bg-grey-200">
-                                @{{ result.architect_title }}
-                            </li>
-                        </ul>
-                    </div>
-                    <div v-else class="flex flex-col">
-                        <img :src="review.main_image" class="mb-2"/>
-                        <h3 class="font-semibold">@{{ review.architect_title }}</h3>
-                        <p>@{{ review.meta_description }}</p>
-                        <p class="text-sm mt-2 text-gray-400 font-semibold cursor-pointer" @click="removeReview(index)">
-                            Remove
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+{{--                        <ul v-if="reviewResults[index].length > 0"--}}
+{{--                            class="absolute border border-gray-500 shadow w-full bg-white z-20">--}}
+{{--                            <li v-for="result in reviewResults[index]" @click="selectReview(result, index)"--}}
+{{--                                class="p-2 border-b border-gray-300 hover:bg-grey-200">--}}
+{{--                                @{{ result.architect_title }}--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </div>--}}
+{{--                    <div v-else class="flex flex-col">--}}
+{{--                        <img :src="review.main_image" class="mb-2"/>--}}
+{{--                        <h3 class="font-semibold">@{{ review.architect_title }}</h3>--}}
+{{--                        <p>@{{ review.meta_description }}</p>--}}
+{{--                        <p class="text-sm mt-2 text-gray-400 font-semibold cursor-pointer" @click="removeReview(index)">--}}
+{{--                            Remove--}}
+{{--                        </p>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
         <div class="flex mt-4" style="justify-content: space-around;">
             <button
@@ -168,9 +168,9 @@
             blogSearch: ['', ''],
             blogResults: [[], []],
 
-            reviews: @json($reviews),
-            reviewSearch: ['', ''],
-            reviewResults: [[], []],
+            {{--reviews: @json($reviews),--}}
+            // reviewSearch: ['', ''],
+            // reviewResults: [[], []],
 
             renderedHtml: @json($html),
             structuredData: @json($data),
@@ -215,30 +215,30 @@
                 });
             },
 
-            selectReview(review, index) {
-                this.$set(this.reviewResults, index, []);
-                this.$set(this.reviewSearch, index, '');
-                this.$set(this.reviews, index, review);
-            },
-
-            removeReview(index) {
-                this.$set(this.reviews, index, null);
-            },
-
-            searchReview(index) {
-                this.$set(this.reviewResults, index, []);
-
-                axios.get('/api/reviews/?search=' + this.reviewSearch[index]).then((response) => {
-                    this.$set(this.reviewResults, index, response.data.data.data);
-                });
-            },
+            // selectReview(review, index) {
+            //     this.$set(this.reviewResults, index, []);
+            //     this.$set(this.reviewSearch, index, '');
+            //     this.$set(this.reviews, index, review);
+            // },
+            //
+            // removeReview(index) {
+            //     this.$set(this.reviews, index, null);
+            // },
+            //
+            // searchReview(index) {
+            //     this.$set(this.reviewResults, index, []);
+            //
+            //     axios.get('/api/reviews/?search=' + this.reviewSearch[index]).then((response) => {
+            //         this.$set(this.reviewResults, index, response.data.data.data);
+            //     });
+            // },
 
             render(then = null) {
                 const checks = [
                     this.introText === '',
                     this.recipes.includes(null),
                     this.blogs.includes(null),
-                    this.reviews.includes(null),
+                    // this.reviews.includes(null),
                 ];
 
                 if (checks.includes(true)) {
@@ -250,7 +250,7 @@
                     introText: this.introText,
                     recipes: this.recipes.map(recipe => recipe.id),
                     blogs: this.blogs.map(blog => blog.id),
-                    reviews: this.reviews.map(review => review.id),
+                    // reviews: this.reviews.map(review => review.id),
                 };
 
                 this.renderedHtml = null;

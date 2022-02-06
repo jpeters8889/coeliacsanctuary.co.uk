@@ -14,7 +14,7 @@ class NewsletterRenderRequest extends ApiFormRequest
             'introText' => 'required',
             'recipes' => ['required', 'array', 'size:3'],
             'blogs' => ['required', 'array', 'size:2'],
-            'reviews' => ['required', 'array', 'size:2'],
+//            'reviews' => ['required', 'array', 'size:2'],
         ];
     }
 }
