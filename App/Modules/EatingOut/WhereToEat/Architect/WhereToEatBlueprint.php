@@ -283,4 +283,12 @@ class WhereToEatBlueprint extends Blueprint
 
         return $counties->sort();
     }
+
+    public function searchUsing(Builder $builder, string $searchTerm, array $columns = []): Builder
+    {
+        return $builder
+            ->where('wheretoeat.id', $searchTerm)
+            ->orWhere('name', 'like', "%{$searchTerm}%")
+            ->orWhereRaw('wheretoeat_towns.town like ?', ["%{$searchTerm}%"]);
+    }
 }
