@@ -1,8 +1,7 @@
 module.exports = {
-  purge: [
+  content: [
     './resources/**/*.*',
   ],
-  mode: 'jit',
   theme: {
     colors: {
       transparent: 'transparent',

@@ -42,9 +42,14 @@
 
               <div
                 v-else-if="results.length === 0"
-                class="py-3"
+                class="p-3 text-center flex flex-col space-y-2"
               >
-                Sorry, nothing found :(
+                <div>Sorry, nothing found</div>
+
+                <div>
+                  Make sure you're searching for a country or a language, and not a city or place name,
+                  so search <strong>France</strong>, not <strong>Paris</strong> for example!
+                </div>
               </div>
 
               <ul v-else>

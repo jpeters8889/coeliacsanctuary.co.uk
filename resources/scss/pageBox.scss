@@ -28,15 +28,7 @@
                 @apply font-semibold text-blue-dark transition-all;
 
                 &:hover {
-                    @apply text-black;
-                }
-            }
-
-            a.text-black {
-                color: black !important;
-
-                &:hover {
-                    @apply underline;
+                    @apply text-black underline;
                 }
             }
 
