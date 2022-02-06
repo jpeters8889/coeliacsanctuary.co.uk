@@ -25,11 +25,9 @@
         animation-duration: 1.5s;
     }
 
-    @responsive {
-        .no-animation {
-            animation: none;
-            transform: none;
-        }
+    .no-animation {
+        animation: none;
+        transform: none;
     }
 
     @keyframes spin {
