@@ -24,13 +24,14 @@ class RenderMjmlController extends BaseController
                 'introLines' => (new Collection(explode("\n", $request->input('introText'))))
                     ->filter()
                     ->values(),
-                'recipes' => Recipe::query()->whereIn('id', $request->input('recipes'))->get()
+                'recipes' => Recipe::query()->with('images')->whereIn('id', $request->input('recipes'))->get()
                     ->sortBy(fn ($model) => array_search($model->getKey(), $request->input('recipes'))),
-                'blogs' => Blog::query()->whereIn('id', $request->input('blogs'))->get()
+                'blogs' => Blog::query()->with('images')->whereIn('id', $request->input('blogs'))->get()
                     ->sortBy(fn ($model) => array_search($model->getKey(), $request->input('blogs'))),
-                'reviews' => Review::query()->whereIn('id', $request->input('reviews'))->get()
-                    ->sortBy(fn ($model) => array_search($model->getKey(), $request->input('reviews'))),
+//                'reviews' => Review::query()->whereIn('id', $request->input('reviews'))->get()
+//                    ->sortBy(fn ($model) => array_search($model->getKey(), $request->input('reviews'))),
                 'eateries' => WhereToEat::query()
+                    ->with(['country', 'county', 'town'])
                     ->where('type_id', 1)
                     ->where('live', true)
                     ->take(3)

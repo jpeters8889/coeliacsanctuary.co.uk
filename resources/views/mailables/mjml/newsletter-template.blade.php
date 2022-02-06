@@ -136,22 +136,22 @@
                         </mj-column>
                     @endforeach
                 </mj-section>
-                <mj-section>
-                    @foreach($reviews as $review)
-                        <mj-column padding="3px">
-                            <mj-image padding-bottom="10px" src="{{ $review->main_image_raw }}"/>
-                            <mj-text css-class="blue-links" padding-bottom="10px">
-                                <a href="{{ config('app.url').'/review/'.$review->slug }}">
-                                    <h3>
-                                        {{ $review->title }} -
-                                        {{ $review->eatery->town->town }}, {{ $review->eatery->county->county }}
-                                    </h3>
-                                </a>
-                            </mj-text>
-                            <mj-text>{{ $review->meta_description }}</mj-text>
-                        </mj-column>
-                    @endforeach
-                </mj-section>
+{{--                <mj-section>--}}
+{{--                    @foreach($reviews as $review)--}}
+{{--                        <mj-column padding="3px">--}}
+{{--                            <mj-image padding-bottom="10px" src="{{ $review->main_image_raw }}"/>--}}
+{{--                            <mj-text css-class="blue-links" padding-bottom="10px">--}}
+{{--                                <a href="{{ config('app.url').'/review/'.$review->slug }}">--}}
+{{--                                    <h3>--}}
+{{--                                        {{ $review->title }} ---}}
+{{--                                        {{ $review->eatery->town->town }}, {{ $review->eatery->county->county }}--}}
+{{--                                    </h3>--}}
+{{--                                </a>--}}
+{{--                            </mj-text>--}}
+{{--                            <mj-text>{{ $review->meta_description }}</mj-text>--}}
+{{--                        </mj-column>--}}
+{{--                    @endforeach--}}
+{{--                </mj-section>--}}
                 <mj-section>
                     <mj-column>
                         <mj-text css-class="blue-links">
@@ -160,13 +160,13 @@
                             </a>
                         </mj-text>
                     </mj-column>
-                    <mj-column>
-                        <mj-text css-class="blue-links">
-                            <a href="{{ config('app.url').'/review' }}">
-                                <h3>See more reviews...</h3>
-                            </a>
-                        </mj-text>
-                    </mj-column>
+{{--                    <mj-column>--}}
+{{--                        <mj-text css-class="blue-links">--}}
+{{--                            <a href="{{ config('app.url').'/review' }}">--}}
+{{--                                <h3>See more reviews...</h3>--}}
+{{--                            </a>--}}
+{{--                        </mj-text>--}}
+{{--                    </mj-column>--}}
                 </mj-section>
                 <mj-section>
                     <mj-column>
