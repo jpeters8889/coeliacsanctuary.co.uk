@@ -1,3 +1,4 @@
+
 @extends('templates.shop')
 
 @section('primary-column')
@@ -227,10 +228,12 @@
                         what to look out for.
                     </p>
 
-                    <button
-                        class="w-full p-2 bg-blue-light bg-opacity-80 border-blue text-center rounded mt-4 font-semibold hover:bg-blue transition-all">
+                    <a
+                        href="/shop/standard-coeliac-travel-cards"
+                        class="w-full p-2 bg-blue-light bg-opacity-80 border-blue text-center rounded mt-4 font-semibold hover:bg-blue transition-all"
+                    >
                         View all Coeliac Travel Cards
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -252,10 +255,12 @@
                         other allergens you have or foods you must avoid.
                     </p>
 
-                    <button
-                        class="w-full p-2 bg-blue-light bg-opacity-80 border-blue text-center rounded mt-4 font-semibold hover:bg-blue transition-all">
+                    <a
+                        href="/shop/coeliac-and-other-dietary-needs-travel-cards"
+                        class="w-full p-2 bg-blue-light bg-opacity-80 border-blue text-center rounded mt-4 font-semibold hover:bg-blue transition-all"
+                    >
                         View all Coeliac and other Dietary Needs Travel Cards
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
