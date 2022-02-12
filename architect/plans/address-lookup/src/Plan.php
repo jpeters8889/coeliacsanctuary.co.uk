@@ -14,7 +14,7 @@ class Plan extends ArchitectPlan
         return 'address-lookup';
     }
 
-    public function handleUpdate(Model $model, $column, $value)
+    public function handleUpdate(Model $model, $column, $value, $index = null)
     {
         $value = json_decode($value, true);
 

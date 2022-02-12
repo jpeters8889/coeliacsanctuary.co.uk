@@ -16,7 +16,7 @@ class Plan extends ArchitectPlan
         return 'wte-attractions';
     }
 
-    public function handleUpdate(Model $model, $column, $value)
+    public function handleUpdate(Model $model, $column, $value, $index = null)
     {
         /* @var WhereToEat $model */
         $model->restaurants()->delete();

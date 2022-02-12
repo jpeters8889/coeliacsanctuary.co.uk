@@ -46,7 +46,7 @@ class Plan extends ArchitectPlan
             ->implode(',');
     }
 
-    public function handleUpdate(Model $model, $column, $value)
+    public function handleUpdate(Model $model, $column, $value, $index = null)
     {
         switch ($column) {
             case 'blog_tags':

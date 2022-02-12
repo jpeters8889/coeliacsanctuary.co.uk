@@ -17,7 +17,7 @@ class Plan extends ArchitectPlan
         return 'shop-product-variants';
     }
 
-    public function handleUpdate(Model $model, $column, $value)
+    public function handleUpdate(Model $model, $column, $value, $index = null)
     {
         /** @var ShopProduct $model */
         $variants = json_decode($value, true);

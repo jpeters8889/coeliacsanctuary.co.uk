@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\WhereToEat\Architect;
 
 use Illuminate\Support\Collection;
+use JPeters\Architect\Plans\BulkBlueprintVariants;
 use JPeters\Architect\Plans\Group;
 use JPeters\Architect\Plans\Label;
 use JPeters\Architect\Plans\Lookup;
@@ -45,9 +46,6 @@ class WhereToEatBlueprint extends Blueprint
             ->addSelect([
                 'wheretoeat.id', 'wheretoeat.town_id', 'wheretoeat.county_id', 'wheretoeat.country_id', 'type_id',
                 'name', 'address', 'phone', 'website', 'live', 'venue_type_id', 'cuisine_id', 'info',
-//                'country_description' => 'wheretoeat_countries.country',
-//                'county_description' => 'wheretoeat_counties.county',
-//                'town_description' => 'wheretoeat_towns.town',
             ]);
     }
 
@@ -76,50 +74,53 @@ class WhereToEatBlueprint extends Blueprint
         return [
             Textfield::generate('name'),
 
-            Lookup::generate('town_id', 'Town')
-                ->hideOnIndex()
-                ->setLookupVariable('town')
-                ->isInRelationship('town')
-                ->lookupaction(static function ($value) {
-                    return WhereToEatTown::query()
-                        ->where('town', 'LIKE', "%{$value}%")->take(10)
-                        ->get();
-                })
-                ->fetchValueFrom(static function ($value) {
-                    return WhereToEatTown::query()
-                        ->firstWhere('town', $value);
-                })
-                ->setCreateAction(static function (Model $model, $value) {
-                    return WhereToEatTown::query()->firstOrCreate([
-                        'town' => $value,
-                        'county_id' => request()->input('county_id'),
-                    ]);
-                }),
-
-            Select::generate('county_id', 'County')
-                ->hideOnIndex()
-                ->options($this->getCounties()->toArray())
-                ->addListener('town_id', 'changed', static function ($value) {
-                    return $value['county_id'];
-                }),
-
-            Select::generate('country_id', 'Country')
-                ->hideOnIndex()
-                ->options($this->getCountries()->toArray())
-                ->addListener('town_id', 'changed', static function ($value) {
-                    return WhereToEatCounty::query()->find($value['county_id'])->country_id;
-                }),
-
-            Plan::generate('address')->hideOnIndex(),
-
-            Textfield::generate('phone')->hideOnIndex(),
-
             Textfield::generate('website')->hideOnIndex(),
 
+            BulkBlueprintVariants::generate('locations')
+                ->setAddButtonLabel('Add Location')
+                ->plans([
+                    Lookup::generate('town_id', 'Town')
+                        ->setLookupVariable('town')
+                        ->isInRelationship('town')
+                        ->lookupaction(static function ($value) {
+                            return WhereToEatTown::query()
+                                ->where('town', 'LIKE', "%{$value}%")->take(10)
+                                ->get();
+                        })
+                        ->fetchValueFrom(static function ($value) {
+                            return WhereToEatTown::query()
+                                ->firstWhere('town', $value);
+                        })
+                        ->setCreateAction(static function (Model $model, $value, $index) {
+                            $request = json_decode(request()->input('locations'));
+
+                            return WhereToEatTown::query()->firstOrCreate([
+                                'town' => $value,
+                                'county_id' => data_get($request, "{$index}.county_id"),
+                            ]);
+                        }),
+
+                    Select::generate('county_id', 'County')
+                        ->options($this->getCounties()->toArray())
+                        ->addListener('town_id', 'changed', static function ($value) {
+                            return $value['county_id'];
+                        }),
+
+                    Select::generate('country_id', 'Country')
+                        ->options($this->getCountries()->toArray())
+                        ->addListener('town_id', 'changed', static function ($value) {
+                            return WhereToEatCounty::query()->find($value['county_id'])->country_id;
+                        }),
+
+                    Plan::generate('address'),
+
+                    Textfield::generate('phone'),
+                ]),
+
             Label::generate('full_location', 'Location')->hideOnForms(),
-//
+
             Label::generate('type_description', 'Type')->hideOnForms(),
-//
+
             Boolean::generate('live'),
 
             Switcher::generate('type_id', 'Type')
@@ -290,5 +291,10 @@ class WhereToEatBlueprint extends Blueprint
             ->where('wheretoeat.id', $searchTerm)
             ->orWhere('name', 'like', "%{$searchTerm}%")
             ->orWhereRaw('wheretoeat_towns.town like ?', ["%{$searchTerm}%"]);
+    }
+
+    public function hasPublicLink(): bool
+    {
+        return false;
     }
 }

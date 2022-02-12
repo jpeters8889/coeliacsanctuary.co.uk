@@ -66,7 +66,7 @@ class Plan extends ArchitectPlan
             });
     }
 
-    public function handleUpdate(Model $model, $column, $value)
+    public function handleUpdate(Model $model, $column, $value, $index = null)
     {
         $model->images->each(static function (ImageAssociations $imageAssociation) {
             $imageAssociation->image->delete();
