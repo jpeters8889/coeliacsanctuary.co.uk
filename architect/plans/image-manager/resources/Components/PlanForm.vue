@@ -1,271 +1,307 @@
 <template>
-    <div>
-        <div class="form-control">
-            <input type="file" class="hidden" ref="fileTrigger" accept="image/*" multiple @change="processImages"/>
+  <div>
+    <div class="form-control">
+      <input
+        ref="fileTrigger"
+        type="file"
+        class="hidden"
+        accept="image/*"
+        multiple
+        @change="processImages()"
+      >
 
-            <ul class="flex flex-wrap align-start">
-                <li class="mr-2 mb-2 border-1 border-blue-500 rounded w-imageManager relative flex justify-center items-center text-6xl text-blue-500 cursor-pointer max-h-imageManager"
-                    :class="images.length > 0 ? 'initial' : 'hidden'"
-                    v-for="image in images"
-                >
-                    <div v-if="image.processing">
-                        <font-awesome-icon :icon="['fas', 'circle-notch']" spin></font-awesome-icon>
-                    </div>
+      <ul class="flex flex-wrap align-start">
+        <li
+          v-for="image in images"
+          class="mr-2 mb-2 border-1 border-blue-500 rounded w-imageManager relative flex justify-center items-center text-6xl text-blue-500 cursor-pointer max-h-imageManager"
+          :class="images.length > 0 ? 'initial' : 'hidden'"
+        >
+          <div v-if="image.processing">
+            <font-awesome-icon
+              :icon="['fas', 'circle-notch']"
+              spin
+            />
+          </div>
 
-                    <div v-else>
-                        <img :src="'/'+image.path" alt=""/>
+          <div v-else>
+            <img
+              :src="'/'+image.path"
+              alt=""
+            >
 
-                        <div class="absolute left-0 bottom-0 m-1 flex flex-wrap">
-                            <div v-for="(display, button) in metas.buttons"
-                                 v-if="display && canDisplayButton(button,image)"
-                                 class="rounded text-sm w-auto cursor-pointer mr-1 p-1"
-                                 :class="generateButtonClass(button, image)"
-                                 @click="handleImageButtonClick(button, image)"
-                                 v-tooltip.bottom="generateButtonTooltip(button)"
-                            >
-                                <font-awesome-icon :icon="generateButtonIcon(button)"></font-awesome-icon>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+            <div class="absolute left-0 bottom-0 m-1 flex flex-wrap">
+              <div
+                v-for="(display, button) in metas.buttons"
+                v-if="display && canDisplayButton(button,image)"
+                v-tooltip.bottom="generateButtonTooltip(button)"
+                class="rounded text-sm w-auto cursor-pointer mr-1 p-1"
+                :class="generateButtonClass(button, image)"
+                @click="handleImageButtonClick(button, image)"
+              >
+                <font-awesome-icon :icon="generateButtonIcon(button)" />
+              </div>
+            </div>
+          </div>
+        </li>
 
-                <li class="mr-2 mb-2 border-1 border-blue-500 rounded min-w-imageManager relative flex justify-center items-center text-6xl text-blue-500 cursor-pointer h-imageManager"
-                    @click="uploadImage"
-                >
-                    <font-awesome-icon :icon="['fas', 'plus']"></font-awesome-icon>
-                </li>
-            </ul>
-        </div>
-
-        <portal to="modal" v-if="showModal">
-            <modal title="Insert Image">
-                <div class="w-full flex flex-col justify-center items-center leading-none">
-                    <div class="w-full py-3">
-                        <select class="form-control form-control-input w-full" v-model="insertType">
-                            <option disabled>Image Type</option>
-                            <option value='left'>Left Align</option>
-                            <option value='right'>Right Align</option>
-                            <option value='fullwidth'>Full Width</option>
-                        </select>
-                    </div>
-
-                    <div class="w-full py-3">
-                        <textarea class="form-control form-control-input w-full" placeholder="Description"
-                                  v-model="insertDescription"></textarea>
-                    </div>
-
-                    <div class="w-full py-3 flex justify-center">
-                        <button class="button-primary button px-4 py-1 rounded" @click.prevent="processImageInsert()">
-                            Insert Image
-                        </button>
-                    </div>
-                </div>
-            </modal>
-        </portal>
+        <li
+          class="mr-2 mb-2 border-1 border-blue-500 rounded min-w-imageManager relative flex justify-center items-center text-6xl text-blue-500 cursor-pointer h-imageManager"
+          @click="uploadImage()"
+        >
+          <font-awesome-icon :icon="['fas', 'plus']" />
+        </li>
+      </ul>
     </div>
+
+    <portal
+      v-if="showModal"
+      to="modal"
+    >
+      <modal title="Insert Image">
+        <div class="w-full flex flex-col justify-center items-center leading-none">
+          <div class="w-full py-3">
+            <select
+              v-model="insertType"
+              class="form-control form-control-input w-full"
+            >
+              <option disabled>
+                Image Type
+              </option>
+              <option value="left">
+                Left Align
+              </option>
+              <option value="right">
+                Right Align
+              </option>
+              <option value="fullwidth">
+                Full Width
+              </option>
+            </select>
+          </div>
+
+          <div class="w-full py-3">
+            <textarea
+              v-model="insertDescription"
+              class="form-control form-control-input w-full"
+              placeholder="Description"
+            />
+          </div>
+
+          <div class="w-full py-3 flex justify-center">
+            <button
+              class="button-primary button px-4 py-1 rounded"
+              @click.prevent="processImageInsert()"
+            >
+              Insert Image
+            </button>
+          </div>
+        </div>
+      </modal>
+    </portal>
+  </div>
 </template>
 
 <script>
-import {IsAFormField} from 'architect-js-helpers';
+import { IsAFormField } from 'architect-js-helpers';
 
 export default {
-    mixins: [IsAFormField],
+  mixins: [IsAFormField],
 
-    data: () => ({
-        images: [],
-        selectedImages: {},
-        hasImages: {},
-        showModal: false,
+  data: () => ({
+    images: [],
+    selectedImages: {},
+    hasImages: {},
+    showModal: false,
 
-        insertType: 'left',
-        insertDescription: '',
-        insertImage: '',
-    }),
+    insertType: 'left',
+    insertDescription: '',
+    insertImage: '',
+  }),
 
-    mounted() {
-        Architect.$on('modal-close', () => {
-            this.showModal = false;
-        });
+  mounted() {
+    Architect.$on('modal-close', () => {
+      this.showModal = false;
+    });
 
-        Object.keys(this.metas.buttons).forEach((button) => {
-            if (this.metas.buttons[button] === true) {
-                if (!button === 'insert') {
-                    this.$set(this.selectedImages, button, '');
-                    this.$set(this.hasImages, button, false);
-                }
-            }
-        });
-
-        this.$set(this.selectedImages, 'article', []);
-
-        if (this.value) {
-            Object.keys(this.value).forEach((index) => {
-                let position = this.pushImage();
-                let image = this.value[index];
-
-                this.displayImage(image, position);
-
-                if (image.type) {
-                    image.type.split(',').forEach((type) => {
-                        if (type !== 'article') {
-                            this.handleImageButtonClick(type, image);
-                        } else {
-                            this.$set(this.selectedImages.article, this.selectedImages.article.length, image.filename);
-                        }
-                    });
-                }
-            });
-
-            if (!this.selectedImages.header) {
-                this.handleImageButtonClick('header', this.value[0]);
-            }
-
-            if (!this.selectedImages.social) {
-                this.handleImageButtonClick('social', this.value[0]);
-            }
+    Object.keys(this.metas.buttons).forEach((button) => {
+      if (this.metas.buttons[button] === true) {
+        if (!button === 'insert') {
+          this.$set(this.selectedImages, button, '');
+          this.$set(this.hasImages, button, false);
         }
+      }
+    });
+
+    this.$set(this.selectedImages, 'article', []);
+
+    if (this.value) {
+      Object.keys(this.value).forEach((index) => {
+        const position = this.pushImage();
+        const image = this.value[index];
+
+        this.displayImage(image, position);
+
+        if (image.type) {
+          image.type.split(',').forEach((type) => {
+            if (type !== 'article') {
+              this.handleImageButtonClick(type, image);
+            } else {
+              this.$set(this.selectedImages.article, this.selectedImages.article.length, image.filename);
+            }
+          });
+        }
+      });
+
+      if (!this.selectedImages.header) {
+        this.handleImageButtonClick('header', this.value[0]);
+      }
+
+      if (!this.selectedImages.social) {
+        this.handleImageButtonClick('social', this.value[0]);
+      }
+    }
+  },
+
+  methods: {
+    getFormData() {
+      const images = this.selectedImages;
+
+      images.article = images.article.filter((image, index) => images.article.indexOf(image) === index);
+
+      return {
+        name: this.name,
+        value: JSON.stringify(images),
+      };
     },
 
-    methods: {
-        getFormData() {
-            let images = this.selectedImages;
+    uploadImage() {
+      this.$refs.fileTrigger.click();
+    },
 
-            images.article = images.article.filter((image, index) => images.article.indexOf(image) === index);
+    processImages() {
+      const { files } = this.$refs.fileTrigger;
+      const data = new FormData();
+      const mapping = [];
 
-            return {
-                name: this.name,
-                value: JSON.stringify(images),
-            }
-        },
+      for (let x = 0; x < files.length; x++) {
+        data.append(`files[${x}]`, files[x]);
+        mapping.push(this.pushImage());
+      }
 
-        uploadImage() {
-            this.$refs.fileTrigger.click();
-        },
+      window.Architect.request().post('/external/image-manager/upload', data, { 'Content-Type': 'multipart/form-data' })
+        .then((response) => {
+          response.data.forEach((image, index) => {
+            this.displayImage(image, mapping[index]);
+          });
+        });
+    },
 
-        processImages() {
-            const files = this.$refs.fileTrigger.files;
-            const data = new FormData;
-            let mapping = [];
+    pushImage() {
+      const location = this.images.length;
+      this.$set(this.images, location, { processing: true });
 
-            for (let x = 0; x < files.length; x++) {
-                data.append(`files[${x}]`, files[x]);
-                mapping.push(this.pushImage());
-            }
+      return location;
+    },
 
-            window.Architect.request().post('/external/image-manager/upload', data, {'Content-Type': 'multipart/form-data'})
-                .then((response) => {
-                    response.data.forEach((image, index) => {
-                        this.displayImage(image, mapping[index]);
-                    });
-                });
-        },
+    displayImage(image, index) {
+      this.$set(this.images, index, {
+        processing: false,
+        ...image,
+      });
 
-        pushImage() {
-            let location = this.images.length;
-            this.$set(this.images, location, {processing: true});
+      if (!this.metas.buttons.insert) {
+        this.$set(this.selectedImages.article, this.selectedImages.article.length, image.filename);
+      }
+    },
 
-            return location;
-        },
+    handleImageButtonClick(button, image) {
+      if (button === 'insert') {
+        this.showModal = !this.showModal;
+        this.insertImage = image.filename;
+        return;
+      }
 
-        displayImage(image, index) {
-            this.$set(this.images, index, {
-                processing: false,
-                ...image
-            });
+      let imageText = image.filename;
+      let toSelect = true;
 
-            if (!this.metas.buttons.insert) {
-                this.$set(this.selectedImages.article, this.selectedImages.article.length, image.filename);
-            }
-        },
+      if (this.selectedImages[button] === image.filename) {
+        imageText = '';
+        toSelect = false;
+      }
 
-        handleImageButtonClick(button, image) {
-            if (button === 'insert') {
-                this.showModal = !this.showModal;
-                this.insertImage = image.filename;
-                return;
-            }
+      this.$set(this.selectedImages, button, imageText);
+      this.$set(this.hasImages, button, toSelect);
 
-            let imageText = image.filename;
-            let toSelect = true;
+      if (!this.metas.buttons.insert && this.selectedImages.article.includes(image.filename)) {
+        this.$delete(this.selectedImages.article, this.selectedImages.article.indexOf(image.filename));
+      }
+    },
 
-            if (this.selectedImages[button] === image.filename) {
-                imageText = '';
-                toSelect = false;
-            }
+    generateButtonClass(button, image) {
+      if (this.selectedImages[button] === image.filename) {
+        return 'bg-green-500 text-white';
+      }
 
-            this.$set(this.selectedImages, button, imageText);
-            this.$set(this.hasImages, button, toSelect);
+      if (this.hasImages[button] === true) {
+        return 'bg-gray-200 text-gray-500';
+      }
 
-            if(!this.metas.buttons.insert && this.selectedImages.article.includes(image.filename)) {
-                this.$delete(this.selectedImages.article, this.selectedImages.article.indexOf(image.filename));
-            }
-        },
+      return 'bg-blue-500 text-white';
+    },
 
-        generateButtonClass(button, image) {
-            if (this.selectedImages[button] === image.filename) {
-                return 'bg-green-500 text-white';
-            }
+    generateButtonIcon(button) {
+      switch (button) {
+        case 'social':
+          return ['fab', 'facebook-square'];
+        case 'header':
+          return ['fas', 'home'];
+        case 'square':
+          return ['fas', 'crop'];
+        case 'insert':
+          return ['fas', 'paste'];
+      }
+    },
 
-            if (this.hasImages[button] === true) {
-                return 'bg-gray-200 text-gray-500';
-            }
+    canDisplayButton(button, image) {
+      switch (button) {
+        case 'social':
+        case 'header':
+          return image.width >= 1200;
+        case 'square':
+          return image.width === image.height;
+      }
 
-            return 'bg-blue-500 text-white';
-        },
+      return true;
+    },
 
-        generateButtonIcon(button) {
-            switch (button) {
-                case 'social':
-                    return ['fab', 'facebook-square'];
-                case 'header':
-                    return ['fas', 'home'];
-                case 'square':
-                    return ['fas', 'crop'];
-                case 'insert':
-                    return ['fas', 'paste'];
-            }
-        },
+    generateButtonTooltip(button) {
+      switch (button) {
+        case 'social':
+          return 'Set as Social Image';
+        case 'header':
+          return 'Set as Header Image';
+        case 'square':
+          return 'Set as Square Image';
+        case 'insert':
+          return 'Insert image into body';
+      }
+    },
 
-        canDisplayButton(button, image) {
-            switch (button) {
-                case 'social':
-                case 'header':
-                    return image.width >= 1200
-                case 'square':
-                    return image.width === image.height;
-            }
+    processImageInsert() {
+      const text = `<article-image src="${this.insertImage}" title="${this.insertDescription}" position="${this.insertType}"></article-image>`;
 
-            return true;
-        },
+      window.Architect.$emit(`${this.metas.insertImageIntoField}-append`, text);
 
-        generateButtonTooltip(button) {
-            switch (button) {
-                case 'social':
-                    return 'Set as Social Image';
-                case 'header':
-                    return 'Set as Header Image';
-                case 'square':
-                    return 'Set as Square Image';
-                case 'insert':
-                    return 'Insert image into body';
-            }
-        },
+      this.$set(this.selectedImages.article, this.selectedImages.article.length, this.insertImage);
+      this.closeModal();
+    },
 
-        processImageInsert() {
-            const text = `<article-image src="${this.insertImage}" title="${this.insertDescription}" position="${this.insertType}"></article-image>`
-
-            window.Architect.$emit(this.metas.insertImageIntoField + '-append', text);
-
-            this.$set(this.selectedImages.article, this.selectedImages.article.length, this.insertImage);
-            this.closeModal();
-        },
-
-        closeModal() {
-            this.showModal = false;
-            this.insertType = 'left';
-            this.insertDescription = '';
-            this.insertImage = '';
-        }
-    }
-}
+    closeModal() {
+      this.showModal = false;
+      this.insertType = 'left';
+      this.insertDescription = '';
+      this.insertImage = '';
+    },
+  },
+};
 </script>

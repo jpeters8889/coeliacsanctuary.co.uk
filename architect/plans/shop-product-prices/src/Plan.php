@@ -18,7 +18,7 @@ class Plan extends ArchitectPlan
         return 'shop-product-prices';
     }
 
-    public function handleUpdate(Model $model, $column, $value)
+    public function handleUpdate(Model $model, $column, $value, $index = null)
     {
         /** @var ShopProduct $model */
         $prices = json_decode($value, true);

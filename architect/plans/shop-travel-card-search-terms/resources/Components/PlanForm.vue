@@ -21,7 +21,7 @@
     <div>
       <button
         class="bg-blue-500 rounded px-6 py-3 leading-none text-white font-semibold"
-        @click.prevent="loadProductModal"
+        @click.prevent="loadProductModal()"
       >
         Add Products
       </button>

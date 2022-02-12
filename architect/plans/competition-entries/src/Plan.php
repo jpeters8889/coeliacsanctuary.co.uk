@@ -14,7 +14,7 @@ class Plan extends ArchitectPlan
         return 'competition-entries';
     }
 
-    public function handleUpdate(Model $model, $column, $value)
+    public function handleUpdate(Model $model, $column, $value, $index = null)
     {
         $model->$column = $value;
     }
