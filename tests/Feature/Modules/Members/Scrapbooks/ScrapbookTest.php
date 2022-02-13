@@ -43,7 +43,7 @@ class ScrapbookTest extends DashboardTest
 
         $request->assertJsonFragment(['user_id' => $this->user->id]);
         $request->assertJsonFragment(['name' => 'My Scrapbook']);
-        $request->assertJsonFragment(['items_count' => '0']);
+        $request->assertJsonFragment(['items_count' => 0]);
     }
 
     /** @test */

@@ -154,7 +154,7 @@ class ShopMassDiscountsTest extends TestCase
         $this->get('/api/shop/product/'.$this->firstProduct->id)
             ->assertJsonStructure(['data' => ['price' => ['current_price']]])
             ->assertJsonMissing(['old_price'])
-            ->assertJsonFragment(['current_price' => '100']);
+            ->assertJsonFragment(['current_price' => 100]);
 
         TestTime::addMinute();
 
@@ -162,8 +162,8 @@ class ShopMassDiscountsTest extends TestCase
 
         $this->get('/api/shop/product/'.$this->firstProduct->id)
             ->assertJsonStructure(['data' => ['price' => ['current_price', 'old_price']]])
-            ->assertJsonFragment(['current_price' => '90'])
-            ->assertJsonFragment(['old_price' => '100']);
+            ->assertJsonFragment(['current_price' => 90])
+            ->assertJsonFragment(['old_price' => 100]);
     }
 
     /** @test */
@@ -181,11 +181,11 @@ class ShopMassDiscountsTest extends TestCase
         $this->artisan('coeliac:apply_mass_discounts');
 
         $this->get('/api/shop/product/'.$this->firstProduct->id)
-            ->assertJsonFragment(['current_price' => '90']);
+            ->assertJsonFragment(['current_price' => 90]);
 
         TestTime::addDay()->startOfDay();
 
         $this->get('/api/shop/product/'.$this->firstProduct->id)
-            ->assertJsonFragment(['current_price' => '100']);
+            ->assertJsonFragment(['current_price' => 100]);
     }
 }
