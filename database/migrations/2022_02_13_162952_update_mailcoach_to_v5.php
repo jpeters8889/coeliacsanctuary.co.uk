@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamp('job_dispatched_at')->nullable();
         });
 
-        Schema::table('webhooks_calls', function (Blueprint $table) {
+        Schema::table('webhook_calls', function (Blueprint $table) {
             $table->string('url')->nullable();
         });
     }
