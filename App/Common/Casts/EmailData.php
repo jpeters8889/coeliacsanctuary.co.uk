@@ -11,6 +11,7 @@ use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRating;
+use Illuminate\Support\Collection;
 
 class EmailData implements CastsAttributes
 {
@@ -44,6 +45,10 @@ class EmailData implements CastsAttributes
 
         if (isset($data['notifiable'])) {
             $data['notifiable'] = User::query()->find($data['notifiable']['id']);
+        }
+
+        if(isset($data['updates'])) {
+            $data['updates'] = new Collection($data['updates']);
         }
 
         return $data;
