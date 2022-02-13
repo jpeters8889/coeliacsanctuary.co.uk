@@ -57,6 +57,8 @@ return [
             'retry_until_hours' => 24,
         ],
 
+        'send_campaign_maximum_job_runtime_in_seconds' => 60  * 10,
+
         /*
          * You can customize some of the behavior of this package by using our own custom action.
          * Your custom action should always extend the one of the default ones.
@@ -155,6 +157,22 @@ return [
             'send_automation_mail_job' => 'send-mail',
             'send_test_mail_job' => 'mailcoach',
         ],
+
+        /*
+         * By default only 10 mails per second will be sent to avoid overwhelming your
+         * e-mail sending service. To use this feature you must have Redis installed.
+         */
+        'throttling' => [
+            'enabled' => true,
+            'redis_connection_name' => 'default',
+            'redis_key' => 'laravel-mailcoach',
+            'allowed_number_of_jobs_in_timespan' => 10,
+            'timespan_in_seconds' => 1,
+            'release_in_seconds' => 5,
+            'retry_until_hours' => 24,
+        ],
+
+        'send_campaign_maximum_job_runtime_in_seconds' => 60  * 10,
     ],
 
     'audience' => [
