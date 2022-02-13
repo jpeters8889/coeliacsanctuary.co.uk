@@ -47,7 +47,22 @@ class EmailData implements CastsAttributes
             $data['notifiable'] = User::query()->find($data['notifiable']['id']);
         }
 
-        if(isset($data['updates'])) {
+        if (isset($data['updates'])) {
+            if (isset($data['updates']['blogs'])) {
+                if (isset($data['updates']['blogs']['subscriptions'])) {
+                    $data['updates']['blogs']['subscriptions'] = new Collection($data['updates']['blogs']['subscriptions']);
+                }
+
+                $data['updates']['blogs'] = new Collection($data['updates']['blogs']);
+            }
+
+            if (isset($data['updates']['eateries'])) {
+                if (isset($data['updates']['eateries']['subscriptions'])) {
+                    $data['updates']['eateries']['subscriptions'] = new Collection($data['updates']['eateries']['subscriptions']);
+                }
+                $data['updates']['eateries'] = new Collection($data['updates']['eateries']);
+            }
+
             $data['updates'] = new Collection($data['updates']);
         }
 
