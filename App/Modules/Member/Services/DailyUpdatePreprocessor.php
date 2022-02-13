@@ -130,7 +130,7 @@ class DailyUpdatePreprocessor
     protected function processWhereToEatUpdatable(WhereToEat $eatery): void
     {
         $this->subscriptions->map(function ($subscription) use ($eatery) {
-            if ($subscription instanceof BlogTag) {
+            if (!$subscription || $subscription instanceof BlogTag) {
                 return;
             }
 
