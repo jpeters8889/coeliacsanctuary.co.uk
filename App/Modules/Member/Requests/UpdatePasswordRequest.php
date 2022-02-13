@@ -11,7 +11,7 @@ class UpdatePasswordRequest extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'current' => ['required', 'password'],
+            'current' => ['required', 'current_password'],
             'new' => ['required', 'min:8', 'confirmed'],
         ];
     }
