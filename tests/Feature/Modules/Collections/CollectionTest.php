@@ -65,7 +65,7 @@ class CollectionTest extends TestCase
 
         for ($collectionX = 0; $collectionX < 12; ++$collectionX) {
             $request->assertSee('collection-' . $collectionX, false);
-            $request->assertJsonFragment(['items_count' => (string)($collectionX + 1)]);
+            $request->assertJsonFragment(['items_count' => ($collectionX + 1)]);
         }
 
         $request->assertDontSee('collection-12');
