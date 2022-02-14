@@ -17,6 +17,7 @@ class CardServiceProvider extends ServiceProvider
 
             $architect->apiManager->registerEndpoint('delete', 'coeliac-place-recommendations', ApiHandler::class, 'delete');
             $architect->apiManager->registerEndpoint('put', 'coeliac-place-recommendations', ApiHandler::class, 'complete');
+            $architect->apiManager->registerEndpoint('post', 'coeliac-place-recommendations', ApiHandler::class, 'convert');
 
             $architect->assetManager->registerScript('PlaceRecommendationsCard', __DIR__.'/../dist/card.js');
             $architect->assetManager->registerStyle('PlaceRecommendationsCard', __DIR__.'/../dist/card.css');
