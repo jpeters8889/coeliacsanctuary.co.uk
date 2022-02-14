@@ -35,5 +35,5 @@ return [
      *
      * More info: https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingRequests
      */
-    'country' => 'United Kingdom',
+    'country' => '',
 ];
