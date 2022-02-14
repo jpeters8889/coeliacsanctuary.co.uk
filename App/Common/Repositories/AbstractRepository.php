@@ -38,6 +38,12 @@ abstract class AbstractRepository
             ->first($this->getColumns());
     }
 
+    public function fromIds(array $ids, $column = 'id') {
+        return $this->query()
+            ->whereIn($column, $ids)
+            ->get($this->getColumns());
+    }
+
     public function count(): ?int
     {
         return $this->query()->count();

@@ -61,7 +61,7 @@
             <mj-wrapper>
                 @yield('main-content')
             </mj-wrapper>
-            @isset($related)
+            @isset($relatedTitle, $relatedItems)
                 <mj-wrapper>
                     <mj-section padding="20px 0 0">
                         <mj-column>

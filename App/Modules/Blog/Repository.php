@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Blog;
 
+use Coeliac\Common\Notifications\DisplayedInNotifications;
 use Coeliac\Common\Traits\Filterable;
 use Coeliac\Common\Traits\Searchable;
 use Coeliac\Modules\Blog\Models\Blog;
@@ -14,6 +15,7 @@ class Repository extends AbstractRepository
 {
     use Filterable;
     use Searchable;
+    use DisplayedInNotifications;
 
     protected array $withs = ['images', 'images.image', 'tags'];
 

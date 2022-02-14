@@ -38,15 +38,7 @@ class VerifyEmail extends Notification
                 'newUser' => $this->newUser,
                 'verification_link' => $notifiable->generateEmailVerificationLink(),
                 'relatedTitle' => 'Blogs',
-                'relatedItems' => (new Repository())->random()->take(3)
-                    ->transform(static function (Blog $blog) {
-                        return [
-                            'id' => $blog->id,
-                            'title' => $blog->title,
-                            'link' => Container::getInstance()->make(ConfigRepository::class)->get('app.url').$blog->link,
-                            'image' => $blog->main_image,
-                        ];
-                    }),
+                'relatedItems' => Repository::forEmail(),
             ]);
     }
 

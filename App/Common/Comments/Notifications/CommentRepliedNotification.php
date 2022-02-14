@@ -45,15 +45,7 @@ class CommentRepliedNotification extends Notification
                 'reply' => $this->commentReply,
                 'reason' => 'to alert you that a comment that you had left on our website has been replied to.',
                 'relatedTitle' => 'Blogs',
-                'relatedItems' => (new Repository())->random()->take(3)
-                    ->transform(static function (Blog $blog) {
-                        return [
-                            'id' => $blog->id,
-                            'title' => $blog->title,
-                            'link' => Container::getInstance()->make(ConfigRepository::class)->get('app.url').$blog->link,
-                            'image' => $blog->main_image,
-                        ];
-                    }),
+                'relatedItems' => Repository::forEmail(),
             ]);
     }
 

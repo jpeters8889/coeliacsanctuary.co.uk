@@ -28,15 +28,7 @@ class ResendVerifyEmail extends Notification
                 'reason' => 'because you registered an account at Coeliac Sanctuary and need to confirm your email address.',
                 'verification_link' => $notifiable->generateEmailVerificationLink(),
                 'relatedTitle' => 'Blogs',
-                'relatedItems' => (new Repository())->random()->take(3)
-                    ->transform(static function (Blog $blog) {
-                        return [
-                            'id' => $blog->id,
-                            'title' => $blog->title,
-                            'link' => Container::getInstance()->make(ConfigRepository::class)->get('app.url').$blog->link,
-                            'image' => $blog->main_image,
-                        ];
-                    }),
+                'relatedItems' => Repository::forEmail(),
             ]);
     }
 
