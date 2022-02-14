@@ -55,4 +55,13 @@ class BlogRepositoryTest extends RepositoryTest
 
         $this->assertNotNull($this->repository->get(1)->tags);
     }
+
+    /** @test */
+    public function itCanGetThreeRandomItemsForNotifications(): void
+    {
+        $collection = Repository::forEmail();
+
+        $this->assertCount(3, $collection);
+        $this->assertArrayHasStructure(['id', 'title', 'link', 'image'], $collection->first());
+    }
 }

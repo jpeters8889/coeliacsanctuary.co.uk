@@ -41,15 +41,7 @@ class CommentApprovedNotification extends Notification
                 'comment' => $this->comment,
                 'reason' => 'to alert you that a comment that you had left on our website has been approved.',
                 'relatedTitle' => 'Blogs',
-                'relatedItems' => (new Repository())->random()->take(3)
-                    ->transform(static function (Blog $blog) {
-                        return [
-                            'id' => $blog->id,
-                            'title' => $blog->title,
-                            'link' => Container::getInstance()->make(ConfigRepository::class)->get('app.url').$blog->link,
-                            'image' => $blog->main_image,
-                        ];
-                    }),
+                'relatedItems' => Repository::forEmail(),
             ]);
     }
 

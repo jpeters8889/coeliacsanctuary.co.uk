@@ -32,15 +32,7 @@ class EmailChangedAlert extends Notification
                 'notifiable' => $this->user,
                 'reason' => 'because you have changed your email address on Coeliac Sanctuary.',
                 'relatedTitle' => 'Blogs',
-                'relatedItems' => (new Repository())->random()->take(3)
-                    ->transform(static function (Blog $blog) {
-                        return [
-                            'id' => $blog->id,
-                            'title' => $blog->title,
-                            'link' => Container::getInstance()->make(ConfigRepository::class)->get('app.url').$blog->link,
-                            'image' => $blog->main_image,
-                        ];
-                    }),
+                'relatedItems' => Repository::forEmail(),
             ]);
     }
 
