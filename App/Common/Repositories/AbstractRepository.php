@@ -38,7 +38,8 @@ abstract class AbstractRepository
             ->first($this->getColumns());
     }
 
-    public function fromIds(array $ids, $column = 'id') {
+    public function fromIds(array $ids, $column = 'id')
+    {
         return $this->query()
             ->whereIn($column, $ids)
             ->get($this->getColumns());
