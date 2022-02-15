@@ -28,7 +28,14 @@ class EmailData implements CastsAttributes
         }
 
         if (isset($data['comment'])) {
-            $data['comment'] = Comment::query()->find($data['comment']['id']);
+            if (!isset($data['comment']['id'])) {
+                $data['comment'] = Comment::query()
+                    ->where('created_at', $data['comment']['created_at'])
+                    ->where('name', $data['comment']['name'])
+                    ->first();
+            } else {
+                $data['comment'] = Comment::query()->find($data['comment']['id']);
+            }
         }
 
         if (isset($data['reply'])) {
