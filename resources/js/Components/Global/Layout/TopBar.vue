@@ -15,7 +15,7 @@
           />
         </a>
         <coeliac-nav
-          v-if="width > 500"
+          v-show="width > 500"
           class="hidden md:block"
         />
         <div class="flex md:absolute md:right-0 md:top-0 md:mr-2 leading-none h-full z-50">

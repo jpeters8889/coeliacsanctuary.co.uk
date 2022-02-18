@@ -34,3 +34,10 @@ $router->get('work-with-us', [WorkWithUsController::class, 'get']);
 $router->get('feed', FeedController::class);
 
 $router->get('sitemap.xml', [SiteMapController::class, 'get']);
+
+
+$router->get('test', function (\Coeliac\StaticPageGenerator\GenerateStaticPage $staticPage) {
+    $staticPage->setUrl('blog');
+
+    return $staticPage->generateHtml();
+});

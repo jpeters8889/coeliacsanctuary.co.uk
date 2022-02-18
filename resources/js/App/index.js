@@ -24,7 +24,7 @@ export default class Coeliac {
     });
   }
 
-  build() {
+  scaffold() {
     Vue.component('FontAwesomeIcon', FontAwesomeIcon);
     Vue.use(Toasted, {
       position: 'bottom-right',
@@ -34,12 +34,20 @@ export default class Coeliac {
     Vue.use(VueScrollTo);
 
     // eslint-disable-next-line no-new
-    new Vue({
+    this.vue = new Vue({
       el: '#coeliac',
       mounted: () => {
         this.updateLazyloader();
+
+        document.dispatchEvent(new Event('render-event'));
       },
     });
+  }
+
+  build() {
+    this.scaffold();
+
+    // this.vue.$mount('#coeliac', true);
 
     this.addWidthToImages();
   }

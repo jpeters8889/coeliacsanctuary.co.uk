@@ -23,147 +23,150 @@
           leave-to-class="opacity-0"
           @enter="() => $root.$emit('has-entered')"
         >
-          <div
-            v-if="item.children"
-            v-show="hoveringOn === item.label"
-            class="transition-all transform absolute z-max bg-grey-lightest p-2 w-full left-0 shadow-2xl mt-4px"
-          >
-            <transition
-              enter-active-class="duration-300 ease-out"
-              enter-class="scale-75 opacity-0"
-              enter-to-class="scale-1 opacity-1"
-              leave-active-class="duration-100 ease-in"
-              leave-class="scale-1 opacity-1"
-              leave-to-class="scale-75 opacity-0"
-              @enter="loadLazyImages"
+          <template v-if="item.children">
+            <div
+              v-show="hoveringOn === item.label"
+              class="transition-all transform absolute z-max bg-grey-lightest p-2 w-full left-0 shadow-2xl mt-4px"
             >
-              <div
-                v-if="hasEntered"
-                class="transition-all transform"
+              <transition
+                enter-active-class="duration-300 ease-out"
+                enter-class="scale-75 opacity-0"
+                enter-to-class="scale-1 opacity-1"
+                leave-active-class="duration-100 ease-in"
+                leave-class="scale-1 opacity-1"
+                leave-to-class="scale-75 opacity-0"
+                @enter="loadLazyImages"
               >
-                <template v-if="item.children.layout === '3x5' || item.children.layout === '3'">
-                  <div class="flex">
-                    <ul class="w-3/5">
-                      <template v-for="(child, x) in item.children.items">
-                        <li
-                          v-if="x < 3"
-                          :key="x"
-                          class="py-2 mr-4 transition-all hover:bg-yellow hover:bg-opacity-40"
-                          :class="x < 2 ? 'border-b border-yellow ' : ''"
-                        >
-                          <a
-                            v-if="x < 3"
-                            :href="child.link"
-                            class="flex"
-                          >
-                            <div class="w-1/4 mr-1 lg:w-1/6">
-                              <img
-                                :data-src="child.main_image"
-                                :src="lazyLoadSrc"
-                                loading="lazy"
-                                class="lazy"
-                                :alt="child.title"
+                <template v-if="hasEntered">
+                  <div
+                    class="transition-all transform"
+                  >
+                    <template v-if="item.children.layout === '3x5' || item.children.layout === '3'">
+                      <div class="flex">
+                        <ul class="w-3/5">
+                          <template v-for="(child, x) in item.children.items">
+                            <template v-if="x < 3">
+                              <li
+                                :key="x"
+                                class="py-2 mr-4 transition-all hover:bg-yellow hover:bg-opacity-40"
+                                :class="x < 2 ? 'border-b border-yellow ' : ''"
                               >
-                            </div>
-                            <div class="leading-none flex-1">
-                              <h3 class="mb-1 font-medium">{{ child.title }}</h3>
-                              <p class="text-sm">{{ child.meta_description }}</p>
-                            </div>
-                          </a>
-                        </li>
-                      </template>
-                    </ul>
-                    <ul
-                      v-if="item.children.layout === '3x5'"
-                      class="w-2/5 text-base leading-none flex flex-col py-2"
-                    >
-                      <li
-                        v-for="(child, x) in item.children.items"
-                        :key="x"
-                        class="mb-3"
-                        :class="x === (item.children.items.length - 1) ? 'flex-1' : ''"
-                      >
-                        <a
-                          v-if="x >= 3"
-                          :href="item.link + '/' + child.slug"
-                        >
-                          {{ child.title }}
-                        </a>
-                      </li>
-                      <li>
-                        <global-ui-link-button
-                          :href="item.link"
-                          rounded
-                        >
-                          See All {{
-                            item.label
-                          }}
-                        </global-ui-link-button>
-                      </li>
-                    </ul>
-                  </div>
-                </template>
+                                <a
+                                  v-if="x < 3"
+                                  :href="child.link"
+                                  class="flex"
+                                >
+                                  <div class="w-1/4 mr-1 lg:w-1/6">
+                                    <img
+                                      :data-src="child.main_image"
+                                      :src="lazyLoadSrc"
+                                      loading="lazy"
+                                      class="lazy"
+                                      :alt="child.title"
+                                    >
+                                  </div>
+                                  <div class="leading-none flex-1">
+                                    <h3 class="mb-1 font-medium">{{ child.title }}</h3>
+                                    <p class="text-sm">{{ child.meta_description }}</p>
+                                  </div>
+                                </a>
+                              </li>
+                            </template>
+                          </template>
+                        </ul>
 
-                <template v-if="item.children.layout === '4'">
-                  <div class="flex">
-                    <ul class="w-3/5">
-                      <li
-                        v-for="(child, x) in item.children.items"
-                        :key="x"
-                        class="py-2 mr-4 hover:bg-yellow hover:bg-opacity-40 transition-all"
-                        :class="x < 3 ? 'border-b border-yellow' : ''"
-                      >
-                        <a
-                          :href="child.link"
-                          class="flex"
-                        >
-                          <div class="w-1/4 mr-1 lg:w-1/6">
-                            <img
-                              :data-src="child.main_image"
-                              :src="lazyLoadSrc"
-                              loading="lazy"
-                              class="lazy"
-                              :alt="child.title"
+                        <template v-if="item.children.layout === '3x5'">
+                          <ul class="w-2/5 text-base leading-none flex flex-col py-2">
+                            <li
+                              v-for="(child, x) in item.children.items"
+                              :key="x"
+                              class="mb-3"
+                              :class="x === (item.children.items.length - 1) ? 'flex-1' : ''"
                             >
-                          </div>
-                          <div class="leading-none flex-1">
-                            <h3 class="mb-1 font-medium">{{ child.title }}</h3>
-                            <p class="text-sm">{{ child.meta_description }}</p>
-                          </div>
-                        </a>
-                      </li>
-                    </ul>
+                              <template v-if="x >= 3">
+                                <a :href="item.link + '/' + child.slug">
+                                  {{ child.title }}
+                                </a>
+                              </template>
+                            </li>
+                            <li>
+                              <global-ui-link-button
+                                :href="item.link"
+                                rounded
+                              >
+                                See All {{
+                                  item.label
+                                }}
+                              </global-ui-link-button>
+                            </li>
+                          </ul>
+                        </template>
+                      </div>
+                    </template>
+
+                    <template v-if="item.children.layout === '4'">
+                      <div class="flex">
+                        <ul class="w-3/5">
+                          <li
+                            v-for="(child, x) in item.children.items"
+                            :key="x"
+                            class="py-2 mr-4 hover:bg-yellow hover:bg-opacity-40 transition-all"
+                            :class="x < 3 ? 'border-b border-yellow' : ''"
+                          >
+                            <a
+                              :href="child.link"
+                              class="flex"
+                            >
+                              <div class="w-1/4 mr-1 lg:w-1/6">
+                                <img
+                                  :data-src="child.main_image"
+                                  :src="lazyLoadSrc"
+                                  loading="lazy"
+                                  class="lazy"
+                                  :alt="child.title"
+                                >
+                              </div>
+                              <div class="leading-none flex-1">
+                                <h3 class="mb-1 font-medium">{{ child.title }}</h3>
+                                <p class="text-sm">{{ child.meta_description }}</p>
+                              </div>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </template>
+
+                    <template v-if="item.children.layout === 'list'">
+                      <ul class="flex flex-wrap text-base leading-none py-2">
+                        <li
+                          v-for="(child, x) in item.children.items"
+                          :key="x"
+                          class="w-1/2 mb-2 hover:underline"
+                        >
+                          <template v-if="child.label && child.link">
+                            <a
+                              :href="child.link"
+                              class="block w-full"
+                            >
+                              {{ child.label }}
+                            </a>
+                          </template>
+                          <template v-if="child.component">
+                            <component
+                              :is="child.component"
+                              class="block w-full cursor-pointer"
+                            >
+                              {{ child.label }}
+                            </component>
+                          </template>
+                        </li>
+                      </ul>
+                    </template>
                   </div>
                 </template>
-
-                <template v-if="item.children.layout === 'list'">
-                  <ul class="flex flex-wrap text-base leading-none py-2">
-                    <li
-                      v-for="(child, x) in item.children.items"
-                      :key="x"
-                      class="w-1/2 mb-2 hover:underline"
-                    >
-                      <a
-                        v-if="child.label && child.link"
-                        :href="child.link"
-                        class="block w-full"
-                      >
-                        {{ child.label }}
-                      </a>
-                      <template v-if="child.component">
-                        <component
-                          :is="child.component"
-                          class="block w-full cursor-pointer"
-                        >
-                          {{ child.label }}
-                        </component>
-                      </template>
-                    </li>
-                  </ul>
-                </template>
-              </div>
-            </transition>
-          </div>
+              </transition>
+            </div>
+          </template>
         </transition>
       </li>
     </ul>

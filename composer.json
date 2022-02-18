@@ -48,6 +48,7 @@
         "mattiasgeniar/php-percentages": "^1.3",
         "paypal/rest-api-sdk-php": "^1.14",
         "predis/predis": "^1.1",
+        "spatie/browsershot": "^3.52",
         "spatie/geocoder": "^3.12",
         "spatie/laravel-backup": "^8.0",
         "spatie/laravel-cookie-consent": "^3.2",

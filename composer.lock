@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc9308ecf675576dc4a30edf9f986aea",
+    "content-hash": "797ce770937879055ef0249c528fc6fc",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1009,7 +1009,7 @@
         },
         {
             "name": "coeliac/address-lookup",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/address-lookup",
@@ -1037,7 +1037,7 @@
         },
         {
             "name": "coeliac/collection-items",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/collection-items",
@@ -1065,7 +1065,7 @@
         },
         {
             "name": "coeliac/comments",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/comments",
@@ -1093,7 +1093,7 @@
         },
         {
             "name": "coeliac/competition-entries",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/competition-entries",
@@ -1121,7 +1121,7 @@
         },
         {
             "name": "coeliac/dispatch-slips",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/pages/dispatch-slips",
@@ -1149,7 +1149,7 @@
         },
         {
             "name": "coeliac/image-manager",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/image-manager",
@@ -1177,7 +1177,7 @@
         },
         {
             "name": "coeliac/order-dispatch-slip",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/order-dispatch-slip",
@@ -1205,7 +1205,7 @@
         },
         {
             "name": "coeliac/order-info",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/order-info",
@@ -1233,7 +1233,7 @@
         },
         {
             "name": "coeliac/order-shipped",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/order-shipped",
@@ -1261,7 +1261,7 @@
         },
         {
             "name": "coeliac/place-recommendations-card",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/place-recommendations-card",
@@ -1289,7 +1289,7 @@
         },
         {
             "name": "coeliac/place-reports-card",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/place-reports-card",
@@ -1317,7 +1317,7 @@
         },
         {
             "name": "coeliac/place-request-card",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/place-request-card",
@@ -1345,7 +1345,7 @@
         },
         {
             "name": "coeliac/shop-daily-stock",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/shop-daily-stock",
@@ -1373,7 +1373,7 @@
         },
         {
             "name": "coeliac/shop-order-items",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/coeliac-shop-order-items",
@@ -1401,7 +1401,7 @@
         },
         {
             "name": "coeliac/shop-product-prices",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/shop-product-prices",
@@ -1429,7 +1429,7 @@
         },
         {
             "name": "coeliac/shop-product-sold-count",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/shop-product-sold-count",
@@ -1457,7 +1457,7 @@
         },
         {
             "name": "coeliac/shop-product-variants",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/shop-product-variants",
@@ -1485,7 +1485,7 @@
         },
         {
             "name": "coeliac/shop-travel-card-search-terms",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/shop-travel-card-search-terms",
@@ -1513,7 +1513,7 @@
         },
         {
             "name": "coeliac/tag-manager",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/tag-manager",
@@ -1541,7 +1541,7 @@
         },
         {
             "name": "coeliac/wte-attractions",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/wte-attractions",
@@ -1569,7 +1569,7 @@
         },
         {
             "name": "coeliac/wte-ratings-card",
-            "version": "dev-hotfix/l9",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/wte-ratings-card",
@@ -6112,6 +6112,72 @@
                 "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/8.4.0"
             },
             "time": "2021-12-11T13:40:54+00:00"
+        },
+        {
+            "name": "spatie/browsershot",
+            "version": "3.52.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/browsershot.git",
+                "reference": "4f8584e835035a4696a496c4508c3c35edaef28a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/browsershot/zipball/4f8584e835035a4696a496c4508c3c35edaef28a",
+                "reference": "4f8584e835035a4696a496c4508c3c35edaef28a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0",
+                "spatie/image": "^1.5.3|^2.0",
+                "spatie/temporary-directory": "^1.1|^2.0",
+                "symfony/process": "^4.2|^5.0|^6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0",
+                "spatie/phpunit-snapshot-assertions": "^4.2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Browsershot\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://github.com/freekmurze",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Convert a webpage to an image or pdf using headless Chrome",
+            "homepage": "https://github.com/spatie/browsershot",
+            "keywords": [
+                "chrome",
+                "convert",
+                "headless",
+                "image",
+                "pdf",
+                "puppeteer",
+                "screenshot",
+                "webpage"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/browsershot/issues",
+                "source": "https://github.com/spatie/browsershot/tree/3.52.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-12-17T23:11:39+00:00"
         },
         {
             "name": "spatie/db-dumper",

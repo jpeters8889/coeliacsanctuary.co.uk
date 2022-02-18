@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="links.length > 0">
     <div
       class="cursor-pointer js-mobile-nav-trigger"
       @click="showNav = true"
@@ -17,6 +17,7 @@
       >
         <font-awesome-icon :icon="['fas', 'times']" />
       </div>
+
       <nav class="flex-1 flex items-center">
         <ul class="flex flex-col w-full">
           <li
@@ -27,12 +28,15 @@
             <a
               v-if="link.link"
               :href="link.link"
-            >{{ link.label }}</a>
+              v-text="link.label"
+            />
+
             <a
               v-if="link.callback"
               class="cursor-pointer"
               @click="link.callback()"
-            >{{ link.label }}</a>
+              v-text="link.label"
+            />
           </li>
         </ul>
       </nav>
@@ -56,18 +60,20 @@ const ContactForm = () => import('~/Contact/Form' /* webpackChunkName: "chunk-co
 const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */);
 
 export default {
-
   components: {
     'contact-form': ContactForm,
     modal: Modal,
   },
+
   mixins: [GoogleEvents],
 
-  data: () => ({
-    showNav: false,
-    showContact: false,
-    links: [],
-  }),
+  data() {
+    return {
+      showNav: false,
+      showContact: false,
+      links: [],
+    };
+  },
 
   watch: {
     showNav(value) {
