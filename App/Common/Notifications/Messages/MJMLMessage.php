@@ -16,6 +16,8 @@ class MJMLMessage extends MailMessage
 
     public function mjml(string $view, array|EmailData $data = []): static
     {
+        $this->store()->trackOpensAndClicks();
+
         $this->mjml = $this->view = $view;
 
         $this->markdown = null;
