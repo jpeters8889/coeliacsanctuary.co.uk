@@ -12,6 +12,7 @@ use Coeliac\Common\MjmlCompiler\CoeliacCompiler;
 use Coeliac\Common\MjmlCompiler\CompilerContract;
 use Coeliac\Common\Notifications\Channels\MailChannel;
 use Illuminate\Notifications\Channels\MailChannel as IlluminateMailChannel;
+use Illuminate\Support\Collection;
 
 class CoeliacServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,8 @@ class CoeliacServiceProvider extends ServiceProvider
         $this->app->alias(MailChannel::class, IlluminateMailChannel::class);
 
         $this->bootstrapModules();
+
+        Collection::macro('ray', fn() => $this);
     }
 
     private function bootstrapModules(): void
