@@ -17,13 +17,13 @@ class WhereToEatCountyRequest extends FormRequest
     public function resolveCounty(): WhereToEatCounty
     {
         /** @var WhereToEatCounty $legacy */
-        $legacy = WhereToEatCounty::query()->where('legacy', $this->route('county'))->first();
+        $legacy = WhereToEatCounty::query()->where('legacy', $this->route('county', 'nationwide'))->first();
 
         if ($legacy instanceof WhereToEatCounty) {
             redirect_now($this->buildRedirectUrl($legacy));
         }
 
-        return WhereToEatCounty::query()->where('slug', $this->route('county'))
+        return WhereToEatCounty::query()->where('slug', $this->route('county', 'nationwide'))
             ->with('activeTowns', 'activeTowns.liveEateries', 'activeTowns.liveEateries.town')
             ->firstOrFail();
     }

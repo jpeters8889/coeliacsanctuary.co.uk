@@ -63,7 +63,7 @@ class WhereToEatController extends BaseController
                             ->where('live', 1)
                             ->latest();
                     },
-                    'ratings' => function (Relation $builder) {
+                    'userReviews' => function (Relation $builder) {
                         /** @phpstan-ignore-next-line */
                         return $builder
                             ->select(['id', 'wheretoeat_id', 'rating', 'name', 'body', 'created_at'])
@@ -84,17 +84,10 @@ class WhereToEatController extends BaseController
         return $this->repository
             ->setWiths([
                 'country', 'county', 'town', 'type', 'venueType', 'cuisine', 'features', 'restaurants',
-                'reviews' => function (Relation $builder) {
+                'userReviews' => function (Relation $builder) {
                     /** @phpstan-ignore-next-line  */
                     return $builder
-                        ->select(['id', 'wheretoeat_id', 'title', 'slug', 'created_at'])
-                        ->where('live', 1)
-                        ->latest();
-                },
-                'ratings' => function (Relation $builder) {
-                    /** @phpstan-ignore-next-line  */
-                    return $builder
-                        ->select(['id', 'wheretoeat_id', 'rating', 'name', 'body', 'created_at'])
+                        ->select(['id', 'wheretoeat_id', 'rating', 'name', 'body', 'price_range', 'created_at'])
                         ->where('approved', 1)
                         ->latest();
                 },

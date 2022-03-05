@@ -15,6 +15,7 @@ class WhereToEatFactory extends Factory
     {
         return [
             'name' => $this->faker->title,
+            'slug' => $this->faker->slug,
             'town_id' => 1,
             'county_id' => 1,
             'country_id' => 1,
@@ -29,5 +30,9 @@ class WhereToEatFactory extends Factory
             'lng' => $this->faker->longitude,
             'live' => true,
         ];
+    }
+
+    public function withOutSlug() {
+        return $this->state(fn () => ['slug' => null]);
     }
 }

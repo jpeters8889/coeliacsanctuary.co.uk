@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Base\Console;
 
+use Coeliac\Modules\EatingOut\WhereToEat\Console\SlugifyEateries;
 use Illuminate\Console\Scheduling\Schedule;
 use Coeliac\Modules\Shop\Console\CloseBaskets;
 use Coeliac\Modules\Shop\Console\CleanUpAddresses;
@@ -23,6 +24,7 @@ class Kernel extends ConsoleKernel
         SendDailyUpdates::class,
         UpdateUserActivity::class,
         PrefixRecipesWithGlutenFree::class,
+        SlugifyEateries::class,
 
         CleanUpAddresses::class,
     ];

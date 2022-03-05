@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Filters;
 
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRating;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 use Illuminate\Database\Eloquent\Builder;
 use Coeliac\Common\Filters\AbstractFilter;
 
@@ -65,8 +65,8 @@ class WhereToEatFilter extends AbstractFilter
 
         return $builder
             ->addSelect([
-                'average_rating' => WhereToEatRating::query()
-                    ->whereColumn('wheretoeat_ratings.wheretoeat_id', 'wheretoeat.id')
+                'average_rating' => WhereToEatReview::query()
+                    ->whereColumn('wheretoeat_reviews.wheretoeat_id', 'wheretoeat.id')
                     ->where('approved', true)
                     ->selectRaw('ifnull(round(avg(rating) * 2) / 2, 0)')
             ])

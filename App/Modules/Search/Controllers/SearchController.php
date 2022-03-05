@@ -12,7 +12,6 @@ use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Search\Models\SearchHistory;
 use Coeliac\Modules\Search\Requests\SearchRequest;
-use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\Search\Service\Search as SearchService;
 use Illuminate\Http\Response;
@@ -26,7 +25,6 @@ class SearchController extends BaseController
     {
         $this->models = [
             'blogs' => Blog::class,
-            'reviews' => Review::class,
             'recipes' => Recipe::class,
             'eateries' => WhereToEat::class,
             'products' => ShopProduct::class,
@@ -52,7 +50,6 @@ class SearchController extends BaseController
         return $searchService->searchFor($request->input('term'))
             ->shouldSearchBlogs($request->input('areas.blogs'))
             ->shouldSearchRecipes($request->input('areas.recipes'))
-            ->shouldSearchReviews($request->input('areas.reviews'))
             ->shouldSearchEateries($request->input('areas.eateries'))
             ->shouldSearchProducts($request->input('areas.products'))
             ->handle()

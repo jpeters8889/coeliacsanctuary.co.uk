@@ -16,8 +16,8 @@ class UserHasNotRatedEatery
         /** @var WhereToEat $eatery */
         $eatery = WhereToEat::query()->findOrFail($request->route('id'));
 
-        if ($eatery->ratings()->where('ip', $request->ip())->count() > 0) {
-            return new Response(['error' => 'You have already rated this location'], 422);
+        if ($eatery->userReviews()->where('ip', $request->ip())->count() > 0) {
+//            return new Response(['error' => 'You have already rated this location'], 422);
         }
 
         return $next($request);

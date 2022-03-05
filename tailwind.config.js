@@ -106,6 +106,7 @@ module.exports = {
       },
       maxHeight: {
         '3/4': '75%',
+        'map-small': '200px',
         map: '300px',
         search: '22.5rem',
         hero: '750px',

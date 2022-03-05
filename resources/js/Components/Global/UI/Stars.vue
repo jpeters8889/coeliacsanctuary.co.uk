@@ -1,7 +1,11 @@
 <template>
   <div
-    class="flex text-yellow text-lg"
-    :class="align === 'center' ? 'justify-center sm:justify-start' : 'justify-end'"
+    class="flex text-yellow"
+    :class="{
+      'justify-center sm:justify-start': align === 'center',
+      'justifyEnd': align !== 'center',
+      size: true,
+    }"
   >
     <font-awesome-icon
       v-for="n in wholeNumber"
@@ -10,8 +14,15 @@
     />
     <font-awesome-icon
       v-if="hasHalf"
-      :icon="['fas', 'star-half']"
+      :icon="['fas', halfStar]"
     />
+    <template v-if="showAll && (wholeNumber < 5 || (wholeNumber < 4 && hasHalf))">
+      <font-awesome-icon
+        v-for="n in remainingStars"
+        :key="n"
+        :icon="['far', 'star']"
+      />
+    </template>
   </div>
 </template>
 
@@ -26,6 +37,18 @@ export default {
       type: String,
       default: 'center',
     },
+    size: {
+      type: String,
+      default: 'text-lg',
+    },
+    halfStar: {
+      type: String,
+      default: 'star-half',
+    },
+    showAll: {
+      type: Boolean,
+      default: () => false,
+    },
   },
 
   data: () => ({
@@ -33,8 +56,22 @@ export default {
     hasHalf: false,
   }),
 
+  computed: {
+    remainingStars() {
+      const remaining = 5 - this.wholeNumber;
+
+      return new Array(remaining);
+    },
+  },
+
   mounted() {
-    const parts = this.stars.split('.');
+    let stars = '0.0';
+
+    if (this.stars) {
+      stars = this.stars;
+    }
+
+    const parts = stars.split('.');
 
     this.wholeNumber = parseInt(parts[0]);
     const remainingNumber = parts[1] ? parseInt(parts[1].charAt(0)) : 0;

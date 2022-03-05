@@ -21,6 +21,10 @@ abstract class Item
 
     public static function resolve(CollectionItem $item): static
     {
+        if(!$item->relationLoaded('item')) {
+            $item->load('item');
+        }
+
         $className = class_basename($item->item);
 
         $namespace = "Coeliac\\Modules\\Collection\\Items\\{$className}";

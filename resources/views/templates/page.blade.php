@@ -8,10 +8,12 @@
             <global-layout-top-bar>
                 <global-layout-mobile-nav class="mr-2 md:hidden"></global-layout-mobile-nav>
                 <a href="/">
-                    <global-layout-coeliac-icon class="js-mob-icon text-white md:hidden" style="height: 1.875rem"></global-layout-coeliac-icon>
+                    <global-layout-coeliac-icon class="js-mob-icon text-white md:hidden"
+                                                style="height: 1.875rem"></global-layout-coeliac-icon>
                 </a>
                 <coeliac-nav class="hidden md:block"></coeliac-nav>
-                <search-ui-header class="h-full flex items-center md:absolute md:right-0 md:top-0 md:mr-2"></search-ui-header>
+                <search-ui-header
+                    class="h-full flex items-center md:absolute md:right-0 md:top-0 md:mr-2"></search-ui-header>
             </global-layout-top-bar>
         </div>
 
@@ -28,8 +30,13 @@
         </div>
     </header>
 
-    <global-layout-breadcrumbs :crumbs='@json($breadcrumbs['crumbs'])'
-                 location="{{ $breadcrumbs['location'] }}" :scrapable="{{ isset($scrapable) ? json_encode($scrapable) : 'false' }}"></global-layout-breadcrumbs>
+    @if(isset($showBreadcrumbs) && $showBreadcrumbs === true)
+        <global-layout-breadcrumbs
+            :crumbs='@json($breadcrumbs['crumbs'])'
+            location="{{ $breadcrumbs['location'] }}"
+            :scrapable="{{ isset($scrapable) ? json_encode($scrapable) : 'false' }}"
+        ></global-layout-breadcrumbs>
+    @endif
 
     @include('components.competition')
 

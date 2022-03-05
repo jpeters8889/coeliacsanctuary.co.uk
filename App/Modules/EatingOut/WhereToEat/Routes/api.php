@@ -11,7 +11,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatReportPlaceContro
 use Illuminate\Routing\Router;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSearchController;
-use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatRatingsController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatReviewsController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSummaryController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSettingsController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatVenueTypesController;
@@ -30,8 +30,8 @@ $router->group(['prefix' => '/api/wheretoeat'], function () use ($router) {
     $router->get('/summary', [WhereToEatSummaryController::class, 'get']);
     $router->get('/venueTypes', [WhereToEatVenueTypesController::class, 'get']);
     $router->get('/features', [WhereToEatFeaturesController::class, 'get']);
-    $router->get('/ratings', [WhereToEatRatingsController::class, 'get']);
-    $router->get('/ratings/latest', [WhereToEatRatingsController::class, 'index']);
+    $router->get('/ratings', [WhereToEatReviewsController::class, 'get']);
+    $router->get('/ratings/latest', [WhereToEatReviewsController::class, 'index']);
 
     $router->get('/browse', [WhereToEatBrowseController::class, 'list']);
 
@@ -48,7 +48,7 @@ $router->group(['prefix' => '/api/wheretoeat'], function () use ($router) {
         $router->post('report', [WhereToEatReportPlaceController::class, 'create']);
 
         $router->group(['middleware' => 'userHasNotRatedEatery'], function () use ($router) {
-            $router->post('reviews', [WhereToEatRatingsController::class, 'create']);
+            $router->post('reviews', [WhereToEatReviewsController::class, 'create']);
         });
     });
 });

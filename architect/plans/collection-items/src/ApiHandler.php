@@ -27,9 +27,6 @@ class ApiHandler
             case 'recipes':
                 $model = Recipe::class;
                 break;
-            case 'reviews':
-                $model = Review::class;
-                break;
             case 'wte':
                 $model = WhereToEat::class;
                 $column = 'name';

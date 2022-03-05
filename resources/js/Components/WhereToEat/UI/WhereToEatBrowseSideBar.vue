@@ -155,13 +155,6 @@
               {{ placeDetails.info }}
             </p>
 
-            <wheretoeat-list-features
-              v-if="placeDetails.features.length > 0"
-              large
-              :name="placeDetails.name"
-              :features="placeDetails.features"
-            />
-
             <div class="flex flex-col mt-2 font-semibold text-grey-darkest">
               <span
                 class="block"
@@ -170,21 +163,33 @@
               <span>{{ placeDetails.phone }}</span>
             </div>
 
-            <wheretoeat-ratings
-              v-if="placeDetails.county.county !== 'Nationwide'"
-              :id="placeDetails.id"
-              :ratings="placeDetails.ratings"
-              :average="placeDetails.average_rating"
-              :name="placeDetails.name"
-              :has-rated="placeDetails.has_been_rated"
-            />
+            <div class="w-full flex flex-col mt-2 space-y-3">
+              <div
+                v-if="placeDetails.user_reviews.length > 0"
+                class="flex justify-between items-center sm:flex-row-reverse"
+              >
+                <span class="flex-1 sm:mr-2">
+                  Rated <strong>{{ placeDetails.average_rating }} stars</strong> from
+                  <strong>{{ placeDetails.user_reviews.length }} review{{ placeDetails.user_reviews.length > 1 ? 's' : '' }}</strong>
+                </span>
 
-            <wheretoeat-list-reviews
-              v-if="placeDetails.reviews.length > 0"
-              :reviews="placeDetails.reviews"
-              :name="placeDetails.name"
-              class="m-px"
-            />
+                <global-ui-stars
+                  :stars="placeDetails.average_rating"
+                  half-star="star-half-alt"
+                  show-all
+                />
+              </div>
+
+              <div class="bg-gradient-to-br from-blue/30 to-blue-light/30 rounded text-center transition duration-500 hover:from-blue/50 hover:to-blue-light/50">
+                <a
+                  :href="`/wheretoeat/${placeDetails.county.slug}/${placeDetails.town.slug}/${placeDetails.slug}`"
+                  class="p-2 block"
+                >
+                  Read more about <strong>{{ placeDetails.name }}</strong>, {{ placeDetails.user_reviews.length > 0 ? ' read experiences from other people' : '' }}
+                  and leave your review.
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </transition>
@@ -194,17 +199,14 @@
 
 <script>
 import ResponsiveOptions from '@/Mixins/ResponsiveOptions';
-import WhereToEatRatings from '~/WhereToEat/UI/WhereToEatRatings';
 import WhereToEatFeatures from '~/WhereToEat/UI/WhereToEatFeatures';
-import WhereToEatReviewButton from '~/WhereToEat/UI/WhereToEatReviewButton';
 
 export default {
 
   components: {
-    'wheretoeat-ratings': WhereToEatRatings,
     'wheretoeat-list-features': WhereToEatFeatures,
-    'wheretoeat-list-reviews': WhereToEatReviewButton,
   },
+
   mixins: [ResponsiveOptions],
 
   props: {

@@ -22,6 +22,7 @@ import { faPrint } from '@fortawesome/free-solid-svg-icons/faPrint';
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown';
 import { faStar } from '@fortawesome/free-solid-svg-icons/faStar';
+import { faStar as faStarLight } from '@fortawesome/free-regular-svg-icons/faStar';
 import { faStarHalf } from '@fortawesome/free-solid-svg-icons';
 import { faMinus } from '@fortawesome/free-solid-svg-icons/faMinus';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
@@ -40,6 +41,14 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
 import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter';
+import { faMobileAlt } from '@fortawesome/free-solid-svg-icons/faMobileAlt';
+import { faStarHalfAlt } from '@fortawesome/free-solid-svg-icons/faStarHalfAlt';
+import { faMap } from '@fortawesome/free-regular-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons/faMapMarkerAlt';
+import { faStickyNote } from '@fortawesome/free-regular-svg-icons/faStickyNote';
+import { faLink } from '@fortawesome/free-solid-svg-icons/faLink';
+import { faWallet } from '@fortawesome/free-solid-svg-icons/faWallet';
 
 export default () => {
   // Generic
@@ -60,8 +69,10 @@ export default () => {
   library.add(faRssSquare);
   library.add(faSearch);
   library.add(faShoppingBasket);
+  library.add(faStarLight);
   library.add(faStar);
   library.add(faStarHalf);
+  library.add(faStarHalfAlt);
   library.add(faStoreAlt);
   library.add(faTimes);
   library.add(faTh);
@@ -79,6 +90,13 @@ export default () => {
   library.add(faList);
   library.add(faEllipsisV);
   library.add(faFilter);
+  library.add(faMobileAlt);
+  library.add(faMap);
+  library.add(faArrowLeft);
+  library.add(faMapMarkerAlt);
+  library.add(faStickyNote);
+  library.add(faLink);
+  library.add(faWallet);
 
   // Social
   library.add(faFacebookSquare);

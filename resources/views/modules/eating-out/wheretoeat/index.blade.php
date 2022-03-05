@@ -61,7 +61,7 @@
                             <div class="flex flex-col justify-end text-sm">
                                 <global-ui-stars stars="{{ $topPlace->average_rating }}"
                                                  align="end"></global-ui-stars>
-                                <span>from {{ $topPlace->ratings->count() }} votes</span>
+                                <span>from {{ $topPlace->userReviews->count() }} votes</span>
                             </div>
                         </div>
 

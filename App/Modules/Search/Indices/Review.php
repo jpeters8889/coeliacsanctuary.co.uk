@@ -8,6 +8,7 @@ use Algolia\ScoutExtended\Builder;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review as ReviewModel;
 
+/** @deprecated  */
 class Review extends Index
 {
     protected function model(): Builder|\Laravel\Scout\Builder
@@ -19,7 +20,7 @@ class Review extends Index
     {
         return array_merge(
             parent::withRelations(),
-            ['eatery', 'eatery.ratings', 'eatery.town', 'eatery.county', 'eatery.country'],
+            ['eatery', 'eatery.userReviews', 'eatery.town', 'eatery.county', 'eatery.country'],
         );
     }
 

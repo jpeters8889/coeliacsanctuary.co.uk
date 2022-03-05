@@ -36,7 +36,6 @@ class WhereToEatCountyController extends BaseController
                 'slug' => $county->slug,
                 'towns' => $county->activeTowns,
                 'topPlaces' => $countyProcessor->topRatedPlaces(),
-                'reviews' => $countyProcessor->reviews(),
             ]);
     }
 }

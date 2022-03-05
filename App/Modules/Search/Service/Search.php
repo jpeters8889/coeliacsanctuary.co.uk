@@ -14,7 +14,6 @@ class Search
     protected array $indices = [
         'blogs' => '',
         'recipes' => '',
-        'reviews' => '',
         'eateries' => '',
         'products' => '',
     ];
@@ -22,7 +21,6 @@ class Search
     protected array $shouldSearch = [
         'blogs' => true,
         'recipes' => true,
-        'reviews' => true,
         'eateries' => false,
         'products' => true,
     ];
@@ -42,11 +40,6 @@ class Search
     public function shouldSearchRecipes(bool $shouldSearch): static
     {
         return $this->shouldSearch('recipes', $shouldSearch);
-    }
-
-    public function shouldSearchReviews(bool $shouldSearch): static
-    {
-        return $this->shouldSearch('reviews', $shouldSearch);
     }
 
     public function shouldSearchEateries(bool $shouldSearch): static

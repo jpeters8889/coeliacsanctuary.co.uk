@@ -20,7 +20,7 @@
         </div>
         <div class="px-4 overflow-y-scroll h-full pb-12 mb-1">
           <div
-            v-if="places.length > 0"
+            v-if="places.length > 0 && places[0].country_id > 1"
             class="border-b border-grey-off-dark pb-2"
           >
             <a
@@ -221,6 +221,8 @@ export default {
   },
 
   data: () => ({
+    isCached: false,
+
     showFilterModal: false,
 
     currentPage: 1,
@@ -342,13 +344,56 @@ export default {
       this.places = [];
       this.getPlaces();
     },
+
+    $data: {
+      deep: true,
+      handler() {
+        this.saveState();
+      },
+    },
+  },
+
+  created() {
+    let savedState = sessionStorage.getItem(`wheretoeat-${this.townId}`);
+
+    if (!savedState) {
+      return;
+    }
+
+    savedState = JSON.parse(savedState);
+
+    Object.keys(savedState).forEach((key) => {
+      this.$data[key] = savedState[key];
+    });
+
+    console.log('loaded from cache');
   },
 
   mounted() {
+    if (this.isCached) {
+      return;
+    }
+
     this.getData();
   },
 
   methods: {
+    saveState() {
+      const data = {};
+
+      Object.keys(this.$data).forEach((key) => {
+        const exclude = ['showFilterModal', 'isCached'];
+
+        if (exclude.includes(key)) {
+          return;
+        }
+
+        data[key] = this.$data[key];
+      });
+
+      sessionStorage.setItem(`wheretoeat-${this.townId}`, JSON.stringify(data));
+    },
+
     async getData() {
       this.isLoading = true;
       this.noResults = false;
@@ -435,11 +480,25 @@ export default {
       });
     },
 
+    pushPlacesToPage(places) {
+      const uniquePlaces = [];
+
+      places.forEach((place) => {
+        const check = this.places.filter((existingPlace) => existingPlace.id === place.id);
+
+        if (check.length === 0) {
+          uniquePlaces.push(place);
+        }
+      });
+
+      this.places.push(...uniquePlaces);
+    },
+
     getPlaces() {
       coeliac().request()
         .get(this.buildUrl('/api/wheretoeat', this.currentPage, this.searchText, this.currentFilters, false, this.perPage))
         .then((response) => {
-          this.places.push(...response.data.data.data);
+          this.pushPlacesToPage(response.data.data.data);
 
           this.places.forEach((place, index) => {
             if (response.data.data.appends[place.id]) {
@@ -468,5 +527,6 @@ export default {
       this.getData();
     },
   },
+
 };
 </script>

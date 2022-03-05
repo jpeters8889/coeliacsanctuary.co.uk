@@ -1,11 +1,19 @@
 <template>
   <div class="relative">
     <div class="w-full flex">
-      <div class="w-full flex flex-col sm:w-3/5 lg:w-2/3">
+      <div
+        class="w-full flex flex-col"
+        :class="place.country_id > 1 ? 'sm:w-3/5 lg:w-2/3' : ''"
+      >
         <div class="flex justify-between">
           <div class="flex-1 mb-4">
             <h2 class="text-2xl font-semibold">
-              {{ place.name }}
+              <a
+                :href="eateryLink(place)"
+                class=" hover:text-blue-dark hover:underline"
+              >
+                {{ place.name }}
+              </a>
             </h2>
             <h3
               v-if="place.county.county !== 'Nationwide'"
@@ -68,12 +76,6 @@
               {{ place.info }}
             </p>
 
-            <wheretoeat-list-features
-              v-if="place.features.length > 0"
-              :name="place.name"
-              :features="place.features"
-            />
-
             <div
               v-if="place.county.county !== 'Nationwide'"
               class="flex flex-col mt-2 font-semibold text-grey-darkest"
@@ -101,91 +103,40 @@
       </div>
     </div>
 
-    <div class="w-full flex flex-col mt-2">
-      <wheretoeat-ratings
-        v-if="place.county.county !== 'Nationwide'"
-        :id="place.id"
-        :ratings="place.ratings"
-        :average="place.average_rating"
-        :name="place.name"
-        :has-rated="place.has_been_rated"
-      />
-
-      <wheretoeat-list-reviews
-        v-if="place.reviews.length > 0"
-        :reviews="place.reviews"
-        :name="place.name"
-        class="m-px"
-      />
-    </div>
-
-    <div
-      v-click-outside="() => showReportLinks = false"
-      class="absolute -bottom-3 -right-3 flex flex-col justify-end items-end group"
-      @mouseenter="showReportLinks = true"
-      @mouseleave="showReportLinks = false"
-      @click.once="showReportLinks = true"
-    >
+    <div class="w-full flex flex-col mt-2 space-y-3">
       <div
-        :class="'text-grey-off text-xl w-8 h-8 rounded-t-full leading-none flex justify-center items-center' +
-          'transition-all cursor-pointer group-hover:text-grey group-hover:bg-grey-off-light'"
+        v-if="place.user_reviews.length > 0"
+        class="flex justify-between items-center sm:flex-row-reverse"
       >
-        <font-awesome-icon :icon="['fas', 'ellipsis-v']" />
+        <span class="flex-1 sm:mr-2">
+          Rated <strong>{{ place.average_rating }} stars</strong> from
+          <strong>{{ place.user_reviews.length }} review{{ place.user_reviews.length > 1 ? 's' : '' }}</strong>
+        </span>
+
+        <global-ui-stars
+          :stars="place.average_rating"
+          half-star="star-half-alt"
+          show-all
+        />
       </div>
 
-      <div
-        v-if="showReportLinks"
-        class="relative w-full z-max"
-      >
-        <ul class="absolute bg-grey-off-light p-2 rounded-b-xl rounded-tl-xl min-w-72 right-0 shadow-lg">
-          <li
-            class="cursor-pointer font-semibold hover:underline"
-            @click="showModal = true"
-          >
-            Report a problem with this place...
-          </li>
-          <li class="text-sm mt-2 text-grey">
-            This place was added to our guide on {{ formatDate(place.created_at, 'D/MM/YYYY') }}
-          </li>
-        </ul>
+      <div class="bg-gradient-to-br from-blue/30 to-blue-light/30 rounded text-center transition duration-500 hover:from-blue/50 hover:to-blue-light/50">
+        <a
+          :href="eateryLink(place)"
+          class="p-2 block"
+        >
+          Read more about <strong>{{ place.name }}</strong>, {{ place.user_reviews.length > 0 ? ' read experiences from other people' : '' }}
+          and leave your review.
+        </a>
       </div>
     </div>
-
-    <portal
-      v-if="showModal"
-      to="modal"
-    >
-      <modal
-        name="report-place"
-        :title="'Report a problem with '+place.name"
-      >
-        <wheretoeat-modal-report-place :place="place" />
-      </modal>
-    </portal>
   </div>
 </template>
 
 <script>
-import ClickOutside from 'vue-click-outside';
-import WhereToEatRatings from '~/WhereToEat/UI/WhereToEatRatings';
-import WhereToEatFeatures from '~/WhereToEat/UI/WhereToEatFeatures';
-import WhereToEatReviewButton from '~/WhereToEat/UI/WhereToEatReviewButton';
-import WhereToEatReportPlace from '~/WhereToEat/Modals/WhereToEatReportPlace';
 import FormatsDates from '@/Mixins/FormatsDates';
 
-const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */);
-
 export default {
-  components: {
-    'wheretoeat-ratings': WhereToEatRatings,
-    'wheretoeat-list-features': WhereToEatFeatures,
-    'wheretoeat-list-reviews': WhereToEatReviewButton,
-    'wheretoeat-modal-report-place': WhereToEatReportPlace,
-    modal: Modal,
-  },
-
-  directives: { ClickOutside },
-
   mixins: [FormatsDates],
 
   props: {
@@ -200,10 +151,14 @@ export default {
     showModal: false,
   }),
 
-  mounted() {
-    this.$root.$on('modal-closed', () => {
-      this.showModal = false;
-    });
+  methods: {
+    eateryLink(place) {
+      if (place.county.slug === 'nationwide') {
+        return `/wheretoeat/nationwide/${place.slug}`;
+      }
+
+      return `/wheretoeat/${place.county.slug}/${place.town.slug}/${place.slug}`;
+    },
   },
 };
 </script>

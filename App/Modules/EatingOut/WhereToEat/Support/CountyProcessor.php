@@ -35,14 +35,14 @@ class CountyProcessor
 
         $places = $this->county->eateries()
             ->where('live', true)
-            ->whereHas('ratings')
-            ->leftJoin('wheretoeat_ratings', function (JoinClause $join) {
-                $join->on('wheretoeat_ratings.wheretoeat_id', 'wheretoeat.id')
+            ->whereHas('userReviews')
+            ->leftJoin('wheretoeat_reviews', function (JoinClause $join) {
+                $join->on('wheretoeat_reviews.wheretoeat_id', 'wheretoeat.id')
                     ->where('approved', true);
             })
             ->select('wheretoeat.*')
             ->addSelect($this->database->raw('avg(rating) as rating'))
-            ->addSelect($this->database->raw('count(wheretoeat_ratings.wheretoeat_id) as rating_count'))
+            ->addSelect($this->database->raw('count(wheretoeat_reviews.wheretoeat_id) as rating_count'))
             ->with(['county', 'town'])
             ->groupBy('wheretoeat.id')
             ->orderByRaw('rating desc, rating_count desc')
@@ -63,15 +63,5 @@ class CountyProcessor
             'catering to coeliac', 'eating out uk', 'gluten free venues', 'gluten free dining',
             'gluten free directory', 'gf food', $this->county->county,
         ];
-    }
-
-    public function reviews(): Collection
-    {
-        return $this->county->reviews()
-            ->where('reviews.live', true)
-            ->with(['eatery', 'eatery.town', 'eatery.county', 'eatery.ratings', 'images'])
-            ->inRandomOrder()
-            ->take(2)
-            ->get();
     }
 }

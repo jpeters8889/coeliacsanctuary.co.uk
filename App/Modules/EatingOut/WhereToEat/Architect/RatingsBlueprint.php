@@ -7,13 +7,13 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Architect;
 use Illuminate\Database\Eloquent\Builder;
 use JPeters\Architect\Blueprints\Blueprint;
 use Coeliac\Architect\Cards\WteRatingsCard\Card;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRating;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 
 class RatingsBlueprint extends Blueprint
 {
     public function model(): string
     {
-        return WhereToEatRating::class;
+        return WhereToEatReview::class;
     }
 
     public function plans(): array
@@ -28,7 +28,7 @@ class RatingsBlueprint extends Blueprint
 
     public function displayCount(): int
     {
-        return WhereToEatRating::query()->where('approved', 0)->count();
+        return WhereToEatReview::query()->where('approved', 0)->count();
     }
 
     public function blueprintName(): string

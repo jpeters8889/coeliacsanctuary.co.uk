@@ -6,20 +6,22 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRating;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository;
 use Coeliac\Modules\EatingOut\WhereToEat\Requests\WhereToEatRatingRequest;
+use Coeliac\Modules\EatingOut\WhereToEat\Support\LatestRatings;
 use Illuminate\Support\Collection;
 
-class WhereToEatRatingsController extends BaseController
+class WhereToEatReviewsController extends BaseController
 {
     public function create(WhereToEatRatingRequest $request): void
     {
-        $request->resolveWhereToEat()->ratings()->create([
+        $request->resolveWhereToEat()->userReviews()->create([
             'rating' => $request->input('rating'),
             'ip' => $request->ip(),
             'name' => $request->input('name'),
             'email' => $request->input('email'),
+            'price_range' => $request->input('price_range'),
             'body' => $request->input('comment'),
             'method' => $request->input('method', 'website'),
             'approved' => $request->isReviewLive(),
@@ -45,7 +47,7 @@ class WhereToEatRatingsController extends BaseController
         $repository
             ->filter()
             ->search()
-            ->setWiths(['ratings'])
+            ->setWiths(['userReviews'])
             ->all()
             ->each(function (WhereToEat $eatery) use (&$summary) {
                 $rating = round((float) $eatery->average_rating * 2) / 2;
@@ -57,18 +59,8 @@ class WhereToEatRatingsController extends BaseController
         return array_values($summary);
     }
 
-    public function index()
+    public function index(LatestRatings $latestRatings)
     {
-        return WhereToEatRating::query()
-            ->with(['eatery', 'eatery.country', 'eatery.county', 'eatery.town'])
-            ->latest()
-            ->take(5)
-            ->get()
-            ->transform(fn (WhereToEatRating $rating) => [
-                'id' => $rating->id,
-                'location' => $rating->eatery->full_name,
-                'rating' => $rating->rating,
-                'created_at' => $rating->created_at->diffForHumans(),
-            ]);
+        return $latestRatings->list();
     }
 }

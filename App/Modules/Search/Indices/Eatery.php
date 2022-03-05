@@ -42,7 +42,7 @@ class Eatery extends Index
                 'aroundRadius' => (int) round(2 * 1609.344),
             ])
             ->get()
-            ->load('town', 'county', 'country', 'ratings')
+            ->load('town', 'county', 'country', 'userReviews')
             ->reject(static function (WhereToEat $eatery) {
                 return $eatery->town->town === 'Nationwide';
             })

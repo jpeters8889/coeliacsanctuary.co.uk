@@ -89,7 +89,6 @@ import LazyLoadsImages from '@/Mixins/LazyLoadsImages';
 import BlogResult from '~/Search/Results/BlogResult';
 import EateryResult from '~/Search/Results/EateryResult';
 import RecipeResult from '~/Search/Results/RecipeResult';
-import ReviewResult from '~/Search/Results/ReviewResult';
 import ShopProductResult from '~/Search/Results/ShopProductResult';
 import GoogleEvents from '@/Mixins/GoogleEvents';
 
@@ -108,7 +107,6 @@ export default {
     'search-blog-result': BlogResult,
     'search-eatery-result': EateryResult,
     'search-recipe-result': RecipeResult,
-    'search-review-result': ReviewResult,
     'search-shop-product-result': ShopProductResult,
   },
   mixins: [GoogleEvents, LazyLoadsImages],
@@ -125,7 +123,6 @@ export default {
 
     areas: {
       blogs: true,
-      reviews: true,
       recipes: true,
       eateries: false,
       products: true,
@@ -289,8 +286,6 @@ export default {
           return 'search-blog-result';
         case 'eateries':
           return 'search-eatery-result';
-        case 'reviews':
-          return 'search-review-result';
         case 'recipes':
           return 'search-recipe-result';
         case 'products':

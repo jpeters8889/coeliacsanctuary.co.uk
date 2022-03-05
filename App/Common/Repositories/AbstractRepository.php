@@ -38,6 +38,10 @@ abstract class AbstractRepository
             ->first($this->getColumns());
     }
 
+    public function firstOrFail() {
+        return $this->query()->firstOrFail();
+    }
+
     public function fromIds(array $ids, $column = 'id')
     {
         return $this->query()
