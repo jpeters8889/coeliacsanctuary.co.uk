@@ -115,9 +115,9 @@
                 <mj-section>
                     <mj-column css-class="blue-links">
                         <mj-text mj-class="inner" padding-top="0" padding-bottom="10px">
-                            <h2>Coeliac Sanctuary Blogs and Reviews</h2>
+                            <h2>Coeliac Sanctuary Blogs</h2>
                         </mj-text>
-                        <mj-text> There are so many blogs and reviews on the website, whether you are looking for
+                        <mj-text>We have so many blogs on our website, whether you are looking for
                             cooking inspiration or tips, news on gluten free products or interested in reviews of
                             eateries or products, there is sure to be something to pique your interest!
                         </mj-text>
