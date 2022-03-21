@@ -32,6 +32,10 @@ class WhereToEatFactory extends Factory
         ];
     }
 
+    public function notLive() {
+        return $this->state(fn () => ['live' => false]);
+    }
+
     public function withOutSlug() {
         return $this->state(fn () => ['slug' => null]);
     }

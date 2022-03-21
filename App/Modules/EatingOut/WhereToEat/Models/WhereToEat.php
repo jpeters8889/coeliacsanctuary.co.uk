@@ -44,6 +44,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property null|string $slug
  * @property number $town_id
  * @property string $full_name
+ * @property string $gf_menu_link
+ * @property WhereToEatOpeningTimes $openingTimes
  *
  * @method transform(array $array)
  */
@@ -108,23 +110,23 @@ class WhereToEat extends BaseModel
         return (string)array_average($this->userReviews->pluck('rating')->toArray());
     }
 
-    public function getAveragePriceRangeAttribute(): ?array
+    public function getAverageExpenseAttribute(): ?array
     {
         if (!$this->relationLoaded('userReviews')) {
             return null;
         }
 
-        $reviewsWithPriceRange = array_filter($this->userReviews->pluck('price_range')->toArray());
+        $reviewsWithHowExpense = array_filter($this->userReviews->pluck('how_expensive')->toArray());
 
-        if (count($reviewsWithPriceRange) === 0) {
+        if (count($reviewsWithHowExpense) === 0) {
             return null;
         }
 
-        $average = round(array_average($reviewsWithPriceRange));
+        $average = round(array_average($reviewsWithHowExpense));
 
         return [
             'value' => (string)$average,
-            'label' => WhereToEatReview::PRICE_RANGE_LABELS[$average],
+            'label' => WhereToEatReview::HOW_EXPENSIVE_LABELS[$average],
         ];
     }
 

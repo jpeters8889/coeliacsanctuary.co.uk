@@ -16,7 +16,7 @@ class WhereToEatReviewFactory extends Factory
             'ip' => $this->faker->ipv6,
             'name' => $this->faker->name,
             'email' => $this->faker->email,
-            'price_range' => $this->faker->numberBetween(1, 5),
+            'how_expensive' => $this->faker->numberBetween(1, 5),
             'body' => $this->faker->paragraph,
             'method' => 'test',
             'approved' => false,

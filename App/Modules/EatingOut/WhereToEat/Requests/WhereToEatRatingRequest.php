@@ -27,7 +27,9 @@ class WhereToEatRatingRequest extends ApiFormRequest
             'rating' => ['required', 'numeric', 'min:1', 'max:5'],
             'name' => ['nullable', 'required_with:email,comment'],
             'email' => ['nullable', 'required_with:name,comment', 'email'],
-            'price_range' => ['nullable', 'numeric', 'min:1', 'max:5'],
+            'food' => ['nullable', 'in:poor,good,excellent'],
+            'service' => ['nullable', 'in:poor,good,excellent'],
+            'expense' => ['nullable', 'numeric', 'min:1', 'max:5'],
             'comment' => ['nullable', 'required_with:name,email'],
             'method' => ['in:website,app'],
         ];

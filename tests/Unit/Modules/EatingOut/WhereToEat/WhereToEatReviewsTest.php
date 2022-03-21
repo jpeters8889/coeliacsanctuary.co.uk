@@ -55,7 +55,7 @@ class WhereToEatReviewsTest extends TestCase
     }
 
     /** @test */
-    public function itHasAnAveragePriceRange()
+    public function itHasAnAverageExpenseAttribute()
     {
         $this->whereToEat->userReviews()->delete();
 
@@ -63,17 +63,17 @@ class WhereToEatReviewsTest extends TestCase
             ->on($this->whereToEat)
             ->count(2)
             ->state(new Sequence(
-                ['price_range' => 1],
-                ['price_range' => 5],
+                ['how_expensive' => 1],
+                ['how_expensive' => 5],
             ))
             ->create();
 
-        $priceRange = $this->whereToEat->fresh()->with('userReviews')->first()->average_price_range;
+        $averageExpense = $this->whereToEat->fresh()->with('userReviews')->first()->average_expense;
 
-        $this->assertIsArray($priceRange);
-        $this->assertArrayHasKey('value', $priceRange);
-        $this->assertArrayHasKey('label', $priceRange);
-        $this->assertEquals(3, $priceRange['value']);
+        $this->assertIsArray($averageExpense);
+        $this->assertArrayHasKey('value', $averageExpense);
+        $this->assertArrayHasKey('label', $averageExpense);
+        $this->assertEquals(3, $averageExpense['value']);
 
     }
 
@@ -86,12 +86,12 @@ class WhereToEatReviewsTest extends TestCase
             ->on($this->whereToEat)
             ->count(3)
             ->state(new Sequence(
-                ['price_range' => 4],
-                ['price_range' => 5],
-                ['price_range' => 5],
+                ['how_expensive' => 4],
+                ['how_expensive' => 5],
+                ['how_expensive' => 5],
             ))
             ->create();
 
-        $this->assertEquals(5, $this->whereToEat->fresh()->with('userReviews')->first()->average_price_range['value']);
+        $this->assertEquals(5, $this->whereToEat->fresh()->with('userReviews')->first()->average_expense['value']);
     }
 }

@@ -8,6 +8,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatLatestPlacesContr
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatLatLngController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatRecommendAPlaceController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatReportPlaceController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSuggestEditController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSearchController;
@@ -46,6 +47,9 @@ $router->group(['prefix' => '/api/wheretoeat'], function () use ($router) {
         $router->get('/', [WhereToEatController::class, 'get']);
 
         $router->post('report', [WhereToEatReportPlaceController::class, 'create']);
+
+        $router->get('/suggest-edit', [WhereToEatSuggestEditController::class, 'get']);
+        $router->post('/suggest-edit', [WhereToEatSuggestEditController::class, 'update']);
 
         $router->group(['middleware' => 'userHasNotRatedEatery'], function () use ($router) {
             $router->post('reviews', [WhereToEatReviewsController::class, 'create']);

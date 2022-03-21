@@ -38,6 +38,13 @@ abstract class AbstractRepository
             ->first($this->getColumns());
     }
 
+    public function getOrFail(mixed $id, string $column = 'id'): ?BaseModel
+    {
+        return $this->query()
+            ->where($column, $id)
+            ->firstOrFail($this->getColumns());
+    }
+
     public function firstOrFail() {
         return $this->query()->firstOrFail();
     }

@@ -28,7 +28,7 @@ class WhereToEatDetailsController extends BaseController
             ->setSocialImage(asset("assets/images/wte-shares/{$eatery->county->county}.jpg"))
             ->render('modules.eating-out.wheretoeat.details', [
                 'eatery' => $eatery->only([
-                    'address', 'average_price_range', 'average_rating', 'county', 'cuisine', 'features', 'formatted_address',
+                    'address', 'average_expense', 'average_rating', 'county', 'cuisine', 'features', 'formatted_address',
                     'gf_menu_link', 'has_been_rated', 'icon', 'id', 'info', 'lat', 'lng', 'openingTimes', 'name', 'phone',
                     'restaurants', 'town', 'type', 'userReviews', 'venueType', 'website',
                 ]),

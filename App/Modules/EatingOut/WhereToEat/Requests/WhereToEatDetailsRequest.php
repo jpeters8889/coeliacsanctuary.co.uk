@@ -20,7 +20,9 @@ class WhereToEatDetailsRequest extends WhereToEatTownRequest
                 'userReviews' => fn(Relation $relation) => $relation
                     ->where('approved', 1)
                     ->latest()
-                    ->select(['id', 'wheretoeat_id', 'rating', 'name', 'price_range', 'body', 'created_at']),
+                    ->select([
+                        'id', 'wheretoeat_id', 'rating', 'name', 'food_rating', 'service_rating', 'how_expensive', 'body', 'created_at'
+                    ]),
                 'venueType', 'cuisine', 'type', 'features', 'town', 'county', 'country', 'restaurants', 'openingTimes',
             ])
             ->firstOrFail();

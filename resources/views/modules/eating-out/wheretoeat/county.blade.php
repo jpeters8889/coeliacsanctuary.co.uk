@@ -32,7 +32,8 @@
                 <a href="/wheretoeat/recommend-a-place"
                    class="bg-blue-light bg-opacity-50 hover:bg-opacity-30 transition rounded-lg p-2 border border-blue group">
                     Do you know somewhere that offers gluten free that we should add to our guide?
-                    <span class="font-semibold group-hover:text-blue-dark transition-all" href="/wheretoeat/recommend-a-place">
+                    <span class="font-semibold group-hover:text-blue-dark transition-all"
+                          href="/wheretoeat/recommend-a-place">
                         Let us know!
                     </span>
                 </a>
@@ -61,8 +62,13 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-3">
                     @foreach($topPlaces as $topPlace)
-                        <div class="bg-gradient-to-br from-blue/50 to-blue-light/50 rounded p-2 space-y-2 shadow flex flex-col">
-                            <h3 class="text-xl font-semibold">{{ $topPlace->name }}</h3>
+                        <div
+                            class="bg-gradient-to-br from-blue/50 to-blue-light/50 rounded p-2 space-y-2 shadow flex flex-col">
+                            <h3 class="text-xl font-semibold">
+                                <a href="{{ $topPlace->link() }}">
+                                    {{ $topPlace->name }}
+                                </a>
+                            </h3>
                             <div class="font-semibold text-grey flex justify-between">
                                 <a href="/wheretoeat/{{ $topPlace->county->slug }}/{{ $topPlace->town->slug }}">
                                     {{ $topPlace->town->town }}

@@ -27,13 +27,15 @@ class WhereToEatingReviewsTest extends TestCase
             'rating' => 5,
             'name' => $this->faker->name,
             'email' => $this->faker->email,
-            'price_range' => $this->faker->randomElement([1,2,3,4,5]),
+            'food_rating' => $this->faker->randomElement(['poor', 'good', 'excellent']),
+            'service_rating' => $this->faker->randomElement(['poor', 'good', 'excellent']),
+            'expense' => $this->faker->randomElement([1,2,3,4,5]),
             'comment' => $this->faker->paragraph,
         ], $params));
     }
 
     /** @test */
-    public function itCanCreateRatings()
+    public function itCanCreateRatings(): void
     {
         $this->makeRequest()->assertStatus(200);
 
@@ -41,7 +43,7 @@ class WhereToEatingReviewsTest extends TestCase
     }
 
     /** @test */
-    public function itIsNotApprovedByDefault()
+    public function itIsNotApprovedByDefault(): void
     {
         $this->makeRequest();
 
@@ -49,7 +51,7 @@ class WhereToEatingReviewsTest extends TestCase
     }
 
     /** @test */
-    public function itWillOnlyAllowOneRatingPerIpAddress()
+    public function itWillOnlyAllowOneRatingPerIpAddress(): void
     {
         $this->makeRequest()->assertStatus(200);
 
@@ -63,17 +65,19 @@ class WhereToEatingReviewsTest extends TestCase
     }
 
     /** @test */
-    public function itApprovesEmptyRatings()
+    public function itApprovesEmptyRatings(): void
     {
-        $this->makeRequest(['name' => null, 'email' => null, 'price_range' => null, 'comment' => null])
-            ->assertStatus(200);
+        $this->makeRequest([
+            'name' => null, 'email' => null, 'food_rating' => null, 'service_rating' => null,
+            'expense' => null, 'comment' => null
+        ])->assertStatus(200);
 
         $this->assertEquals(1, $this->whereToEat->fresh()->userReviews()->count());
         $this->assertTrue($this->whereToEat->userReviews()->first()->approved);
     }
 
     /** @test */
-    public function itErrorsWithoutARating()
+    public function itErrorsWithoutARating(): void
     {
         $this->makeRequest(['rating' => null])->assertStatus(422);
 
@@ -81,7 +85,7 @@ class WhereToEatingReviewsTest extends TestCase
     }
 
     /** @test */
-    public function itErrorsWithAnInvalidRating()
+    public function itErrorsWithAnInvalidRating(): void
     {
         $this->makeRequest(['rating' => 'foo'])->assertStatus(422);
 
@@ -89,7 +93,7 @@ class WhereToEatingReviewsTest extends TestCase
     }
 
     /** @test */
-    public function itErrorsWithARatingThatIsLowerThan1()
+    public function itErrorsWithARatingThatIsLowerThan1(): void
     {
         $this->makeRequest(['rating' => 0])->assertStatus(422);
 
@@ -101,7 +105,7 @@ class WhereToEatingReviewsTest extends TestCase
     }
 
     /** @test */
-    public function itErrorsWithARatingThatIsGreaterThan5()
+    public function itErrorsWithARatingThatIsGreaterThan5(): void
     {
         $this->makeRequest(['rating' => 6])->assertStatus(422);
 
@@ -109,7 +113,7 @@ class WhereToEatingReviewsTest extends TestCase
     }
 
     /** @test */
-    public function itErrorsWithoutAName()
+    public function itErrorsWithoutAName(): void
     {
         $this->makeRequest(['name' => null])->assertStatus(422);
 
@@ -117,7 +121,7 @@ class WhereToEatingReviewsTest extends TestCase
     }
 
     /** @test */
-    public function itErrorsWithoutAEmail()
+    public function itErrorsWithoutAEmail(): void
     {
         $this->makeRequest(['email' => null])->assertStatus(422);
 
@@ -125,7 +129,7 @@ class WhereToEatingReviewsTest extends TestCase
     }
 
     /** @test */
-    public function itErrorsWithAnInvalidEmail()
+    public function itErrorsWithAnInvalidEmail(): void
     {
         $this->makeRequest(['email' => 'foo'])->assertStatus(422);
 
@@ -133,35 +137,51 @@ class WhereToEatingReviewsTest extends TestCase
     }
 
     /** @test */
-    public function itErrorsWithAnInvalidPriceRange()
+    public function itErrorsWithAnInvalidHowExpensiveValue(): void
     {
-        $this->makeRequest(['price_range' => 'foo'])->assertStatus(422);
+        $this->makeRequest(['expense' => 'foo'])->assertStatus(422);
 
         $this->assertEquals(0, $this->whereToEat->fresh()->userReviews()->count());
     }
 
     /** @test */
-    public function itErrorsWithAPriceRangeThatIsLowerThan1()
+    public function itErrorsWithAnHowExpensiveValueThatIsLowerThan1(): void
     {
-        $this->makeRequest(['price_range' => 0])->assertStatus(422);
+        $this->makeRequest(['expense' => 0])->assertStatus(422);
 
         $this->assertEquals(0, $this->whereToEat->fresh()->userReviews()->count());
 
-        $this->makeRequest(['price_range' => -1])->assertStatus(422);
+        $this->makeRequest(['expense' => -1])->assertStatus(422);
 
         $this->assertEquals(0, $this->whereToEat->fresh()->userReviews()->count());
     }
 
     /** @test */
-    public function itErrorsWithAPriceRangeThatIsGreaterThan5()
+    public function itErrorsWithAnHowExpensiveValueThatIsGreaterThan5(): void
     {
-        $this->makeRequest(['price_range' => 6])->assertStatus(422);
+        $this->makeRequest(['expense' => 6])->assertStatus(422);
 
         $this->assertEquals(0, $this->whereToEat->fresh()->userReviews()->count());
     }
 
     /** @test */
-    public function itErrorsWithoutAComment()
+    public function itErrorsWithAnInvalidFoodRatingValue(): void
+    {
+        $this->makeRequest(['food' => 'foo'])->assertStatus(422);
+
+        $this->assertEquals(0, $this->whereToEat->fresh()->userReviews()->count());
+    }
+
+    /** @test */
+    public function itErrorsWithAnInvalidServiceRatingValue(): void
+    {
+        $this->makeRequest(['service' => 'foo'])->assertStatus(422);
+
+        $this->assertEquals(0, $this->whereToEat->fresh()->userReviews()->count());
+    }
+
+    /** @test */
+    public function itErrorsWithoutAComment(): void
     {
         $this->makeRequest(['comment' => null])->assertStatus(422);
 

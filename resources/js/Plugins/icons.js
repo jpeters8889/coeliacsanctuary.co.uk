@@ -43,12 +43,16 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight
 import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter';
 import { faMobileAlt } from '@fortawesome/free-solid-svg-icons/faMobileAlt';
 import { faStarHalfAlt } from '@fortawesome/free-solid-svg-icons/faStarHalfAlt';
-import { faMap } from '@fortawesome/free-regular-svg-icons';
+import { faMap } from '@fortawesome/free-regular-svg-icons/faMap';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons/faMapMarkerAlt';
 import { faStickyNote } from '@fortawesome/free-regular-svg-icons/faStickyNote';
 import { faLink } from '@fortawesome/free-solid-svg-icons/faLink';
 import { faWallet } from '@fortawesome/free-solid-svg-icons/faWallet';
+import { faClock } from '@fortawesome/free-regular-svg-icons/faClock';
+import { faCircle } from '@fortawesome/free-solid-svg-icons/faCircle';
+import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons/faCircle';
+import { faPoundSign } from '@fortawesome/free-solid-svg-icons/faPoundSign';
 
 export default () => {
   // Generic
@@ -97,6 +101,10 @@ export default () => {
   library.add(faStickyNote);
   library.add(faLink);
   library.add(faWallet);
+  library.add(faClock);
+  library.add(faCircle);
+  library.add(faCircleRegular);
+  library.add(faPoundSign);
 
   // Social
   library.add(faFacebookSquare);

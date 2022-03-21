@@ -14,10 +14,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class WhereToEatReview extends BaseModel
 {
-    public const PRICE_RANGE_LABELS = [
-        1 => 'Low Price',
+    public const HOW_EXPENSIVE_LABELS = [
+        1 => 'Cheap Eats',
         2 => 'Great Value',
-        3 => 'Average',
+        3 => 'Average / Mid Range',
         4 => 'A special treat',
         5 => 'Expensive',
     ];
@@ -60,13 +60,13 @@ class WhereToEatReview extends BaseModel
 
     public function getPriceAttribute(): ?array
     {
-        if (!$this->price_range) {
+        if (!$this->how_expensive) {
             return null;
         }
 
         return [
-            'value' => $this->price_range,
-            'label' => self::PRICE_RANGE_LABELS[$this->price_range],
+            'value' => $this->how_expensive,
+            'label' => self::HOW_EXPENSIVE_LABELS[$this->how_expensive],
         ];
     }
 }

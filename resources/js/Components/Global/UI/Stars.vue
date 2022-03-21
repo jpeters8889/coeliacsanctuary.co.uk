@@ -1,11 +1,13 @@
 <template>
   <div
     class="flex text-yellow"
-    :class="{
-      'justify-center sm:justify-start': align === 'center',
-      'justifyEnd': align !== 'center',
-      size: true,
-    }"
+    :class="[
+      {
+        'justify-center sm:justify-start': align === 'center',
+        'justifyEnd': align !== 'center',
+      },
+      size,
+    ]"
   >
     <font-awesome-icon
       v-for="n in wholeNumber"

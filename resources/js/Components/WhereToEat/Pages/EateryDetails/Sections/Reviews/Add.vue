@@ -4,19 +4,14 @@
       Have you visited <strong>{{ name }}</strong>? How would you rate your experience from 1 to 5 stars?
     </p>
 
-    <div class="w-full text-3xl flex justify-start">
-      <span
-        v-for="n in 5"
-        :key="n+1"
-        class="cursor-pointer"
-        :class="n <= hoveringOn || (form.rating && n <= form.rating) ? 'text-yellow' : 'text-grey-off'"
-        @mouseover="hoveringOn = n"
-        @mouseleave="hoveringOn = null"
-        @click.prevent="form.rating = n"
-      >
-        <font-awesome-icon :icon="['fas', 'star']" />
-      </span>
-    </div>
+    <form-step
+      name="rating"
+      :value="form.rating"
+      :options="stars"
+      :icon="['fas', 'star']"
+      :unselected-icon="null"
+      hide-option-text
+    />
 
     <template v-if="form.rating">
       <p>
@@ -69,12 +64,32 @@
           />
         </div>
         <div class="flex-1">
-          <form-select
-            name="priceRange"
-            label="Price Range / Value for Money"
-            :value="form.priceRange"
-            :options="priceRangeValues"
-            empty-option
+          <form-step
+            name="food"
+            label="How would you rate your food?"
+            :value="form.food"
+            :options="ratings"
+            icon-classes="px-1"
+          />
+        </div>
+        <div class="flex-1">
+          <form-step
+            name="service"
+            label="How would you rate the service?"
+            :value="form.service"
+            :options="ratings"
+            icon-classes="px-1"
+          />
+        </div>
+        <div class="flex-1">
+          <form-step
+            name="expense"
+            label="How expensive is it to eat here?"
+            :value="form.expense"
+            :options="howExpensiveValues"
+            :icon="['fas', 'pound-sign']"
+            :unselected-icon="null"
+            icon-classes="px-1"
           />
         </div>
         <div class="flex-1">
@@ -125,19 +140,21 @@
 
 <script>
 import InteractsWithUser from '@/Mixins/InteractsWithUser';
+import HasWhereToEatPriceRange from '@/Mixins/HasWhereToEatHowExpensiveValues';
 
 const FormInput = () => import('~/Forms/Input' /* webpackChunkName: "chunk-form-input" */);
-const FormSelect = () => import('~/Forms/Select' /* webpackChunkName: "chunk-form-select" */);
+const FormStep = () => import('~/Forms/Step' /* webpackChunkName: "chunk-form-step" */);
 const FormTextarea = () => import('~/Forms/Textarea' /* webpackChunkName: "chunk-form-textarea" */);
 
 export default {
 
   components: {
     'form-input': FormInput,
-    'form-select': FormSelect,
+    'form-step': FormStep,
     'form-textarea': FormTextarea,
   },
-  mixins: [InteractsWithUser],
+
+  mixins: [InteractsWithUser, HasWhereToEatPriceRange],
 
   props: {
     id: {
@@ -161,11 +178,13 @@ export default {
       rating: 0,
       name: '',
       email: '',
-      priceRange: '',
+      food: '',
+      service: '',
+      expense: '',
       comment: '',
     },
 
-    characterLimit: 500,
+    characterLimit: 1500,
   }),
 
   computed: {
@@ -177,27 +196,29 @@ export default {
       return Object.keys(this.form);
     },
 
-    priceRangeValues() {
+    stars() {
+      return [
+        { value: 1 },
+        { value: 2 },
+        { value: 3 },
+        { value: 4 },
+        { value: 5 },
+      ];
+    },
+
+    ratings() {
       return [
         {
-          value: '1',
-          label: '£',
+          value: 'poor',
+          label: 'Poor',
         },
         {
-          value: '2',
-          label: '££',
+          value: 'good',
+          label: 'Good',
         },
         {
-          value: '3',
-          label: '£££',
-        },
-        {
-          value: '4',
-          label: '££££',
-        },
-        {
-          value: '5',
-          label: '£££££',
+          value: 'excellent',
+          label: 'Excellent',
         },
       ];
     },
@@ -208,7 +229,9 @@ export default {
     this.form.rating = null;
     this.form.name = '';
     this.form.email = '';
-    this.form.priceRange = '';
+    this.form.food = '';
+    this.form.service = '';
+    this.form.expense = '';
     this.form.comment = '';
 
     this.submitRating();
@@ -243,7 +266,9 @@ export default {
         rating: this.form.rating,
         name: this.form.name !== '' ? this.form.name : null,
         email: this.form.email !== '' ? this.form.email : null,
-        price_range: this.form.priceRange !== '' ? parseInt(this.form.priceRange) : null,
+        food: this.form.food !== '' ? this.form.food : null,
+        service: this.form.service !== '' ? this.form.service : null,
+        expense: this.form.expense !== '' ? parseInt(this.form.expense) : null,
         comment: this.form.comment !== '' ? this.form.comment : null,
       }).then((response) => {
         if (response.status === 200) {
