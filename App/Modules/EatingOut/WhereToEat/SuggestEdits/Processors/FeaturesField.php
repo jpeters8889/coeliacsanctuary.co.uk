@@ -8,7 +8,10 @@ class FeaturesField extends Processor
     {
         return [
             'value' => ['required', 'array'],
-            'value.*' => ['exists:wheretoeat_features,id'],
+            'value.*' => ['array'],
+            'value.*.key' => ['required', 'exists:wheretoeat_features,id'],
+            'value.*.label' => ['required'],
+            'value.*.selected' => ['required', 'boolean'],
         ];
     }
 

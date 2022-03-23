@@ -16,67 +16,76 @@
         :key="field.id"
         class="flex flex-col py-1"
       >
-        <div class="flex justify-between items-center w-full">
-          <span :class="isFieldBeingEdited(field) ? 'text-blue-dark font-semibold text-sm' : ''">{{
-            field.label
-          }}</span>
-          <span
-            v-if="isFieldNotBeingEdited(field)"
-            class="font-semibold text-blue-dark transition text-xs cursor-pointer hover:text-black"
-            @click="openField(field)"
-          >
-            Update
-          </span>
+        <div
+          v-if="field.updated"
+          class="bg-blue-light bg-opacity-25 rounded p-1 text-center"
+        >
+          Thanks for your suggestion!
         </div>
 
-        <div
-          v-if="isFieldNotBeingEdited(field)"
-          class="text-xs text-grey"
-          :class="{
-            capitalize: field.capitalise,
-            truncate: field.truncate !== undefined ? field.truncate : true
-          }"
-        >
-          {{ field.getter() || 'Not set' }}
-        </div>
-
-        <div
-          v-if="isFieldBeingEdited(field)"
-          class="flex flex-col space-y-2"
-        >
-          <template v-if="field.isFormField">
-            <component
-              :is="field.formField.component"
-              :name="field.id"
-              :value="field.formField.value()"
-              v-bind="field.formField.props || null"
-              small
-            />
-          </template>
-
-          <template v-else>
-            <component
-              :is="field.component.name"
-              v-bind="field.component.props"
-            />
-          </template>
-
-          <div class="flex justify-between text-xs font-semibold">
-            <a
-              class="bg-yellow py-1 px-2 rounded cursor-pointer"
-              @click.prevent="cancelEditingField(field)"
+        <template v-else>
+          <div class="flex justify-between items-center w-full">
+            <span :class="isFieldBeingEdited(field) ? 'text-blue-dark font-semibold text-sm' : ''">{{
+              field.label
+            }}</span>
+            <span
+              v-if="isFieldNotBeingEdited(field)"
+              class="font-semibold text-blue-dark transition text-xs cursor-pointer hover:text-black"
+              @click="openField(field)"
             >
-              Cancel
-            </a>
-
-            <a
-              class="bg-blue py-1 px-2 rounded cursor-pointer"
-              @click.prevent="updateField(field)"
-            >
-              Submit
-            </a>
+              Update
+            </span>
           </div>
-        </div>
+
+          <div
+            v-if="isFieldNotBeingEdited(field)"
+            class="text-xs text-grey"
+            :class="{
+              capitalize: field.capitalise,
+              truncate: field.truncate !== undefined ? field.truncate : true
+            }"
+          >
+            {{ field.getter() || 'Not set' }}
+          </div>
+
+          <div
+            v-if="isFieldBeingEdited(field)"
+            class="flex flex-col space-y-2"
+          >
+            <template v-if="field.isFormField">
+              <component
+                :is="field.formField.component"
+                :name="field.id"
+                :value="field.formField.value()"
+                v-bind="field.formField.props || null"
+                small
+              />
+            </template>
+
+            <template v-else>
+              <component
+                :is="field.component.name"
+                v-bind="field.component.props"
+              />
+            </template>
+
+            <div class="flex justify-between text-xs font-semibold">
+              <a
+                class="bg-yellow py-1 px-2 rounded cursor-pointer"
+                @click.prevent="cancelEditingField()"
+              >
+                Cancel
+              </a>
+
+              <a
+                class="bg-blue py-1 px-2 rounded cursor-pointer"
+                @click.prevent="updateField()"
+              >
+                Submit
+              </a>
+            </div>
+          </div>
+        </template>
       </li>
     </ul>
   </div>
@@ -111,6 +120,14 @@ export default {
   }),
 
   computed: {
+    currentFieldIndex() {
+      if (!this.editing) {
+        return null;
+      }
+
+      return this.fields.indexOf(this.editing);
+    },
+
     fields() {
       return [
         {
@@ -125,6 +142,7 @@ export default {
               rows: 5,
             },
           },
+          updated: false,
         },
         {
           id: 'website',
@@ -135,9 +153,10 @@ export default {
             component: 'form-input',
             value: () => this.eatery.website,
           },
+          updated: false,
         },
         {
-          id: 'gf_menu',
+          id: 'gf_menu_link',
           label: 'Gluten Free Menu Link',
           getter: () => this.eatery.gf_menu_link,
           isFormField: true,
@@ -145,6 +164,7 @@ export default {
             component: 'form-input',
             value: () => this.eatery.gf_menu_link,
           },
+          updated: false,
         },
         {
           id: 'phone',
@@ -155,6 +175,7 @@ export default {
             component: 'form-input',
             value: () => this.eatery.phone,
           },
+          updated: false,
         },
         {
           id: 'venue_type',
@@ -168,6 +189,7 @@ export default {
               options: this.eatery.venue_type.values,
             },
           },
+          updated: false,
         },
         {
           id: 'cuisine',
@@ -181,6 +203,7 @@ export default {
               options: this.eatery.cuisine.values,
             },
           },
+          updated: false,
         },
         {
           id: 'opening_times',
@@ -194,6 +217,7 @@ export default {
               currentOpeningTimes: this.eatery.opening_times,
             },
           },
+          updated: false,
         },
         {
           id: 'features',
@@ -206,6 +230,7 @@ export default {
               currentFeatures: this.eatery.features.values,
             },
           },
+          updated: false,
         },
         {
           id: 'info',
@@ -217,6 +242,7 @@ export default {
             component: 'form-textarea',
             value: () => '',
           },
+          updated: false,
         },
       ];
     },
@@ -227,12 +253,12 @@ export default {
   },
 
   methods: {
-    cancelEditingField(field) {
+    cancelEditingField() {
       if (!this.editing) {
         return;
       }
 
-      this.$root.$off(`${field.id}-change`, this.handleFieldUpdate);
+      this.$root.$off(`${this.editing.id}-change`, this.handleFieldUpdate);
       this.editing = null;
       this.newValue = null;
     },
@@ -266,8 +292,27 @@ export default {
       return !this.isFieldBeingEdited(field);
     },
 
-    updateField(field) {
-      //
+    updateField() {
+      if (!this.newValue) {
+        coeliac().error('Please complete the form before submitting!');
+
+        return;
+      }
+
+      coeliac().request()
+        .post(`/api/wheretoeat/${this.id}/suggest-edit`, {
+          field: this.editing.id,
+          value: this.newValue,
+        })
+        .then(() => {
+          this.fields[this.currentFieldIndex].updated = true;
+          this.cancelEditingField();
+
+          coeliac().success('Thanks for suggesting an improvement to this location!');
+        })
+        .catch(() => {
+          coeliac().error('Sorry, we were unable to save your suggested edit, please try again...');
+        });
     },
   },
 };

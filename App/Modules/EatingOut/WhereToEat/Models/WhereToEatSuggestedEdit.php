@@ -7,6 +7,11 @@ use Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors\AddressField;
 use Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors\CuisineField;
 use Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors\FeaturesField;
 use Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors\GfMenuLinkField;
+use Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors\InfoField;
+use Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors\OpeningTimesField;
+use Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors\PhoneField;
+use Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors\VenueTypeField;
+use Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors\WebsiteField;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class WhereToEatSuggestedEdit extends BaseModel
@@ -25,10 +30,11 @@ class WhereToEatSuggestedEdit extends BaseModel
             'cuisine' => CuisineField::class,
             'features' => FeaturesField::class,
             'gf_menu_link' => GfMenuLinkField::class,
-            'opening_times' => '',
-            'phone' => '',
-            'venue_type' => '',
-            'website' => '',
+            'opening_times' => OpeningTimesField::class,
+            'phone' => PhoneField::class,
+            'venue_type' => VenueTypeField::class,
+            'website' => WebsiteField::class,
+            'info' => InfoField::class,
         ];
     }
 }
