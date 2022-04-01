@@ -14,9 +14,23 @@ use Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors\VenueTypeField;
 use Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors\WebsiteField;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property WhereToEat $eatery
+ * @property int $id
+ * @property string status
+ * @property string $field
+ * @property string $value
+ * @property bool $accepted
+ * @property bool $rejected
+ */
 class WhereToEatSuggestedEdit extends BaseModel
 {
     protected $table = 'wheretoeat_suggested_edits';
+
+    protected $casts = [
+        'accepted' => 'bool',
+        'rejected' => 'bool',
+    ];
 
     public function eatery(): BelongsTo
     {
@@ -36,5 +50,18 @@ class WhereToEatSuggestedEdit extends BaseModel
             'website' => WebsiteField::class,
             'info' => InfoField::class,
         ];
+    }
+
+    public function getStatusAttribute(): string
+    {
+        if ($this->accepted) {
+            return 'Accepted';
+        }
+
+        if ($this->rejected) {
+            return 'Rejected';
+        }
+
+        return 'New';
     }
 }

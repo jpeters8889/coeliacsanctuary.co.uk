@@ -20,6 +20,7 @@
           v-model="currentValue"
           :name="name"
           :class="classes()"
+          :disabled="disabled"
           @blur="validate()"
         >
           <option
@@ -74,6 +75,8 @@ export default {
   methods: {
     classes() {
       const classes = IsFormField.methods.classes.call(this);
+
+      classes.push('disabled:text-grey');
 
       if (!this.small) {
         classes.push(this.padding);

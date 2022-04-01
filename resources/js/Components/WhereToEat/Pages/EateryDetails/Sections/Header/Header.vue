@@ -19,7 +19,7 @@
       </div>
 
       <div class="flex space-x-3 text-sm font-semibold px-3 text-grey-darker mt-1">
-        {{ eatery.venueType.venue_type }}{{ eatery.cuisine.cuisine ? ', '+eatery.cuisine.cuisine : '' }}
+        {{ eatery.venueType.venue_type }}{{ eatery.cuisine.cuisine ? ', ' + eatery.cuisine.cuisine : '' }}
       </div>
 
       <div
@@ -51,20 +51,13 @@
 
 <script>
 import ResponsiveOptions from '@/Mixins/ResponsiveOptions';
-import DynamicMap from '~/Maps/Dynamic';
 import Shareable from '@/Mixins/Shareable';
 import GoogleEvents from '@/Mixins/GoogleEvents';
-import WhereToEatOpeningTimes from '~/WhereToEat/Modals/WhereToEatOpeningTimes';
 import Breadcrumbs from '~/WhereToEat/Pages/EateryDetails/Sections/Header/Breadcrumbs';
 import Links from '~/WhereToEat/Pages/EateryDetails/Sections/Header/Links';
 
-const Modal = () => import('~/Global/UI/Modal' /* webpackChunkName: "chunk-modal" */);
-
 export default {
   components: {
-    'dynamic-map': DynamicMap,
-    modal: Modal,
-    'opening-times-modal': WhereToEatOpeningTimes,
     'header-breadcrumbs': Breadcrumbs,
     'header-links': Links,
   },

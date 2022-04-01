@@ -165,14 +165,30 @@
           v-if="places.length"
           class="lg:-mt-2 lg:-mr-2"
         >
-          <div
-            v-for="(place, index) in places"
-            :key="place.id"
-            v-observe-visibility="hasMore && index === places.length - 1 ? {callback: visibilityChanged, once:true} : false"
-            class="flex flex-col p-3 bg-white m-2"
-          >
-            <wheretoeat-ui-place-details :place="place" />
-          </div>
+          <template v-for="(place, index) in places">
+            <div
+              :key="place.id"
+              v-observe-visibility="hasMore && index === places.length - 1 ? {callback: visibilityChanged, once:true} : false"
+              class="flex flex-col p-3 bg-white m-2"
+            >
+              <wheretoeat-ui-place-details :place="place" />
+            </div>
+
+            <div
+              v-if="index === 0"
+              key="nationwide"
+              class="text-center m-2 bg-blue-lightest hover:bg-blue-light transition rounded-lg p-2 border border-blue group font-semibold"
+            >
+              <a
+                class="p-5"
+                href="/wheretoeat/natiownide"
+                target="_blank"
+              >
+                Did you know, there might be more places to eat in {{ places[0].town.town }} listed in
+                our Nationwide eating out guide!
+              </a>
+            </div>
+          </template>
         </div>
 
         <wheretoeat-ui-sleleton-loader v-if="isLoading" />

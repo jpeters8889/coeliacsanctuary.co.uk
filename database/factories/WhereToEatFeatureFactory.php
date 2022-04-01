@@ -11,7 +11,6 @@ class WhereToEatFeatureFactory extends Factory
     public function definition()
     {
         return [
-            'type_id' => 1,
             'icon' => $this->faker->word,
             'feature' => $this->faker->word,
         ];

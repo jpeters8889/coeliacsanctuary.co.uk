@@ -87,7 +87,7 @@ class WhereToEatOpeningTimes extends BaseModel
         return $this->timeToString($today, 'start');
     }
 
-    protected function formatTime(string $column): array|null
+    public function formatTime(string $column): array|null
     {
         $value = $this->$column;
 

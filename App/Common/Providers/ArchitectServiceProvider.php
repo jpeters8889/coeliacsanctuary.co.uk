@@ -9,6 +9,9 @@ use Coeliac\Common\Architect\HorizonDashboard;
 use Coeliac\Common\Architect\MailcoachDashboard;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\PlaceRecommendationsBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\PlaceReportsBlueprint;
+use Coeliac\Modules\EatingOut\WhereToEat\Architect\SuggestedEditBlueprint;
+use Coeliac\Modules\EatingOut\WhereToEat\Architect\WhereToEatCuisinesBlueprint;
+use Coeliac\Modules\EatingOut\WhereToEat\Architect\WhereToEatVenueTypesBlueprint;
 use Coeliac\Modules\Shop\Architect\ShopDashboard;
 use Coeliac\Modules\Shop\Architect\OrderBlueprint;
 use Coeliac\Modules\Member\Architect\UserBlueprint;
@@ -46,15 +49,18 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             BlogBlueprint::class,
             ReviewBlueprint::class,
             RecipeBlueprint::class,
-            WhereToEatBlueprint::class,
             CollectionsBlueprint::class,
             UserBlueprint::class,
 
-            CommentsBlueprint::class,
+            WhereToEatBlueprint::class,
+            WteRatingsBlueprint::class,
             PlaceRecommendationsBlueprint::class,
             PlaceReportsBlueprint::class,
-            WteRatingsBlueprint::class,
-            PlaceRequestBlueprint::class,
+            WhereToEatVenueTypesBlueprint::class,
+            WhereToEatCuisinesBlueprint::class,
+            SuggestedEditBlueprint::class,
+
+            CommentsBlueprint::class,
 
             AnnouncementBlueprint::class,
             CompetitionsBlueprint::class,

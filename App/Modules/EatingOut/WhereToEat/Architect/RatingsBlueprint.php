@@ -23,7 +23,12 @@ class RatingsBlueprint extends Blueprint
 
     public function blueprintSite(): string
     {
-        return 'Approvals';
+        return 'Where to Eat';
+    }
+
+    public function blueprintRoute(): string
+    {
+        return 'place-ratings';
     }
 
     public function displayCount(): int
@@ -33,7 +38,7 @@ class RatingsBlueprint extends Blueprint
 
     public function blueprintName(): string
     {
-        return 'WTE Ratings';
+        return 'Ratings';
     }
 
     public function card(): ?string

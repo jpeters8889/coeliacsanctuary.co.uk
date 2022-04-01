@@ -2,6 +2,8 @@
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors;
 
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
+
 abstract class Processor
 {
     public function __construct(protected mixed $value)
@@ -17,6 +19,13 @@ abstract class Processor
     }
 
     protected function transformFieldValue(): string
+    {
+        return $this->value;
+    }
+
+    abstract public function computeCurrentValue(WhereToEat $eatery): string|null;
+
+    public function displaySuggestedValue(): string
     {
         return $this->value;
     }

@@ -69,7 +69,7 @@
               />
             </template>
 
-            <div class="flex justify-between text-xs font-semibold">
+            <div class="flex justify-between text-xs font-semibold xs:text-base">
               <a
                 class="bg-yellow py-1 px-2 rounded cursor-pointer"
                 @click.prevent="cancelEditingField()"
@@ -78,7 +78,7 @@
               </a>
 
               <a
-                class="bg-blue py-1 px-2 rounded cursor-pointer"
+                class="bg-blue py-1 px-2 rounded cursor-pointer xs:text-base"
                 @click.prevent="updateField()"
               >
                 Submit
@@ -208,7 +208,17 @@ export default {
         {
           id: 'opening_times',
           label: 'Opening Times',
-          getter: () => (this.eatery.opening_times.today ? this.eatery.opening_times.today.join(' - ') : ''),
+          getter: () => {
+            if (!this.eatery.opening_times) {
+              return null;
+            }
+
+            if (!this.eatery.opening_times.today) {
+              return 'Currently closed';
+            }
+
+            return this.eatery.opening_times.today.join(' - ');
+          },
           capitalise: true,
           isFormField: false,
           component: {
