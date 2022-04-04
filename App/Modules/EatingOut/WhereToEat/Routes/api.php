@@ -2,21 +2,20 @@
 
 declare(strict_types=1);
 
+use Illuminate\Routing\Router;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatBrowseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatFeaturesController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatLatestPlacesController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatLatLngController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatRecommendAPlaceController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatRecommendAPlaceLookupController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatReportPlaceController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSuggestEditController;
-use Illuminate\Routing\Router;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSearchController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatReviewsController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSummaryController;
-use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSettingsController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatVenueTypesController;
-use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatQuickSearchController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatPlaceRequestController;
 
 /* @var Router $router */
@@ -38,6 +37,7 @@ $router->group(['prefix' => '/api/wheretoeat'], function () use ($router) {
 
     $router->post('/place-request', [WhereToEatPlaceRequestController::class, 'create']);
     $router->post('/recommend-a-place', [WhereToEatRecommendAPlaceController::class, 'create']);
+    $router->post('/recommend-a-place/lookup', WhereToEatRecommendAPlaceLookupController::class);
 
     $router->post('/search', [WhereToEatSearchController::class, 'create']);
 

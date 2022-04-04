@@ -29,7 +29,6 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatFeature;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatVenueType;
 use Coeliac\Architect\Plans\WteOpeningTimes\Plan as OpeningTimesPlan;
 
-// @todo - add lookup to recommend a place, see if place already exists
 // @todo - add photos to leave a review
 // @todo - review admin
 // @todo - shop product variant live toggle

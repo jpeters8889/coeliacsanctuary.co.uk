@@ -1,5 +1,5 @@
 <template>
-  <div class="page-box page-box-no-padding flex">
+  <div class="page-box page-box-no-padding flex border border-grey-off shadow">
     <div class="hidden sm:flex flex-col w-1/3 bg-grey-light md:w-1/4 max-w-[250px]">
       <div class="h-8 px-3 flex items-center">
         <global-ui-stars

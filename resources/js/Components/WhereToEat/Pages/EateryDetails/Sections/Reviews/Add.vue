@@ -108,6 +108,9 @@
             {{ usedCharacters }} / {{ characterLimit }}
           </span>
         </div>
+
+        <upload-images />
+
         <div class="flex-1 text-center">
           <button
             class="mt-2 bg-blue bg-opacity-50 border border-blue rounded-lg px-6 py-2 text-xl text-black transition-all hover:bg-opacity-20"
@@ -123,7 +126,8 @@
         </p>
 
         <p class="text-sm">
-          All comments need to be approved before they are shown on the website, this usually takes no longer than
+          All comments need to be approved before they are shown on the website, this usually takes no longer
+          than
           48 hours.
         </p>
       </div>
@@ -141,6 +145,7 @@
 <script>
 import InteractsWithUser from '@/Mixins/InteractsWithUser';
 import HasWhereToEatPriceRange from '@/Mixins/HasWhereToEatHowExpensiveValues';
+import UploadImages from '~/WhereToEat/Pages/EateryDetails/Sections/Reviews/UploadImages';
 
 const FormInput = () => import('~/Forms/Input' /* webpackChunkName: "chunk-form-input" */);
 const FormStep = () => import('~/Forms/Step' /* webpackChunkName: "chunk-form-step" */);
@@ -152,6 +157,7 @@ export default {
     'form-input': FormInput,
     'form-step': FormStep,
     'form-textarea': FormTextarea,
+    UploadImages,
   },
 
   mixins: [InteractsWithUser, HasWhereToEatPriceRange],
