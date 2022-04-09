@@ -5,18 +5,19 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\EatingOut\WhereToEat\Events\PrepareWhereToEatReviewImages;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository;
 use Coeliac\Modules\EatingOut\WhereToEat\Requests\WhereToEatRatingRequest;
 use Coeliac\Modules\EatingOut\WhereToEat\Support\LatestRatings;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
 
 class WhereToEatReviewsController extends BaseController
 {
-    public function create(WhereToEatRatingRequest $request): void
+    public function create(WhereToEatRatingRequest $request, Dispatcher $dispatcher): void
     {
-        $request->resolveWhereToEat()->userReviews()->create([
+        $review = $request->resolveWhereToEat()->userReviews()->create([
             'rating' => $request->input('rating'),
             'ip' => $request->ip(),
             'name' => $request->input('name'),
@@ -28,11 +29,15 @@ class WhereToEatReviewsController extends BaseController
             'method' => $request->input('method', 'website'),
             'approved' => $request->isReviewLive(),
         ]);
+
+        if (!$request->isReviewLive() && count($request->input('images', [])) > 0) {
+            $dispatcher->dispatch(new PrepareWhereToEatReviewImages($review, $request->input('images')));
+        }
     }
 
     public function get(Repository $repository): array
     {
-        $summary = (new Collection([0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]))
+        $summary = (new Collection([0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]))
             ->mapWithKeys(function ($rating, $index) {
                 return [
                     $index => [
@@ -52,7 +57,7 @@ class WhereToEatReviewsController extends BaseController
             ->setWiths(['userReviews'])
             ->all()
             ->each(function (WhereToEat $eatery) use (&$summary) {
-                $rating = round((float) $eatery->average_rating * 2) / 2;
+                $rating = round((float)$eatery->average_rating * 2) / 2;
                 $key = $rating * 2;
 
                 $summary[$key]['count']++;

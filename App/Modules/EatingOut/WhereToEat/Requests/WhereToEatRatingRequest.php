@@ -31,6 +31,8 @@ class WhereToEatRatingRequest extends ApiFormRequest
             'service' => ['nullable', 'in:poor,good,excellent'],
             'expense' => ['nullable', 'numeric', 'min:1', 'max:5'],
             'comment' => ['nullable', 'required_with:name,email'],
+            'images' => ['array', 'max:6'],
+            'images.*' => ['string', 'exists:temporary_file_uploads,id'],
             'method' => ['in:website,app'],
         ];
     }

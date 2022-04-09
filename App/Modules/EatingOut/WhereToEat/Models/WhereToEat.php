@@ -185,6 +185,11 @@ class WhereToEat extends BaseModel
         return $this->hasMany(WhereToEatReview::class, 'wheretoeat_id', 'id');
     }
 
+    public function userImages(): HasMany
+    {
+        return $this->hasMany(WhereToEatReviewImage::class, 'wheretoeat_id', 'id');
+    }
+
     public function restaurants(): HasMany
     {
         return $this->hasMany(AttractionRestaurant::class, 'wheretoeat_id', 'id');

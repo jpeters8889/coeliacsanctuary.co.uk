@@ -188,6 +188,7 @@ export default {
       service: '',
       expense: '',
       comment: '',
+      images: [],
     },
 
     characterLimit: 1500,

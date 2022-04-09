@@ -51,7 +51,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
 
@@ -64,6 +64,22 @@ return [
             'options' => [
                 'CacheControl' => 'max-age=315360000, no-transform, public',
             ],
+        ],
+
+        'review-images' => [
+            'driver' => env('IMAGES_STORAGE_DRIVER', 's3'),
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION', 'eu-west-2'),
+            'bucket' => env('AWS_REVIEW_IMAGES_BUCKET', 'coeliac-review-images'),
+        ],
+
+        'uploads' => [
+            'driver' => env('IMAGES_STORAGE_DRIVER', 's3'),
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION', 'eu-west-2'),
+            'bucket' => env('AWS_FILE_UPLOADS_BUCKET', 'coeliac-file-uploads'),
         ],
 
         'search' => [

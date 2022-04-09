@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
+use Coeliac\Common\Models\TemporaryFileUpload;
+use Coeliac\Modules\EatingOut\WhereToEat\Events\PrepareWhereToEatReviewImages;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReviewImage;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
@@ -29,8 +35,9 @@ class WhereToEatingReviewsTest extends TestCase
             'email' => $this->faker->email,
             'food_rating' => $this->faker->randomElement(['poor', 'good', 'excellent']),
             'service_rating' => $this->faker->randomElement(['poor', 'good', 'excellent']),
-            'expense' => $this->faker->randomElement([1,2,3,4,5]),
+            'expense' => $this->faker->randomElement([1, 2, 3, 4, 5]),
             'comment' => $this->faker->paragraph,
+            'images' => [],
         ], $params));
     }
 
@@ -186,5 +193,98 @@ class WhereToEatingReviewsTest extends TestCase
         $this->makeRequest(['comment' => null])->assertStatus(422);
 
         $this->assertEquals(0, $this->whereToEat->fresh()->userReviews()->count());
+    }
+
+    /** @test */
+    public function itErrorsIfImagesIsntAnArray(): void
+    {
+        $this->makeRequest(['images' => null])->assertStatus(422);
+        $this->makeRequest(['images' => 'foo'])->assertStatus(422);
+
+        $this->assertEquals(0, $this->whereToEat->fresh()->userReviews()->count());
+    }
+
+    /** @test */
+    public function itErrorsIfImagesHasMoreThanSixItems(): void
+    {
+        $this->makeRequest(['images' => [1, 2, 3, 4, 5, 6, 7]])->assertStatus(422);
+
+        $this->assertEquals(0, $this->whereToEat->fresh()->userReviews()->count());
+    }
+
+    /** @test */
+    public function itErrorsIfTheImageArrayItemsArentStrings(): void
+    {
+        $this->makeRequest(['images' => [1]])->assertStatus(422);
+
+        $this->assertEquals(0, $this->whereToEat->fresh()->userReviews()->count());
+    }
+
+    /** @test */
+    public function itErrorsIfTheGivenImageItemDoesntExistInTheTemporaryUploadsTable(): void
+    {
+        $this->assertEmpty(TemporaryFileUpload::all());
+
+        $this->makeRequest(['images' => ['foo']])->assertStatus(422);
+
+        $this->assertEquals(0, $this->whereToEat->fresh()->userReviews()->count());
+    }
+
+    /** @test */
+    public function itReturnsOkIfTheImageDoesExist(): void
+    {
+        $upload = $this->create(TemporaryFileUpload::class);
+
+        $this->makeRequest(['images' => [$upload->id]])->assertOk();
+    }
+
+    /** @test */
+    public function itStoresRatings(): void
+    {
+        $this->assertEquals(0, $this->whereToEat->fresh()->userReviews()->count());
+
+        $this->makeRequest()->assertOk();
+
+        $this->assertEquals(1, $this->whereToEat->fresh()->userReviews()->count());
+    }
+
+    /** @test */
+    public function itStoresFullRatingsAsNotApproved(): void
+    {
+        $this->makeRequest()->assertOk();
+
+        $this->assertFalse($this->whereToEat->fresh()->userReviews->first()->approved);
+    }
+
+    /** @test */
+    public function itDoesntDispatchAnImageJobWhenTheRequestFails(): void
+    {
+        Event::fake(PrepareWhereToEatReviewImages::class);
+
+        $this->makeRequest(['name' => null]);
+
+        Event::assertNothingDispatched();
+    }
+
+    /** @test */
+    public function itDoesntDispatchAnImageJobWhenTheRequestDoesntHaveImages(): void
+    {
+        Event::fake(PrepareWhereToEatReviewImages::class);
+
+        $this->makeRequest();
+
+        Event::assertNothingDispatched();
+    }
+
+    /** @test */
+    public function itDispatchesAnImageJobWhenTheRequestIsValidAndHasImages(): void
+    {
+        Event::fake(PrepareWhereToEatReviewImages::class);
+
+        $upload = $this->create(TemporaryFileUpload::class);
+
+        $this->makeRequest(['images' => [$upload->id]]);
+
+        Event::assertDispatched(PrepareWhereToEatReviewImages::class);
     }
 }

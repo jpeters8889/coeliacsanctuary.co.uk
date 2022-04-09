@@ -6,11 +6,13 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property WhereToEat $eatery
  * @property int $id
  * @property mixed $rating
+ * @property int $wheretoeat_id
  */
 class WhereToEatReview extends BaseModel
 {
@@ -68,5 +70,10 @@ class WhereToEatReview extends BaseModel
             'value' => $this->how_expensive,
             'label' => self::HOW_EXPENSIVE_LABELS[$this->how_expensive],
         ];
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(WhereToEatReviewImage::class, 'wheretoeat_review_id', 'id');
     }
 }

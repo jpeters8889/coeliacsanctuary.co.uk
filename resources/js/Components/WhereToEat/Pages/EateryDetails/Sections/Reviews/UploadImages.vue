@@ -14,7 +14,7 @@
         @change="processImages()"
       >
 
-      <ul class="grid grid-cols-2">
+      <ul class="flex flex-wrap -m-2">
         <li
           v-for="(image, index) in images"
           :key="index"
@@ -32,20 +32,37 @@
             />
           </div>
 
-          <div v-else>
+          <div
+            v-else
+            class="h-full w-full group text-8xl text-blue-dark cursor-pointer relative"
+          >
             <img
+              class="h-full w-full object-cover"
               :src="image.path"
               alt=""
             >
+
+            <div
+              :class="imageOverlayClasses"
+              @click="deleteImage(image.id)"
+            >
+              <font-awesome-icon
+                :icon="['fas', 'times']"
+              />
+            </div>
           </div>
         </li>
 
         <li
+          v-if="images.length < 6"
           :class="imageClasses"
           class="text-6xl text-blue-dark cursor-pointer"
           @click="uploadImage()"
         >
-          <font-awesome-icon :icon="['fas', 'plus']" />
+          <font-awesome-icon
+            class="transition transition-opacity opactiy-0 group-hover:opactiy-100"
+            :icon="['fas', 'plus']"
+          />
         </li>
       </ul>
 
@@ -70,6 +87,7 @@ export default {
         'border',
         'border-blue-dark',
         'flex',
+        'm-2',
         'h-[97.75px]',
         'items-center',
         'justify-center',
@@ -77,6 +95,29 @@ export default {
         'w-[130px]',
         'xxs:h-[112.5px]',
         'xxs-w-[150px]',
+      ];
+    },
+
+    imageOverlayClasses() {
+      return [
+        'w-full',
+        'h-full',
+        'opacity-0',
+        'transition',
+        'transition-opacity',
+        'bg-black',
+        'bg-opacity-50',
+        'group-hover:opacity-100',
+        'absolute',
+        'top-1/2',
+        'left-1/2',
+        'transform',
+        '-translate-x-1/2',
+        '-translate-y-1/2',
+        'text-red',
+        'flex',
+        'items-center',
+        'justify-center',
       ];
     },
   },
@@ -93,15 +134,24 @@ export default {
 
           break;
         }
-        data.append(`files[${x}]`, files[x]);
+
+        if (x >= 6) {
+          coeliac().error('You can only upload 6 images');
+
+          break;
+        }
+
+        data.append(`images[${x}]`, files[x]);
         mapping.push(this.pushImage());
       }
 
       coeliac().request().post('/api/wheretoeat/review/image-upload', data, { 'Content-Type': 'multipart/form-data' })
         .then((response) => {
-          response.data.forEach((image, index) => {
+          response.data.images.forEach((image, index) => {
             this.displayImage(image, mapping[index]);
           });
+
+          this.emitChange();
         });
     },
 
@@ -135,6 +185,16 @@ export default {
 
     uploadImage() {
       this.$refs.fileTrigger.click();
+    },
+
+    deleteImage(id) {
+      this.images = this.images.filter((image) => image.id !== id);
+
+      this.emitChange();
+    },
+
+    emitChange() {
+      this.$root.$emit('images-change', this.images.map((image) => image.id));
     },
   },
 };
