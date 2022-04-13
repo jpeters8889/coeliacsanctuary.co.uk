@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property mixed|string $id
+ * @property ShopPostagePrice prices
  */
 class ShopShippingMethod extends BaseModel
 {

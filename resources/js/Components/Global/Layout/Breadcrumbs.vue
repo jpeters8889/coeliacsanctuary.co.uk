@@ -76,6 +76,11 @@
       </div>
     </div>
     <div id="breadcrumb-check" />
+
+    <script
+      type="application/ld+json"
+      v-text="schema"
+    />
   </div>
 </template>
 
@@ -111,6 +116,21 @@ export default {
   data: () => ({
     sticky: false,
   }),
+
+  computed: {
+    schema() {
+      return JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: this.crumbs.map((crumb, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: crumb.title,
+          item: `${window.config.baseUrl}${crumb.link}`,
+        })),
+      });
+    },
+  },
 
   mounted() {
     new IntersectionObserver((entries) => {

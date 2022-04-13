@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Models;
 
 use Carbon\Carbon;
+use Coeliac\Common\Traits\HasRichText;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Support\Collection;
@@ -47,6 +48,7 @@ class ShopProduct extends BaseModel implements SearchableContract
     use Searchable;
     use Linkable;
     use ArchitectModel;
+    use HasRichText;
 
     protected $appends = [
         'price',
@@ -174,5 +176,86 @@ class ShopProduct extends BaseModel implements SearchableContract
     protected static function bodyField(): string
     {
         return 'long_description';
+    }
+
+    protected function richTextType(): string
+    {
+        return 'Product';
+    }
+
+    protected function toRichText(): array
+    {
+        return [
+            'sku' => $this->id,
+            'name' => $this->title,
+            'brand' => [
+                '@type' => 'Organization',
+                'name' => 'Coeliac Sanctuary',
+                'logo' => [
+                    '@type' => 'ImageObject',
+                    'url' => 'https://www.coeliacsanctuary.co.uk/assets/svg/logo.svg',
+                ],
+            ],
+            'description' => $this->description,
+            'image' => [$this->first_image],
+            'offers' => [
+                "@type" => "Offer",
+                'price' => $this->currentPrice / 100,
+                'availability' => $this->isInStock() ? 'InStock' : 'OutOfStock',
+                'priceCurrency' => 'GBP',
+                'url' => $this->absolute_link,
+                'shippingDetails' => [
+                    '@type' => 'OfferShippingDetails',
+                    'shippingDestination' => [
+                        '@type' => 'DefinedRegion',
+                        'addressCountry' => 'UK',
+                    ],
+                    'deliveryTime' => [
+                        '@type' => 'ShippingDeliveryTime',
+                        'businessDays' => [
+                            '@type' => 'OpeningHoursSpecification',
+                            'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                        ],
+                        'cutOffTime' => '12:00',
+                        'handlingTime' => [
+                            '@type' => 'QuantitativeValue',
+                            'minValue' => 0,
+                            'maxValue' => 1,
+                        ],
+                        'transitTime' => [
+                            '@type' => 'QuantitativeValue',
+                            'minValue' => 1,
+                            'maxValue' => 3,
+                        ],
+                    ],
+                    'shippingRate' => [
+                        '@type' => 'MonetaryAmount',
+                        'currency' => 'GBP',
+                        'value' => $this->baseShippingRate() / 100,
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    protected function baseShippingRate(): int
+    {
+        return $this
+            ->shippingMethod
+            ->prices()
+            ->where('postage_country_area_id', 1)
+            ->where('max_weight', '>', $this->variants[0]->weight)
+            ->orderBy('price')
+            ->first()
+            ->price;
+    }
+
+    protected function isInStock(): bool
+    {
+        return $this
+                ->variants
+                ->pluck('quantity')
+                ->filter(fn ($quantity) => $quantity > 0)
+                ->count() > 0;
     }
 }
