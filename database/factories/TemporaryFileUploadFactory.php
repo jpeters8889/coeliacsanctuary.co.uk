@@ -12,8 +12,8 @@ class TemporaryFileUploadFactory extends Factory
     public function definition()
     {
         return [
-            'filename' => $this->faker->word,
-            'path' => $this->faker->word,
+            'filename' => $name = $this->faker->word,
+            'path' => $name,
             'source' => 'test',
             'filesize' => 1024,
             'mime' => $this->faker->mimeType(),

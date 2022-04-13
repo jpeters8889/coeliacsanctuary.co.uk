@@ -93,7 +93,8 @@ class Page extends PageBuilder
         return $this;
     }
 
-    public function noBreadcrumbs(): static {
+    public function noBreadcrumbs(): static
+    {
         $this->showBreadcrumbs = false;
 
         return $this;

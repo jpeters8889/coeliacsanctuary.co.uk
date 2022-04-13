@@ -56,9 +56,17 @@
       </div>
 
       <div class="p-3 space-y-3">
-        <p v-if="review.body">
-          {{ review.body }}
-        </p>
+        <template v-if="review.body">
+          <div class="flex flex-col space-y-2">
+            <p>{{ review.body }}</p>
+
+            <image-gallery
+              v-if="review.images"
+              :images="review.images"
+              :alt-text="`Photo of ${eatery} by ${review.name}`"
+            />
+          </div>
+        </template>
         <p
           v-else
           class="italic"
@@ -80,13 +88,20 @@
 <script>
 import HasWhereToEatHowExpensiveValues from '@/Mixins/HasWhereToEatHowExpensiveValues';
 import FormatsDates from '@/Mixins/FormatsDates';
+import ImageGallery from '~/WhereToEat/Pages/EateryDetails/Sections/Shared/ImageGallery';
 
 export default {
+
+  components: { ImageGallery },
   mixins: [HasWhereToEatHowExpensiveValues, FormatsDates],
 
   props: {
     review: {
       type: Object,
+      required: true,
+    },
+    eatery: {
+      type: String,
       required: true,
     },
   },

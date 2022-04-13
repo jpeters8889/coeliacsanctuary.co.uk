@@ -21,7 +21,7 @@ abstract class Item
 
     public static function resolve(CollectionItem $item): static
     {
-        if(!$item->relationLoaded('item')) {
+        if (!$item->relationLoaded('item')) {
             $item->load('item');
         }
 

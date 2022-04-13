@@ -6,10 +6,7 @@ namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
 use Coeliac\Common\Models\TemporaryFileUpload;
 use Coeliac\Modules\EatingOut\WhereToEat\Events\PrepareWhereToEatReviewImages;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReviewImage;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
@@ -23,6 +20,8 @@ class WhereToEatingReviewsTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        Event::fake(PrepareWhereToEatReviewImages::class);
 
         $this->whereToEat = $this->create(WhereToEat::class);
     }

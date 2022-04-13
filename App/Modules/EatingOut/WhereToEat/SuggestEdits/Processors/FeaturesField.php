@@ -30,7 +30,7 @@ class FeaturesField extends Processor
         return WhereToEatFeature::query()
             ->orderBy('feature')
             ->get()
-            ->mapWithKeys(fn(WhereToEatFeature $feature) => [
+            ->mapWithKeys(fn (WhereToEatFeature $feature) => [
                 $feature->feature => collect($eatery->features->pluck('id'))->contains($feature->id),
             ])
             ->toJson();

@@ -31,6 +31,7 @@
       <template v-for="review in reviews">
         <eatery-review
           :key="review.id"
+          :eatery="name"
           :review="review"
         />
       </template>

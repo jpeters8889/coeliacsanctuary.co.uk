@@ -27,6 +27,7 @@ class Plan extends ArchitectPlan
                 'title' => $variant['title'],
                 'weight' => $variant['weight'],
                 'quantity' => $variant['quantity'],
+                'live' => $variant['live'],
             ]);
         }
 
@@ -35,6 +36,7 @@ class Plan extends ArchitectPlan
                 'title' => $variant['title'],
                 'weight' => $variant['weight'],
                 'quantity' => $variant['quantity'],
+                'live' => $variant['live'],
             ]);
         }
     }

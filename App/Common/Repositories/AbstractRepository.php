@@ -45,7 +45,8 @@ abstract class AbstractRepository
             ->firstOrFail($this->getColumns());
     }
 
-    public function firstOrFail() {
+    public function firstOrFail()
+    {
         return $this->query()->firstOrFail();
     }
 

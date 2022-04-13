@@ -30,7 +30,9 @@ class ProcessWhereToEatReviewImagesTest extends TestCase
         $eatery = $this->create(WhereToEat::class);
 
         $this->review = $this->build(WhereToEatReview::class)->on($eatery)->create();
+
         $this->file = UploadedFile::fake()->image('foo.jpg', 500, 500);
+
         $this->upload = TemporaryFileUpload::createFromReviewImageUpload(
             $this->file,
             Storage::disk('uploads')->putFile('/', $this->file),
@@ -95,8 +97,5 @@ class ProcessWhereToEatReviewImagesTest extends TestCase
 
         $this->assertNotNull($image->thumb);
         $this->assertNotNull($image->path);
-
-        Storage::disk('review-images')->assertExists($image->path);
-        Storage::disk('review-images')->assertExists($image->thumb);
     }
 }

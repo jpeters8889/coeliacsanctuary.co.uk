@@ -63,6 +63,10 @@ export default {
       type: Object,
       required: true,
     },
+    hasImages: {
+      type: Boolean,
+      required: true,
+    },
   },
 };
 </script>

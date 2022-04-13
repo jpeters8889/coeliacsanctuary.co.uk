@@ -15,12 +15,12 @@ class WhereToEatReviewImageUploadController extends BaseController
     {
         return [
             'images' => collect($request->file('images'))
-                ->map(fn(UploadedFile $file) => ['file' => $file, 'path' => $file->store('/', 'uploads')])
-                ->map(fn(array $upload) => [
+                ->map(fn (UploadedFile $file) => ['file' => $file, 'path' => $file->store('/', 'uploads')])
+                ->map(fn (array $upload) => [
                     ...$upload,
                     'row' => TemporaryFileUpload::createFromReviewImageUpload($upload['file'], $upload['path'])
                 ])
-                ->map(fn(array $upload) => [
+                ->map(fn (array $upload) => [
                     'id' => $upload['row']->id,
                     'path' => $filesystem->disk('uploads')->temporaryUrl($upload['path'], Carbon::now()->addMinute()),
                 ])

@@ -77,7 +77,7 @@ class WhereToEatSuggestEditTest extends TestCase
                 'values' => WhereToEatVenueType::query()
                     ->orderBy('venue_type')
                     ->get()
-                    ->transform(fn(WhereToEatVenueType $venueType) => [
+                    ->transform(fn (WhereToEatVenueType $venueType) => [
                         'label' => $venueType->venue_type,
                         'selected' => $venueType->id === $this->eatery->venue_type_id,
                         'value' => $venueType->id,
@@ -104,7 +104,7 @@ class WhereToEatSuggestEditTest extends TestCase
                 'values' => WhereToEatCuisine::query()
                     ->orderBy('cuisine')
                     ->get()
-                    ->transform(fn(WhereToEatCuisine $cuisine) => [
+                    ->transform(fn (WhereToEatCuisine $cuisine) => [
                         'label' => $cuisine->cuisine,
                         'selected' => $cuisine->id === $this->eatery->cuisine_id,
                         'value' => $cuisine->id,
@@ -140,7 +140,7 @@ class WhereToEatSuggestEditTest extends TestCase
     {
         $features = WhereToEatFeature::query()->whereIn('id', [1, 2, 3])->get();
 
-        $features->each(fn(WhereToEatFeature $feature) => $this->eatery->features()->attach($feature));
+        $features->each(fn (WhereToEatFeature $feature) => $this->eatery->features()->attach($feature));
 
         $this->eatery->refresh();
 
@@ -176,7 +176,7 @@ class WhereToEatSuggestEditTest extends TestCase
             ->assertJsonFragment([
                 'values' => WhereToEatFeature::query()
                     ->get()
-                    ->transform(fn(WhereToEatFeature $feature) => [
+                    ->transform(fn (WhereToEatFeature $feature) => [
                         'id' => $feature->id,
                         'label' => $feature->feature,
                         'selected' => in_array($feature->id, $this->eatery->features->pluck('id')->toArray()),

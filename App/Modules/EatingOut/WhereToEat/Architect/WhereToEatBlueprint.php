@@ -29,10 +29,6 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatFeature;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatVenueType;
 use Coeliac\Architect\Plans\WteOpeningTimes\Plan as OpeningTimesPlan;
 
-// @todo - add photos to leave a review
-// @todo - review admin
-// @todo - shop product variant live toggle
-// @todo - cant scroll on filters modal on wte admin
 class WhereToEatBlueprint extends Blueprint
 {
     public function model(): string
@@ -261,40 +257,40 @@ class WhereToEatBlueprint extends Blueprint
                     1 => 'Yes',
                     0 => 'No',
                 ],
-                'filter' => fn(Builder $builder, $value) => $builder->where('live', $value),
+                'filter' => fn (Builder $builder, $value) => $builder->where('live', $value),
             ],
             'type_id' => [
                 'name' => 'Type',
                 'options' => $this->getTypes(),
-                'filter' => fn(Builder $builder, $value) => $builder->where('type_id', $value),
+                'filter' => fn (Builder $builder, $value) => $builder->where('type_id', $value),
             ],
             'venue_type_id' => [
                 'name' => 'Venue Type',
                 'options' => $this->getVenueTypes(),
-                'filter' => fn(Builder $builder, $value) => $builder->where('venue_type_id', $value),
+                'filter' => fn (Builder $builder, $value) => $builder->where('venue_type_id', $value),
             ],
             'cuisine_id' => [
                 'name' => 'Cuisine',
                 'options' => $this->getCuisines(),
-                'filter' => fn(Builder $builder, $value) => $builder->where('cuisine_id', $value),
+                'filter' => fn (Builder $builder, $value) => $builder->where('cuisine_id', $value),
             ],
             'country_id' => [
                 'name' => 'Country',
                 'options' => $this->getCountries(),
-                'filter' => fn(Builder $builder, $value) => $builder->where('country_id', $value),
+                'filter' => fn (Builder $builder, $value) => $builder->where('country_id', $value),
             ],
             'county_id' => [
                 'name' => 'County',
                 'options' => $this->countiesForFilters(),
-                'filter' => fn(Builder $builder, $value) => $builder->where('wheretoeat.county_id', $value),
+                'filter' => fn (Builder $builder, $value) => $builder->where('wheretoeat.county_id', $value),
             ],
             'town_id' => [
                 'name' => 'Town',
                 'options' => WhereToEatTown::query()
                     ->orderBy('town')
                     ->get()
-                    ->mapWithKeys(fn(WhereToEatTown $town) => [$town->id => $town->town]),
-                'filter' => fn(Builder $builder, $value) => $builder->where('wheretoeat.town_id', $value),
+                    ->mapWithKeys(fn (WhereToEatTown $town) => [$town->id => $town->town]),
+                'filter' => fn (Builder $builder, $value) => $builder->where('wheretoeat.town_id', $value),
             ],
         ];
     }
@@ -304,7 +300,7 @@ class WhereToEatBlueprint extends Blueprint
         $counties = new Collection();
 
         $this->getCounties()->each(function (Collection $group) use (&$counties) {
-            $group->each(fn($county, $id) => $counties->put($id, $county));
+            $group->each(fn ($county, $id) => $counties->put($id, $county));
         });
 
         return $counties->sort();

@@ -31,7 +31,7 @@ class SlugifyEateries extends Command
             $slug = Str::of($eatery->name)
                 ->when(
                     $this->hasDuplicateNameInTown($eatery),
-                    fn(Stringable $str) => $str->append(' ' . $this->eateryPostcode($eatery)),
+                    fn (Stringable $str) => $str->append(' ' . $this->eateryPostcode($eatery)),
                 )
                 ->slug()
                 ->toString();

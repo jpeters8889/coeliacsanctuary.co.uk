@@ -74,7 +74,6 @@ class WhereToEatReviewsTest extends TestCase
         $this->assertArrayHasKey('value', $averageExpense);
         $this->assertArrayHasKey('label', $averageExpense);
         $this->assertEquals(3, $averageExpense['value']);
-
     }
 
     /** @test */

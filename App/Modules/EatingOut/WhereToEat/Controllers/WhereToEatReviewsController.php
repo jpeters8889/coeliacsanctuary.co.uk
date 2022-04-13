@@ -8,14 +8,14 @@ use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Events\PrepareWhereToEatReviewImages;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository;
-use Coeliac\Modules\EatingOut\WhereToEat\Requests\WhereToEatRatingRequest;
+use Coeliac\Modules\EatingOut\WhereToEat\Requests\WhereToEatSubmitReviewRequest;
 use Coeliac\Modules\EatingOut\WhereToEat\Support\LatestRatings;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
 
 class WhereToEatReviewsController extends BaseController
 {
-    public function create(WhereToEatRatingRequest $request, Dispatcher $dispatcher): void
+    public function create(WhereToEatSubmitReviewRequest $request, Dispatcher $dispatcher): void
     {
         $review = $request->resolveWhereToEat()->userReviews()->create([
             'rating' => $request->input('rating'),

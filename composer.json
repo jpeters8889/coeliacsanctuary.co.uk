@@ -38,7 +38,7 @@
         "fruitcake/laravel-cors": "^2.0.2",
         "guzzlehttp/guzzle": "^7.3",
         "intervention/image": "^2.5.1",
-        "jpeters/architect": "^0.8.3",
+        "jpeters/architect": "^0.8.4",
         "jpeters/laravel-page-view": "^0.1.6",
         "kwn/number-to-words": "^2.0",
         "laravel/framework": "^9.0",

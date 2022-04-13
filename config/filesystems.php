@@ -72,6 +72,10 @@ return [
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
             'region' => env('AWS_DEFAULT_REGION', 'eu-west-2'),
             'bucket' => env('AWS_REVIEW_IMAGES_BUCKET', 'coeliac-review-images'),
+            'options' => [
+                'CacheControl' => 'max-age=315360000, no-transform, public',
+            ],
+            'throw' => true,
         ],
 
         'uploads' => [

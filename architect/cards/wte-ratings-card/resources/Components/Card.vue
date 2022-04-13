@@ -5,32 +5,59 @@
       :class="!isApproved ? 'bg-red-200' : ''"
     >
       <div class="flex flex-col md:w-4/5">
-        <div class="mb-1">
-          <h2 class="font-semibold text-highlight text-xl">
-            {{ data.eatery.full_name }}
-          </h2>
-        </div>
-        <div
-          v-if="data.body"
-          class="mb-2"
-        >
-          <div v-html="data.body" />
-          <span class="font-semibold">{{ data.name }}</span>
-        </div>
+        <template v-if="data.body">
+          <div class="mb-1">
+            <h2 class="font-semibold text-highlight text-xl">
+              {{ data.eatery.full_name }}
+            </h2>
+          </div>
+          <div class="mb-2">
+            <div v-html="data.body" />
+            <span class="font-semibold">{{ data.name }}</span>
+          </div>
+
+          <div v-if="data.images">
+            <h2 class="text-lg font-semibold">
+              Review Images
+            </h2>
+
+            <div class="flex flex-wrap">
+              <div
+                v-for="image in data.images"
+                :key="image.id"
+                class="p-2 flex items-center justify-center"
+              >
+                <a
+                  :href="image.path"
+                  target="_blank"
+                >
+                  <img
+                    :src="image.thumb"
+                    style="max-width: 150px; max-height: 150px;"
+                  >
+                </a>
+              </div>
+            </div>
+          </div>
+        </template>
+
         <div v-else>
           <em>No rating text...</em>
         </div>
       </div>
+
       <div class="font-semibold mt-1 flex flex-col md:w-1/5">
         <div class="mb-1 flex flex-col">
           <div
             v-for="info in information"
+            :key="info.title"
             class="flex leading-none mb-1"
           >
             <strong class="text-blue-500 font-semibold flex-1">{{ info.title }}</strong>
             <span>{{ info.text }}</span>
           </div>
         </div>
+
         <button
           class="button button-negative py-1 text-sm px-2 rounded mb-1"
           @click.prevent="showDeleteModal = true"

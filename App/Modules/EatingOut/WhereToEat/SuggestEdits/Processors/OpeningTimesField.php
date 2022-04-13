@@ -18,7 +18,7 @@ class OpeningTimesField extends Processor
             'value' => ['required', 'array', 'size:7'],
             'value.*' => ['array'],
             'value.*.key' => ['required', Rule::in(static::$days)],
-            'value.*.label' => ['required', Rule::in(array_map(fn($day) => ucfirst($day), static::$days))],
+            'value.*.label' => ['required', Rule::in(array_map(fn ($day) => ucfirst($day), static::$days))],
             'value.*.start' => ['required', 'array', 'size:2'],
             'value.*.start.0' => ['present', 'nullable', 'numeric', 'min:0', 'max:23'],
             'value.*.start.1' => ['present', 'nullable', 'numeric', Rule::in([0, 15, 30, 45])],
@@ -42,7 +42,7 @@ class OpeningTimesField extends Processor
         }
 
         return collect(self::$days)
-            ->map(fn($day) => [
+            ->map(fn ($day) => [
                 'key' => $day,
                 'label' => Str::title($day),
                 'closed' => $openingTimes->{$day . '_start'} === null,

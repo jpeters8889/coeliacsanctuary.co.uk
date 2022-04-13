@@ -19,7 +19,7 @@ class LatestPlaces
             ->setWiths(['town', 'county', 'country'])
             ->latest()
             ->take(5)
-            ->transform(fn(WhereToEat $eatery) => [
+            ->transform(fn (WhereToEat $eatery) => [
                 'id' => $eatery->id,
                 'name' => $eatery->name,
                 'slug' => "/wheretoeat/{$eatery->county->slug}/{$eatery->town->slug}/{$eatery->slug}",

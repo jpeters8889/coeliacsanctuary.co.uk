@@ -9,7 +9,7 @@ use JPeters\Architect\Blueprints\Blueprint;
 use Coeliac\Architect\Cards\WteRatingsCard\Card;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 
-class RatingsBlueprint extends Blueprint
+class WhereToEatReviews extends Blueprint
 {
     public function model(): string
     {
@@ -28,7 +28,7 @@ class RatingsBlueprint extends Blueprint
 
     public function blueprintRoute(): string
     {
-        return 'place-ratings';
+        return 'place-reviews';
     }
 
     public function displayCount(): int
@@ -38,7 +38,7 @@ class RatingsBlueprint extends Blueprint
 
     public function blueprintName(): string
     {
-        return 'Ratings';
+        return 'User Reviews';
     }
 
     public function card(): ?string
@@ -49,7 +49,7 @@ class RatingsBlueprint extends Blueprint
     public function getData(): Builder
     {
         return parent::getData()
-            ->with(['eatery', 'eatery.county', 'eatery.town', 'eatery.country'])
+            ->with(['eatery', 'eatery.county', 'eatery.town', 'eatery.country', 'images'])
             ->select('*');
     }
 

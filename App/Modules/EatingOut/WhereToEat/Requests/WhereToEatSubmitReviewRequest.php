@@ -7,7 +7,7 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Requests;
 use Coeliac\Base\Requests\ApiFormRequest;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
-class WhereToEatRatingRequest extends ApiFormRequest
+class WhereToEatSubmitReviewRequest extends ApiFormRequest
 {
     public function resolveWhereToEat(): WhereToEat
     {

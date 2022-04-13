@@ -19,7 +19,7 @@ class WhereToEatRecommendAPlaceLookupController extends BaseController
                 ->where('name', 'like', "%{$request->input('term')}%")
                 ->orderBy('name')
                 ->get()
-                ->transform(fn(WhereToEat $eatery) => [
+                ->transform(fn (WhereToEat $eatery) => [
                     'name' => $eatery->name,
                     'location' => $eatery->full_location,
                 ]),

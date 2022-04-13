@@ -610,9 +610,6 @@ img.\!lazy:not(.\!loaded)::before {
 .visible {
   visibility: visible;
 }
-.invisible {
-  visibility: hidden;
-}
 .static {
   position: static;
 }
@@ -1068,6 +1065,9 @@ img.\!lazy:not(.\!loaded)::before {
 .max-h-map {
   max-height: 300px;
 }
+.max-h-\[125px\] {
+  max-height: 125px;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1232,6 +1232,9 @@ img.\!lazy:not(.\!loaded)::before {
 }
 .max-w-\[250px\] {
   max-width: 250px;
+}
+.max-w-\[125px\] {
+  max-width: 125px;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1898,10 +1901,6 @@ img.\!lazy:not(.\!loaded)::before {
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
-}
-.object-center {
-  -o-object-position: center;
-     object-position: center;
 }
 .p-1 {
   padding: 0.25rem;
@@ -2754,9 +2753,6 @@ html, body, .w-screen, .inner-wrapper {
   --tw-text-opacity: 1;
   color: rgb(102 102 102 / var(--tw-text-opacity));
 }
-.group:hover .group-hover\:visible {
-  visibility: visible;
-}
 .group:hover .group-hover\:scale-90 {
   --tw-scale-x: .9;
   --tw-scale-y: .9;
@@ -3363,6 +3359,9 @@ html, body, .w-screen, .inner-wrapper {
   .lg\:max-h-logo {
     max-height: 125px;
   }
+  .lg\:max-h-\[200px\] {
+    max-height: 200px;
+  }
   .lg\:min-h-map-small {
     min-height: 200px;
   }
@@ -3401,6 +3400,9 @@ html, body, .w-screen, .inner-wrapper {
   }
   .lg\:max-w-2\/5 {
     max-width: 40%;
+  }
+  .lg\:max-w-\[200px\] {
+    max-width: 200px;
   }
   .lg\:flex-1 {
     flex: 1 1 0%;
@@ -3570,5 +3572,13 @@ html, body, .w-screen, .inner-wrapper {
   }
   .xl\:text-left {
     text-align: left;
+  }
+}
+@media (min-width: 1500px) {
+  .\32xl\:max-h-\[250px\] {
+    max-height: 250px;
+  }
+  .\32xl\:max-w-\[250px\] {
+    max-width: 250px;
   }
 }

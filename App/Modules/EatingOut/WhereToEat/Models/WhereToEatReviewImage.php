@@ -6,6 +6,7 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\Str;
 
 /**
@@ -38,5 +39,20 @@ class WhereToEatReviewImage extends BaseModel
     public function review(): BelongsTo
     {
         return $this->belongsTo(WhereToEatReview::class, 'wheretoeat_review_id', 'id');
+    }
+
+    public function getThumbAttribute($thumb): string
+    {
+        return $this->imageUrl($thumb);
+    }
+
+    public function getPathAttribute($path): string
+    {
+        return $this->imageUrl($path);
+    }
+
+    protected function imageUrl($file)
+    {
+        return app(FilesystemManager::class)->disk('review-images')->url($file);
     }
 }

@@ -83,7 +83,7 @@ class ReviewController extends BaseController
                 ->inRandomOrder()
                 ->take(3)
                 ->get()
-                ->transform(fn(CollectionItem $item) => $item->collection);
+                ->transform(fn (CollectionItem $item) => $item->collection);
         }
 
         return $this->page

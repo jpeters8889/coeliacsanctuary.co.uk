@@ -14,7 +14,14 @@
       :name="eatery.name"
     />
 
-    <eatery-map :eatery="eatery" />
+    <div class="flex flex-col space-y-3">
+      <eatery-map
+        :eatery="eatery"
+        :has-images="eatery.userImages.length > 0"
+      />
+
+      <eatery-photos :eatery="eatery" />
+    </div>
 
     <eatery-reviews
       :id="eatery.id"
@@ -32,6 +39,7 @@ import Features from '~/WhereToEat/Pages/EateryDetails/Sections/Features';
 import Info from '~/WhereToEat/Pages/EateryDetails/Sections/Info';
 import Map from '~/WhereToEat/Pages/EateryDetails/Sections/Map';
 import CanYouImproveEatery from '~/WhereToEat/Pages/EateryDetails/Sections/Improve/CanYouImproveEatery';
+import Photos from '~/WhereToEat/Pages/EateryDetails/Sections/Photos';
 
 export default {
   components: {
@@ -40,6 +48,7 @@ export default {
     'eatery-features': Features,
     'eatery-info': Info,
     'eatery-map': Map,
+    'eatery-photos': Photos,
     'eatery-can-you-improve': CanYouImproveEatery,
   },
 

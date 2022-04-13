@@ -79,7 +79,7 @@ class WhereToEatSlugifyTest extends TestCase
                 'name' => $slug = 'My Special Eating Location',
                 'country_id' => 2,
             ])
-            ->sequence(fn($sequence) => ['town_id' => $sequence->index + 1])
+            ->sequence(fn ($sequence) => ['town_id' => $sequence->index + 1])
             ->count(2)
             ->create();
 
@@ -106,7 +106,7 @@ class WhereToEatSlugifyTest extends TestCase
                 'name' => $slug = 'My Special Eating Location',
                 'country_id' => 2,
             ])
-            ->sequence(fn($sequence) => ['address' => implode('<br />', [
+            ->sequence(fn ($sequence) => ['address' => implode('<br />', [
                 '123 Fake Street',
                 'AB1 ' . $sequence->index . 'CD',
             ])])

@@ -39,7 +39,7 @@ use Coeliac\Modules\Search\Architect\Blueprint as SearchHistoryBlueprint;
 use Coeliac\Modules\Collection\Architect\Blueprint as CollectionsBlueprint;
 use Coeliac\Modules\Competition\Architect\Blueprint as CompetitionsBlueprint;
 use Coeliac\Modules\EatingOut\Reviews\Architect\Blueprint as ReviewBlueprint;
-use Coeliac\Modules\EatingOut\WhereToEat\Architect\RatingsBlueprint as WteRatingsBlueprint;
+use Coeliac\Modules\EatingOut\WhereToEat\Architect\WhereToEatReviews as WteRatingsBlueprint;
 
 class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
 {

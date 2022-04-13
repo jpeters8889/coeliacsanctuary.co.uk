@@ -32,6 +32,6 @@ class WhereToEatOpeningTimesFactory extends Factory
 
     public function forEatery(WhereToEat $eatery)
     {
-        return $this->state(fn() => ['wheretoeat_id' => $eatery->id]);
+        return $this->state(fn () => ['wheretoeat_id' => $eatery->id]);
     }
 }

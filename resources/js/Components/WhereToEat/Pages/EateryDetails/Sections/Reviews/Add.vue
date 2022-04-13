@@ -277,20 +277,21 @@ export default {
         service: this.form.service !== '' ? this.form.service : null,
         expense: this.form.expense !== '' ? parseInt(this.form.expense) : null,
         comment: this.form.comment !== '' ? this.form.comment : null,
+        images: this.form.images,
       }).then((response) => {
         if (response.status === 200) {
           this.submitted = true;
 
           this.$root.$emit('rated-place', this.id);
 
-          coeliac().success('Thanks, your rating has been submitted and is awaiting approval!');
+          coeliac().success('Thanks, your review has been submitted and is awaiting approval!');
           return;
         }
 
-        coeliac().error('Sorry, there was an error submitting your rating, please try again.');
+        coeliac().error('Sorry, there was an error submitting your review, please try again.');
       })
         .catch(() => {
-          coeliac().error('Sorry, there was an error submitting your rating, please try again.');
+          coeliac().error('Sorry, there was an error submitting your review, please try again.');
         });
     },
 

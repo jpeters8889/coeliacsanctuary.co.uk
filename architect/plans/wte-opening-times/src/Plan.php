@@ -25,10 +25,10 @@ class Plan extends ArchitectPlan
         }
 
         return (new Collection(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']))
-            ->mapWithKeys(fn($day) => [$day => $this->getOpeningTimesForDay($openingTimes, $day)]);
+            ->mapWithKeys(fn ($day) => [$day => $this->getOpeningTimesForDay($openingTimes, $day)]);
     }
 
-    function getOpeningTimesForDay(WhereToEatOpeningTimes $openingTimes, string $day)
+    public function getOpeningTimesForDay(WhereToEatOpeningTimes $openingTimes, string $day)
     {
         if (!$openingTimes->{$day . '_start'}) {
             return null;
