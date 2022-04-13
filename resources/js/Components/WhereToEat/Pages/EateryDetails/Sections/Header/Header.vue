@@ -32,7 +32,10 @@
 
     <header-links :eatery="eatery" />
 
-    <div class="flex flex-col space-y-3 bg-grey-light p-3">
+    <div
+      v-if="eatery.userReviews.length"
+      class="flex flex-col space-y-3 bg-grey-light p-3"
+    >
       <div class="flex space-x-1 text-sm items-center leading-none">
         <span>Rated</span>
         <global-ui-stars
@@ -46,6 +49,8 @@
         }}</span>
       </div>
     </div>
+
+    <div v-else />
   </div>
 </template>
 

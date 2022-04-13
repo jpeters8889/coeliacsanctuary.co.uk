@@ -11,82 +11,84 @@
     class="p-4"
   >
     <ul class="flex flex-col divide-y divide-blue-light">
-      <li
-        v-for="field in fields"
-        :key="field.id"
-        class="flex flex-col py-1"
-      >
-        <div
-          v-if="field.updated"
-          class="bg-blue-light bg-opacity-25 rounded p-1 text-center"
+      <template v-for="field in fields">
+        <li
+          v-if="field.shouldDisplay"
+          :key="field.id"
+          class="flex flex-col py-1"
         >
-          Thanks for your suggestion!
-        </div>
-
-        <template v-else>
-          <div class="flex justify-between items-center w-full">
-            <span :class="isFieldBeingEdited(field) ? 'text-blue-dark font-semibold text-sm' : ''">{{
-              field.label
-            }}</span>
-            <span
-              v-if="isFieldNotBeingEdited(field)"
-              class="font-semibold text-blue-dark transition text-xs cursor-pointer hover:text-black"
-              @click="openField(field)"
-            >
-              Update
-            </span>
+          <div
+            v-if="field.updated"
+            class="bg-blue-light bg-opacity-25 rounded p-1 text-center"
+          >
+            Thanks for your suggestion!
           </div>
 
-          <div
-            v-if="isFieldNotBeingEdited(field)"
-            class="text-xs text-grey"
-            :class="{
-              capitalize: field.capitalise,
-              truncate: field.truncate !== undefined ? field.truncate : true
-            }"
-          >
-            {{ field.getter() || 'Not set' }}
-          </div>
-
-          <div
-            v-if="isFieldBeingEdited(field)"
-            class="flex flex-col space-y-2"
-          >
-            <template v-if="field.isFormField">
-              <component
-                :is="field.formField.component"
-                :name="field.id"
-                :value="field.formField.value()"
-                v-bind="field.formField.props || null"
-                small
-              />
-            </template>
-
-            <template v-else>
-              <component
-                :is="field.component.name"
-                v-bind="field.component.props"
-              />
-            </template>
-
-            <div class="flex justify-between text-xs font-semibold xs:text-base">
-              <a
-                class="bg-yellow py-1 px-2 rounded cursor-pointer"
-                @click.prevent="cancelEditingField()"
+          <template v-else>
+            <div class="flex justify-between items-center w-full">
+              <span :class="isFieldBeingEdited(field) ? 'text-blue-dark font-semibold text-sm' : ''">{{
+                field.label
+              }}</span>
+              <span
+                v-if="isFieldNotBeingEdited(field)"
+                class="font-semibold text-blue-dark transition text-xs cursor-pointer hover:text-black"
+                @click="openField(field)"
               >
-                Cancel
-              </a>
-
-              <a
-                class="bg-blue py-1 px-2 rounded cursor-pointer xs:text-base"
-                @click.prevent="updateField()"
-              >
-                Submit
-              </a>
+                Update
+              </span>
             </div>
-          </div>
-        </template>
-      </li>
+
+            <div
+              v-if="isFieldNotBeingEdited(field)"
+              class="text-xs text-grey"
+              :class="{
+                capitalize: field.capitalise,
+                truncate: field.truncate !== undefined ? field.truncate : true
+              }"
+            >
+              {{ field.getter() || 'Not set' }}
+            </div>
+
+            <div
+              v-if="isFieldBeingEdited(field)"
+              class="flex flex-col space-y-2"
+            >
+              <template v-if="field.isFormField">
+                <component
+                  :is="field.formField.component"
+                  :name="field.id"
+                  :value="field.formField.value()"
+                  v-bind="field.formField.props || null"
+                  small
+                />
+              </template>
+
+              <template v-else>
+                <component
+                  :is="field.component.name"
+                  v-bind="field.component.props"
+                />
+              </template>
+
+              <div class="flex justify-between text-xs font-semibold xs:text-base">
+                <a
+                  class="bg-yellow py-1 px-2 rounded cursor-pointer"
+                  @click.prevent="cancelEditingField()"
+                >
+                  Cancel
+                </a>
+
+                <a
+                  class="bg-blue py-1 px-2 rounded cursor-pointer xs:text-base"
+                  @click.prevent="updateField()"
+                >
+                  Submit
+                </a>
+              </div>
+            </div>
+          </template>
+        </li>
+      </template>
     </ul>
   </div>
 </template>
@@ -133,6 +135,7 @@ export default {
         {
           id: 'address',
           label: 'Address',
+          shouldDisplay: true,
           getter: () => this.eatery.address.split('<br />').join(', '),
           isFormField: true,
           formField: {
@@ -147,6 +150,7 @@ export default {
         {
           id: 'website',
           label: 'Website',
+          shouldDisplay: true,
           getter: () => this.eatery.website,
           isFormField: true,
           formField: {
@@ -158,6 +162,7 @@ export default {
         {
           id: 'gf_menu_link',
           label: 'Gluten Free Menu Link',
+          shouldDisplay: true,
           getter: () => this.eatery.gf_menu_link,
           isFormField: true,
           formField: {
@@ -169,6 +174,7 @@ export default {
         {
           id: 'phone',
           label: 'Phone Number',
+          shouldDisplay: true,
           getter: () => this.eatery.phone,
           isFormField: true,
           formField: {
@@ -180,6 +186,7 @@ export default {
         {
           id: 'venue_type',
           label: 'Venue Type',
+          shouldDisplay: true,
           getter: () => this.eatery.venue_type.label,
           isFormField: true,
           formField: {
@@ -194,6 +201,7 @@ export default {
         {
           id: 'cuisine',
           label: 'Cuisine',
+          shouldDisplay: this.eatery.type_id === 1,
           getter: () => this.eatery.cuisine.label,
           isFormField: true,
           formField: {
@@ -208,6 +216,7 @@ export default {
         {
           id: 'opening_times',
           label: 'Opening Times',
+          shouldDisplay: this.eatery.type_id !== 3,
           getter: () => {
             if (!this.eatery.opening_times) {
               return null;
@@ -232,6 +241,7 @@ export default {
         {
           id: 'features',
           label: 'Features',
+          shouldDisplay: true,
           getter: () => this.eatery.features.selected.map((feature) => feature.label).join(', '),
           isFormField: false,
           component: {
@@ -245,6 +255,7 @@ export default {
         {
           id: 'info',
           label: 'Additional Information',
+          shouldDisplay: true,
           getter: () => 'Is there anything else we should know about this location?',
           truncate: false,
           isFormField: true,

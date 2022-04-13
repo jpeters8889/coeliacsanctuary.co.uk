@@ -1,41 +1,43 @@
 <template>
-  <div class="hidden xxs:block">
+  <div>
     <div
       id="breadcrumb"
       class="my-2 border-grey-off border bg-grey-off-light p-2 leading-none z-10"
-      :class="sticky ? 'fixed top-50px slide-down w-full mt-1' : ''"
+      :class="sticky ? 'fixed top-[45px] slide-down w-full mt-1' : ''"
     >
       <div
         class="leading-none inner-wrapper flex flex-col md:flex-row md:items-center"
         :style="sticky ? 'max-width: 1500px;' : ''"
       >
         <div
-          class="flex-1 flex-col flex justify-center flex-wrap mb-2 md:flex-no-wrap md:flex-row md:items-center md:justify-start md:m-0 md:pr-3"
+          class="flex-wrap flex-1 flex my-1 items-center justify-center space-x-1 leading-relaxed md:justify-start"
         >
-          <div class="font-extralight text-center md:pr-1">
-            You're here:
-          </div>
-          <div class="flex my-1 justify-center">
-            <div
-              v-for="(crumb, index) in crumbs"
-              :key="index"
-              class="text-grey-dark font-medium flex justify-start items-center p-1 md:w-auto"
+          <div
+            v-for="(crumb, index) in crumbs"
+            :key="index"
+            class="text-grey-dark font-semibold flex space-x-1 justify-start items-center"
+          >
+            <a
+              :href="crumb.link"
+              class="hover:underline flex-shrink-0"
             >
-              <a
-                :href="crumb.link"
-                class="flex-1 hover:underline"
-              >{{ crumb.title }}</a>
-              <font-awesome-icon
-                class="text-left pl-1"
-                :icon="['fas', 'angle-double-right']"
-              />
-            </div>
+              {{ crumb.title }}
+            </a>
+            <font-awesome-icon
+              :class="index === crumbs.length - 1 ? 'hidden xs:block' : ''"
+              class="text-left"
+              :icon="['fas', 'angle-double-right']"
+            />
           </div>
-          <div class="font-medium text-center">
+          <div
+            :class="'hidden xs:block'"
+            class="font-medium"
+          >
             {{ location }}
           </div>
         </div>
 
+        <!-- Share Icons -->
         <div class="flex justify-center relative">
           <add-to-scrapbook
             v-if="scrapable"
