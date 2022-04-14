@@ -69,7 +69,7 @@
 
         <modules-comment-form area="blog" :id="{{ $blog->id }}"></modules-comment-form>
 
-        <global-ui-google-ad code="7206823714"></global-ui-google-ad>
+{{--        <global-ui-google-ad code="7206823714"></global-ui-google-ad>--}}
     </div>
 @endsection
 
