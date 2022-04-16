@@ -92,6 +92,18 @@
             icon-classes="px-1"
           />
         </div>
+        <div
+          v-if="isNationwide"
+          class="flex-1"
+        >
+          <form-input
+            required
+            name="branchName"
+            type="branchName"
+            :value="form.branchName"
+            label="What branch did you eat at?"
+          />
+        </div>
         <div class="flex-1">
           <form-textarea
             required
@@ -107,6 +119,17 @@
           >
             {{ usedCharacters }} / {{ characterLimit }}
           </span>
+        </div>
+
+        <div
+          v-if="isAdmin()"
+          class="flex-1"
+        >
+          <form-checkbox
+            name="admin_review"
+            label="Post as admin review"
+            :value="form.admin_review"
+          />
         </div>
 
         <upload-images />
@@ -127,8 +150,7 @@
 
         <p class="text-sm">
           All comments need to be approved before they are shown on the website, this usually takes no longer
-          than
-          48 hours.
+          than 48 hours.
         </p>
       </div>
 
@@ -150,6 +172,7 @@ import UploadImages from '~/WhereToEat/Pages/EateryDetails/Sections/Reviews/Uplo
 const FormInput = () => import('~/Forms/Input' /* webpackChunkName: "chunk-form-input" */);
 const FormStep = () => import('~/Forms/Step' /* webpackChunkName: "chunk-form-step" */);
 const FormTextarea = () => import('~/Forms/Textarea' /* webpackChunkName: "chunk-form-textarea" */);
+const FormCheckbox = () => import('~/Forms/Checkbox' /* webpackChunkName: "chunk-form-checkbox" */);
 
 export default {
 
@@ -157,6 +180,7 @@ export default {
     'form-input': FormInput,
     'form-step': FormStep,
     'form-textarea': FormTextarea,
+    'form-checkbox': FormCheckbox,
     UploadImages,
   },
 
@@ -169,6 +193,10 @@ export default {
     },
     name: {
       type: String,
+      required: true,
+    },
+    isNationwide: {
+      type: Boolean,
       required: true,
     },
   },
@@ -189,6 +217,7 @@ export default {
       expense: '',
       comment: '',
       images: [],
+      branchName: null,
     },
 
     characterLimit: 1500,
@@ -240,6 +269,11 @@ export default {
     this.form.service = '';
     this.form.expense = '';
     this.form.comment = '';
+    this.form.branchName = null;
+
+    if ('admin_review' in this.form) {
+      delete this.form.admin_review;
+    }
 
     this.submitRating();
   },
@@ -248,6 +282,10 @@ export default {
     if (this.isLoggedIn()) {
       this.form.name = window.config.user.name;
       this.form.email = window.config.user.email;
+    }
+
+    if (this.isAdmin()) {
+      this.$set(this.form, 'admin_review', false);
     }
 
     this.formKeys.forEach((key) => {
@@ -269,16 +307,7 @@ export default {
         return;
       }
 
-      coeliac().request().post(`/api/wheretoeat/${this.id}/reviews`, {
-        rating: this.form.rating,
-        name: this.form.name !== '' ? this.form.name : null,
-        email: this.form.email !== '' ? this.form.email : null,
-        food: this.form.food !== '' ? this.form.food : null,
-        service: this.form.service !== '' ? this.form.service : null,
-        expense: this.form.expense !== '' ? parseInt(this.form.expense) : null,
-        comment: this.form.comment !== '' ? this.form.comment : null,
-        images: this.form.images,
-      }).then((response) => {
+      coeliac().request().post(`/api/wheretoeat/${this.id}/reviews`, this.formData()).then((response) => {
         if (response.status === 200) {
           this.submitted = true;
 
@@ -293,6 +322,26 @@ export default {
         .catch(() => {
           coeliac().error('Sorry, there was an error submitting your review, please try again.');
         });
+    },
+
+    formData() {
+      const data = {
+        rating: this.form.rating,
+        name: this.form.name !== '' ? this.form.name : null,
+        email: this.form.email !== '' ? this.form.email : null,
+        food: this.form.food !== '' ? this.form.food : null,
+        service: this.form.service !== '' ? this.form.service : null,
+        expense: this.form.expense !== '' ? parseInt(this.form.expense) : null,
+        comment: this.form.comment !== '' ? this.form.comment : null,
+        images: this.form.images,
+        branch_name: this.form.branchName,
+      };
+
+      if (this.isAdmin) {
+        data.admin_review = this.form.admin_review;
+      }
+
+      return data;
     },
 
     validateForm() {
@@ -321,6 +370,10 @@ export default {
           this.$root.$emit(`${field}-validate`);
         });
 
+        return false;
+      }
+
+      if (this.isNationwide && this.form.branchName === null) {
         return false;
       }
 

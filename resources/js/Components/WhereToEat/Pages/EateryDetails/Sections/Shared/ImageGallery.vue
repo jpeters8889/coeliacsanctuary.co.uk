@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="flex flex-wrap -m-2">
+    <div
+      class="flex flex-wrap"
+      :class="withMargin ? '' : '-m-2'"
+    >
       <div
         v-for="(image, index) in images"
         :key="image.id"
@@ -33,6 +36,8 @@
         <img
           :src="images[displayImage].path"
           alt=""
+          @touchstart="handleTouchStart($event)"
+          @touchend="handleTouchEnd($event)"
         >
       </modal>
     </portal>
@@ -46,6 +51,11 @@ export default {
   components: { Modal },
 
   props: {
+    withMargin: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     images: {
       type: Array,
       required: true,
@@ -65,6 +75,7 @@ export default {
   data: () => ({
     displayImage: false,
     viewAll: false,
+    touchStart: 0,
   }),
 
   mounted() {
@@ -100,6 +111,22 @@ export default {
       this.modalKeyEvents('removeEventListener');
     },
 
+    handleTouchStart(event) {
+      this.touchStart = event.changedTouches[0].screenX;
+    },
+
+    handleTouchEnd(event) {
+      const endPosition = event.changedTouches[0].screenX;
+
+      if (this.touchStart < endPosition) {
+        this.goToPreviousImage();
+      }
+
+      if (this.touchStart > endPosition) {
+        this.goToNextImage();
+      }
+    },
+
     handleKeyUpEvent(event) {
       switch (event.code) {
         case 'ArrowRight':
@@ -109,7 +136,7 @@ export default {
           this.goToPreviousImage();
           break;
         case 'Escape':
-          this.closeModal();
+          this.$root.$emit('close-modal');
           break;
         default:
           //
@@ -118,7 +145,6 @@ export default {
     },
 
     modalKeyEvents(event) {
-      console.log(event);
       window[event]('keyup', this.handleKeyUpEvent);
     },
   },

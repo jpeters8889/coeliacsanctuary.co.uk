@@ -135,7 +135,7 @@ export default {
         {
           id: 'address',
           label: 'Address',
-          shouldDisplay: true,
+          shouldDisplay: this.eatery.is_nationwide === false,
           getter: () => this.eatery.address.split('<br />').join(', '),
           isFormField: true,
           formField: {
@@ -174,7 +174,7 @@ export default {
         {
           id: 'phone',
           label: 'Phone Number',
-          shouldDisplay: true,
+          shouldDisplay: this.eatery.is_nationwide === false,
           getter: () => this.eatery.phone,
           isFormField: true,
           formField: {
@@ -216,7 +216,7 @@ export default {
         {
           id: 'opening_times',
           label: 'Opening Times',
-          shouldDisplay: this.eatery.type_id !== 3,
+          shouldDisplay: this.eatery.type_id !== 3 && this.eatery.is_nationwide === false,
           getter: () => {
             if (!this.eatery.opening_times) {
               return null;

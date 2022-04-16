@@ -60,6 +60,10 @@
           <div class="flex flex-col space-y-2">
             <p>{{ review.body }}</p>
 
+            <p v-if="review.branch_name">
+              Review from <strong>{{ review.branch_name }}</strong> branch.
+            </p>
+
             <image-gallery
               v-if="review.images"
               :images="review.images"
@@ -132,7 +136,7 @@ export default {
         rtr += '£';
       }
 
-      return `${rtr} - ${this.howExpensiveValues[this.review.how_expensive].label}`;
+      return `${rtr} - ${this.howExpensiveValues[this.review.how_expensive - 1].label}`;
     },
 
     ucfirst(str) {

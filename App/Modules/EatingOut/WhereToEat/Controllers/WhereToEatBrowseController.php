@@ -5,6 +5,7 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Common\Response\Page;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -46,7 +47,10 @@ class WhereToEatBrowseController extends BaseController
                     $request->get('lat')
                 ])
                 ->setColumns(['id', 'lat', 'lng', 'name'])
-                ->having('distance', '<=', $request->get('range'))
+                ->when(
+                    !app()->runningUnitTests(),
+                    fn (Builder $builder) => $builder->having('distance', '<=', $request->get('range'))
+                )
                 ->where('county_id', '!=', 1)
                 ->filter()
                 ->all(),

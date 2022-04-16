@@ -2,7 +2,7 @@
   <div class="flex flex-col space-y-3">
     <div class="page-box space-y-3">
       <h2 class="text-xl font-semibold">
-        Your Reviews ({{ reviews.length }})
+        Your Reviews ({{ reviews.length || 0 }})
       </h2>
 
       <p class="bg-blue bg-opacity-20 p-2 border border-blue text-sm rounded-lg">
@@ -16,6 +16,7 @@
       v-if="!hasBeenRated"
       :id="id"
       :name="name"
+      :is-nationwide="isNationwide"
     />
 
     <div
@@ -60,6 +61,10 @@ export default {
       required: true,
     },
     hasBeenRated: {
+      type: Boolean,
+      required: true,
+    },
+    isNationwide: {
       type: Boolean,
       required: true,
     },

@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property mixed $rating
  * @property int $wheretoeat_id
+ * @property bool $admin_review
  */
 class WhereToEatReview extends BaseModel
 {
@@ -27,6 +28,7 @@ class WhereToEatReview extends BaseModel
     protected $table = 'wheretoeat_reviews';
 
     protected $casts = [
+        'admin_review' => 'bool',
         'approved' => 'bool',
     ];
 

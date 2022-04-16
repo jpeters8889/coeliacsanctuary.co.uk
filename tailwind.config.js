@@ -133,7 +133,7 @@ module.exports = {
         72: '18rem',
       },
       zIndex: {
-        max: '999',
+        max: '99999999',
       },
     },
   },

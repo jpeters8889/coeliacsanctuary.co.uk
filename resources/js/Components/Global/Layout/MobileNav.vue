@@ -7,36 +7,38 @@
       <font-awesome-icon :icon="['fas', 'bars']" />
     </div>
 
-    <div
-      v-show="showNav"
-      class="h-screen bg-blue fixed overflow-scroll top-0 left-0 w-full h-full flex flex-col z-max js-mobile-nav"
+    <portal
+      v-if="showNav"
+      to="modal"
     >
-      <div
-        class="p-1 flex justify-end text-3xl p-2 js-mobile-nav-close-trigger"
-        @click="showNav = false"
-      >
-        <font-awesome-icon :icon="['fas', 'times']" />
+      <div class="h-screen bg-blue fixed overflow-scroll top-0 left-0 w-full h-full flex flex-col z-max js-mobile-nav text-white text-3xl">
+        <div
+          class="p-1 flex justify-end text-3xl p-2 js-mobile-nav-close-trigger"
+          @click="showNav = false"
+        >
+          <font-awesome-icon :icon="['fas', 'times']" />
+        </div>
+        <nav class="flex-1 flex items-center">
+          <ul class="flex flex-col w-full">
+            <li
+              v-for="(link, index) in links"
+              :key="index"
+              class="text-center p-1"
+            >
+              <a
+                v-if="link.link"
+                :href="link.link"
+              >{{ link.label }}</a>
+              <a
+                v-if="link.callback"
+                class="cursor-pointer"
+                @click="link.callback()"
+              >{{ link.label }}</a>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <nav class="flex-1 flex items-center">
-        <ul class="flex flex-col w-full">
-          <li
-            v-for="(link, index) in links"
-            :key="index"
-            class="text-center p-1"
-          >
-            <a
-              v-if="link.link"
-              :href="link.link"
-            >{{ link.label }}</a>
-            <a
-              v-if="link.callback"
-              class="cursor-pointer"
-              @click="link.callback()"
-            >{{ link.label }}</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    </portal>
 
     <portal
       v-if="showContact"

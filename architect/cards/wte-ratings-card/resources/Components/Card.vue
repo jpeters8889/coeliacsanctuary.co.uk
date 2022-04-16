@@ -11,12 +11,13 @@
               {{ data.eatery.full_name }}
             </h2>
           </div>
+
           <div class="mb-2">
             <div v-html="data.body" />
             <span class="font-semibold">{{ data.name }}</span>
           </div>
 
-          <div v-if="data.images">
+          <div v-if="data.images && data.images.length">
             <h2 class="text-lg font-semibold">
               Review Images
             </h2>
@@ -170,11 +171,25 @@ export default {
           title: 'Method',
           text: this.data.method,
         },
-      ];
+        this.data.how_expensive ? {
+          title: 'Expense Rating',
+          text: this.data.how_expensive,
+        } : null,
+        this.data.food_rating ? {
+          title: 'Food Rating',
+          text: this.data.food_rating,
+        } : null,
+        this.data.service_rating ? {
+          title: 'Service Rating',
+          text: this.data.service_rating,
+        } : null,
+      ].filter((item) => item !== null);
     },
   },
 
   mounted() {
+    console.log(this.information);
+
     Architect.$on('modal-close', (modal) => {
       switch (modal.id) {
         case 'delete':

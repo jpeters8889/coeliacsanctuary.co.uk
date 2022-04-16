@@ -6,6 +6,8 @@ namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
 use Coeliac\Common\Models\TemporaryFileUpload;
 use Coeliac\Modules\EatingOut\WhereToEat\Events\PrepareWhereToEatReviewImages;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -21,7 +23,7 @@ class WhereToEatingReviewsTest extends TestCase
     {
         parent::setUp();
 
-        Event::fake(PrepareWhereToEatReviewImages::class);
+        Event::fake([PrepareWhereToEatReviewImages::class]);
 
         $this->whereToEat = $this->create(WhereToEat::class);
     }
@@ -283,6 +285,141 @@ class WhereToEatingReviewsTest extends TestCase
         $upload = $this->create(TemporaryFileUpload::class);
 
         $this->makeRequest(['images' => [$upload->id]]);
+
+        Event::assertDispatched(PrepareWhereToEatReviewImages::class);
+    }
+
+    /** @test */
+    public function itErrorsIfSubmittingAsAnAdminReviewWhenNotLoggedIn(): void
+    {
+        $this->makeRequest(['admin_review' => true])->assertStatus(422);
+    }
+
+    /** @test */
+    public function itErrorsIfSubmittingAsAnAdminReviewWhenLoggedInAsANormalUser(): void
+    {
+        $this->actingAs($this->create(User::class))
+            ->makeRequest(['admin_review' => true])
+            ->assertStatus(422);
+    }
+
+    /** @test */
+    public function itAllowsSubmittingAsAnAdminReviewWhenLoggedInAsAdmin(): void
+    {
+        Event::fake(PrepareWhereToEatReviewImages::class);
+
+        $this->asAdmin()
+            ->makeRequest(['admin_review' => true])
+            ->assertOk();
+    }
+
+    /** @test */
+    public function itStoresAdminReviewAsFalseByDefault(): void
+    {
+        Event::fake(PrepareWhereToEatReviewImages::class);
+
+        $this->makeRequest()->assertOk();
+
+        $review = $this->whereToEat->refresh()->userReviews[0];
+
+        $this->assertFalse($review->admin_review);
+    }
+
+    /** @test */
+    public function itStoresTheAdminReviewAsFalseWhenSentAsFalseByAnAdmin(): void
+    {
+        Event::fake(PrepareWhereToEatReviewImages::class);
+
+        $this->asAdmin()->makeRequest(['admin_review' => false]);
+
+        $review = $this->whereToEat->refresh()->userReviews[0];
+
+        $this->assertFalse($review->admin_review);
+    }
+
+    /** @test */
+    public function itStoresTheAdminReviewAsTrueWhenSentAsTrueByAnAdmin(): void
+    {
+        Event::fake(PrepareWhereToEatReviewImages::class);
+
+        $this->asAdmin()->makeRequest(['admin_review' => true]);
+
+        $review = $this->whereToEat->refresh()->userReviews[0];
+
+        $this->assertTrue($review->admin_review);
+    }
+
+    /** @test */
+    public function itAutomaticallySetsTheReviewAsApprovedWhenSendingAsAnAdminReview(): void
+    {
+        Event::fake(PrepareWhereToEatReviewImages::class);
+
+        $this->asAdmin()->makeRequest(['admin_review' => true]);
+
+        $review = $this->whereToEat->refresh()->userReviews[0];
+
+        $this->assertTrue($review->approved);
+    }
+
+    /** @test */
+    public function itProcessesImagesWithAdminReviews(): void
+    {
+        Event::fake(PrepareWhereToEatReviewImages::class);
+
+        $upload = $this->create(TemporaryFileUpload::class);
+
+        $this->asAdmin()->makeRequest(['images' => [$upload->id], 'admin_review' => true]);
+
+        Event::assertDispatched(PrepareWhereToEatReviewImages::class);
+    }
+
+    /** @test */
+    public function itErrorsWhenSendingABranchNameOnNonNationwidePlaces(): void
+    {
+        $this->makeRequest(['branch_name' => 'foo'])->assertStatus(422);
+    }
+
+    /** @test */
+    public function itErrorsWithoutABranchNameOnNationwidePages(): void
+    {
+        WhereToEatCounty::query()->first()->update(['county' => 'Nationwide']);
+
+        $this->makeRequest(['branch_name' => null])->assertStatus(422);
+    }
+
+    /** @test */
+    public function itReturnsOkOnNationwidePagesWithABranchName(): void
+    {
+        Event::fake(PrepareWhereToEatReviewImages::class);
+
+        WhereToEatCounty::query()->first()->update(['county' => 'Nationwide']);
+
+        $this->makeRequest(['branch_name' => 'foo'])->assertOk();
+    }
+
+    /** @test */
+    public function itStoresTheBranchName(): void
+    {
+        WhereToEatCounty::query()->first()->update(['county' => 'Nationwide']);
+
+        $this->makeRequest(['branch_name' => 'Foo']);
+
+        $review = $this->whereToEat->refresh()->userReviews[0];
+
+        $this->assertNotNull($review->branch_name);
+        $this->assertEquals('Foo', $review->branch_name);
+    }
+
+    /** @test */
+    public function itSubmitsImages(): void
+    {
+        Event::fake(PrepareWhereToEatReviewImages::class);
+
+        WhereToEatCounty::query()->first()->update(['county' => 'Nationwide']);
+
+        $upload = $this->create(TemporaryFileUpload::class);
+
+        $this->asAdmin()->makeRequest(['images' => [$upload->id], 'branch_name' => 'foo']);
 
         Event::assertDispatched(PrepareWhereToEatReviewImages::class);
     }

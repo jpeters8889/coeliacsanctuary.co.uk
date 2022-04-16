@@ -23,10 +23,15 @@ class WhereToEatReviewFactory extends Factory
         ];
     }
 
+    public function approved()
+    {
+        return $this->state(fn (array $attributes) => ['approved' => true]);
+    }
+
     public function on(WhereToEat $eatery)
     {
         return $this->state(fn (array $attributes) => [
-           'wheretoeat_id' => $eatery->id,
+            'wheretoeat_id' => $eatery->id,
         ]);
     }
 }

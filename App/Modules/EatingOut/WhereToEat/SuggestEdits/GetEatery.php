@@ -38,6 +38,7 @@ class GetEatery
             'cuisine' => $this->getCuisine(),
             'opening_times' => $this->getOpeningTimes(),
             'features' => $this->getFeatures(),
+            'is_nationwide' => $this->eatery->county_id === 1,
         ];
     }
 
