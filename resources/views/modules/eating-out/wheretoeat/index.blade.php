@@ -47,7 +47,11 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-3">
                 @foreach($topPlaces as $topPlace)
                     <div class="bg-gradient-to-br from-blue/50 to-blue-light/50 rounded p-2 space-y-2 shadow flex flex-col">
-                        <h3 class="text-xl font-semibold">{{ $topPlace->name }}</h3>
+                        <h3 class="text-xl font-semibold">
+                            <a href="{{ $topPlace->link() }}">
+                                {{ $topPlace->name }}
+                            </a>
+                        </h3>
                         <div class="font-semibold text-grey flex justify-between">
                             <div class="text-sm">
                                 <a class="hover:underline"
@@ -61,7 +65,7 @@
                             <div class="flex flex-col justify-end text-sm">
                                 <global-ui-stars stars="{{ $topPlace->average_rating }}"
                                                  align="end"></global-ui-stars>
-                                <span>from {{ $topPlace->ratings->count() }} votes</span>
+                                <span>from {{ $topPlace->userReviews->count() }} votes</span>
                             </div>
                         </div>
 

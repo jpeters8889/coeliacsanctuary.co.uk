@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat;
 
+use Closure;
 use RuntimeException;
 use Illuminate\Http\Request;
 use Spatie\Geocoder\Geocoder;
@@ -81,9 +82,11 @@ class Repository extends AbstractRepository
 
             $results = $results->reject(fn (WhereToEat $whereToEat) => $whereToEat->county_id === 1)
                 ->each(function ($result) {
-                    $this->appends[$result->id] = [
-                        'distance' => round($result->scoutMetadata()['_rankingInfo']['geoDistance'] / 1609, 1),
-                    ];
+                    if (isset($result->scoutMetadata()['_rankingInfo']['geoDistance'])) {
+                        $this->appends[$result->id] = [
+                            'distance' => round($result->scoutMetadata()['_rankingInfo']['geoDistance'] / 1609, 1),
+                        ];
+                    }
                 });
 
             $this->appends['latlng'] = $latlng;

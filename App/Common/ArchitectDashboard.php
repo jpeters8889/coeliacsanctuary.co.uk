@@ -12,7 +12,7 @@ use JPeters\Architect\Dashboards\Cards\Card;
 use JPeters\Architect\Dashboards\Cards\Chart;
 use JPeters\Architect\Dashboards\AbstractDashboard;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\PlaceRequest;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRating;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 
 class ArchitectDashboard extends AbstractDashboard
 {
@@ -41,7 +41,7 @@ class ArchitectDashboard extends AbstractDashboard
             Card::generate('New Ratings')
                 ->setWidth('third')
                 ->setContent(static function () {
-                    $count = WhereToEatRating::query()->where('approved', 0)->count();
+                    $count = WhereToEatReview::query()->where('approved', 0)->count();
                     $class = $count > 0 ? 'text-red-500' : '';
 
                     return "<span class='text-lg {$class}'>{$count}</span>";
@@ -102,7 +102,7 @@ class ArchitectDashboard extends AbstractDashboard
         $counts = [];
 
         foreach ($days as $day) {
-            $counts[] = WhereToEatRating::query()
+            $counts[] = WhereToEatReview::query()
                 ->whereDate('created_at', '>=', $day->startOfDay())
                 ->whereDate('created_at', '<=', $day->endOfDay())
                 ->count();

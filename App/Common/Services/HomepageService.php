@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Common\Services;
 
 use Carbon\Carbon;
+use Coeliac\Modules\EatingOut\WhereToEat\Support\LatestPlaces;
+use Coeliac\Modules\EatingOut\WhereToEat\Support\LatestRatings;
 use Illuminate\Support\Collection;
 use Illuminate\Container\Container;
 use Coeliac\Modules\Shop\ProductRepository;
@@ -44,11 +46,21 @@ class HomepageService
         );
     }
 
-    public function reviews(): EloquentCollection
+    public function ratings(): EloquentCollection
     {
-        return $this->cacheRepository->rememberForever(
-            $this->configRepository->get('coeliac.cache.reviews.homepage_count'),
-            fn () => Container::getInstance()->make(ReviewRepository::class)->take(2)
+        return $this->cacheRepository->remember(
+            'homepage_latest_wte_latest_places',
+            Carbon::now()->addHour(),
+            fn () => Container::getInstance()->make(LatestRatings::class)->list(),
+        );
+    }
+
+    public function latestPlaces(): EloquentCollection
+    {
+        return $this->cacheRepository->remember(
+            'homepage_latest_wte_ratings',
+            Carbon::now()->addHour(),
+            fn () => Container::getInstance()->make(LatestPlaces::class)->list(),
         );
     }
 
@@ -61,7 +73,6 @@ class HomepageService
                 'product_count' => Container::getInstance()->make(ProductRepository::class)->count(),
                 'blog_count' => Container::getInstance()->make(BlogRepository::class)->count(),
                 'recipe_count' => Container::getInstance()->make(RecipeRepository::class)->count(),
-                'review_count' => Container::getInstance()->make(ReviewRepository::class)->count(),
                 'wte_count' => Container::getInstance()->make(WteRepository::class)->count(),
             ])
         );

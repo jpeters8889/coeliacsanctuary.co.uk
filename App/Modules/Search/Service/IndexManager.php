@@ -9,7 +9,6 @@ use Coeliac\Modules\Search\Indices\Blog;
 use Coeliac\Modules\Search\Indices\Index;
 use Coeliac\Modules\Search\Indices\Eatery;
 use Coeliac\Modules\Search\Indices\Recipe;
-use Coeliac\Modules\Search\Indices\Review;
 use Coeliac\Modules\Search\Indices\Product;
 
 class IndexManager
@@ -29,7 +28,6 @@ class IndexManager
         $this->indices = [
             'blogs' => Blog::class,
             'recipes' => Recipe::class,
-            'reviews' => Review::class,
             'eateries' => Eatery::class,
             'products' => Product::class,
         ];

@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 
 /**
  * @property mixed $link
+ * @property mixed $absolute_link
  */
 trait Linkable
 {
@@ -19,6 +20,11 @@ trait Linkable
     public function getLinkAttribute(): string
     {
         return '/' . $this->linkRoot() . '/' . $this->linkColumn();
+    }
+
+    public function getAbsoluteLinkAttribute(): string
+    {
+        return config('app.url') . $this->link;
     }
 
     protected function linkRoot(): string

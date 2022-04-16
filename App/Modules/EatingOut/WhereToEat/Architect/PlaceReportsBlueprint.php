@@ -26,6 +26,11 @@ class PlaceReportsBlueprint extends Blueprint
         return WhereToEatPlaceReport::class;
     }
 
+    public function blueprintRoute(): string
+    {
+        return 'place-reports';
+    }
+
     public function plans(): array
     {
         return [];
@@ -33,7 +38,7 @@ class PlaceReportsBlueprint extends Blueprint
 
     public function blueprintSite(): string
     {
-        return 'Approvals';
+        return 'Where to Eat';
     }
 
     public function card(): ?string
@@ -43,7 +48,7 @@ class PlaceReportsBlueprint extends Blueprint
 
     public function blueprintName(): string
     {
-        return 'Place Reports';
+        return 'Reports';
     }
 
     public function displayCount(): int

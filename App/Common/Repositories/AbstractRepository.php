@@ -6,6 +6,7 @@ namespace Coeliac\Common\Repositories;
 
 use Closure;
 use Coeliac\Base\Models\BaseModel;
+use Coeliac\Modules\EatingOut\WhereToEat\Repository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -28,6 +29,7 @@ abstract class AbstractRepository
     protected array $havings = [];
 
     protected array $wheres = [];
+    protected array $whens = [];
 
     abstract protected function model(): string;
 
@@ -36,6 +38,18 @@ abstract class AbstractRepository
         return $this->query()
             ->where($column, $id)
             ->first($this->getColumns());
+    }
+
+    public function getOrFail(mixed $id, string $column = 'id'): ?BaseModel
+    {
+        return $this->query()
+            ->where($column, $id)
+            ->firstOrFail($this->getColumns());
+    }
+
+    public function firstOrFail()
+    {
+        return $this->query()->firstOrFail();
     }
 
     public function fromIds(array $ids, $column = 'id')
@@ -119,8 +133,14 @@ abstract class AbstractRepository
         );
 
         if ($this->shouldSearch() && $searchIds = $this->performSearch($model)) {
+            $order = 'field(id, ' . implode(',', $searchIds) . ')';
+
+            if (app()->runningUnitTests()) {
+                $order = 'id';
+            }
+
             $builder->whereIn('id', $searchIds)
-                ->orderByRaw('field(id, ' . implode(',', $searchIds) . ')');
+                ->orderByRaw($order);
         } elseif (!$this->isRaw && !$this->random) {
             $this->order($builder);
         }
@@ -139,6 +159,10 @@ abstract class AbstractRepository
 
         foreach ($this->wheres as $where) {
             $builder->where(...$where);
+        }
+
+        foreach ($this->whens as $when) {
+            $builder->when($when[0], $when[1]);
         }
 
         foreach ($this->havings as $having) {
@@ -204,6 +228,13 @@ abstract class AbstractRepository
     public function setWithCounts(array $withCounts = []): static
     {
         $this->withCounts = $withCounts;
+
+        return $this;
+    }
+
+    public function when(bool $condition, Closure $action): static
+    {
+        $this->whens[] = [$condition, $action];
 
         return $this;
     }

@@ -19,8 +19,8 @@
         <select
           v-model="currentValue"
           :name="name"
-          class="w-full bg-transparent border-0 m-0 text-grey-darkest"
-          :class="padding"
+          :class="classes()"
+          :disabled="disabled"
           @blur="validate()"
         >
           <option
@@ -69,6 +69,20 @@ export default {
     emptyOption: {
       type: Boolean,
       default: false,
+    },
+  },
+
+  methods: {
+    classes() {
+      const classes = IsFormField.methods.classes.call(this);
+
+      classes.push('disabled:text-grey');
+
+      if (!this.small) {
+        classes.push(this.padding);
+      }
+
+      return classes;
     },
   },
 };

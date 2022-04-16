@@ -65,7 +65,9 @@
         :variant-id="parseInt(formData.variant)"
         :quantity="parseInt(formData.quantity)"
       >
-        <button class="w-full p-2 bg-blue-light bg-opacity-80 border-blue text-center rounded mt-4 font-semibold">
+        <button
+          class="w-full p-2 bg-blue-light bg-opacity-80 border-blue text-center rounded mt-4 font-semibold"
+        >
           Add to Basket
         </button>
       </shop-basket-ui-add-product>
@@ -122,7 +124,7 @@ export default {
       this.data.variants.forEach((variant) => {
         rtr.push({
           value: variant.id,
-          label: variant.title,
+          label: variant.quantity > 0 ? variant.title : `${variant.title} (Out of stock)`,
         });
       });
 
@@ -177,8 +179,15 @@ export default {
       coeliac().request().get(`/api/shop/product/${this.productId}`)
         .then((response) => {
           this.data = response.data.data;
-          this.formData.variant = this.data.variants[0].id;
-          this.availableQuantity = this.data.variants[0].quantity;
+
+          let variantIndex = 0;
+
+          if (this.data.variants[0].quantity === 0) {
+            variantIndex = 1;
+          }
+
+          this.formData.variant = this.data.variants[variantIndex].id;
+          this.availableQuantity = this.data.variants[variantIndex].quantity;
 
           this.watchers = { ...this.formData };
         })

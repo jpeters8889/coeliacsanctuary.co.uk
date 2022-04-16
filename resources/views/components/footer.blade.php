@@ -32,9 +32,6 @@
                         <a class="hover:font-medium" href="/wheretoeat">Places to Eat</a>
                     </li>
                     <li class="w-1/2">
-                        <a class="hover:font-medium" href="/review">Reviews</a>
-                    </li>
-                    <li class="w-1/2">
                         <a class="hover:font-medium" href="/recipe">Recipes</a>
                     </li>
                     <li class="w-1/2">

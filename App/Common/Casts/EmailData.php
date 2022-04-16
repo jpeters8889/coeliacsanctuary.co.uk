@@ -10,7 +10,7 @@ use Coeliac\Common\Models\CommentReply;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRating;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 use Illuminate\Support\Collection;
 
 class EmailData implements CastsAttributes
@@ -43,7 +43,7 @@ class EmailData implements CastsAttributes
         }
 
         if (isset($data['rating'])) {
-            $data['rating'] = WhereToEatRating::query()->find($data['rating']['id']);
+            $data['rating'] = WhereToEatReview::query()->find($data['rating']['id']);
         }
 
         if (isset($data['order'])) {

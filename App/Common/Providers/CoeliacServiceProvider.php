@@ -35,7 +35,7 @@ class CoeliacServiceProvider extends ServiceProvider
 
         $this->bootstrapModules();
 
-        Collection::macro('ray', fn() => $this);
+        Collection::macro('ray', fn () => $this);
     }
 
     private function bootstrapModules(): void

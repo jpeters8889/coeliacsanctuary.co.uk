@@ -99,6 +99,8 @@ export default {
   },
 
   data: () => ({
+    timeout: null,
+
     formData: {
       name: '',
       email: '',

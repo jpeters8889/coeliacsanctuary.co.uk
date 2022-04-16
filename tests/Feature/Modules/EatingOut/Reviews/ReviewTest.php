@@ -23,7 +23,8 @@ class ReviewTest extends TestCase
     /** @test */
     public function itLoadsTheReviewIndexPage()
     {
-        $this->get('/review')
+        $this->asAdmin()
+            ->get('/review')
             ->assertStatus(200)
             ->assertSee('<module-list-index module="reviews" title="Reviews" url-prefix="review"', false);
     }
@@ -76,9 +77,6 @@ class ReviewTest extends TestCase
     /** @test */
     public function itOnlyShowsMatchingReviewsWhenFilteredByTags()
     {
-//        $this->createReview(['title' => 'visible-review-title'], ['county_id' => $county->id]);
-//        $this->createReview(['title' => 'hidden-review-title'], ['county_id' => $hiddenCounty->id]);
-
         $this->build(Review::class)
             ->count(2)
             ->state(new Sequence(
@@ -127,7 +125,8 @@ class ReviewTest extends TestCase
             ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_HEADER)
             ->associateImage($this->makeImage(), Image::IMAGE_CATEGORY_SOCIAL);
 
-        $this->get('/review/' . $review->slug)
+        $this->asAdmin()
+            ->get('/review/' . $review->slug)
             ->assertStatus(200)
             ->assertSee($review->title, false)
             ->assertSee($review->body, false)

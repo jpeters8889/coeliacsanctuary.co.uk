@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatBrowseController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatDetailsController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatNationwideController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatRecommendAPlaceController;
 use Coeliac\Modules\EatingOut\WhereToEat\Middleware\BindCounty;
@@ -24,6 +25,7 @@ if (!isset($router)) {
 $router->group(['prefix' => '/wheretoeat'], function () use ($router) {
     $router->get('/', [WhereToEatController::class, 'index']);
     $router->get('/nationwide', [WhereToEatNationwideController::class, 'get']);
+    $router->get('/nationwide/{slug}', WhereToEatDetailsController::class);
     $router->get('/browse', [WhereToEatBrowseController::class, 'index']);
     $router->get('/browse/{any}', [WhereToEatBrowseController::class, 'index'])->where('any', '.*');
 
@@ -40,5 +42,6 @@ $router->group(['prefix' => '/wheretoeat'], function () use ($router) {
     $router->group(['middleware' => BindCounty::class], function () use ($router) {
         $router->get('/{county}', [WhereToEatCountyController::class, 'list']);
         $router->get('/{county}/{town}', [WhereToEatTownController::class, 'list']);
+        $router->get('/{county}/{town}/{slug}', WhereToEatDetailsController::class);
     });
 });

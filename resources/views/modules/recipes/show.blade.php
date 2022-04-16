@@ -71,7 +71,7 @@
             </div>
         @endif
 
-        <global-ui-google-ad code="2137793897"></global-ui-google-ad>
+{{--        <global-ui-google-ad code="2137793897"></global-ui-google-ad>--}}
 
         <div class="page-box p-3 shadow flex flex-col space-y-3 pb-0">
             <h2 class="font-semibold text-lg text-blue-dark">Ingredients</h2>
@@ -128,7 +128,7 @@
 
         <modules-comment-form area="recipe" :id="{{ $recipe->id }}"></modules-comment-form>
 
-        <global-ui-google-ad code="7206823714"></global-ui-google-ad>
+{{--        <global-ui-google-ad code="7206823714"></global-ui-google-ad>--}}
 
     </div>
 @endsection

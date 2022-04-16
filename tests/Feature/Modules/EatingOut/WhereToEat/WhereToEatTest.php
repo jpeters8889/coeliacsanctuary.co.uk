@@ -30,25 +30,11 @@ class WhereToEatTest extends TestCase
             ->count(3)
             ->create();
 
-        $this->build(Review::class)
-            ->at($first)
-            ->create([
-                'title' => 'First Review',
-            ]);
-
-        $this->build(Review::class)
-            ->at($third)
-            ->create([
-                'title' => 'Second Review',
-            ]);
-
         $this->get('/wheretoeat/' . $this->wheretoeat->county->slug)
             ->assertSee($this->wheretoeat->town->town, false)
             ->assertSee($first->town->town, false)
             ->assertSee($second->town->town, false)
-            ->assertSee($third->town->town, false)
-            ->assertSee('First Review', false)
-            ->assertSee('Second Review', false);
+            ->assertSee($third->town->town, false);
     }
 
     /** @test */
@@ -124,7 +110,7 @@ class WhereToEatTest extends TestCase
         $this->assertArrayHasKey('features', $data);
         $this->assertArrayHasKey('restaurants', $data);
         $this->assertArrayHasKey('reviews', $data);
-        $this->assertArrayHasKey('ratings', $data);
+        $this->assertArrayHasKey('user_reviews', $data);
 
         $this->assertEquals([
             'id' => $this->wheretoeat->country->id,

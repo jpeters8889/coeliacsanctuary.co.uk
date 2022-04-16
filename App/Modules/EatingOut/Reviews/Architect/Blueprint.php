@@ -25,6 +25,11 @@ class Blueprint extends ArchitectBlueprint
         return Review::class;
     }
 
+    public function blueprintName(): string
+    {
+        return 'Reviews (Old)';
+    }
+
     public function getData(): Builder
     {
         return parent::getData()->addSelect('title', 'slug', 'id', 'wheretoeat_id', 'live', 'meta_description', 'created_at')
@@ -41,7 +46,7 @@ class Blueprint extends ArchitectBlueprint
                 ->isInRelationship('id')
                 ->lookupAction(static function ($value) {
                     return WhereToEat::query()
-                        ->where('name', 'LIKE', '%'.$value.'%')
+                        ->where('name', 'LIKE', '%' . $value . '%')
                         ->first(['id', 'name', 'town_id', 'county_id', 'country_id'])
                         ->take(10)
                         ->get()

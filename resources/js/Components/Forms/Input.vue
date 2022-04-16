@@ -78,18 +78,6 @@ export default {
       this.$root.$emit(`${this.name}-focus`);
     },
 
-    classes() {
-      const base = ['w-full', 'bg-transparent', 'border-0', 'm-0', 'text-grey-darkest'];
-
-      if (this.disabled) {
-        base.push('text-grey-light', 'cursor:not-allowed');
-      }
-
-      base.push(this.small ? 'p-1 text-sm' : 'p-3 text-base');
-
-      return base;
-    },
-
     handleEnter() {
       if (!this.onEnter) {
         return;

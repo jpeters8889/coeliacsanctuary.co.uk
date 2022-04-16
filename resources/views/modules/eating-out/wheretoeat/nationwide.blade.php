@@ -26,11 +26,13 @@
                     let us know.
                 </p>
 
-                <p>
-                    Know somewhere that offers gluten free for us to add or does somewhere need removing off our
-                    list? <a class="font-semibold hover:text-grey transition-all"
-                             href="/wheretoeat/place-request">Let us know!</a>
-                </p>
+                <a href="/wheretoeat/recommend-a-place"
+                   class="bg-blue-light bg-opacity-50 hover:bg-opacity-30 transition rounded-lg p-2 border border-blue group">
+                    Do you know somewhere that offers gluten free that we should add to our guide?
+                    <span class="font-semibold group-hover:text-blue-dark transition-all" href="/wheretoeat/recommend-a-place">
+                        Let us know!
+                    </span>
+                </a>
             </div>
         </div>
 

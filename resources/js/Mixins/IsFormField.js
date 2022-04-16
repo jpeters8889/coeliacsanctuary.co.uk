@@ -29,7 +29,7 @@ export default {
       required: true,
     },
     value: {
-      type: String,
+      type: [String, Number],
       default: '',
     },
     placeholder: {
@@ -162,6 +162,18 @@ export default {
     pushError() {
       this.hasError = true;
       this.$root.$emit(`${this.name}-error`, this.errorText);
+    },
+
+    classes() {
+      const base = ['w-full', 'bg-transparent', 'border-0', 'm-0', 'text-grey-darkest'];
+
+      if (this.disabled) {
+        base.push('text-grey-light', 'cursor:not-allowed');
+      }
+
+      base.push(this.small ? 'p-1 text-sm' : 'p-3 text-base');
+
+      return base;
     },
   },
 

@@ -77,7 +77,7 @@ export default {
     },
 
     backgroundUrl() {
-      return `https://maps.googleapis.com/maps/api/staticmap?center${this.lat},${this.lng}&size=600x1500&maptype=roadmap&markers=color:green%7Clabel:%7C${this.lat},${this.lng}&key=${window.config.googleMaps.static}`;
+      return `https://maps.googleapis.com/maps/api/staticmap?center${this.lat},${this.lng}&size=600x600&maptype=roadmap&markers=color:green%7Clabel:%7C${this.lat},${this.lng}&key=${window.config.googleMaps.static}`;
     },
   },
 };

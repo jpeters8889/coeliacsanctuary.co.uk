@@ -17,10 +17,24 @@ class ReviewController extends BaseController
 {
     public function __construct(private Page $page, private Repository $repository)
     {
+        //
+    }
+
+    protected function verifyAccess(string $redirect)
+    {
+        if (auth()->guest()) {
+            return redirect_now($redirect);
+        }
+
+        if (!in_array(auth()->user()->email, ['jamie@jamie-peters.co.uk', 'contact@coeliacsanctuary.co.uk'])) {
+            return redirect_now($redirect);
+        }
     }
 
     public function index(): Response
     {
+        $this->verifyAccess('/eating-out');
+
         return $this->page
             ->breadcrumbs([
                 [
@@ -60,6 +74,8 @@ class ReviewController extends BaseController
         /* @var Review $review */
         abort_if(!$review = $request->resolveItem(), 404, 'Sorry, this review can\'t be found');
 
+        $this->verifyAccess($review->eatery->link());
+
         $featured = null;
 
         if ($review->associatedCollections()->count() > 0) {
@@ -82,9 +98,9 @@ class ReviewController extends BaseController
                 ],
             ], $review->title)
             ->scrapable('review', $review->id)
-            ->setPageTitle($review->title.' | Reviews')
+            ->setPageTitle($review->title . ' | Reviews')
             ->setMetaDescription($review->meta_description)
-            ->setMetaKeywords(explode(',', (string) $review->meta_keywords))
+            ->setMetaKeywords(explode(',', (string)$review->meta_keywords))
             ->setSocialImage($review->social_image)
             ->render('modules.reviews.show', compact('review', 'featured'));
     }
