@@ -5,7 +5,7 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Common\Response\Page;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
