@@ -59,7 +59,7 @@ class Eatery extends Index
             'town' => $result->town->town,
             'county' => $result->county->county,
             'country' => $result->country->country,
-            'link' => '/wheretoeat/' . $result->county->slug . '/' . $result->town->slug,
+//            'link' => '/wheretoeat/' . $result->county->slug . '/' . $result->town->slug,
             'title' => $result->name,
             'description' => $result->info,
         ];
