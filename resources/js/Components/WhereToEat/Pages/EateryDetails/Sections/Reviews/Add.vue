@@ -110,8 +110,8 @@
             name="comment"
             :value="form.comment"
             :rows="5"
-            :max="1500"
             label="Your Comment"
+            v-bind="isAdmin() ? {} : {max:1500}"
           />
           <span
             class="text-xs text-right"
