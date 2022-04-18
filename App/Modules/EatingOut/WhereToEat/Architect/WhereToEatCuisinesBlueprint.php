@@ -23,7 +23,6 @@ class WhereToEatCuisinesBlueprint extends Blueprint
             Textfield::generate('cuisine'),
 
             Label::generate('eateries_count')
-                ->isFromDatabase()
                 ->hideOnForms(),
         ];
     }

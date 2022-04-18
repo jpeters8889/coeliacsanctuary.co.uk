@@ -181,7 +181,7 @@
             >
               <a
                 class="p-5"
-                href="/wheretoeat/natiownide"
+                href="/wheretoeat/nationwide"
                 target="_blank"
               >
                 Did you know, there might be more places to eat in {{ places[0].town.town }} listed in
