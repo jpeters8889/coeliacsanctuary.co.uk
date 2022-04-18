@@ -63,10 +63,10 @@ class WhereToEatReviewImageUploadTest extends TestCase
     }
 
     /** @test */
-    public function itErrorsIfTheImagesAreGreaterThan2mbInSize(): void
+    public function itErrorsIfTheImagesAreGreaterThan5mbInSize(): void
     {
         $this->makeRequest([
-            UploadedFile::fake()->create('foo.jpg', 2049)
+            UploadedFile::fake()->create('foo.jpg', 5121)
         ])->assertStatus(422);
     }
 

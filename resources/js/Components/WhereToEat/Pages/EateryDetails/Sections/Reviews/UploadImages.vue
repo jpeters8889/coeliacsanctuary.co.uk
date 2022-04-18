@@ -66,7 +66,7 @@
         </li>
       </ul>
 
-      <small class="text-xs leading-none text-grey-off-dark">Maximum file size: 2mb</small>
+      <small class="text-xs leading-none text-grey-off-dark">Maximum file size: 5mb</small>
     </div>
   </div>
 </template>
@@ -162,7 +162,7 @@ export default {
         return false;
       }
 
-      if (image.size >= 2048000) {
+      if (image.size >= 5120000) {
         return false;
       }
 
