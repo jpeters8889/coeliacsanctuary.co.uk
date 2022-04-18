@@ -4,8 +4,6 @@
       Our Review
     </h3>
 
-    <p>Here's what we thought when we visited <strong>{{ eatery.name }}</strong> on {{ formatDate(review.created_at) }}</p>
-
     <div class="flex flex-col space-y-2">
       <ul
         v-if="hasRatings"
@@ -23,7 +21,14 @@
         </li>
       </ul>
 
-      <p v-html="review.body.replaceAll('\n', '<br />')" />
+      <p v-html="reviewBody()" />
+
+      <template v-if="reviewLength > 500 && !displayFullReview">
+        <a
+          class="text-lg text-blue-dark hover:underline font-semibold cursor-pointer"
+          @click.prevent="displayFullReview = true"
+        >Read our full review!</a>
+      </template>
 
       <div
         v-if="review.images"
@@ -64,6 +69,10 @@ export default {
     },
   },
 
+  data: () => ({
+    displayFullReview: false,
+  }),
+
   computed: {
     hasRatings() {
       if (this.review.how_expensive) {
@@ -80,6 +89,10 @@ export default {
 
       return false;
     },
+
+    reviewLength() {
+      return this.review.body.length;
+    },
   },
 
   methods: {
@@ -95,6 +108,16 @@ export default {
 
     ucfirst(str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
+    },
+
+    reviewBody() {
+      let { body } = this.review;
+
+      if (this.reviewLength > 500 && !this.displayFullReview) {
+        body = `${body.substring(0, body.indexOf(' ', 500))}...`;
+      }
+
+      return body.replaceAll('\n', '<br />');
     },
   },
 };
