@@ -84,6 +84,6 @@ class WhereToEatReview extends BaseModel
 
     protected function cacheKey(): string
     {
-        return 'homepage_stats';
+        return 'wheretoeat_reviews';
     }
 }
