@@ -50,7 +50,7 @@ class HomepageService
     public function ratings(): EloquentCollection
     {
         return $this->cacheRepository->remember(
-            'homepage_latest_wte_latest_places',
+            'homepage_latest_wte_ratings',
             Carbon::now()->addHour(),
             fn () => Container::getInstance()->make(LatestRatings::class)->list(),
         );
@@ -59,7 +59,7 @@ class HomepageService
     public function latestPlaces(): EloquentCollection
     {
         return $this->cacheRepository->remember(
-            'homepage_latest_wte_ratings',
+            'homepage_latest_wte_latest_places',
             Carbon::now()->addHour(),
             fn () => Container::getInstance()->make(LatestPlaces::class)->list(),
         );
