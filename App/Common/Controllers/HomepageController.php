@@ -45,6 +45,12 @@ class HomepageController extends BaseController
                         'link' => '/wheretoeat',
                         'count' => $stats->get('wte_count'),
                     ],
+                    [
+                        'icon' => "['fas', 'utensils']",
+                        'label' => 'Ratings and Reviews',
+                        'link' => '/wheretoeat',
+                        'count' => $stats->get('wte_reviews_count'),
+                    ],
                 ],
             ]);
     }

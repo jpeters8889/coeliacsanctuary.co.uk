@@ -22,6 +22,10 @@ trait ClearsCache
 
             $keys = $configRepository->get("coeliac.cache.{$model->cacheKey()}");
 
+            if(!is_array($keys)) {
+                $keys = [$keys];
+            }
+
             foreach ($keys as $key) {
                 $cacheRepository->delete($key);
             }
