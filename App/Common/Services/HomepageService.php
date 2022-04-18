@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Common\Services;
 
 use Carbon\Carbon;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 use Coeliac\Modules\EatingOut\WhereToEat\Support\LatestPlaces;
 use Coeliac\Modules\EatingOut\WhereToEat\Support\LatestRatings;
 use Illuminate\Support\Collection;
@@ -74,6 +75,7 @@ class HomepageService
                 'blog_count' => Container::getInstance()->make(BlogRepository::class)->count(),
                 'recipe_count' => Container::getInstance()->make(RecipeRepository::class)->count(),
                 'wte_count' => Container::getInstance()->make(WteRepository::class)->count(),
+                'wte_reviews_count' => WhereToEatReview::query()->where('approved', 1)->count(),
             ])
         );
     }

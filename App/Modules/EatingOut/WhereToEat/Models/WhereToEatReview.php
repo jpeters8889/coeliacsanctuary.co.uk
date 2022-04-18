@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
 use Coeliac\Base\Models\BaseModel;
+use Coeliac\Common\Traits\ClearsCache;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -17,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class WhereToEatReview extends BaseModel
 {
+    use ClearsCache;
+
     public const HOW_EXPENSIVE_LABELS = [
         1 => 'Cheap Eats',
         2 => 'Great Value',
@@ -77,5 +80,10 @@ class WhereToEatReview extends BaseModel
     public function images(): HasMany
     {
         return $this->hasMany(WhereToEatReviewImage::class, 'wheretoeat_review_id', 'id');
+    }
+
+    protected function cacheKey(): string
+    {
+        return 'homepage_stats';
     }
 }
