@@ -62,6 +62,11 @@ return [
             'counties' => 'wheretoeat.counties',
             'towns' => 'wheretoeat.towns',
             'homepage_stats' => 'homepage_stats',
+            'homepage_latest_wte_ratings' => 'homepage_latest_wte_ratings',
+        ],
+        'wheretoeat_reviews' => [
+            'homepage_stats' => 'homepage_stats',
+            'homepage_latest_wte_ratings' => 'homepage_latest_wte_ratings',
         ],
         'homepage_stats' => 'homepage_stats',
         'featured_images' => [
