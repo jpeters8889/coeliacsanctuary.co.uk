@@ -29,7 +29,7 @@
       >
         <button
           class="bg-blue rounded p-3 border border-blue hover:bg-opacity-50 transition-all font-semibold"
-          @click.prevent="submitRating()"
+          @click.prevent="submitRating(true)"
         >
           No, just save my rating
         </button>
@@ -303,9 +303,14 @@ export default {
   },
 
   methods: {
-    submitRating() {
+    submitRating(short = false) {
       if (this.submitted) {
         return;
+      }
+
+      if (short && this.isLoggedIn()) {
+        this.form.name = '';
+        this.form.email = '';
       }
 
       if (!this.validateForm()) {
