@@ -22,7 +22,7 @@ trait ClearsCache
 
             $keys = $configRepository->get("coeliac.cache.{$model->cacheKey()}");
 
-            if(!is_array($keys)) {
+            if (!is_array($keys)) {
                 $keys = [$keys];
             }
 
