@@ -1,41 +1,43 @@
 <template>
-  <div class="hidden xxs:block">
+  <div>
     <div
       id="breadcrumb"
       class="my-2 border-grey-off border bg-grey-off-light p-2 leading-none z-10"
-      :class="sticky ? 'fixed top-50px slide-down w-full mt-1' : ''"
+      :class="sticky ? 'fixed top-[45px] slide-down w-full mt-1' : ''"
     >
       <div
         class="leading-none inner-wrapper flex flex-col md:flex-row md:items-center"
         :style="sticky ? 'max-width: 1500px;' : ''"
       >
         <div
-          class="flex-1 flex-col flex justify-center flex-wrap mb-2 md:flex-no-wrap md:flex-row md:items-center md:justify-start md:m-0 md:pr-3"
+          class="flex-wrap flex-1 flex my-1 items-center justify-center space-x-1 leading-relaxed md:justify-start"
         >
-          <div class="font-extralight text-center md:pr-1">
-            You're here:
-          </div>
-          <div class="flex my-1 justify-center">
-            <div
-              v-for="(crumb, index) in crumbs"
-              :key="index"
-              class="text-grey-dark font-medium flex justify-start items-center p-1 md:w-auto"
+          <div
+            v-for="(crumb, index) in crumbs"
+            :key="index"
+            class="text-grey-dark font-semibold flex space-x-1 justify-start items-center"
+          >
+            <a
+              :href="crumb.link"
+              class="hover:underline flex-shrink-0"
             >
-              <a
-                :href="crumb.link"
-                class="flex-1 hover:underline"
-              >{{ crumb.title }}</a>
-              <font-awesome-icon
-                class="text-left pl-1"
-                :icon="['fas', 'angle-double-right']"
-              />
-            </div>
+              {{ crumb.title }}
+            </a>
+            <font-awesome-icon
+              :class="index === crumbs.length - 1 ? 'hidden xs:block' : ''"
+              class="text-left"
+              :icon="['fas', 'angle-double-right']"
+            />
           </div>
-          <div class="font-medium text-center">
+          <div
+            :class="'hidden xs:block'"
+            class="font-medium"
+          >
             {{ location }}
           </div>
         </div>
 
+        <!-- Share Icons -->
         <div class="flex justify-center relative">
           <add-to-scrapbook
             v-if="scrapable"
@@ -74,11 +76,17 @@
       </div>
     </div>
     <div id="breadcrumb-check" />
+
+    <script
+      type="application/ld+json"
+      v-text="schema"
+    />
   </div>
 </template>
 
 <script>
 import GoogleEvents from '@/Mixins/GoogleEvents';
+import Shareable from '@/Mixins/Shareable';
 
 const AddScrapbook = () => import('~/Global/UI/AddScrapbook' /* webpackChunkName: "chunk-add-scrapbook" */);
 
@@ -87,7 +95,7 @@ export default {
   components: {
     'add-to-scrapbook': AddScrapbook,
   },
-  mixins: [GoogleEvents],
+  mixins: [GoogleEvents, Shareable],
 
   props: {
     location: {
@@ -109,60 +117,25 @@ export default {
     sticky: false,
   }),
 
+  computed: {
+    schema() {
+      return JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: this.crumbs.map((crumb, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: crumb.title,
+          item: `${window.config.baseUrl}${crumb.link}`,
+        })),
+      });
+    },
+  },
+
   mounted() {
     new IntersectionObserver((entries) => {
       this.sticky = entries[0].intersectionRatio === 0;
     }).observe(document.querySelector('#breadcrumb-check'));
-  },
-
-  methods: {
-    facebookShare() {
-      this.googleEvent('event', 'share', {
-        event_label: 'share-facebook',
-      });
-
-      this.openPopup(
-        `https://www.facebook.com/sharer.php?u=${window.location.href}`,
-        'Share On Facebook',
-      );
-    },
-
-    twitterShare() {
-      this.googleEvent('event', 'share', {
-        event_label: 'share-twitter',
-      });
-
-      this.openPopup(
-        `https://twitter.com/intent/tweet?text=${document.querySelector('meta[name=description]').getAttribute('content')}&via=CoeliacSanc&url=${window.location.href}`,
-        'Share on Twitter',
-      );
-    },
-
-    pinterestShare() {
-      this.googleEvent('event', 'share', {
-        event_label: 'share-pinterest',
-      });
-
-      this.openPopup(
-        `https://www.pinterest.com/pin/create/button/?url=${window.location.href}&media=${document.querySelector('meta[property="og:image"]').getAttribute('content')}&description=${document.querySelector('meta[name=description]').getAttribute('content')}`,
-        'Share on Pinterest',
-      );
-    },
-
-    redditShare() {
-      this.googleEvent('event', 'share', {
-        event_label: 'share-reddit',
-      });
-
-      this.openPopup(
-        `http://www.reddit.com/submit?url=${window.location.href}&title=${document.querySelector('title').innerText}`,
-        'Share on Reddit',
-      );
-    },
-
-    openPopup(link, title) {
-      window.open(link, title, 'height=480,width=640,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,directories=no,status=no');
-    },
   },
 };
 </script>

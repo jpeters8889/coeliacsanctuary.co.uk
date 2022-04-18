@@ -9,6 +9,9 @@ use Coeliac\Common\Architect\HorizonDashboard;
 use Coeliac\Common\Architect\MailcoachDashboard;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\PlaceRecommendationsBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\PlaceReportsBlueprint;
+use Coeliac\Modules\EatingOut\WhereToEat\Architect\SuggestedEditBlueprint;
+use Coeliac\Modules\EatingOut\WhereToEat\Architect\WhereToEatCuisinesBlueprint;
+use Coeliac\Modules\EatingOut\WhereToEat\Architect\WhereToEatVenueTypesBlueprint;
 use Coeliac\Modules\Shop\Architect\ShopDashboard;
 use Coeliac\Modules\Shop\Architect\OrderBlueprint;
 use Coeliac\Modules\Member\Architect\UserBlueprint;
@@ -36,7 +39,7 @@ use Coeliac\Modules\Search\Architect\Blueprint as SearchHistoryBlueprint;
 use Coeliac\Modules\Collection\Architect\Blueprint as CollectionsBlueprint;
 use Coeliac\Modules\Competition\Architect\Blueprint as CompetitionsBlueprint;
 use Coeliac\Modules\EatingOut\Reviews\Architect\Blueprint as ReviewBlueprint;
-use Coeliac\Modules\EatingOut\WhereToEat\Architect\RatingsBlueprint as WteRatingsBlueprint;
+use Coeliac\Modules\EatingOut\WhereToEat\Architect\WhereToEatReviews as WteRatingsBlueprint;
 
 class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
 {
@@ -46,15 +49,18 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             BlogBlueprint::class,
             ReviewBlueprint::class,
             RecipeBlueprint::class,
-            WhereToEatBlueprint::class,
             CollectionsBlueprint::class,
             UserBlueprint::class,
 
-            CommentsBlueprint::class,
+            WhereToEatBlueprint::class,
+            WteRatingsBlueprint::class,
             PlaceRecommendationsBlueprint::class,
             PlaceReportsBlueprint::class,
-            WteRatingsBlueprint::class,
-            PlaceRequestBlueprint::class,
+            WhereToEatVenueTypesBlueprint::class,
+            WhereToEatCuisinesBlueprint::class,
+            SuggestedEditBlueprint::class,
+
+            CommentsBlueprint::class,
 
             AnnouncementBlueprint::class,
             CompetitionsBlueprint::class,

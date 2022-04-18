@@ -1,0 +1,21 @@
+{
+    "name": "coeliac/wte-opening-times",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Coeliac\\Architect\\Plans\\WteOpeningTimes\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Coeliac\\Architect\\Plans\\WteOpeningTimes\\PlanServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

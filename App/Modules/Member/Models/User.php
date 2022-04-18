@@ -47,7 +47,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'api_token',
         'password',
         'remember_token',
-        'user_level_id',
     ];
 
     public function addresses(): HasMany

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\WhereToEat\Support;
 
 use Carbon\Carbon;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRating;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 use Illuminate\Cache\Repository as CacheRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
@@ -28,18 +28,18 @@ class IndexCountyList
 
         $topPlaces = WhereToEat::query()
             ->addSelect([
-                'average_rating' => WhereToEatRating::query()
-                    ->whereColumn('wheretoeat_ratings.wheretoeat_id', 'wheretoeat.id')
+                'average_rating' => WhereToEatReview::query()
+                    ->whereColumn('wheretoeat_reviews.wheretoeat_id', 'wheretoeat.id')
                     ->where('approved', true)
                     ->selectRaw('ifnull(round(avg(rating) * 2) / 2, 0)')
             ])
             ->addSelect([
-                'number_of_ratings' => WhereToEatRating::query()
-                    ->whereColumn('wheretoeat_ratings.wheretoeat_id', 'wheretoeat.id')
+                'number_of_ratings' => WhereToEatReview::query()
+                    ->whereColumn('wheretoeat_reviews.wheretoeat_id', 'wheretoeat.id')
                     ->where('approved', true)
                     ->selectRaw('count(*)')
             ])
-            ->with(['town', 'county', 'ratings'])
+            ->with(['town', 'county', 'userReviews'])
             ->orderByDesc('average_rating')
             ->orderByDesc('number_of_ratings')
             ->take(3)

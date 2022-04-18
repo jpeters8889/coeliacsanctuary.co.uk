@@ -13,29 +13,30 @@
                 </a>
             </h6>
 
-            <div class="flex flex-col mt-2">
+            <div class="flex flex-col space-y-2 mt-2">
                 <p>
                     In the list below you can see cities, towns and villages in {{ $county }} that we know offer
                     gluten free options, whether these are places to eat, attractions or hotels / B&Bs.
                 </p>
 
-                <p class="mt-2">
+                <p>
                     All of the places in our eating out guide are recommended by people just like you, other
                     coeliacs visiting our website wanting to help others eat out safely!
-                </p>
-
-                <p class="mt-2">
-                    Do you know somewhere that offers gluten free that we should add to our guide, or do you know
-                    somewhere need removing off our list?
-                    <a class="font-semibold hover:text-grey transition-all" href="/wheretoeat/recommend-a-place">
-                        Let us know!
-                    </a>
                 </p>
 
                 <div>
                     <wheretoeat-ui-daily-update-subscribe :type-id="2" :updatable-id="{{ $id }}"
                                                           friendly-name="{{ $county }}"/>
                 </div>
+
+                <a href="/wheretoeat/recommend-a-place"
+                   class="bg-blue-light bg-opacity-50 hover:bg-opacity-30 transition rounded-lg p-2 border border-blue group">
+                    Do you know somewhere that offers gluten free that we should add to our guide?
+                    <span class="font-semibold group-hover:text-blue-dark transition-all"
+                          href="/wheretoeat/recommend-a-place">
+                        Let us know!
+                    </span>
+                </a>
             </div>
         </div>
 
@@ -61,8 +62,13 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-3">
                     @foreach($topPlaces as $topPlace)
-                        <div class="bg-gradient-to-br from-blue/50 to-blue-light/50 rounded p-2 space-y-2 shadow flex flex-col">
-                            <h3 class="text-xl font-semibold">{{ $topPlace->name }}</h3>
+                        <div
+                            class="bg-gradient-to-br from-blue/50 to-blue-light/50 rounded p-2 space-y-2 shadow flex flex-col">
+                            <h3 class="text-xl font-semibold">
+                                <a href="{{ $topPlace->link() }}">
+                                    {{ $topPlace->name }}
+                                </a>
+                            </h3>
                             <div class="font-semibold text-grey flex justify-between">
                                 <a href="/wheretoeat/{{ $topPlace->county->slug }}/{{ $topPlace->town->slug }}">
                                     {{ $topPlace->town->town }}
@@ -134,42 +140,6 @@
             >
                 Find out more...
             </global-ui-link-button>
-        </div>
-
-        <div class="page-box mt-2">
-            <h2 class="text-2xl text-center font-semibold leading-tight mb-2 md:text-left">
-                Gluten Free Reviews in {{ $county }}
-            </h2>
-
-            @if($reviews->count() > 0)
-                <div class="w-full flex flex-col -mb-4 sm:flex-row">
-                    @foreach($reviews as $review)
-                        <div
-                            class="w-full sm:w-1/2 rounded-lg overflow-hidden flex flex-col shadow-md mb-4 bg-gradient-to-br from-blue to-blue-light {{ $loop->first ? 'sm:mr-3' : '' }}">
-                            <div>
-                                <img data-src="{{ $review->main_image }}" alt="{{ $review->title }}"
-                                     loading="lazy"
-                                     class="lazy"
-                                     src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 2'%3E%3C/svg%3E"/>
-                            </div>
-                            <div class="p-2 flex flex-col h-full">
-                                <a href="/review/{{ $review->slug }}">
-                                    <h3 class="font-bold hover:underline">
-                                        {{ $review->title }}, {{ $review->eatery->town->town }}
-                                    </h3>
-                                </a>
-                                <p class="flex-1">{{ $review->meta_description }}</p>
-                                <div>
-                                    <global-ui-link-button class="py-2 px-4 mt-2" rounded
-                                                           href="/review/{{ $review->slug }}">
-                                        Read more...
-                                    </global-ui-link-button>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
         </div>
     </div>
 @endsection

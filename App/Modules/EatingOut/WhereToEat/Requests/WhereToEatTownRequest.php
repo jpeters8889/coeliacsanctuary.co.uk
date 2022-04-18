@@ -24,7 +24,7 @@ class WhereToEatTownRequest extends WhereToEatCountyRequest
         }
 
         /** @var WhereToEatTown $town */
-        $town = $county->towns()->where('slug', $this->route('town'))
+        $town = $county->towns()->where('slug', $this->route('town', 'nationwide'))
             ->firstOrFail();
 
         return [$county, $town];

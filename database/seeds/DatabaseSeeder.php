@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Factory::factoryForModel(User::class)
+            ->asAdmin()
             ->create(['email' => 'contact@coeliacsanctuary.co.uk']);
 
         $modelsToCreate = [

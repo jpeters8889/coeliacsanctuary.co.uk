@@ -39,11 +39,13 @@ return [
             'homepage_count' => 'blogs.homepage_count',
             'navigation' => 'blogs.navigation',
             'sitemap' => 'blogs.sitemap',
+            'homepage_stats' => 'homepage_stats',
         ],
         'recipes' => [
             'homepage_count' => 'recipes.homepage_count',
             'navigation' => 'recipes.navigation',
             'sitemap' => 'recipes.sitemap',
+            'homepage_stats' => 'homepage_stats',
         ],
         'reviews' => [
             'homepage_count' => 'reviews.homepage_count',
@@ -53,22 +55,29 @@ return [
             'navigation' => 'shop.navigation',
             'categories' => 'shop.categories',
             'products' => 'shop.products',
+            'homepage_stats' => 'homepage_stats',
         ],
         'wheretoeat' => [
             'js_map_settings' => 'wheretoeat.js_map_settings',
             'counties' => 'wheretoeat.counties',
             'towns' => 'wheretoeat.towns',
+            'homepage_stats' => 'homepage_stats',
+            'homepage_latest_wte_latest_places' => 'homepage_latest_wte_latest_places',
+        ],
+        'wheretoeat_reviews' => [
+            'homepage_stats' => 'homepage_stats',
+            'homepage_latest_wte_ratings' => 'homepage_latest_wte_ratings',
         ],
         'homepage_stats' => 'homepage_stats',
         'featured_images' => [
             'featured_images' => 'featured_images',
         ],
         'collections' => [
-          'navigation' => 'collections.navigation',
+            'navigation' => 'collections.navigation',
         ],
     ],
 
     'newsletter' => [
-      'list' => env('MAILCOACH_NEWSLETTER_LIST', 'Coeliac Sanctuary'),
+        'list' => env('MAILCOACH_NEWSLETTER_LIST', 'Coeliac Sanctuary'),
     ],
 ];

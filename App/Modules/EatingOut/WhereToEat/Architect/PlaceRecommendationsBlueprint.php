@@ -38,7 +38,7 @@ class PlaceRecommendationsBlueprint extends Blueprint
 
     public function blueprintSite(): string
     {
-        return 'Approvals';
+        return 'Where to Eat';
     }
 
     public function card(): ?string

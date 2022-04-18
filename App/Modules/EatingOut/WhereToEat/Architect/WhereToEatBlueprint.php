@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\WhereToEat\Architect;
 
 use Illuminate\Support\Collection;
-use JPeters\Architect\Plans\BulkBlueprintVariants;
 use JPeters\Architect\Plans\Group;
 use JPeters\Architect\Plans\Label;
 use JPeters\Architect\Plans\Lookup;
@@ -18,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use JPeters\Architect\Blueprints\Blueprint;
 use Coeliac\Architect\Plans\AddressLookup\Plan;
+use JPeters\Architect\Plans\BulkBlueprintVariants;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatType;
@@ -27,6 +27,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCountry;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCuisine;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatFeature;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatVenueType;
+use Coeliac\Architect\Plans\WteOpeningTimes\Plan as OpeningTimesPlan;
 
 class WhereToEatBlueprint extends Blueprint
 {
@@ -41,7 +42,7 @@ class WhereToEatBlueprint extends Blueprint
             ->join('wheretoeat_countries', 'wheretoeat.country_id', '=', 'wheretoeat_countries.id')
             ->join('wheretoeat_counties', 'wheretoeat.county_id', '=', 'wheretoeat_counties.id')
             ->join('wheretoeat_towns', 'wheretoeat.town_id', '=', 'wheretoeat_towns.id')
-            ->with(['country', 'county', 'town', 'type', 'county.country'])
+            ->with(['country', 'county', 'town', 'type', 'county.country', 'openingTimes'])
             ->without('ratings')
             ->addSelect([
                 'wheretoeat.id', 'wheretoeat.town_id', 'wheretoeat.county_id', 'wheretoeat.country_id', 'type_id',
@@ -49,12 +50,12 @@ class WhereToEatBlueprint extends Blueprint
             ]);
     }
 
-    public function primaryField(): string
+    public function blueprintName(): string
     {
-        return 'id';
+        return 'Where to Eat';
     }
 
-    public function blueprintName(): string
+    public function blueprintSite(): string
     {
         return 'Where to Eat';
     }
@@ -74,7 +75,9 @@ class WhereToEatBlueprint extends Blueprint
         return [
             Textfield::generate('name'),
 
-            Textfield::generate('website')->hideOnIndex(),
+            Label::generate('full_location', 'Location')->hideOnForms(),
+
+            Label::generate('type_description', 'Type')->hideOnForms(),
 
             BulkBlueprintVariants::generate('locations')
                 ->setAddButtonLabel('Add Location')
@@ -117,9 +120,9 @@ class WhereToEatBlueprint extends Blueprint
                     Textfield::generate('phone'),
                 ]),
 
-            Label::generate('full_location', 'Location')->hideOnForms(),
+            Textfield::generate('website')->hideOnIndex(),
 
-            Label::generate('type_description', 'Type')->hideOnForms(),
+            Textfield::generate('gf_menu_link')->hideOnIndex(),
 
             Boolean::generate('live'),
 
@@ -142,32 +145,36 @@ class WhereToEatBlueprint extends Blueprint
 
                     Textarea::generate('info'),
 
-                    Group::generate('features')
-                        ->setPivotRelationship('features')
-                        ->wrapPlans()
-                        ->plans($this->getFeatures(1)),
+                    $this->openingTimesPlan(),
                 ])
                 ->addPlansForOption(2, [
                     Select::generate('venue_type_id', 'Venue Type')
                         ->options($this->getVenueTypes(2)->toArray()),
 
                     WteAttractions::generate('Restaurants'),
+
+                    $this->openingTimesPlan(),
                 ])
                 ->addPlansForOption(3, [
                     Textarea::generate('info'),
-
-                    Group::generate('features')
-                        ->setPivotRelationship('features')
-                        ->wrapPlans()
-                        ->plans($this->getFeatures(3)),
                 ]),
+
+            Group::generate('features')
+                ->setPivotRelationship('features')
+                ->wrapPlans()
+                ->plans($this->getFeatures()),
         ];
     }
 
-    private function getFeatures($type)
+    protected function openingTimesPlan(): OpeningTimesPlan
+    {
+        return OpeningTimesPlan::generate('openingTimes', 'Opening Times')
+            ->hideOnIndex();
+    }
+
+    private function getFeatures()
     {
         return WhereToEatFeature::query()
-            ->where('type_id', $type)
             ->get()
             ->transform(static function (WhereToEatFeature $feature) {
                 return new Boolean($feature->id, $feature->feature);
@@ -186,6 +193,15 @@ class WhereToEatBlueprint extends Blueprint
         return $query->get()
             ->mapWithKeys(function (WhereToEatVenueType $venueType) {
                 return [$venueType->id => $venueType->venue_type];
+            });
+    }
+
+    private function getCuisines()
+    {
+        return WhereToEatCuisine::query()
+            ->get()
+            ->mapWithKeys(function (WhereToEatCuisine $cuisine) {
+                return [$cuisine->id => $cuisine->cuisine];
             });
     }
 
@@ -252,6 +268,11 @@ class WhereToEatBlueprint extends Blueprint
                 'name' => 'Venue Type',
                 'options' => $this->getVenueTypes(),
                 'filter' => fn (Builder $builder, $value) => $builder->where('venue_type_id', $value),
+            ],
+            'cuisine_id' => [
+                'name' => 'Cuisine',
+                'options' => $this->getCuisines(),
+                'filter' => fn (Builder $builder, $value) => $builder->where('cuisine_id', $value),
             ],
             'country_id' => [
                 'name' => 'Country',

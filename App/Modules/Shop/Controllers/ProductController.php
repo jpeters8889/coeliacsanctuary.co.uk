@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Controllers;
 
 use Coeliac\Common\Models\Image;
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Coeliac\Modules\Shop\ProductRepository;
 use Coeliac\Modules\Shop\Response\ShopPage;
 use Coeliac\Base\Controllers\BaseController;
@@ -26,7 +27,7 @@ class ProductController extends BaseController
     {
         /* @var ShopProduct $product */
         $product = $request->resolveItem([
-            /** @phpstan-ignore-next-line  */
+            /** @phpstan-ignore-next-line */
             'images' => fn (Relation $query) => $query->whereIn('image_category_id', [Image::IMAGE_CATEGORY_GENERAL, Image::IMAGE_CATEGORY_SHOP_PRODUCT])
         ]);
 
@@ -48,7 +49,7 @@ class ProductController extends BaseController
                     'title' => $category->title,
                 ],
             ], $product->title)
-            ->setPageTitle($product->title.' | Shop')
+            ->setPageTitle($product->title . ' | Shop')
             ->setMetaDescription($product->meta_description)
             ->setMetaKeywords(explode(',', $product->meta_keywords))
             ->setSocialImage($product->first_image)
@@ -57,11 +58,16 @@ class ProductController extends BaseController
 
     public function get(ProductRepository $repository, mixed $id): array
     {
-        abort_if(!$product = $repository->setWiths(['variants'])->get($id), 404);
+        abort_if(
+            !$product = $repository
+                ->setWiths(['variants' => fn (Relation $relation) => $relation->where('live', 1)])
+                ->get($id),
+            404
+        );
 
         /** @var ShopProduct $product */
         $product->makeVisible(['variants']);
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         $product->variants->makeVisible('quantity');
 
         return ['data' => $product];

@@ -47,7 +47,6 @@ class SearchServiceTest extends TestCase
         return [
           ['blogs', true],
           ['recipes', true],
-          ['reviews', true],
           ['eateries', false],
           ['products', true],
         ];

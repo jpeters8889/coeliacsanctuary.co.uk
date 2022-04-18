@@ -9,20 +9,20 @@ use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Blog\Repository;
 use Coeliac\Common\Notifications\Notification;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRating;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 use Illuminate\Notifications\AnonymousNotifiable;
 
 class WhereToEatRatingApprovedNotification extends Notification
 {
-    private WhereToEatRating $rating;
+    private WhereToEatReview $rating;
 
-    public function __construct(WhereToEatRating $rating)
+    public function __construct(WhereToEatReview $rating)
     {
         $this->rating = $rating;
         $this->date = Carbon::now();
     }
 
-    public function rating(): WhereToEatRating
+    public function rating(): WhereToEatReview
     {
         return $this->rating;
     }

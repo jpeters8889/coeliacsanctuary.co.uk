@@ -32,6 +32,8 @@ class Page extends PageBuilder
         'location' => '',
     ];
 
+    protected bool $showBreadcrumbs = true;
+
     public function hideFacebook(): static
     {
         $this->displayFacebook = false;
@@ -87,6 +89,13 @@ class Page extends PageBuilder
     public function showTwitter(): static
     {
         $this->displayTwitter = true;
+
+        return $this;
+    }
+
+    public function noBreadcrumbs(): static
+    {
+        $this->showBreadcrumbs = false;
 
         return $this;
     }
@@ -164,6 +173,7 @@ class Page extends PageBuilder
             'criticalCss' => $this->criticalCss,
             'tracking' => $this->tracking,
             'scrapable' => $this->getScrapableData(),
+            'showBreadcrumbs' => $this->showBreadcrumbs,
         ]));
     }
 }

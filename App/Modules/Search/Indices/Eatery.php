@@ -25,7 +25,7 @@ class Eatery extends Index
     protected function afterSearching(Collection $results): Collection
     {
         $results = $results->reject(static function (WhereToEat $eatery) {
-            return $eatery->town->town === 'Nationwide';
+            return !$eatery->live || $eatery->town->town === 'Nationwide';
         });
 
         $geocoder = resolve(Geocoder::class)->getCoordinatesForAddress($this->term);
@@ -35,17 +35,17 @@ class Eatery extends Index
         }
 
         return $results->concat(
-        /** @phpstan-ignore-next-line  */
-        WhereToEat::search()->with([
+        /** @phpstan-ignore-next-line */
+            WhereToEat::search()->with([
                 'getRankingInfo' => true,
                 'aroundLatLng' => implode(', ', [$geocoder['lat'], $geocoder['lng']]),
-                'aroundRadius' => (int) round(2 * 1609.344),
+                'aroundRadius' => (int)round(2 * 1609.344),
             ])
-            ->get()
-            ->load('town', 'county', 'country', 'ratings')
-            ->reject(static function (WhereToEat $eatery) {
-                return $eatery->town->town === 'Nationwide';
-            })
+                ->get()
+                ->load('town', 'county', 'country', 'userReviews')
+                ->reject(static function (WhereToEat $eatery) {
+                    return $eatery->town->town === 'Nationwide';
+                })
         );
     }
 
@@ -59,7 +59,7 @@ class Eatery extends Index
             'town' => $result->town->town,
             'county' => $result->county->county,
             'country' => $result->country->country,
-            'link' => '/wheretoeat/'.$result->county->slug.'/'.$result->town->slug,
+            'link' => '/wheretoeat/' . $result->county->slug . '/' . $result->town->slug,
             'title' => $result->name,
             'description' => $result->info,
         ];

@@ -6,6 +6,7 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Container\Container;
@@ -36,10 +37,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed $type_id
  * @property mixed $review_count
  * @property Collection<WhereToEatFeature> $features
- * @property Collection $ratings
+ * @property Collection<WhereToEatReview> $userReviews
  * @property WhereToEatType $type
  * @property string $full_location
  * @property WhereToEatVenueType $venueType
+ * @property null|string $slug
+ * @property number $town_id
+ * @property string $full_name
+ * @property string $gf_menu_link
+ * @property WhereToEatOpeningTimes $openingTimes
  *
  * @method transform(array $array)
  */
@@ -64,8 +70,6 @@ class WhereToEat extends BaseModel
     ];
 
     protected $table = 'wheretoeat';
-
-//    protected $with = ['ratings'];
 
     public function town(): BelongsTo
     {
@@ -99,20 +103,40 @@ class WhereToEat extends BaseModel
 
     public function getAverageRatingAttribute(): ?string
     {
-        if (!$this->relationLoaded('ratings')) {
+        if (!$this->relationLoaded('userReviews')) {
             return null;
         }
 
-        return (string)array_average($this->ratings->pluck('rating')->toArray());
+        return (string)array_average($this->userReviews->pluck('rating')->toArray());
+    }
+
+    public function getAverageExpenseAttribute(): ?array
+    {
+        if (!$this->relationLoaded('userReviews')) {
+            return null;
+        }
+
+        $reviewsWithHowExpense = array_filter($this->userReviews->pluck('how_expensive')->toArray());
+
+        if (count($reviewsWithHowExpense) === 0) {
+            return null;
+        }
+
+        $average = round(array_average($reviewsWithHowExpense));
+
+        return [
+            'value' => (string)$average,
+            'label' => WhereToEatReview::HOW_EXPENSIVE_LABELS[$average],
+        ];
     }
 
     public function getHasBeenRatedAttribute(): ?bool
     {
-        if (!$this->relationLoaded('ratings')) {
+        if (!$this->relationLoaded('userReviews')) {
             return null;
         }
 
-        return $this->ratings
+        return $this->userReviews
                 ->where('ip', Container::getInstance()->make(Request::class)->ip())
                 ->count() > 0;
     }
@@ -156,14 +180,24 @@ class WhereToEat extends BaseModel
         return $this->hasMany(Review::class, 'wheretoeat_id', 'id');
     }
 
-    public function ratings(): HasMany
+    public function userReviews(): HasMany
     {
-        return $this->hasMany(WhereToEatRating::class, 'wheretoeat_id', 'id');
+        return $this->hasMany(WhereToEatReview::class, 'wheretoeat_id', 'id');
+    }
+
+    public function userImages(): HasMany
+    {
+        return $this->hasMany(WhereToEatReviewImage::class, 'wheretoeat_id', 'id');
     }
 
     public function restaurants(): HasMany
     {
         return $this->hasMany(AttractionRestaurant::class, 'wheretoeat_id', 'id');
+    }
+
+    public function openingTimes(): HasOne
+    {
+        return $this->hasOne(WhereToEatOpeningTimes::class, 'wheretoeat_id', 'id');
     }
 
     public function toSearchableArray(): array
@@ -209,6 +243,11 @@ class WhereToEat extends BaseModel
         ]);
     }
 
+    public function getFormattedAddressAttribute(): string
+    {
+        return Str::of($this->address)->explode('<br />')->join(', ');
+    }
+
     public function getFullLocationAttribute(): ?string
     {
         if (!$this->relationLoaded('town')) {
@@ -239,5 +278,15 @@ class WhereToEat extends BaseModel
     protected static function dailyUpdateType(): array
     {
         return [DailyUpdateType::WTE_COUNTY, DailyUpdateType::WTE_TOWN];
+    }
+
+    public function link(): string
+    {
+        return '/' . implode('/', [
+                'wheretoeat',
+                $this->county->slug,
+                $this->town->slug,
+                $this->slug,
+            ]);
     }
 }

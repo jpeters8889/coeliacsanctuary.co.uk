@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Base\Console;
 
+use Coeliac\Base\Console\Commands\CleanUpFileUploads;
+use Coeliac\Modules\EatingOut\WhereToEat\Console\SlugifyEateries;
 use Illuminate\Console\Scheduling\Schedule;
 use Coeliac\Modules\Shop\Console\CloseBaskets;
 use Coeliac\Modules\Shop\Console\CleanUpAddresses;
@@ -19,10 +21,12 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         ApplyMassDiscounts::class,
         ClearPublicDirectories::class,
+        CleanUpFileUploads::class,
         CloseBaskets::class,
         SendDailyUpdates::class,
         UpdateUserActivity::class,
         PrefixRecipesWithGlutenFree::class,
+        SlugifyEateries::class,
 
         CleanUpAddresses::class,
     ];
@@ -31,6 +35,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('coeliac:shopCloseBaskets')->everyMinute();
         $schedule->command('coeliac:apply_mass_discounts')->everyMinute();
+        $schedule->command('coeliac:clean_file_uploads')->everyMinute();
         $schedule->command('coeliac:clear_public_dirs')->daily();
         $schedule->command('coeliac:send_daily_updates')->dailyAt('17:00');
         $schedule->command('coeliac:update-user-activity')->everyFiveMinutes();

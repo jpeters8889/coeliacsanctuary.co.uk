@@ -42,11 +42,11 @@ class NavigationController extends BaseController
                         'main_image' => asset('assets/images/shares/wheretoeat-map.jpg'),
                     ],
                     [
-                        'title' => 'Reviews',
-                        'slug' => '/review',
-                        'link' => '/review',
-                        'meta_description' => 'Read honest reviews of places to eat from the Coeliac Sanctuary team',
-                        'main_image' => asset('assets/images/shares/review-list.jpg'),
+                        'title' => 'Nationwide Chains',
+                        'slug' => '/wheretoeat/nationwide',
+                        'link' => '/wheretoeat/nationwide',
+                        'meta_description' => 'Nationwide chains across the UK that can cater to gluten free diets',
+                        'main_image' => asset('assets/images/shares/wheretoeat.jpg'),
                     ],
                     [
                         'title' => 'Coeliac Sanctuary - On the Go App',

@@ -106,7 +106,7 @@
 
                 <template v-if="item.children.layout === '4'">
                   <div class="flex">
-                    <ul class="w-3/5">
+                    <ul class="w-full">
                       <li
                         v-for="(child, x) in item.children.items"
                         :key="x"
@@ -117,7 +117,7 @@
                           :href="child.link"
                           class="flex"
                         >
-                          <div class="w-1/4 mr-1 lg:w-1/6">
+                          <div class="w-1/5 mr-1 lg:w-1/6">
                             <img
                               :data-src="child.main_image"
                               :src="lazyLoadSrc"

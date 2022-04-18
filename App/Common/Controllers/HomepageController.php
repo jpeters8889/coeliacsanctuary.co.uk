@@ -18,7 +18,8 @@ class HomepageController extends BaseController
             ->render('pages.home', [
                 'latestBlogs' => $service->blogs(),
                 'latestRecipes' => $service->recipes(),
-                'latestReviews' => $service->reviews(),
+                'latestRatings' => $service->ratings(),
+                'latestPlaces' => $service->latestPlaces(),
                 'stats' => [
                     [
                         'icon' => "['fas', 'shopping-basket']",
@@ -39,16 +40,16 @@ class HomepageController extends BaseController
                         'count' => $stats->get('recipe_count'),
                     ],
                     [
-                        'icon' => "['fas', 'utensils']",
-                        'label' => 'Reviews',
-                        'link' => '/review',
-                        'count' => $stats->get('review_count'),
-                    ],
-                    [
                         'icon' => "['fas', 'store-alt']",
                         'label' => 'Places to Eat',
                         'link' => '/wheretoeat',
                         'count' => $stats->get('wte_count'),
+                    ],
+                    [
+                        'icon' => "['fas', 'utensils']",
+                        'label' => 'Ratings and Reviews',
+                        'link' => '/wheretoeat',
+                        'count' => $stats->get('wte_reviews_count'),
                     ],
                 ],
             ]);

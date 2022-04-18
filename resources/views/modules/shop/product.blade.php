@@ -11,6 +11,10 @@
             ]
         });
     </script>
+
+    <script type="application/ld+json">
+        @json($product->richText)
+    </script>
 @endsection
 
 @section('primary-column')

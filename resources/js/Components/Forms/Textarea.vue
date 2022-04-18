@@ -19,7 +19,7 @@
           :placeholder="placeholder"
           :rows="rows"
           :maxlength="max"
-          class="w-full bg-transparent border-0 p-3 m-0 text-grey-darkest"
+          :class="classes()"
           @blur="validate()"
         />
       </div>

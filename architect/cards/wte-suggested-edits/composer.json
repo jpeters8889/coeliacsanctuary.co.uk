@@ -1,0 +1,21 @@
+{
+    "name": "coeliac/wte-suggested-edits",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Coeliac\\Architect\\Cards\\WteSuggestedEdits\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Coeliac\\Architect\\Cards\\WteSuggestedEdits\\CardServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
