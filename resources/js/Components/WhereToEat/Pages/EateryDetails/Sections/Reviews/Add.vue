@@ -217,7 +217,6 @@ export default {
       expense: '',
       comment: '',
       images: [],
-      branchName: null,
     },
 
     characterLimit: 1500,
@@ -275,6 +274,10 @@ export default {
       delete this.form.admin_review;
     }
 
+    if ('branchName' in this.form) {
+      delete this.form.branchName;
+    }
+
     this.submitRating();
   },
 
@@ -286,6 +289,10 @@ export default {
 
     if (this.isAdmin()) {
       this.$set(this.form, 'admin_review', false);
+    }
+
+    if (this.isNationwide) {
+      this.$set(this.form, 'branchName', null);
     }
 
     this.formKeys.forEach((key) => {
@@ -334,11 +341,14 @@ export default {
         expense: this.form.expense !== '' ? parseInt(this.form.expense) : null,
         comment: this.form.comment !== '' ? this.form.comment : null,
         images: this.form.images,
-        branch_name: this.form.branchName,
       };
 
       if (this.isAdmin) {
         data.admin_review = this.form.admin_review;
+      }
+
+      if (this.isNationwide) {
+        data.branch_name = this.form.branchName;
       }
 
       return data;
