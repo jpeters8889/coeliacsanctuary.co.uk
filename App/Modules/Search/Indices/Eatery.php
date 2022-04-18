@@ -19,7 +19,7 @@ class Eatery extends Index
 
     protected function withRelations(): array
     {
-        return ['town', 'county', 'country', 'ratings'];
+        return ['town', 'county', 'country', 'userReviews'];
     }
 
     protected function afterSearching(Collection $results): Collection
