@@ -55,7 +55,7 @@ abstract class Index
             'score' => $result->scoutMetadata()['_rankingInfo']['userScore'] ?? 0,
             'type' => $this->resultType(),
             'id' => $result->getKey(),
-            'link' => $result->getAttribute('link'),
+            'link' => method_exists($result, 'link') ? $result->link() : $result->getAttribute('link'),
             'title' => $result->getAttribute('title'),
             'description' => $result->getAttribute('meta_description'),
             'image' => $result->getAttribute('main_image') ?? $result->getAttribute('first_image'),
