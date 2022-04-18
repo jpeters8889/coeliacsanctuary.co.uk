@@ -49,7 +49,7 @@
             class="text-xl"
           />
 
-          <span class="text-sm font-semibold">Call</span>
+          <span class="text-sm font-semibold">{{ eatery.phone }}</span>
         </a>
       </li>
     </ul>
