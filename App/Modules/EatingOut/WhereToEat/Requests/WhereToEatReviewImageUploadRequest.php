@@ -10,7 +10,7 @@ class WhereToEatReviewImageUploadRequest extends ApiFormRequest
     {
         return [
             'images' => ['required', 'array', 'max:6'],
-            'images.*' => ['file', 'image', 'mimetypes:image/jpg,image/jpeg,image/png,image/gif', 'max:2048'],
+            'images.*' => ['file', 'image', 'mimetypes:image/jpg,image/jpeg,image/png,image/gif', 'max:5120'],
         ];
     }
 }
