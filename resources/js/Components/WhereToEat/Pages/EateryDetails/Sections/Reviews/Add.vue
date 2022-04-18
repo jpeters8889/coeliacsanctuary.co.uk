@@ -110,7 +110,7 @@
             name="comment"
             :value="form.comment"
             :rows="5"
-            :max="500"
+            :max="1500"
             label="Your Comment"
           />
           <span
