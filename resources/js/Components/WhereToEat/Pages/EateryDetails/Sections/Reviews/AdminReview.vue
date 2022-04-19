@@ -41,7 +41,7 @@
         <image-gallery
           :images="review.images"
           with-margin
-          :alt-text="`Our photos of ${eatery} by on ${formatDate(review.created_at)}`"
+          :alt-text="`Our photos of ${eatery.name}`"
         />
       </div>
     </div>
