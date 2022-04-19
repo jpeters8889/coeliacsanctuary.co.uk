@@ -94,7 +94,10 @@ class WhereToEatController extends BaseController
                 'userReviews' => function (Relation $builder) {
                     /** @phpstan-ignore-next-line */
                     return $builder
-                        ->select(['id', 'wheretoeat_id', 'rating', 'name', 'body', 'how_expensive', 'created_at'])
+                        ->select([
+                            'id', 'wheretoeat_id', 'rating', 'name', 'body', 'how_expensive', 'created_at',
+                            'admin_review', 'food_rating', 'service_rating'
+                        ])
                         ->where('approved', 1)
                         ->latest();
                 },
