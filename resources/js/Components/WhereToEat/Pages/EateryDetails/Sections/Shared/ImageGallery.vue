@@ -33,12 +33,40 @@
       to="modal"
     >
       <modal :title="altText">
-        <img
-          :src="images[displayImage].path"
-          alt=""
-          @touchstart="handleTouchStart($event)"
-          @touchend="handleTouchEnd($event)"
-        >
+        <div class="relative">
+          <img
+            :src="images[displayImage].path"
+            alt=""
+          >
+          <div
+            class="absolute w-full h-full top-0 left-0 flex justify-between"
+            @touchstart="handleTouchStart($event)"
+            @touchend="handleTouchEnd($event)"
+          >
+            <div
+              class="w-1/2 md:max-w-[150px] group cursor-pointer"
+              @click="goToPreviousImage()"
+            >
+              <div
+                v-if="displayImage > 0"
+                class="absolute h-full px-4 bg-black bg-opacity-25 text-white top-0 left-0 flex items-center justify-center transition group-hover:bg-opacity-50"
+              >
+                <font-awesome-icon :icon="['fas', 'chevron-left']" />
+              </div>
+            </div>
+            <div
+              class="w-1/2 md:max-w-[150px] group cursor-pointer"
+              @click="goToNextImage()"
+            >
+              <div
+                v-if="displayImage < images.length - 1"
+                class="absolute h-full px-4 bg-black bg-opacity-25 text-white top-0 right-0 flex items-center justify-center transition group-hover:bg-opacity-50"
+              >
+                <font-awesome-icon :icon="['fas', 'chevron-right']" />
+              </div>
+            </div>
+          </div>
+        </div>
       </modal>
     </portal>
   </div>
@@ -112,11 +140,11 @@ export default {
     },
 
     handleTouchStart(event) {
-      this.touchStart = event.changedTouches[0].screenX;
+      this.touchStart = event.changedTouches[0].clientX;
     },
 
     handleTouchEnd(event) {
-      const endPosition = event.changedTouches[0].screenX;
+      const endPosition = event.changedTouches[0].clientX;
 
       if (this.touchStart < endPosition) {
         this.goToPreviousImage();
