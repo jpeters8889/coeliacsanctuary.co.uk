@@ -16,6 +16,7 @@ class LatestRatings
             ->get()
             ->transform(fn (WhereToEatReview $rating) => [
                 'id' => $rating->id,
+                'eatery_id' => $rating->wheretoeat_id,
                 'slug' => "/wheretoeat/{$rating->eatery->county->slug}/{$rating->eatery->town->slug}/{$rating->eatery->slug}",
                 'town' => "/wheretoeat/{$rating->eatery->county->slug}/{$rating->eatery->town->slug}",
                 'name' => $rating->eatery->name,
