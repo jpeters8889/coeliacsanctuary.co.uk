@@ -90,7 +90,8 @@ class WhereToEatController extends BaseController
     {
         $eatery = $this->repository
             ->setWiths([
-                'country', 'county', 'town', 'type', 'venueType', 'cuisine', 'features', 'restaurants', 'reviews', 'userImages',
+                'country', 'county', 'town', 'type', 'venueType', 'cuisine', 'features', 'restaurants',
+                'reviews', 'userImages', 'openingTimes',
                 'userReviews' => function (Relation $builder) {
                     /** @phpstan-ignore-next-line */
                     return $builder
