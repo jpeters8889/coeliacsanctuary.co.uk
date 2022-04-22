@@ -85,7 +85,7 @@
                       >
                         <a
                           v-if="x >= 3"
-                          :href="item.link + '/' + child.slug"
+                          :href="child.link"
                         >
                           {{ child.title }}
                         </a>
