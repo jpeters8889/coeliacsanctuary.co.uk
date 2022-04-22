@@ -44,7 +44,9 @@ class NavigationService
             ->orderByRaw('(select sum(shop_order_items.quantity)
                 from shop_order_items
                 left join shop_orders on shop_order_items.order_id = shop_orders.id
-                where shop_order_items.product_id = shop_products.id and shop_orders.state_id in(2,3,4,5)) desc')
+                where shop_order_items.product_id = shop_products.id
+                and shop_orders.state_id in(2,3,4,5)
+                and shop_orders.created_at > ?) desc', [Carbon::now()->subDays(2)->startOfDay()->toDateTimeString()])
             ->with(['images'])
             ->take(7)
             ->get()
