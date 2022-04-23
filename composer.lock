@@ -439,16 +439,16 @@
         },
         {
             "name": "aws/aws-php-sns-message-validator",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-php-sns-message-validator.git",
-                "reference": "ba6810807ac8936317021ccc14cdb1297d525ae1"
+                "reference": "e494478af24470d8051bc7244833f1056378d0b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-php-sns-message-validator/zipball/ba6810807ac8936317021ccc14cdb1297d525ae1",
-                "reference": "ba6810807ac8936317021ccc14cdb1297d525ae1",
+                "url": "https://api.github.com/repos/aws/aws-php-sns-message-validator/zipball/e494478af24470d8051bc7244833f1056378d0b7",
+                "reference": "e494478af24470d8051bc7244833f1056378d0b7",
                 "shasum": ""
             },
             "require": {
@@ -491,22 +491,22 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sns-message-validator/issues",
-                "source": "https://github.com/aws/aws-php-sns-message-validator/tree/master"
+                "source": "https://github.com/aws/aws-php-sns-message-validator/tree/1.7.0"
             },
-            "time": "2019-11-08T16:44:11+00:00"
+            "time": "2022-04-22T18:26:26+00:00"
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.219.2",
+            "version": "3.220.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "3d0d24d9dad824ea4344cfc711b9989d92070aac"
+                "reference": "fbb2d7349916c15758ee02dfd001a714883a9adf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3d0d24d9dad824ea4344cfc711b9989d92070aac",
-                "reference": "3d0d24d9dad824ea4344cfc711b9989d92070aac",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fbb2d7349916c15758ee02dfd001a714883a9adf",
+                "reference": "fbb2d7349916c15758ee02dfd001a714883a9adf",
                 "shasum": ""
             },
             "require": {
@@ -582,9 +582,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.219.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.220.3"
             },
-            "time": "2022-04-12T19:03:09+00:00"
+            "time": "2022-04-22T18:18:31+00:00"
         },
         {
             "name": "box/spout",
@@ -1009,7 +1009,7 @@
         },
         {
             "name": "coeliac/address-lookup",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/address-lookup",
@@ -1037,7 +1037,7 @@
         },
         {
             "name": "coeliac/collection-items",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/collection-items",
@@ -1065,7 +1065,7 @@
         },
         {
             "name": "coeliac/comments",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/comments",
@@ -1093,7 +1093,7 @@
         },
         {
             "name": "coeliac/competition-entries",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/competition-entries",
@@ -1121,7 +1121,7 @@
         },
         {
             "name": "coeliac/dispatch-slips",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/pages/dispatch-slips",
@@ -1149,7 +1149,7 @@
         },
         {
             "name": "coeliac/image-manager",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/image-manager",
@@ -1177,7 +1177,7 @@
         },
         {
             "name": "coeliac/order-dispatch-slip",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/order-dispatch-slip",
@@ -1205,7 +1205,7 @@
         },
         {
             "name": "coeliac/order-info",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/order-info",
@@ -1233,7 +1233,7 @@
         },
         {
             "name": "coeliac/order-shipped",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/order-shipped",
@@ -1261,7 +1261,7 @@
         },
         {
             "name": "coeliac/place-recommendations-card",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/place-recommendations-card",
@@ -1289,7 +1289,7 @@
         },
         {
             "name": "coeliac/place-reports-card",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/place-reports-card",
@@ -1317,7 +1317,7 @@
         },
         {
             "name": "coeliac/place-request-card",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/place-request-card",
@@ -1345,7 +1345,7 @@
         },
         {
             "name": "coeliac/shop-daily-stock",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/shop-daily-stock",
@@ -1373,7 +1373,7 @@
         },
         {
             "name": "coeliac/shop-order-items",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/coeliac-shop-order-items",
@@ -1401,7 +1401,7 @@
         },
         {
             "name": "coeliac/shop-product-prices",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/shop-product-prices",
@@ -1429,7 +1429,7 @@
         },
         {
             "name": "coeliac/shop-product-sold-count",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/shop-product-sold-count",
@@ -1457,7 +1457,7 @@
         },
         {
             "name": "coeliac/shop-product-variants",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/shop-product-variants",
@@ -1485,7 +1485,7 @@
         },
         {
             "name": "coeliac/shop-travel-card-search-terms",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/shop-travel-card-search-terms",
@@ -1513,7 +1513,7 @@
         },
         {
             "name": "coeliac/tag-manager",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/tag-manager",
@@ -1541,7 +1541,7 @@
         },
         {
             "name": "coeliac/wte-attractions",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/wte-attractions",
@@ -1597,7 +1597,7 @@
         },
         {
             "name": "coeliac/wte-ratings-card",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/wte-ratings-card",
@@ -1625,7 +1625,7 @@
         },
         {
             "name": "coeliac/wte-suggested-edits",
-            "version": "dev-feature/wte-v2",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/wte-suggested-edits",
@@ -3356,16 +3356,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.8.1",
+            "version": "v9.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "9f468689964ac80b674a2fe71a56baa7e9e20493"
+                "reference": "4d5a07640891b772188d7737348886a0222737d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/9f468689964ac80b674a2fe71a56baa7e9e20493",
-                "reference": "9f468689964ac80b674a2fe71a56baa7e9e20493",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4d5a07640891b772188d7737348886a0222737d8",
+                "reference": "4d5a07640891b772188d7737348886a0222737d8",
                 "shasum": ""
             },
             "require": {
@@ -3531,7 +3531,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-04-12T15:43:03+00:00"
+            "time": "2022-04-19T15:01:23+00:00"
         },
         {
             "name": "laravel/horizon",
@@ -4060,16 +4060,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.0.16",
+            "version": "3.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "dea729954c596bdb6cdaecba6f73df9f3e2c4255"
+                "reference": "29eb78cac0be0c22237c5e0f6f98234d97037d79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/dea729954c596bdb6cdaecba6f73df9f3e2c4255",
-                "reference": "dea729954c596bdb6cdaecba6f73df9f3e2c4255",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/29eb78cac0be0c22237c5e0f6f98234d97037d79",
+                "reference": "29eb78cac0be0c22237c5e0f6f98234d97037d79",
                 "shasum": ""
             },
             "require": {
@@ -4130,7 +4130,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.0.16"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.0.17"
             },
             "funding": [
                 {
@@ -4146,7 +4146,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-11T13:32:22+00:00"
+            "time": "2022-04-14T14:57:13+00:00"
         },
         {
             "name": "league/flysystem-aws-s3-v3",
@@ -4360,16 +4360,16 @@
         },
         {
             "name": "league/mime-type-detection",
-            "version": "1.10.0",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/mime-type-detection.git",
-                "reference": "3e4a35d756eedc67096f30240a68a3149120dae7"
+                "reference": "ff6248ea87a9f116e78edd6002e39e5128a0d4dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/mime-type-detection/zipball/3e4a35d756eedc67096f30240a68a3149120dae7",
-                "reference": "3e4a35d756eedc67096f30240a68a3149120dae7",
+                "url": "https://api.github.com/repos/thephpleague/mime-type-detection/zipball/ff6248ea87a9f116e78edd6002e39e5128a0d4dd",
+                "reference": "ff6248ea87a9f116e78edd6002e39e5128a0d4dd",
                 "shasum": ""
             },
             "require": {
@@ -4400,7 +4400,7 @@
             "description": "Mime-type detection for Flysystem",
             "support": {
                 "issues": "https://github.com/thephpleague/mime-type-detection/issues",
-                "source": "https://github.com/thephpleague/mime-type-detection/tree/1.10.0"
+                "source": "https://github.com/thephpleague/mime-type-detection/tree/1.11.0"
             },
             "funding": [
                 {
@@ -4412,7 +4412,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-11T12:49:04+00:00"
+            "time": "2022-04-17T13:12:02+00:00"
         },
         {
             "name": "livewire/livewire",
@@ -6300,21 +6300,21 @@
         },
         {
             "name": "spatie/enum",
-            "version": "3.12.0",
+            "version": "3.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/enum.git",
-                "reference": "c0180f1de7c5d06e4b84efbc751ea19167140173"
+                "reference": "f1a0f464ba909491a53e60a955ce84ad7cd93a2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/enum/zipball/c0180f1de7c5d06e4b84efbc751ea19167140173",
-                "reference": "c0180f1de7c5d06e4b84efbc751ea19167140173",
+                "url": "https://api.github.com/repos/spatie/enum/zipball/f1a0f464ba909491a53e60a955ce84ad7cd93a2c",
+                "reference": "f1a0f464ba909491a53e60a955ce84ad7cd93a2c",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": "^7.4 || ^8.0"
+                "php": "^8.0"
             },
             "require-dev": {
                 "fakerphp/faker": "^1.9.1",
@@ -6372,7 +6372,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-05T09:44:52+00:00"
+            "time": "2022-04-22T08:51:55+00:00"
         },
         {
             "name": "spatie/geocoder",
@@ -6664,16 +6664,16 @@
         },
         {
             "name": "spatie/laravel-cookie-consent",
-            "version": "3.2.0",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-cookie-consent.git",
-                "reference": "01db8a42ba379489279b849d8def306e0886c04a"
+                "reference": "e0f1fe0b79617fa30a550cfa17f570b37302cc73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/01db8a42ba379489279b849d8def306e0886c04a",
-                "reference": "01db8a42ba379489279b849d8def306e0886c04a",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/e0f1fe0b79617fa30a550cfa17f570b37302cc73",
+                "reference": "e0f1fe0b79617fa30a550cfa17f570b37302cc73",
                 "shasum": ""
             },
             "require": {
@@ -6729,7 +6729,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-cookie-consent/tree/3.2.0"
+                "source": "https://github.com/spatie/laravel-cookie-consent/tree/3.2.1"
             },
             "funding": [
                 {
@@ -6737,7 +6737,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-01-14T07:57:12+00:00"
+            "time": "2022-04-22T08:16:57+00:00"
         },
         {
             "name": "spatie/laravel-feed",
@@ -6958,17 +6958,17 @@
         },
         {
             "name": "spatie/laravel-mailcoach",
-            "version": "5.5.1",
+            "version": "5.5.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:spatie/laravel-mailcoach.git",
-                "reference": "4a71609d97e1332c8b6a3f08fe3d5428afeaa615"
+                "reference": "a6a0ed9f5ffe47991fe2bd1368317d4f1de496f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://satis.spatie.be/dist/spatie/laravel-mailcoach/spatie-laravel-mailcoach-4a71609d97e1332c8b6a3f08fe3d5428afeaa615-zip-5f6712.zip",
-                "reference": "4a71609d97e1332c8b6a3f08fe3d5428afeaa615",
-                "shasum": "ac2acb72b8e077f5e3c8b65a3fd571ea2a5bfc7a"
+                "url": "https://satis.spatie.be/dist/spatie/laravel-mailcoach/spatie-laravel-mailcoach-a6a0ed9f5ffe47991fe2bd1368317d4f1de496f6-zip-a809f6.zip",
+                "reference": "a6a0ed9f5ffe47991fe2bd1368317d4f1de496f6",
+                "shasum": "81e5dc07c39d01bae6794a30e4412f4603139a67"
             },
             "require": {
                 "cakephp/chronos": "^2.0",
@@ -7077,31 +7077,31 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-mailcoach/tree/5.5.1",
+                "source": "https://github.com/spatie/laravel-mailcoach/tree/5.5.5",
                 "issues": "https://github.com/spatie/laravel-mailcoach/issues"
             },
-            "time": "2022-04-12T09:24:26+00:00"
+            "time": "2022-04-21T08:45:44+00:00"
         },
         {
             "name": "spatie/laravel-mailcoach-ses-feedback",
-            "version": "4.0.0",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-mailcoach-ses-feedback.git",
-                "reference": "1c944f5aec21deb79d7130ce455250c504fafaaf"
+                "reference": "8d61db5534fc1465cb8f34bed205cb3bc2b79a44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://satis.spatie.be/dist/spatie/laravel-mailcoach-ses-feedback/spatie-laravel-mailcoach-ses-feedback-1c944f5aec21deb79d7130ce455250c504fafaaf-zip-5f0b71.zip",
-                "reference": "1c944f5aec21deb79d7130ce455250c504fafaaf",
-                "shasum": "eaa8fb66ccf521b014f6a1ca7ebba9274f0d4970"
+                "url": "https://satis.spatie.be/dist/spatie/laravel-mailcoach-ses-feedback/spatie-laravel-mailcoach-ses-feedback-8d61db5534fc1465cb8f34bed205cb3bc2b79a44-zip-4e1d2f.zip",
+                "reference": "8d61db5534fc1465cb8f34bed205cb3bc2b79a44",
+                "shasum": "db2f87098932124712f04e762f141ab912d8260c"
             },
             "require": {
                 "aws/aws-php-sns-message-validator": "^1.6",
                 "ext-json": "*",
                 "illuminate/support": "^9.0",
                 "php": "^8.0",
-                "spatie/laravel-mailcoach": "^5.0",
+                "spatie/laravel-mailcoach": "^5.2",
                 "symfony/amazon-mailer": "^6.0"
             },
             "require-dev": {
@@ -7152,9 +7152,9 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-mailcoach-ses-feedback/tree/4.0.0"
+                "source": "https://github.com/spatie/laravel-mailcoach-ses-feedback/tree/4.0.1"
             },
-            "time": "2022-02-08T19:13:12+00:00"
+            "time": "2022-04-13T17:29:50+00:00"
         },
         {
             "name": "spatie/laravel-medialibrary",
@@ -7465,16 +7465,16 @@
         },
         {
             "name": "spatie/laravel-rate-limited-job-middleware",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-rate-limited-job-middleware.git",
-                "reference": "c80fc61a1ec7722419d273bc5b4f3c3a2d98ce3b"
+                "reference": "b6cd5052ce35da1b9608b3203513cc6a5f41c99e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-rate-limited-job-middleware/zipball/c80fc61a1ec7722419d273bc5b4f3c3a2d98ce3b",
-                "reference": "c80fc61a1ec7722419d273bc5b4f3c3a2d98ce3b",
+                "url": "https://api.github.com/repos/spatie/laravel-rate-limited-job-middleware/zipball/b6cd5052ce35da1b9608b3203513cc6a5f41c99e",
+                "reference": "b6cd5052ce35da1b9608b3203513cc6a5f41c99e",
                 "shasum": ""
             },
             "require": {
@@ -7517,7 +7517,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-rate-limited-job-middleware/issues",
-                "source": "https://github.com/spatie/laravel-rate-limited-job-middleware/tree/2.2.0"
+                "source": "https://github.com/spatie/laravel-rate-limited-job-middleware/tree/2.2.1"
             },
             "funding": [
                 {
@@ -7525,7 +7525,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-12T17:06:30+00:00"
+            "time": "2022-04-18T07:54:01+00:00"
         },
         {
             "name": "spatie/laravel-schemaless-attributes",
@@ -8063,16 +8063,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.122.0",
+            "version": "v7.125.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "c58179aa4cad16240a6e65dbf29c2bfd4ae0c033"
+                "reference": "822c00aa380c10c2a3c55d105c5da72ad577b7c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/c58179aa4cad16240a6e65dbf29c2bfd4ae0c033",
-                "reference": "c58179aa4cad16240a6e65dbf29c2bfd4ae0c033",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/822c00aa380c10c2a3c55d105c5da72ad577b7c4",
+                "reference": "822c00aa380c10c2a3c55d105c5da72ad577b7c4",
                 "shasum": ""
             },
             "require": {
@@ -8117,9 +8117,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v7.122.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v7.125.0"
             },
-            "time": "2022-04-08T16:57:33+00:00"
+            "time": "2022-04-21T22:31:37+00:00"
         },
         {
             "name": "symfony/amazon-mailer",
@@ -13082,16 +13082,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.5.4",
+            "version": "1.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "bbf68cae24f6dc023c607ea0f87da55dd9d55c2b"
+                "reference": "7fb7e2e1e9f3d59a26a413b2d3d5e47f0edb75ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/bbf68cae24f6dc023c607ea0f87da55dd9d55c2b",
-                "reference": "bbf68cae24f6dc023c607ea0f87da55dd9d55c2b",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/7fb7e2e1e9f3d59a26a413b2d3d5e47f0edb75ac",
+                "reference": "7fb7e2e1e9f3d59a26a413b2d3d5e47f0edb75ac",
                 "shasum": ""
             },
             "require": {
@@ -13117,7 +13117,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.5.4"
+                "source": "https://github.com/phpstan/phpstan/tree/1.5.7"
             },
             "funding": [
                 {
@@ -13137,7 +13137,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-03T12:39:00+00:00"
+            "time": "2022-04-20T12:20:27+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -14775,16 +14775,16 @@
         },
         {
             "name": "spatie/laravel-ignition",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ignition.git",
-                "reference": "9ad1d32acf8c855d711964bc19092b0bc9792273"
+                "reference": "924d1ae878874ad0bb49f63b69a9af759a34ee78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/9ad1d32acf8c855d711964bc19092b0bc9792273",
-                "reference": "9ad1d32acf8c855d711964bc19092b0bc9792273",
+                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/924d1ae878874ad0bb49f63b69a9af759a34ee78",
+                "reference": "924d1ae878874ad0bb49f63b69a9af759a34ee78",
                 "shasum": ""
             },
             "require": {
@@ -14861,20 +14861,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-04-13T08:06:05+00:00"
+            "time": "2022-04-14T18:04:51+00:00"
         },
         {
             "name": "spatie/laravel-ray",
-            "version": "1.29.5",
+            "version": "1.29.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ray.git",
-                "reference": "7bb6f1f749e235cea5a963b4c12986baefafd624"
+                "reference": "d9ec9d8550dfab362167c866fbd24d4b0d4d1e02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/7bb6f1f749e235cea5a963b4c12986baefafd624",
-                "reference": "7bb6f1f749e235cea5a963b4c12986baefafd624",
+                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/d9ec9d8550dfab362167c866fbd24d4b0d4d1e02",
+                "reference": "d9ec9d8550dfab362167c866fbd24d4b0d4d1e02",
                 "shasum": ""
             },
             "require": {
@@ -14933,7 +14933,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-ray/issues",
-                "source": "https://github.com/spatie/laravel-ray/tree/1.29.5"
+                "source": "https://github.com/spatie/laravel-ray/tree/1.29.6"
             },
             "funding": [
                 {
@@ -14945,7 +14945,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2022-04-05T18:07:59+00:00"
+            "time": "2022-04-15T07:18:37+00:00"
         },
         {
             "name": "spatie/macroable",
