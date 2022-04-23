@@ -181,7 +181,7 @@
                             <h2>Elsewhere on Coeliac Sanctuary</h2>
                         </mj-text>
                         <mj-text css-class="blue-links" padding-bottom="10px">
-                            <a href="">
+                            <a href="{{ config('app.url').'/wheretoeat' }}">
                                 <h3>Places to Eat</h3>
                             </a>
                         </mj-text>
