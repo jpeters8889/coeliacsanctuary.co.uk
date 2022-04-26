@@ -91,18 +91,16 @@ class WhereToEatController extends BaseController
         $eatery = $this->repository
             ->setWiths([
                 'country', 'county', 'town', 'type', 'venueType', 'cuisine', 'features', 'restaurants',
-                'reviews', 'userImages', 'openingTimes',
-                'userReviews' => function (Relation $builder) {
-                    /** @phpstan-ignore-next-line */
-                    return $builder
-                        ->with(['images'])
-                        ->select([
-                            'id', 'wheretoeat_id', 'rating', 'name', 'body', 'how_expensive', 'created_at',
-                            'admin_review', 'food_rating', 'service_rating'
-                        ])
-                        ->where('approved', 1)
-                        ->latest();
-                },
+                'reviews', 'openingTimes',
+                'userImages' => fn(Relation $relation) => $relation->whereRelation('review', 'approved', true),
+                'userReviews' => fn(Relation $builder) => $builder
+                    ->with(['images'])
+                    ->select([
+                        'id', 'wheretoeat_id', 'rating', 'name', 'body', 'how_expensive', 'created_at',
+                        'admin_review', 'food_rating', 'service_rating'
+                    ])
+                    ->where('approved', 1)
+                    ->latest(),
             ])
             ->get($id);
 
