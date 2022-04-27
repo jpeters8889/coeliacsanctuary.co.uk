@@ -16,7 +16,7 @@ class CleanUpFileUploads extends Command
     public function handle(FilesystemManager $filesystem): void
     {
         TemporaryFileUpload::query()
-            ->whereDate('delete_at', '<', Carbon::now()->toDateTimeString())
+            ->where('delete_at', '<', Carbon::now()->toDateTimeString())
             ->get()
             ->each(function (TemporaryFileUpload $fileUpload) use ($filesystem) {
                 $filesystem->disk('uploads')->delete($fileUpload->path);
