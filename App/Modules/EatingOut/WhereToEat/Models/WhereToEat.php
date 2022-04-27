@@ -57,6 +57,7 @@ class WhereToEat extends BaseModel
 
     protected $appends = [
         'average_rating',
+        'average_expense',
         'has_been_rated',
         'icon',
         'full_name',
@@ -116,7 +117,7 @@ class WhereToEat extends BaseModel
             return null;
         }
 
-        $reviewsWithHowExpense = array_filter($this->userReviews->pluck('how_expensive')->toArray());
+        $reviewsWithHowExpense = array_filter($this->userReviews->flatten()->pluck('how_expensive')->toArray());
 
         if (count($reviewsWithHowExpense) === 0) {
             return null;
