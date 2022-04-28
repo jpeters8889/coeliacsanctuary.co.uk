@@ -97,7 +97,7 @@ class WhereToEatController extends BaseController
                     ->with(['images'])
                     ->select([
                         'id', 'wheretoeat_id', 'rating', 'name', 'body', 'how_expensive', 'created_at',
-                        'admin_review', 'food_rating', 'service_rating'
+                        'admin_review', 'food_rating', 'service_rating', 'branch_name',
                     ])
                     ->where('approved', 1)
                     ->latest(),
