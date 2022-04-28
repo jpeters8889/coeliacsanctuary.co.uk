@@ -236,6 +236,10 @@ class WhereToEat extends BaseModel
             return null;
         }
 
+        if (Str::lower($this->town->town) === 'nationwide') {
+            return "{$this->name}, Nationwide";
+        }
+
         return implode(', ', [
             $this->name,
             $this->town->town,
@@ -253,6 +257,10 @@ class WhereToEat extends BaseModel
     {
         if (!$this->relationLoaded('town')) {
             return null;
+        }
+
+        if (Str::lower($this->town->town) === 'nationwide') {
+            return "{$this->name}, Nationwide";
         }
 
         return implode(', ', [
