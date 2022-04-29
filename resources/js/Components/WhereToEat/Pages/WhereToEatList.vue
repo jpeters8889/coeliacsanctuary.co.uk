@@ -395,6 +395,10 @@ export default {
 
   methods: {
     saveState() {
+      if (this.townId === null) {
+        return;
+      }
+
       const data = {};
 
       Object.keys(this.$data).forEach((key) => {
