@@ -20,7 +20,7 @@
               class="text-sm font-semibold text-grey-darker"
             >
               <span>{{ place.venue_type.venue_type }}</span>
-              <span v-if="place.cuisine.cuisine && place.cuisine.cuisine !== 'English'">
+              <span v-if="place.cuisine && place.cuisine.cuisine !== 'English'">
                 - {{ place.cuisine.cuisine }}
               </span>
             </h3>

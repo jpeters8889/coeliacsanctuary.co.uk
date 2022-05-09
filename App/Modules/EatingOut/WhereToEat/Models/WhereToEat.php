@@ -7,6 +7,7 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Container\Container;
@@ -71,6 +72,48 @@ class WhereToEat extends BaseModel
     ];
 
     protected $table = 'wheretoeat';
+
+    public static function booted()
+    {
+        static::saving(function (self $eatery) {
+            if (!$eatery->slug) {
+                $eatery->slug = $eatery->generateSlug();
+            }
+
+            return $eatery;
+        });
+    }
+
+    protected function hasDuplicateNameInTown(): bool
+    {
+        return self::query()
+                ->where('town_id', $this->town_id)
+                ->where('name', $this->name)
+                ->where('live', 1)
+                ->count() > 1;
+    }
+
+    protected function eateryPostcode(): string
+    {
+        $address = explode('<br />', $this->address);
+
+        return array_pop($address);
+    }
+
+    public function generateSlug(): string
+    {
+        if ($this->slug) {
+            return $this->slug;
+        }
+
+        return Str::of($this->name)
+            ->when(
+                $this->hasDuplicateNameInTown(),
+                fn(Stringable $str) => $str->append(' ' . $this->eateryPostcode()),
+            )
+            ->slug()
+            ->toString();
+    }
 
     public function town(): BelongsTo
     {

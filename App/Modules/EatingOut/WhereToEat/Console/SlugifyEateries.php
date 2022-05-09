@@ -28,13 +28,7 @@ class SlugifyEateries extends Command
         }
 
         $eateries->each(function (WhereToEat $eatery) {
-            $slug = Str::of($eatery->name)
-                ->when(
-                    $this->hasDuplicateNameInTown($eatery),
-                    fn (Stringable $str) => $str->append(' ' . $this->eateryPostcode($eatery)),
-                )
-                ->slug()
-                ->toString();
+            $slug = $eatery->generateSlug();
 
             if (!$this->option('dry')) {
                 $eatery->slug = $slug;
@@ -48,22 +42,6 @@ class SlugifyEateries extends Command
 
             $this->line("Setting slug of #{$eatery->id} - {$eatery->name} in {$eatery->town->town} to {$slug}");
         });
-    }
-
-    protected function eateryPostcode(WhereToEat $eatery): string
-    {
-        $address = explode('<br />', $eatery->address);
-
-        return array_pop($address);
-    }
-
-    protected function hasDuplicateNameInTown(WhereToEat $eatery): bool
-    {
-        return WhereToEat::query()
-                ->where('town_id', $eatery->town_id)
-                ->where('name', $eatery->name)
-                ->where('live', 1)
-                ->count() > 1;
     }
 
     protected function getEateries(): array|Collection

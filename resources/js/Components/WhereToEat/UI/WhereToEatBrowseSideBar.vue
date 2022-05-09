@@ -102,7 +102,7 @@
                   <span class="text-base">{{ placeDetails.full_location }}</span><br>
                   <span>{{ placeDetails.venue_type.venue_type }}</span>
                   <span
-                    v-if="placeDetails.cuisine.cuisine && placeDetails.cuisine.cuisine !== 'English'"
+                    v-if="placeDetails.cuisine && placeDetails.cuisine.cuisine !== 'English'"
                   >
                     - {{ placeDetails.cuisine.cuisine }}
                   </span>

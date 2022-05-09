@@ -6,6 +6,7 @@ namespace Tests\Unit\Modules\EatingOut\WhereToEat;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatFeature;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatOpeningTimes;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 use Tests\Traits\ClearsCache;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
@@ -22,8 +23,16 @@ class WhereToEatModelTest extends TestCase
         parent::setUp();
 
         $this->wheretoeat = $this->build(WhereToEat::class)
+            ->withoutSlug()
             ->has($this->build(WhereToEatFeature::class), 'features')
             ->create();
+    }
+
+    /** @test */
+    public function itCreatesASlug(): void
+    {
+        $this->assertNotNull($this->wheretoeat->slug);
+        $this->assertEquals(Str::slug($this->wheretoeat->name), $this->wheretoeat->slug);
     }
 
     /** @test */

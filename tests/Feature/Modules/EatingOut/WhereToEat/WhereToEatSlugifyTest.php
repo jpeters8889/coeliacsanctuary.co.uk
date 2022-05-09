@@ -9,6 +9,13 @@ use Tests\TestCase;
 
 class WhereToEatSlugifyTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        WhereToEat::unsetEventDispatcher();
+    }
+
     /** @test */
     public function itAsksForConfirmation(): void
     {
