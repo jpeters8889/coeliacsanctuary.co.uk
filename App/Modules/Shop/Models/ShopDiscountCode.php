@@ -75,6 +75,6 @@ class ShopDiscountCode extends BaseModel
             $deduction = $subtotal / 100 * $deduction;
         }
 
-        return $deduction;
+        return (int) $deduction;
     }
 }
