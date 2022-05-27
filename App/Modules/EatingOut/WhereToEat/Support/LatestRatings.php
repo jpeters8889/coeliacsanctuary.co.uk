@@ -4,6 +4,7 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Support;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -30,7 +31,10 @@ class LatestRatings
     public function list(): Collection
     {
         return WhereToEatReview::query()
-            ->with(['eatery', 'eatery.country', 'eatery.county', 'eatery.town'])
+            ->with([
+                'eatery' => fn(Relation $relation) => $relation->where('live', true),
+                'eatery.country', 'eatery.county', 'eatery.town'
+            ])
             ->latest()
             ->take(5)
             ->get()
