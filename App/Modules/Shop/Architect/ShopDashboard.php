@@ -67,7 +67,7 @@ class ShopDashboard extends AbstractDashboard
         $months = new Collection();
 
         for ($x = 12; $x >= 0; --$x) {
-            $months->push(Carbon::today()->subMonth($x));
+            $months->push(Carbon::today()->startOfMonth()->subMonths($x));
         }
 
         $chart->addLabels($months->map(fn ($day) => $day->format('M Y'))->toArray());
