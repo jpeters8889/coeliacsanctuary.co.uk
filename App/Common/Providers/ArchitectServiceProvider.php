@@ -7,6 +7,7 @@ namespace Coeliac\Common\Providers;
 use Coeliac\Common\ArchitectDashboard;
 use Coeliac\Common\Architect\HorizonDashboard;
 use Coeliac\Common\Architect\MailcoachDashboard;
+use Coeliac\Modules\EatingOut\WhereToEat\Architect\MyPlacesBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\PlaceRecommendationsBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\PlaceReportsBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\SuggestedEditBlueprint;
@@ -55,6 +56,7 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             WhereToEatBlueprint::class,
             WteRatingsBlueprint::class,
             PlaceRecommendationsBlueprint::class,
+            MyPlacesBlueprint::class,
             PlaceReportsBlueprint::class,
             WhereToEatVenueTypesBlueprint::class,
             WhereToEatCuisinesBlueprint::class,
