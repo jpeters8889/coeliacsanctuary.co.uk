@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use JPeters\Architect\Blueprints\Blueprint;
 use Coeliac\Architect\Cards\PlaceRecommendationsCard\Card;
 
-class PlaceRecommendationsBlueprint extends Blueprint
+class MyPlacesBlueprint extends Blueprint
 {
     public function model(): string
     {
@@ -18,7 +18,7 @@ class PlaceRecommendationsBlueprint extends Blueprint
 
     public function getData(): Builder
     {
-        return parent::getData()->with('venueType')->where('email', '!=', 'alisondwheatley@gmail.com');
+        return parent::getData()->with('venueType')->where('email', 'alisondwheatley@gmail.com');
     }
 
     public function blueprintRoute(): string
@@ -48,13 +48,13 @@ class PlaceRecommendationsBlueprint extends Blueprint
 
     public function blueprintName(): string
     {
-        return 'Recommendations';
+        return 'My Places';
     }
 
     public function displayCount(): int
     {
         return WhereToEatRecommendation::query()->where('completed', 0)
-            ->where('email', '!=', 'alisondwheatley@gmail.com')
+            ->where('email', 'alisondwheatley@gmail.com')
             ->count();
     }
 }
