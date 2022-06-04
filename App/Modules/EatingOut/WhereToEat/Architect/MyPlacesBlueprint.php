@@ -23,7 +23,7 @@ class MyPlacesBlueprint extends Blueprint
 
     public function blueprintRoute(): string
     {
-        return 'place-recommendations';
+        return 'my-places';
     }
 
     public function canEdit(): bool
