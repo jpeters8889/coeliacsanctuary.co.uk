@@ -207,6 +207,7 @@ export default {
     selectedResult: false,
     matchingCards: {},
     loadingResult: true,
+    isFromSearch: false,
   }),
 
   watch: {
@@ -239,6 +240,13 @@ export default {
     this.$root.$on('term-blur', () => {
       this.blur();
     });
+
+    const url = new URL(window.location.href);
+    if (url && url.searchParams && url.searchParams.has('term')) {
+      this.isFromSearch = true;
+
+      this.term = url.searchParams.get('term');
+    }
   },
 
   methods: {
@@ -256,6 +264,10 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.results = response.data.results;
+
+            if (this.isFromSearch && this.results.length === 1) {
+              this.selectResult(this.results[0]);
+            }
 
             return;
           }
