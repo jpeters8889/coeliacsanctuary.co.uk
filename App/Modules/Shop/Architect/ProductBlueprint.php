@@ -153,4 +153,27 @@ class ProductBlueprint extends Blueprint
     {
         return 'shop-products';
     }
+
+    public function filters(): array
+    {
+        return [
+            'live' => [
+                'name' => 'Live',
+                'options' => [
+                    1 => 'Yes',
+                    0 => 'No',
+                ],
+                'filter' => fn (Builder $builder, $value) => $builder->whereRelation('variants', 'live', $value),
+            ],
+            'lowQuantity' => [
+                'name' => 'Quantity',
+                'options' => [
+                    5 => '< 5',
+                    10 => '< 10',
+                    20 => '< 20',
+                ],
+                'filter' => fn (Builder $builder, $value) => $builder->whereRelation('variants', 'quantity', '<', $value),
+            ],
+        ];
+    }
 }
