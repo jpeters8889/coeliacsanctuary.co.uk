@@ -14,7 +14,7 @@ class ApiHandler
 
         ShopCategory::query()
             ->with(['products', 'products.prices', 'products.images'])
-            ->whereIn('id', [1,8])
+            ->whereIn('id', [1,11])
             ->get()
             ->each(function (ShopCategory $category) use ($products) {
                 $products->push(...$category->products);

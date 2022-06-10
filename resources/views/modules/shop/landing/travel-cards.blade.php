@@ -36,7 +36,7 @@
                 </x-slot>
                 <x-slot name="title">Professionally Translated</x-slot>
                 <x-slot name="body">
-                    We don't just run our cards through automated software like Google Translate, all of gluten free
+                    We don't just run our cards through automated software like Google Translate, all of our gluten free
                     travel and translation cards are professionally translated by native speakers, giving you the
                     assurance that anyone reading the card is given accurate information, and that it makes sense!
                 </x-slot>
@@ -124,8 +124,8 @@
                 <x-slot name="title">Double Sided</x-slot>
                 <x-slot name="body">
                     Our gluten free travel and translation cards are all double sided, on our standard cards you get two
-                    languages, and on our Coeliac and Other Allergy travel cards you have a series of checkboxes to mark
-                    any other allergens or foods you can't eat.
+                    languages, and on our Coeliac+ travel cards you have a series of checkboxes to mark any other allergens
+                    or foods you can't eat.
                 </x-slot>
             </x-shop.landing-card>
 
@@ -239,27 +239,28 @@
 
             <div class="page-box p-3">
                 <h2 class="flex justify-center items-center text-3xl mb-2 font-semibold font-coeliac text-center h-20 border-t border-b border-blue-light">
-                    Coeliac and other Dietary Needs Travel Cards
+                    Coeliac+ Travel Cards
                 </h2>
 
                 <div class="flex flex-col space-y-3">
                     <p>
-                        Unlike our standard travel and translation cards, our coeliac and other dietary need travel and
-                        translation cards come in just one language per card, and available in over 20 languages.
+                        Unlike our standard travel and translation cards, our Coeliac+ travel and translation cards come
+                        in just one language per card, and are currently available in our 10 most popular languages.
                     </p>
 
                     <p>
                         The first side of the card covers the gluten free diet, professionally translated to explain
                         coeliac disease and a gluten free diet, what you can and can't eat, cross contamination, and
                         what to look out for, the other side of the card has a series of checkboxes for you to check any
-                        other allergens you have or foods you must avoid.
+                        other allergens you have or foods you must avoid, or other dietary requirements like vegetarian
+                        and vegan.
                     </p>
 
                     <a
-                        href="/shop/coeliac-and-other-dietary-needs-travel-cards"
+                        href="/shop/coeliac-cards"
                         class="w-full p-2 bg-blue-light bg-opacity-80 border-blue text-center rounded mt-4 font-semibold hover:bg-blue transition-all"
                     >
-                        View all Coeliac and other Dietary Needs Travel Cards
+                        View all Coeliac+ Travel Cards
                     </a>
                 </div>
             </div>
