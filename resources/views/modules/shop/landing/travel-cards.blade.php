@@ -197,7 +197,6 @@
                 </x-slot>
                 <x-slot name="title">Battle Tested</x-slot>
                 <x-slot name="body">
-                    <span id="search"></span>
                     We've sold thousands of our gluten free travel and translation cards since we launched our range
                     helping people eat safely all over the world and have received lots of great feedback on our social
                     media platforms, and even from attendees when we have exhibited at various allergy shows around the

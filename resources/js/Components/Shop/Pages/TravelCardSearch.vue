@@ -1,5 +1,8 @@
 <template>
-  <div class="flex justify-center">
+  <div
+    id="search"
+    class="flex justify-center"
+  >
     <div class="flex flex-col justify-center items-center space-y-4 w-full">
       <h2 class="text-xl font-semibold">
         Where are you heading?
@@ -244,6 +247,9 @@ export default {
     const url = new URL(window.location.href);
     if (url && url.searchParams && url.searchParams.has('term')) {
       this.isFromSearch = true;
+      this.$scrollTo('#search', 500, {
+        offset: -200,
+      });
 
       this.term = url.searchParams.get('term');
     }
