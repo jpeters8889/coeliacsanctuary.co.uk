@@ -30,7 +30,7 @@ class WhereToEatDetailsController extends BaseController
                 'eatery' => $eatery->only([
                     'address', 'average_expense', 'average_rating', 'county', 'cuisine', 'features', 'formatted_address',
                     'gf_menu_link', 'has_been_rated', 'icon', 'id', 'info', 'lat', 'lng', 'openingTimes', 'name', 'phone',
-                    'restaurants', 'town', 'type', 'userImages', 'userReviews', 'venueType', 'website',
+                    'restaurants', 'town', 'type', 'userImages', 'userReviews', 'venueType', 'website', 'formattedReviews',
                 ]),
             ]);
     }

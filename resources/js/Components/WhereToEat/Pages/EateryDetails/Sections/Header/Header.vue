@@ -18,6 +18,22 @@
         </div>
       </div>
 
+      <div
+        v-if="eatery.userReviews.length > 0"
+        class="px-3 flex justify-between items-center sm:flex-row-reverse"
+      >
+        <span class="flex-1 sm:mr-2">
+          Rated <strong>{{ eatery.average_rating }} stars</strong> from
+          <strong>{{ eatery.userReviews.length }} review{{ eatery.userReviews.length > 1 ? 's' : '' }}</strong>
+        </span>
+
+        <global-ui-stars
+          :stars="eatery.average_rating"
+          half-star="star-half-alt"
+          show-all
+        />
+      </div>
+
       <div class="flex space-x-3 text-sm font-semibold px-3 text-grey-darker mt-1">
         {{ eatery.venueType.venue_type }}{{ eatery.cuisine.cuisine ? ', ' + eatery.cuisine.cuisine : '' }}
       </div>
@@ -33,7 +49,7 @@
     <header-links :eatery="eatery" />
 
     <div
-      v-if="eatery.userReviews.length"
+      v-if="eatery.formattedReviews.length"
       class="flex flex-col space-y-3 bg-grey-light p-3"
     >
       <div class="flex space-x-1 text-sm items-center leading-none">
@@ -44,8 +60,8 @@
           half-star="star-half-alt"
           show-all
         />
-        <span>from <strong>{{ eatery.userReviews.length }}</strong> review{{
-          eatery.userReviews.length > 1 ? 's' : ''
+        <span>from <strong>{{ eatery.formattedReviews.length }}</strong> review{{
+          eatery.formattedReviews.length > 1 ? 's' : ''
         }}</span>
       </div>
     </div>
