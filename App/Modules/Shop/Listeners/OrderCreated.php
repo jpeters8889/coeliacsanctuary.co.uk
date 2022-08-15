@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Listeners;
 
+use Carbon\Carbon;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
 use Illuminate\Support\Str;
 use Coeliac\Modules\Shop\Events\CreateOrder;
@@ -18,6 +19,7 @@ class OrderCreated
     {
         $this->order = $order;
 
+        $this->order->model()->update(['created_at' => Carbon::now()]);
         $this->order->model()->setPublicKey();
 
         $this->updateOrder();

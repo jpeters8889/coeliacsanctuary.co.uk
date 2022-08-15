@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "08963deadd08030041dfe9193e46c38d",
+    "content-hash": "43109ee72e3c2272c52be5ca6b8134e7",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -1397,6 +1397,34 @@
             "autoload": {
                 "psr-4": {
                     "Coeliac\\Architect\\Plans\\ShopProductVariants\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "coeliac/shop-review-products",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./architect/plans/shop-review-products",
+                "reference": "459e37a3a8abc46b78eb47602af369cf7c6d6663"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Coeliac\\Architect\\Plans\\ShopReviewProducts\\PlanServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Coeliac\\Architect\\Plans\\ShopReviewProducts\\": "src/"
                 }
             },
             "license": [
@@ -16377,14 +16405,15 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "coeliac/shop-review-products": 20,
         "coeliac/wte-opening-times": 20,
         "beyondcode/laravel-dump-server": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "ext-json": "*",
-        "php": "^8.0"
+        "php": "^8.0",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"
