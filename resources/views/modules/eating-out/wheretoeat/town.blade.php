@@ -16,7 +16,7 @@
 
             <div class="flex flex-col mt-2 space-y-2">
                 <p>
-                    Here you can see all of the nationwide chains in our Where to Eat guide that offer gluten free options in
+                    Here you can see all of the locations in our Where to Eat guide that offer gluten free options in
                     {{ $town->town }}, {{ $county->county }}, from cafes, restaurants, to attractions and hotels.
                 </p>
 
