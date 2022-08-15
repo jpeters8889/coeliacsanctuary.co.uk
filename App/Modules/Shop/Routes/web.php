@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Coeliac\Modules\Shop\Controllers\ReviewMyOrderController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\Shop\Controllers\BasketController;
 use Coeliac\Modules\Shop\Controllers\ProductController;
@@ -24,6 +25,10 @@ $router->group(['prefix' => 'shop'], static function () use ($router) {
     $router->group(['middleware' => 'shopOrderComplete'], static function () use ($router) {
         $router->get('/basket/done', [BasketDoneController::class, 'show']);
     });
+
+    $router->get('review-my-order/{invitation}', [ReviewMyOrderController::class, 'get'])
+        ->middleware(['signed'])
+        ->name('shop.review-order');
 
     $router->get('product/{slug}', [ProductController::class, 'show']);
     $router->get('{slug}', [CategoryController::class, 'show']);

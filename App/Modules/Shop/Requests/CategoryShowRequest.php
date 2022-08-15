@@ -27,7 +27,7 @@ class CategoryShowRequest extends ModuleRequest
     public function products(): Collection
     {
         return (new ProductRepository())
-            ->setWiths(['images', 'images.image', 'variants', 'prices'])
+            ->setWiths(['images', 'images.image', 'variants', 'prices', 'reviews'])
             ->fromCategory((string) $this->route('slug'));
     }
 }

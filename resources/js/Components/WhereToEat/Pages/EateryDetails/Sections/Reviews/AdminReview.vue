@@ -9,6 +9,15 @@
         v-if="hasRatings"
         class="flex flex-col flex-1 mb-2 space-y-1 bg-blue-light bg-opacity-25 border border-blue rounded p-1 text-sm xs:flex-row xs:justify-around xs:space-y-0"
       >
+        <li class="flex space-x-1 text-md mb-2">
+          <strong>Our Rating</strong>
+          <global-ui-stars
+            :stars="review.rating"
+            size="text-base md:text-lg"
+            half-star="star-half-alt"
+            show-all
+          />
+        </li>
         <li
           v-if="review.how_expensive"
           v-html="howExpensive(review)"

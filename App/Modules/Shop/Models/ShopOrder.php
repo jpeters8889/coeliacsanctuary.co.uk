@@ -10,6 +10,7 @@ use Coeliac\Modules\Member\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Coeliac\Modules\Member\Models\UserAddress;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
@@ -32,6 +33,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property Carbon|null               $shipped_at
  * @property Collection<ShopOrderItem> $items
  * @property int $state_id
+ * @property ShopOrderReviewInvitation $reviewInvitation
  */
 class ShopOrder extends BaseModel
 {
@@ -128,5 +130,25 @@ class ShopOrder extends BaseModel
     public function discountCode(): HasOneThrough
     {
         return $this->hasOneThrough(ShopDiscountCode::class, ShopDiscountCodesUsed::class, 'order_id', 'id', 'id', 'discount_id');
+    }
+
+    public function reviewInvitation(): HasOne
+    {
+        return $this->hasOne(ShopOrderReviewInvitation::class, 'order_id');
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(ShopOrderReview::class, 'order_id');
+    }
+
+    public function reviewedItems(): HasMany
+    {
+        return $this->hasMany(ShopOrderReviewItem::class, 'order_id');
+    }
+
+    public function sources(): BelongsToMany
+    {
+        return $this->belongsToMany(ShopSource::class, 'shop_order_sources', 'order_id', 'source_id');
     }
 }

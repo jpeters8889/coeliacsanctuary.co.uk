@@ -37,6 +37,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $meta_keywords
  * @property string $meta_description
  * @property Collection<ShopCategory> $categories
+ * @property Collection<ShopOrderReviewItem> $reviews
  *
  * @method transform(array $array)
  */
@@ -87,6 +88,11 @@ class ShopProduct extends BaseModel implements SearchableContract
     public function feedback(): HasMany
     {
         return $this->hasMany(ShopFeedback::class, 'product_id');
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(ShopOrderReviewItem::class, 'product_id');
     }
 
     public function getScoutKey(): mixed

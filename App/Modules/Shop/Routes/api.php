@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Coeliac\Modules\Shop\Controllers\ProductReviewsController;
+use Coeliac\Modules\Shop\Controllers\ReviewMyOrderController;
 use Coeliac\Modules\Shop\Controllers\TravelCardSearchController;
 use Illuminate\Routing\Router;
 use Coeliac\Modules\Shop\Controllers\OrderController;
@@ -30,6 +32,7 @@ $router->group(['prefix' => 'api/shop'], static function () use ($router) {
     $router->group(['prefix' => 'product/{id}'], static function () use ($router) {
         $router->get('/', [ProductController::class, 'get']);
         $router->get('images', [ProductImagesController::class, 'get']);
+        $router->get('reviews', [ProductReviewsController::class, 'get']);
     });
 
     $router->get('countries', [CountryController::class, 'index']);
@@ -42,4 +45,6 @@ $router->group(['prefix' => 'api/shop'], static function () use ($router) {
 
     $router->post('travel-card-search', [TravelCardSearchController::class, 'index']);
     $router->get('travel-card-search/{id}', [TravelCardSearchController::class, 'get']);
+
+    $router->post('review-my-order/{invitation}', [ReviewMyOrderController::class, 'create']);
 });

@@ -1,3 +1,4 @@
+import '~/Shop/Products/Reviews';
 import Vue from 'vue';
 
 const ProductImages = () => import('~/Shop/Products/ProductImages' /* webpackChunkName: "chunk-product-images" */);

@@ -36,8 +36,6 @@ class ProductController extends BaseController
         /** @var ShopCategory $category */
         $category = $product->categories()->first();
 
-        $feedback = ShopFeedback::query()->with('product')->inRandomOrder()->take(3)->get();
-
         return $this->page
             ->breadcrumbs([
                 [
@@ -53,7 +51,15 @@ class ProductController extends BaseController
             ->setMetaDescription($product->meta_description)
             ->setMetaKeywords(explode(',', $product->meta_keywords))
             ->setSocialImage($product->first_image)
-            ->render('modules.shop.product', compact('product', 'category', 'feedback'));
+            ->render('modules.shop.product', [
+                'product' => $product,
+                'category' => $category,
+                'hasReviews' => $product->reviews()->count() > 0,
+                'reviews' => [
+                    'count' => $product->reviews()->count(),
+                    'average' => round($product->reviews()->average('rating') * 2) / 2,
+                ],
+            ]);
     }
 
     public function get(ProductRepository $repository, mixed $id): array

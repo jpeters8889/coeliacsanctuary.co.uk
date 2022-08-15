@@ -25,12 +25,25 @@
                     {{ $product->title }}
                 </h1>
 
-                <p class="text-center -mt-4 pt-1">
-                    <a class="text-sm font-semibold font-sans hover:text-blue-dark transition-all"
-                       href="{{ $category->link }}">
+                <div
+                    class="items-start flex space-x-3 -mt-4 pt-1 flex text-sm font-semibold font-sans @if($hasReviews) justify-between @else justify-center @endif"
+                >
+                    <a class="flex space-x-1 items-center flex-shrink-0" href="#reviews-wrapper">
+                        <global-ui-stars
+                            stars="{{ $reviews['average'] }}"
+                            size="text-base md:text-lg"
+                            half-star="star-half-alt"
+                            show-all
+                        ></global-ui-stars>
+                        <span>{{ $reviews['count'] }} Ratings</span>
+                    </a>
+
+                    <a class="hover:text-blue-dark transition-all @if($hasReviews) text-right @endif"
+                       href="{{ $category->link }}"
+                    >
                         Back to {{ $category->title }}
                     </a>
-                </p>
+                </div>
             </div>
 
             <div class="main-body flex flex-col md:flex-row">
@@ -55,10 +68,12 @@
                                 <div class="w-1/2 h-6 bg-grey bg-opacity-50"></div>
                                 <div class="w-5/8 h-5 bg-blue-dark bg-opacity-50"></div>
                                 <div
-                                    class="w-full h-8 border-grey border bg-grey-off-light bg-opacity-50 rounded"></div>
+                                    class="w-full h-8 border-grey border bg-grey-off-light bg-opacity-50 rounded"
+                                ></div>
                                 <div class="w-1/2 h-6 bg-blue-dark bg-opacity-50"></div>
                                 <div
-                                    class="w-full h-8 border-grey border bg-grey-off-light bg-opacity-50 rounded"></div>
+                                    class="w-full h-8 border-grey border bg-grey-off-light bg-opacity-50 rounded"
+                                ></div>
                                 <div class="w-full h-10 bg-blue-light bg-opacity-50 rounded"></div>
                             </div>
                         </shop-product-add-basket>
@@ -74,7 +89,8 @@
             </p>
         </div>
 
-        <div class="page-box">
+
+        <div class="page-box" id="reviews-wrapper">
             <h1 class="text-2xl font-coeliac text-center font-semibold leading-tight md:text-left">
                 Customer Feedback
             </h1>
@@ -85,13 +101,7 @@
                     said about them!
                 </p>
 
-                @foreach($feedback as $item)
-                    <div class="bg-blue-light bg-opacity-20 border-l-8 border-yellow p-2 mb-4">
-                        <em>{{ $item->feedback }}</em><br/>
-                        <span class="text-blue">{{ $item->name }} - <a
-                                href="{{ $item->product->link }}">{{ $item->product->title }}</a></span>
-                    </div>
-                @endforeach
+                <shop-product-reviews :id="{{ $product->id }} "/>
             </div>
         </div>
     </div>

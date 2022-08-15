@@ -144,7 +144,7 @@ export default {
         return true;
       }
 
-      if (this.currentIndex && index <= this.currentIndex) {
+      if (this.currentIndex !== null && index <= this.currentIndex) {
         return true;
       }
 

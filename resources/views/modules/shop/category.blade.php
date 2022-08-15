@@ -30,7 +30,9 @@
                             Enter a country or language below and we'll try and find the best travel card for you!
                         </p>
 
-                        <form class="flex flex-col w-full space-y-2" method="get" action="/gluten-free-travel-translation-cards">
+                        <form class="flex flex-col w-full space-y-2" method="get"
+                              action="/gluten-free-travel-translation-cards"
+                        >
                             <div class="flex overflow-hidden border rounded border-grey-off rounded-none rounded-t">
                                 <div class="bg-grey-lightest p-0 flex-1">
                                     <input
@@ -65,11 +67,25 @@
                         />
                     </a>
 
-                    <h2 class="text-lg text-blue-dark font-semibold group-hover:text-grey transition-all">
-                        <a href="{{ $product->link }}">
-                            {{ $product->title }}
-                        </a>
-                    </h2>
+                    <div class="flex justify-between">
+                        <h2 class="text-lg text-blue-dark font-semibold text-left group-hover:text-grey transition-all">
+                            <a href="{{ $product->link }}">
+                                {{ $product->title }}
+                            </a>
+                        </h2>
+
+                        @if($product->reviews->count() > 0)
+                            <div class="text-sm flex space-x-1 flex-shrink-0">
+                                <global-ui-stars
+                                    stars="{{ round($product->reviews->average('rating') * 2) / 2 }}"
+                                    size="text-base"
+                                    half-star="star-half-alt"
+                                    show-all
+                                ></global-ui-stars>
+                                <span>({{ $product->reviews->count() }})</span>
+                            </div>
+                        @endif
+                    </div>
 
                     <p class="text-2xl font-semibold leading-none mb-2">
                         {{ formatPrice($product->currentPrice) }}
