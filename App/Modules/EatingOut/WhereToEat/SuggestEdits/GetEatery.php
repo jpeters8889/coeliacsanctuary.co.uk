@@ -50,7 +50,7 @@ class GetEatery
             'values' => WhereToEatVenueType::query()
                 ->orderBy('venue_type')
                 ->get()
-                ->transform(fn(WhereToEatVenueType $venueType) => [
+                ->transform(fn (WhereToEatVenueType $venueType) => [
                     'value' => $venueType->id,
                     'label' => $venueType->venue_type,
                     'selected' => $venueType->id === $this->eatery->venueType->id,
@@ -66,7 +66,7 @@ class GetEatery
             'values' => WhereToEatCuisine::query()
                 ->orderBy('cuisine')
                 ->get()
-                ->transform(fn(WhereToEatCuisine $cuisine) => [
+                ->transform(fn (WhereToEatCuisine $cuisine) => [
                     'value' => $cuisine->id,
                     'label' => $cuisine->cuisine,
                     'selected' => $cuisine->id === $this->eatery->cuisine?->id,
@@ -95,14 +95,14 @@ class GetEatery
     protected function getFeatures(): array
     {
         return [
-            'selected' => $this->eatery->features->transform(fn(WhereToEatFeature $feature) => [
+            'selected' => $this->eatery->features->transform(fn (WhereToEatFeature $feature) => [
                 'id' => $feature->id,
                 'label' => $feature->feature,
             ]),
             'values' => WhereToEatFeature::query()
                 ->orderBy('feature')
                 ->get()
-                ->transform(fn(WhereToEatFeature $feature) => [
+                ->transform(fn (WhereToEatFeature $feature) => [
                     'id' => $feature->id,
                     'label' => $feature->feature,
                     'selected' => in_array($feature->id, $this->eatery->features->pluck('id')->toArray()),

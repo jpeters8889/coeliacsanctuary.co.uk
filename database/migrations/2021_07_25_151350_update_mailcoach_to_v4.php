@@ -13,7 +13,7 @@ class UpdateMailcoachToV4 extends Migration
      */
     public function up()
     {
-        if(app()->runningUnitTests()) {
+        if (app()->runningUnitTests()) {
             return;
         }
 

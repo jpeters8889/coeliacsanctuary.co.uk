@@ -24,7 +24,7 @@ class ProductReviewsController extends BaseController
             ->with(['parent'])
             ->latest()
             ->paginate(5)
-            ->through(fn(ShopOrderReviewItem $review) => [
+            ->through(fn (ShopOrderReviewItem $review) => [
                 'id' => $review->id,
                 'name' => $review->parent->name,
                 'rating' => $review->rating,

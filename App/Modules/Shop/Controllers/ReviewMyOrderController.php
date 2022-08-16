@@ -28,13 +28,11 @@ class ReviewMyOrderController extends BaseController
 
     public function create(ShopOrderReviewInvitation $invitation, ReviewMyOrderRequest $request)
     {
-
-
         abort_if($invitation->review()->count() > 0, 404);
 
         collect($request->input('whereHeard'))
-            ->map(fn(string $source) => ShopSource::query()->firstOrCreate(['source' => $source]))
-            ->each(fn(ShopSource $source) => $source->orders()->attach($invitation->order));
+            ->map(fn (string $source) => ShopSource::query()->firstOrCreate(['source' => $source]))
+            ->each(fn (ShopSource $source) => $source->orders()->attach($invitation->order));
 
         /** @var ShopOrderReview $review */
         $review = $invitation->review()->create([
@@ -42,7 +40,7 @@ class ReviewMyOrderController extends BaseController
             'name' => $request->input('name')
         ]);
 
-        collect($request->input('products'))->each(fn(array $product) => $review->products()->create([
+        collect($request->input('products'))->each(fn (array $product) => $review->products()->create([
             'product_id' => $product['id'],
             'order_id' => $invitation->order_id,
             'rating' => $product['rating'],

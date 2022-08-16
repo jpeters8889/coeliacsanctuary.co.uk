@@ -191,7 +191,7 @@ class ShopProduct extends BaseModel implements SearchableContract
 
     protected function toRichText(): array
     {
-        return [
+        $core = [
             'sku' => $this->id,
             'name' => $this->title,
             'brand' => [
@@ -242,6 +242,30 @@ class ShopProduct extends BaseModel implements SearchableContract
                 ],
             ],
         ];
+
+        if ($this->reviews()->count() > 0) {
+            $core = array_merge($core, [
+                "review" => $this->reviews()->latest()->with(['parent'])->get()->transform(fn (ShopOrderReviewItem $review) => [
+                    "@type" => "Review",
+                    "reviewRating" => [
+                        "@type" => "Rating",
+                        "ratingValue" => $review->rating,
+                        "bestRating" => "5"
+                    ],
+                    "author" => [
+                        "@type" => "Person",
+                        "name" => $review->parent->name,
+                    ],
+                ]),
+                "aggregateRating" => [
+                    "@type" => "AggregateRating",
+                    "ratingValue" => $this->reviews()->average('rating'),
+                    "reviewCount" => $this->reviews()->count()
+                ],
+            ]);
+        }
+
+        return $core;
     }
 
     protected function baseShippingRate(): int

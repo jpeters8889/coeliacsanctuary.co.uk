@@ -80,6 +80,14 @@ class WhereToEat extends BaseModel
                 $eatery->slug = $eatery->generateSlug();
             }
 
+            if ($eatery->type_id === 3) {
+                $eatery->venue_type_id = 26;
+            }
+
+            if (!$eatery->cuisine_id) {
+                $eatery->cuisine_id = 1;
+            }
+
             return $eatery;
         });
     }
@@ -109,7 +117,7 @@ class WhereToEat extends BaseModel
         return Str::of($this->name)
             ->when(
                 $this->hasDuplicateNameInTown(),
-                fn(Stringable $str) => $str->append(' ' . $this->eateryPostcode()),
+                fn (Stringable $str) => $str->append(' ' . $this->eateryPostcode()),
             )
             ->slug()
             ->toString();

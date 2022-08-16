@@ -92,8 +92,8 @@ class WhereToEatController extends BaseController
             ->setWiths([
                 'country', 'county', 'town', 'type', 'venueType', 'cuisine', 'features', 'restaurants',
                 'reviews', 'openingTimes',
-                'userImages' => fn(Relation $relation) => $relation->whereRelation('review', 'approved', true),
-                'userReviews' => fn(Relation $builder) => $builder
+                'userImages' => fn (Relation $relation) => $relation->whereRelation('review', 'approved', true),
+                'userReviews' => fn (Relation $builder) => $builder
                     ->with(['images'])
                     ->select([
                         'id', 'wheretoeat_id', 'rating', 'name', 'body', 'how_expensive', 'created_at',

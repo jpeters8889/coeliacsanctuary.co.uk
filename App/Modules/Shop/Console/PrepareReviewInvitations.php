@@ -34,13 +34,13 @@ class PrepareReviewInvitations extends Command
     {
         $this->totalSent = 0;
 
-        $this->sendingRules()->each(fn($rule) => ShopOrder::query()
+        $this->sendingRules()->each(fn ($rule) => ShopOrder::query()
             ->where('state_id', ShopOrderState::STATE_COMPLETE)
             ->where('shipped_at', '<=', $rule['date'])
             ->where('shipped_at', '>=', $rule['date']->startOfDay())
             ->whereRelation(
                 'postageCountry',
-                fn(Builder $relation) => $relation->whereIn('postage_area_id', $rule['areas'])
+                fn (Builder $relation) => $relation->whereIn('postage_area_id', $rule['areas'])
             )
             ->whereDoesntHave('reviewInvitation')
             ->get()

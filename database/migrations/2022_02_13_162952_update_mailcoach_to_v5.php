@@ -6,7 +6,7 @@ use Illuminate\Database\Schema\Blueprint;
 return new class () extends Migration {
     public function up()
     {
-        if(app()->runningUnitTests()) {
+        if (app()->runningUnitTests()) {
             return;
         }
 

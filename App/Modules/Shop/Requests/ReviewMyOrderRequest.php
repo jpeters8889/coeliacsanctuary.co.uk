@@ -16,7 +16,7 @@ class ReviewMyOrderRequest extends ApiFormRequest
             'whereHeard.*' => ['string'],
             'products' => ['required', 'array'],
             'products.*.id' => ['required', 'int', 'bail', 'exists:shop_products,id', new ReviewedProductIsInOrder()],
-            'products.*.rating' => ['required', 'numeric', Rule::in(range(1,5))],
+            'products.*.rating' => ['required', 'numeric', Rule::in(range(1, 5))],
             'products.*.review' => ['string', 'nullable'],
         ];
     }

@@ -13,7 +13,7 @@ class ApiHandler
             ->where('review_id', $id)
             ->with('product')
             ->get()
-            ->transform(fn(ShopOrderReviewItem $item) => [
+            ->transform(fn (ShopOrderReviewItem $item) => [
                 'id' => $item->id,
                 'product_id' => $item->product_id,
                 'title' => $item->product->title,
@@ -22,7 +22,8 @@ class ApiHandler
             ]);
     }
 
-    public function productList() {
+    public function productList()
+    {
         return app(ProductRepository::class)->all();
     }
 }

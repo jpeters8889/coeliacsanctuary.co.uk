@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Coeliac\Common\Traits;
 
 use Illuminate\Database\Eloquent\Model;
+
 use function in_array;
 
 /** @mixin Model */
