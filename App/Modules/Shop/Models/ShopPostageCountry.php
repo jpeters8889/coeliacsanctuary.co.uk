@@ -16,6 +16,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class ShopPostageCountry extends BaseModel
 {
     public const UK = 1;
+    public const ROI = 2;
+    public const USA = 18;
+    public const AUS = 20;
 
     protected $visible = [
         'id',

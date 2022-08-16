@@ -9,6 +9,7 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 use Illuminate\Cache\Repository as CacheRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
+
 use function numberToWords;
 
 class IndexCountyList

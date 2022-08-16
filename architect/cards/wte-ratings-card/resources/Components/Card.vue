@@ -43,6 +43,12 @@
         </template>
 
         <div v-else>
+          <div class="mb-1">
+            <h2 class="font-semibold text-highlight text-xl">
+              {{ data.eatery.full_name }}
+            </h2>
+          </div>
+
           <em>No rating text...</em>
         </div>
       </div>

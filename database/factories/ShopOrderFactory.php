@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserAddress;
 use Coeliac\Modules\Shop\Models\ShopOrder;
@@ -46,6 +47,15 @@ class ShopOrderFactory extends Factory
         return $this->state(fn () => [
             'state_id' => ShopOrderState::STATE_PAID,
             'order_key' => random_int(10000000, 99999999),
+        ]);
+    }
+
+    public function asCompleted()
+    {
+        return $this->state(fn () => [
+            'state_id' => ShopOrderState::STATE_COMPLETE,
+            'order_key' => random_int(10000000, 99999999),
+            'shipped_at' => Carbon::now(),
         ]);
     }
 }

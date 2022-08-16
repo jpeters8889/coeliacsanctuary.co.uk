@@ -31,7 +31,7 @@ class WhereToEatDetailsRequest extends WhereToEatTownRequest
             ])
             ->firstOrFail();
 
-        $eatery->userReviews = $eatery->userReviews
+        $eatery->formattedReviews = $eatery->userReviews
             ->groupBy(fn (WhereToEatReview $review) => $review->admin_review ? 'admin' : 'guest');
 
         return $eatery;

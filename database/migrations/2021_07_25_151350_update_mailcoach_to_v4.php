@@ -13,6 +13,10 @@ class UpdateMailcoachToV4 extends Migration
      */
     public function up()
     {
+        if (app()->runningUnitTests()) {
+            return;
+        }
+
         Schema::table('mailcoach_campaigns', function (Blueprint $table) {
             $table->boolean('utm_tags')->default(false)->after('track_clicks');
         });

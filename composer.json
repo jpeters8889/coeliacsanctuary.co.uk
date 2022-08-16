@@ -4,6 +4,8 @@
     "description": "Coeliac Sanctuary",
     "license": "proprietary",
     "require": {
+        "php": "^8.0",
+        "ext-json": "*",
         "algolia/algoliasearch-client-php": "^3.2",
         "algolia/scout-extended": "^2.0",
         "aws/aws-sdk-php": "^3.156",
@@ -25,6 +27,7 @@
         "coeliac/shop-product-prices": "*",
         "coeliac/shop-product-sold-count": "*",
         "coeliac/shop-product-variants": "*",
+        "coeliac/shop-review-products": "dev-master",
         "coeliac/shop-travel-card-search-terms": "*",
         "coeliac/tag-manager": "*",
         "coeliac/wte-attractions": "*",
@@ -33,7 +36,6 @@
         "coeliac/wte-suggested-edits": "*",
         "doctrine/dbal": "^3.3",
         "dompdf/dompdf": "^1.0",
-        "ext-json": "*",
         "fico7489/laravel-pivot": "^3.0",
         "fruitcake/laravel-cors": "^2.0.2",
         "guzzlehttp/guzzle": "^7.3",
@@ -48,7 +50,6 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "mattiasgeniar/php-percentages": "^1.3",
         "paypal/rest-api-sdk-php": "^1.14",
-        "php": "^8.0",
         "predis/predis": "^1.1",
         "spatie/geocoder": "^3.12",
         "spatie/laravel-backup": "^8.0",
@@ -214,6 +215,10 @@
         {
             "type": "path",
             "url": "./architect/cards/wte-suggested-edits"
+        },
+        {
+            "type": "path",
+            "url": "./architect/plans/shop-review-products"
         }
     ],
     "autoload": {

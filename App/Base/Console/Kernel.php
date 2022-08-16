@@ -6,6 +6,7 @@ namespace Coeliac\Base\Console;
 
 use Coeliac\Base\Console\Commands\CleanUpFileUploads;
 use Coeliac\Modules\EatingOut\WhereToEat\Console\SlugifyEateries;
+use Coeliac\Modules\Shop\Console\PrepareReviewInvitations;
 use Illuminate\Console\Scheduling\Schedule;
 use Coeliac\Modules\Shop\Console\CloseBaskets;
 use Coeliac\Modules\Shop\Console\CleanUpAddresses;
@@ -27,8 +28,8 @@ class Kernel extends ConsoleKernel
         UpdateUserActivity::class,
         PrefixRecipesWithGlutenFree::class,
         SlugifyEateries::class,
-
         CleanUpAddresses::class,
+        PrepareReviewInvitations::class,
     ];
 
     protected function schedule(Schedule $schedule)

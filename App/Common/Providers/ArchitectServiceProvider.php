@@ -30,6 +30,7 @@ use Coeliac\Modules\Blog\Architect\Blueprint as BlogBlueprint;
 use Coeliac\Modules\Member\Architect\PasswordChangesBlueprint;
 use Coeliac\Modules\Recipe\Architect\Blueprint as RecipeBlueprint;
 use Coeliac\Common\Announcements\Blueprint as AnnouncementBlueprint;
+use Coeliac\Modules\Shop\Architect\ShopReviewsBlueprint;
 use Coeliac\Modules\Shop\Architect\TravelCardSearchHistoryBlueprint;
 use Coeliac\Modules\Shop\Architect\TravelCardSearchTermsBlueprint;
 use JPeters\Architect\Providers\ArchitectApplicationServiceProvider;
@@ -82,6 +83,7 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             //Dispatch Slips
             CategoryBlueprint::class,
             ProductBlueprint::class,
+            ShopReviewsBlueprint::class,
             MassDiscountsBlueprint::class,
             DiscountBlueprint::class,
             PostagePricesBlueprint::class,

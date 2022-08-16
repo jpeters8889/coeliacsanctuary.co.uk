@@ -20,9 +20,9 @@
     />
 
     <eatery-admin-review
-      v-if="eatery.userReviews.admin"
+      v-if="eatery.formattedReviews.admin"
       :eatery="eatery"
-      :review="eatery.userReviews.admin[0]"
+      :review="eatery.formattedReviews.admin[0]"
     />
 
     <eatery-photos :eatery="eatery" />
@@ -30,7 +30,7 @@
     <eatery-reviews
       :id="eatery.id"
       :name="eatery.name"
-      :reviews="eatery.userReviews.guest || []"
+      :reviews="eatery.formattedReviews.guest || []"
       :has-been-rated="hasBeenRated"
       :is-nationwide="eatery.county.county === 'Nationwide'"
     />

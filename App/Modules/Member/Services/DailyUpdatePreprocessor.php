@@ -43,12 +43,12 @@ class DailyUpdatePreprocessor
                 case 'blog':
                     /* @var Blog $item */
                     /** @phpstan-ignore-next-line  */
-                $this->processBlog($item);
+                    $this->processBlog($item);
                     break;
                 case 'wheretoeat':
                     /* @var WhereToEat $item */
                     /** @phpstan-ignore-next-line  */
-                $this->processEatery($item);
+                    $this->processEatery($item);
                     break;
             }
         });
