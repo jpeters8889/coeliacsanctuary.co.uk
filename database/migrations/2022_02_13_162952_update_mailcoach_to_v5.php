@@ -6,6 +6,10 @@ use Illuminate\Database\Schema\Blueprint;
 return new class () extends Migration {
     public function up()
     {
+        if (app()->runningUnitTests()) {
+            return;
+        }
+
         Schema::table('mailcoach_campaigns', function (Blueprint $table) {
             $table->dropColumn(['send_batch_id', 'all_jobs_added_to_batch_at']);
             $table->timestamp('all_sends_created_at')->nullable();

@@ -35,7 +35,7 @@ class LatestRatings
             ->latest()
             ->take(5)
             ->get()
-            ->transform(fn(WhereToEatReview $rating) => [
+            ->transform(fn (WhereToEatReview $rating) => [
                 'id' => $rating->id,
                 'eatery_id' => $rating->wheretoeat_id,
                 'slug' => $this->eateryLink($rating->eatery),

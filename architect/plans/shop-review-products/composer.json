@@ -1,0 +1,21 @@
+{
+    "name": "coeliac/shop-review-products",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Coeliac\\Architect\\Plans\\ShopReviewProducts\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Coeliac\\Architect\\Plans\\ShopReviewProducts\\PlanServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

@@ -111,4 +111,13 @@ class OrderBlueprint extends Blueprint
             ],
         ];
     }
+
+    public function searchUsing(Builder $builder, string $searchTerm, array $columns = []): Builder
+    {
+        return $builder
+            ->where('shop_orders.id', $searchTerm)
+            ->orWhere('shop_orders.order_key', 'like', "%{$searchTerm}%")
+            ->orWhere('user_addresses.name', 'like', "%{$searchTerm}%")
+            ->orWhere('user_addresses.line_1', 'like', "%{$searchTerm}%");
+    }
 }
