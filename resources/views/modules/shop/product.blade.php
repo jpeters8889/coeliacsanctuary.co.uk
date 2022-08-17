@@ -28,15 +28,17 @@
                 <div
                     class="items-start flex space-x-3 -mt-4 pt-1 flex text-sm font-semibold font-sans @if($hasReviews) justify-between @else justify-center @endif"
                 >
-                    <a class="flex space-x-1 items-center flex-shrink-0" href="#reviews-wrapper">
-                        <global-ui-stars
-                            stars="{{ $reviews['average'] }}"
-                            size="text-base md:text-lg"
-                            half-star="star-half-alt"
-                            show-all
-                        ></global-ui-stars>
-                        <span>{{ $reviews['count'] }} Ratings</span>
-                    </a>
+                    @if($hasReviews)
+                        <a class="flex space-x-1 items-center flex-shrink-0" href="#reviews-wrapper">
+                            <global-ui-stars
+                                stars="{{ $reviews['average'] }}"
+                                size="text-base md:text-lg"
+                                half-star="star-half-alt"
+                                show-all
+                            ></global-ui-stars>
+                            <span>{{ $reviews['count'] }} Ratings</span>
+                        </a>
+                    @endif
 
                     <a class="hover:text-blue-dark transition-all @if($hasReviews) text-right @endif"
                        href="{{ $category->link }}"
