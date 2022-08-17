@@ -2,9 +2,7 @@
   <div class="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-3">
     <div class="flex space-x-3 md:w-1/4 md:max-w-[250px] ">
       <div class="w-1/4 max-w-[250px] flex-shrink-0 md:w-full">
-        <img
-          src="https://images.coeliacsanctuary.co.uk/products/spanish-and-italian-gluten-free-language-travel-cards/7JIwXkpTepYNJr48PQWWT9fGI5ecclUMQjMBhecd.jpg"
-        >
+        <img :src="item.first_image">
       </div>
 
       <div class="flex-1 md:hidden">

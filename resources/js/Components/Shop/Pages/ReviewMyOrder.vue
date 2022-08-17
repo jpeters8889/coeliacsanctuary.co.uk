@@ -5,7 +5,7 @@
   >
     <div class="page-box">
       <div class="flex flex-col space-y-2 items-center">
-        <div>
+        <div class="w-full">
           <p class="font-semibold text-blue-dark">
             Your Name
           </p>
