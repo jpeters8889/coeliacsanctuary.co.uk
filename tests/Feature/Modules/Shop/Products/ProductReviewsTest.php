@@ -69,4 +69,12 @@ class ProductReviewsTest extends TestCase
             ],
         ]);
     }
+
+    /** @test */
+    public function itReturnsReviewsWithNoNameAsAnonymous(): void
+    {
+        ShopOrderReview::query()->first()->update(['name' => '']);
+
+        $this->assertEquals('Anonymous', $this->get('/api/shop/product/1/reviews')->json('data.0.name'));
+    }
 }
