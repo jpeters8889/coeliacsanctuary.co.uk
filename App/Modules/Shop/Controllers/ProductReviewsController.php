@@ -26,7 +26,7 @@ class ProductReviewsController extends BaseController
             ->paginate(5)
             ->through(fn (ShopOrderReviewItem $review) => [
                 'id' => $review->id,
-                'name' => $review->parent->name,
+                'name' => $review->parent->name !== '' ? $review->parent->name : 'Anonymous',
                 'rating' => $review->rating,
                 'review' => $review->review,
                 'date' => $review->created_at,

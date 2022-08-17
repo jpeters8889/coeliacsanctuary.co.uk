@@ -16,7 +16,8 @@ class ReviewMyOrderController extends BaseController
         abort_if($invitation->review()->count() > 0, 404);
 
         return $page->doNotIndex()
-            ->breadcrumbs([['link' => '/shop', 'title' => 'Shop']], 'Review My Order')
+            ->noBreadcrumbs()
+            ->doNotIndex()
             ->setPageTitle('Review My Order')
             ->render('modules.shop.review-my-order', [
                 'id' => $invitation->order->order_key,
