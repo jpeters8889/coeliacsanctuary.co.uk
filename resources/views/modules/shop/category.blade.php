@@ -67,7 +67,7 @@
                         />
                     </a>
 
-                    <div class="flex justify-between">
+                    <div class="flex flex-col space-y-1">
                         <h2 class="text-lg text-blue-dark font-semibold text-left group-hover:text-grey transition-all">
                             <a href="{{ $product->link }}">
                                 {{ $product->title }}
@@ -75,14 +75,14 @@
                         </h2>
 
                         @if($product->reviews->count() > 0)
-                            <div class="text-sm flex space-x-1 flex-shrink-0">
+                            <div class="text-sm flex space-x-1 flex-shrink-0 items-center">
                                 <global-ui-stars
                                     stars="{{ round($product->reviews->average('rating') * 2) / 2 }}"
                                     size="text-base"
                                     half-star="star-half-alt"
                                     show-all
                                 ></global-ui-stars>
-                                <span>({{ $product->reviews->count() }})</span>
+                                <span>{{ $product->reviews->count() }} Ratings</span>
                             </div>
                         @endif
                     </div>
