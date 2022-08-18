@@ -9,11 +9,12 @@
   >
     <div
       v-if="isVisible"
+      ref="basketQuickLink"
       v-tooltip.left="{
         content: 'View your basket',
         classes: ['bg-blue-light', 'text-white', 'rounded-lg', 'mr-2', 'p-2', 'max-w-250', 'shadow']
       }"
-      class="transition-all transform fixed bottom-1 right-1 leading-none bg-blue-light p-3 text-3xl text-white shadow-lg rounded cursor-pointer mb-20 lg:mb-24"
+      class="transition-all transform fixed bottom-1 right-1 leading-none bg-blue-light p-3 text-3xl text-white shadow-lg rounded cursor-pointer"
       @click="showBasket()"
     >
       <font-awesome-icon :icon="['fas', 'shopping-basket']" />
@@ -32,6 +33,16 @@ export default {
     isVisible: false,
   }),
 
+  watch: {
+    isVisible() {
+      if (!this.isVisible) {
+        return;
+      }
+
+      this.offset();
+    },
+  },
+
   mounted() {
     new IntersectionObserver((entries) => {
       this.isVisible = entries[0].intersectionRatio === 0;
@@ -41,6 +52,24 @@ export default {
   methods: {
     showBasket() {
       this.$root.$emit('show-basket');
+    },
+
+    offset() {
+      this.$nextTick(() => {
+        const adElement = document.querySelector('.adsbygoogle-noablate[data-ad-status="filled"]');
+
+        if (!adElement || adElement.offsetHeight === 0) {
+          return;
+        }
+
+        if (adElement.style.top === '0px') {
+          return;
+        }
+
+        const height = adElement.offsetHeight + 20;
+
+        this.$refs.basketQuickLink.style.paddingBottom = `${height}px`;
+      });
     },
   },
 };
