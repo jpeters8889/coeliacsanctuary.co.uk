@@ -57,7 +57,7 @@
             </div>
         @endif
 
-        <div class="grid grid-cols-1 gap-y-3 sm:grid-cols-3 sm:gap-x-3">
+        <div class="grid grid-cols-1 gap-y-3 md:grid-cols-3 md:gap-x-3">
             @foreach($products as $product)
                 <div class="w-full shadow bg-white p-4 flex flex-col text-center rounded space-y-2 group">
                     <a href="{{ $product->link }}">
