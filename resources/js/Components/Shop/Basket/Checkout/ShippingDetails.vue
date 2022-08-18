@@ -179,7 +179,7 @@ export default {
         return /.*/;
       }
 
-      return /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i;
+      return /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2} ?$/i;
     },
   },
 
