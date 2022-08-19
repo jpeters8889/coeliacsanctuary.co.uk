@@ -23,8 +23,8 @@ class PrepareReviewInvitations extends Command
     {
         return new Collection([
             ['date' => Carbon::now()->subWeek()->toImmutable(), 'areas' => [ShopPostageCountryArea::UK]],
-            ['date' => Carbon::now()->subDays(10)->toImmutable(), 'areas' => [ShopPostageCountryArea::EUROPE]],
-            ['date' => Carbon::now()->subWeeks(2)->toImmutable(), 'areas' => [
+            ['date' => Carbon::now()->subWeeks(2)->toImmutable(), 'areas' => [ShopPostageCountryArea::EUROPE]],
+            ['date' => Carbon::now()->subWeeks(3)->toImmutable(), 'areas' => [
                 ShopPostageCountryArea::NORTH_AMERICA, ShopPostageCountryArea::OCEANA]
             ],
         ]);
