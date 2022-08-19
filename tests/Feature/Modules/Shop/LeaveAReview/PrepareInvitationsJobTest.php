@@ -49,10 +49,13 @@ class PrepareInvitationsJobTest extends TestCase
 
         $this->createOrder();
 
-        TestTime::addWeek()->addMinute();
+        TestTime::addWeek()->subMinute();
 
-        $this->artisan('coeliac:send-shop-review-invitations')
-            ->expectsOutput('1 Invitations Sent');
+        Bus::assertNothingDispatched();
+
+        TestTime::addMinutes(2);
+
+        $this->artisan('coeliac:send-shop-review-invitations')->expectsOutput('1 Invitations Sent');
 
         Bus::assertDispatched(SendReviewInvitation::class);
     }
@@ -130,7 +133,7 @@ class PrepareInvitationsJobTest extends TestCase
     }
 
     /** @test */
-    public function itSendsEuropeanOrdersAfterTenDays(): void
+    public function itSendsEuropeanOrdersAfterTwoWeeks(): void
     {
         TestTime::freeze();
 
@@ -138,7 +141,7 @@ class PrepareInvitationsJobTest extends TestCase
         $this->createOrder(['postage_country_id' => ShopPostageCountry::USA]);
         $this->createOrder(['postage_country_id' => ShopPostageCountry::AUS]);
 
-        TestTime::addDays(10)->addMinute();
+        TestTime::addWeeks(2)->addMinute();
 
         $this->artisan('coeliac:send-shop-review-invitations')
             ->expectsOutput('1 Invitations Sent');
@@ -150,14 +153,14 @@ class PrepareInvitationsJobTest extends TestCase
     }
 
     /** @test */
-    public function itSendsUSandAusOrdersAfterTwoWeeks(): void
+    public function itSendsUSandAusOrdersAfterThreeWeeks(): void
     {
         TestTime::freeze();
 
         $this->createOrder(['postage_country_id' => ShopPostageCountry::USA]);
         $this->createOrder(['postage_country_id' => ShopPostageCountry::AUS]);
 
-        TestTime::addWeeks(2)->addMinute();
+        TestTime::addWeeks(3)->addMinute();
 
         $this->artisan('coeliac:send-shop-review-invitations')
             ->expectsOutput('2 Invitations Sent');
