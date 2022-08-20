@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Events;
 
-use Illuminate\Queue\SerializesModels;
-use Coeliac\Modules\Shop\Basket\Postage;
-use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Illuminate\Queue\SerializesModels;
 
 class CreateOrder
 {

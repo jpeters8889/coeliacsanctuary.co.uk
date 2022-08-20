@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\Support;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
@@ -21,7 +23,7 @@ class LatestRatings
     protected function townLink(WhereToEat $eatery): string
     {
         if (Str::lower($eatery->town->town) === 'nationwide') {
-            return "/wheretoeat/nationwide";
+            return '/wheretoeat/nationwide';
         }
 
         return "/wheretoeat/{$eatery->county->slug}/{$eatery->town->slug}";

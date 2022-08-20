@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Coeliac\Base\Models\BaseModel;
 use Database\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Builder;
 use Tests\Mocks\MockScoutBuilder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -33,7 +31,7 @@ abstract class TestCase extends BaseTestCase
         $failed = [];
 
         foreach ($keys as $key) {
-            if (!isset($haystack[$key]) && $haystack[$key] !== null) {
+            if (! isset($haystack[$key]) && $haystack[$key] !== null) {
                 $hasStructure = false;
                 $failed[] = $key;
             }

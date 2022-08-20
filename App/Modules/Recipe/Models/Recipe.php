@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Recipe\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Support\Str;
-use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
-use Illuminate\Support\Collection;
-use Coeliac\Common\Traits\Linkable;
-use Coeliac\Common\Traits\Imageable;
-use Coeliac\Common\Traits\ClearsCache;
-use Coeliac\Common\Traits\HasRichText;
 use Coeliac\Common\Comments\Commentable;
 use Coeliac\Common\Contracts\HasComments;
 use Coeliac\Common\Traits\ArchitectModel;
+use Coeliac\Common\Traits\ClearsCache;
 use Coeliac\Common\Traits\DisplaysImages;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Coeliac\Common\Traits\HasRichText;
+use Coeliac\Common\Traits\Imageable;
+use Coeliac\Common\Traits\Linkable;
 use Coeliac\Modules\Collection\Traits\IsCollectionItem;
 use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Laravel\Scout\Searchable;
 
 /**
  * @property Carbon $created_at
@@ -197,7 +197,7 @@ class Recipe extends BaseModel implements HasComments
     {
         $suitableFor = ['GlutenFreeDiet'];
 
-        if (!$this->allergens->contains('Dairy')) {
+        if (! $this->allergens->contains('Dairy')) {
             $suitableFor[] = 'LowLactoseDiet';
         }
 

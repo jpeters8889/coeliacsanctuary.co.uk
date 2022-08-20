@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Architect;
 
+use Coeliac\Modules\Member\Models\LoginAttempt;
+use JPeters\Architect\Blueprints\Blueprint;
 use JPeters\Architect\Plans\Boolean;
 use JPeters\Architect\Plans\DateTime;
 use JPeters\Architect\Plans\Textfield;
-use JPeters\Architect\Blueprints\Blueprint;
-use Coeliac\Modules\Member\Models\LoginAttempt;
 
 class LoginAttemptsBlueprint extends Blueprint
 {

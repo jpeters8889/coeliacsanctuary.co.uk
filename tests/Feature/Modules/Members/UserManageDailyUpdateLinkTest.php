@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members;
 
-use Tests\TestCase;
-use Spatie\TestTime\TestTime;
 use Coeliac\Modules\Member\Models\User;
+use Spatie\TestTime\TestTime;
+use Tests\TestCase;
 
 class UserManageDailyUpdateLinkTest extends TestCase
 {

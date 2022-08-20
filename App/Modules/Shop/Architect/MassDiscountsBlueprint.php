@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Architect;
 
 use Carbon\Carbon;
-use JPeters\Architect\Plans\Group;
-use JPeters\Architect\Plans\Boolean;
-use JPeters\Architect\Plans\DateTime;
-use JPeters\Architect\Plans\Textfield;
-use JPeters\Architect\Blueprints\Blueprint;
 use Coeliac\Modules\Shop\Models\ShopCategory;
 use Coeliac\Modules\Shop\Models\ShopMassDiscount;
+use JPeters\Architect\Blueprints\Blueprint;
+use JPeters\Architect\Plans\Boolean;
+use JPeters\Architect\Plans\DateTime;
+use JPeters\Architect\Plans\Group;
+use JPeters\Architect\Plans\Textfield;
 
 class MassDiscountsBlueprint extends Blueprint
 {

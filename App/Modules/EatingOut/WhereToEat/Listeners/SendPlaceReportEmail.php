@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\WhereToEat\Listeners;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Events\PlaceReportSubmitted;
-use Coeliac\Modules\EatingOut\WhereToEat\Mail\PlaceReportMailable;
 use Coeliac\Modules\EatingOut\WhereToEat\Mail\PlaceReportMailable as PlaceReportedMailable;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Queue\ShouldQueue;

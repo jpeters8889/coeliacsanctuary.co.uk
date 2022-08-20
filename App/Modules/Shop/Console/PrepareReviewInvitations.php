@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Shop\Console;
 
 use Carbon\Carbon;
@@ -10,7 +12,6 @@ use Coeliac\Modules\Shop\Models\ShopPostageCountryArea;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 
 class PrepareReviewInvitations extends Command
@@ -25,7 +26,7 @@ class PrepareReviewInvitations extends Command
             ['date' => Carbon::now()->subWeek()->toImmutable(), 'areas' => [ShopPostageCountryArea::UK]],
             ['date' => Carbon::now()->subWeeks(2)->toImmutable(), 'areas' => [ShopPostageCountryArea::EUROPE]],
             ['date' => Carbon::now()->subWeeks(3)->toImmutable(), 'areas' => [
-                ShopPostageCountryArea::NORTH_AMERICA, ShopPostageCountryArea::OCEANA]
+                ShopPostageCountryArea::NORTH_AMERICA, ShopPostageCountryArea::OCEANA, ],
             ],
         ]);
     }

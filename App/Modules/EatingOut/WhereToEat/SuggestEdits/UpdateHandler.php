@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatSuggestedEdit;
@@ -23,7 +25,7 @@ class UpdateHandler
         ]);
     }
 
-    protected function resolveFieldProcessor(): string
+    protected function resolveFieldProcessor(): string | int
     {
         $processorMaps = WhereToEatSuggestedEdit::processorMaps();
 

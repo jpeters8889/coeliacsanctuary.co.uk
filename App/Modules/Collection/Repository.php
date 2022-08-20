@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Collection;
 
-use Illuminate\Database\Eloquent\Builder;
-use Coeliac\Modules\Collection\Models\Collection;
+use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Repositories\AbstractRepository;
+use Coeliac\Modules\Collection\Models\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
+/** @extends AbstractRepository<Collection> */
 class Repository extends AbstractRepository
 {
     protected array $withs = ['images', 'images.image', 'items', 'items.item'];
 
+    /** @return class-string<BaseModel<Collection>> */
     protected function model(): string
     {
-        return Collection::class;
+        return Collection::class; //@phpstan-ignore-line
     }
 
     protected function order(Builder $builder): void

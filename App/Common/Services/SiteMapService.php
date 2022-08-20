@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Services;
 
-use Illuminate\Container\Container;
-use Coeliac\Modules\Shop\ProductRepository;
-use Coeliac\Modules\Shop\CategoryRepository;
 use Coeliac\Modules\Blog\Repository as BlogRepository;
-use Coeliac\Modules\Recipe\Repository as RecipeRepository;
-use Illuminate\Contracts\Cache\Repository as CacheRepository;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
+use Coeliac\Modules\Recipe\Repository as RecipeRepository;
+use Coeliac\Modules\Shop\CategoryRepository;
+use Coeliac\Modules\Shop\ProductRepository;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Cache\Repository as CacheRepository;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class SiteMapService
 {

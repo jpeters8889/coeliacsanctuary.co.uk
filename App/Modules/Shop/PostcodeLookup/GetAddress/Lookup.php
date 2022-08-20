@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\PostcodeLookup\GetAddress;
 
-use GuzzleHttp\Client;
-use Illuminate\Support\Collection;
 use Coeliac\Modules\Shop\PostcodeLookup\Parser;
 use Coeliac\Modules\Shop\PostcodeLookup\Service;
+use GuzzleHttp\Client;
+use Illuminate\Support\Collection;
 
 class Lookup implements Service
 {

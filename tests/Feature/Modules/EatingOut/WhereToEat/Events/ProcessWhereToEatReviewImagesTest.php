@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Modules\EatingOut\WhereToEat\Events;
 
 use Coeliac\Common\Models\TemporaryFileUpload;
@@ -10,7 +12,6 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReviewImage;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use Tests\TestCase;
 

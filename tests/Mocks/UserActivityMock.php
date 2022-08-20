@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Mocks;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
-use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Contracts\UserActivityMonitor;
+use Coeliac\Modules\Member\Models\User;
+use Illuminate\Support\Collection;
 
 class UserActivityMock implements UserActivityMonitor
 {

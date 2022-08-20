@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatFeature;
 use Tests\TestCase;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
 class WhereToEatTest extends TestCase
 {

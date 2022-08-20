@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Shop\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
@@ -54,7 +56,7 @@ class TravelCardSearchController extends BaseController
                     'description' => $product->description,
                     'id' => $product->id,
                     'variant_id' => $product->variants[0]->id,
-                    'inStock' => $product->variants[0]->quantity > 0
+                    'inStock' => $product->variants[0]->quantity > 0,
                 ]),
         ];
     }

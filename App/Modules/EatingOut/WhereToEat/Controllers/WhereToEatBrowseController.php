@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
@@ -44,11 +46,11 @@ class WhereToEatBrowseController extends BaseController
                       ) AS distance', [
                     $request->get('lat'),
                     $request->get('lng'),
-                    $request->get('lat')
+                    $request->get('lat'),
                 ])
                 ->setColumns(['id', 'lat', 'lng', 'name'])
                 ->when(
-                    !app()->runningUnitTests(),
+                    ! app()->runningUnitTests(),
                     fn (Builder $builder) => $builder->having('distance', '<=', $request->get('range'))
                 )
                 ->where('county_id', '!=', 1)

@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Providers;
 
-use Illuminate\Http\Request;
-use Illuminate\Container\Container;
-use PayPal\Auth\OAuthTokenCredential;
 use Coeliac\Modules\Shop\Basket\Basket;
-use Illuminate\Support\ServiceProvider;
 use Coeliac\Modules\Shop\Payment\Processor;
-use Illuminate\Contracts\Config\Repository;
-use Coeliac\Modules\Shop\Requests\OrderRequest;
-use PayPal\Rest\ApiContext as PaypalApiContext;
 use Coeliac\Modules\Shop\Payment\Processors\PayPal;
 use Coeliac\Modules\Shop\Payment\Processors\Stripe;
 use Coeliac\Modules\Shop\Payment\Providers\PayPalPaymentProvider;
 use Coeliac\Modules\Shop\Payment\Providers\StripePaymentProvider;
+use Coeliac\Modules\Shop\Requests\OrderRequest;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Http\Request;
+use Illuminate\Support\ServiceProvider;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Rest\ApiContext as PaypalApiContext;
 
 class PaymentServiceProvider extends ServiceProvider
 {

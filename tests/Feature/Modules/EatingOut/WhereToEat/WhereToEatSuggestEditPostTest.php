@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
@@ -23,7 +25,7 @@ class WhereToEatSuggestEditPostTest extends TestCase
 
     protected function makeRequest($id = null, $field = 'address', $value = 'foo'): TestResponse
     {
-        if (!$id) {
+        if (! $id) {
             $id = $this->eatery->id;
         }
 
@@ -300,7 +302,6 @@ class WhereToEatSuggestEditPostTest extends TestCase
             ->assertStatus(422)
             ->assertJsonValidationErrorFor('value.0.start.1');
     }
-
 
     /** @test */
     public function itErrorsIfTheOpeningTimesEndIsntAnArray(): void

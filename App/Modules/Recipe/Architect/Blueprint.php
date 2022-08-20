@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Recipe\Architect;
 
-use JPeters\Architect\Plans\Group;
+use Coeliac\Architect\Plans\ImageManager\Plan as ImageManager;
+use Coeliac\Modules\Recipe\Models\Recipe;
+use Coeliac\Modules\Recipe\Models\RecipeAllergen;
+use Coeliac\Modules\Recipe\Models\RecipeFeature;
+use Coeliac\Modules\Recipe\Models\RecipeMeal;
+use Illuminate\Database\Eloquent\Builder;
+use JPeters\Architect\Blueprints\Blueprint as ArchitectBlueprint;
 use JPeters\Architect\Plans\Boolean;
 use JPeters\Architect\Plans\DateTime;
+use JPeters\Architect\Plans\Group;
 use JPeters\Architect\Plans\Textarea;
 use JPeters\Architect\Plans\Textfield;
-use Coeliac\Modules\Recipe\Models\Recipe;
-use Illuminate\Database\Eloquent\Builder;
-use Coeliac\Modules\Recipe\Models\RecipeMeal;
-use Coeliac\Modules\Recipe\Models\RecipeFeature;
-use Coeliac\Modules\Recipe\Models\RecipeAllergen;
-use Coeliac\Architect\Plans\ImageManager\Plan as ImageManager;
-use JPeters\Architect\Blueprints\Blueprint as ArchitectBlueprint;
 
 class Blueprint extends ArchitectBlueprint
 {

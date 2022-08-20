@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Recipe\Controllers;
 
-use Illuminate\Support\Collection;
-use Coeliac\Modules\Recipe\Repository;
-use Coeliac\Modules\Recipe\Models\Recipe;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Recipe\DTOs\RecipeRelationCount;
+use Coeliac\Modules\Recipe\Models\Recipe;
 use Coeliac\Modules\Recipe\Models\RecipeAllergen;
+use Coeliac\Modules\Recipe\Repository;
+use Illuminate\Support\Collection;
 
 class RecipeAllergensController extends BaseController
 {
@@ -18,6 +19,7 @@ class RecipeAllergensController extends BaseController
 
     public function list(): array
     {
+        /** @var Collection<int,RecipeRelationCount> $allergens */
         $allergens = new Collection();
 
         $this->repository
@@ -26,29 +28,25 @@ class RecipeAllergensController extends BaseController
             ->setColumns(['id'])
             ->all()
             ->load('allergens')
-            ->each(function (Recipe $recipe) use (&$allergens) {
-                $recipe->allergens->each(function (RecipeAllergen $allergen) use ($recipe, &$allergens) {
-                    if (isset($allergens[$allergen->id])) {
-                        $allergens[$allergen->id]['recipes']->push($recipe->id);
+            ->each(fn (Recipe $recipe) => $recipe->allergens->each(function (RecipeAllergen $allergen) use ($recipe, &$allergens) {
+                if ($allergens->where('id', $allergen->id)->count() > 0) {
+                    $allergens->firstWhere('id', $allergen->id)->recipes->push($recipe->id);
 
-                        return;
-                    }
+                    return;
+                }
 
-                    $allergens[$allergen->id] = new Collection([
-                        'title' => $allergen->allergen,
-                        'recipes' => new Collection([$recipe->id]),
-                    ]);
-                });
-            });
+                $allergens->push(new RecipeRelationCount([
+                    'id' => $allergen->id,
+                    'title' => $allergen->allergen,
+                    'recipes' => new Collection([$recipe->id]),
+                ]));
+            }));
 
         return [
-            'data' => $allergens->map(static function ($allergen) {
-                return [
-                    'title' => $allergen['title'],
-                    'recipes_count' => $allergen['recipes']->count(),
-                ];
-            })->sortByDesc('recipes_count')
-                ->values(),
+            'data' => $allergens->map(fn (RecipeRelationCount $allergen) => [
+                'title' => $allergen->title,
+                'recipes_count' => $allergen->recipes->count(),
+            ])->sortByDesc('recipes_count')->values(),
         ];
     }
 }

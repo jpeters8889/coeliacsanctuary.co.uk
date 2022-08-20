@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\ResetPassword;
 
-use Tests\TestCase;
-use Illuminate\Support\Arr;
-use Illuminate\Container\Container;
-use Illuminate\Support\Facades\Event;
-use Coeliac\Modules\Member\Models\User;
-use Illuminate\Contracts\Hashing\Hasher;
-use Coeliac\Modules\Member\Models\UserLevel;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Notification;
 use Coeliac\Modules\Member\Events\UserPasswordReset;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Notifications\ResetPassword;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
+use Tests\TestCase;
 
 class ResetPasswordTest extends TestCase
 {
@@ -78,7 +77,7 @@ class ResetPasswordTest extends TestCase
 
     protected function submitForm($params = [])
     {
-        if (!array_key_exists('token', $params) || $params['token'] !== null) {
+        if (! array_key_exists('token', $params) || $params['token'] !== null) {
             $params['token'] = $this->generateResetToken();
         }
 

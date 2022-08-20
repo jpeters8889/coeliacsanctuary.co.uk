@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop\Basket;
 
-use Tests\TestCase;
-use Illuminate\Session\Store;
 use Coeliac\Modules\Shop\Basket\Basket;
 use Coeliac\Modules\Shop\Models\ShopOrder;
+use Illuminate\Session\Store;
+use Tests\TestCase;
 
 class ShopBasketTest extends TestCase
 {

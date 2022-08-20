@@ -4,26 +4,22 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop\Order;
 
-use Carbon\Carbon;
-use Coeliac\Modules\Shop\Models\ShopPayment;
-use Tests\TestCase;
-use Illuminate\Support\Str;
-use Illuminate\Session\Store;
-use Coeliac\Common\Models\Image;
-use Illuminate\Support\Facades\Event;
 use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Shop\Basket\Basket;
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use Coeliac\Modules\Shop\Events\CreateOrder;
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Illuminate\Support\Facades\Notification;
 use Coeliac\Modules\Member\Models\UserAddress;
+use Coeliac\Modules\Shop\Basket\Basket;
+use Coeliac\Modules\Shop\Events\CreateOrder;
+use Coeliac\Modules\Shop\Models\ShopDiscountCode;
+use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
-use Coeliac\Modules\Shop\Models\ShopDiscountCode;
+use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Coeliac\Modules\Shop\Notifications\OrderCreatedNotification;
+use Illuminate\Session\Store;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
+use Tests\TestCase;
 
 class ShopOrderCreatedEventTest extends TestCase
 {
@@ -51,10 +47,10 @@ class ShopOrderCreatedEventTest extends TestCase
         $this->build(ShopOrderItem::class)
             ->to($this->order)
             ->add($this->build(ShopProductVariant::class)
-                ->in($this->build(ShopProduct::class)
-                    ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
-                    ->create())
-                ->create(['weight' => 10]))
+            ->in($this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+            ->create())
+            ->create(['weight' => 10]))
             ->create();
 
         $this->app->make(Store::class)->push('basket_token', $this->order->token);

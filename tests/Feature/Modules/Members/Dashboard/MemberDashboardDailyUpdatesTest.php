@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\Dashboard;
 
-use Tests\Abstracts\DashboardTest;
-use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Blog\Models\BlogTag;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
 use Coeliac\Modules\Member\Contracts\Updatable;
 use Coeliac\Modules\Member\Models\DailyUpdateType;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserDailyUpdateSubscription;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCountry;
+use Tests\Abstracts\DashboardTest;
 
 class MemberDashboardDailyUpdatesTest extends DashboardTest
 {

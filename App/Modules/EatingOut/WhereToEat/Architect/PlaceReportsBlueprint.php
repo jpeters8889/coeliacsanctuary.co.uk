@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Architect;
 
+use Coeliac\Architect\Cards\PlaceReportsCard\Card;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatPlaceReport;
 use Illuminate\Database\Eloquent\Builder;
 use JPeters\Architect\Blueprints\Blueprint;
-use Coeliac\Architect\Cards\PlaceReportsCard\Card;
 
 class PlaceReportsBlueprint extends Blueprint
 {

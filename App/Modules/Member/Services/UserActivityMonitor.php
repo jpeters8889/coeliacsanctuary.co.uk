@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Services;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
+use Coeliac\Modules\Member\Contracts\UserActivityMonitor as Contract;
 use Coeliac\Modules\Member\Models\User;
 use Illuminate\Contracts\Redis\Factory as RedisFactory;
-use Coeliac\Modules\Member\Contracts\UserActivityMonitor as Contract;
+use Illuminate\Support\Collection;
 
 class UserActivityMonitor implements Contract
 {
@@ -45,7 +45,7 @@ class UserActivityMonitor implements Contract
                 'user' => User::query()->find($userId),
                 'date' => Carbon::make($date),
             ])
-            ->reject(fn ($item) => !$item['user'] || !$item['date']);
+            ->reject(fn ($item) => ! $item['user'] || ! $item['date']);
     }
 
     public function delete(User $user): void

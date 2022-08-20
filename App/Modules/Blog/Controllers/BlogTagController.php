@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Blog\Controllers;
 
-use Illuminate\Support\Collection;
-use Coeliac\Modules\Blog\Repository;
+use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Blog\Models\BlogTag;
-use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Blog\Repository;
+use Illuminate\Support\Collection;
 
 class BlogTagController extends BaseController
 {

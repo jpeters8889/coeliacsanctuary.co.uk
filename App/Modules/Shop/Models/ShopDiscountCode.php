@@ -68,7 +68,7 @@ class ShopDiscountCode extends BaseModel
         $deduction = $this->deduction;
 
         if ($this->type_id === ShopDiscountCodeType::PERCENTAGE) {
-            if (!is_int($subtotal)) {
+            if (! is_int($subtotal)) {
                 $subtotal *= 100;
             }
 

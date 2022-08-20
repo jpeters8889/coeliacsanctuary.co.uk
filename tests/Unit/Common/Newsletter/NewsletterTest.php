@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Common\Newsletter;
 
-use Tests\TestCase;
-use Tests\Mocks\TestNewsletterService;
-use Coeliac\Common\Newsletter\NewsletterService;
 use Coeliac\Common\Newsletter\Exceptions\AlreadySubscribedException;
+use Coeliac\Common\Newsletter\NewsletterService;
+use Tests\Mocks\TestNewsletterService;
+use Tests\TestCase;
 
 class NewsletterTest extends TestCase
 {

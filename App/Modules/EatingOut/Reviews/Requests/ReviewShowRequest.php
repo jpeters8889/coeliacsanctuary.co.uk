@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\Reviews\Requests;
 
+use Coeliac\Common\Repositories\AbstractRepository;
 use Coeliac\Common\Requests\ModuleRequest;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Coeliac\Modules\EatingOut\Reviews\Repository;
-use Coeliac\Common\Repositories\AbstractRepository;
 
 class ReviewShowRequest extends ModuleRequest
 {

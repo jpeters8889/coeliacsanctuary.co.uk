@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
@@ -76,7 +78,7 @@ class GetEatery
 
     protected function getOpeningTimes(): ?array
     {
-        if (!$this->eatery->openingTimes) {
+        if (! $this->eatery->openingTimes) {
             return null;
         }
 
@@ -105,7 +107,7 @@ class GetEatery
                 ->transform(fn (WhereToEatFeature $feature) => [
                     'id' => $feature->id,
                     'label' => $feature->feature,
-                    'selected' => in_array($feature->id, $this->eatery->features->pluck('id')->toArray()),
+                    'selected' => in_array($feature->id, $this->eatery->features->pluck('id')->toArray(), true),
                 ]),
         ];
     }

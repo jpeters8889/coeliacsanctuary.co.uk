@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Blog\Feed;
 
-use Illuminate\Container\Container;
-use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Common\Rss\AbstractRssFeed;
-use Illuminate\Database\Eloquent\Model;
+use Coeliac\Modules\Blog\Models\Blog;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\Eloquent\Model;
 
 class BlogFeed extends AbstractRssFeed
 {

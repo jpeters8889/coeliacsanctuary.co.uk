@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Architect;
 
-use JPeters\Architect\Plans\DateTime;
-use JPeters\Architect\Plans\Textfield;
+use Coeliac\Modules\Member\Models\UserPasswordChange;
 use Illuminate\Database\Eloquent\Builder;
 use JPeters\Architect\Blueprints\Blueprint;
-use Coeliac\Modules\Member\Models\UserPasswordChange;
+use JPeters\Architect\Plans\DateTime;
+use JPeters\Architect\Plans\Textfield;
 
 class PasswordChangesBlueprint extends Blueprint
 {

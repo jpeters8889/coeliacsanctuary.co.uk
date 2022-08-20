@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Shop\Products;
 
 use Coeliac\Common\Models\Image;
-use Tests\TestCase;
-use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopCategory;
+use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Tests\TestCase;
 use Tests\Traits\HasImages;
 
 class ShopProductTest extends TestCase

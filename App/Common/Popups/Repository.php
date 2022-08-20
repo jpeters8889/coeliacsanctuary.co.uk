@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Common\Popups;
 
 use Coeliac\Common\Models\Popup;
-use Illuminate\Database\Eloquent\Builder;
 use Coeliac\Common\Repositories\AbstractRepository;
+use Illuminate\Database\Eloquent\Builder;
 
 class Repository extends AbstractRepository
 {

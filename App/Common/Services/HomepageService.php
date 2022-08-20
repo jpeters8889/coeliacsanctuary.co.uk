@@ -5,19 +5,18 @@ declare(strict_types=1);
 namespace Coeliac\Common\Services;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Blog\Repository as BlogRepository;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
+use Coeliac\Modules\EatingOut\WhereToEat\Repository as WteRepository;
 use Coeliac\Modules\EatingOut\WhereToEat\Support\LatestPlaces;
 use Coeliac\Modules\EatingOut\WhereToEat\Support\LatestRatings;
-use Illuminate\Support\Collection;
-use Illuminate\Container\Container;
-use Coeliac\Modules\Shop\ProductRepository;
-use Coeliac\Modules\Blog\Repository as BlogRepository;
 use Coeliac\Modules\Recipe\Repository as RecipeRepository;
+use Coeliac\Modules\Shop\ProductRepository;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
-use Coeliac\Modules\EatingOut\WhereToEat\Repository as WteRepository;
+use Illuminate\Support\Collection;
 
 class HomepageService
 {

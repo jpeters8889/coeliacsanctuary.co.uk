@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Blogs;
 
 use Carbon\Carbon;
+use Coeliac\Common\Models\Image;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Blog\Models\BlogTag;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Coeliac\Common\Models\Image;
-use Illuminate\Foundation\Testing\WithFaker;
 
 class BlogTest extends TestCase
 {

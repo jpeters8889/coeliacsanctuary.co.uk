@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\Reviews\Filters;
 
-use Illuminate\Database\Eloquent\Builder;
 use Coeliac\Common\Filters\AbstractFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class ReviewsFilter extends AbstractFilter
 {

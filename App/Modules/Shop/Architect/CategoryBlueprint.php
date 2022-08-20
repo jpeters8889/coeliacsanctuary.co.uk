@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Architect;
 
+use Coeliac\Architect\Plans\ImageManager\Plan;
 use Coeliac\Common\Models\Image;
-use JPeters\Architect\Plans\Label;
+use Coeliac\Modules\Shop\Models\ShopCategory;
 use Illuminate\Container\Container;
 use Illuminate\Database\Connection;
-use JPeters\Architect\Plans\Textarea;
-use JPeters\Architect\Plans\Textfield;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
 use JPeters\Architect\Blueprints\Blueprint;
-use Coeliac\Modules\Shop\Models\ShopCategory;
-use Coeliac\Architect\Plans\ImageManager\Plan;
+use JPeters\Architect\Plans\Label;
+use JPeters\Architect\Plans\Textarea;
+use JPeters\Architect\Plans\Textfield;
 
 class CategoryBlueprint extends Blueprint
 {

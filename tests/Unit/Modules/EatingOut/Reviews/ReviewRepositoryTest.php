@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Tests\Unit\Modules\EatingOut\Reviews;
 
 use Carbon\Carbon;
-use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
-use Tests\Abstracts\RepositoryTest;
-use Coeliac\Modules\EatingOut\Reviews\Repository;
 use Coeliac\Common\Repositories\AbstractRepository;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\EatingOut\Reviews\Repository;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
+use Tests\Abstracts\RepositoryTest;
+use Tests\Traits\HasImages;
 
 class ReviewRepositoryTest extends RepositoryTest
 {
@@ -21,7 +21,7 @@ class ReviewRepositoryTest extends RepositoryTest
 
     protected function factoryParameters(): array
     {
-        if (!isset($this->whereToEat)) {
+        if (! isset($this->whereToEat)) {
             $this->whereToEat = $this->create(WhereToEat::class);
         }
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
+use Illuminate\Foundation\Http\FormRequest;
 
 class WhereToEatCountyRequest extends FormRequest
 {

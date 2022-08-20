@@ -6,12 +6,14 @@ namespace Coeliac\Common\Repositories;
 
 use Closure;
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Modules\EatingOut\WhereToEat\Repository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Laravel\Scout\Searchable;
 
+/**
+ * @template TModel of \Coeliac\Base\Models\BaseModel
+ * @phpstan-consistent-constructor
+ */
 abstract class AbstractRepository
 {
     protected array $columns = ['*'];
@@ -31,28 +33,33 @@ abstract class AbstractRepository
     protected array $wheres = [];
     protected array $whens = [];
 
+    /** @return class-string<BaseModel<TModel>> */
     abstract protected function model(): string;
 
-    public function get(mixed $id, string $column = 'id'): ?BaseModel
+    /** @return TModel | null */
+    public function get(mixed $id, string $column = 'id')
     {
         return $this->query()
             ->where($column, $id)
             ->first($this->getColumns());
     }
 
-    public function getOrFail(mixed $id, string $column = 'id'): ?BaseModel
+    /** @return TModel | null */
+    public function getOrFail(mixed $id, string $column = 'id')
     {
         return $this->query()
             ->where($column, $id)
             ->firstOrFail($this->getColumns());
     }
 
+    /** @return TModel */
     public function firstOrFail()
     {
         return $this->query()->firstOrFail();
     }
 
-    public function fromIds(array $ids, $column = 'id')
+    /** @return Collection<int, TModel | BaseModel<TModel> | BaseModel> */
+    public function fromIds(array $ids, $column = 'id'): Collection
     {
         return $this->query()
             ->whereIn($column, $ids)
@@ -64,11 +71,13 @@ abstract class AbstractRepository
         return $this->query()->count();
     }
 
+    /** @return Collection<int, TModel | BaseModel<TModel> | BaseModel> */
     public function take(int $number): Collection
     {
         return $this->query()->take($number)->get($this->getColumns());
     }
 
+    /** @return Collection<int, TModel> */
     public function all(): Collection
     {
         return $this->query()->get($this->getColumns());
@@ -102,11 +111,11 @@ abstract class AbstractRepository
 
     protected function shouldSearch(): bool
     {
-        if (!method_exists($this, 'performSearch')) {
+        if (! method_exists($this, 'performSearch')) {
             return false;
         }
 
-        if (!property_exists($this, 'useSearch')) {
+        if (! property_exists($this, 'useSearch')) {
             return false;
         }
 
@@ -118,15 +127,15 @@ abstract class AbstractRepository
         return null;
     }
 
+    /** @return Builder<TModel> */
     protected function query(): Builder
     {
+        /** @var class-string<BaseModel<TModel>> $model */
         $model = $this->model();
 
         /** @var Builder $builder */
-        $builder = $model::query();
-
         $builder = $this->modifyQuery(
-            $builder
+            $model::query()
                 ->select($this->columns)
                 ->with($this->getWiths())
                 ->withCount($this->getWithCounts())
@@ -139,9 +148,8 @@ abstract class AbstractRepository
                 $order = 'id';
             }
 
-            $builder->whereIn('id', $searchIds)
-                ->orderByRaw($order);
-        } elseif (!$this->isRaw && !$this->random) {
+            $builder->whereIn('id', $searchIds)->orderByRaw($order);
+        } elseif (! $this->isRaw && ! $this->random) {
             $this->order($builder);
         }
 
@@ -172,6 +180,7 @@ abstract class AbstractRepository
         return $builder;
     }
 
+    /** @return Builder<TModel> */
     protected function modifyQuery(Builder $query): Builder
     {
         return $query;

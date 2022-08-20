@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Traits;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\ParallelTesting;
+use Illuminate\Support\Facades\Redis;
+use Tests\TestCase;
 
 /** @mixin TestCase */
 trait InteractsWithRedis

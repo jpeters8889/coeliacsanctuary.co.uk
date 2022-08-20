@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Shop\Order\Payment;
 
+use Coeliac\Modules\Shop\Basket\Basket;
+use Coeliac\Modules\Shop\Events\CreateOrder;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Shop\Models\ShopProduct;
+use Coeliac\Modules\Shop\Models\ShopProductPrice;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
-use Tests\TestCase;
+use Coeliac\Modules\Shop\Payment\Processor;
+use Coeliac\Modules\Shop\Payment\Processors\Stripe;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
-use Illuminate\Support\Facades\Event;
 use Tests\Mocks\StripePaymentProvider;
-use Coeliac\Modules\Shop\Basket\Basket;
+use Tests\TestCase;
 use Tests\Traits\Shop\MakeOrderRequest;
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use Coeliac\Modules\Shop\Payment\Processor;
-use Coeliac\Modules\Shop\Events\CreateOrder;
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Illuminate\Foundation\Testing\WithFaker;
-use Coeliac\Modules\Shop\Models\ShopProductPrice;
-use Coeliac\Modules\Shop\Payment\Processors\Stripe;
 
 class ShopOrderPaymentStripeTest extends TestCase
 {

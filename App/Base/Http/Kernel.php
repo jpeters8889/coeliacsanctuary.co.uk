@@ -4,32 +4,32 @@ declare(strict_types=1);
 
 namespace Coeliac\Base\Http;
 
-use Fruitcake\Cors\HandleCors;
-use Coeliac\Base\Middleware\TrustHosts;
-use Coeliac\Base\Middleware\TrimStrings;
 use Coeliac\Base\Middleware\Authenticate;
-use Coeliac\Base\Middleware\TrustProxies;
-use Illuminate\Auth\Middleware\Authorize;
-use Coeliac\Base\Middleware\EncryptCookies;
-use Coeliac\Base\Middleware\VerifyCsrfToken;
-use Coeliac\Base\Middleware\HasVerifiedEmail;
-use Illuminate\Http\Middleware\SetCacheHeaders;
-use Illuminate\Session\Middleware\StartSession;
-use Coeliac\Modules\Shop\Middleware\OrderComplete;
-use Illuminate\Routing\Middleware\ThrottleRequests;
 use Coeliac\Base\Middleware\CheckForMaintenanceMode;
 use Coeliac\Base\Middleware\CookieConsentMiddleware;
+use Coeliac\Base\Middleware\EncryptCookies;
+use Coeliac\Base\Middleware\HasVerifiedEmail;
 use Coeliac\Base\Middleware\RedirectIfAuthenticated;
-use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use Illuminate\Routing\Middleware\ValidateSignature;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use Coeliac\Modules\Member\Middleware\LogUserActivity;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
-use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
-use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+use Coeliac\Base\Middleware\TrimStrings;
+use Coeliac\Base\Middleware\TrustHosts;
+use Coeliac\Base\Middleware\TrustProxies;
+use Coeliac\Base\Middleware\VerifyCsrfToken;
 use Coeliac\Modules\EatingOut\WhereToEat\Middleware\UserHasNotRatedEatery;
+use Coeliac\Modules\Member\Middleware\LogUserActivity;
+use Coeliac\Modules\Shop\Middleware\OrderComplete;
+use Fruitcake\Cors\HandleCors;
+use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
+use Illuminate\Auth\Middleware\Authorize;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use Illuminate\Http\Middleware\SetCacheHeaders;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Routing\Middleware\ThrottleRequests;
+use Illuminate\Routing\Middleware\ValidateSignature;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class Kernel extends HttpKernel
 {

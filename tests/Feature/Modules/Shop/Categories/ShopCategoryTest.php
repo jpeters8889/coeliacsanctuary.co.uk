@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Shop\Categories;
 
-use Carbon\Carbon;
+use Coeliac\Common\Models\Image;
+use Coeliac\Modules\Shop\Models\ShopCategory;
 use Coeliac\Modules\Shop\Models\ShopProduct;
+use Coeliac\Modules\Shop\Models\ShopProductPrice;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Coeliac\Common\Models\Image;
-use Coeliac\Modules\Shop\Models\ShopCategory;
-use Coeliac\Modules\Shop\Models\ShopProductPrice;
 
 class ShopCategoryTest extends TestCase
 {
@@ -41,8 +40,8 @@ class ShopCategoryTest extends TestCase
     {
         $this->category->products()->attach(
             $this->build(ShopProduct::class)
-            ->has($this->build(ShopProductVariant::class)->notLive(), 'variants')
-            ->create()
+                ->has($this->build(ShopProductVariant::class)->notLive(), 'variants')
+                ->create()
         );
 
         $request = $this->get('/shop/' . $this->category->slug);

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Search\Architect;
 
-use JPeters\Architect\Plans\DateTime;
-use JPeters\Architect\Plans\Textfield;
 use Coeliac\Modules\Search\Models\SearchHistory;
 use JPeters\Architect\Blueprints\Blueprint as Architect;
+use JPeters\Architect\Plans\DateTime;
+use JPeters\Architect\Plans\Textfield;
 
 class Blueprint extends Architect
 {

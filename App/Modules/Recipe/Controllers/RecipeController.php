@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Recipe\Controllers;
 
-use Illuminate\Http\Request;
-use Coeliac\Common\Response\Page;
-use Coeliac\Modules\Recipe\Repository;
-use Coeliac\Modules\Recipe\Models\Recipe;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Response\Page;
 use Coeliac\Modules\Collection\Models\CollectionItem;
+use Coeliac\Modules\Recipe\Models\Recipe;
+use Coeliac\Modules\Recipe\Repository;
 use Coeliac\Modules\Recipe\Requests\RecipeShowRequest;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class RecipeController extends BaseController
@@ -50,7 +50,7 @@ class RecipeController extends BaseController
     public function show(RecipeShowRequest $request): Response
     {
         /* @var Recipe $recipe */
-        abort_if(!$recipe = $request->resolveItem(), 404, 'Sorry, this recipe can\'t be found');
+        abort_if(! $recipe = $request->resolveItem(), 404, 'Sorry, this recipe can\'t be found');
 
         $featured = null;
 
@@ -80,7 +80,7 @@ class RecipeController extends BaseController
     public function print(RecipeShowRequest $request): Response
     {
         /* @var Recipe $recipe */
-        abort_if(!$recipe = $request->resolveItem(), 404, 'Sorry, this recipe can\'t be found');
+        abort_if(! $recipe = $request->resolveItem(), 404, 'Sorry, this recipe can\'t be found');
 
         return $this->page->render('modules.recipes.print', compact('recipe'));
     }

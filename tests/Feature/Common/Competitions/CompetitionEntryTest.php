@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Tests\Feature\Common\Competitions;
 
 use Carbon\Carbon;
-use Tests\TestCase;
-use Spatie\TestTime\TestTime;
-use Illuminate\Testing\TestResponse;
-use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Modules\Competition\Models\Competition;
 use Coeliac\Modules\Competition\Models\CompetitionEntry;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Testing\TestResponse;
+use Spatie\TestTime\TestTime;
+use Tests\TestCase;
 
 class CompetitionEntryTest extends TestCase
 {

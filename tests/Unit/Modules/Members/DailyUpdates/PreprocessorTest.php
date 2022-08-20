@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Members\DailyUpdates;
 
-use Tests\TestCase;
-use Illuminate\Support\Collection;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Blog\Models\BlogTag;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
-use Coeliac\Modules\Member\Services\DailyUpdatePreprocessor;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
+use Coeliac\Modules\Member\Services\DailyUpdatePreprocessor;
+use Illuminate\Support\Collection;
+use Tests\TestCase;
 
 class PreprocessorTest extends TestCase
 {
@@ -48,7 +48,7 @@ class PreprocessorTest extends TestCase
             new Collection([
                 $this->build(Blog::class)
                     ->has($this->build(BlogTag::class), 'tags')
-                    ->create()
+                    ->create(),
             ])
         );
 

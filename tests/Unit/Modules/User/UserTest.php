@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\User;
 
+use Coeliac\Modules\Member\Models\Scrapbook;
+use Coeliac\Modules\Member\Models\ScrapbookItem;
+use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Member\Models\UserAddress;
+use Coeliac\Modules\Member\Models\UserLevel;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Tests\TestCase;
-use Coeliac\Modules\Blog\Models\Blog;
-use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Member\Models\Scrapbook;
-use Coeliac\Modules\Member\Models\UserLevel;
-use Coeliac\Modules\Member\Models\UserAddress;
-use Coeliac\Modules\Member\Models\ScrapbookItem;
 
 class UserTest extends TestCase
 {

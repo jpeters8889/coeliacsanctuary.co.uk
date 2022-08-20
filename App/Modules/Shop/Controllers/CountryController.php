@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Controllers;
 
-use Coeliac\Modules\Shop\Basket\Basket;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Shop\Basket\Basket;
 use Coeliac\Modules\Shop\Models\ShopPostageCountry;
 use Coeliac\Modules\Shop\Requests\CountrySelectRequest;
 use Illuminate\Support\Collection;
@@ -27,7 +27,7 @@ class CountryController extends BaseController
 
     public function update(CountrySelectRequest $request, Basket $basket): array
     {
-        abort_if(!$basket->resolve(), 400);
+        abort_if(! $basket->resolve(), 400);
 
         $basket->model()->update(['postage_country_id' => $request->input('country')]);
 

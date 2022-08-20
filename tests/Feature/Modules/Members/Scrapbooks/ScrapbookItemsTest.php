@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\Scrapbooks;
 
-use Tests\TestCase;
-use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
 use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\Member\Models\Scrapbook;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Recipe\Models\Recipe;
-use Coeliac\Modules\Member\Models\Scrapbook;
-use Coeliac\Modules\Member\Models\UserLevel;
-use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Tests\TestCase;
+use Tests\Traits\HasImages;
 
 class ScrapbookItemsTest extends TestCase
 {
@@ -38,7 +37,7 @@ class ScrapbookItemsTest extends TestCase
 
     protected function makeAddItemRequest($params = [], ?Scrapbook $scrapbook = null)
     {
-        if (!$scrapbook) {
+        if (! $scrapbook) {
             $scrapbook = $this->scrapbook;
         }
 

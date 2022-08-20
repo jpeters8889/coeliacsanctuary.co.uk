@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Search\Controllers;
 
-use Illuminate\Http\Request;
+use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Common\Response\Page;
 use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\Recipe\Models\Recipe;
-use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Search\Models\SearchHistory;
 use Coeliac\Modules\Search\Requests\SearchRequest;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\Search\Service\Search as SearchService;
+use Coeliac\Modules\Shop\Models\ShopProduct;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
 

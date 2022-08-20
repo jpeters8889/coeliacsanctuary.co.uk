@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Blog\Models;
 
 use Carbon\Carbon;
-use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Common\Traits\Linkable;
-use Coeliac\Common\Traits\Imageable;
-use Coeliac\Common\Traits\ClearsCache;
-use Coeliac\Common\Traits\HasRichText;
 use Coeliac\Common\Comments\Commentable;
 use Coeliac\Common\Contracts\HasComments;
 use Coeliac\Common\Traits\ArchitectModel;
+use Coeliac\Common\Traits\ClearsCache;
 use Coeliac\Common\Traits\DisplaysImages;
-use Illuminate\Database\Eloquent\Collection;
-use Coeliac\Modules\Member\Models\DailyUpdateType;
-use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
-use Coeliac\Modules\Member\Traits\CreatesDailyUpdate;
+use Coeliac\Common\Traits\HasRichText;
+use Coeliac\Common\Traits\Imageable;
+use Coeliac\Common\Traits\Linkable;
 use Coeliac\Modules\Collection\Traits\IsCollectionItem;
+use Coeliac\Modules\Member\Models\DailyUpdateType;
 use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
+use Coeliac\Modules\Member\Traits\CreatesDailyUpdate;
+use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Laravel\Scout\Searchable;
 
 /**
  * @property string              $title

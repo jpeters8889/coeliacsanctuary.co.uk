@@ -6,8 +6,8 @@ namespace Coeliac\Common\Announcements;
 
 use Carbon\Carbon;
 use Coeliac\Common\Models\Announcement;
-use Illuminate\Database\Eloquent\Builder;
 use Coeliac\Common\Repositories\AbstractRepository;
+use Illuminate\Database\Eloquent\Builder;
 
 class Repository extends AbstractRepository
 {

@@ -23,18 +23,16 @@ class DailyUpdateSubscribeRequest extends ApiFormRequest
 
     public function dailyUpdate(): DailyUpdateType
     {
-        if (!$this->dailyUpdate) {
-            /** @phpstan-ignore-next-line  */
+        if (! $this->dailyUpdate) {
             $this->dailyUpdate = DailyUpdateType::query()->findOrFail($this->input('type'));
         }
 
-        /** @phpstan-ignore-next-line  */
         return $this->dailyUpdate;
     }
 
     public function updatable(): ?Updatable
     {
-        if (!$this->dailyUpdate() instanceof DailyUpdateType) {
+        if (! $this->dailyUpdate() instanceof DailyUpdateType) {
             return null;
         }
 

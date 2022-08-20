@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members;
 
-use Tests\TestCase;
+use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Member\Models\UserAddress;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Testing\TestResponse;
-use Coeliac\Modules\Member\Models\User;
-use Illuminate\Foundation\Testing\WithFaker;
-use Coeliac\Modules\Member\Models\UserAddress;
+use Tests\TestCase;
 
 class UserAddressTest extends TestCase
 {
@@ -132,7 +132,7 @@ class UserAddressTest extends TestCase
 
     protected function makeUpdateRequest(array $params = [], ?UserAddress $address = null): TestResponse
     {
-        if (!$address) {
+        if (! $address) {
             $address = $this->user->addresses[0];
         }
 

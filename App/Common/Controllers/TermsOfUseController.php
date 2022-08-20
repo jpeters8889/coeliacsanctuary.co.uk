@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Controllers;
 
-use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Response\Page;
 use Illuminate\Http\Response;
 
 class TermsOfUseController extends BaseController

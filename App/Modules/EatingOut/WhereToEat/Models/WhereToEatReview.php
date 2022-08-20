@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed $rating
  * @property int $wheretoeat_id
  * @property bool $admin_review
+ * @property int $how_expensive
  */
 class WhereToEatReview extends BaseModel
 {
@@ -44,7 +45,7 @@ class WhereToEatReview extends BaseModel
 
     public function getAverageRatingAttribute(): ?string
     {
-        if (!$this->relationLoaded('eatery')) {
+        if (! $this->relationLoaded('eatery')) {
             return null;
         }
 
@@ -53,7 +54,7 @@ class WhereToEatReview extends BaseModel
 
     public function getNumberOfRatingsAttribute(): int|null
     {
-        if (!$this->relationLoaded('eatery')) {
+        if (! $this->relationLoaded('eatery')) {
             return null;
         }
 
@@ -67,7 +68,7 @@ class WhereToEatReview extends BaseModel
 
     public function getPriceAttribute(): ?array
     {
-        if (!$this->how_expensive) {
+        if (! $this->how_expensive) {
             return null;
         }
 

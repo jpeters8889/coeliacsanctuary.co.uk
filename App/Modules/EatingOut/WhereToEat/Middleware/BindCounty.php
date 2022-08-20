@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\Middleware;
 
 use Closure;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
-use Coeliac\Modules\EatingOut\WhereToEat\Requests\WhereToEatCountyRequest;
 use Illuminate\Container\Container;
 use Illuminate\Http\Request;
 

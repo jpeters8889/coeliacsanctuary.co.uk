@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Controllers;
 
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use Coeliac\Modules\Shop\Response\ShopPage;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Blog\Repository as BlogRepository;
+use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
+use Coeliac\Modules\Recipe\Repository as RecipeRepository;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Shop\Models\ShopOrderItem;
+use Coeliac\Modules\Shop\Response\ShopPage;
 use Illuminate\Http\Response;
 use Illuminate\Session\Store as SessionStore;
-use Coeliac\Modules\Shop\Models\ShopOrderItem;
-use Coeliac\Modules\Blog\Repository as BlogRepository;
-use Coeliac\Modules\Recipe\Repository as RecipeRepository;
-use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
 
 class BasketDoneController extends BaseController
 {

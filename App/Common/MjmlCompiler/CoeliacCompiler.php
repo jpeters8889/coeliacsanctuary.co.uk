@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\MjmlCompiler;
 
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Exception;
 use GuzzleHttp\Client;
-use Illuminate\Support\HtmlString;
 use Illuminate\Container\Container;
-use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Support\HtmlString;
 
 class CoeliacCompiler implements CompilerContract
 {

@@ -15,7 +15,7 @@ class CompetitionIsOpenForEntries
         /** @var Competition $competition */
         $competition = $request->route('competition');
 
-        abort_if(!$competition->isOpenForEntries(), 404);
+        abort_if(! $competition->isOpenForEntries(), 404);
 
         return $next($request);
     }

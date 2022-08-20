@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\WhereToEat\Notifications;
 
 use Carbon\Carbon;
-use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Blog\Repository;
-use Coeliac\Common\Notifications\Notification;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
+use Coeliac\Common\Notifications\Notification;
+use Coeliac\Modules\Blog\Repository;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Notifications\AnonymousNotifiable;
 
 class WhereToEatRatingApprovedNotification extends Notification

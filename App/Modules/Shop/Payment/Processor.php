@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Payment;
 
-use Coeliac\Modules\Member\Models\UserAddress;
-use Illuminate\Http\Request;
-use Illuminate\Container\Container;
 use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Member\Models\UserAddress;
 use Coeliac\Modules\Shop\Basket\Basket;
-use Illuminate\Contracts\Events\Dispatcher;
 use Coeliac\Modules\Shop\Events\CreateOrder;
-use Coeliac\Modules\Shop\Requests\OrderRequest;
 use Coeliac\Modules\Shop\Exceptions\PaymentException;
+use Coeliac\Modules\Shop\Requests\OrderRequest;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Http\Request;
 
 abstract class Processor
 {
@@ -32,7 +32,7 @@ abstract class Processor
 
     public function processRequest(OrderRequest $request): void
     {
-        if (!$this->basket->resolve()) {
+        if (! $this->basket->resolve()) {
             throw new PaymentException('no basket');
         }
 
@@ -42,7 +42,7 @@ abstract class Processor
 
         $this->request = $request;
 
-        if (!$user = $request->user()) {
+        if (! $user = $request->user()) {
             $user = User::query()->firstOrCreate(
                 ['email' => $this->request->input('user.email')],
                 [

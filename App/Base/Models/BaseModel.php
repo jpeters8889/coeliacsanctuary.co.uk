@@ -8,8 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 /**
- * @mixin EloquentModel
- *
+ * @template TModel of \Illuminate\Database\Eloquent\Model
  * @method increment(string $field, int $amount = 1)
  * @method decrement(string $field, int $amount = 1)
  * @method scoutMetadata()

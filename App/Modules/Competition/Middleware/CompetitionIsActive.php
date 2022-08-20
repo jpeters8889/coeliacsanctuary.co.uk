@@ -15,7 +15,7 @@ class CompetitionIsActive
         /** @var Competition $competition */
         $competition = $request->route('competition');
 
-        abort_if(!$competition->isActive(), 404);
+        abort_if(! $competition->isActive(), 404);
 
         return $next($request);
     }

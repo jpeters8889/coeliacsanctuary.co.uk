@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Search\Indices;
 
 use Algolia\ScoutExtended\Builder;
-use Spatie\Geocoder\Geocoder;
 use Coeliac\Base\Models\BaseModel;
-use Illuminate\Database\Eloquent\Collection;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
+use Illuminate\Database\Eloquent\Collection;
+use Spatie\Geocoder\Geocoder;
 
 class Eatery extends Index
 {
@@ -24,23 +24,21 @@ class Eatery extends Index
 
     protected function afterSearching(Collection $results): Collection
     {
-        $results = $results->reject(static function (WhereToEat $eatery) {
-            return !$eatery->live || $eatery->town->town === 'Nationwide';
-        });
+        $results = $results->reject(fn (WhereToEat $eatery) => ! $eatery->live || $eatery->town->town === 'Nationwide');
 
         $geocoder = resolve(Geocoder::class)->getCoordinatesForAddress($this->term);
 
-        if (!isset($geocoder['lat'], $geocoder['lng'])) {
+        if (! isset($geocoder['lat'], $geocoder['lng'])) {
             return $results;
         }
 
         return $results->concat(
-            /** @phpstan-ignore-next-line */
+            /** @phpstan-ignore-next-line  */
             WhereToEat::search()->with([
-                'getRankingInfo' => true,
-                'aroundLatLng' => implode(', ', [$geocoder['lat'], $geocoder['lng']]),
-                'aroundRadius' => (int)round(2 * 1609.344),
-            ])
+                    'getRankingInfo' => true,
+                    'aroundLatLng' => implode(', ', [$geocoder['lat'], $geocoder['lng']]),
+                    'aroundRadius' => (int)round(2 * 1609.344),
+                ])
                 ->get()
                 ->load('town', 'county', 'country', 'userReviews')
                 ->reject(static function (WhereToEat $eatery) {

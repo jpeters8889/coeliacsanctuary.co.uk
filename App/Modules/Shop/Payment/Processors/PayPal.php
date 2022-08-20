@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Payment\Processors;
 
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
+use Coeliac\Modules\Shop\Exceptions\PaymentException;
+use Coeliac\Modules\Shop\Payment\Processor;
 use Exception;
 use Illuminate\Http\Request;
-use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
-use Coeliac\Modules\Shop\Payment\Processor;
-use Coeliac\Modules\Shop\Exceptions\PaymentException;
 use PayPal\Common\PayPalModel;
 
 class PayPal extends Processor
@@ -19,6 +19,7 @@ class PayPal extends Processor
             return $this->paymentProvider->initiatePayment($this->basket);
         } catch (Exception $exception) {
             Bugsnag::notifyException($exception);
+
             throw new PaymentException("Couldn't initiate PayPal payment.");
         }
     }
@@ -35,6 +36,7 @@ class PayPal extends Processor
             return $return;
         } catch (Exception $exception) {
             Bugsnag::notifyException($exception);
+
             throw new PaymentException("Couldn't process PayPal payment");
         }
     }

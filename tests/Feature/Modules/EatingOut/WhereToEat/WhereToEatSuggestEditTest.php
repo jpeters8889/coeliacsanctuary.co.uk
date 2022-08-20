@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
@@ -62,8 +64,8 @@ class WhereToEatSuggestEditTest extends TestCase
     public function itContainsTheVenueType(): void
     {
         $this->get("/api/wheretoeat/{$this->eatery->id}/suggest-edit")
-            ->assertJsonPath("data.venue_type.id", $this->eatery->venue_type_id)
-            ->assertJsonPath("data.venue_type.label", $this->eatery->venueType->venue_type);
+            ->assertJsonPath('data.venue_type.id', $this->eatery->venue_type_id)
+            ->assertJsonPath('data.venue_type.label', $this->eatery->venueType->venue_type);
     }
 
     /** @test */
@@ -89,8 +91,8 @@ class WhereToEatSuggestEditTest extends TestCase
     public function itContainsTheCuisine(): void
     {
         $this->get("/api/wheretoeat/{$this->eatery->id}/suggest-edit")
-            ->assertJsonPath("data.cuisine.id", $this->eatery->cuisine_id)
-            ->assertJsonPath("data.cuisine.label", $this->eatery->cuisine->cuisine);
+            ->assertJsonPath('data.cuisine.id', $this->eatery->cuisine_id)
+            ->assertJsonPath('data.cuisine.label', $this->eatery->cuisine->cuisine);
     }
 
     /** @test */

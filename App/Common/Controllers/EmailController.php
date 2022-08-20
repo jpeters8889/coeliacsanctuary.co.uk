@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Controllers;
 
-use Coeliac\Common\Requests\EmailRequest;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Common\MjmlCompiler\CompilerContract;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
+use Coeliac\Common\Requests\EmailRequest;
 use Illuminate\Support\HtmlString;
 
 class EmailController extends BaseController

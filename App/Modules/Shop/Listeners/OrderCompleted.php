@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Coeliac\Modules\Shop\Events\CompleteOrder;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class OrderCompleted implements ShouldQueue
 {

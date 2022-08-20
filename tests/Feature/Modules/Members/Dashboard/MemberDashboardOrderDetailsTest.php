@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Members\Dashboard;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserAddress;
+use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
+use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Coeliac\Modules\Shop\Models\ShopPayment;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
-use Tests\Abstracts\DashboardTest;
 use Illuminate\Testing\TestResponse;
-use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Tests\Abstracts\DashboardTest;
 
 class MemberDashboardOrderDetailsTest extends DashboardTest
 {
@@ -93,10 +93,10 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
         $this->build(ShopOrderItem::class)
             ->to($order)
             ->add($this->build(ShopProductVariant::class)
-                ->in($this->build(ShopProduct::class)
-                    ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
-                    ->create())
-                ->create(['weight' => 10]))
+            ->in($this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+            ->create())
+            ->create(['weight' => 10]))
             ->create();
 
         $this->makeApiRequest()->assertJsonFragment(['number_of_items' => 1]);
@@ -262,7 +262,7 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
     public function itReturnsAnArrayOfItems()
     {
         /** @var ShopOrder $order */
-        $order =$this->build(ShopOrder::class)
+        $order = $this->build(ShopOrder::class)
             ->to($this->user)
             ->asPaid()
             ->has($this->build(ShopPayment::class), 'payment')
@@ -286,10 +286,10 @@ class MemberDashboardOrderDetailsTest extends DashboardTest
         $this->build(ShopOrderItem::class)
             ->to($order)
             ->add($this->build(ShopProductVariant::class)
-                ->in($this->build(ShopProduct::class)
-                    ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
-                    ->create())
-                ->create(['weight' => 10]))
+            ->in($this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+            ->create())
+            ->create(['weight' => 10]))
             ->create();
 
         $request = $this->makeOrderInfoRequest($order)->json();

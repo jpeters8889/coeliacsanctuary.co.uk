@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\User;
 
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use Tests\TestCase;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserAddress;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Tests\TestCase;
 
 class UserAddressesTest extends TestCase
 {

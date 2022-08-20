@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Modules\Shop\LeaveAReview;
 
 use Carbon\Carbon;
@@ -39,10 +41,10 @@ class LeaveAReviewPageTest extends TestCase
         $this->build(ShopOrderItem::class)
             ->to($this->order)
             ->add($this->build(ShopProductVariant::class)
-                ->in($this->build(ShopProduct::class)
-                    ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
-                    ->create())
-                ->create(['weight' => 10]))
+            ->in($this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+            ->create())
+            ->create(['weight' => 10]))
             ->create();
 
         $this->invitation = $this->order->reviewInvitation()->create();

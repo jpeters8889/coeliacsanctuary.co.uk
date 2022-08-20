@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\Requests;
 
 use Coeliac\Base\Requests\ApiFormRequest;
@@ -22,7 +24,7 @@ class SuggestEditRequest extends ApiFormRequest
 
     public function eatery(): WhereToEat
     {
-        if (!isset($this->eatery)) {
+        if (! isset($this->eatery)) {
             $this->resolveEatery();
         }
 

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Notifications;
 
 use Carbon\Carbon;
-use Coeliac\Common\Notifications\Notification;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
+use Coeliac\Common\Notifications\Notification;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Services\DailyUpdatePreprocessor;
 use Illuminate\Notifications\AnonymousNotifiable;

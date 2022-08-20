@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Competition\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Common\Traits\Imageable;
 use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\DisplaysImages;
+use Coeliac\Common\Traits\Imageable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 /**
  * @property int $id

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Acceptance;
 
 use Coeliac\Common\Models\Popup;
@@ -369,7 +371,7 @@ class CoeliacSanctuaryOnTheGoTest extends TestCase
                                 'venue_type',
                             ],
                             'website',
-                        ]
+                        ],
                     ],
                 ],
             ]);

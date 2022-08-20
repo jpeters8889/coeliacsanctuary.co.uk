@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Blog\Tags;
 
+use Coeliac\Common\Repositories\AbstractRepository;
 use Coeliac\Modules\Blog\Models\BlogTag;
 use Illuminate\Database\Eloquent\Builder;
-use Coeliac\Common\Repositories\AbstractRepository;
 
 class Repository extends AbstractRepository
 {

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\Reviews\Feed;
 
-use Illuminate\Container\Container;
 use Coeliac\Common\Rss\AbstractRssFeed;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Config\Repository;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\Eloquent\Model;
 
 class ReviewFeed extends AbstractRssFeed
 {

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Tests\Unit\Modules\Recipes;
 
 use Carbon\Carbon;
-use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
-use Tests\Abstracts\RepositoryTest;
-use Coeliac\Modules\Recipe\Repository;
-use Coeliac\Modules\Recipe\Models\Recipe;
 use Coeliac\Common\Repositories\AbstractRepository;
+use Coeliac\Modules\Recipe\Models\Recipe;
+use Coeliac\Modules\Recipe\Repository;
+use Tests\Abstracts\RepositoryTest;
+use Tests\Traits\HasImages;
 
 class RecipeRepositoryTest extends RepositoryTest
 {

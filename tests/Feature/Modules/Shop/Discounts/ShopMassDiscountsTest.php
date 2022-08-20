@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Shop\Discounts;
 
 use Carbon\Carbon;
-use Coeliac\Modules\Shop\Models\ShopProductVariant;
-use Illuminate\Database\Eloquent\Factories\Sequence;
-use Tests\TestCase;
-use Spatie\TestTime\TestTime;
-use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopCategory;
 use Coeliac\Modules\Shop\Models\ShopMassDiscount;
+use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Illuminate\Database\Eloquent\Factories\Sequence;
+use Spatie\TestTime\TestTime;
+use Tests\TestCase;
 
 class ShopMassDiscountsTest extends TestCase
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-use Illuminate\Routing\Router;
 use Coeliac\Modules\Blog\Controllers\BlogController;
 use Coeliac\Modules\Blog\Controllers\BlogTagController;
 use Coeliac\Modules\Blog\Controllers\BlogYearController;
+use Illuminate\Routing\Router;
 
 /* @var Router $router */
 
-if (!isset($router)) {
+if (! isset($router)) {
     return;
 }
 

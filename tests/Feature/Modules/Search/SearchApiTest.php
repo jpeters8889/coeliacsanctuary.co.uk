@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Search;
 
 use Coeliac\Modules\Blog\Models\Blog;
-use Tests\TestCase;
 use Illuminate\Support\Str;
+use Tests\TestCase;
 
 class SearchApiTest extends TestCase
 {

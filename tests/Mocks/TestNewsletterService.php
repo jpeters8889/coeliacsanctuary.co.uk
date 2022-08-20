@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Mocks;
 
-use Coeliac\Common\Newsletter\NewsletterService;
 use Coeliac\Common\Newsletter\Exceptions\AlreadySubscribedException;
+use Coeliac\Common\Newsletter\NewsletterService;
 
 class TestNewsletterService implements NewsletterService
 {

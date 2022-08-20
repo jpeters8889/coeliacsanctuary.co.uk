@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Mocks;
 
-use GuzzleHttp\Client;
-use Illuminate\Support\Collection;
 use Coeliac\Modules\Shop\PostcodeLookup\Parser;
 use Coeliac\Modules\Shop\PostcodeLookup\Service;
+use GuzzleHttp\Client;
+use Illuminate\Support\Collection;
 
 class PostcodeLookupMock implements Service
 {
@@ -45,18 +45,21 @@ class PostcodeLookupMock implements Service
                     '20 Fretwell Road, East Herringthorpe, , , , Rotherham, South Yorkshire',
                     '4 Fretwell Road, East Herringthorpe, , , , Rotherham, South Yorkshire',
                 ];
+
                 break;
             case 'st42rw':
                 return [
                     'Assist, Winton House, Stoke Road, , , Stoke-on-Trent, Staffordshire',
                     'Winton Property Ltd, Winton House, Stoke Road, , , Stoke-on-Trent, Staffordshire',
                 ];
+
                 break;
             case 'a1bcd':
                 return [
                     '123 Fake Street, Nowhereville, Here, There, Everywhere, Cheshire',
                     '456 Fake Street, Nowhereville, Here, There, Everywhere, Cheshire',
                 ];
+
                 break;
             default:
                 return [

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Requests;
 
-use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Base\Requests\ApiFormRequest;
 use Coeliac\Common\Contracts\HasComments;
-use Coeliac\Modules\Recipe\Models\Recipe;
+use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\Recipe\Models\Recipe;
 
 class CommentRequest extends ApiFormRequest
 {

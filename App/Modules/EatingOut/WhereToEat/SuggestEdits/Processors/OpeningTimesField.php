@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatOpeningTimes;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use NumberToWords\Legacy\Numbers\Words\Locale\Ru;
 
 class OpeningTimesField extends Processor
 {
@@ -37,7 +37,7 @@ class OpeningTimesField extends Processor
     {
         $openingTimes = $eatery->openingTimes;
 
-        if (!$openingTimes) {
+        if (! $openingTimes) {
             return null;
         }
 

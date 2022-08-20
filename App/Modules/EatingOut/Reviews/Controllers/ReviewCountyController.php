@@ -19,7 +19,7 @@ class ReviewCountyController extends BaseController
             ->withCount('reviews')
             ->get()
             ->each(function (WhereToEatCounty $county) use (&$counties) {
-                if (!isset($counties[$county->country->country])) {
+                if (! isset($counties[$county->country->country])) {
                     $counties[$county->country->country] = [];
                 }
 

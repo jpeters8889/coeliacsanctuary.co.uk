@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\Architect;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatVenueType;
-use Illuminate\Database\Eloquent\Builder;
 use JPeters\Architect\Blueprints\Blueprint;
 use JPeters\Architect\Plans\Select;
 use JPeters\Architect\Plans\Textfield;

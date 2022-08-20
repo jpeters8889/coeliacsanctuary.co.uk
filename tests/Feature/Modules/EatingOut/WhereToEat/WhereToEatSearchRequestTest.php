@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatSearch;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatSearchTerm;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class WhereToEatSearchRequestTest extends TestCase
 {

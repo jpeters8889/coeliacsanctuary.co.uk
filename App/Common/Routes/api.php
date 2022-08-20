@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-use Illuminate\Routing\Router;
-use Coeliac\Common\Controllers\PopupController;
-use Coeliac\Common\Controllers\TokenController;
 use Coeliac\Common\Controllers\CommentController;
 use Coeliac\Common\Controllers\ContactController;
 use Coeliac\Common\Controllers\NavigationController;
 use Coeliac\Common\Controllers\NewsletterController;
+use Coeliac\Common\Controllers\PopupController;
 use Coeliac\Common\Controllers\RenderMjmlController;
+use Coeliac\Common\Controllers\TokenController;
+use Illuminate\Routing\Router;
 
 /* @var Router $router */
 
-if (!isset($router)) {
+if (! isset($router)) {
     return;
 }
 

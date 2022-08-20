@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\EatingOut\Reviews;
 
 use Carbon\Carbon;
-use Coeliac\Modules\Collection\Models\Collection;
+use Coeliac\Common\Models\Image;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Coeliac\Common\Models\Image;
-use Illuminate\Foundation\Testing\WithFaker;
 
 class ReviewTest extends TestCase
 {
@@ -36,7 +35,7 @@ class ReviewTest extends TestCase
             ->count(13)
             ->sequence(fn ($sequence) => [
                 'title' => "Review {$sequence->index}",
-                'created_at' => Carbon::now()->subMonth()->addDay($sequence->index)
+                'created_at' => Carbon::now()->subMonth()->addDay($sequence->index),
             ])
             ->create()
             ->each(

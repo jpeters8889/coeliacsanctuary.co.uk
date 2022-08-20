@@ -4,25 +4,24 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Payment\Providers;
 
-use PayPal\Api\Item;
-use PayPal\Api\Payer;
+use Coeliac\Modules\Shop\Basket\Basket;
+use Coeliac\Modules\Shop\Models\ShopOrderItem;
+use Coeliac\Modules\Shop\Payment\Provider;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
-use PayPal\Api\Payment;
+use PayPal\Api\Item;
 use PayPal\Api\ItemList;
-use PayPal\Api\Transaction;
-use Illuminate\Http\Request;
-use PayPal\Api\RedirectUrls;
-use Illuminate\Session\Store;
-use PayPal\Common\PayPalModel;
-use PayPal\Api\ShippingAddress;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
-use Illuminate\Support\Collection;
-use Illuminate\Container\Container;
-use Coeliac\Modules\Shop\Basket\Basket;
-use Coeliac\Modules\Shop\Payment\Provider;
-use Illuminate\Contracts\Config\Repository;
-use Coeliac\Modules\Shop\Models\ShopOrderItem;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\ShippingAddress;
+use PayPal\Api\Transaction;
+use PayPal\Common\PayPalModel;
 use PayPal\Rest\ApiContext as PaypalApiContext;
 
 class PayPalPaymentProvider implements Provider

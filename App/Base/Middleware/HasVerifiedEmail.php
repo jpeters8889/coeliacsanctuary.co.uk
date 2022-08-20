@@ -11,7 +11,7 @@ class HasVerifiedEmail extends EnsureEmailIsVerified
 {
     public function handle($request, Closure $next, $redirectToRoute = null)
     {
-        if (!$request->user() || !$request->user()->hasVerifiedEmail()) {
+        if (! $request->user() || ! $request->user()->hasVerifiedEmail()) {
             abort(403, 'Your email address is not verified.');
         }
 

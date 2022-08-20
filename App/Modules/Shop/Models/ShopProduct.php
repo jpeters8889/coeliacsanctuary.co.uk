@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Models;
 
 use Carbon\Carbon;
-use Coeliac\Common\Traits\HasRichText;
-use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
-use Illuminate\Support\Collection;
-use Coeliac\Common\Traits\Linkable;
-use Coeliac\Common\Traits\Imageable;
+use Coeliac\Common\Search\SearchableContract;
 use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\DisplaysImages;
-use Illuminate\Database\Eloquent\Builder;
-use Coeliac\Common\Search\SearchableContract;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Coeliac\Common\Traits\HasRichText;
+use Coeliac\Common\Traits\Imageable;
+use Coeliac\Common\Traits\Linkable;
 use Coeliac\Modules\Collection\Traits\IsCollectionItem;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
+use Laravel\Scout\Searchable;
 
 /**
  * @property int $currentPrice
@@ -138,7 +138,7 @@ class ShopProduct extends BaseModel implements SearchableContract
     {
         return $this->prices
             ->filter(fn (ShopProductPrice $price) => $price->start_at->lessThan(Carbon::now()))
-            ->filter(fn (ShopProductPrice $price) => !$price->end_at || $price->end_at->endOfDay()->greaterThan(Carbon::now()))
+            ->filter(fn (ShopProductPrice $price) => ! $price->end_at || $price->end_at->endOfDay()->greaterThan(Carbon::now()))
             ->sortByDesc('start_at');
     }
 
@@ -160,7 +160,7 @@ class ShopProduct extends BaseModel implements SearchableContract
 
     public static function withLiveProducts(?Builder $builder = null): Builder
     {
-        if (!$builder) {
+        if (! $builder) {
             $builder = static::query();
         }
 
@@ -205,7 +205,7 @@ class ShopProduct extends BaseModel implements SearchableContract
             'description' => $this->description,
             'image' => [$this->first_image],
             'offers' => [
-                "@type" => "Offer",
+                '@type' => 'Offer',
                 'price' => $this->currentPrice / 100,
                 'availability' => $this->isInStock() ? 'InStock' : 'OutOfStock',
                 'priceCurrency' => 'GBP',
@@ -245,22 +245,22 @@ class ShopProduct extends BaseModel implements SearchableContract
 
         if ($this->reviews()->count() > 0) {
             $core = array_merge($core, [
-                "review" => $this->reviews()->latest()->with(['parent'])->get()->transform(fn (ShopOrderReviewItem $review) => [
-                    "@type" => "Review",
-                    "reviewRating" => [
-                        "@type" => "Rating",
-                        "ratingValue" => $review->rating,
-                        "bestRating" => "5"
+                'review' => $this->reviews()->latest()->with(['parent'])->get()->transform(fn (ShopOrderReviewItem $review) => [
+                    '@type' => 'Review',
+                    'reviewRating' => [
+                        '@type' => 'Rating',
+                        'ratingValue' => $review->rating,
+                        'bestRating' => '5',
                     ],
-                    "author" => [
-                        "@type" => "Person",
-                        "name" => $review->parent->name,
+                    'author' => [
+                        '@type' => 'Person',
+                        'name' => $review->parent->name,
                     ],
                 ]),
-                "aggregateRating" => [
-                    "@type" => "AggregateRating",
-                    "ratingValue" => $this->reviews()->average('rating'),
-                    "reviewCount" => $this->reviews()->count()
+                'aggregateRating' => [
+                    '@type' => 'AggregateRating',
+                    'ratingValue' => $this->reviews()->average('rating'),
+                    'reviewCount' => $this->reviews()->count(),
                 ],
             ]);
         }
@@ -283,9 +283,9 @@ class ShopProduct extends BaseModel implements SearchableContract
     protected function isInStock(): bool
     {
         return $this
-                ->variants
-                ->pluck('quantity')
-                ->filter(fn ($quantity) => $quantity > 0)
-                ->count() > 0;
+            ->variants
+            ->pluck('quantity')
+            ->filter(fn ($quantity) => $quantity > 0)
+            ->count() > 0;
     }
 }

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers\Dashboards;
 
-use Coeliac\Modules\Member\Contracts\Updatable;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Coeliac\Common\Response\Page;
-use Illuminate\Contracts\Auth\Access\Gate;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Response\Page;
+use Coeliac\Modules\Member\Contracts\Updatable;
 use Coeliac\Modules\Member\Models\DailyUpdateType;
 use Coeliac\Modules\Member\Models\UserDailyUpdateSubscription;
 use Coeliac\Modules\Member\Requests\DailyUpdateSubscribeRequest;
+use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Support\Collection;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class DailyUpdatesController extends BaseController
 {
@@ -61,7 +61,7 @@ class DailyUpdatesController extends BaseController
 
     public function create(DailyUpdateSubscribeRequest $request): void
     {
-        abort_if(!$request->updatable() instanceof Updatable, 400);
+        abort_if(! $request->updatable() instanceof Updatable, 400);
 
         $request->dailyUpdate()->subscribe($request->user(), $request->updatable());
     }

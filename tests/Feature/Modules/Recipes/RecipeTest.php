@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Recipes;
 
 use Carbon\Carbon;
+use Coeliac\Common\Models\Image;
 use Coeliac\Modules\Recipe\Models\Recipe;
 use Coeliac\Modules\Recipe\Models\RecipeAllergen;
 use Coeliac\Modules\Recipe\Models\RecipeFeature;
 use Coeliac\Modules\Recipe\Models\RecipeMeal;
 use Coeliac\Modules\Recipe\Models\RecipeNutrition;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Coeliac\Common\Models\Image;
-use Illuminate\Foundation\Testing\WithFaker;
 
 class RecipeTest extends TestCase
 {
@@ -36,7 +36,7 @@ class RecipeTest extends TestCase
             ->count(13)
             ->sequence(fn ($sequence) => [
                 'created_at' => Carbon::now()->subMonth()->addDay($sequence->index),
-                'title' => "Recipe {$sequence->index}"
+                'title' => "Recipe {$sequence->index}",
             ])
             ->create()
             ->each(

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Common\Traits;
 
-use Tests\TestCase;
-use Spatie\TestTime\TestTime;
 use Coeliac\Common\Models\Image;
 use Coeliac\Modules\Blog\Models\Blog;
 use Illuminate\Support\Facades\Cache;
+use Spatie\TestTime\TestTime;
+use Tests\TestCase;
 
 class ArchitectModelTest extends TestCase
 {

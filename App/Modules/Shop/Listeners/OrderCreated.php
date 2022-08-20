@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Listeners;
 
 use Carbon\Carbon;
-use Coeliac\Modules\Shop\Models\ShopDiscountCode;
-use Illuminate\Support\Str;
 use Coeliac\Modules\Shop\Events\CreateOrder;
+use Coeliac\Modules\Shop\Models\ShopDiscountCode;
 use Coeliac\Modules\Shop\Models\ShopPaymentType;
 use Coeliac\Modules\Shop\Notifications\OrderCreatedNotification;
+use Illuminate\Support\Str;
 
 class OrderCreated
 {

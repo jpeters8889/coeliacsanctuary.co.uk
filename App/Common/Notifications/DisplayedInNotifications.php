@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Common\Notifications;
 
 use Coeliac\Common\Repositories\AbstractRepository;
@@ -11,7 +13,7 @@ trait DisplayedInNotifications
 {
     public static function forEmail()
     {
-        $items = (new static())
+        $items = (new self())
             ->setWiths([])
             ->setColumns(['id'])
             ->random()
@@ -19,7 +21,7 @@ trait DisplayedInNotifications
             ->pluck('id')
             ->toArray();
 
-        return (new static())
+        return (new self())
             ->fromIds($items)
             ->transform(static function ($item) {
                 return [

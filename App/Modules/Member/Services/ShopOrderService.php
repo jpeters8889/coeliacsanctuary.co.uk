@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Services;
 
 use Coeliac\Modules\Shop\Models\ShopOrder;
-use Illuminate\Database\Eloquent\Collection;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Collection;
 
 class ShopOrderService
 {

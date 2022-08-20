@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Traits;
 
-use Illuminate\Http\Request;
-use Illuminate\Container\Container;
 use Coeliac\Common\Filters\AbstractFilter;
+use Illuminate\Container\Container;
+use Illuminate\Http\Request;
 
 trait Filterable
 {

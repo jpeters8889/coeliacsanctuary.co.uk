@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Blog\Architect;
 
+use Coeliac\Architect\Plans\ImageManager\Plan as ImageManager;
+use Coeliac\Architect\Plans\TagManager\Plan as TagManager;
+use Coeliac\Modules\Blog\Models\Blog;
+use Illuminate\Database\Eloquent\Builder;
+use JPeters\Architect\Blueprints\Blueprint as ArchitectBlueprint;
 use JPeters\Architect\Plans\Body;
 use JPeters\Architect\Plans\Boolean;
-use Coeliac\Modules\Blog\Models\Blog;
 use JPeters\Architect\Plans\DateTime;
 use JPeters\Architect\Plans\Textarea;
 use JPeters\Architect\Plans\Textfield;
-use Illuminate\Database\Eloquent\Builder;
-use Coeliac\Architect\Plans\TagManager\Plan as TagManager;
-use Coeliac\Architect\Plans\ImageManager\Plan as ImageManager;
-use JPeters\Architect\Blueprints\Blueprint as ArchitectBlueprint;
 
 class Blueprint extends ArchitectBlueprint
 {

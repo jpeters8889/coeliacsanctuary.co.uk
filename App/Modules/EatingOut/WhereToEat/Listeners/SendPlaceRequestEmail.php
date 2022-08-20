@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Listeners;
 
-use Illuminate\Contracts\Mail\Mailer;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Coeliac\Modules\EatingOut\WhereToEat\Events\PlaceRequestSubmitted;
 use Coeliac\Modules\EatingOut\WhereToEat\Mail\PlaceRequestMailable as PlaceRequestMailable;
+use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendPlaceRequestEmail implements ShouldQueue
 {

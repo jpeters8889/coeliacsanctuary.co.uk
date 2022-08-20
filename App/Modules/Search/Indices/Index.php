@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Search\Indices;
 
 use Algolia\ScoutExtended\Builder;
-use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Collection;
-use Laravel\Scout\Searchable;
+use Illuminate\Support\Str;
 
 abstract class Index
 {
@@ -30,9 +29,7 @@ abstract class Index
     {
         /** @phpstan-ignore-next-line  */
         $results = $this->model()
-            ->with([
-                'getRankingInfo' => true,
-            ])
+            ->with(['getRankingInfo' => true,])
             ->get()
             ->load($this->withRelations());
 

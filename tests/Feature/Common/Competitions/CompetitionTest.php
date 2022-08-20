@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Common\Competitions;
 
-use Carbon\Carbon;
+use Coeliac\Modules\Competition\Models\Competition;
+use Spatie\TestTime\TestTime;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Spatie\TestTime\TestTime;
-use Coeliac\Modules\Competition\Models\Competition;
 
 class CompetitionTest extends TestCase
 {

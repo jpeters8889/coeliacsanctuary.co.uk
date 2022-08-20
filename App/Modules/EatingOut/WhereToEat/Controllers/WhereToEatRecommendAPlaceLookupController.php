@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
+use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Requests\RecommendAPlaceLookupRequest;
-use Coeliac\Base\Controllers\BaseController;
 
 class WhereToEatRecommendAPlaceLookupController extends BaseController
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\Events;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;

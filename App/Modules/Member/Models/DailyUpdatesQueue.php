@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Models;
 
 use Coeliac\Base\Models\BaseModel;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 

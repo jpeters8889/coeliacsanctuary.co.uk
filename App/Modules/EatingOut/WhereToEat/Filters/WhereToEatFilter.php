@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Filters;
 
+use Coeliac\Common\Filters\AbstractFilter;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 use Illuminate\Database\Eloquent\Builder;
-use Coeliac\Common\Filters\AbstractFilter;
 
 class WhereToEatFilter extends AbstractFilter
 {
@@ -21,7 +21,7 @@ class WhereToEatFilter extends AbstractFilter
     ];
 
     protected array $rawFilters = [
-        'rating'
+        'rating',
     ];
 
     protected function filterCounty(Builder $builder, mixed $value): Builder
@@ -68,7 +68,7 @@ class WhereToEatFilter extends AbstractFilter
                 'average_rating' => WhereToEatReview::query()
                     ->whereColumn('wheretoeat_reviews.wheretoeat_id', 'wheretoeat.id')
                     ->where('approved', true)
-                    ->selectRaw('ifnull(round(avg(rating) * 2) / 2, 0)')
+                    ->selectRaw('ifnull(round(avg(rating) * 2) / 2, 0)'),
             ])
             ->havingRaw($having, $value);
     }

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Coeliac\Common\Response;
 
 use Carbon\Carbon;
-use Illuminate\Container\Container;
 use Coeliac\Common\Announcements\Repository;
-use JPeters\PageViewBuilder\Page as PageBuilder;
 use Coeliac\Modules\Competition\Models\Competition;
+use Illuminate\Container\Container;
+use JPeters\PageViewBuilder\Page as PageBuilder;
 
 class Page extends PageBuilder
 {
@@ -48,13 +48,12 @@ class Page extends PageBuilder
         return $this;
     }
 
-    /** @phpstan-ignore-next-line  */
-    public function setMetaDescription($description): static
-    {
-        $this->metaDescription = $description;
+        public function setMetaDescription($description): static
+        {
+            $this->metaDescription = $description;
 
-        return $this;
-    }
+            return $this;
+        }
 
     public function setMetaKeywords(array $keywords): static
     {
@@ -63,21 +62,19 @@ class Page extends PageBuilder
         return $this;
     }
 
-    /** @phpstan-ignore-next-line  */
-    public function setSocialImage($image): static
-    {
-        $this->metaImage = $image;
+        public function setSocialImage($image): static
+        {
+            $this->metaImage = $image;
 
-        return $this;
-    }
+            return $this;
+        }
 
-    /** @phpstan-ignore-next-line  */
-    public function setPageTitle($title): static
-    {
-        $this->title = $title;
+        public function setPageTitle($title): static
+        {
+            $this->title = $title;
 
-        return $this;
-    }
+            return $this;
+        }
 
     public function showFacebook(): static
     {
@@ -150,7 +147,7 @@ class Page extends PageBuilder
 
     protected function getScrapableData(): bool|array
     {
-        if (!$this->scrapable) {
+        if (! $this->scrapable) {
             return false;
         }
 

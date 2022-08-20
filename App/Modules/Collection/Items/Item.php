@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Collection\Items;
 
-use Illuminate\Container\Container;
 use Coeliac\Modules\Collection\Models\CollectionItem;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\View\Factory as ViewFactory;
 
 abstract class Item
@@ -19,14 +19,15 @@ abstract class Item
         $this->viewFactory = Container::getInstance()->make(ViewFactory::class);
     }
 
-    public static function resolve(CollectionItem $item): static
+    public static function resolve(CollectionItem $item): Item
     {
-        if (!$item->relationLoaded('item')) {
+        if (! $item->relationLoaded('item')) {
             $item->load('item');
         }
 
         $className = class_basename($item->item);
 
+        /** @var class-string<Item> $namespace */
         $namespace = "Coeliac\\Modules\\Collection\\Items\\{$className}";
 
         return new $namespace($item);

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Services;
 
-use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
-use Illuminate\Support\Collection;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Blog\Models\BlogTag;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class DailyUpdatePreprocessor
 {
@@ -35,20 +35,20 @@ class DailyUpdatePreprocessor
     {
         $this->updates->each(function (BaseModel $item) {
             /** @phpstan-ignore-next-line  */
-            if (!$item->live) {
+            if (! $item->live) {
                 return;
             }
 
             switch (Str::lower(class_basename($item))) {
                 case 'blog':
                     /* @var Blog $item */
-                    /** @phpstan-ignore-next-line  */
                     $this->processBlog($item);
+
                     break;
                 case 'wheretoeat':
                     /* @var WhereToEat $item */
-                    /** @phpstan-ignore-next-line  */
                     $this->processEatery($item);
+
                     break;
             }
         });
@@ -80,7 +80,7 @@ class DailyUpdatePreprocessor
 
     protected function bootstrapBlogs(): void
     {
-        if (!$this->blogs) {
+        if (! $this->blogs) {
             $this->blogs = new Collection([
                 'items' => new Collection(),
                 'subscriptions' => new Collection(),
@@ -90,7 +90,7 @@ class DailyUpdatePreprocessor
 
     protected function bootstrapEateries(): void
     {
-        if (!$this->eateries) {
+        if (! $this->eateries) {
             $this->eateries = new Collection([
                 'items' => new Collection(),
                 'subscriptions' => new Collection(),
@@ -111,11 +111,11 @@ class DailyUpdatePreprocessor
     protected function processBlogTag(Blog $blog): void
     {
         $this->subscriptions->map(function ($tag) use ($blog) {
-            if (!$tag instanceof BlogTag) {
+            if (! $tag instanceof BlogTag) {
                 return;
             }
 
-            if (!$blog->tags()->get()->contains(fn ($blogTag) => $blogTag->id === $tag->id)) {
+            if ($blog->tags()->where('id', $tag->id)->count() === 0) {
                 return;
             }
 
@@ -130,7 +130,7 @@ class DailyUpdatePreprocessor
     protected function processWhereToEatUpdatable(WhereToEat $eatery): void
     {
         $this->subscriptions->map(function ($subscription) use ($eatery) {
-            if (!$subscription || $subscription instanceof BlogTag) {
+            if (! $subscription || $subscription instanceof BlogTag) {
                 return;
             }
 

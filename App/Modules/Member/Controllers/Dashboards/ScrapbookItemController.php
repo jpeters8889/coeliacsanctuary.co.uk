@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers\Dashboards;
 
-use Illuminate\Contracts\Auth\Access\Gate;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Member\Models\Scrapbook;
 use Coeliac\Modules\Member\Models\ScrapbookItem;
 use Coeliac\Modules\Member\Requests\ScrapbookAddItemRequest;
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Database\Eloquent\Collection;
 
 class ScrapbookItemController extends BaseController

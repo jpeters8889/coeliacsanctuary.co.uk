@@ -6,13 +6,10 @@ namespace Coeliac\Common\Comments\Notifications;
 
 use Carbon\Carbon;
 use Coeliac\Common\Models\Comment;
-use Coeliac\Modules\Member\Models\User;
-use Illuminate\Container\Container;
-use Coeliac\Modules\Blog\Repository;
-use Coeliac\Modules\Blog\Models\Blog;
-use Coeliac\Common\Notifications\Notification;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Coeliac\Common\Notifications\Notification;
+use Coeliac\Modules\Blog\Repository;
+use Coeliac\Modules\Member\Models\User;
 use Illuminate\Notifications\AnonymousNotifiable;
 
 class CommentApprovedNotification extends Notification

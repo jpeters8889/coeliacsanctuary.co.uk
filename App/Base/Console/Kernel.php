@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Coeliac\Base\Console;
 
 use Coeliac\Base\Console\Commands\CleanUpFileUploads;
+use Coeliac\Base\Console\Commands\ClearPublicDirectories;
 use Coeliac\Modules\EatingOut\WhereToEat\Console\SlugifyEateries;
+use Coeliac\Modules\Member\Console\SendDailyUpdates;
+use Coeliac\Modules\Member\Console\UpdateUserActivity;
+use Coeliac\Modules\Recipe\Console\PrefixRecipesWithGlutenFree;
+use Coeliac\Modules\Shop\Console\ApplyMassDiscounts;
+use Coeliac\Modules\Shop\Console\CleanUpAddresses;
+use Coeliac\Modules\Shop\Console\CloseBaskets;
 use Coeliac\Modules\Shop\Console\PrepareReviewInvitations;
 use Illuminate\Console\Scheduling\Schedule;
-use Coeliac\Modules\Shop\Console\CloseBaskets;
-use Coeliac\Modules\Shop\Console\CleanUpAddresses;
-use Coeliac\Modules\Member\Console\SendDailyUpdates;
-use Coeliac\Modules\Shop\Console\ApplyMassDiscounts;
-use Coeliac\Modules\Member\Console\UpdateUserActivity;
-use Coeliac\Base\Console\Commands\ClearPublicDirectories;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Coeliac\Modules\Recipe\Console\PrefixRecipesWithGlutenFree;
 
 class Kernel extends ConsoleKernel
 {

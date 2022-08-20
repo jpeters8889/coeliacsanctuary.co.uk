@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Common\Response;
 
-use Tests\TestCase;
+use Coeliac\Common\Models\Announcement;
 use Coeliac\Common\Response\Page;
 use Illuminate\Container\Container;
-use Coeliac\Common\Models\Announcement;
+use Tests\TestCase;
 
 class PageResponseTest extends TestCase
 {
@@ -120,7 +120,7 @@ class PageResponseTest extends TestCase
 
     protected function getPageData(?Page $page = null)
     {
-        if (!$page) {
+        if (! $page) {
             $page = $this->page;
         }
 

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\WhereToEat\Middleware;
 
 use Closure;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
 class UserHasNotRatedEatery
 {

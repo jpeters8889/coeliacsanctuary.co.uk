@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
-use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
+use Coeliac\Common\Response\Page;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
 use Coeliac\Modules\EatingOut\WhereToEat\Requests\WhereToEatTownRequest;
 use Illuminate\Http\Response;
 

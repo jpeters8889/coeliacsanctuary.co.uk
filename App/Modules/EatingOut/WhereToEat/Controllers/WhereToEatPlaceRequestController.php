@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
-use Illuminate\Http\Response;
-use Illuminate\Contracts\Events\Dispatcher;
 use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\EatingOut\WhereToEat\Requests\PlaceRequest;
 use Coeliac\Modules\EatingOut\WhereToEat\Events\PlaceRequestSubmitted;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\PlaceRequest as PlaceRequestModel;
+use Coeliac\Modules\EatingOut\WhereToEat\Requests\PlaceRequest;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Http\Response;
 
 class WhereToEatPlaceRequestController extends BaseController
 {

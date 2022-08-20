@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use Coeliac\Modules\Member\Models\DailyUpdateType;
 use Coeliac\Modules\Member\Requests\DailyUpdateSubscribeRequest;
+use Illuminate\Contracts\Validation\Rule;
 
 class ValidDailyUpdatable implements Rule
 {
@@ -22,7 +22,7 @@ class ValidDailyUpdatable implements Rule
         /** @var DailyUpdateType|null $dailyUpdate */
         $dailyUpdate = DailyUpdateType::query()->find($this->request->input('type'));
 
-        if (!$dailyUpdate) {
+        if (! $dailyUpdate) {
             return false;
         }
 

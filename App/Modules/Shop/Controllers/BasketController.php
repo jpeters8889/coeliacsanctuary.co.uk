@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Controllers;
 
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
+use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Shop\Basket\Basket;
+use Coeliac\Modules\Shop\Exceptions\BasketException;
+use Coeliac\Modules\Shop\Models\ShopDiscountCode;
+use Coeliac\Modules\Shop\Models\ShopOrderItem;
+use Coeliac\Modules\Shop\Requests\AddToBasketRequest;
+use Coeliac\Modules\Shop\Requests\BasketUpdateRequest;
+use Coeliac\Modules\Shop\Response\ShopPage;
 use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Session\Store;
-use Coeliac\Modules\Shop\Basket\Basket;
-use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
-use Coeliac\Modules\Shop\Response\ShopPage;
-use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\Shop\Models\ShopDiscountCode;
-use Coeliac\Modules\Shop\Exceptions\BasketException;
-use Coeliac\Modules\Shop\Requests\AddToBasketRequest;
-use Coeliac\Modules\Shop\Requests\BasketUpdateRequest;
 
 class BasketController extends BaseController
 {
@@ -29,7 +30,7 @@ class BasketController extends BaseController
 
         if ($this->basket->resolve()) {
             $items = $this->basket->model()->items()->count();
-            $this->basket->model()->items->map(function ($item) use (&$quantity) {
+            $this->basket->model()->items->map(function (ShopOrderItem $item) use (&$quantity) {
                 return $quantity += $item->quantity;
             });
         }
@@ -73,7 +74,7 @@ class BasketController extends BaseController
                 ->with('product', 'variant', 'product.images', 'product.images.image', 'product.prices', 'product.shippingMethod')
                 ->get()
                 ->makeVisible(['product.first_image'])
-            ->transform(fn ($item) => array_merge($item->toArray(), ['id' => sha1((string) $item['id'])]));
+                ->transform(fn ($item) => array_merge($item->toArray(), ['id' => sha1((string) $item['id'])]));
 
             $subtotal = array_sum($items->pluck('subtotal')->toArray());
             $postage = $this->basket->postage()->calculate();

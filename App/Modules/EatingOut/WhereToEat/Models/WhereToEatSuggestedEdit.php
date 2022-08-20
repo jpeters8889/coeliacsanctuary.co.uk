@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
 use Coeliac\Base\Models\BaseModel;
@@ -17,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property WhereToEat $eatery
  * @property int $id
- * @property string status
+ * @property string $status
  * @property string $field
  * @property string $value
  * @property bool $accepted

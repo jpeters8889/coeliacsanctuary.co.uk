@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat;
 
-use Closure;
-use RuntimeException;
-use Illuminate\Http\Request;
-use Spatie\Geocoder\Geocoder;
-use Illuminate\Container\Container;
+use Coeliac\Base\Models\BaseModel;
+use Coeliac\Common\Repositories\AbstractRepository;
 use Coeliac\Common\Traits\Filterable;
 use Coeliac\Common\Traits\Searchable;
-use Illuminate\Database\Eloquent\Builder;
-use Coeliac\Common\Repositories\AbstractRepository;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
+use Illuminate\Container\Container;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use RuntimeException;
+use Spatie\Geocoder\Geocoder;
 
+/** @extends AbstractRepository<WhereToEat> */
 class Repository extends AbstractRepository
 {
     use Filterable;
@@ -29,9 +30,10 @@ class Repository extends AbstractRepository
         return $this->appends;
     }
 
+    /** @return class-string<BaseModel<WhereToEat>> */
     protected function model(): string
     {
-        return WhereToEat::class;
+        return WhereToEat::class; //@phpstan-ignore-line
     }
 
     protected function resolveLatLng(array $parameters): array
@@ -46,7 +48,7 @@ class Repository extends AbstractRepository
         if (array_key_exists('term', $parameters)) {
             $geocoder = Container::getInstance()
                 ->make(Geocoder::class)
-                ->getCoordinatesForAddress($parameters['term']);
+                ?->getCoordinatesForAddress($parameters['term']);
 
             return [
                 'lat' => $geocoder['lat'],
@@ -57,9 +59,10 @@ class Repository extends AbstractRepository
         throw new RuntimeException('No search parameters');
     }
 
+    /** @param class-string<WhereToEat> $model */
     protected function performSearch(string $model): array|null
     {
-        if (!$this->useSearch) {
+        if (! $this->useSearch) {
             return null;
         }
 
@@ -69,11 +72,7 @@ class Repository extends AbstractRepository
         if ($request->has('search')) {
             $parameters = json_decode($request->get('search'), true);
 
-            /** @var WhereToEat $model */
-
-            /** @phpstan-ignore-next-line */
-            $results = $model::search()
-                ->with([
+            $results = $model::search()->with([ //@phpstan-ignore-line
                     'aroundLatLng' => implode(', ', $latlng = $this->resolveLatLng((array)array_filter($parameters))),
                     'aroundRadius' => (int)round(((int)$parameters['range']) * 1609.344),
                     'getRankingInfo' => true,

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop\Postage;
 
-use Tests\TestCase;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopPostageCountry;
 use Coeliac\Modules\Shop\Models\ShopPostageCountryArea;
+use Tests\TestCase;
 
 class ShopPostageCountryTest extends TestCase
 {
