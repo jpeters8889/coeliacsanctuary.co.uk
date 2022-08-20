@@ -3091,16 +3091,16 @@
         },
         {
             "name": "jpeters/architect",
-            "version": "0.8.5",
+            "version": "0.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jpeters8889/architect.git",
-                "reference": "b0a875e4679ced6e603492c8e1d5a9902db921fc"
+                "reference": "68775eb2876b0fe37c74ca49bac256f1d980fc56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jpeters8889/architect/zipball/b0a875e4679ced6e603492c8e1d5a9902db921fc",
-                "reference": "b0a875e4679ced6e603492c8e1d5a9902db921fc",
+                "url": "https://api.github.com/repos/jpeters8889/architect/zipball/68775eb2876b0fe37c74ca49bac256f1d980fc56",
+                "reference": "68775eb2876b0fe37c74ca49bac256f1d980fc56",
                 "shasum": ""
             },
             "require": {
@@ -3148,10 +3148,10 @@
             ],
             "description": "Architect",
             "support": {
-                "source": "https://github.com/jpeters8889/architect/tree/0.8.5",
+                "source": "https://github.com/jpeters8889/architect/tree/0.8.6",
                 "issues": "https://github.com/jpeters8889/architect/issues"
             },
-            "time": "2022-08-20T14:28:55+00:00"
+            "time": "2022-08-20T14:33:01+00:00"
         },
         {
             "name": "jpeters/laravel-page-view",
