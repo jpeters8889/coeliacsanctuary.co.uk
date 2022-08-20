@@ -1,6 +1,9 @@
 <template>
   <ul>
-    <li v-for="product in products">
+    <li
+      v-for="product in products"
+      :key="product.id"
+    >
       {{ product.title }} ({{ product.rating }} Stars)
     </li>
   </ul>
