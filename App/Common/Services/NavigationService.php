@@ -12,7 +12,7 @@ use Coeliac\Modules\Shop\Models\ShopProduct;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 
 class NavigationService
 {
@@ -26,7 +26,7 @@ class NavigationService
         $this->configRepository = $configRepository;
     }
 
-    public function blogs(): EloquentCollection
+    public function blogs(): Collection
     {
         return $this->cacheRepository->rememberForever(
             $this->configRepository->get('coeliac.cache.blogs.navigation'),
@@ -37,7 +37,7 @@ class NavigationService
         );
     }
 
-    public function products(): EloquentCollection
+    public function products(): Collection
     {
         $products = ShopProduct::withLiveProducts()
             ->orderByRaw('(select sum(shop_order_items.quantity)
@@ -74,7 +74,7 @@ class NavigationService
         );
     }
 
-    public function recipes(): EloquentCollection
+    public function recipes(): Collection
     {
         return $this->cacheRepository->rememberForever(
             $this->configRepository->get('coeliac.cache.recipes.navigation'),
@@ -84,7 +84,7 @@ class NavigationService
         );
     }
 
-    public function collections(): EloquentCollection
+    public function collections(): Collection
     {
         return $this->cacheRepository->rememberForever(
             $this->configRepository->get('coeliac.cache.collections.navigation'),
