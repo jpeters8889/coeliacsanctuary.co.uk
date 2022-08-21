@@ -63,6 +63,26 @@ class PrepareInvitationsJobTest extends TestCase
     }
 
     /** @test */
+    public function itItDoesntQueueInvitationsIfTheTestFlagIsSet(): void
+    {
+        TestTime::freeze();
+
+        $this->createOrder();
+        $this->createOrder();
+        $this->createOrder();
+
+        TestTime::addWeek()->subMinute();
+
+        Bus::assertNothingDispatched();
+
+        TestTime::addMinutes(2);
+
+        $this->artisan('coeliac:send-shop-review-invitations --testing');
+
+        Bus::assertNothingDispatched();
+    }
+
+    /** @test */
     public function itLogsThatTheInvitationIsReadyToBePrepared(): void
     {
         TestTime::freeze();
