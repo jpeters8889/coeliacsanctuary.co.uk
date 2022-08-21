@@ -37,6 +37,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('coeliac:shopCloseBaskets')->everyMinute();
         $schedule->command('coeliac:apply_mass_discounts')->everyMinute();
         $schedule->command('coeliac:clean_file_uploads')->everyMinute();
+        $schedule->command('coeliac:send-shop-review-invitations')->everyMinute();
         $schedule->command('coeliac:clear_public_dirs')->daily();
         $schedule->command('coeliac:send_daily_updates')->dailyAt('17:00');
         $schedule->command('coeliac:update-user-activity')->everyFiveMinutes();
