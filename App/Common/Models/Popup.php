@@ -9,6 +9,8 @@ use Coeliac\Common\Traits\DisplaysImages;
 use Coeliac\Common\Traits\Imageable;
 
 /**
+ * @extends BaseModel<Popup>
+ *
  * @property int $id
  * @property int $display_every
  */

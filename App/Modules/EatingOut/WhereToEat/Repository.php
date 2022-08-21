@@ -33,7 +33,7 @@ class Repository extends AbstractRepository
     /** @return class-string<BaseModel<WhereToEat>> */
     protected function model(): string
     {
-        return WhereToEat::class; //@phpstan-ignore-line
+        return WhereToEat::class;
     }
 
     protected function resolveLatLng(array $parameters): array

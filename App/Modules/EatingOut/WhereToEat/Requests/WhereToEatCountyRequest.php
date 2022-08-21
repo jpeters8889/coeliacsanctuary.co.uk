@@ -16,7 +16,7 @@ class WhereToEatCountyRequest extends FormRequest
 
     public function resolveCounty(): WhereToEatCounty
     {
-        /** @var WhereToEatCounty $legacy */
+        /** @var WhereToEatCounty | null $legacy */
         $legacy = WhereToEatCounty::query()->where('legacy', $this->route('county', 'nationwide'))->first();
 
         if ($legacy instanceof WhereToEatCounty) {

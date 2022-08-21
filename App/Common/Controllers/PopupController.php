@@ -21,6 +21,7 @@ class PopupController extends BaseController
 
     public function get(): Popup|array
     {
+        /** @var Collection<int, Popup> $popups */
         $popups = new Collection();
 
         $this->repository
@@ -38,7 +39,7 @@ class PopupController extends BaseController
                 $popups->push($popup);
             });
 
-        if ($popups->isEmpty()) {
+        if ($popups->count() === 0) {
             return [];
         }
 
@@ -47,7 +48,7 @@ class PopupController extends BaseController
 
     public function update(mixed $id): Response
     {
-        /** @var Popup $popup */
+        /** @var Popup | null $popup */
         $popup = $this->repository->get($id);
 
         abort_if(! $popup, 404);

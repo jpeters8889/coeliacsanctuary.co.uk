@@ -11,17 +11,20 @@ class WhereToEatSubmitReviewRequest extends ApiFormRequest
 {
     public function resolveWhereToEat(): WhereToEat
     {
-        return WhereToEat::query()->findOrFail($this->route('id'));
+        /** @var WhereToEat $eatery */
+        $eatery = WhereToEat::query()->findOrFail($this->route('id'));
+
+        return $eatery;
     }
 
     protected function isNationwide(): bool
     {
-        return $this->resolveWhereToEat()?->county->county === 'Nationwide';
+        return $this->resolveWhereToEat()->county->county === 'Nationwide';
     }
 
     public function isReviewLive(): bool
     {
-        if ($this->user()?->isAdmin() && $this->input('admin_review') === true) {
+        if ($this->input('admin_review') === true && $this->user()?->isAdmin()) {
             return true;
         }
 

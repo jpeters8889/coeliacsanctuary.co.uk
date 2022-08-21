@@ -10,6 +10,8 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<TemporaryFileUpload>
+ *
  * @property string $filename
  * @property string $path
  */

@@ -8,6 +8,7 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/** @extends BaseModel<Scrapbook> */
 class Scrapbook extends BaseModel
 {
     protected $casts = [

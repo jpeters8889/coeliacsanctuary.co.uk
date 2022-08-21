@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<NotificationEmail>
+ *
  * @property string $key
  * @property EmailData $data
  * @property string $template

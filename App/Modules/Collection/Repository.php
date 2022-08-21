@@ -17,7 +17,7 @@ class Repository extends AbstractRepository
     /** @return class-string<BaseModel<Collection>> */
     protected function model(): string
     {
-        return Collection::class; //@phpstan-ignore-line
+        return Collection::class;
     }
 
     protected function order(Builder $builder): void

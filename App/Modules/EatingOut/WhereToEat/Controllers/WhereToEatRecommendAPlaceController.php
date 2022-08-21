@@ -39,7 +39,7 @@ class WhereToEatRecommendAPlaceController extends BaseController
                 'venueTypes' => WhereToEatVenueType::query()
                     ->orderBy('venue_type')
                     ->get()
-                    ->transform(fn (WhereToEatVenueType $venueType) => [
+                    ->map(fn (WhereToEatVenueType $venueType) => [
                         'value' => $venueType->id,
                         'label' => $venueType->venue_type,
                     ]),

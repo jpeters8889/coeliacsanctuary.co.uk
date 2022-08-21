@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Requests;
 
-use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Repositories\AbstractRepository;
 use Illuminate\Foundation\Http\FormRequest;
 

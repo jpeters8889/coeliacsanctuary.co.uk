@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
+ * @extends BaseModel<ShopOrder>
+ *
  * @property ShopOrderState            $state
  * @property User                      $user
  * @property UserAddress               $address

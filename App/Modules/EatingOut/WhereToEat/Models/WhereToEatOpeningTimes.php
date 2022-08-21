@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<WhereToEatOpeningTimes>
+ *
  * @property string $country
  * @property string $monday_start
  * @property string $monday_end

@@ -14,6 +14,7 @@ class CommentRequest extends ApiFormRequest
 {
     public function model(): HasComments
     {
+        /** @var class-string<HasComments> $models */
         $models = [
             'blog' => Blog::class,
             'recipe' => Recipe::class,

@@ -28,7 +28,7 @@ class BlogYearController extends BaseController
                     return $blog->created_at->format('Y');
                 })
                 ->sortKeys(SORT_REGULAR, true)
-                ->transform(static function (Collection $blogs, $year) {
+                ->map(static function (Collection $blogs, $year) {
                     return [
                         'year' => $year,
                         'blogs_count' => $blogs->count(),

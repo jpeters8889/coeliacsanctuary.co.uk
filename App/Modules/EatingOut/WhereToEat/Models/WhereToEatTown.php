@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<WhereToEatTown>
+ *
  * @property mixed $town
  * @property WhereToEatCounty $county
  * @property string $slug

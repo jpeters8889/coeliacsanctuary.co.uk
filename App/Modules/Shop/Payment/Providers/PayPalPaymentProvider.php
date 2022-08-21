@@ -55,7 +55,7 @@ class PayPalPaymentProvider implements Provider
 
         $subtotal = (float) $this->basket->subtotal() / 100;
         $this->postage = (float) ($this->basket->postage()->calculate() / 100);
-        $this->discount = ($this->basket->discount() ? (float) $this->basket->discount()?->calculateDeduction($subtotal) : 0) / 100;
+        $this->discount = ($this->basket->discount() ? (float) $this->basket->discount()->calculateDeduction($subtotal) : 0) / 100;
         $this->subtotal = $subtotal - $this->discount;
         $this->total = $this->subtotal + $this->postage;
 

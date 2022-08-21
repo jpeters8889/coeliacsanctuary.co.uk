@@ -26,7 +26,7 @@ class PrepareReviewInvitations extends Command
             ['date' => Carbon::now()->subWeek()->toImmutable(), 'areas' => [ShopPostageCountryArea::UK]],
             ['date' => Carbon::now()->subWeeks(2)->toImmutable(), 'areas' => [ShopPostageCountryArea::EUROPE]],
             ['date' => Carbon::now()->subWeeks(3)->toImmutable(), 'areas' => [
-                ShopPostageCountryArea::NORTH_AMERICA, ShopPostageCountryArea::OCEANA, ],
+                ShopPostageCountryArea::NORTH_AMERICA, ShopPostageCountryArea::OCEANA,],
             ],
         ]);
     }
@@ -35,21 +35,25 @@ class PrepareReviewInvitations extends Command
     {
         $this->totalSent = 0;
 
-        $this->sendingRules()->each(fn ($rule) => ShopOrder::query()
-            ->where('state_id', ShopOrderState::STATE_COMPLETE)
-            ->where('shipped_at', '<=', $rule['date'])
-            ->where('shipped_at', '>=', $rule['date']->startOfDay())
-            ->whereRelation(
-                'postageCountry',
-                fn (Builder $relation) => $relation->whereIn('postage_area_id', $rule['areas'])
-            )
-            ->whereDoesntHave('reviewInvitation')
-            ->get()
-            ->each(function (ShopOrder $order) use ($dispatcher) {
+        $this->sendingRules()->each(function ($rule) use ($dispatcher) {
+            /** @var Collection<int, ShopOrder> $orders */
+            $orders = ShopOrder::query()
+                ->where('state_id', ShopOrderState::STATE_COMPLETE)
+                ->where('shipped_at', '<=', $rule['date'])
+                ->where('shipped_at', '>=', $rule['date']->startOfDay())
+                ->whereRelation(
+                    'postageCountry',
+                    fn (Builder $relation) => $relation->whereIn('postage_area_id', $rule['areas'])
+                )
+                ->whereDoesntHave('reviewInvitation')
+                ->get();
+
+            return $orders->each(function (ShopOrder $order) use ($dispatcher) {
                 $dispatcher->dispatch(new SendReviewInvitation($order));
 
                 $this->totalSent++;
-            }));
+            });
+        });
 
         $this->info("{$this->totalSent} Invitations Sent");
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Coeliac\Common;
 
-use Coeliac\Modules\Member\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 class ArchitectGateway implements \JPeters\Architect\ArchitectGateway

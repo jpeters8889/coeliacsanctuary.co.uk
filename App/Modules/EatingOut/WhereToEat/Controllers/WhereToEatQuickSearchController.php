@@ -18,7 +18,7 @@ class WhereToEatQuickSearchController extends BaseController
             ->where('county', 'like', "%{$request->input('term')}%")
             ->with('country')
             ->get()
-            ->transform(static fn (WhereToEatCounty $county) => [
+            ->map(static fn (WhereToEatCounty $county) => [
                 'label' => "{$county->county}, {$county->country->country}",
                 'url' => "/wheretoeat/{$county->slug}",
             ]);
@@ -27,7 +27,7 @@ class WhereToEatQuickSearchController extends BaseController
             ->where('town', 'like', "%{$request->input('term')}%")
             ->with(['county', 'county.country'])
             ->get()
-            ->transform(static fn (WhereToEatTown $town) => [
+            ->map(static fn (WhereToEatTown $town) => [
                 'label' => "{$town->town}, {$town->county->county}, {$town->county->country->country}",
                 'url' => "/wheretoeat/{$town->county->slug}/{$town->slug}",
             ]);

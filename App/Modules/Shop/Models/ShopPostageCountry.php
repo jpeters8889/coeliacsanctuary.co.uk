@@ -9,9 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
+ * @extends BaseModel<ShopPostageCountry>
+ *
  * @property ShopPostageCountryArea $area
  * @property mixed|string           $id
  * @property mixed|string           $iso_code
+ * @property string $country
  */
 class ShopPostageCountry extends BaseModel
 {

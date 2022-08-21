@@ -20,6 +20,8 @@ class ArchitectModelTest extends TestCase
 
         $this->actingAs(admin_user());
 
+        $this->withoutExceptionHandling();
+
         $this->post('/cs-adm/api/blueprints/submit', [
             '_blueprint' => 'blog',
             '_state' => 'add',

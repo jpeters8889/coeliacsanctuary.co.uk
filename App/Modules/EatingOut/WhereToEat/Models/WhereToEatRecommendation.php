@@ -8,6 +8,8 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @extends BaseModel<WhereToEatRecommendation>
+ *
  * @property string $place_name
  * @property string $place_details
  * @property string $place_location

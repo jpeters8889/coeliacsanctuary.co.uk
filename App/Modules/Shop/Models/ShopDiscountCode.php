@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
+ * @extends BaseModel<ShopDiscountCode>
+ *
  * @property mixed $id
  * @property int $max_claims
  * @property Carbon $start_at

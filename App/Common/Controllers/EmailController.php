@@ -20,6 +20,6 @@ class EmailController extends BaseController
 
         $email = (new MJMLMessage())->mjml($email->template, $data);
 
-        return $compiler->compile($email->render())['html'];
+        return $compiler->compile((string) $email->render())['html'];
     }
 }

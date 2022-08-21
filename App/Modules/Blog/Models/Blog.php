@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Scout\Searchable;
 
 /**
+ * @extends BaseModel<Blog>
+ *
  * @property string              $title
  * @property Collection<BlogTag> $tags
  * @property mixed               $meta_description

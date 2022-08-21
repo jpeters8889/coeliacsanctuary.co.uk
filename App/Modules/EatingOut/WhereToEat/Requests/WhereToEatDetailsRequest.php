@@ -8,7 +8,6 @@ use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\Relation;
 
 class WhereToEatDetailsRequest extends WhereToEatTownRequest
 {

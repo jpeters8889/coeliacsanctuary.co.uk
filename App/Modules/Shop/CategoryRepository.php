@@ -17,7 +17,7 @@ class CategoryRepository extends AbstractRepository
     /** @return class-string<BaseModel<ShopCategory>> */
     protected function model(): string
     {
-        return ShopCategory::class; //@phpstan-ignore-line
+        return ShopCategory::class;
     }
 
     protected function order(Builder $builder): void

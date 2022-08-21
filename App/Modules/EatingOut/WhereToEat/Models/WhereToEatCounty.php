@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
+ * @extends BaseModel<WhereToEatCounty>
+ *
  * @property string            $county
  * @property WhereToEatCountry $country
  * @property mixed             $slug

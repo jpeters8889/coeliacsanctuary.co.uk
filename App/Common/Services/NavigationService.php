@@ -49,7 +49,7 @@ class NavigationService
             ->with(['images'])
             ->take(7)
             ->get()
-            ->transform(fn (ShopProduct $product) => [
+            ->map(fn (ShopProduct $product) => [
                 'id' => $product->id,
                 'title' => $product->title,
                 'slug' => $product->slug,

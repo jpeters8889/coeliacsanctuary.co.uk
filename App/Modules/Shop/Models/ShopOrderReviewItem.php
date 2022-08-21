@@ -8,6 +8,8 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @extends BaseModel<ShopOrderReviewItem>
+ *
  * @property ShopOrderReview $parent
  * @property int $rating
  * @property string $review

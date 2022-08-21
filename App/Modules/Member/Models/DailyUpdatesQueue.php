@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
+ * @extends BaseModel<DailyUpdatesQueue>
+ *
  * @property BaseModel $newItem
  * @property UserDailyUpdateSubscription $subscription
  */

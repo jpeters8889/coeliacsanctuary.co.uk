@@ -21,6 +21,8 @@ use Illuminate\Support\Collection;
 use Laravel\Scout\Searchable;
 
 /**
+ * @extends BaseModel<ShopProduct>
+ *
  * @property int $currentPrice
  * @property mixed|string $oldPrice
  * @property mixed|string $id
@@ -245,18 +247,22 @@ class ShopProduct extends BaseModel implements SearchableContract
 
         if ($this->reviews()->count() > 0) {
             $core = array_merge($core, [
-                'review' => $this->reviews()->latest()->with(['parent'])->get()->transform(fn (ShopOrderReviewItem $review) => [
-                    '@type' => 'Review',
-                    'reviewRating' => [
-                        '@type' => 'Rating',
-                        'ratingValue' => $review->rating,
-                        'bestRating' => '5',
-                    ],
-                    'author' => [
-                        '@type' => 'Person',
-                        'name' => $review->parent->name,
-                    ],
-                ]),
+                'review' => $this->reviews()
+                    ->latest()
+                    ->with(['parent'])
+                    ->get()
+                    ->map(fn (ShopOrderReviewItem $review) => [
+                        '@type' => 'Review',
+                        'reviewRating' => [
+                            '@type' => 'Rating',
+                            'ratingValue' => $review->rating,
+                            'bestRating' => '5',
+                        ],
+                        'author' => [
+                            '@type' => 'Person',
+                            'name' => $review->parent->name,
+                        ],
+                    ]),
                 'aggregateRating' => [
                     '@type' => 'AggregateRating',
                     'ratingValue' => $this->reviews()->average('rating'),

@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Laravel\Scout\Searchable;
 
 /**
+ * @extends BaseModel<Review>
+ *
  * @property mixed        $title
  * @property mixed        $meta_description
  * @property mixed        $meta_keywords

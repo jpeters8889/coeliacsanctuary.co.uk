@@ -11,9 +11,9 @@ use Coeliac\Modules\Member\Models\DailyUpdateType;
 use Coeliac\Modules\Member\Models\UserDailyUpdateSubscription;
 use Coeliac\Modules\Member\Requests\DailyUpdateSubscribeRequest;
 use Illuminate\Contracts\Auth\Access\Gate;
-use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 
 class DailyUpdatesController extends BaseController
 {
@@ -35,14 +35,14 @@ class DailyUpdatesController extends BaseController
             ->with(['type', 'updatable'])
             ->latest()
             ->get()
-            ->map(function (UserDailyUpdateSubscription $dailyUpdate) {
+            ->transform(function (UserDailyUpdateSubscription $dailyUpdate) {
                 if ($dailyUpdate->daily_update_type_id === DailyUpdateType::WTE_TOWN) {
                     $dailyUpdate->load(['updatable.county']);
                 }
 
                 return $dailyUpdate;
             })
-            ->transform(fn (UserDailyUpdateSubscription $dailyUpdate) => [
+            ->map(fn (UserDailyUpdateSubscription $dailyUpdate) => [
                 'id' => $dailyUpdate->id,
                 'type' => [
                     'id' => $dailyUpdate->type->id,

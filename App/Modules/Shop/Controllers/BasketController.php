@@ -30,7 +30,7 @@ class BasketController extends BaseController
 
         if ($this->basket->resolve()) {
             $items = $this->basket->model()->items()->count();
-            $this->basket->model()->items->map(function (ShopOrderItem $item) use (&$quantity) {
+            $this->basket->model()->items->each(function (ShopOrderItem $item) use (&$quantity) {
                 return $quantity += $item->quantity;
             });
         }
@@ -74,7 +74,7 @@ class BasketController extends BaseController
                 ->with('product', 'variant', 'product.images', 'product.images.image', 'product.prices', 'product.shippingMethod')
                 ->get()
                 ->makeVisible(['product.first_image'])
-                ->transform(fn ($item) => array_merge($item->toArray(), ['id' => sha1((string) $item['id'])]));
+                ->map(fn ($item) => array_merge($item->toArray(), ['id' => sha1((string) $item['id'])]));
 
             $subtotal = array_sum($items->pluck('subtotal')->toArray());
             $postage = $this->basket->postage()->calculate();

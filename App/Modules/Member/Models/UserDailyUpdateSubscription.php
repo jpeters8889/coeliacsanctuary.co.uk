@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<UserDailyUpdateSubscription>
+ *
  * @property int $user_id
  * @property int $daily_update_type_id
  * @property Updatable $updatable

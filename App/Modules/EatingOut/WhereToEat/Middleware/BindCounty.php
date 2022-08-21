@@ -20,7 +20,7 @@ class BindCounty
 
     public function resolveCounty(Request $request): WhereToEatCounty
     {
-        /** @var WhereToEatCounty $legacy */
+        /** @var WhereToEatCounty | null $legacy */
         $legacy = WhereToEatCounty::query()->where('legacy', $request->route('county'))->first();
 
         if ($legacy instanceof WhereToEatCounty) {

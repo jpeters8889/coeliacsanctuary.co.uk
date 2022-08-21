@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Blog;
 
+use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Notifications\DisplayedInNotifications;
 use Coeliac\Common\Repositories\AbstractRepository;
 use Coeliac\Common\Traits\Filterable;
@@ -11,7 +12,7 @@ use Coeliac\Common\Traits\Searchable;
 use Coeliac\Modules\Blog\Models\Blog;
 use Illuminate\Database\Eloquent\Builder;
 
-/** @phpstan-consistent-constructor */
+/** @extends AbstractRepository<Blog> */
 class Repository extends AbstractRepository
 {
     use Filterable;
@@ -20,6 +21,7 @@ class Repository extends AbstractRepository
 
     protected array $withs = ['images', 'images.image', 'tags'];
 
+    /** @return class-string<BaseModel<Blog>> */
     protected function model(): string
     {
         return Blog::class;

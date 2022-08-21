@@ -9,6 +9,7 @@ use Coeliac\Common\Requests\ModuleRequest;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Blog\Repository;
 
+/** @extends ModuleRequest<Blog> */
 class BlogShowRequest extends ModuleRequest
 {
     protected function repository(): AbstractRepository

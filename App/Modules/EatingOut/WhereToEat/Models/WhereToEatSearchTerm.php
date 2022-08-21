@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<WhereToEatSearchTerm>
+ *
  * @property Collection<WhereToEatSearch> $searches
  * @property mixed                        $term
  * @property string $key

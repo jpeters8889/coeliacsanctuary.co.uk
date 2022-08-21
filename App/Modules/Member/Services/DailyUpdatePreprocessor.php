@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Services;
 
-use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Blog\Models\BlogTag;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 class DailyUpdatePreprocessor
 {
@@ -33,24 +31,18 @@ class DailyUpdatePreprocessor
 
     protected function parseUpdates(): void
     {
-        $this->updates->each(function (BaseModel $item) {
-            /** @phpstan-ignore-next-line  */
+        $this->updates->each(function (Blog|WhereToEat $item) {
             if (! $item->live) {
                 return;
             }
 
-            switch (Str::lower(class_basename($item))) {
-                case 'blog':
-                    /* @var Blog $item */
-                    $this->processBlog($item);
+            if ($item instanceof Blog) {
+                $this->processBlog($item);
 
-                    break;
-                case 'wheretoeat':
-                    /* @var WhereToEat $item */
-                    $this->processEatery($item);
-
-                    break;
+                return;
             }
+
+            $this->processEatery($item);
         });
     }
 
@@ -142,7 +134,7 @@ class DailyUpdatePreprocessor
                 $attribute = 'town';
             }
 
-            if ((int) $eatery->$check !== $subscription->id) {
+            if ((int)$eatery->$check !== $subscription->id) {
                 return;
             }
 
@@ -162,7 +154,7 @@ class DailyUpdatePreprocessor
             'id' => $eatery->id,
             'title' => $eatery->name,
             'location' => $eatery->full_location,
-            'link' => '/wheretoeat/'.$eatery->county->slug.'/', $eatery->town->slug,
+            'link' => '/wheretoeat/' . $eatery->county->slug . '/', $eatery->town->slug,
             'description' => $eatery->info,
             'address' => str_replace('<br />', ', ', $eatery->address),
         ]);

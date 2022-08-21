@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<ShopOrderReviewInvitation>
+ *
  * @property ShopOrder $order
  * @property string $id
  */

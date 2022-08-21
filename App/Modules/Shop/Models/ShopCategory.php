@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
+ * @extends BaseModel<ShopCategory>
+ *
  * @property string $title
  * @property string $meta_description
  * @property string $meta_keywords

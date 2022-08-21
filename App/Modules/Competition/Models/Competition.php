@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<Competition>
+ *
  * @property int $id
  * @property string $uuid
  * @property Carbon $start_at
@@ -97,7 +99,7 @@ class Competition extends BaseModel
         return 'description';
     }
 
-    protected static function titleField(): string
+    protected static function titleField(): string|array
     {
         return 'name';
     }

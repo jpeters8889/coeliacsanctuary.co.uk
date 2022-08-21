@@ -8,6 +8,8 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
+ * @extends BaseModel<ShopShippingMethod>
+ *
  * @property mixed|string $id
  * @property ShopPostagePrice $prices
  */

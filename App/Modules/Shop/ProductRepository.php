@@ -21,7 +21,7 @@ class ProductRepository extends AbstractRepository
     /** @return class-string<BaseModel<ShopProduct>> */
     protected function model(): string
     {
-        return ShopProduct::class; //@phpstan-ignore-line
+        return ShopProduct::class;
     }
 
     protected function order(Builder $builder): void

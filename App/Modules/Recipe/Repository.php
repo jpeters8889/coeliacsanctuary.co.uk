@@ -22,7 +22,7 @@ class Repository extends AbstractRepository
     /** @return class-string<BaseModel<Recipe>> */
     protected function model(): string
     {
-        return Recipe::class; //@phpstan-ignore-line
+        return Recipe::class;
     }
 
     protected function order(Builder $builder): void

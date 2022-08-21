@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
+ * @extends BaseModel<TravelCardSearchTerm>
+ *
  * @property int $id
  * @property string $term
  * @property Collection<ShopProduct> $products

@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
+ * @extends BaseModel<WhereToEatReview>
+ *
  * @property WhereToEat $eatery
  * @property int $id
  * @property mixed $rating

@@ -59,7 +59,7 @@ class RecipeController extends BaseController
                 ->inRandomOrder()
                 ->take(3)
                 ->get()
-                ->transform(fn (CollectionItem $item) => $item->collection);
+                ->map(fn (CollectionItem $item) => $item->collection);
         }
 
         return $this->page

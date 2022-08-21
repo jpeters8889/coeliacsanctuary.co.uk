@@ -7,6 +7,8 @@ namespace Coeliac\Modules\Shop\Models;
 use Coeliac\Base\Models\BaseModel;
 
 /**
+ * @extends BaseModel<TravelCardSearchTermHistory>
+ *
  * @property int $id
  * @property string $term
  * @property int $hits

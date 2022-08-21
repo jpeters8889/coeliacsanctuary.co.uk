@@ -9,10 +9,7 @@ use Coeliac\Common\Notifications\Messages\MJMLMessage;
 use Coeliac\Common\Notifications\Notification;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Models\ShopOrderReviewInvitation;
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Coeliac\Modules\Shop\ProductRepository;
-use Illuminate\Container\Container;
-use Illuminate\Contracts\Config\Repository;
+use Coeliac\Modules\Shop\Support\NotificationRelatedProducts;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Routing\UrlGenerator;
 
@@ -47,15 +44,7 @@ class LeaveAReviewNotification extends Notification
                 'notifiable' => $notifiable,
                 'reason' => 'to invite you to leave feedback on your recent purchase.',
                 'relatedTitle' => 'Products',
-                'relatedItems' => (new ProductRepository())->random()->take(3)
-                    ->transform(static function (ShopProduct $product) {
-                        return [
-                            'id' => $product->id,
-                            'title' => $product->title,
-                            'link' => Container::getInstance()->make(Repository::class)->get('app.url').$product->link,
-                            'image' => $product->first_image,
-                        ];
-                    }),
+                'relatedItems' => NotificationRelatedProducts::get(),
             ]);
     }
 

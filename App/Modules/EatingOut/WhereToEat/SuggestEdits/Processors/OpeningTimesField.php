@@ -37,7 +37,7 @@ class OpeningTimesField extends Processor
     {
         $openingTimes = $eatery->openingTimes;
 
-        if (! $openingTimes) {
+        if ($openingTimes === null) {
             return null;
         }
 

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
+ * @extends BaseModel<CollectionItem>
+ *
  * @property BaseModel $item
  * @property string    $description
  * @property Collection $collection

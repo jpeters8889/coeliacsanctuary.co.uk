@@ -33,7 +33,7 @@ abstract class AbstractRepository
     protected array $wheres = [];
     protected array $whens = [];
 
-    /** @return class-string<BaseModel<TModel>> */
+    /** @return class-string<TModel> */
     abstract protected function model(): string;
 
     /** @return TModel | null */
@@ -58,7 +58,7 @@ abstract class AbstractRepository
         return $this->query()->firstOrFail();
     }
 
-    /** @return Collection<int, TModel | BaseModel<TModel> | BaseModel> */
+    /** @return Collection<int, TModel | TModel | BaseModel> */
     public function fromIds(array $ids, $column = 'id'): Collection
     {
         return $this->query()
@@ -71,10 +71,13 @@ abstract class AbstractRepository
         return $this->query()->count();
     }
 
-    /** @return Collection<int, TModel | BaseModel<TModel> | BaseModel> */
+    /** @return Collection<int, TModel> */
     public function take(int $number): Collection
     {
-        return $this->query()->take($number)->get($this->getColumns());
+        /** @var Collection<int, TModel> $foo */
+        $foo = $this->query()->take($number)->get($this->getColumns());
+
+        return $foo;
     }
 
     /** @return Collection<int, TModel> */
@@ -130,16 +133,17 @@ abstract class AbstractRepository
     /** @return Builder<TModel> */
     protected function query(): Builder
     {
-        /** @var class-string<BaseModel<TModel>> $model */
+        /** @var class-string<TModel> $model */
         $model = $this->model();
 
-        /** @var Builder $builder */
-        $builder = $this->modifyQuery(
-            $model::query()
-                ->select($this->columns)
-                ->with($this->getWiths())
-                ->withCount($this->getWithCounts())
-        );
+        /** @var Builder<TModel> $baseQuery */
+        $baseQuery = $model::query()
+            ->select($this->columns)
+            ->with($this->getWiths())
+            ->withCount($this->getWithCounts());
+
+        /** @var Builder<TModel> $builder */
+        $builder = $this->modifyQuery($baseQuery);
 
         if ($this->shouldSearch() && $searchIds = $this->performSearch($model)) {
             $order = 'field(id, ' . implode(',', $searchIds) . ')';
@@ -180,7 +184,10 @@ abstract class AbstractRepository
         return $builder;
     }
 
-    /** @return Builder<TModel> */
+    /**
+     * @param Builder<TModel> $query
+     * @return Builder<TModel>
+     */
     protected function modifyQuery(Builder $query): Builder
     {
         return $query;

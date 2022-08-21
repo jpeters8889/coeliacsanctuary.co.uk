@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<CompetitionEntry>
+ *
  * @property string $id
  * @property string $name
  * @property string $email

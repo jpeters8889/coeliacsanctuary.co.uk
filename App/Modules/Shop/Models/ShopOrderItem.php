@@ -9,6 +9,8 @@ use Coeliac\Modules\Member\Models\UserAddress;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @extends BaseModel<ShopOrderItem>
+ *
  * @property ShopProduct $product
  * @property int $product_price
  * @property ShopProductVariant $variant

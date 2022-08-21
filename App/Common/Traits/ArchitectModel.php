@@ -29,19 +29,21 @@ trait ArchitectModel
         });
     }
 
-    protected static function resolveTitleField(BaseModel $model): mixed
+    protected static function resolveTitleField(BaseModel $model): string
     {
-        if (is_array(self::titleField())) {
-            $titles = [];
+        $titleFields = self::titleField();
 
-            foreach (self::titleField() as $field) {
-                $titles[] = data_get($field, $model->toArray());
-            }
-
-            return implode(' ', $titles);
+        if (! is_array($titleFields)) {
+            $titleFields = [$titleFields];
         }
 
-        return $model->{self::titleField()};
+        $titles = [];
+
+        foreach ($titleFields as $field) {
+            $titles[] = data_get($model->getAttributes(), $field);
+        }
+
+        return implode(' ', $titles);
     }
 
     protected static function onCreate(BaseModel $model): void

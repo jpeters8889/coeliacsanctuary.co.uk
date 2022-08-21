@@ -9,6 +9,8 @@ use Coeliac\Modules\Member\Contracts\Updatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
+ * @extends BaseModel<DailyUpdateType>
+ *
  * @property string $updatable_type
  * @property int $id
  * @property string $name

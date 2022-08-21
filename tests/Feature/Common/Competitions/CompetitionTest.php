@@ -52,7 +52,7 @@ class CompetitionTest extends TestCase
 
         $competition->associateImage($this->makeImage());
 
-        $this->get('/competition/'.$competition->slug)->assertOk();
+        $this->withoutExceptionHandling()->get('/competition/'.$competition->slug)->assertOk();
     }
 
     /** @test */

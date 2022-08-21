@@ -22,7 +22,7 @@ class Repository extends AbstractRepository
     /** @return class-string<BaseModel<Review>> */
     protected function model(): string
     {
-        return Review::class; //@phpstan-ignore-line
+        return Review::class;
     }
 
     protected function modifyQuery(Builder $query): Builder

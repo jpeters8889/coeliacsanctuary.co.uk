@@ -18,7 +18,7 @@ class ProcessWhereToEatReviewImages implements ShouldQueue
         //
     }
 
-    public function handle(PrepareWhereToEatReviewImages $event)
+    public function handle(PrepareWhereToEatReviewImages $event): void
     {
         $event->images()
             ->map(fn ($id) => TemporaryFileUpload::query()->findOrFail($id))
@@ -52,7 +52,7 @@ class ProcessWhereToEatReviewImages implements ShouldQueue
     {
         $this->filesystemManager
             ->disk('review-images')
-            ->put('thumbs/' . $image->filename, $this->createThumbnail($rawFile), 'public');
+            ->put('thumbs/' . $image->filename, (string) $this->createThumbnail($rawFile), 'public');
     }
 
     protected function storeImageRow(PrepareWhereToEatReviewImages $event, TemporaryFileUpload $image): void

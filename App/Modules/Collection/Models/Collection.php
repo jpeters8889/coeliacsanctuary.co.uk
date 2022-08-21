@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
+ * @extends BaseModel<Collection>
+ *
  * @property EloquentCollection<CollectionItem> $items
  * @property string                             $title
  * @property string                             $body

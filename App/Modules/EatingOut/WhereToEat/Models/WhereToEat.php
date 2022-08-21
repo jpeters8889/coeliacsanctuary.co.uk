@@ -21,6 +21,8 @@ use Illuminate\Support\Stringable;
 use Laravel\Scout\Searchable;
 
 /**
+ * @extends BaseModel<WhereToEat>
+ *
  * @property mixed $name
  * @property WhereToEatTown $town
  * @property WhereToEatCounty $county
@@ -32,7 +34,7 @@ use Laravel\Scout\Searchable;
  * @property mixed $id
  * @property Collection<AttractionRestaurant> $restaurants
  * @property mixed $website
- * @property WhereToEatCuisine $cuisine
+ * @property WhereToEatCuisine | null $cuisine
  * @property mixed $phone
  * @property WhereToEatCountry $country
  * @property mixed $type_id
@@ -46,7 +48,7 @@ use Laravel\Scout\Searchable;
  * @property number $town_id
  * @property string $full_name
  * @property string $gf_menu_link
- * @property WhereToEatOpeningTimes $openingTimes
+ * @property WhereToEatOpeningTimes | null $openingTimes
  * @property int $county_id
  *
  * @method transform(array $array)

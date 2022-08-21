@@ -17,7 +17,7 @@ class CountryController extends BaseController
         return ShopPostageCountry::query()
             ->orderBy('country')
             ->get()
-            ->transform(static function (ShopPostageCountry $country) {
+            ->map(function (ShopPostageCountry $country) {
                 return [
                     'value' => $country->id,
                     'label' => $country->country,

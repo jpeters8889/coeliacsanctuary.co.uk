@@ -7,6 +7,7 @@ namespace Coeliac\Modules\Shop\Models;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/** @extends BaseModel<ShopPaymentResponse> */
 class ShopPaymentResponse extends BaseModel
 {
     protected $casts = [

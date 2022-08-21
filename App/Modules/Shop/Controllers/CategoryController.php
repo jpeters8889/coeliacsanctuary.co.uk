@@ -6,7 +6,6 @@ namespace Coeliac\Modules\Shop\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Shop\CategoryRepository;
-use Coeliac\Modules\Shop\Models\ShopCategory;
 use Coeliac\Modules\Shop\Requests\CategoryShowRequest;
 use Coeliac\Modules\Shop\Response\ShopPage;
 use Illuminate\Http\Response;

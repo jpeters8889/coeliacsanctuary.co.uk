@@ -8,6 +8,8 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
+ * @extends BaseModel<WhereToEatVenueType>
+ *
  * @property mixed|string $venue_type
  * @property int $id
  */
