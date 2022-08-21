@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
 
 class PrepareReviewInvitations extends Command
 {
-    protected $signature = 'coeliac:send-shop-review-invitations';
+    protected $signature = 'coeliac:send-shop-review-invitations {--testing}';
 
     protected int $totalSent = 0;
 
@@ -31,7 +31,7 @@ class PrepareReviewInvitations extends Command
         ]);
     }
 
-    public function handle(Dispatcher $dispatcher)
+    public function handle(Dispatcher $dispatcher): void
     {
         $this->totalSent = 0;
 
@@ -41,6 +41,7 @@ class PrepareReviewInvitations extends Command
                 ->where('state_id', ShopOrderState::STATE_COMPLETE)
                 ->where('shipped_at', '<=', $rule['date'])
                 ->where('shipped_at', '>=', $rule['date']->startOfDay())
+                ->when($this->option('testing'), fn(Builder $builder) => $builder->with('user'))
                 ->whereRelation(
                     'postageCountry',
                     fn (Builder $relation) => $relation->whereIn('postage_area_id', $rule['areas'])
@@ -49,7 +50,12 @@ class PrepareReviewInvitations extends Command
                 ->get();
 
             return $orders->each(function (ShopOrder $order) use ($dispatcher) {
-                $dispatcher->dispatch(new SendReviewInvitation($order));
+                if($this->option('testing')) {
+                    $this->info("Will send order {$order->id} to {$order->user->name}");
+                }
+                else {
+                    $dispatcher->dispatch(new SendReviewInvitation($order));
+                }
 
                 $this->totalSent++;
             });
