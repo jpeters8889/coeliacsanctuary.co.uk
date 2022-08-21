@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
 use Carbon\Carbon;
@@ -52,7 +54,7 @@ class WhereToEatReviewImageUploadTest extends TestCase
     public function itErrorsIfTheImagesArentValidImageFiles(): void
     {
         $this->makeRequest([
-            UploadedFile::fake()->create('foo.txt', 1, 'text/plain')
+            UploadedFile::fake()->create('foo.txt', 1, 'text/plain'),
         ])->assertStatus(422);
     }
 
@@ -66,7 +68,7 @@ class WhereToEatReviewImageUploadTest extends TestCase
     public function itErrorsIfTheImagesAreGreaterThan5mbInSize(): void
     {
         $this->makeRequest([
-            UploadedFile::fake()->create('foo.jpg', 5121)
+            UploadedFile::fake()->create('foo.jpg', 5121),
         ])->assertStatus(422);
     }
 
@@ -142,7 +144,7 @@ class WhereToEatReviewImageUploadTest extends TestCase
             UploadedFile::fake()->image('foo.jpg'),
             UploadedFile::fake()->image('bar.jpg'),
         ])->assertJsonStructure([
-            'images' => [['id', 'path']]
+            'images' => [['id', 'path']],
         ]);
     }
 

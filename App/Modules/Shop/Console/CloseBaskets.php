@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Console;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Shop\Events\BasketClosed;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Illuminate\Console\Command;
 use Illuminate\Container\Container;
-use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Contracts\Events\Dispatcher;
-use Coeliac\Modules\Shop\Events\BasketClosed;
-use Coeliac\Modules\Shop\Models\ShopOrderState;
 
 class CloseBaskets extends Command
 {

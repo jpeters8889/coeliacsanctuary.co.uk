@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Architect;
 
-use JPeters\Architect\Plans\Label;
-use JPeters\Architect\Plans\DateTime;
-use JPeters\Architect\Plans\Textfield;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Query\JoinClause;
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use JPeters\Architect\Blueprints\Blueprint;
-use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Coeliac\Architect\Plans\OrderDispatchSlip\Plan as DispatchSlip;
 use Coeliac\Architect\Plans\OrderInfo\Plan as OrderInfo;
 use Coeliac\Architect\Plans\OrderShipped\Plan as Shipped;
-use Coeliac\Architect\Plans\OrderDispatchSlip\Plan as DispatchSlip;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\JoinClause;
+use JPeters\Architect\Blueprints\Blueprint;
+use JPeters\Architect\Plans\DateTime;
+use JPeters\Architect\Plans\Label;
+use JPeters\Architect\Plans\Textfield;
 
 class OrderBlueprint extends Blueprint
 {

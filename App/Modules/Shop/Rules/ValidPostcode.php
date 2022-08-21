@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Rules;
 
-use Illuminate\Container\Container;
 use Coeliac\Modules\Shop\Basket\Basket;
-use Illuminate\Contracts\Validation\Rule;
 use Coeliac\Modules\Shop\Models\ShopPostageCountry;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Validation\Rule;
 
 class ValidPostcode implements Rule
 {

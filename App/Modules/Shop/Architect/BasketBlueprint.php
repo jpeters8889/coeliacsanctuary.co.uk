@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Architect;
 
+use Coeliac\Architect\Plans\CoeliacShopOrderItems\Plan as ItemList;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Illuminate\Database\Eloquent\Builder;
+use JPeters\Architect\Blueprints\Blueprint;
 use JPeters\Architect\Plans\Boolean;
 use JPeters\Architect\Plans\DateTime;
 use JPeters\Architect\Plans\Textfield;
-use Illuminate\Database\Eloquent\Builder;
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use JPeters\Architect\Blueprints\Blueprint;
-use Coeliac\Modules\Shop\Models\ShopOrderState;
-use Coeliac\Architect\Plans\CoeliacShopOrderItems\Plan as ItemList;
 
 class BasketBlueprint extends Blueprint
 {

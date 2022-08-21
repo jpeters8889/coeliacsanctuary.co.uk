@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Architect;
 
-use JPeters\Architect\Plans\Label;
-use JPeters\Architect\Plans\Select;
-use JPeters\Architect\Plans\DateTime;
-use JPeters\Architect\Plans\Password;
-use JPeters\Architect\Plans\Textfield;
 use Coeliac\Modules\Member\Models\User;
-use Illuminate\Database\Eloquent\Builder;
 use Coeliac\Modules\Member\Models\UserLevel;
+use Illuminate\Database\Eloquent\Builder;
 use JPeters\Architect\Blueprints\Blueprint as ArchitectBlueprint;
+use JPeters\Architect\Plans\DateTime;
+use JPeters\Architect\Plans\Label;
+use JPeters\Architect\Plans\Password;
+use JPeters\Architect\Plans\Select;
+use JPeters\Architect\Plans\Textfield;
 
 class UserBlueprint extends ArchitectBlueprint
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Info\Controllers;
 
-use Coeliac\Common\Response\Page;
-use Coeliac\Common\Models\Accordion;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Models\Accordion;
+use Coeliac\Common\Response\Page;
 use Illuminate\Http\Response;
 
 class InfoController extends BaseController

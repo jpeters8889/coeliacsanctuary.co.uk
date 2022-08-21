@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Base\Providers;
 
-use Illuminate\Routing\Router;
 use Illuminate\Container\Container;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as BaseRouteServiceProvider;
+use Illuminate\Routing\Router;
 
 abstract class BaseRouteProvider extends BaseRouteServiceProvider
 {
@@ -33,10 +33,7 @@ abstract class BaseRouteProvider extends BaseRouteServiceProvider
         $router = Container::getInstance()->make(Router::class);
 
         foreach ($this->maps as $map) {
-            $router->middleware('web')
-                ->group(function () use ($router, $map) {
-                    return require base_path($this->path.$map.'.php');
-                });
+            $router->middleware('web')->group(fn ($router) => require base_path($this->path.$map.'.php'));
         }
     }
 }

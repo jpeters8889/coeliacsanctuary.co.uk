@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Tests\Unit\Common\Traits;
 
 use Coeliac\Modules\Blog\Models\Blog;
-use Tests\TestCase;
-use Illuminate\Support\Arr;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Support\Arr;
+use Tests\TestCase;
 
 class CacheableModelTest extends TestCase
 {

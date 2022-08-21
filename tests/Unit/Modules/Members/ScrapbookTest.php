@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Members;
 
-use Tests\TestCase;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Blog\Models\Blog;
-use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Recipe\Models\Recipe;
+use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Coeliac\Modules\Member\Models\Scrapbook;
 use Coeliac\Modules\Member\Models\ScrapbookItem;
-use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Recipe\Models\Recipe;
+use Tests\TestCase;
 
 class ScrapbookTest extends TestCase
 {

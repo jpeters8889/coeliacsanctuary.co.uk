@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Members;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Event;
-use Coeliac\Modules\Member\Models\User;
-use Illuminate\Support\Facades\Notification;
 use Coeliac\Modules\Member\Events\UserPasswordReset;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Notifications\PasswordResetAlert;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
+use Tests\TestCase;
 
 class UserPasswordUpdatedResetTest extends TestCase
 {

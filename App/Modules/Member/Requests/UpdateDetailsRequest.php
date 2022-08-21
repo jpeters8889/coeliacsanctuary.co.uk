@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Requests;
 
-use Illuminate\Validation\Rule;
 use Coeliac\Base\Requests\ApiFormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateDetailsRequest extends ApiFormRequest
 {

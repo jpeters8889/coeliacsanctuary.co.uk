@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Notifications;
 
-use JPeters\Architect\Plans\Label;
+use Coeliac\Common\Models\NotificationEmail;
+use Illuminate\Database\Eloquent\Builder;
+use JPeters\Architect\Blueprints\Blueprint as ArchitectBlueprint;
 use JPeters\Architect\Plans\Button;
 use JPeters\Architect\Plans\DateTime;
-use Illuminate\Database\Eloquent\Builder;
-use Coeliac\Common\Models\NotificationEmail;
-use JPeters\Architect\Blueprints\Blueprint as ArchitectBlueprint;
+use JPeters\Architect\Plans\Label;
 
 class Blueprint extends ArchitectBlueprint
 {

@@ -9,6 +9,8 @@ use Coeliac\Modules\Member\Contracts\Updatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
+ * @extends BaseModel<BlogTag>
+ *
  * @property string $slug
  * @property string $tag
  * @property string $link

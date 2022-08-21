@@ -7,8 +7,8 @@ namespace Coeliac\Modules\Shop\Models;
 use Carbon\Carbon;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Member\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use Coeliac\Modules\Member\Models\UserAddress;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
+ * @extends BaseModel<ShopOrder>
+ *
  * @property ShopOrderState            $state
  * @property User                      $user
  * @property UserAddress               $address

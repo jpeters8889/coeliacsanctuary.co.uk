@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop\Products;
 
-use Coeliac\Modules\Shop\Models\ShopProductVariant;
-use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
-use Tests\Abstracts\RepositoryTest;
-use Coeliac\Modules\Shop\ProductRepository;
-use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Common\Repositories\AbstractRepository;
+use Coeliac\Modules\Shop\Models\ShopProduct;
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Coeliac\Modules\Shop\ProductRepository;
+use Tests\Abstracts\RepositoryTest;
+use Tests\Traits\HasImages;
 
 class ShopProductRepositoryTest extends RepositoryTest
 {

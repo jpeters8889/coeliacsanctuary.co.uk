@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Competition\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Common\Traits\Imageable;
 use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\DisplaysImages;
+use Coeliac\Common\Traits\Imageable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<Competition>
+ *
  * @property int $id
  * @property string $uuid
  * @property Carbon $start_at
@@ -97,7 +99,7 @@ class Competition extends BaseModel
         return 'description';
     }
 
-    protected static function titleField(): string
+    protected static function titleField(): string|array
     {
         return 'name';
     }

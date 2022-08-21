@@ -7,6 +7,7 @@ namespace Coeliac\Modules\Shop\Models;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/** @extends BaseModel<ShopPaymentType> */
 class ShopPaymentType extends BaseModel
 {
     public function payment(): HasMany

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Comments;
 
-use Tests\TestCase;
 use Coeliac\Common\Models\Comment;
-use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Common\Models\CommentReply;
+use Coeliac\Modules\Blog\Models\Blog;
+use Tests\TestCase;
 
 class CommentsTest extends TestCase
 {

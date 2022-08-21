@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\ForgotPassword;
 
-use Tests\TestCase;
-use Spatie\TestTime\TestTime;
 use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Member\Models\UserLevel;
-use Illuminate\Support\Facades\Notification;
 use Coeliac\Modules\Member\Notifications\ResetPassword;
+use Illuminate\Support\Facades\Notification;
+use Spatie\TestTime\TestTime;
+use Tests\TestCase;
 
 class ForgotPasswordTest extends TestCase
 {

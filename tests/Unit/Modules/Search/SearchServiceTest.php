@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Search;
 
-use Tests\TestCase;
-use Coeliac\Modules\Search\Service\Search;
 use Coeliac\Modules\Search\Exceptions\SearchException;
+use Coeliac\Modules\Search\Service\Search;
+use Tests\TestCase;
 
 class SearchServiceTest extends TestCase
 {
@@ -37,9 +37,9 @@ class SearchServiceTest extends TestCase
 
         $this->assertSame($default, $this->service->isSearchable($index));
 
-        $this->service->$method(!$default);
+        $this->service->$method(! $default);
 
-        $this->assertSame(!$default, $this->service->isSearchable($index));
+        $this->assertSame(! $default, $this->service->isSearchable($index));
     }
 
     public function indexDataProvider()

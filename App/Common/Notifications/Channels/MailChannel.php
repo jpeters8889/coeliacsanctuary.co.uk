@@ -4,25 +4,27 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Notifications\Channels;
 
-use Illuminate\Container\Container;
+use Coeliac\Common\MjmlCompiler\CompilerContract;
+use Coeliac\Common\Models\NotificationEmail;
+use Coeliac\Common\Notifications\Messages\MJMLMessage;
 use Coeliac\Modules\Member\Models\User;
+use Illuminate\Container\Container;
+use Illuminate\Notifications\AnonymousNotifiable;
+use Illuminate\Notifications\Channels\MailChannel as NotificationChannel;
 use Illuminate\Notifications\Notification;
 use Illuminate\View\Factory as ViewFactory;
-use Coeliac\Common\Models\NotificationEmail;
-use Coeliac\Common\MjmlCompiler\CompilerContract;
-use Illuminate\Notifications\AnonymousNotifiable;
-use Coeliac\Common\Notifications\Messages\MJMLMessage;
-use Illuminate\Notifications\Channels\MailChannel as NotificationChannel;
 
 class MailChannel extends NotificationChannel
 {
     public function send($notifiable, Notification $notification)
     {
-        /** @var MJMLMessage $message */
-        /** @phpstan-ignore-next-line  */
+        /**
+         * @var MJMLMessage $message
+         * @phpstan-ignore-next-line
+         */
         $message = $notification->toMail($notifiable);
 
-        if (!isset($message->mjml)) {
+        if (! isset($message->mjml)) {
             parent::send($notifiable, $notification);
 
             return;

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Traits;
 
-use Tests\TestCase;
-use Illuminate\Support\Collection;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Support\Collection;
+use Tests\TestCase;
 
 /**
  * @mixin TestCase

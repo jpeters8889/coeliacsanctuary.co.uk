@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
+ * @extends BaseModel<ScrapbookItem>
+ *
  * @property BaseModel $item
  * @property int $id
  * @property Carbon $created_at

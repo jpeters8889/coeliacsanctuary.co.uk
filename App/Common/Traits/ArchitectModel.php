@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Coeliac\Common\Traits;
 
 use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
-use Illuminate\Container\Container;
-use Intervention\Image\ImageManager;
 use Coeliac\Common\Models\ImageAssociations;
 use Illuminate\Cache\Repository as CacheRepository;
+use Illuminate\Container\Container;
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManager;
 use JPeters\Architect\Http\Requests\BlueprintSubmitRequest;
 
 /**
@@ -29,33 +29,33 @@ trait ArchitectModel
         });
     }
 
-    protected static function resolveTitleField(BaseModel $model): mixed
+    protected static function resolveTitleField(BaseModel $model): string
     {
-        /** @phpstan-ignore-next-line  */
-        if (is_array(self::titleField())) {
-            $titles = [];
+        $titleFields = self::titleField();
 
-            foreach (self::titleField() as $field) {
-                $titles[] = data_get($field, $model->toArray());
-            }
-
-            return implode(' ', $titles);
+        if (! is_array($titleFields)) {
+            $titleFields = [$titleFields];
         }
 
-        /** @phpstan-ignore-next-line  */
-        return $model->{self::titleField()};
+        $titles = [];
+
+        foreach ($titleFields as $field) {
+            $titles[] = data_get($model->getAttributes(), $field);
+        }
+
+        return implode(' ', $titles);
     }
 
     protected static function onCreate(BaseModel $model): void
     {
-        if (!$model->{self::slugField()}) {
+        if (! $model->{self::slugField()}) {
             $model->{self::slugField()} = Str::slug(self::resolveTitleField($model));
         }
     }
 
     protected static function requiresImageProcessing(BaseModel $model): bool
     {
-        if (!self::usesImages()) {
+        if (! self::usesImages()) {
             return false;
         }
 
@@ -76,14 +76,13 @@ trait ArchitectModel
 
     protected static function onSave(BaseModel $model): void
     {
-        if (!self::requiresImageProcessing($model)) {
+        if (! self::requiresImageProcessing($model)) {
             return;
         }
 
         /** @var BlueprintSubmitRequest $request */
         $request = resolve(BlueprintSubmitRequest::class);
 
-        /** @phpstan-ignore-next-line  */
         $images = $model->fresh()->images()->get();
         $index = 0;
         $field = self::bodyField();

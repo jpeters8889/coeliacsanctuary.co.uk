@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-use Illuminate\Routing\Router;
-use Coeliac\Modules\Competition\Middleware\CompetitionIsActive;
 use Coeliac\Modules\Competition\Controllers\CompetitionController;
 use Coeliac\Modules\Competition\Controllers\CompetitionTermsController;
+use Coeliac\Modules\Competition\Middleware\CompetitionIsActive;
 use Coeliac\Modules\Competition\Middleware\CompetitionIsOpenForEntries;
+use Illuminate\Routing\Router;
 
 /* @var Router $router */
 
-if (!isset($router)) {
+if (! isset($router)) {
     return;
 }
 

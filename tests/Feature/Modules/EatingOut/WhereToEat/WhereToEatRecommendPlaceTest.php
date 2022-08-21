@@ -7,11 +7,10 @@ namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Events\PlaceRecommendationSubmitted;
 use Coeliac\Modules\EatingOut\WhereToEat\Mail\PlaceRecommendedMailable;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRecommendation;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatVenueType;
-use Tests\TestCase;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
+use Tests\TestCase;
 
 class WhereToEatRecommendPlaceTest extends TestCase
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
@@ -50,7 +52,7 @@ class GetEatery
             'values' => WhereToEatVenueType::query()
                 ->orderBy('venue_type')
                 ->get()
-                ->transform(fn (WhereToEatVenueType $venueType) => [
+                ->map(fn (WhereToEatVenueType $venueType) => [
                     'value' => $venueType->id,
                     'label' => $venueType->venue_type,
                     'selected' => $venueType->id === $this->eatery->venueType->id,
@@ -66,7 +68,7 @@ class GetEatery
             'values' => WhereToEatCuisine::query()
                 ->orderBy('cuisine')
                 ->get()
-                ->transform(fn (WhereToEatCuisine $cuisine) => [
+                ->map(fn (WhereToEatCuisine $cuisine) => [
                     'value' => $cuisine->id,
                     'label' => $cuisine->cuisine,
                     'selected' => $cuisine->id === $this->eatery->cuisine?->id,
@@ -76,7 +78,7 @@ class GetEatery
 
     protected function getOpeningTimes(): ?array
     {
-        if (!$this->eatery->openingTimes) {
+        if (! $this->eatery->openingTimes) {
             return null;
         }
 
@@ -102,10 +104,10 @@ class GetEatery
             'values' => WhereToEatFeature::query()
                 ->orderBy('feature')
                 ->get()
-                ->transform(fn (WhereToEatFeature $feature) => [
+                ->map(fn (WhereToEatFeature $feature) => [
                     'id' => $feature->id,
                     'label' => $feature->feature,
-                    'selected' => in_array($feature->id, $this->eatery->features->pluck('id')->toArray()),
+                    'selected' => in_array($feature->id, $this->eatery->features->pluck('id')->toArray(), true),
                 ]),
         ];
     }

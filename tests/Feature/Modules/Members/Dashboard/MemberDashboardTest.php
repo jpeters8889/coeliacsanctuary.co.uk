@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\Dashboard;
 
-use Tests\TestCase;
-use Illuminate\Testing\TestResponse;
 use Coeliac\Modules\Member\Models\User;
+use Illuminate\Testing\TestResponse;
+use Tests\TestCase;
 
 class MemberDashboardTest extends TestCase
 {

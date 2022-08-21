@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\EatingOut\WhereToEat\Repository;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatVenueType;
+use Coeliac\Modules\EatingOut\WhereToEat\Repository;
 
 class WhereToEatVenueTypesController extends BaseController
 {

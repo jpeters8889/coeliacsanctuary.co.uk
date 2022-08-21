@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Common\Announcements;
 
-use Carbon\Carbon;
-use Tests\TestCase;
 use Coeliac\Common\Models\Announcement;
+use Tests\TestCase;
 
 class AnnouncementTest extends TestCase
 {

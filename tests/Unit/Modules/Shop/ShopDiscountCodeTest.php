@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop;
 
-use Tests\TestCase;
-use Tests\Traits\Shop\CreateOrder;
-use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
-use Coeliac\Modules\Shop\Models\ShopDiscountCodeType;
 use Coeliac\Modules\Shop\Models\ShopDiscountCodesUsed;
+use Coeliac\Modules\Shop\Models\ShopDiscountCodeType;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Tests\TestCase;
 
 class ShopDiscountCodeTest extends TestCase
 {

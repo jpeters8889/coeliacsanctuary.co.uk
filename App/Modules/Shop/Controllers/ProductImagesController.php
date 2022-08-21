@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Controllers;
 
-use Coeliac\Common\Models\Image;
-use Coeliac\Modules\Shop\ProductRepository;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Models\Image;
 use Coeliac\Modules\Shop\Models\ShopProduct;
+use Coeliac\Modules\Shop\ProductRepository;
 
 class ProductImagesController extends BaseController
 {
@@ -16,7 +16,7 @@ class ProductImagesController extends BaseController
         /** @var ?ShopProduct $product */
         $product = $repository->get($id);
 
-        abort_if(!$product, 404);
+        abort_if(! $product, 404);
 
         return [
             'images' => $product->images

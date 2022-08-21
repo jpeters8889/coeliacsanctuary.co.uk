@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Controllers;
 
-use Illuminate\Session\Store;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
 use Coeliac\Modules\Shop\Requests\ApplyDiscountRequest;
+use Illuminate\Session\Store;
 
 class BasketDiscountController extends BaseController
 {

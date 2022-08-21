@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Architect;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Coeliac\Modules\Shop\Models\ShopOrder;
-use JPeters\Architect\Dashboards\Cards\Chart;
+use Illuminate\Support\Collection;
 use JPeters\Architect\Dashboards\AbstractDashboard;
+use JPeters\Architect\Dashboards\Cards\Chart;
 
 class ShopDashboard extends AbstractDashboard
 {

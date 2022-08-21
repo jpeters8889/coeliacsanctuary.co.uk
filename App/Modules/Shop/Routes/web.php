@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-use Coeliac\Modules\Shop\Controllers\ReviewMyOrderController;
-use Illuminate\Routing\Router;
 use Coeliac\Modules\Shop\Controllers\BasketController;
-use Coeliac\Modules\Shop\Controllers\ProductController;
-use Coeliac\Modules\Shop\Controllers\CategoryController;
 use Coeliac\Modules\Shop\Controllers\BasketDoneController;
+use Coeliac\Modules\Shop\Controllers\CategoryController;
+use Coeliac\Modules\Shop\Controllers\ProductController;
+use Coeliac\Modules\Shop\Controllers\ReviewMyOrderController;
 use Coeliac\Modules\Shop\Controllers\TravelCardsLandingPageController;
+use Illuminate\Routing\Router;
 
 /* @var Router $router */
 
-if (!isset($router)) {
+if (! isset($router)) {
     return;
 }
 

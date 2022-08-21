@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Abstracts;
 
 use Carbon\Carbon;
-use Tests\TestCase;
-use Illuminate\Testing\TestResponse;
 use Coeliac\Modules\Member\Models\User;
+use Illuminate\Testing\TestResponse;
+use Tests\TestCase;
 
 abstract class DashboardTest extends TestCase
 {
@@ -48,7 +48,7 @@ abstract class DashboardTest extends TestCase
     /** @test */
     public function itErrorsIfTheUsersEmailIsntVerified()
     {
-        if (!$this->mustBeVerified()) {
+        if (! $this->mustBeVerified()) {
             $this->assertTrue(true);
 
             return;

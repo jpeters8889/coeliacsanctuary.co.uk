@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Traits;
 
 use Coeliac\Base\Models\BaseModel;
-use Illuminate\Contracts\Events\Dispatcher;
 use Coeliac\Modules\Member\Events\DailyUpdateItemCreated;
+use Illuminate\Contracts\Events\Dispatcher;
 
 /** @mixin BaseModel */
 trait CreatesDailyUpdate
@@ -14,7 +14,7 @@ trait CreatesDailyUpdate
     public static function bootCreatesDailyUpdate(): void
     {
         static::created(function (BaseModel $model) {
-            if (!static::dispatchUpdateOnCreate()) {
+            if (! static::dispatchUpdateOnCreate()) {
                 return;
             }
 
@@ -36,7 +36,7 @@ trait CreatesDailyUpdate
 
         $types = static::dailyUpdateType();
 
-        if (!is_array($types)) {
+        if (! is_array($types)) {
             $types = [$types];
         }
 

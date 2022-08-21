@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Models;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Member\Notifications\ResetPassword;
+use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Routing\UrlGenerator;
-use Illuminate\Notifications\Notifiable;
-use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use JPeters\Architect\Traits\HasArchitectSettings;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Coeliac\Modules\Member\Notifications\ResetPassword;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Routing\UrlGenerator;
+use JPeters\Architect\Traits\HasArchitectSettings;
 
 /**
  * @property string $email

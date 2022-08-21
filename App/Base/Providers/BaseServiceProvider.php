@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Coeliac\Base\Providers;
 
 use Coeliac\Base\Models\BaseModel;
-use Illuminate\Support\ServiceProvider;
-use Coeliac\Common\Providers\CoeliacServiceProvider;
 use Coeliac\Common\Providers\ArchitectServiceProvider;
+use Coeliac\Common\Providers\CoeliacServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
 class BaseServiceProvider extends ServiceProvider
 {

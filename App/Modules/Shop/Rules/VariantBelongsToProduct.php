@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Illuminate\Contracts\Validation\Rule;
 
 class VariantBelongsToProduct implements Rule
 {

@@ -6,10 +6,10 @@ namespace Coeliac\Modules\Shop\Architect;
 
 use Coeliac\Architect\Plans\ShopReviewProducts\Plan;
 use Coeliac\Modules\Shop\Models\ShopOrderReview;
-use JPeters\Architect\Plans\DateTime;
-use JPeters\Architect\Plans\Textfield;
 use Illuminate\Database\Eloquent\Builder;
 use JPeters\Architect\Blueprints\Blueprint;
+use JPeters\Architect\Plans\DateTime;
+use JPeters\Architect\Plans\Textfield;
 
 class ShopReviewsBlueprint extends Blueprint
 {

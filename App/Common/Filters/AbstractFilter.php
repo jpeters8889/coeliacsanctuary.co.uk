@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Coeliac\Common\Filters;
 
 use Exception;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 abstract class AbstractFilter
 {
@@ -21,7 +21,7 @@ abstract class AbstractFilter
 
     public function filter(Builder $builder): Builder
     {
-        if (!$this->request->has('filter')) {
+        if (! $this->request->has('filter')) {
             return $builder;
         }
 

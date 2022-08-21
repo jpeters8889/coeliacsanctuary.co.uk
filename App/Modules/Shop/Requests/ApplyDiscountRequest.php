@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Requests;
 
 use Coeliac\Base\Requests\ApiFormRequest;
-use Coeliac\Modules\Shop\Rules\DiscountIsActive;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
 use Coeliac\Modules\Shop\Rules\DiscountHasAvailableClaims;
+use Coeliac\Modules\Shop\Rules\DiscountIsActive;
 
 class ApplyDiscountRequest extends ApiFormRequest
 {

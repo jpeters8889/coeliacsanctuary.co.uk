@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Payment\Processors;
 
-use Illuminate\Http\Request;
-use Coeliac\Modules\Shop\Payment\Processor;
 use Coeliac\Modules\Shop\Exceptions\PaymentException;
+use Coeliac\Modules\Shop\Payment\Processor;
+use Illuminate\Http\Request;
 
 class Stripe extends Processor
 {

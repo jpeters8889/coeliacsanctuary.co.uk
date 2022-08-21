@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Shop\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
@@ -7,6 +9,7 @@ use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\TravelCardSearchTerm;
 use Coeliac\Modules\Shop\Models\TravelCardSearchTermHistory;
 use Coeliac\Modules\Shop\Requests\TravelCardSearchRequest;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 
 class TravelCardSearchController extends BaseController
@@ -21,7 +24,7 @@ class TravelCardSearchController extends BaseController
             'results' => TravelCardSearchTerm::query()
                 ->where('term', 'like', "%{$request->input('term')}%")
                 ->get()
-                ->transform(fn (TravelCardSearchTerm $searchTerm) => [
+                ->map(fn (TravelCardSearchTerm $searchTerm) => [
                     'id' => $searchTerm->id,
                     'term' => Str::replace(
                         $request->input('term'),
@@ -33,29 +36,30 @@ class TravelCardSearchController extends BaseController
         ];
     }
 
-    public function get($id)
+    public function get($id): array
     {
         /** @var TravelCardSearchTerm $searchTerm */
         $searchTerm = TravelCardSearchTerm::query()->findOrFail($id);
 
         $searchTerm->increment('hits');
 
+        /** @var Collection<int, ShopProduct> $products */
+        $products = $searchTerm->products->load(['variants', 'categories', 'prices', 'images']);
+
         return [
             'term' => Str::title($searchTerm->term),
             'type' => $searchTerm->type,
-            'products' => $searchTerm->products
-                ->load(['variants', 'categories', 'prices', 'images'])
-                ->transform(fn (ShopProduct $product) => [
-                    'title' => $product->title,
-                    'link' => $product->link,
-                    'price' => $product->currentPrice,
-                    'image' => $product->mainImage,
-                    'category' => $product->categories[0]->title,
-                    'description' => $product->description,
-                    'id' => $product->id,
-                    'variant_id' => $product->variants[0]->id,
-                    'inStock' => $product->variants[0]->quantity > 0
-                ]),
+            'products' => $products->map(fn (ShopProduct $product) => [
+                'title' => $product->title,
+                'link' => $product->link,
+                'price' => $product->currentPrice,
+                'image' => $product->mainImage,
+                'category' => $product->categories[0]->title,
+                'description' => $product->description,
+                'id' => $product->id,
+                'variant_id' => $product->variants[0]->id,
+                'inStock' => $product->variants[0]->quantity > 0,
+            ]),
         ];
     }
 }

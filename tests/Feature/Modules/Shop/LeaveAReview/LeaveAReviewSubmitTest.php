@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Modules\Shop\LeaveAReview;
 
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserAddress;
-use Coeliac\Modules\Shop\Models\ShopFeedback;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Models\ShopOrderReview;
@@ -43,10 +44,10 @@ class LeaveAReviewSubmitTest extends TestCase
         $this->build(ShopOrderItem::class)
             ->to($this->order)
             ->add($this->build(ShopProductVariant::class)
-                ->in($this->build(ShopProduct::class)
-                    ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
-                    ->create())
-                ->create(['weight' => 10]))
+            ->in($this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+            ->create())
+            ->create(['weight' => 10]))
             ->create();
 
         $this->invitation = $this->order->reviewInvitation()->create();
@@ -55,7 +56,7 @@ class LeaveAReviewSubmitTest extends TestCase
     /** @test */
     public function itErrorsWhenPostingToAnInvitationThatDoesntExist(): void
     {
-        $this->post("/api/shop/review-my-order/foo")->assertNotFound();
+        $this->post('/api/shop/review-my-order/foo')->assertNotFound();
     }
 
     /** @test */
@@ -73,8 +74,8 @@ class LeaveAReviewSubmitTest extends TestCase
                     'id' => 1,
                     'rating' => 5,
                     'review' => $this->faker->paragraph,
-                ]
-            ]
+                ],
+            ],
         ])->assertNotFound();
     }
 
@@ -128,7 +129,6 @@ class LeaveAReviewSubmitTest extends TestCase
         $this->post("/api/shop/review-my-order/{$this->invitation->id}", ['products' => 'foo'])
             ->assertJsonValidationErrorFor('products');
     }
-
 
     /** @test */
     public function itErrorsIfAProductDoesntHaveAnId(): void
@@ -209,8 +209,8 @@ class LeaveAReviewSubmitTest extends TestCase
                     'id' => 1,
                     'rating' => 5,
                     'review' => $this->faker->paragraph,
-                ]
-            ]
+                ],
+            ],
         ])->assertOk();
     }
 
@@ -229,8 +229,8 @@ class LeaveAReviewSubmitTest extends TestCase
                     'id' => 1,
                     'rating' => 5,
                     'review' => $this->faker->paragraph,
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertNotEmpty(ShopOrderReview::all());
@@ -251,8 +251,8 @@ class LeaveAReviewSubmitTest extends TestCase
                     'id' => 1,
                     'rating' => 5,
                     'review' => $this->faker->paragraph,
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertEquals('Foo Bar', $this->invitation->review->name);
@@ -275,8 +275,8 @@ class LeaveAReviewSubmitTest extends TestCase
                     'id' => 1,
                     'rating' => 5,
                     'review' => $this->faker->paragraph,
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertNotEmpty(ShopOrderReviewItem::all());
@@ -297,7 +297,7 @@ class LeaveAReviewSubmitTest extends TestCase
         $this->post("/api/shop/review-my-order/{$this->invitation->id}", [
             'name' => $this->faker->name,
             'whereHeard' => ['Facebook', 'Instagram'],
-            'products' => [$review]
+            'products' => [$review],
         ]);
 
         $review = ShopOrderReviewItem::query()->first();
@@ -313,10 +313,10 @@ class LeaveAReviewSubmitTest extends TestCase
         $this->build(ShopOrderItem::class)
             ->to($this->order)
             ->add($this->build(ShopProductVariant::class)
-                ->in($this->build(ShopProduct::class)
-                    ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
-                    ->create())
-                ->create(['weight' => 10]))
+            ->in($this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+            ->create())
+            ->create(['weight' => 10]))
             ->create();
 
         $this->post("/api/shop/review-my-order/{$this->invitation->id}", [
@@ -332,8 +332,8 @@ class LeaveAReviewSubmitTest extends TestCase
                     'id' => 2,
                     'rating' => 4,
                     'review' => $this->faker->paragraph,
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertCount(2, $this->order->reviewedItems);
@@ -354,8 +354,8 @@ class LeaveAReviewSubmitTest extends TestCase
                     'id' => 1,
                     'rating' => 5,
                     'review' => $this->faker->paragraph,
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertNotEmpty(ShopSource::all());
@@ -376,8 +376,8 @@ class LeaveAReviewSubmitTest extends TestCase
                     'id' => 1,
                     'rating' => 5,
                     'review' => $this->faker->paragraph,
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertEquals('Facebook', ShopSource::query()->first()->source);
@@ -394,8 +394,8 @@ class LeaveAReviewSubmitTest extends TestCase
                     'id' => 1,
                     'rating' => 5,
                     'review' => $this->faker->paragraph,
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertEquals('Facebook', $this->order->sources()->first()->source);
@@ -417,8 +417,8 @@ class LeaveAReviewSubmitTest extends TestCase
                     'id' => 1,
                     'rating' => 5,
                     'review' => $this->faker->paragraph,
-                ]
-            ]
+                ],
+            ],
         ]);
 
         $this->assertCount(1, ShopSource::all());
@@ -436,8 +436,8 @@ class LeaveAReviewSubmitTest extends TestCase
                     'id' => 1,
                     'rating' => 5,
                     'review' => $this->faker->paragraph,
-                ]
-            ]
+                ],
+            ],
         ])->assertJsonFragment(['data' => 'done']);
     }
 }

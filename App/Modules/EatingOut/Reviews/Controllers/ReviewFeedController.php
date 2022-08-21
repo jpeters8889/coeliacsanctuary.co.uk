@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\Reviews\Controllers;
 
-use Illuminate\Http\Response;
 use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\EatingOut\Reviews\Repository;
 use Coeliac\Modules\EatingOut\Reviews\Feed\ReviewFeed;
+use Coeliac\Modules\EatingOut\Reviews\Repository;
+use Illuminate\Http\Response;
 
 class ReviewFeedController extends BaseController
 {

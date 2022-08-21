@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Rules;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Validation\Rule;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
+use Illuminate\Contracts\Validation\Rule;
 
 class DiscountIsActive implements Rule
 {

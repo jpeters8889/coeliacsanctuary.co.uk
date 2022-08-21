@@ -7,6 +7,7 @@ namespace Coeliac\Common\Models;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/** @extends BaseModel<CommentReply> */
 class CommentReply extends BaseModel
 {
     protected $visible = [

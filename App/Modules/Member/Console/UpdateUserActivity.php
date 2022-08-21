@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Console;
 
-use Illuminate\Console\Command;
 use Coeliac\Modules\Member\Contracts\UserActivityMonitor;
+use Illuminate\Console\Command;
 
 class UpdateUserActivity extends Command
 {

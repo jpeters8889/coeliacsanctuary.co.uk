@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Info;
 
-use Tests\TestCase;
 use Coeliac\Common\Models\Accordion;
-use Coeliac\Common\Models\AccordionType;
+use Tests\TestCase;
 
 class InfoTest extends TestCase
 {

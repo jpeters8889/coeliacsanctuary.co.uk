@@ -8,6 +8,8 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @extends BaseModel<ShopProductVariant>
+ *
  * @property int          $id
  * @property mixed|string $quantity
  * @property mixed|string $title

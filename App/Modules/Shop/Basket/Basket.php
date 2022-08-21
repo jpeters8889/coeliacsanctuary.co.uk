@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Basket;
 
 use Coeliac\Modules\Member\Models\User;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Illuminate\Container\Container;
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use Illuminate\Session\Store as SessionStore;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\Request;
+use Illuminate\Session\Store as SessionStore;
+use Illuminate\Support\Str;
 
 class Basket
 {
@@ -47,7 +47,7 @@ class Basket
 
     public function items(): Items
     {
-        if (!$this->items) {
+        if (! $this->items) {
             $this->items = new Items($this);
         }
 
@@ -56,7 +56,7 @@ class Basket
 
     public function postage(): Postage
     {
-        if (!$this->postage) {
+        if (! $this->postage) {
             $this->postage = new Postage($this);
         }
 

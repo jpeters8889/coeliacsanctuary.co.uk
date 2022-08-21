@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Architect;
 
-use JPeters\Architect\Blueprints\Blueprint;
 use Coeliac\Architect\Cards\PlaceRequestCard\Card;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\PlaceRequest;
+use JPeters\Architect\Blueprints\Blueprint;
 
 class PlaceRequestBlueprint extends Blueprint
 {

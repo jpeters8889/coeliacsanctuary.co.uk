@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Basket;
 
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Coeliac\Modules\Shop\Models\ShopOrderItem;
-use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Coeliac\Modules\Shop\Exceptions\BasketException;
+use Coeliac\Modules\Shop\Models\ShopOrderItem;
+use Coeliac\Modules\Shop\Models\ShopProduct;
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
 
 class Items
 {
@@ -31,7 +31,7 @@ class Items
 
         $this->validate();
 
-        if (!$this->basket->resolve()) {
+        if (! $this->basket->resolve()) {
             $this->basket->create();
         }
 
@@ -70,7 +70,7 @@ class Items
 
     protected function updateProduct(ShopProduct $product, ShopProductVariant $variant, string $action = 'increase'): void
     {
-        if (!$this->basket->resolve()) {
+        if (! $this->basket->resolve()) {
             throw new BasketException('No basket found');
         }
 
@@ -80,7 +80,7 @@ class Items
             'quantity' => 1,
         ];
 
-        if (!$item = $this->find()) {
+        if (! $item = $this->find()) {
             throw new BasketException('Item isn\'t available in your basket');
         }
 
@@ -105,7 +105,7 @@ class Items
 
     protected function validate(): void
     {
-        if (!$this->request['variant']->live) {
+        if (! $this->request['variant']->live) {
             throw new BasketException('This product can\'t be found.');
         }
 

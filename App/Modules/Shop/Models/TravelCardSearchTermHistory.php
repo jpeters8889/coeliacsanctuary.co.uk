@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Shop\Models;
 
 use Coeliac\Base\Models\BaseModel;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
+ * @extends BaseModel<TravelCardSearchTermHistory>
+ *
  * @property int $id
  * @property string $term
  * @property int $hits

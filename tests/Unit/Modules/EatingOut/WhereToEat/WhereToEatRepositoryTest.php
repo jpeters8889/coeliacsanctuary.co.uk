@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\EatingOut\WhereToEat;
 
-use Tests\Abstracts\RepositoryTest;
 use Coeliac\Common\Repositories\AbstractRepository;
-use Coeliac\Modules\EatingOut\WhereToEat\Repository;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
+use Coeliac\Modules\EatingOut\WhereToEat\Repository;
+use Tests\Abstracts\RepositoryTest;
 
 class WhereToEatRepositoryTest extends RepositoryTest
 {

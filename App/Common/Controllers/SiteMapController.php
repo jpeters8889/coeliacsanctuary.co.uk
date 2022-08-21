@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Controllers;
 
-use Illuminate\Http\Response;
-use Coeliac\Common\Services\SiteMapService;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Services\SiteMapService;
 use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Http\Response;
 
 class SiteMapController extends BaseController
 {

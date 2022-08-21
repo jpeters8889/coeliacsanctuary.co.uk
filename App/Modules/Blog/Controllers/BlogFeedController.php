@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Blog\Controllers;
 
-use Illuminate\Http\Response;
-use Coeliac\Modules\Blog\Repository;
-use Coeliac\Modules\Blog\Feed\BlogFeed;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Blog\Feed\BlogFeed;
+use Coeliac\Modules\Blog\Repository;
+use Illuminate\Http\Response;
 
 class BlogFeedController extends BaseController
 {

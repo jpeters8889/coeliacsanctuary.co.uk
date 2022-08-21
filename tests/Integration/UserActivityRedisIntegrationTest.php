@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Tests\Integration;
 
 use Carbon\Carbon;
-use Tests\TestCase;
-use Spatie\TestTime\TestTime;
-use Illuminate\Support\Facades\Auth;
-use Tests\Traits\InteractsWithRedis;
-use Illuminate\Support\Facades\Redis;
 use Coeliac\Modules\Member\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\ParallelTesting;
+use Illuminate\Support\Facades\Redis;
+use Spatie\TestTime\TestTime;
+use Tests\TestCase;
+use Tests\Traits\InteractsWithRedis;
 
 class UserActivityRedisIntegrationTest extends TestCase
 {

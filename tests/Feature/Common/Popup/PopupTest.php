@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Tests\Feature\Common\Popup;
 
 use Carbon\Carbon;
-use Tests\TestCase;
-use Tests\Traits\HasImages;
-use Spatie\TestTime\TestTime;
 use Coeliac\Common\Models\Image;
 use Coeliac\Common\Models\Popup;
+use Spatie\TestTime\TestTime;
+use Tests\TestCase;
+use Tests\Traits\HasImages;
 
 class PopupTest extends TestCase
 {

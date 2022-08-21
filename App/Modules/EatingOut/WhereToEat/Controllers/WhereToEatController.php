@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
+use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
-use Illuminate\Http\Request;
 use Coeliac\Common\Response\Page;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
+use Coeliac\Modules\EatingOut\WhereToEat\Repository;
+use Coeliac\Modules\EatingOut\WhereToEat\Support\IndexCountyList;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
-use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\EatingOut\WhereToEat\Repository;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Coeliac\Modules\EatingOut\WhereToEat\Support\IndexCountyList;
 
 class WhereToEatController extends BaseController
 {
-    public function __construct(private Page $page, private Repository $repository)
+    public function __construct(protected Page $page, protected Repository $repository)
     {
     }
 
@@ -54,16 +54,14 @@ class WhereToEatController extends BaseController
         $eateries = new Collection($this->repository
             ->setWiths([
                 'country', 'county', 'town', 'type', 'venueType', 'cuisine', 'features', 'restaurants',
-                'reviews' => function (Relation $builder) {
-                    /** @phpstan-ignore-next-line */
+                'reviews' => function (HasMany $builder) {
                     return $builder
                         ->with(['eatery', 'eatery.town', 'eatery.county', 'eatery.country', 'images'])
                         ->select(['id', 'wheretoeat_id', 'title', 'slug', 'created_at'])
                         ->where('live', 1)
                         ->latest();
                 },
-                'userReviews' => function (Relation $builder) {
-                    /** @phpstan-ignore-next-line */
+                'userReviews' => function (HasMany $builder) {
                     return $builder
                         ->select(['id', 'wheretoeat_id', 'rating', 'name', 'body', 'created_at'])
                         ->where('approved', 1)
@@ -75,6 +73,7 @@ class WhereToEatController extends BaseController
             ->setColumns(['wheretoeat.*'])
             ->paginated((int)$request->get('limit', 10))
             ->through(function (WhereToEat $eatery) {
+                /** @phpstan-ignore-next-line  */
                 $eatery->ratings = $eatery->userReviews;
 
                 return $eatery;
@@ -92,8 +91,8 @@ class WhereToEatController extends BaseController
             ->setWiths([
                 'country', 'county', 'town', 'type', 'venueType', 'cuisine', 'features', 'restaurants',
                 'reviews', 'openingTimes',
-                'userImages' => fn (Relation $relation) => $relation->whereRelation('review', 'approved', true),
-                'userReviews' => fn (Relation $builder) => $builder
+                'userImages' => fn (HasMany $relation) => $relation->whereRelation('review', 'approved', true),
+                'userReviews' => fn (HasMany $builder) => $builder
                     ->with(['images'])
                     ->select([
                         'id', 'wheretoeat_id', 'rating', 'name', 'body', 'how_expensive', 'created_at',
@@ -104,6 +103,7 @@ class WhereToEatController extends BaseController
             ])
             ->get($id);
 
+        /** @phpstan-ignore-next-line  */
         $eatery->ratings = $eatery->userReviews;
 
         return $eatery;

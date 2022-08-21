@@ -8,6 +8,8 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @extends BaseModel<ShopPostagePrice>
+ *
  * @property int $price
  */
 class ShopPostagePrice extends BaseModel

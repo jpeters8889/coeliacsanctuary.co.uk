@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Collection\Models;
 
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Common\Traits\Linkable;
-use Coeliac\Common\Traits\Imageable;
-use Coeliac\Common\Traits\ClearsCache;
 use Coeliac\Common\Traits\ArchitectModel;
+use Coeliac\Common\Traits\ClearsCache;
 use Coeliac\Common\Traits\DisplaysImages;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Coeliac\Common\Traits\Imageable;
+use Coeliac\Common\Traits\Linkable;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
+ * @extends BaseModel<Collection>
+ *
  * @property EloquentCollection<CollectionItem> $items
  * @property string                             $title
  * @property string                             $body

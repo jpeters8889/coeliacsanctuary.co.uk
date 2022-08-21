@@ -4,18 +4,21 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop;
 
-use Coeliac\Common\Traits\Searchable;
-use Illuminate\Database\Eloquent\Builder;
-use Coeliac\Modules\Shop\Models\ShopProduct;
+use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Repositories\AbstractRepository;
+use Coeliac\Common\Traits\Searchable;
+use Coeliac\Modules\Shop\Models\ShopProduct;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
+/** @extends AbstractRepository<ShopProduct> */
 class ProductRepository extends AbstractRepository
 {
     use Searchable;
 
     protected array $withs = ['images', 'images.image', 'prices'];
 
+    /** @return class-string<BaseModel<ShopProduct>> */
     protected function model(): string
     {
         return ShopProduct::class;

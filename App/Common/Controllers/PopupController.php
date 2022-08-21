@@ -5,22 +5,23 @@ declare(strict_types=1);
 namespace Coeliac\Common\Controllers;
 
 use Carbon\Carbon;
+use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Models\Popup;
+use Coeliac\Common\Popups\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Coeliac\Common\Models\Popup;
 use Illuminate\Support\Collection;
-use Coeliac\Common\Popups\Repository;
-use Coeliac\Base\Controllers\BaseController;
 use Symfony\Component\HttpFoundation\Cookie;
 
 class PopupController extends BaseController
 {
-    public function __construct(private Repository $repository, private Request $request)
+    public function __construct(protected Repository $repository, protected Request $request)
     {
     }
 
     public function get(): Popup|array
     {
+        /** @var Collection<int, Popup> $popups */
         $popups = new Collection();
 
         $this->repository
@@ -38,7 +39,7 @@ class PopupController extends BaseController
                 $popups->push($popup);
             });
 
-        if ($popups->isEmpty()) {
+        if ($popups->count() === 0) {
             return [];
         }
 
@@ -47,9 +48,10 @@ class PopupController extends BaseController
 
     public function update(mixed $id): Response
     {
+        /** @var Popup | null $popup */
         $popup = $this->repository->get($id);
 
-        abort_if(!$popup, 404);
+        abort_if(! $popup, 404);
 
         $now = Carbon::now();
 

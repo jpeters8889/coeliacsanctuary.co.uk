@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Common\Competition;
 
-use Tests\TestCase;
-use Illuminate\Support\Str;
 use Coeliac\Modules\Competition\Models\CompetitionEntry;
+use Illuminate\Support\Str;
+use Tests\TestCase;
 
 class CompetitionEntryModelTest extends TestCase
 {

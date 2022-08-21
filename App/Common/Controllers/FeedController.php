@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Common\Controllers;
 
 use Carbon\Carbon;
@@ -28,7 +30,7 @@ class FeedController
                 $combined = (new Collection([
                     ...$blogs,
                     ...$reviews,
-                    ...$recipes
+                    ...$recipes,
                 ]))->sortByDesc('created_at');
 
                 return new Response(

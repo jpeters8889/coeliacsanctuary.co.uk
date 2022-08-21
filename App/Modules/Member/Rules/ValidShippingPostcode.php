@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Rules;
 
-use Illuminate\Http\Request;
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Http\Request;
 
 class ValidShippingPostcode implements Rule
 {

@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers;
 
-use Illuminate\Http\Response;
-use Coeliac\Common\Response\Page;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Http\RedirectResponse;
-use Coeliac\Modules\Member\Models\User;
-use Illuminate\Contracts\Hashing\Hasher;
-use Illuminate\Contracts\Events\Dispatcher;
 use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\Member\Models\UserLevel;
+use Coeliac\Common\Response\Page;
 use Coeliac\Modules\Member\Events\UserRegistered;
+use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Member\Models\UserLevel;
 use Coeliac\Modules\Member\Requests\RegisterRequest;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
 class RegisterController extends BaseController
 {

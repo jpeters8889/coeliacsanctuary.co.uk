@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
+ * @extends BaseModel<UserAddress>
+ *
  * @property mixed|string $id
  * @property User         $user
  * @property mixed|string $name

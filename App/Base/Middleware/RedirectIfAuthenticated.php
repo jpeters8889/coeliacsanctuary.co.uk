@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Coeliac\Base\Middleware;
 
 use Closure;
-use Illuminate\Http\Response;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
 class RedirectIfAuthenticated
 {

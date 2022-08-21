@@ -7,10 +7,10 @@ namespace Coeliac\Common\Casts;
 use Carbon\Carbon;
 use Coeliac\Common\Models\Comment;
 use Coeliac\Common\Models\CommentReply;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 use Illuminate\Support\Collection;
 
 class EmailData implements CastsAttributes
@@ -28,7 +28,7 @@ class EmailData implements CastsAttributes
         }
 
         if (isset($data['comment'])) {
-            if (!isset($data['comment']['id'])) {
+            if (! isset($data['comment']['id'])) {
                 $data['comment'] = Comment::query()
                     ->where('created_at', $data['comment']['created_at'])
                     ->where('name', $data['comment']['name'])

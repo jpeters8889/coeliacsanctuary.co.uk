@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Architect;
 
-use Illuminate\Database\Eloquent\Builder;
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use JPeters\Architect\Blueprints\Blueprint;
-use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Coeliac\Architect\Cards\ShopDailyStock\Card;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Illuminate\Database\Eloquent\Builder;
+use JPeters\Architect\Blueprints\Blueprint;
 
 class DailyStockBlueprint extends Blueprint
 {

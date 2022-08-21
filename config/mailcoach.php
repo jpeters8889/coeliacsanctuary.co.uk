@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'ses_feedback' => [
         'configuration_set' => 'mailcoach-coeliac',
@@ -57,7 +59,7 @@ return [
             'retry_until_hours' => 24,
         ],
 
-        'send_campaign_maximum_job_runtime_in_seconds' => 60  * 10,
+        'send_campaign_maximum_job_runtime_in_seconds' => 60 * 10,
 
         /*
          * You can customize some of the behavior of this package by using our own custom action.
@@ -146,7 +148,7 @@ return [
              * \Spatie\Mailcoach\Domain\Automation\Support\Conditions\Condition
              * interface.
              */
-            'conditions' => []
+            'conditions' => [],
         ],
 
         'perform_on_queue' => [
@@ -172,7 +174,7 @@ return [
             'retry_until_hours' => 24,
         ],
 
-        'send_campaign_maximum_job_runtime_in_seconds' => 60  * 10,
+        'send_campaign_maximum_job_runtime_in_seconds' => 60 * 10,
     ],
 
     'audience' => [

@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-use Illuminate\Routing\Router;
-use Coeliac\Modules\Member\Controllers\LoginController;
 use Coeliac\Modules\Member\Controllers\AddressController;
-use Coeliac\Modules\Member\Controllers\RegisterController;
-use Coeliac\Modules\Member\Controllers\VerifyEmailController;
-use Coeliac\Modules\Member\Controllers\ResetPasswordController;
-use Coeliac\Modules\Member\Controllers\ForgotPasswordController;
+use Coeliac\Modules\Member\Controllers\Dashboards\DailyUpdatesController;
+use Coeliac\Modules\Member\Controllers\Dashboards\DailyUpdatesSearchController;
 use Coeliac\Modules\Member\Controllers\Dashboards\OrdersController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookController;
-use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
-use Coeliac\Modules\Member\Controllers\Dashboards\DailyUpdatesController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookItemController;
 use Coeliac\Modules\Member\Controllers\Dashboards\ScrapbookSearchController;
-use Coeliac\Modules\Member\Controllers\Dashboards\DailyUpdatesSearchController;
+use Coeliac\Modules\Member\Controllers\Dashboards\YourDetailsController;
+use Coeliac\Modules\Member\Controllers\ForgotPasswordController;
+use Coeliac\Modules\Member\Controllers\LoginController;
+use Coeliac\Modules\Member\Controllers\RegisterController;
+use Coeliac\Modules\Member\Controllers\ResetPasswordController;
+use Coeliac\Modules\Member\Controllers\VerifyEmailController;
+use Illuminate\Routing\Router;
 
 /* @var Router $router */
 
-if (!isset($router)) {
+if (! isset($router)) {
     return;
 }
 

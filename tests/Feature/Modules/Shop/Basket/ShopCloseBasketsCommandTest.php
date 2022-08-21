@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Shop\Basket;
 
-use Tests\TestCase;
-use Spatie\TestTime\TestTime;
-use Illuminate\Support\Facades\Event;
-use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Events\BasketClosed;
+use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Illuminate\Support\Facades\Event;
+use Spatie\TestTime\TestTime;
+use Tests\TestCase;
 
 class ShopCloseBasketsCommandTest extends TestCase
 {

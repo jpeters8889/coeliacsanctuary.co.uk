@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Common\Newsletter;
 
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Queue;
 use Spatie\Mailcoach\Domain\Audience\Models\EmailList;
 use Tests\TestCase;
-use Illuminate\Container\Container;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Queue;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 class MailcoachNewsletterTest extends TestCase
 {

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Members;
 
-use Tests\TestCase;
-use Tests\Mocks\UserActivityMock;
-use Illuminate\Container\Container;
 use Coeliac\Modules\Member\Contracts\UserActivityMonitor;
+use Illuminate\Container\Container;
+use Tests\Mocks\UserActivityMock;
+use Tests\TestCase;
 
 class ActivityMonitorTest extends TestCase
 {

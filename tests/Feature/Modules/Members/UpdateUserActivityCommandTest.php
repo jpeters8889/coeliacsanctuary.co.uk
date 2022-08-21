@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Members;
 
 use Carbon\Carbon;
-use Tests\TestCase;
+use Coeliac\Modules\Member\Contracts\UserActivityMonitor;
+use Coeliac\Modules\Member\Models\User;
 use Spatie\TestTime\TestTime;
 use Tests\Mocks\UserActivityMock;
-use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Member\Contracts\UserActivityMonitor;
+use Tests\TestCase;
 
 class UpdateUserActivityCommandTest extends TestCase
 {

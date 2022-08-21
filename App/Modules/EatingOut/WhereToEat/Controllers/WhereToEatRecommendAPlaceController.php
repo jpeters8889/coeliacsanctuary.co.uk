@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
+use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Response\Page;
 use Coeliac\Modules\EatingOut\WhereToEat\Events\PlaceRecommendationSubmitted;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatRecommendation;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatVenueType;
 use Coeliac\Modules\EatingOut\WhereToEat\Requests\RecommendAPlaceRequest;
-use Illuminate\Http\Response;
-use Coeliac\Common\Response\Page;
 use Illuminate\Contracts\Events\Dispatcher;
-use Coeliac\Base\Controllers\BaseController;
+use Illuminate\Http\Response;
 
 class WhereToEatRecommendAPlaceController extends BaseController
 {
@@ -39,7 +39,7 @@ class WhereToEatRecommendAPlaceController extends BaseController
                 'venueTypes' => WhereToEatVenueType::query()
                     ->orderBy('venue_type')
                     ->get()
-                    ->transform(fn (WhereToEatVenueType $venueType) => [
+                    ->map(fn (WhereToEatVenueType $venueType) => [
                         'value' => $venueType->id,
                         'label' => $venueType->venue_type,
                     ]),

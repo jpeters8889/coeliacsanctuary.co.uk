@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Collections;
 
 use Carbon\Carbon;
+use Coeliac\Common\Models\Image;
 use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\Collection\Items\Item;
+use Coeliac\Modules\Collection\Models\Collection;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\Recipe\Models\Recipe;
+use Coeliac\Modules\Shop\Models\ShopProduct;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Coeliac\Common\Models\Image;
-use Coeliac\Modules\Collection\Items\Item;
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Coeliac\Modules\Collection\Models\Collection;
 
 class CollectionTest extends TestCase
 {
@@ -35,7 +35,7 @@ class CollectionTest extends TestCase
             ->count(13)
             ->sequence(fn ($sequence) => [
                 'title' => "Collection {$sequence->index}",
-                'created_at' => Carbon::now()->subMonth()->addDay($sequence->index)
+                'created_at' => Carbon::now()->subMonth()->addDay($sequence->index),
             ])
             ->create()
             ->each(function (Collection $collection, $index) {

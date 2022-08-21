@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
+ * @extends BaseModel<ImageAssociations>
+ *
  * @property Image         $image
  * @property ImageCategory $category
  */

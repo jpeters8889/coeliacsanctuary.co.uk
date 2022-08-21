@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Traits;
 
-use Illuminate\Http\Request;
 use Illuminate\Container\Container;
+use Illuminate\Http\Request;
 
 trait Searchable
 {
@@ -13,7 +13,7 @@ trait Searchable
 
     protected function performSearch(string $model): array|null
     {
-        if (!$this->useSearch) {
+        if (! $this->useSearch) {
             return null;
         }
 

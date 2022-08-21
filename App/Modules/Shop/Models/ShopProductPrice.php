@@ -9,6 +9,8 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @extends BaseModel<ShopPostagePrice>
+ *
  * @property Carbon      $start_at
  * @property Carbon|null $end_at
  */

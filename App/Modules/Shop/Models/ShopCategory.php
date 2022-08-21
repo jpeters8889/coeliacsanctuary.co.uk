@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Models;
 
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Common\Traits\Linkable;
-use Coeliac\Common\Traits\Imageable;
 use Coeliac\Common\Traits\ArchitectModel;
 use Coeliac\Common\Traits\DisplaysImages;
+use Coeliac\Common\Traits\Imageable;
+use Coeliac\Common\Traits\Linkable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
+ * @extends BaseModel<ShopCategory>
+ *
  * @property string $title
  * @property string $meta_description
  * @property string $meta_keywords
@@ -31,7 +33,7 @@ class ShopCategory extends BaseModel
 
     public static function withLiveProducts(?Builder $query = null): Builder
     {
-        if (!$query) {
+        if (! $query) {
             $query = self::query();
         }
 

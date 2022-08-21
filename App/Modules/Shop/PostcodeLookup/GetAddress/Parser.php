@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\PostcodeLookup\GetAddress;
 
+use Coeliac\Modules\Shop\PostcodeLookup\Parser as ParserContract;
 use Exception;
 use Illuminate\Support\Collection;
-use Coeliac\Modules\Shop\PostcodeLookup\Parser as ParserContract;
 
 class Parser implements ParserContract
 {
     public function parse(object $response, string $postcode): Collection
     {
-        if (!$response->addresses) {
+        if (! $response->addresses) {
             throw new Exception('No results');
         }
 

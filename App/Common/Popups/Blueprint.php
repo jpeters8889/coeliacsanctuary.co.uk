@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Popups;
 
+use Coeliac\Architect\Plans\ImageManager\Plan;
 use Coeliac\Common\Models\Image;
 use Coeliac\Common\Models\Popup;
+use JPeters\Architect\Blueprints\Blueprint as ArchitectBlueprint;
 use JPeters\Architect\Plans\Boolean;
 use JPeters\Architect\Plans\DateTime;
 use JPeters\Architect\Plans\Textarea;
 use JPeters\Architect\Plans\Textfield;
-use Coeliac\Architect\Plans\ImageManager\Plan;
-use JPeters\Architect\Blueprints\Blueprint as ArchitectBlueprint;
 
 class Blueprint extends ArchitectBlueprint
 {

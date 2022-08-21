@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Controllers;
 
-use Illuminate\Http\Response;
-use Coeliac\Common\Response\Page;
-use Coeliac\Common\Requests\ContactRequest;
-use Illuminate\Contracts\Events\Dispatcher;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Common\Events\ContactFormSubmitted;
+use Coeliac\Common\Requests\ContactRequest;
+use Coeliac\Common\Response\Page;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Http\Response;
 
 class ContactController extends BaseController
 {

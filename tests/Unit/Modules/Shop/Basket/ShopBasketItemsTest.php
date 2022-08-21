@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop\Basket;
 
-use Carbon\Carbon;
-use Tests\TestCase;
-use Illuminate\Session\Store;
 use Coeliac\Modules\Shop\Basket\Basket;
-use Coeliac\Modules\Shop\Models\ShopProduct;
+use Coeliac\Modules\Shop\Exceptions\BasketException;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
+use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
-use Coeliac\Modules\Shop\Exceptions\BasketException;
+use Illuminate\Session\Store;
+use Tests\TestCase;
 
 class ShopBasketItemsTest extends TestCase
 {

@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Collection\Models;
 
 use Coeliac\Base\Models\BaseModel;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
+ * @extends BaseModel<CollectionItem>
+ *
  * @property BaseModel $item
  * @property string    $description
  * @property Collection $collection

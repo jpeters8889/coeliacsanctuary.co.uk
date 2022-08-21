@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Architect;
 
-use Illuminate\Database\Eloquent\Builder;
-use JPeters\Architect\Blueprints\Blueprint;
 use Coeliac\Architect\Cards\WteRatingsCard\Card;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
+use Illuminate\Database\Eloquent\Builder;
+use JPeters\Architect\Blueprints\Blueprint;
 
 class WhereToEatReviews extends Blueprint
 {

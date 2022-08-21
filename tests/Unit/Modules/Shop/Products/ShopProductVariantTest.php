@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace Tests\Unit\Modules\Shop\Products;
 
 use Carbon\Carbon;
-use Tests\TestCase;
-use Tests\Traits\Shop\CreateProduct;
-use Tests\Traits\Shop\CreateVariant;
 use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Tests\TestCase;
 
 class ShopProductVariantTest extends TestCase
 {

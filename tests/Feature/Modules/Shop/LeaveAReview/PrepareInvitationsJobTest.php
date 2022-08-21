@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Modules\Shop\LeaveAReview;
 
 use Carbon\Carbon;

@@ -4,20 +4,22 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Blog\Controllers;
 
-use Illuminate\Support\Collection;
-use Coeliac\Modules\Blog\Repository;
+use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Blog\DTOs\BlogRelationCount;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Blog\Models\BlogTag;
-use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Blog\Repository;
+use Illuminate\Support\Collection;
 
 class BlogTagController extends BaseController
 {
-    public function __construct(private Repository $repository)
+    public function __construct(protected Repository $repository)
     {
     }
 
     public function list(): array
     {
+        /** @var Collection<int,BlogRelationCount> $tags */
         $tags = new Collection();
 
         $this->repository
@@ -25,31 +27,27 @@ class BlogTagController extends BaseController
             ->filter()
             ->setColumns(['id'])
             ->all()
-            ->each(function (Blog $blog) use (&$tags) {
-                $blog->tags->each(function (BlogTag $tag) use ($blog, &$tags) {
-                    if (isset($tags[$tag->id])) {
-                        $tags[$tag->id]['blogs']->push($blog->id);
+            ->each(fn (Blog $blog) => $blog->tags->each(function (BlogTag $tag) use ($blog, &$tags) {
+                if ($tags->where('id', $tag->id)->count() > 0) {
+                    $tags->firstWhere('id', $tag->id)->blogs->push($blog->id);
 
-                        return;
-                    }
+                    return;
+                }
 
-                    $tags[$tag->id] = new Collection([
-                        'title' => $tag->tag,
-                        'slug' => $tag->slug,
-                        'blogs' => new Collection([$blog->id]),
-                    ]);
-                });
-            });
+                $tags->push(new BlogRelationCount([
+                    'id' => $tag->id,
+                    'title' => $tag->tag,
+                    'slug' => $tag->slug,
+                    'blogs' => new Collection([$blog->id]),
+                ]));
+            }));
 
         return [
-            'data' => $tags->map(static function ($tag) {
-                return [
-                    'slug' => $tag['slug'],
-                    'title' => $tag['title'],
-                    'blogs_count' => $tag['blogs']->count(),
-                ];
-            })->sortByDesc('blogs_count')
-                ->values(),
+            'data' => $tags->map(fn (BlogRelationCount $tag) => [
+                'slug' => $tag->slug,
+                'title' => $tag->title,
+                'blogs_count' => $tag->blogs->count(),
+            ])->sortByDesc('blogs_count')->values(),
         ];
     }
 }

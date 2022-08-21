@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Search\Service;
 
-use Illuminate\Support\Collection;
 use Coeliac\Modules\Search\Indices\Blog;
-use Coeliac\Modules\Search\Indices\Index;
 use Coeliac\Modules\Search\Indices\Eatery;
-use Coeliac\Modules\Search\Indices\Recipe;
+use Coeliac\Modules\Search\Indices\Index;
 use Coeliac\Modules\Search\Indices\Product;
+use Coeliac\Modules\Search\Indices\Recipe;
+use Illuminate\Support\Collection;
 
 class IndexManager
 {
@@ -38,7 +38,7 @@ class IndexManager
         $resultSet = new Collection();
 
         foreach ($this->indices as $key => $index) {
-            if (!$this->searchService->isSearchable((string) $key)) {
+            if (! $this->searchService->isSearchable((string) $key)) {
                 continue;
             }
 

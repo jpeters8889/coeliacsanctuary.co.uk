@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers;
 
-use Illuminate\Http\RedirectResponse;
 use Coeliac\Base\Controllers\BaseController;
+use Illuminate\Http\RedirectResponse;
 
 class DashboardController extends BaseController
 {

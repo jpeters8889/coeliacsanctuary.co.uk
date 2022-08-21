@@ -7,6 +7,7 @@ namespace Coeliac\Common\Models;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/** @extends BaseModel<AccordionType> */
 class AccordionType extends BaseModel
 {
     public const COELIAC_INFO = 1;

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Testing\WithFaker;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\PlaceRequest;
 use Coeliac\Modules\EatingOut\WhereToEat\Events\PlaceRequestSubmitted;
 use Coeliac\Modules\EatingOut\WhereToEat\Mail\PlaceRequestMailable;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\PlaceRequest;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
+use Tests\TestCase;
 
 class WhereToEatPlaceRequestTest extends TestCase
 {

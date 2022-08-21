@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop\Order;
 
-use Tests\TestCase;
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use Coeliac\Modules\Shop\Models\ShopPayment;
-use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Member\Models\UserAddress;
+use Coeliac\Modules\Shop\Models\ShopDiscountCode;
+use Coeliac\Modules\Shop\Models\ShopDiscountCodesUsed;
+use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
-use Coeliac\Modules\Shop\Models\ShopDiscountCode;
+use Coeliac\Modules\Shop\Models\ShopPayment;
+use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
-use Coeliac\Modules\Shop\Models\ShopDiscountCodesUsed;
+use Tests\TestCase;
 
 class ShopOrderTest extends TestCase
 {
@@ -58,10 +58,10 @@ class ShopOrderTest extends TestCase
         $this->build(ShopOrderItem::class)
             ->to($this->order)
             ->add($this->build(ShopProductVariant::class)
-                ->in($this->build(ShopProduct::class)
-                    ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
-                    ->create())
-                ->create(['weight' => 10]))
+            ->in($this->build(ShopProduct::class)
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 100]), 'prices')
+            ->create())
+            ->create(['weight' => 10]))
             ->create();
 
         $this->assertEquals(1, $this->order->items()->count());

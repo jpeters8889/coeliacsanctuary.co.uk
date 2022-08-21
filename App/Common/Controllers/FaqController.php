@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Controllers;
 
-use Coeliac\Common\Response\Page;
-use Coeliac\Common\Models\Accordion;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Models\Accordion;
+use Coeliac\Common\Response\Page;
 use Illuminate\Http\Response;
 
 class FaqController extends BaseController
@@ -20,7 +20,7 @@ class FaqController extends BaseController
             ->setMetaKeywords(['faq', 'frequently asking questions', 'coeliac questions', 'coeliac diagnosis', 'gluten free diet', 'coeliac sanctuary questions'])
             ->setSocialImage(asset('assets/images/shares/faq.jpg'))
             ->render('pages.faq', [
-                'accordions' => Accordion::query()->faq()->get()
+                'accordions' => Accordion::query()->faq()->get(),
             ]);
     }
 }

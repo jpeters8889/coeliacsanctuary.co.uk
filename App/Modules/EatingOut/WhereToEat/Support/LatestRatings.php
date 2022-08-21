@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\Support;
 
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
@@ -21,12 +23,13 @@ class LatestRatings
     protected function townLink(WhereToEat $eatery): string
     {
         if (Str::lower($eatery->town->town) === 'nationwide') {
-            return "/wheretoeat/nationwide";
+            return '/wheretoeat/nationwide';
         }
 
         return "/wheretoeat/{$eatery->county->slug}/{$eatery->town->slug}";
     }
 
+    /** @return Collection<int, array{id: int, eatery_id: int, slug: string, town: string, name: mixed, location: string|null, full_location: string|null, rating: mixed, created_at: string}> */
     public function list(): Collection
     {
         return WhereToEatReview::query()
@@ -35,7 +38,7 @@ class LatestRatings
             ->latest()
             ->take(5)
             ->get()
-            ->transform(fn (WhereToEatReview $rating) => [
+            ->map(fn (WhereToEatReview $rating) => [ //@phpstan-ignore-line
                 'id' => $rating->id,
                 'eatery_id' => $rating->wheretoeat_id,
                 'slug' => $this->eateryLink($rating->eatery),

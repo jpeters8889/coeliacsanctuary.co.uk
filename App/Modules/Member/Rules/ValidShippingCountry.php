@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Rules;
 
-use Illuminate\Http\Request;
-use Illuminate\Contracts\Validation\Rule;
 use Coeliac\Modules\Shop\Models\ShopPostageCountry;
+use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Http\Request;
 
 class ValidShippingCountry implements Rule
 {

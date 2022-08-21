@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Providers;
 
-use Illuminate\Session\Store;
-use Illuminate\Foundation\Application;
 use Coeliac\Modules\Shop\Basket\Basket;
+use Illuminate\Foundation\Application;
+use Illuminate\Session\Store;
 use Illuminate\Support\ServiceProvider;
 
 class BasketServiceProvider extends ServiceProvider

@@ -6,9 +6,9 @@ namespace Coeliac\Common\Rss;
 
 use Carbon\Carbon;
 use Illuminate\Container\Container;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 abstract class AbstractRssFeed

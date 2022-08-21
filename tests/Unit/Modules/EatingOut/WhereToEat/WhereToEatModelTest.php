@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\EatingOut\WhereToEat;
 
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatFeature;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatOpeningTimes;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 use Tests\Traits\ClearsCache;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
 class WhereToEatModelTest extends TestCase
 {

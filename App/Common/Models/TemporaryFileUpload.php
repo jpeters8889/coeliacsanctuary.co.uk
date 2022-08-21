@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Common\Models;
 
 use Carbon\Carbon;
@@ -8,6 +10,8 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<TemporaryFileUpload>
+ *
  * @property string $filename
  * @property string $path
  */

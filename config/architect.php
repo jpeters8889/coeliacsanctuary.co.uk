@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use JPeters\Architect\Http\Middleware\Authenticate;
 use JPeters\Architect\Http\Middleware\ArchitectIsRunning;
+use JPeters\Architect\Http\Middleware\Authenticate;
 use JPeters\Architect\Http\Middleware\CanAccessArchitect;
 
 return [

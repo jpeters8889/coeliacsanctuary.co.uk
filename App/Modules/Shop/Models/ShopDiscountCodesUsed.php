@@ -7,6 +7,7 @@ namespace Coeliac\Modules\Shop\Models;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/** @extends BaseModel<ShopDiscountCodesUsed> */
 class ShopDiscountCodesUsed extends BaseModel
 {
     protected $table = 'shop_discount_codes_used';

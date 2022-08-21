@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Blogs;
 
+use Coeliac\Common\Models\Comment;
+use Coeliac\Common\Models\Image;
+use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Blog\Models\BlogTag;
 use Tests\TestCase;
-use Tests\Traits\HasImages;
-use Coeliac\Common\Models\Image;
-use Coeliac\Common\Models\Comment;
 use Tests\Traits\ClearsCache;
-use Coeliac\Modules\Blog\Models\Blog;
+use Tests\Traits\HasImages;
 
 class BlogModelTest extends TestCase
 {

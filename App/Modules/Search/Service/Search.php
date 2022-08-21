@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Search\Service;
 
-use Illuminate\Support\Collection;
 use Coeliac\Modules\Search\Exceptions\SearchException;
+use Illuminate\Support\Collection;
 
 class Search
 {
@@ -77,7 +77,7 @@ class Search
 
     protected function verifyIndex(string $what): void
     {
-        if (!array_key_exists($what, $this->shouldSearch)) {
+        if (! array_key_exists($what, $this->shouldSearch)) {
             throw new SearchException("Unknown search index '{$what}'");
         }
     }

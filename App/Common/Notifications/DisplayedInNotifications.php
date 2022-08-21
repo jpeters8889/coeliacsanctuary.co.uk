@@ -1,17 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Common\Notifications;
 
 use Coeliac\Common\Repositories\AbstractRepository;
+use Coeliac\Modules\Blog\Models\Blog;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Support\Collection;
 
-/** @mixin AbstractRepository */
+/** @mixin AbstractRepository<Blog> */
 trait DisplayedInNotifications
 {
-    public static function forEmail()
+    /** @return Collection<int, array{id: mixed, title: string, link: string, image: string|null}> */
+    public static function forEmail(): Collection
     {
-        $items = (new static())
+        $items = (new self())
             ->setWiths([])
             ->setColumns(['id'])
             ->random()
@@ -19,15 +24,13 @@ trait DisplayedInNotifications
             ->pluck('id')
             ->toArray();
 
-        return (new static())
+        return (new self())
             ->fromIds($items)
-            ->transform(static function ($item) {
-                return [
-                    'id' => $item->id,
-                    'title' => $item->title,
-                    'link' => Container::getInstance()->make(ConfigRepository::class)->get('app.url').$item->link,
-                    'image' => $item->main_image,
-                ];
-            });
+            ->map(fn (Blog $item) => [ //@phpstan-ignore-line
+                'id' => $item->id,
+                'title' => $item->title,
+                'link' => Container::getInstance()->make(ConfigRepository::class)->get('app.url').$item->link,
+                'image' => $item->main_image,
+            ]);
     }
 }

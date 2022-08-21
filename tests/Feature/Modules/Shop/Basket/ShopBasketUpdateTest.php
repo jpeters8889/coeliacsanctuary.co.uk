@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Shop\Basket;
 
-use Carbon\Carbon;
-use Coeliac\Common\Models\Image;
-use Tests\TestCase;
-use Illuminate\Session\Store;
 use Coeliac\Modules\Shop\Basket\Basket;
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
+use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Session\Store;
+use Tests\TestCase;
 
 class ShopBasketUpdateTest extends TestCase
 {
@@ -98,8 +96,8 @@ class ShopBasketUpdateTest extends TestCase
     {
         $variant = $this->build(ShopProductVariant::class)
             ->in($this->build(ShopProduct::class)
-                ->has($this->build(ShopProductPrice::class)->state(['price' => 500]), 'prices')
-                ->create())
+            ->has($this->build(ShopProductPrice::class)->state(['price' => 500]), 'prices')
+            ->create())
             ->create();
 
         $this->makeRequest(['variant' => $variant->id])->assertStatus(422);

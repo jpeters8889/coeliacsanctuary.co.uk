@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-use Illuminate\Routing\Router;
 use Coeliac\Modules\Search\Controllers\SearchController;
+use Illuminate\Routing\Router;
 
 /* @var Router $router */
 
-if (!isset($router)) {
+if (! isset($router)) {
     return;
 }
 

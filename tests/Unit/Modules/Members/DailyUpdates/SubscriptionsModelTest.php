@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Members\DailyUpdates;
 
-use Tests\TestCase;
-use Illuminate\Support\Str;
-use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Blog\Models\BlogTag;
 use Coeliac\Modules\Member\Models\DailyUpdateType;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserDailyUpdateSubscription;
+use Illuminate\Support\Str;
+use Tests\TestCase;
 
 class SubscriptionsModelTest extends TestCase
 {

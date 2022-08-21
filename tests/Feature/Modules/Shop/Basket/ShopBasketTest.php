@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Shop\Basket;
 
-use Carbon\Carbon;
-use Tests\TestCase;
-use Tests\Traits\HasImages;
-use Illuminate\Session\Store;
 use Coeliac\Common\Models\Image;
 use Coeliac\Modules\Shop\Basket\Basket;
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
+use Coeliac\Modules\Shop\Models\ShopOrderItem;
+use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
-use Coeliac\Modules\Shop\Models\ShopDiscountCodeType;
+use Illuminate\Session\Store;
+use Tests\TestCase;
+use Tests\Traits\HasImages;
 
 class ShopBasketTest extends TestCase
 {
