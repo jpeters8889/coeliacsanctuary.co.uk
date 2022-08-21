@@ -83,6 +83,34 @@ class PrepareInvitationsJobTest extends TestCase
     }
 
     /** @test */
+    public function itCanSendAnInvitationById(): void
+    {
+        TestTime::freeze();
+
+        $this->createOrder();
+
+        Bus::assertNothingDispatched();
+
+        $this->artisan('coeliac:send-shop-review-invitations --id=1');
+
+        Bus::assertDispatched(SendReviewInvitation::class);
+    }
+
+    /** @test */
+    public function itCanDisableSendingAnInvitationByIdWhenTesting(): void
+    {
+        TestTime::freeze();
+
+        $this->createOrder();
+
+        Bus::assertNothingDispatched();
+
+        $this->artisan('coeliac:send-shop-review-invitations --id=1 --testing');
+
+        Bus::assertNothingDispatched();
+    }
+
+    /** @test */
     public function itLogsThatTheInvitationIsReadyToBePrepared(): void
     {
         TestTime::freeze();

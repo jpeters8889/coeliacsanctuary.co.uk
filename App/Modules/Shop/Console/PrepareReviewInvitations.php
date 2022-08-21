@@ -12,11 +12,12 @@ use Coeliac\Modules\Shop\Models\ShopPostageCountryArea;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 
 class PrepareReviewInvitations extends Command
 {
-    protected $signature = 'coeliac:send-shop-review-invitations {--testing}';
+    protected $signature = 'coeliac:send-shop-review-invitations {--id=} {--testing}';
 
     protected int $totalSent = 0;
 
@@ -35,32 +36,39 @@ class PrepareReviewInvitations extends Command
     {
         $this->totalSent = 0;
 
-        $this->sendingRules()->each(function ($rule) use ($dispatcher) {
-            /** @var Collection<int, ShopOrder> $orders */
-            $orders = ShopOrder::query()
-                ->where('state_id', ShopOrderState::STATE_COMPLETE)
-                ->where('shipped_at', '<=', $rule['date'])
-                ->where('shipped_at', '>=', $rule['date']->startOfDay())
-                ->when($this->option('testing'), fn(Builder $builder) => $builder->with('user'))
-                ->whereRelation(
-                    'postageCountry',
-                    fn (Builder $relation) => $relation->whereIn('postage_area_id', $rule['areas'])
-                )
-                ->whereDoesntHave('reviewInvitation')
-                ->get();
+        $this->sendingRules()->each(fn ($rule) => $this->getOrders($rule)->each(function (ShopOrder $order) use ($dispatcher) {
+            if ($this->option('testing')) {
+                $this->info("Will send order {$order->id} to {$order->user->name}");
+            } else {
+                $dispatcher->dispatch(new SendReviewInvitation($order));
+            }
 
-            return $orders->each(function (ShopOrder $order) use ($dispatcher) {
-                if($this->option('testing')) {
-                    $this->info("Will send order {$order->id} to {$order->user->name}");
-                }
-                else {
-                    $dispatcher->dispatch(new SendReviewInvitation($order));
-                }
-
-                $this->totalSent++;
-            });
-        });
+            $this->totalSent++;
+        }));
 
         $this->info("{$this->totalSent} Invitations Sent");
+    }
+
+    /** @return EloquentCollection<int, ShopOrder> */
+    public function getOrders($rule): EloquentCollection
+    {
+        /** @var Builder<ShopOrder> $query */
+        $query = ShopOrder::query()
+            ->where('state_id', ShopOrderState::STATE_COMPLETE)
+            ->where('shipped_at', '<=', $rule['date'])
+            ->where('shipped_at', '>=', $rule['date']->startOfDay());
+
+        if ($this->option('id')) {
+            $query = ShopOrder::query()->whereIn('id', [$this->option('id')]);
+        }
+
+        return $query //@phpstan-ignore-line
+            ->when($this->option('testing'), fn (Builder $builder) => $builder->with('user'))
+            ->whereRelation(
+                'postageCountry',
+                fn (Builder $relation) => $relation->whereIn('postage_area_id', $rule['areas'])
+            )
+            ->whereDoesntHave('reviewInvitation')
+            ->get();
     }
 }
