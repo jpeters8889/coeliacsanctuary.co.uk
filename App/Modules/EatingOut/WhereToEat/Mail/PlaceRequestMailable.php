@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Mail;
 
+use Coeliac\Modules\EatingOut\WhereToEat\Models\PlaceRequest as PlaceRequestModel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\PlaceRequest as PlaceRequestModel;
 
 class PlaceRequestMailable extends Mailable
 {

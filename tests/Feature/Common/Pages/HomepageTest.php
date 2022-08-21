@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Tests\Feature\Common\Pages;
 
 use Carbon\Carbon;
+use Coeliac\Common\Models\Image;
 use Coeliac\Modules\Blog\Models\Blog;
-use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Coeliac\Modules\Recipe\Models\Recipe;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Coeliac\Common\Models\Image;
 
 class HomepageTest extends TestCase
 {

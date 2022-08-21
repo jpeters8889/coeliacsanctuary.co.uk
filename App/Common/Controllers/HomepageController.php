@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Controllers;
 
-use Illuminate\Http\Response;
-use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Response\Page;
 use Coeliac\Common\Services\HomepageService;
+use Illuminate\Http\Response;
 
 class HomepageController extends BaseController
 {

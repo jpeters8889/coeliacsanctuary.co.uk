@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Coeliac\Common\Services;
 
 use Carbon\Carbon;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCountry;
-use Illuminate\Container\Container;
-use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Blog\Repository as BlogRepository;
+use Coeliac\Modules\Collection\Repository as CollectionRepository;
 use Coeliac\Modules\Recipe\Repository as RecipeRepository;
+use Coeliac\Modules\Shop\Models\ShopProduct;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Coeliac\Modules\Collection\Repository as CollectionRepository;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class NavigationService
@@ -50,7 +49,7 @@ class NavigationService
             ->with(['images'])
             ->take(7)
             ->get()
-            ->transform(fn (ShopProduct $product) => [
+            ->map(fn (ShopProduct $product) => [
                 'id' => $product->id,
                 'title' => $product->title,
                 'slug' => $product->slug,

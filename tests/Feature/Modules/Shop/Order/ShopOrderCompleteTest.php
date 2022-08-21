@@ -7,22 +7,22 @@ namespace Tests\Feature\Modules\Shop\Order;
 use Carbon\Carbon;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
-use Coeliac\Modules\Recipe\Models\Recipe;
-use Coeliac\Modules\Shop\Models\ShopProductVariant;
-use Illuminate\Database\Eloquent\Factories\Sequence;
-use Tests\TestCase;
-use Illuminate\Support\Str;
 use Coeliac\Modules\Member\Models\User;
-use Tests\Traits\Shop\MakeOrderRequest;
-use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Member\Models\UserLevel;
+use Coeliac\Modules\Recipe\Models\Recipe;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Coeliac\Modules\Shop\Models\ShopPayment;
 use Coeliac\Modules\Shop\Models\ShopProduct;
-use Illuminate\Foundation\Testing\WithFaker;
-use Coeliac\Modules\Shop\Models\ShopOrderState;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Coeliac\Modules\Shop\Payment\Providers\StripePaymentProvider;
+use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
 use Tests\Mocks\StripePaymentProvider as StripePaymentProviderMock;
+use Tests\TestCase;
+use Tests\Traits\Shop\MakeOrderRequest;
 
 class ShopOrderCompleteTest extends TestCase
 {

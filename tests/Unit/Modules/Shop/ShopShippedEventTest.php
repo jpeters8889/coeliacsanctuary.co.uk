@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop;
 
-use Tests\TestCase;
-use Tests\Traits\HasImages;
-use Illuminate\Support\Facades\Event;
 use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Shop\Events\ShipOrder;
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use Coeliac\Modules\Shop\Models\ShopPayment;
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Illuminate\Support\Facades\Notification;
 use Coeliac\Modules\Member\Models\UserAddress;
 use Coeliac\Modules\Shop\Events\CompleteOrder;
+use Coeliac\Modules\Shop\Events\ShipOrder;
+use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Coeliac\Modules\Shop\Models\ShopPayment;
+use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Coeliac\Modules\Shop\Notifications\OrderShippedNotification;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
+use Tests\TestCase;
+use Tests\Traits\HasImages;
 
 class ShopShippedEventTest extends TestCase
 {

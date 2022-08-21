@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\Reviews\Controllers;
 
-use Illuminate\Http\Request;
-use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\EatingOut\Reviews\Repository;
-use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Common\Response\Page;
 use Coeliac\Modules\Collection\Models\CollectionItem;
+use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\EatingOut\Reviews\Repository;
 use Coeliac\Modules\EatingOut\Reviews\Requests\ReviewShowRequest;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ReviewController extends BaseController
@@ -20,14 +20,14 @@ class ReviewController extends BaseController
         //
     }
 
-    protected function verifyAccess(string $redirect)
+    protected function verifyAccess(string $redirect): void
     {
         if (auth()->guest()) {
-            return redirect_now($redirect);
+            redirect_now($redirect);
         }
 
-        if (!in_array(auth()->user()->email, ['jamie@jamie-peters.co.uk', 'contact@coeliacsanctuary.co.uk'])) {
-            return redirect_now($redirect);
+        if (! in_array(auth()->user()->email, ['jamie@jamie-peters.co.uk', 'contact@coeliacsanctuary.co.uk'])) {
+            redirect_now($redirect);
         }
     }
 
@@ -72,7 +72,7 @@ class ReviewController extends BaseController
     public function show(ReviewShowRequest $request): Response
     {
         /* @var Review $review */
-        abort_if(!$review = $request->resolveItem(), 404, 'Sorry, this review can\'t be found');
+        abort_if(! $review = $request->resolveItem(), 404, 'Sorry, this review can\'t be found');
 
         $this->verifyAccess($review->eatery->link());
 
@@ -83,7 +83,7 @@ class ReviewController extends BaseController
                 ->inRandomOrder()
                 ->take(3)
                 ->get()
-                ->transform(fn (CollectionItem $item) => $item->collection);
+                ->map(fn (CollectionItem $item) => $item->collection);
         }
 
         return $this->page

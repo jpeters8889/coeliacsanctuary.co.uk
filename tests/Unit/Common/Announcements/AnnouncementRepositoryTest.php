@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Common\Announcements;
 
-use Tests\Abstracts\RepositoryTest;
-use Coeliac\Common\Models\Announcement;
 use Coeliac\Common\Announcements\Repository;
+use Coeliac\Common\Models\Announcement;
 use Coeliac\Common\Repositories\AbstractRepository;
+use Tests\Abstracts\RepositoryTest;
 
 class AnnouncementRepositoryTest extends RepositoryTest
 {

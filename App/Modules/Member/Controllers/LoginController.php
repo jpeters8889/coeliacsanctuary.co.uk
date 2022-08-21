@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Http\Response;
-use Coeliac\Common\Response\Page;
-use Illuminate\Contracts\Auth\Guard;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Response\Page;
 use Coeliac\Modules\Member\Models\LoginAttempt;
 use Coeliac\Modules\Member\Requests\LoginRequest;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\Response;
 
 class LoginController extends BaseController
 {
@@ -24,11 +24,11 @@ class LoginController extends BaseController
 
     public function create(LoginRequest $request, Guard $guard): Response
     {
-        if (!$request->userExists() || !$request->userIsActive()) {
+        if (! $request->userExists() || ! $request->userIsActive()) {
             LoginAttempt::recordFailure(
                 $request->input('email'),
                 (string) $request->ip(),
-                !$request->userExists() ? "User doesn't exist" : 'User is shop user only'
+                ! $request->userExists() ? "User doesn't exist" : 'User is shop user only'
             );
 
             return new Response([], 422);

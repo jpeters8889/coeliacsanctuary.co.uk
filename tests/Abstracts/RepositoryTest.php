@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Abstracts;
 
-use Illuminate\Database\Eloquent\Collection;
-use Tests\TestCase;
-use Illuminate\Database\Eloquent\Builder;
 use Coeliac\Common\Repositories\AbstractRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Tests\TestCase;
 
 abstract class RepositoryTest extends TestCase
 {

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Mailcoach;
 
-use Illuminate\View\Factory;
-use Illuminate\Container\Container;
 use Coeliac\Modules\Blog\Models\Blog;
-use Coeliac\Modules\Recipe\Models\Recipe;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\Recipe\Models\Recipe;
+use Illuminate\Container\Container;
+use Illuminate\View\Factory;
 use Spatie\Mailcoach\Domain\Campaign\Models\Concerns\HasHtmlContent;
 use Spatie\Mailcoach\Domain\Shared\Support\Editor\Editor as MailcoachEditor;
 

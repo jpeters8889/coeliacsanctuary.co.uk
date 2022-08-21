@@ -7,6 +7,7 @@ namespace Coeliac\Modules\Shop\Models;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/** @extends BaseModel<ShopFeedback> */
 class ShopFeedback extends BaseModel
 {
     protected $table = 'shop_feedback';

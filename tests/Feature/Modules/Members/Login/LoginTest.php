@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Tests\Feature\Modules\Members\Login;
 
 use Carbon\Carbon;
-use Tests\TestCase;
-use Spatie\TestTime\TestTime;
-use Illuminate\Support\Facades\Auth;
+use Coeliac\Modules\Member\Models\LoginAttempt;
 use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserLevel;
-use Coeliac\Modules\Member\Models\LoginAttempt;
+use Illuminate\Support\Facades\Auth;
+use Spatie\TestTime\TestTime;
+use Tests\TestCase;
 
 class LoginTest extends TestCase
 {

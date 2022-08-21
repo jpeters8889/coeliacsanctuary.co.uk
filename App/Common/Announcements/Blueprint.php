@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Announcements;
 
+use Coeliac\Common\Models\Announcement;
+use JPeters\Architect\Blueprints\Blueprint as ArchitectBlueprint;
 use JPeters\Architect\Plans\Boolean;
 use JPeters\Architect\Plans\DateTime;
 use JPeters\Architect\Plans\Textarea;
 use JPeters\Architect\Plans\Textfield;
-use Coeliac\Common\Models\Announcement;
-use JPeters\Architect\Blueprints\Blueprint as ArchitectBlueprint;
 
 class Blueprint extends ArchitectBlueprint
 {

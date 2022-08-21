@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Coeliac\Base\Console\Commands;
 
 use Carbon\Carbon;
+use Coeliac\Common\Models\TemporaryFileUpload;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\FilesystemManager;
-use Coeliac\Common\Models\TemporaryFileUpload;
 
 class CleanUpFileUploads extends Command
 {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Contracts;
 
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Coeliac\Modules\Member\Models\User;
+use Illuminate\Support\Collection;
 
 interface UserActivityMonitor
 {

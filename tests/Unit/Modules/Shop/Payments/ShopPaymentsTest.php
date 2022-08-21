@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop\Payments;
 
-use Tests\TestCase;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopPayment;
 use Coeliac\Modules\Shop\Models\ShopPaymentResponse;
+use Tests\TestCase;
 
 class ShopPaymentsTest extends TestCase
 {

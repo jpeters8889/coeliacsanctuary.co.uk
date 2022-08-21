@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Common\Console;
 
 use Coeliac\Common\Models\TemporaryFileUpload;

@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Recipes;
 
+use Coeliac\Common\Models\Comment;
+use Coeliac\Common\Models\Image;
+use Coeliac\Modules\Recipe\Models\Recipe;
 use Coeliac\Modules\Recipe\Models\RecipeAllergen;
 use Coeliac\Modules\Recipe\Models\RecipeFeature;
 use Coeliac\Modules\Recipe\Models\RecipeMeal;
 use Coeliac\Modules\Recipe\Models\RecipeNutrition;
 use Tests\TestCase;
-use Tests\Traits\HasImages;
-use Coeliac\Common\Models\Image;
-use Coeliac\Common\Models\Comment;
 use Tests\Traits\ClearsCache;
-use Coeliac\Modules\Recipe\Models\Recipe;
+use Tests\Traits\HasImages;
 
 class RecipeModelTest extends TestCase
 {

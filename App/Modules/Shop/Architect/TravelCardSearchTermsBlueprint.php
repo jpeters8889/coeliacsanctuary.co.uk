@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Shop\Architect;
 
 use Coeliac\Architect\Plans\ShopTravelCardSearchTerms\Plan;
 use Coeliac\Modules\Shop\Models\TravelCardSearchTerm;
 use Illuminate\Database\Eloquent\Builder;
 use JPeters\Architect\Blueprints\Blueprint;
-use JPeters\Architect\Plans\Label;
 use JPeters\Architect\Plans\Select;
 use JPeters\Architect\Plans\Textfield;
 

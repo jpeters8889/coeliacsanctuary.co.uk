@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Events;
 
-use Illuminate\Queue\SerializesModels;
 use Coeliac\Modules\Shop\Models\ShopOrder;
+use Illuminate\Queue\SerializesModels;
 
 class ShipOrder
 {

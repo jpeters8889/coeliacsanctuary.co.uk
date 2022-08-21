@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\Register;
 
-use Tests\TestCase;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Event;
-use Coeliac\Modules\Member\Models\User;
-use Illuminate\Contracts\Hashing\Hasher;
-use Coeliac\Modules\Member\Models\Scrapbook;
-use Coeliac\Modules\Member\Models\UserLevel;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Notification;
 use Coeliac\Modules\Member\Events\UserRegistered;
+use Coeliac\Modules\Member\Models\Scrapbook;
+use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Member\Models\UserLevel;
 use Coeliac\Modules\Member\Notifications\VerifyEmail;
+use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
+use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {

@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
+ * @extends BaseModel<ShopMassDiscount>
+ *
  * @property Collection<ShopCategory> $assignedCategories
  * @property int                      $percentage
  * @property Carbon                   $start_at

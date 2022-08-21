@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
-use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Response\Page;
 use Coeliac\Modules\EatingOut\WhereToEat\Support\CountyProcessor;
 use Illuminate\Http\Response;
 

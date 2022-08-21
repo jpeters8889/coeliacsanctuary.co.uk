@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
 use Carbon\Carbon;
@@ -18,12 +20,12 @@ class WhereToEatReviewImageUploadController extends BaseController
                 ->map(fn (UploadedFile $file) => ['file' => $file, 'path' => $file->store('/', 'uploads')])
                 ->map(fn (array $upload) => [
                     ...$upload,
-                    'row' => TemporaryFileUpload::createFromReviewImageUpload($upload['file'], $upload['path'])
+                    'row' => TemporaryFileUpload::createFromReviewImageUpload($upload['file'], $upload['path']),
                 ])
                 ->map(fn (array $upload) => [
                     'id' => $upload['row']->id,
                     'path' => $filesystem->disk('uploads')->temporaryUrl($upload['path'], Carbon::now()->addMinute()),
-                ])
+                ]),
         ];
     }
 }

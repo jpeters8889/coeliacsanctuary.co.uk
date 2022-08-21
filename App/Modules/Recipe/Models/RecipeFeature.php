@@ -8,6 +8,8 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
+ * @extends BaseModel<RecipeFeature>
+ *
  * @property string $icon
  * @property int $id
  * @property string $feature

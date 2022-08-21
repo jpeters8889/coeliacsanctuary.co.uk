@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-use Coeliac\Common\Controllers\FeedController;
-use Illuminate\Routing\Router;
-use Coeliac\Common\Controllers\FaqController;
-use Coeliac\Common\Controllers\EmailController;
 use Coeliac\Common\Controllers\AboutUsController;
 use Coeliac\Common\Controllers\ContactController;
-use Coeliac\Common\Controllers\SiteMapController;
+use Coeliac\Common\Controllers\CookiePolicyController;
+use Coeliac\Common\Controllers\EmailController;
+use Coeliac\Common\Controllers\FaqController;
+use Coeliac\Common\Controllers\FeedController;
 use Coeliac\Common\Controllers\HomepageController;
+use Coeliac\Common\Controllers\PrivacyPolicyController;
+use Coeliac\Common\Controllers\SiteMapController;
 use Coeliac\Common\Controllers\TermsOfUseController;
 use Coeliac\Common\Controllers\WorkWithUsController;
-use Coeliac\Common\Controllers\CookiePolicyController;
-use Coeliac\Common\Controllers\PrivacyPolicyController;
+use Illuminate\Routing\Router;
 
 /* @var Router $router */
 
-if (!isset($router)) {
+if (! isset($router)) {
     return;
 }
 

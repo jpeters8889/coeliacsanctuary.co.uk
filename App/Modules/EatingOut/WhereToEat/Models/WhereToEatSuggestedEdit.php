@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
 use Coeliac\Base\Models\BaseModel;
@@ -15,9 +17,11 @@ use Coeliac\Modules\EatingOut\WhereToEat\SuggestEdits\Processors\WebsiteField;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @extends BaseModel<WhereToEatSuggestedEdit>
+ *
  * @property WhereToEat $eatery
  * @property int $id
- * @property string status
+ * @property string $status
  * @property string $field
  * @property string $value
  * @property bool $accepted

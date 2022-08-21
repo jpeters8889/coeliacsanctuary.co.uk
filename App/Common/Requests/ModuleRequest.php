@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Requests;
 
-use Coeliac\Base\Models\BaseModel;
-use Illuminate\Foundation\Http\FormRequest;
 use Coeliac\Common\Repositories\AbstractRepository;
+use Illuminate\Foundation\Http\FormRequest;
 
+/** @template TModel of \Coeliac\Base\Models\BaseModel */
 abstract class ModuleRequest extends FormRequest
 {
     public function rules(): array
@@ -22,7 +22,8 @@ abstract class ModuleRequest extends FormRequest
         return 'slug';
     }
 
-    public function resolveItem(array $withs = []): ?BaseModel
+    /** @return TModel | null */
+    public function resolveItem(array $withs = [])
     {
         return $this->repository()
             ->setWiths($withs)

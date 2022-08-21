@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Rules;
 
-use Illuminate\Container\Container;
 use Coeliac\Modules\Shop\Basket\Basket;
-use Illuminate\Contracts\Validation\Rule;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Validation\Rule;
 
 class DiscountQualifies implements Rule
 {
@@ -19,13 +19,13 @@ class DiscountQualifies implements Rule
         /** @var ShopDiscountCode $code */
         $code = ShopDiscountCode::query()->firstWhere('code', $value);
 
-        if (!$basket->resolve()) {
+        if (! $basket->resolve()) {
             return false;
         }
 
         $subtotal = array_sum($basket->model()->items()->get()->pluck('subtotal')->toArray());
 
-        return !($code->min_spend && $subtotal < $code->min_spend);
+        return ! ($code->min_spend && $subtotal < $code->min_spend);
     }
 
     public function message()

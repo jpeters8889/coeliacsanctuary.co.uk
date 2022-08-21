@@ -6,10 +6,10 @@ namespace Coeliac\Modules\Shop\Requests;
 
 use Coeliac\Base\Requests\ApiFormRequest;
 use Coeliac\Modules\Shop\Models\ShopProduct;
-use Coeliac\Modules\Shop\Rules\ProductIsLive;
-use Coeliac\Modules\Shop\Rules\VariantIsLive;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Coeliac\Modules\Shop\Rules\ProductIsLive;
 use Coeliac\Modules\Shop\Rules\VariantBelongsToProduct;
+use Coeliac\Modules\Shop\Rules\VariantIsLive;
 
 class BasketUpdateRequest extends ApiFormRequest
 {
@@ -29,13 +29,11 @@ class BasketUpdateRequest extends ApiFormRequest
 
     public function resolveProduct(): ShopProduct
     {
-        /** @phpstan-ignore-next-line  */
         return ShopProduct::query()->where('id', $this->input('product'))->first();
     }
 
     public function resolveVariant(): ShopProductVariant
     {
-        /** @phpstan-ignore-next-line  */
         return ShopProductVariant::query()->where('id', $this->input('variant'))->first();
     }
 }

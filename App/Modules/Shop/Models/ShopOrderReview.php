@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Shop\Models;
 
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<ShopOrderReview>
+ *
  * @property ShopOrder $order
  * @property string $name
  */

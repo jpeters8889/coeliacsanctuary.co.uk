@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Providers;
 
-use Coeliac\Modules\Member\Models\User;
-use Illuminate\Support\ServiceProvider;
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use Illuminate\Contracts\Auth\Access\Gate;
 use Coeliac\Modules\Member\Models\Scrapbook;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserAddress;
 use Coeliac\Modules\Member\Models\UserDailyUpdateSubscription;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Support\ServiceProvider;
 
 class GatewayServiceProvider extends ServiceProvider
 {

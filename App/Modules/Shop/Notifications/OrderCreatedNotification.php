@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Notifications;
 
 use Carbon\Carbon;
-use Coeliac\Modules\Member\Models\User;
-use Illuminate\Container\Container;
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use Coeliac\Modules\Shop\ProductRepository;
-use Illuminate\Contracts\Config\Repository;
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Coeliac\Common\Notifications\Notification;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
+use Coeliac\Common\Notifications\Notification;
+use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Shop\Support\NotificationRelatedProducts;
 use Illuminate\Notifications\AnonymousNotifiable;
 
 class OrderCreatedNotification extends Notification
@@ -35,15 +32,7 @@ class OrderCreatedNotification extends Notification
                 'notifiable' => $notifiable,
                 'reason' => 'as confirmation to an order placed in the Coeliac Sanctuary Shop.',
                 'relatedTitle' => 'Products',
-                'relatedItems' => (new ProductRepository())->random()->take(3)
-                    ->transform(static function (ShopProduct $product) {
-                        return [
-                            'id' => $product->id,
-                            'title' => $product->title,
-                            'link' => Container::getInstance()->make(Repository::class)->get('app.url').$product->link,
-                            'image' => $product->first_image,
-                        ];
-                    }),
+                'relatedItems' => NotificationRelatedProducts::get(),
             ]);
     }
 

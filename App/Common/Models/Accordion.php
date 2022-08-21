@@ -8,6 +8,7 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/** @extends BaseModel<Accordion> */
 class Accordion extends BaseModel
 {
     protected $guarded = [];

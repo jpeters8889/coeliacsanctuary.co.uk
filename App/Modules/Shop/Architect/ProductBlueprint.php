@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Architect;
 
-use Coeliac\Common\Models\Image;
-use JPeters\Architect\Plans\Label;
-use JPeters\Architect\Plans\Select;
-use JPeters\Architect\Plans\Boolean;
-use JPeters\Architect\Plans\DateTime;
-use JPeters\Architect\Plans\Textarea;
-use JPeters\Architect\Plans\Textfield;
-use Illuminate\Database\Eloquent\Builder;
-use JPeters\Architect\Blueprints\Blueprint;
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Coeliac\Modules\Shop\Models\ShopCategory;
-use Coeliac\Modules\Shop\Models\ShopShippingMethod;
 use Coeliac\Architect\Plans\ImageManager\Plan as ImagePlan;
 use Coeliac\Architect\Plans\ShopProductPrices\Plan as ProductPrices;
 use Coeliac\Architect\Plans\ShopProductSoldCount\Plan as ProductsSold;
 use Coeliac\Architect\Plans\ShopProductVariants\Plan as ProductVariants;
+use Coeliac\Common\Models\Image;
+use Coeliac\Modules\Shop\Models\ShopCategory;
+use Coeliac\Modules\Shop\Models\ShopProduct;
+use Coeliac\Modules\Shop\Models\ShopShippingMethod;
+use Illuminate\Database\Eloquent\Builder;
+use JPeters\Architect\Blueprints\Blueprint;
+use JPeters\Architect\Plans\Boolean;
+use JPeters\Architect\Plans\DateTime;
+use JPeters\Architect\Plans\Label;
+use JPeters\Architect\Plans\Select;
+use JPeters\Architect\Plans\Textarea;
+use JPeters\Architect\Plans\Textfield;
 
 class ProductBlueprint extends Blueprint
 {

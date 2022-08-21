@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use Illuminate\Routing\Router;
 use Coeliac\Modules\Recipe\Controllers\RecipeController;
 use Coeliac\Modules\Recipe\Controllers\RecipeFeedController;
+use Illuminate\Routing\Router;
 
 /* @var Router $router */
 
-if (!isset($router)) {
+if (! isset($router)) {
     return;
 }
 

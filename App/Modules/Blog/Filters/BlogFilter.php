@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Blog\Filters;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Coeliac\Common\Filters\AbstractFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class BlogFilter extends AbstractFilter
 {

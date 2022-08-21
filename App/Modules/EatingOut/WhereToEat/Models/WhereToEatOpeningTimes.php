@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<WhereToEatOpeningTimes>
+ *
  * @property string $country
  * @property string $monday_start
  * @property string $monday_end
@@ -51,7 +53,7 @@ class WhereToEatOpeningTimes extends BaseModel
         $todaysOpeningTime = $this->formatTime($today . '_start');
         $todaysClosingTime = $this->formatTime($today . '_end');
 
-        if (!$todaysOpeningTime) {
+        if (! $todaysOpeningTime) {
             return false;
         }
 
@@ -67,7 +69,7 @@ class WhereToEatOpeningTimes extends BaseModel
 
     public function getClosesAtAttribute(): string|null
     {
-        if (!$this->is_open_now) {
+        if (! $this->is_open_now) {
             return null;
         }
 
@@ -78,7 +80,7 @@ class WhereToEatOpeningTimes extends BaseModel
 
     public function getOpensAtAttribute(): string|null
     {
-        if (!$this->is_open_now) {
+        if (! $this->is_open_now) {
             return null;
         }
 
@@ -91,7 +93,7 @@ class WhereToEatOpeningTimes extends BaseModel
     {
         $value = $this->$column;
 
-        if (!$value) {
+        if (! $value) {
             return null;
         }
 

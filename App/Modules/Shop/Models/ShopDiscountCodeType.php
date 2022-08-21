@@ -7,6 +7,7 @@ namespace Coeliac\Modules\Shop\Models;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/** @extends BaseModel<ShopDiscountCodesUsed> */
 class ShopDiscountCodeType extends BaseModel
 {
     public const PERCENTAGE = 1;

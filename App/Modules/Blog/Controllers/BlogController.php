@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Blog\Controllers;
 
-use Illuminate\Http\Request;
-use Coeliac\Common\Response\Page;
-use Coeliac\Modules\Blog\Repository;
-use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Response\Page;
+use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\Blog\Repository;
 use Coeliac\Modules\Blog\Requests\BlogShowRequest;
 use Coeliac\Modules\Collection\Models\CollectionItem;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class BlogController extends BaseController
@@ -49,7 +49,7 @@ class BlogController extends BaseController
     public function show(BlogShowRequest $request): Response
     {
         /* @var Blog $blog */
-        abort_if(!$blog = $request->resolveItem(), 404, 'Sorry, this blog can\'t be found');
+        abort_if(! $blog = $request->resolveItem(), 404, 'Sorry, this blog can\'t be found');
 
         $featured = null;
 
@@ -58,7 +58,7 @@ class BlogController extends BaseController
                 ->inRandomOrder()
                 ->take(3)
                 ->get()
-                ->transform(fn (CollectionItem $item) => $item->collection);
+                ->map(fn (CollectionItem $item) => $item->collection);
         }
 
         return $this->page

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Members;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Event;
-use Coeliac\Modules\Member\Models\User;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Notifications\AnonymousNotifiable;
 use Coeliac\Modules\Member\Events\UserEmailChanged;
-use Coeliac\Modules\Member\Notifications\VerifyEmail;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Notifications\EmailChangedAlert;
+use Coeliac\Modules\Member\Notifications\VerifyEmail;
+use Illuminate\Notifications\AnonymousNotifiable;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
+use Tests\TestCase;
 
 class UserEmailChangedEventTest extends TestCase
 {

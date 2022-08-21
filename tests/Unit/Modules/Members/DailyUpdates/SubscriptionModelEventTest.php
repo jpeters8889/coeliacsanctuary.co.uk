@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Members\DailyUpdates;
 
-use Coeliac\Modules\Collection\Items\WhereToEat;
-use Tests\TestCase;
 use Coeliac\Modules\Blog\Models\Blog;
-use Illuminate\Support\Facades\Event;
 use Coeliac\Modules\Blog\Models\BlogTag;
-use Coeliac\Modules\Member\Models\DailyUpdateType;
+use Coeliac\Modules\Collection\Items\WhereToEat;
 use Coeliac\Modules\Member\Events\DailyUpdateItemCreated;
+use Coeliac\Modules\Member\Models\DailyUpdateType;
+use Illuminate\Support\Facades\Event;
+use Tests\TestCase;
 
 class SubscriptionModelEventTest extends TestCase
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Shop\Models;
 
 use Coeliac\Base\Models\BaseModel;
@@ -8,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<ShopOrderReviewInvitation>
+ *
  * @property ShopOrder $order
  * @property string $id
  */

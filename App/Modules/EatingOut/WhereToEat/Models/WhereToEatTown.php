@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Modules\Member\Contracts\Updatable;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\Member\Contracts\Updatable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<WhereToEatTown>
+ *
  * @property mixed $town
  * @property WhereToEatCounty $county
  * @property string $slug
@@ -28,7 +30,7 @@ class WhereToEatTown extends BaseModel implements Updatable
     protected static function booted()
     {
         static::creating(static function (self $town) {
-            if (!$town->slug) {
+            if (! $town->slug) {
                 $town->slug = Str::slug($town->town);
                 $town->legacy = $town->slug;
             }

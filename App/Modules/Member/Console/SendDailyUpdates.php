@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Console;
 
-use Coeliac\Modules\Blog\Models\Blog;
-use Illuminate\Console\Command;
-use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\DailyUpdatesQueue;
+use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Member\Models\UserDailyUpdateSubscription;
 use Coeliac\Modules\Member\Notifications\DailyUpdate;
 use Coeliac\Modules\Member\Services\DailyUpdatePreprocessor;
-use Coeliac\Modules\Member\Models\UserDailyUpdateSubscription;
+use Illuminate\Console\Command;
 
 class SendDailyUpdates extends Command
 {

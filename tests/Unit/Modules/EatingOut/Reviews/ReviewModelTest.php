@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\EatingOut\Reviews;
 
-use Illuminate\Support\Facades\Event;
-use Tests\TestCase;
-use Tests\Traits\HasImages;
-use Coeliac\Common\Models\Image;
-use Tests\Traits\CreatesReviews;
 use Coeliac\Common\Models\Comment;
-use Tests\Traits\ClearsCache;
-use Illuminate\Foundation\Testing\WithFaker;
+use Coeliac\Common\Models\Image;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Tests\TestCase;
+use Tests\Traits\ClearsCache;
+use Tests\Traits\HasImages;
 
 class ReviewModelTest extends TestCase
 {

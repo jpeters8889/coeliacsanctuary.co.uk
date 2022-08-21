@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Filesystem\FilesystemManager;
 
 /**
+ * @extends BaseModel<Image>
+ *
  * @property string $directory
  * @property string $file_name
  * @property string $image_url

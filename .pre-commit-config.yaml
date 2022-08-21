@@ -1,0 +1,12 @@
+ci:
+    skip:
+        - actionlint
+
+repos:
+    - repo: https://github.com/digitalpulp/pre-commit-php.git
+      rev: 1.4.0
+      hooks:
+          - id: php-cs-fixer
+            stages: [commit]
+            args: [ --config=php-cs-fixer.dist.php --dry-run --stop-on-violation --quiet --using-cache=no ]
+

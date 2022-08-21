@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Competition\Models;
 
-use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<CompetitionEntry>
+ *
  * @property string $id
  * @property string $name
  * @property string $email

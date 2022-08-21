@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop\Products;
 
+use Coeliac\Modules\Shop\Models\ShopCategory;
+use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopProductVariant;
 use Coeliac\Modules\Shop\Models\TravelCardSearchTerm;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Coeliac\Modules\Shop\Models\ShopCategory;
 
 class ShopProductsTest extends TestCase
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Blog\Controllers;
 
-use Coeliac\Modules\Blog\Repository;
-use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\Blog\Repository;
 use Illuminate\Database\Eloquent\Collection;
 
 class BlogYearController extends BaseController
@@ -28,7 +28,7 @@ class BlogYearController extends BaseController
                     return $blog->created_at->format('Y');
                 })
                 ->sortKeys(SORT_REGULAR, true)
-                ->transform(static function (Collection $blogs, $year) {
+                ->map(static function (Collection $blogs, $year) {
                     return [
                         'year' => $year,
                         'blogs_count' => $blogs->count(),

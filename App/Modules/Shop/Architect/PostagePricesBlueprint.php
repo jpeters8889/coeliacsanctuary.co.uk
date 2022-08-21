@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Architect;
 
+use Coeliac\Modules\Shop\Models\ShopPostageCountryArea;
+use Coeliac\Modules\Shop\Models\ShopPostagePrice;
+use Coeliac\Modules\Shop\Models\ShopShippingMethod;
+use Illuminate\Database\Eloquent\Builder;
+use JPeters\Architect\Blueprints\Blueprint;
 use JPeters\Architect\Plans\Label;
 use JPeters\Architect\Plans\Select;
 use JPeters\Architect\Plans\Textfield;
-use Illuminate\Database\Eloquent\Builder;
-use JPeters\Architect\Blueprints\Blueprint;
-use Coeliac\Modules\Shop\Models\ShopPostagePrice;
-use Coeliac\Modules\Shop\Models\ShopShippingMethod;
-use Coeliac\Modules\Shop\Models\ShopPostageCountryArea;
 
 class PostagePricesBlueprint extends Blueprint
 {
@@ -47,16 +47,16 @@ class PostagePricesBlueprint extends Blueprint
                 ->hideOnIndex()
                 ->options(
                     ShopShippingMethod::all()
-                    ->mapWithKeys(fn (ShopShippingMethod $method) => [$method->id => $method->shipping_method])
-                    ->toArray()
+                        ->mapWithKeys(fn (ShopShippingMethod $method) => [$method->id => $method->shipping_method])
+                        ->toArray()
                 ),
 
             Select::generate('postage_country_area_id', 'Postage Area')
                 ->hideOnIndex()
                 ->options(
                     ShopPostageCountryArea::all()
-                    ->mapWithKeys(fn (ShopPostageCountryArea $area) => [$area->id => $area->area])
-                    ->toArray()
+                        ->mapWithKeys(fn (ShopPostageCountryArea $area) => [$area->id => $area->area])
+                        ->toArray()
                 ),
         ];
     }

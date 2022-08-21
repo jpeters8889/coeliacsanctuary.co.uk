@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Feed;
 
+use Coeliac\Common\Rss\AbstractRssFeed;
+use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Coeliac\Modules\Recipe\Models\Recipe;
 use Illuminate\Container\Container;
-use Coeliac\Modules\Blog\Models\Blog;
-use Coeliac\Common\Rss\AbstractRssFeed;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\Eloquent\Model;
 
 class CombinedFeed extends AbstractRssFeed
 {

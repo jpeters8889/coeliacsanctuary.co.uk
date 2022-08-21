@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Base\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Collection;
 use Symfony\Component\Finder\SplFileInfo;
 
 class ClearPublicDirectories extends Command

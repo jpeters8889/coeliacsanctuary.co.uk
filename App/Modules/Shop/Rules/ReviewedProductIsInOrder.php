@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Shop\Rules;
 
 use Coeliac\Modules\Shop\Models\ShopOrderReviewInvitation;

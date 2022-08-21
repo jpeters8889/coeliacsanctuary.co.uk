@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Basket;
 
-use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Exceptions\BasketException;
+use Coeliac\Modules\Shop\Models\ShopOrderItem;
 use Coeliac\Modules\Shop\Models\ShopPostagePrice;
 
 class Postage
@@ -40,7 +40,7 @@ class Postage
             ->orderBy('max_weight')
             ->first();
 
-        if (!$postage) {
+        if (! $postage) {
             throw new BasketException("Can't find postage option");
         }
 

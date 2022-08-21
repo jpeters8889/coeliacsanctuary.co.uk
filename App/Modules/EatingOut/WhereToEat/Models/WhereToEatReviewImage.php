@@ -10,6 +10,8 @@ use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<WhereToEatReviewImage>
+ *
  * @property WhereToEat $eatery
  * @property int $id
  * @property mixed $rating

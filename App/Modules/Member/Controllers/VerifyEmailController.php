@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use Coeliac\Base\Controllers\BaseController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Coeliac\Modules\Member\Notifications\ResendVerifyEmail;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class VerifyEmailController extends BaseController
 {

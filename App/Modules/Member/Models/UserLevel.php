@@ -7,6 +7,7 @@ namespace Coeliac\Modules\Member\Models;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/** @extends BaseModel<UserLevel> */
 class UserLevel extends BaseModel
 {
     public const SHOP = 1;

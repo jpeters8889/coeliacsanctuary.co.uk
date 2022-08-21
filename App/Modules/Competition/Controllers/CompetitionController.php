@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Competition\Controllers;
 
-use Illuminate\Http\Response;
-use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Response\Page;
 use Coeliac\Modules\Competition\Models\Competition;
-use Coeliac\Modules\Competition\Requests\CompetitionInitialEntryRequest;
 use Coeliac\Modules\Competition\Requests\CompetitionAdditionalEntryRequest;
+use Coeliac\Modules\Competition\Requests\CompetitionInitialEntryRequest;
+use Illuminate\Http\Response;
 
 class CompetitionController extends BaseController
 {
     public function get(Competition $competition, Page $page): Response
     {
-        abort_if(!$competition->isActive(), 404);
+        abort_if(! $competition->isActive(), 404);
 
         return $page->breadcrumbs([], $competition->name)
             ->setPageTitle($competition->name)

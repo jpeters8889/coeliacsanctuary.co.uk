@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Coeliac\Modules\Shop\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
@@ -38,7 +40,7 @@ class ReviewMyOrderController extends BaseController
         /** @var ShopOrderReview $review */
         $review = $invitation->review()->create([
             'order_id' => $invitation->order_id,
-            'name' => $request->input('name')
+            'name' => $request->input('name'),
         ]);
 
         collect($request->input('products'))->each(fn (array $product) => $review->products()->create([

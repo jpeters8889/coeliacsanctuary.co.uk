@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Coeliac\Common\Traits;
 
 use Illuminate\Container\Container;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @mixin Model
@@ -22,7 +22,7 @@ trait ClearsCache
 
             $keys = $configRepository->get("coeliac.cache.{$model->cacheKey()}");
 
-            if (!is_array($keys)) {
+            if (! is_array($keys)) {
                 $keys = [$keys];
             }
 

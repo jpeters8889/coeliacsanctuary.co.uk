@@ -8,7 +8,6 @@ use NumberToWords\NumberToWords;
 
 function admin_user(): User
 {
-    /** @phpstan-ignore-next-line  */
     return User::query()->firstWhere('email', 'contact@coeliacsanctuary.co.uk');
 }
 
@@ -26,7 +25,7 @@ function formatPrice(mixed $price, bool $withPence = true, string $symbol = '£'
 {
     $formattedPrice = number_format($price / 100, 2);
 
-    if (!$withPence && strpos($formattedPrice, '.00')) {
+    if (! $withPence && strpos($formattedPrice, '.00')) {
         $formattedPrice = trim($formattedPrice, '.00');
     }
 
@@ -55,14 +54,14 @@ function formatDate(Carbon $date, string $format = 'jS F Y'): string
     return $date->diffForHumans();
 }
 
-function redirect_now(string $url, int $code = 301): void
+function redirect_now(string $url, int $code = 301): never
 {
     resolve('app')->abort($code, '', ['Location' => $url]);
 }
 
 function array_average(array $values): null|float
 {
-    if (!$values) {
+    if (! $values) {
         return null;
     }
 

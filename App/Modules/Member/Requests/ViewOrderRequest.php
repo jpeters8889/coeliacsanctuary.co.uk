@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Requests;
 
-use Illuminate\Support\Str;
 use Coeliac\Base\Requests\ApiFormRequest;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Support\Str;
 
 class ViewOrderRequest extends ApiFormRequest
 {

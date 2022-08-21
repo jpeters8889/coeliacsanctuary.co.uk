@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Models;
 
-use Illuminate\Support\Str;
 use Coeliac\Base\Models\BaseModel;
 use Coeliac\Modules\Member\Contracts\Updatable;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Str;
 
 /**
+ * @extends BaseModel<UserDailyUpdateSubscription>
+ *
  * @property int $user_id
  * @property int $daily_update_type_id
  * @property Updatable $updatable

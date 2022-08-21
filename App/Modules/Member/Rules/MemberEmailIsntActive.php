@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Rules;
 
 use Coeliac\Modules\Member\Models\User;
-use Illuminate\Contracts\Validation\Rule;
 use Coeliac\Modules\Member\Models\UserLevel;
+use Illuminate\Contracts\Validation\Rule;
 
 class MemberEmailIsntActive implements Rule
 {
@@ -14,7 +14,7 @@ class MemberEmailIsntActive implements Rule
     {
         $userCheck = User::query()->where('email', $value)->first();
 
-        if (!$userCheck) {
+        if (! $userCheck) {
             return true;
         }
 

@@ -4,23 +4,25 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
+use Coeliac\Base\Models\BaseModel;
+use Coeliac\Common\Traits\ClearsCache;
+use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\Member\Models\DailyUpdateType;
+use Coeliac\Modules\Member\Traits\CreatesDailyUpdate;
+use Illuminate\Container\Container;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use Laravel\Scout\Searchable;
-use Coeliac\Base\Models\BaseModel;
-use Illuminate\Container\Container;
-use Coeliac\Common\Traits\ClearsCache;
-use Illuminate\Database\Eloquent\Collection;
-use Coeliac\Modules\Member\Models\DailyUpdateType;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Coeliac\Modules\EatingOut\Reviews\Models\Review;
-use Coeliac\Modules\Member\Traits\CreatesDailyUpdate;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @extends BaseModel<WhereToEat>
+ *
  * @property mixed $name
  * @property WhereToEatTown $town
  * @property WhereToEatCounty $county
@@ -32,7 +34,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed $id
  * @property Collection<AttractionRestaurant> $restaurants
  * @property mixed $website
- * @property WhereToEatCuisine $cuisine
+ * @property WhereToEatCuisine | null $cuisine
  * @property mixed $phone
  * @property WhereToEatCountry $country
  * @property mixed $type_id
@@ -46,7 +48,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property number $town_id
  * @property string $full_name
  * @property string $gf_menu_link
- * @property WhereToEatOpeningTimes $openingTimes
+ * @property WhereToEatOpeningTimes | null $openingTimes
+ * @property int $county_id
  *
  * @method transform(array $array)
  */
@@ -76,7 +79,7 @@ class WhereToEat extends BaseModel
     public static function booted()
     {
         static::saving(function (self $eatery) {
-            if (!$eatery->slug) {
+            if (! $eatery->slug) {
                 $eatery->slug = $eatery->generateSlug();
             }
 
@@ -84,7 +87,7 @@ class WhereToEat extends BaseModel
                 $eatery->venue_type_id = 26;
             }
 
-            if (!$eatery->cuisine_id) {
+            if (! $eatery->cuisine_id) {
                 $eatery->cuisine_id = 1;
             }
 
@@ -95,10 +98,10 @@ class WhereToEat extends BaseModel
     protected function hasDuplicateNameInTown(): bool
     {
         return self::query()
-                ->where('town_id', $this->town_id)
-                ->where('name', $this->name)
-                ->where('live', 1)
-                ->count() > 1;
+            ->where('town_id', $this->town_id)
+            ->where('name', $this->name)
+            ->where('live', 1)
+            ->count() > 1;
     }
 
     protected function eateryPostcode(): string
@@ -155,7 +158,7 @@ class WhereToEat extends BaseModel
 
     public function getAverageRatingAttribute(): ?string
     {
-        if (!$this->relationLoaded('userReviews')) {
+        if (! $this->relationLoaded('userReviews')) {
             return null;
         }
 
@@ -164,7 +167,7 @@ class WhereToEat extends BaseModel
 
     public function getAverageExpenseAttribute(): ?array
     {
-        if (!$this->relationLoaded('userReviews')) {
+        if (! $this->relationLoaded('userReviews')) {
             return null;
         }
 
@@ -184,18 +187,18 @@ class WhereToEat extends BaseModel
 
     public function getHasBeenRatedAttribute(): ?bool
     {
-        if (!$this->relationLoaded('userReviews')) {
+        if (! $this->relationLoaded('userReviews')) {
             return null;
         }
 
         return $this->userReviews
-                ->where('ip', Container::getInstance()->make(Request::class)->ip())
-                ->count() > 0;
+            ->where('ip', Container::getInstance()->make(Request::class)->ip())
+            ->count() > 0;
     }
 
     public function getIconAttribute(): ?string
     {
-        if (!$this->relationLoaded('type')) {
+        if (! $this->relationLoaded('type')) {
             return null;
         }
 
@@ -283,7 +286,7 @@ class WhereToEat extends BaseModel
 
     public function getFullNameAttribute(): ?string
     {
-        if (!$this->relationLoaded('town')) {
+        if (! $this->relationLoaded('town')) {
             return null;
         }
 
@@ -306,7 +309,7 @@ class WhereToEat extends BaseModel
 
     public function getFullLocationAttribute(): ?string
     {
-        if (!$this->relationLoaded('town')) {
+        if (! $this->relationLoaded('town')) {
             return null;
         }
 
@@ -323,7 +326,7 @@ class WhereToEat extends BaseModel
 
     public function getTypeDescriptionAttribute(): ?string
     {
-        if (!$this->relationLoaded('type')) {
+        if (! $this->relationLoaded('type')) {
             return null;
         }
 

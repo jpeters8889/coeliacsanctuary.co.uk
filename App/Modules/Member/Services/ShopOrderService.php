@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Services;
 
 use Coeliac\Modules\Shop\Models\ShopOrder;
-use Illuminate\Database\Eloquent\Collection;
 use Coeliac\Modules\Shop\Models\ShopOrderItem;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Coeliac\Modules\Shop\Models\ShopPayment;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Collection;
 
 class ShopOrderService
 {
@@ -19,6 +20,7 @@ class ShopOrderService
         $this->user = $user;
     }
 
+    /** @return Collection<int, array> */
     public function list(): Collection
     {
         return ShopOrder::query()
@@ -27,7 +29,8 @@ class ShopOrderService
             ->withCount('items')
             ->with(['payment', 'state', 'address'])
             ->latest()
-            ->get()->transform(fn (ShopOrder $order) => $this->basicData($order));
+            ->get()
+            ->map(fn (ShopOrder $order) => $this->basicData($order));
     }
 
     protected function basicData(ShopOrder $order): array
@@ -35,7 +38,7 @@ class ShopOrderService
         return [
             'order_date' => $order->created_at,
             'reference' => $order->order_key,
-            'number_of_items' => (int) $order->items_count,
+            'number_of_items' => $order->items_count,
             'total_cost' => $order->payment->total,
             'state' => $order->state->state,
             'shipped_at' => $order->shipped_at,
@@ -67,7 +70,7 @@ class ShopOrderService
             ));
     }
 
-    protected function payment(ShopOrder $order): \Coeliac\Modules\Shop\Models\ShopPayment
+    protected function payment(ShopOrder $order): ShopPayment
     {
         return $order->payment
             ->makeVisible(['payment_type'])

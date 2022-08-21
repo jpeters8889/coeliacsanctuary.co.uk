@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\Scrapbooks;
 
+use Coeliac\Modules\Member\Models\Scrapbook;
 use Spatie\TestTime\TestTime;
 use Tests\Abstracts\DashboardTest;
-use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Member\Models\Scrapbook;
 
 class ScrapbookTest extends DashboardTest
 {

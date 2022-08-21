@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Requests;
 
-use RuntimeException;
-use Coeliac\Base\Models\BaseModel;
-use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Base\Requests\ApiFormRequest;
+use Coeliac\Modules\Blog\Models\Blog;
+use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Coeliac\Modules\Recipe\Models\Recipe;
 use Illuminate\Contracts\Auth\Access\Gate;
-use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use RuntimeException;
 
 class ScrapbookAddItemRequest extends ApiFormRequest
 {
@@ -28,7 +27,6 @@ class ScrapbookAddItemRequest extends ApiFormRequest
             default => throw new RuntimeException('Unexpected value'),
         };
 
-        /** @phpstan-ignore-next-line  */
         return $builder->where('live', 1)->findOrFail($this->input('id'));
     }
 

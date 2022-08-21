@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use Illuminate\Routing\Router;
-use Coeliac\Modules\Competition\Middleware\CompetitionIsActive;
 use Coeliac\Modules\Competition\Controllers\CompetitionController;
+use Coeliac\Modules\Competition\Middleware\CompetitionIsActive;
+use Illuminate\Routing\Router;
 
 /* @var Router $router */
 
-if (!isset($router)) {
+if (! isset($router)) {
     return;
 }
 

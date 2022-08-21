@@ -8,6 +8,8 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @extends BaseModel<RecipeNutrition>
+ *
  * @property string $calories
  * @property mixed  $carbs
  * @property mixed  $fat

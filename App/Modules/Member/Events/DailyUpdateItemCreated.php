@@ -22,7 +22,7 @@ class DailyUpdateItemCreated
 
     public function dailyUpdateType(): DailyUpdateType
     {
-        if (!$this->dailyUpdateType) {
+        if (! $this->dailyUpdateType) {
             $this->dailyUpdateType = DailyUpdateType::query()->findOrFail($this->dailyUpdateTypeId);
         }
 

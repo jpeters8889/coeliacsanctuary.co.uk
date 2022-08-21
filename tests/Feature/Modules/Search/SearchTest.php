@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Search;
 
-use Tests\TestCase;
 use Coeliac\Modules\Search\Models\SearchHistory;
+use Tests\TestCase;
 
 class SearchTest extends TestCase
 {

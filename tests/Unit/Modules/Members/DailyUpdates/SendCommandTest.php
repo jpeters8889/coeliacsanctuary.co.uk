@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Members\DailyUpdates;
 
-use Coeliac\Modules\Collection\Items\WhereToEat;
-use Illuminate\Database\Eloquent\Factories\Sequence;
-use Tests\TestCase;
-use Illuminate\Support\Str;
 use Coeliac\Modules\Blog\Models\Blog;
-use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Blog\Models\BlogTag;
-use Illuminate\Support\Facades\Notification;
-use Coeliac\Modules\Member\Models\DailyUpdateType;
-use Coeliac\Modules\Member\Models\DailyUpdatesQueue;
-use Coeliac\Modules\Member\Notifications\DailyUpdate;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
+use Coeliac\Modules\Collection\Items\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
+use Coeliac\Modules\Member\Models\DailyUpdatesQueue;
+use Coeliac\Modules\Member\Models\DailyUpdateType;
+use Coeliac\Modules\Member\Models\User;
+use Coeliac\Modules\Member\Notifications\DailyUpdate;
+use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
+use Tests\TestCase;
 
 class SendCommandTest extends TestCase
 {
@@ -80,7 +80,7 @@ class SendCommandTest extends TestCase
                     Str::contains($compiledEmail, $blog->meta_description),
                 ];
 
-                return !in_array(false, $assertions, true);
+                return ! in_array(false, $assertions, true);
             }
         );
     }
@@ -114,7 +114,7 @@ class SendCommandTest extends TestCase
                     Str::contains($compiledEmail, str_replace('<br />', ', ', $eatery->address)),
                 ];
 
-                return !in_array(false, $assertions, true);
+                return ! in_array(false, $assertions, true);
             }
         );
     }
@@ -159,7 +159,7 @@ class SendCommandTest extends TestCase
                     Str::contains($compiledEmail, str_replace('<br />', ', ', $eatery->address)),
                 ];
 
-                return !in_array(false, $assertions, true);
+                return ! in_array(false, $assertions, true);
             }
         );
     }
@@ -183,7 +183,7 @@ class SendCommandTest extends TestCase
             function (DailyUpdate $notification) use ($user) {
                 $compiledEmail = $notification->toMail($user)->render();
 
-                return !Str::contains($compiledEmail, 'Coeliac Sanctuary Blogs');
+                return ! Str::contains($compiledEmail, 'Coeliac Sanctuary Blogs');
             }
         );
     }
@@ -207,7 +207,7 @@ class SendCommandTest extends TestCase
             function (DailyUpdate $notification) use ($user) {
                 $compiledEmail = $notification->toMail($user)->render();
 
-                return !Str::contains($compiledEmail, 'Places To Eat');
+                return ! Str::contains($compiledEmail, 'Places To Eat');
             }
         );
     }
@@ -253,7 +253,7 @@ class SendCommandTest extends TestCase
                     Str::contains($compiledEmail, 'Second Blog'),
                 ];
 
-                return !in_array(false, $assertions, true);
+                return ! in_array(false, $assertions, true);
             }
         );
     }
@@ -293,7 +293,7 @@ class SendCommandTest extends TestCase
                     Str::contains($compiledEmail, 'Second Place'),
                 ];
 
-                return !in_array(false, $assertions, true);
+                return ! in_array(false, $assertions, true);
             }
         );
     }

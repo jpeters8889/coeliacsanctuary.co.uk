@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Competition\Architect;
 
 use Carbon\Carbon;
-use JPeters\Architect\Plans\Body;
-use JPeters\Architect\Plans\Group;
-use JPeters\Architect\Plans\Boolean;
-use JPeters\Architect\Plans\DateTime;
-use JPeters\Architect\Plans\Textarea;
-use JPeters\Architect\Plans\Textfield;
-use Illuminate\Database\Eloquent\Builder;
+use Coeliac\Architect\Plans\CompetitionEntries\Plan as CompetitionEntries;
 use Coeliac\Architect\Plans\ImageManager\Plan;
 use Coeliac\Modules\Competition\Models\Competition;
+use Illuminate\Database\Eloquent\Builder;
 use JPeters\Architect\Blueprints\Blueprint as Architect;
-use Coeliac\Architect\Plans\CompetitionEntries\Plan as CompetitionEntries;
+use JPeters\Architect\Plans\Body;
+use JPeters\Architect\Plans\Boolean;
+use JPeters\Architect\Plans\DateTime;
+use JPeters\Architect\Plans\Group;
+use JPeters\Architect\Plans\Textarea;
+use JPeters\Architect\Plans\Textfield;
 
 class Blueprint extends Architect
 {

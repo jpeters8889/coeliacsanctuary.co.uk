@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Controllers;
 
-use Coeliac\Common\Response\Page;
-use Coeliac\Modules\Shop\Response\ShopPage;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Shop\CategoryRepository;
-use Coeliac\Modules\Shop\Models\ShopCategory;
 use Coeliac\Modules\Shop\Requests\CategoryShowRequest;
+use Coeliac\Modules\Shop\Response\ShopPage;
 use Illuminate\Http\Response;
 
 class CategoryController extends BaseController
 {
-    public function __construct(private ShopPage $page, private CategoryRepository $repository)
+    public function __construct(protected ShopPage $page, protected CategoryRepository $repository)
     {
     }
 
@@ -36,10 +34,9 @@ class CategoryController extends BaseController
 
     public function show(CategoryShowRequest $request): Response
     {
-        /* @var ShopCategory $category */
         $category = $request->resolveItem();
 
-        abort_if(!$category, 404, 'Sorry, this category can\'t be found');
+        abort_if(! $category, 404, 'Sorry, this category can\'t be found');
 
         return $this->page
             ->breadcrumbs([

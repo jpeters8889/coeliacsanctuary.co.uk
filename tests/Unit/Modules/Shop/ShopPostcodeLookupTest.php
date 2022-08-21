@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Shop;
 
-use Tests\TestCase;
+use Coeliac\Modules\Shop\PostcodeLookup\GetAddress\Parser;
+use Coeliac\Modules\Shop\PostcodeLookup\Service;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 use Tests\Mocks\PostcodeLookupMock;
-use Coeliac\Modules\Shop\PostcodeLookup\Service;
-use Coeliac\Modules\Shop\PostcodeLookup\GetAddress\Parser;
+use Tests\TestCase;
 
 class ShopPostcodeLookupTest extends TestCase
 {

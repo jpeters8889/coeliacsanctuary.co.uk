@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Coeliac\Common\Models;
 
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Common\Traits\Imageable;
 use Coeliac\Common\Traits\DisplaysImages;
+use Coeliac\Common\Traits\Imageable;
 
 /**
+ * @extends BaseModel<Popup>
+ *
  * @property int $id
  * @property int $display_every
  */

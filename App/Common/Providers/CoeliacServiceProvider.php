@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Coeliac\Common\Providers;
 
 use Carbon\Laravel\ServiceProvider;
-use DirectoryIterator;
 use Coeliac\Base\Modules;
-use Illuminate\Contracts\Config\Repository;
 use Coeliac\Common\MjmlCompiler\CoeliacCompiler;
 use Coeliac\Common\MjmlCompiler\CompilerContract;
 use Coeliac\Common\Notifications\Channels\MailChannel;
+use DirectoryIterator;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Notifications\Channels\MailChannel as IlluminateMailChannel;
 use Illuminate\Support\Collection;
 

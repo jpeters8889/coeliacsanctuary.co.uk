@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers\Dashboards;
 
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Coeliac\Common\Response\Page;
-use Illuminate\Contracts\Auth\Access\Gate;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Response\Page;
 use Coeliac\Modules\Member\Models\Scrapbook;
 use Coeliac\Modules\Member\Requests\ScrapbookCreateRequest;
 use Coeliac\Modules\Member\Requests\ScrapbookUpdateRequest;
+use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ScrapbookController extends BaseController
 {

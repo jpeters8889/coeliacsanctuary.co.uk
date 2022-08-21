@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Shop\Discounts;
 
-use Carbon\Carbon;
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Coeliac\Modules\Shop\Models\ShopProductVariant;
-use Tests\TestCase;
-use Illuminate\Support\Str;
-use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
-use Coeliac\Modules\Shop\Models\ShopProductPrice;
 use Coeliac\Modules\Shop\Models\ShopDiscountCodesUsed;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Shop\Models\ShopProduct;
+use Coeliac\Modules\Shop\Models\ShopProductPrice;
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Illuminate\Support\Str;
+use Tests\TestCase;
 
 class ShopDiscountTest extends TestCase
 {

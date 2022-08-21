@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\EatingOut\WhereToEat;
 
-use Illuminate\Database\Eloquent\Factories\Sequence;
-use Tests\TestCase;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
+use Illuminate\Database\Eloquent\Factories\Sequence;
+use Tests\TestCase;
 
 class WhereToEatReviewsTest extends TestCase
 {

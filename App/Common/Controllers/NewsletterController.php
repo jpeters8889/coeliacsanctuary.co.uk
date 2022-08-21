@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Controllers;
 
-use Exception;
-use Illuminate\Http\Response;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Common\Newsletter\Exceptions\AlreadySubscribedException;
 use Coeliac\Common\Newsletter\NewsletterService;
 use Coeliac\Common\Requests\NewsletterSignupRequest;
-use Coeliac\Common\Newsletter\Exceptions\AlreadySubscribedException;
+use Exception;
+use Illuminate\Http\Response;
 
 class NewsletterController extends BaseController
 {

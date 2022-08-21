@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers;
 
-use Coeliac\Modules\Member\Models\User;
-use Illuminate\Contracts\Auth\Access\Gate;
 use Coeliac\Base\Controllers\BaseController;
+use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Member\Models\UserAddress;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Coeliac\Modules\Member\Requests\UpdateAddressRequest;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Collection;
 
 class AddressController extends BaseController
 {

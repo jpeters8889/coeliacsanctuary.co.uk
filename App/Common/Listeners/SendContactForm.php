@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Listeners;
 
+use Coeliac\Common\Events\ContactFormSubmitted;
 use Coeliac\Common\Mail\ContactUs;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Coeliac\Common\Events\ContactFormSubmitted;
 
 class SendContactForm implements ShouldQueue
 {

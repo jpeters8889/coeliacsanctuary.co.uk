@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Architect;
 
 use Carbon\Carbon;
-use JPeters\Architect\Plans\Label;
-use JPeters\Architect\Plans\Select;
-use JPeters\Architect\Plans\DateTime;
-use JPeters\Architect\Plans\Textfield;
-use Illuminate\Database\Eloquent\Builder;
-use JPeters\Architect\Blueprints\Blueprint;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
 use Coeliac\Modules\Shop\Models\ShopDiscountCodeType;
+use Illuminate\Database\Eloquent\Builder;
+use JPeters\Architect\Blueprints\Blueprint;
+use JPeters\Architect\Plans\DateTime;
+use JPeters\Architect\Plans\Label;
+use JPeters\Architect\Plans\Select;
+use JPeters\Architect\Plans\Textfield;
 
 class DiscountBlueprint extends Blueprint
 {

@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\WhereToEat\Models;
 
 use Coeliac\Base\Models\BaseModel;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
+ * @extends BaseModel<WhereToEatSearchTerm>
+ *
  * @property Collection<WhereToEatSearch> $searches
  * @property mixed                        $term
  * @property string $key

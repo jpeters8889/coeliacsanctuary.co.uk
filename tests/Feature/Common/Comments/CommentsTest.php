@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Common\Comments;
 
+use Coeliac\Common\Models\Comment;
+use Coeliac\Common\Models\Image;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Blog\Models\BlogTag;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Tests\Traits\CreatesBlogs;
-use Coeliac\Common\Models\Image;
-use Coeliac\Common\Models\Comment;
-use Illuminate\Foundation\Testing\WithFaker;
 
 class CommentsTest extends TestCase
 {

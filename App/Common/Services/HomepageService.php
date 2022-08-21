@@ -5,19 +5,17 @@ declare(strict_types=1);
 namespace Coeliac\Common\Services;
 
 use Carbon\Carbon;
+use Coeliac\Modules\Blog\Repository as BlogRepository;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
+use Coeliac\Modules\EatingOut\WhereToEat\Repository as WteRepository;
 use Coeliac\Modules\EatingOut\WhereToEat\Support\LatestPlaces;
 use Coeliac\Modules\EatingOut\WhereToEat\Support\LatestRatings;
-use Illuminate\Support\Collection;
-use Illuminate\Container\Container;
-use Coeliac\Modules\Shop\ProductRepository;
-use Coeliac\Modules\Blog\Repository as BlogRepository;
 use Coeliac\Modules\Recipe\Repository as RecipeRepository;
+use Coeliac\Modules\Shop\ProductRepository;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
-use Coeliac\Modules\EatingOut\WhereToEat\Repository as WteRepository;
+use Illuminate\Support\Collection;
 
 class HomepageService
 {
@@ -31,7 +29,7 @@ class HomepageService
         $this->configRepository = $configRepository;
     }
 
-    public function blogs(): EloquentCollection
+    public function blogs(): Collection
     {
         return $this->cacheRepository->rememberForever(
             $this->configRepository->get('coeliac.cache.blogs.homepage_count'),
@@ -39,7 +37,7 @@ class HomepageService
         );
     }
 
-    public function recipes(): EloquentCollection
+    public function recipes(): Collection
     {
         return $this->cacheRepository->rememberForever(
             $this->configRepository->get('coeliac.cache.recipes.homepage_count'),
@@ -47,7 +45,7 @@ class HomepageService
         );
     }
 
-    public function ratings(): EloquentCollection
+    public function ratings(): Collection
     {
         return $this->cacheRepository->remember(
             'homepage_latest_wte_ratings',
@@ -56,7 +54,7 @@ class HomepageService
         );
     }
 
-    public function latestPlaces(): EloquentCollection
+    public function latestPlaces(): Collection
     {
         return $this->cacheRepository->remember(
             'homepage_latest_wte_latest_places',

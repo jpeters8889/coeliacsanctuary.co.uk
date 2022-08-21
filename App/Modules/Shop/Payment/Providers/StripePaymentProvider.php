@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Payment\Providers;
 
-use Stripe\Stripe;
-use Stripe\PaymentIntent;
-use Illuminate\Container\Container;
 use Coeliac\Modules\Shop\Payment\Provider;
+use Illuminate\Container\Container;
 use Illuminate\Contracts\Config\Repository;
+use Stripe\PaymentIntent;
+use Stripe\Stripe;
 
 class StripePaymentProvider implements Provider
 {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\Reviews\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\EatingOut\Reviews\Repository;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\EatingOut\Reviews\Repository;
 
 class ReviewRatingController extends BaseController
 {

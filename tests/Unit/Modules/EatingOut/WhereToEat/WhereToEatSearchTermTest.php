@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\EatingOut\WhereToEat;
 
-use Tests\TestCase;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatSearchTerm;
+use Tests\TestCase;
 
 class WhereToEatSearchTermTest extends TestCase
 {

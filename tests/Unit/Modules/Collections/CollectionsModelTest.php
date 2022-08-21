@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Collections;
 
-use Tests\TestCase;
-use Tests\Traits\HasImages;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Collection\Models\Collection;
+use Tests\TestCase;
+use Tests\Traits\HasImages;
 
 class CollectionsModelTest extends TestCase
 {

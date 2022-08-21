@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Recipes;
 
+use Coeliac\Common\Models\Image;
 use Coeliac\Modules\Recipe\Models\Recipe;
 use Coeliac\Modules\Recipe\Models\RecipeNutrition;
 use Illuminate\Database\Eloquent\Factories\Sequence;
-use Tests\TestCase;
 use Illuminate\Support\Str;
+use Tests\TestCase;
 use Tests\Traits\HasImages;
-use Coeliac\Common\Models\Image;
 
 class RecipePrefixCommandTest extends TestCase
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Recipe\Console;
 
-use Illuminate\Support\Str;
-use Illuminate\Console\Command;
 use Coeliac\Modules\Recipe\Models\Recipe;
+use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class PrefixRecipesWithGlutenFree extends Command
 {
@@ -15,7 +15,7 @@ class PrefixRecipesWithGlutenFree extends Command
     public function handle(): void
     {
         if ($this->option('prod')) {
-            if (!$this->confirm('This is set to run in production mode, are you sure?')) {
+            if (! $this->confirm('This is set to run in production mode, are you sure?')) {
                 return;
             }
         }

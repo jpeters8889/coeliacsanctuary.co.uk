@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Listeners;
 
-use Illuminate\Notifications\AnonymousNotifiable;
 use Coeliac\Modules\Member\Events\UserEmailChanged;
 use Coeliac\Modules\Member\Notifications\EmailChangedAlert;
+use Illuminate\Notifications\AnonymousNotifiable;
 
 class SendEmailChangedAlert
 {

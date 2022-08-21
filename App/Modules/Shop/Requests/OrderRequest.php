@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Requests;
 
-use Illuminate\Validation\Rule;
-use Illuminate\Database\Query\Builder;
 use Coeliac\Base\Requests\ApiFormRequest;
 use Coeliac\Modules\Shop\Rules\ValidPostcode;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Validation\Rule;
 
 class OrderRequest extends ApiFormRequest
 {
@@ -15,7 +15,7 @@ class OrderRequest extends ApiFormRequest
     {
         $userRules = [];
 
-        if (!$this->user()) {
+        if (! $this->user()) {
             $userRules = [
                 'user' => ['required', 'array'],
                 'user.name' => ['required'],

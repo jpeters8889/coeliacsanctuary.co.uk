@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\Reviews\Architect;
 
-use JPeters\Architect\Plans\Body;
-use JPeters\Architect\Plans\Label;
-use JPeters\Architect\Plans\Lookup;
-use JPeters\Architect\Plans\Select;
-use JPeters\Architect\Plans\Boolean;
-use JPeters\Architect\Plans\DateTime;
-use JPeters\Architect\Plans\Textarea;
-use JPeters\Architect\Plans\Textfield;
-use Illuminate\Database\Eloquent\Builder;
 use Coeliac\Architect\Plans\ImageManager\Plan;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
+use Illuminate\Database\Eloquent\Builder;
 use JPeters\Architect\Blueprints\Blueprint as ArchitectBlueprint;
+use JPeters\Architect\Plans\Body;
+use JPeters\Architect\Plans\Boolean;
+use JPeters\Architect\Plans\DateTime;
+use JPeters\Architect\Plans\Label;
+use JPeters\Architect\Plans\Lookup;
+use JPeters\Architect\Plans\Select;
+use JPeters\Architect\Plans\Textarea;
+use JPeters\Architect\Plans\Textfield;
 
 class Blueprint extends ArchitectBlueprint
 {

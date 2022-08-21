@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Console;
 
-use Illuminate\Support\Str;
-use Illuminate\Console\Command;
 use Coeliac\Modules\Member\Models\UserAddress;
+use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class CleanUpAddresses extends Command
 {

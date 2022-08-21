@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
-use Coeliac\Common\Response\Page;
 use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\EatingOut\WhereToEat\Requests\SearchRequest;
-use Coeliac\Modules\EatingOut\Reviews\Repository as ReviewRepository;
+use Coeliac\Common\Response\Page;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatSearchTerm;
 use Coeliac\Modules\EatingOut\WhereToEat\Requests\SearchCreateRequest;
+use Coeliac\Modules\EatingOut\WhereToEat\Requests\SearchRequest;
 use Illuminate\Http\Response;
 
 class WhereToEatSearchController extends BaseController
@@ -47,7 +46,7 @@ class WhereToEatSearchController extends BaseController
             ->setPageTitle('Gluten Free Search Results for '.$searchTerm->term)
             ->setMetaDescription('Gluten Free Search Results for '.$searchTerm->term)
             ->render('modules.eating-out.wheretoeat.search', [
-                'search' => $searchTerm
+                'search' => $searchTerm,
             ]);
     }
 }

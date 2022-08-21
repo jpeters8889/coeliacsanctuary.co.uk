@@ -6,12 +6,12 @@ namespace Tests\Feature\Modules\EatingOut\WhereToEat;
 
 use Coeliac\Common\Models\TemporaryFileUpload;
 use Coeliac\Modules\EatingOut\WhereToEat\Events\PrepareWhereToEatReviewImages;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
 use Coeliac\Modules\Member\Models\User;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 
 class WhereToEatingReviewsTest extends TestCase
 {
@@ -77,7 +77,7 @@ class WhereToEatingReviewsTest extends TestCase
     {
         $this->makeRequest([
             'name' => null, 'email' => null, 'food_rating' => null, 'service_rating' => null,
-            'expense' => null, 'comment' => null
+            'expense' => null, 'comment' => null,
         ])->assertStatus(200);
 
         $this->assertEquals(1, $this->whereToEat->fresh()->userReviews()->count());

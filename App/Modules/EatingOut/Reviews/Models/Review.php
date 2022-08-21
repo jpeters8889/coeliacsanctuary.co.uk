@@ -5,24 +5,26 @@ declare(strict_types=1);
 namespace Coeliac\Modules\EatingOut\Reviews\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Laravel\Scout\Searchable;
 use Coeliac\Base\Models\BaseModel;
-use Coeliac\Common\Traits\Linkable;
-use Coeliac\Common\Traits\Imageable;
-use Coeliac\Common\Traits\ClearsCache;
-use Coeliac\Common\Traits\HasRichText;
 use Coeliac\Common\Comments\Commentable;
 use Coeliac\Common\Contracts\HasComments;
 use Coeliac\Common\Traits\ArchitectModel;
+use Coeliac\Common\Traits\ClearsCache;
 use Coeliac\Common\Traits\DisplaysImages;
+use Coeliac\Common\Traits\HasRichText;
+use Coeliac\Common\Traits\Imageable;
+use Coeliac\Common\Traits\Linkable;
 use Coeliac\Modules\Collection\Traits\IsCollectionItem;
-use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
+use Coeliac\Modules\Member\Traits\CanBeAddedToScrapbook;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Laravel\Scout\Searchable;
 
 /**
+ * @extends BaseModel<Review>
+ *
  * @property mixed        $title
  * @property mixed        $meta_description
  * @property mixed        $meta_keywords

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Member\Controllers\Dashboards;
 
-use Illuminate\Http\Response;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Member\Requests\ScrapbookSearchRequest;
+use Illuminate\Http\Response;
 
 class ScrapbookSearchController extends BaseController
 {
@@ -17,7 +17,7 @@ class ScrapbookSearchController extends BaseController
             ->where('item_id', $request->input('id'))
             ->first();
 
-        if (!$item) {
+        if (! $item) {
             return new Response('', 204);
         }
 

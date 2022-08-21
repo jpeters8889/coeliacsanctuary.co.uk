@@ -4,30 +4,30 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Architect;
 
+use Coeliac\Architect\Plans\AddressLookup\Plan;
+use Coeliac\Architect\Plans\WteAttractions\Plan as WteAttractions;
+use Coeliac\Architect\Plans\WteOpeningTimes\Plan as OpeningTimesPlan;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCountry;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCuisine;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatFeature;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatType;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatVenueType;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use JPeters\Architect\Blueprints\Blueprint;
+use JPeters\Architect\Plans\Boolean;
+use JPeters\Architect\Plans\BulkBlueprintVariants;
 use JPeters\Architect\Plans\Group;
 use JPeters\Architect\Plans\Label;
 use JPeters\Architect\Plans\Lookup;
 use JPeters\Architect\Plans\Select;
-use JPeters\Architect\Plans\Boolean;
 use JPeters\Architect\Plans\Switcher;
 use JPeters\Architect\Plans\Textarea;
 use JPeters\Architect\Plans\Textfield;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use JPeters\Architect\Blueprints\Blueprint;
-use Coeliac\Architect\Plans\AddressLookup\Plan;
-use JPeters\Architect\Plans\BulkBlueprintVariants;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatType;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
-use Coeliac\Architect\Plans\WteAttractions\Plan as WteAttractions;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCountry;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCuisine;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatFeature;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatVenueType;
-use Coeliac\Architect\Plans\WteOpeningTimes\Plan as OpeningTimesPlan;
 
 class WhereToEatBlueprint extends Blueprint
 {

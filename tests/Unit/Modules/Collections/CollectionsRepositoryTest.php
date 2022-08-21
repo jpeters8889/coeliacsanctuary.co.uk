@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Collections;
 
-use Tests\Abstracts\RepositoryTest;
-use Coeliac\Modules\Collection\Repository;
-use Coeliac\Modules\Collection\Models\Collection;
 use Coeliac\Common\Repositories\AbstractRepository;
+use Coeliac\Modules\Collection\Models\Collection;
+use Coeliac\Modules\Collection\Repository;
+use Tests\Abstracts\RepositoryTest;
 
 class CollectionsRepositoryTest extends RepositoryTest
 {

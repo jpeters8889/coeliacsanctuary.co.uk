@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
+ * @extends BaseModel<ShopPayment>
+ *
  * @property ShopOrder           $order
  * @property ShopPaymentType     $type
  * @property ShopPaymentResponse $response

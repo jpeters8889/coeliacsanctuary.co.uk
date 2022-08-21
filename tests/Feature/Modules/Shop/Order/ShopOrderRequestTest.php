@@ -4,23 +4,21 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Shop\Order;
 
-use Carbon\Carbon;
-use Coeliac\Modules\Shop\Models\ShopProductVariant;
-use Tests\TestCase;
-use Illuminate\Support\Str;
-use Tests\Traits\HasImages;
-use Coeliac\Common\Models\Image;
-use Tests\Mocks\StripePaymentProvider;
 use Coeliac\Modules\Member\Models\User;
-use Coeliac\Modules\Shop\Basket\Basket;
-use Tests\Traits\Shop\MakeOrderRequest;
-use Coeliac\Modules\Shop\Models\ShopOrder;
-use Coeliac\Modules\Shop\Payment\Processor;
-use Coeliac\Modules\Shop\Models\ShopProduct;
-use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Modules\Member\Models\UserAddress;
+use Coeliac\Modules\Shop\Basket\Basket;
+use Coeliac\Modules\Shop\Models\ShopOrder;
+use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopProductPrice;
+use Coeliac\Modules\Shop\Models\ShopProductVariant;
+use Coeliac\Modules\Shop\Payment\Processor;
 use Coeliac\Modules\Shop\Payment\Processors\Stripe;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
+use Tests\Mocks\StripePaymentProvider;
+use Tests\TestCase;
+use Tests\Traits\HasImages;
+use Tests\Traits\Shop\MakeOrderRequest;
 
 class ShopOrderRequestTest extends TestCase
 {

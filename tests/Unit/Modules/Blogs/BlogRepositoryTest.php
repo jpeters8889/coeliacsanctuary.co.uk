@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Tests\Unit\Modules\Blogs;
 
 use Carbon\Carbon;
-use Tests\Traits\HasImages;
 use Coeliac\Common\Models\Image;
-use Tests\Abstracts\RepositoryTest;
-use Coeliac\Modules\Blog\Repository;
+use Coeliac\Common\Repositories\AbstractRepository;
 use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\Blog\Models\BlogTag;
-use Coeliac\Common\Repositories\AbstractRepository;
+use Coeliac\Modules\Blog\Repository;
+use Tests\Abstracts\RepositoryTest;
+use Tests\Traits\HasImages;
 
 class BlogRepositoryTest extends RepositoryTest
 {

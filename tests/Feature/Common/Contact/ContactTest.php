@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Common\Contact;
 
-use Tests\TestCase;
-use Coeliac\Common\Mail\ContactUs;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Foundation\Testing\WithFaker;
 use Coeliac\Common\Events\ContactFormSubmitted;
+use Coeliac\Common\Mail\ContactUs;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
+use Tests\TestCase;
 
 class ContactTest extends TestCase
 {

@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
+ * @extends BaseModel<ShopDiscountCode>
+ *
  * @property mixed $id
  * @property int $max_claims
  * @property Carbon $start_at
@@ -68,7 +70,7 @@ class ShopDiscountCode extends BaseModel
         $deduction = $this->deduction;
 
         if ($this->type_id === ShopDiscountCodeType::PERCENTAGE) {
-            if (!is_int($subtotal)) {
+            if (! is_int($subtotal)) {
                 $subtotal *= 100;
             }
 

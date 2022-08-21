@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Modules\Members\DailyUpdates;
 
-use Coeliac\Modules\Collection\Items\WhereToEat;
-use Tests\TestCase;
 use Coeliac\Modules\Blog\Models\Blog;
-use Coeliac\Modules\Member\Models\User;
 use Coeliac\Modules\Blog\Models\BlogTag;
-use Coeliac\Modules\Member\Models\DailyUpdateType;
-use Coeliac\Modules\Member\Models\DailyUpdatesQueue;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
+use Coeliac\Modules\Collection\Items\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatCounty;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatTown;
+use Coeliac\Modules\Member\Models\DailyUpdatesQueue;
+use Coeliac\Modules\Member\Models\DailyUpdateType;
+use Coeliac\Modules\Member\Models\User;
+use Tests\TestCase;
 
 class ItemCreatedListenerTest extends TestCase
 {

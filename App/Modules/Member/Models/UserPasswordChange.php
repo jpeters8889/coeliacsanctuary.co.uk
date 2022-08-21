@@ -7,6 +7,7 @@ namespace Coeliac\Modules\Member\Models;
 use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/** @extends BaseModel<UserPasswordChange> */
 class UserPasswordChange extends BaseModel
 {
     public const CREATED_AT = 'changed_at';

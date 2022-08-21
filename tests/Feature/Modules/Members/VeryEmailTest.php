@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members;
 
-use Tests\TestCase;
-use Spatie\TestTime\TestTime;
 use Coeliac\Modules\Member\Models\User;
-use Illuminate\Support\Facades\Notification;
 use Coeliac\Modules\Member\Notifications\ResendVerifyEmail;
+use Illuminate\Support\Facades\Notification;
+use Spatie\TestTime\TestTime;
+use Tests\TestCase;
 
 class VeryEmailTest extends TestCase
 {

@@ -6,13 +6,13 @@ namespace Coeliac\Common;
 
 use Carbon\Carbon;
 use Coeliac\Common\Models\Comment;
-use Illuminate\Support\Collection;
 use Coeliac\Common\Models\NotificationEmail;
-use JPeters\Architect\Dashboards\Cards\Card;
-use JPeters\Architect\Dashboards\Cards\Chart;
-use JPeters\Architect\Dashboards\AbstractDashboard;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\PlaceRequest;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
+use Illuminate\Support\Collection;
+use JPeters\Architect\Dashboards\AbstractDashboard;
+use JPeters\Architect\Dashboards\Cards\Card;
+use JPeters\Architect\Dashboards\Cards\Chart;
 
 class ArchitectDashboard extends AbstractDashboard
 {

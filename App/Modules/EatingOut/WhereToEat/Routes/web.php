@@ -2,23 +2,22 @@
 
 declare(strict_types=1);
 
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatAppController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatBrowseController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatCountyController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatDetailsController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatNationwideController;
 use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatRecommendAPlaceController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSearchController;
+use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatTownController;
 use Coeliac\Modules\EatingOut\WhereToEat\Middleware\BindCounty;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Router;
-use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatController;
-use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatAppController;
-use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatTownController;
-use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatCountyController;
-use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatSearchController;
-use Coeliac\Modules\EatingOut\WhereToEat\Controllers\WhereToEatPlaceRequestController;
 
 /* @var Router $router */
 
-if (!isset($router)) {
+if (! isset($router)) {
     return;
 }
 

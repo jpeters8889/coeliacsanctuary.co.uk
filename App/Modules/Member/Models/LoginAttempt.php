@@ -7,6 +7,8 @@ namespace Coeliac\Modules\Member\Models;
 use Coeliac\Base\Models\BaseModel;
 
 /**
+ * @extends BaseModel<LoginAttempt>
+ *
  * @property mixed       $failed
  * @property mixed       $success
  * @property string|null $response

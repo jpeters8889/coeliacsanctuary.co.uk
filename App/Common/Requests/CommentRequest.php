@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Requests;
 
-use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Base\Requests\ApiFormRequest;
 use Coeliac\Common\Contracts\HasComments;
-use Coeliac\Modules\Recipe\Models\Recipe;
+use Coeliac\Modules\Blog\Models\Blog;
 use Coeliac\Modules\EatingOut\Reviews\Models\Review;
+use Coeliac\Modules\Recipe\Models\Recipe;
 
 class CommentRequest extends ApiFormRequest
 {
     public function model(): HasComments
     {
+        /** @var class-string<HasComments> $models */
         $models = [
             'blog' => Blog::class,
             'recipe' => Recipe::class,

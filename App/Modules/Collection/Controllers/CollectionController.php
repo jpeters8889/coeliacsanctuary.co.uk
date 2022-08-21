@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Collection\Controllers;
 
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
-use Illuminate\Http\Request;
+use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Common\Response\Page;
 use Coeliac\Modules\Collection\Items\Item;
-use Coeliac\Modules\Collection\Repository;
-use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\Collection\Models\Collection;
 use Coeliac\Modules\Collection\Models\CollectionItem;
+use Coeliac\Modules\Collection\Repository;
 use Coeliac\Modules\Collection\Requests\CollectionShowRequest;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CollectionController extends BaseController
@@ -61,7 +61,7 @@ class CollectionController extends BaseController
     public function show(CollectionShowRequest $request): Response
     {
         /* @var Collection $collection */
-        abort_if(!$collection = $request->resolveItem(), 404, 'Sorry, this collection can\'t be found');
+        abort_if(! $collection = $request->resolveItem(), 404, 'Sorry, this collection can\'t be found');
 
         $items = $collection
             ->items

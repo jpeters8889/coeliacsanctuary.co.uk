@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Competition\Requests;
 
-use Coeliac\Modules\Competition\Models\Competition;
-use Illuminate\Validation\Rule;
-use Illuminate\Database\Query\Builder;
 use Coeliac\Base\Requests\ApiFormRequest;
-use Coeliac\Modules\Competition\Rules\ValidEntryType;
+use Coeliac\Modules\Competition\Models\Competition;
 use Coeliac\Modules\Competition\Models\CompetitionEntry;
+use Coeliac\Modules\Competition\Rules\ValidEntryType;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Validation\Rule;
 
 class CompetitionAdditionalEntryRequest extends ApiFormRequest
 {
@@ -46,7 +46,7 @@ class CompetitionAdditionalEntryRequest extends ApiFormRequest
                 'required',
                 Rule::exists('competition_entries')
                     ->where(fn (Builder $query) => $query->where('competition_id', $competition->id)
-                        ->where('entry_type', 'primary')),
+                    ->where('entry_type', 'primary')),
             ],
             'type' => [
                 'required',

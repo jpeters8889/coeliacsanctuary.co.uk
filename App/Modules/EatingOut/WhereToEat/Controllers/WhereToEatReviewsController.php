@@ -33,7 +33,7 @@ class WhereToEatReviewsController extends BaseController
             'approved' => $request->isReviewLive(),
         ]);
 
-        if ((!$request->isReviewLive() || $request->input('admin_review', false)) && count($request->input('images', [])) > 0) {
+        if ((! $request->isReviewLive() || $request->input('admin_review', false)) && count($request->input('images', [])) > 0) {
             $dispatcher->dispatch(new PrepareWhereToEatReviewImages($review, $request->input('images')));
         }
     }

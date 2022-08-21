@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Competition\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use Coeliac\Modules\Competition\Models\Competition;
+use Illuminate\Contracts\Validation\Rule;
 
 class ValidEntryType implements Rule
 {
@@ -26,7 +26,7 @@ class ValidEntryType implements Rule
           'shop_purchase' => 'enable_shop_purchase',
         ];
 
-        if (!array_key_exists($value, $map)) {
+        if (! array_key_exists($value, $map)) {
             return false;
         }
 

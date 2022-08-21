@@ -6,6 +6,7 @@ namespace Coeliac\Modules\Search\Models;
 
 use Coeliac\Base\Models\BaseModel;
 
+/** @extends BaseModel<SearchHistory> */
 class SearchHistory extends BaseModel
 {
     protected $casts = [

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\Login;
 
-use Tests\TestCase;
 use Coeliac\Modules\Member\Models\User;
+use Tests\TestCase;
 
 class LogoutTest extends TestCase
 {

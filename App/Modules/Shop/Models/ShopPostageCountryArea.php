@@ -8,6 +8,8 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
+ * @extends BaseModel<ShopPostageCountryArea>
+ *
  * @property mixed|string $delivery_timescale
  */
 class ShopPostageCountryArea extends BaseModel

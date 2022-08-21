@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Modules\Members\Dashboard;
 
-use Tests\Abstracts\DashboardTest;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Testing\TestResponse;
-use Illuminate\Support\Facades\Event;
-use Coeliac\Modules\Member\Models\User;
-use Illuminate\Support\Facades\Notification;
 use Coeliac\Modules\Member\Events\UserEmailChanged;
 use Coeliac\Modules\Member\Events\UserPasswordUpdated;
+use Coeliac\Modules\Member\Models\User;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Testing\TestResponse;
+use Tests\Abstracts\DashboardTest;
 
 class MemberDashboardUserDetailsTest extends DashboardTest
 {

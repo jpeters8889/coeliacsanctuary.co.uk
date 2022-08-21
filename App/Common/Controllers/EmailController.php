@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Coeliac\Common\Controllers;
 
-use Coeliac\Common\Requests\EmailRequest;
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Common\MjmlCompiler\CompilerContract;
 use Coeliac\Common\Notifications\Messages\MJMLMessage;
+use Coeliac\Common\Requests\EmailRequest;
 use Illuminate\Support\HtmlString;
 
 class EmailController extends BaseController
@@ -20,6 +20,6 @@ class EmailController extends BaseController
 
         $email = (new MJMLMessage())->mjml($email->template, $data);
 
-        return $compiler->compile($email->render())['html'];
+        return $compiler->compile((string) $email->render())['html'];
     }
 }

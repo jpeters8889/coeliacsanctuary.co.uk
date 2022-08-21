@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Member\Listeners;
 
 use Coeliac\Modules\Blog\Models\Blog;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
-use RuntimeException;
 use Coeliac\Modules\Blog\Models\BlogTag;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Database\Eloquent\Collection;
+use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\Member\Contracts\Updatable;
-use Coeliac\Modules\Member\Models\DailyUpdateType;
-use Coeliac\Modules\Member\Models\DailyUpdatesQueue;
 use Coeliac\Modules\Member\Events\DailyUpdateItemCreated;
+use Coeliac\Modules\Member\Models\DailyUpdatesQueue;
+use Coeliac\Modules\Member\Models\DailyUpdateType;
 use Coeliac\Modules\Member\Models\UserDailyUpdateSubscription;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use RuntimeException;
 
 class FindEligibleDailyUpdatesToQueue implements ShouldQueue
 {

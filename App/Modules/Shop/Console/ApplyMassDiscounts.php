@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Coeliac\Modules\Shop\Console;
 
 use Carbon\Carbon;
-use Illuminate\Console\Command;
-use Mattiasgeniar\Percentage\Percentage;
-use Coeliac\Modules\Shop\Models\ShopProduct;
 use Coeliac\Modules\Shop\Models\ShopCategory;
 use Coeliac\Modules\Shop\Models\ShopMassDiscount;
+use Coeliac\Modules\Shop\Models\ShopProduct;
+use Illuminate\Console\Command;
+use Mattiasgeniar\Percentage\Percentage;
 
 class ApplyMassDiscounts extends Command
 {

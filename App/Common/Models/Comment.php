@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
+ * @extends BaseModel<Comment>
+ *
  * @property string $name
  * @property string $email
  * @property string $comment

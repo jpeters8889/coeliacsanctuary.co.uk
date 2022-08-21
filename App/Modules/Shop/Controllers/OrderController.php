@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\Shop\Controllers;
 
-use Exception;
-use Illuminate\Http\Response;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Coeliac\Base\Controllers\BaseController;
-use Coeliac\Modules\Shop\Requests\OrderRequest;
 use Coeliac\Modules\Shop\Exceptions\PaymentException;
-use Coeliac\Modules\Shop\Requests\OrderUpdateRequest;
 use Coeliac\Modules\Shop\Payment\Processor as PaymentProcessor;
+use Coeliac\Modules\Shop\Requests\OrderRequest;
+use Coeliac\Modules\Shop\Requests\OrderUpdateRequest;
+use Exception;
+use Illuminate\Http\Response;
 
 class OrderController extends BaseController
 {
