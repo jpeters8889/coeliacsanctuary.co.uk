@@ -15,7 +15,6 @@ use Coeliac\Modules\Shop\ProductRepository;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Cache\Repository as CacheRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 
 class HomepageService
@@ -30,7 +29,7 @@ class HomepageService
         $this->configRepository = $configRepository;
     }
 
-    public function blogs(): EloquentCollection
+    public function blogs(): Collection
     {
         return $this->cacheRepository->rememberForever(
             $this->configRepository->get('coeliac.cache.blogs.homepage_count'),
@@ -38,7 +37,7 @@ class HomepageService
         );
     }
 
-    public function recipes(): EloquentCollection
+    public function recipes(): Collection
     {
         return $this->cacheRepository->rememberForever(
             $this->configRepository->get('coeliac.cache.recipes.homepage_count'),
@@ -46,7 +45,7 @@ class HomepageService
         );
     }
 
-    public function ratings(): EloquentCollection
+    public function ratings(): Collection
     {
         return $this->cacheRepository->remember(
             'homepage_latest_wte_ratings',
@@ -55,7 +54,7 @@ class HomepageService
         );
     }
 
-    public function latestPlaces(): EloquentCollection
+    public function latestPlaces(): Collection
     {
         return $this->cacheRepository->remember(
             'homepage_latest_wte_latest_places',
