@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property ShopPostageCountry        $postageCountry
  * @property mixed|string              $customer_id
  * @property mixed|string              $customer_address_id
- * @property ShopPayment               $payment
+ * @property ShopPayment | null               $payment
  * @property int                    $order_key
  * @property bool                      $newsletter_signup
  * @property ShopDiscountCode          $discountCode

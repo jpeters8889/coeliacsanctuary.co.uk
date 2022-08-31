@@ -2,14 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Coeliac\Common;
+namespace Coeliac\Common\Architect;
 
-use Carbon\Carbon;
 use Coeliac\Common\Models\Comment;
-use Coeliac\Common\Models\NotificationEmail;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\PlaceRequest;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
-use Illuminate\Support\Collection;
 use JPeters\Architect\Dashboards\AbstractDashboard;
 use JPeters\Architect\Dashboards\Cards\Card;
 use JPeters\Architect\Dashboards\Cards\Chart;
@@ -56,59 +53,9 @@ class ArchitectDashboard extends AbstractDashboard
                     return "<span class='text-xl {$class}'>{$count}</span>";
                 }),
 
-            $this->generateEmailChart(),
+            Chart::make('Emails', new EmailChart()),
 
-            $this->generateRatingChart(),
+            Chart::make('Submitted Ratings', new RatingsChart()),
         ];
-    }
-
-    protected function generateEmailChart(): Chart
-    {
-        $chart = Chart::generate('Emails');
-
-        $days = new Collection();
-
-        for ($x = 14; $x >= 0; --$x) {
-            $days->push(Carbon::today()->subDays($x));
-        }
-
-        $chart->addLabels($days->map(fn ($day) => $day->format('Y/m/d'))->toArray());
-
-        $counts = [];
-
-        foreach ($days as $day) {
-            $counts[] = NotificationEmail::query()
-                ->whereDate('created_at', '>=', $day->startOfDay())
-                ->whereDate('created_at', '<=', $day->endOfDay())
-                ->count();
-        }
-        $chart->addDataSet('Sent Emails', $counts, 'line');
-
-        return $chart;
-    }
-
-    protected function generateRatingChart(): Chart
-    {
-        $chart = Chart::generate('Submitted Ratings');
-
-        $days = new Collection();
-
-        for ($x = 14; $x >= 0; --$x) {
-            $days->push(Carbon::today()->subDays($x));
-        }
-
-        $chart->addLabels($days->map(fn ($day) => $day->format('Y/m/d'))->toArray());
-
-        $counts = [];
-
-        foreach ($days as $day) {
-            $counts[] = WhereToEatReview::query()
-                ->whereDate('created_at', '>=', $day->startOfDay())
-                ->whereDate('created_at', '<=', $day->endOfDay())
-                ->count();
-        }
-        $chart->addDataSet('Submitted Ratings', $counts, 'line');
-
-        return $chart;
     }
 }
