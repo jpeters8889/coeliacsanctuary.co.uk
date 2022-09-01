@@ -13,8 +13,8 @@ class BasketChart extends Chartable
     protected function getData(Carbon $start, Carbon $end): int|float|array
     {
         $baskets = ShopOrder::query()
-            ->whereDate('created_at', '>=', $start)
-            ->whereDate('created_at', '<=', $end)
+            ->where('created_at', '>=', $start)
+            ->where('created_at', '<=', $end)
             ->get();
 
         return [$baskets->count(), $baskets->whereNotNull('order_key')->count()];

@@ -15,8 +15,8 @@ class IncomeChart extends Chartable
         $total = 0;
 
         ShopOrder::query()
-            ->whereDate('created_at', '>=', $start)
-            ->whereDate('created_at', '<=', $end)
+            ->where('created_at', '>=', $start)
+            ->where('created_at', '<=', $end)
             ->whereNotNull('order_key')
             ->with('payment')
             ->get()
