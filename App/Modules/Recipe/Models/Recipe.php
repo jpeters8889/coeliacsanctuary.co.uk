@@ -87,7 +87,7 @@ class Recipe extends BaseModel implements HasComments
     {
         return RecipeAllergen::query()
             ->get()
-            ->reject(fn(RecipeAllergen $allergen) => $this->allergens->where('allergen', $allergen->allergen)->count() > 0);
+            ->reject(fn (RecipeAllergen $allergen) => $this->allergens->where('allergen', $allergen->allergen)->count() > 0);
     }
 
     public function features(): BelongsToMany
