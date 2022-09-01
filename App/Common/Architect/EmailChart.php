@@ -13,8 +13,8 @@ class EmailChart extends Chartable
     protected function getData(Carbon $start, Carbon $end): int|float
     {
         return NotificationEmail::query()
-            ->whereDate('created_at', '>=', $start)
-            ->whereDate('created_at', '<=', $end)
+            ->where('created_at', '>=', $start)
+            ->where('created_at', '<=', $end)
             ->count();
     }
 
