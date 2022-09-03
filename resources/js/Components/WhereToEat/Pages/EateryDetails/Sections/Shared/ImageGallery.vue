@@ -36,6 +36,7 @@
         <div class="relative">
           <img
             :src="images[displayImage].path"
+            style="max-height: 90vh;"
             alt=""
           >
           <div
