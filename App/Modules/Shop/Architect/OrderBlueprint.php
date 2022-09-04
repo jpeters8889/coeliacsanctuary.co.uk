@@ -98,6 +98,14 @@ class OrderBlueprint extends Blueprint
         return 'shop-orders';
     }
 
+    public function button(): array
+    {
+        return [
+            'label' => 'Print All Orders',
+            'link' => '/page/dispatch-slips/active'
+        ];
+    }
+
     public function filters(): array
     {
         return [
