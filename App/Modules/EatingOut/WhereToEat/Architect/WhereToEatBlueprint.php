@@ -161,6 +161,7 @@ class WhereToEatBlueprint extends Blueprint
 
             Group::generate('features')
                 ->setPivotRelationship('features')
+                ->hideOnIndex()
                 ->wrapPlans()
                 ->plans($this->getFeatures()),
         ];
