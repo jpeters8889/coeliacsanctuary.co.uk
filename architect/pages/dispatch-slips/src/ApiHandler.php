@@ -4,24 +4,29 @@ declare(strict_types=1);
 
 namespace Coeliac\Architect\Pages\DispatchSlips;
 
-use Dompdf\Dompdf;
-use Dompdf\Options;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Coeliac\Modules\Shop\Models\ShopOrder;
 use Coeliac\Modules\Shop\Models\ShopOrderState;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ApiHandler
 {
     public function render(Dompdf $pdf, ResponseFactory $factory, $ids)
     {
+        $orders = ShopOrder::query()
+            ->with(['address', 'payment', 'items'])
+            ->where('state_id', '!=', ShopOrderState::STATE_BASKET)
+            ->when($ids === 'active', fn (Builder $query) => $query->where('state_id', ShopOrderState::STATE_PAID))
+            ->when($ids !== 'active', fn (Builder $query) => $query->whereIn('id', explode(',', $ids)))
+            ->get();
+
         $pdf->setOptions(new Options(['isRemoteEnabled' => true]))
             ->loadHtml($factory->view('architect.shop-dispatch-slip', [
-                'orders' => ShopOrder::query()
-                    ->where('state_id', '!=', ShopOrderState::STATE_BASKET)
-                    ->whereIn('id', explode(',', $ids))
-                    ->get(),
+                'orders' => $orders,
             ])->content());
 
         $pdf->setPaper('A4')->render();
@@ -35,10 +40,12 @@ class ApiHandler
 
     public function printed(Request $request)
     {
+        $ids = $request->get('id');
+
         ShopOrder::query()
-            ->where('state_id', '!=', ShopOrderState::STATE_BASKET)
-            ->whereIn('id', explode(',', (string) $request->input('id')))
-            ->get()
+            ->when($ids === 'active', fn (Builder $query) => $query->where('state_id', ShopOrderState::STATE_PAID))
+            ->when($ids !== 'active', fn (Builder $query) => $query->whereIn('id', explode(',', $ids)))
+            ->where('state_id', '!=', ShopOrderState::STATE_COMPLETE)
             ->each(fn (ShopOrder $order) => $order->markAs(ShopOrderState::STATE_PRINTED));
     }
 }
