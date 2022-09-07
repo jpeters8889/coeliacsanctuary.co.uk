@@ -18,7 +18,7 @@
       v-if="hasHalf"
       :icon="['fas', halfStar]"
     />
-    <template v-if="showAll && (wholeNumber < 5 || (wholeNumber < 4 && hasHalf))">
+    <template v-if="shouldShowEmptyStars()">
       <font-awesome-icon
         v-for="n in remainingStars"
         :key="n"
@@ -60,7 +60,11 @@ export default {
 
   computed: {
     remainingStars() {
-      const remaining = 5 - this.wholeNumber;
+      let remaining = 5 - this.wholeNumber;
+
+      if (this.hasHalf) {
+        remaining -= 1;
+      }
 
       return new Array(remaining);
     },
@@ -87,6 +91,24 @@ export default {
     if (remainingNumber >= 7) {
       this.wholeNumber += 1;
     }
+  },
+
+  methods: {
+    shouldShowEmptyStars() {
+      if (!this.showAll) {
+        return false;
+      }
+
+      if (this.wholeNumber === 5) {
+        return false;
+      }
+
+      if (this.wholeNumber === 4 && this.hasHalf) {
+        return false;
+      }
+
+      return true;
+    },
   },
 };
 </script>
