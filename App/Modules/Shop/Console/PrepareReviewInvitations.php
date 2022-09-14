@@ -24,11 +24,9 @@ class PrepareReviewInvitations extends Command
     protected function sendingRules(): Collection
     {
         return new Collection([
-            ['date' => Carbon::now()->subWeek()->toImmutable(), 'areas' => [ShopPostageCountryArea::UK]],
-            ['date' => Carbon::now()->subWeeks(2)->toImmutable(), 'areas' => [ShopPostageCountryArea::EUROPE]],
-            ['date' => Carbon::now()->subWeeks(3)->toImmutable(), 'areas' => [
-                ShopPostageCountryArea::NORTH_AMERICA, ShopPostageCountryArea::OCEANA,],
-            ],
+            ['date' => Carbon::now()->subDays(10)->toImmutable(), 'areas' => [ShopPostageCountryArea::UK], 'text' => '10 days'],
+            ['date' => Carbon::now()->subWeeks(2)->toImmutable(), 'areas' => [ShopPostageCountryArea::EUROPE], 'text' => '2 weeks'],
+            ['date' => Carbon::now()->subWeeks(3)->toImmutable(), 'areas' => [ShopPostageCountryArea::NORTH_AMERICA, ShopPostageCountryArea::OCEANA], 'text' => '3 weeks'],
         ]);
     }
 
@@ -36,15 +34,17 @@ class PrepareReviewInvitations extends Command
     {
         $this->totalSent = 0;
 
-        $this->sendingRules()->each(fn ($rule) => $this->getOrders($rule)->each(function (ShopOrder $order) use ($dispatcher) {
-            if ($this->option('testing')) {
-                $this->info("Will send order {$order->id} to {$order->user->name}");
-            } else {
-                $dispatcher->dispatch(new SendReviewInvitation($order));
-            }
+        $this->sendingRules()
+            ->each(fn ($rule) => $this->getOrders($rule)
+                ->each(function (ShopOrder $order) use ($dispatcher, $rule) {
+                    if ($this->option('testing')) {
+                        $this->info("Will send order {$order->id} to {$order->user->name}");
+                    } else {
+                        $dispatcher->dispatch(new SendReviewInvitation($order, $rule['text']));
+                    }
 
-            $this->totalSent++;
-        }));
+                    $this->totalSent++;
+                }));
 
         $this->info("{$this->totalSent} Invitations Sent");
     }

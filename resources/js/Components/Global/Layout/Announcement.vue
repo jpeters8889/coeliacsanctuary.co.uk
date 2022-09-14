@@ -19,15 +19,12 @@
       v-if="showModal"
       to="modal"
     >
-      <modal modal-classes="text-center">
-        <h2 class="text-lg mb-2 font-semibold">
-          <slot
-            name="title"
-            class="mb-2 font-semibold"
-          />
-        </h2>
-
-        <div>
+      <modal
+        modal-classes="text-center w-11/12"
+        :title="title"
+        small
+      >
+        <div class="p-4 space-y-4">
           <slot />
         </div>
       </modal>
@@ -45,7 +42,15 @@ export default {
   components: {
     modal: Modal,
   },
+
   mixins: [GoogleEvents],
+
+  props: {
+    title: {
+      required: true,
+      type: String,
+    },
+  },
 
   data: () => ({
     showModal: false,

@@ -13,14 +13,14 @@ class SendReviewInvitation
 {
     protected ShopOrderReviewInvitation $invitation;
 
-    public function __construct(protected ShopOrder $order)
+    public function __construct(protected ShopOrder $order, protected ?string $delayText = null)
     {
         $this->invitation = $order->reviewInvitation()->firstOrCreate();
     }
 
     public function handle()
     {
-        $this->order->user->notify(new LeaveAReviewNotification($this->invitation));
+        $this->order->user->notify(new LeaveAReviewNotification($this->invitation, $this->delayText));
 
         $this->invitation->update([
             'sent' => true,

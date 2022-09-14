@@ -45,13 +45,13 @@ class PrepareInvitationsJobTest extends TestCase
     }
 
     /** @test */
-    public function itQueuesAnInvitationAWeekAfterItWasSent(): void
+    public function itQueuesAnInvitation10DaysAfterItWasSent(): void
     {
         TestTime::freeze();
 
         $this->createOrder();
 
-        TestTime::addWeek()->subMinute();
+        TestTime::addDays(10)->subMinute();
 
         Bus::assertNothingDispatched();
 
@@ -117,7 +117,7 @@ class PrepareInvitationsJobTest extends TestCase
 
         $order = $this->createOrder();
 
-        TestTime::addWeek()->addMinute();
+        TestTime::addDays(10)->addMinute();
 
         $this->assertEmpty(ShopOrderReviewInvitation::all());
 
@@ -135,7 +135,7 @@ class PrepareInvitationsJobTest extends TestCase
 
         $this->createOrder();
 
-        TestTime::addWeek()->addMinute();
+        TestTime::addDays(10)->addMinute();
 
         $this->artisan('coeliac:send-shop-review-invitations');
 
