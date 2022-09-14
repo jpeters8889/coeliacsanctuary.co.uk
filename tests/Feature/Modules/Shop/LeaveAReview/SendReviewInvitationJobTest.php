@@ -84,6 +84,21 @@ class SendReviewInvitationJobTest extends TestCase
     }
 
     /** @test */
+    public function itHasTheDelayTextInTheMessageBody(): void
+    {
+        Bus::dispatchNow(new SendReviewInvitation($this->order, '7 days'));
+
+        Notification::assertSentTo($this->user, LeaveAReviewNotification::class, function (LeaveAReviewNotification $notification) {
+            $this->assertStringContainsString(
+                'This email was automatically sent 7 days after your order was marked as dispatched',
+                $notification->toMail($this->user)->render()
+            );
+
+            return true;
+        });
+    }
+
+    /** @test */
     public function itHasALinkToLeaveAReviewInTheEmailBody(): void
     {
         Bus::dispatchNow(new SendReviewInvitation($this->order));

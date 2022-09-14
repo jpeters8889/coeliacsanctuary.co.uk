@@ -15,7 +15,7 @@ use Illuminate\Routing\UrlGenerator;
 
 class LeaveAReviewNotification extends Notification
 {
-    public function __construct(protected ShopOrderReviewInvitation $invitation)
+    public function __construct(protected ShopOrderReviewInvitation $invitation, protected ?string $delayText = null)
     {
         //
     }
@@ -43,6 +43,7 @@ class LeaveAReviewNotification extends Notification
                 'reviewLink' => $this->buildReviewLink($notifiable),
                 'notifiable' => $notifiable,
                 'reason' => 'to invite you to leave feedback on your recent purchase.',
+                'delayText' => $this->delayText,
                 'relatedTitle' => 'Products',
                 'relatedItems' => NotificationRelatedProducts::get(),
             ]);
