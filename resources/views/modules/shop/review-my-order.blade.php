@@ -22,11 +22,21 @@
                     people find our products and their experience with them!
                 </p>
                 @if(count($products) > 1)
-                <p>
-                    You can leave feedback for as many or as few of the products you ordered, when your finished, just
-                    hit the <strong>"Submit My Review"</strong> button at the bottom!
-                </p>
+                    <p>
+                        You can leave feedback for as many or as few of the products you ordered, when your finished,
+                        just
+                        hit the <strong>"Submit My Review"</strong> button at the bottom!
+                    </p>
                 @endif
+
+                <p class="font-semibold">
+                    If you haven't received your order yet, please
+                    <contact-trigger class="text-blue-dark underline cursor-pointer" inline>get in touch</contact-trigger>
+                    quoting your order number above, and I'll endeavour to rectify this. Our review invitation emails
+                    are automatically sent at least 10 days after your order was marked as dispatched (This will vary for
+                    orders outside the UK) and in 99% of cases you should have received it by now, but things can sometimes
+                    get delayed with Royal Mail.
+                </p>
                 <p>
                     Thank you again, Alison - Coeliac Sanctuary Owner.
                 </p>
@@ -34,9 +44,9 @@
         </div>
 
         <shop-review-my-order
-            invitation="{{ $invitation }}"
-            :products="@json($products)"
-            name="{{ $name }}"
+                invitation="{{ $invitation }}"
+                :products="@json($products)"
+                name="{{ $name }}"
         />
     </div>
 @endsection
