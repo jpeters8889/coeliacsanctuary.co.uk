@@ -56,13 +56,13 @@ class AnnouncementTest extends TestCase
 
         $this->get('/')
             ->assertStatus(200)
-            ->assertSee('<global-layout-announcement>', false)
+            ->assertSee('<global-layout-announcement', false)
             ->assertSee($announcement->title, false)
             ->assertSee($announcement->text, false);
 
         $this->get('/about')
             ->assertStatus(200)
-            ->assertSee('<global-layout-announcement>', false)
+            ->assertSee('<global-layout-announcement', false)
             ->assertSee($announcement->title, false)
             ->assertSee($announcement->text, false);
     }
