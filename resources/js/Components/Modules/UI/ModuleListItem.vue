@@ -59,23 +59,25 @@
         </template>
 
         <template v-if="module === 'recipes'">
-          <h4 class="">
-            This recipe is:
-          </h4>
-          <ul class="flex flex-wrap text-xs mb-2">
-            <li
-              v-for="feature in item.features"
-              :key="feature.id"
-              class="mr-2 text-blue-dark"
-            >
-              <a
-                class="text-blue-dark hover:text-black"
-                :href="filteredUrl('feature', feature.feature)"
+          <template v-if="item.features.length">
+            <h4 class="">
+              This recipe is:
+            </h4>
+            <ul class="flex flex-wrap text-xs mb-2">
+              <li
+                v-for="feature in item.features"
+                :key="feature.id"
+                class="mr-2 text-blue-dark"
               >
-                {{ feature.feature }}
-              </a>
-            </li>
-          </ul>
+                <a
+                  class="text-blue-dark hover:text-black"
+                  :href="filteredUrl('feature', feature.feature)"
+                >
+                  {{ feature.feature }}
+                </a>
+              </li>
+            </ul>
+          </template>
 
           <p class="mb-1 flex font-semibold">
             Makes {{ item.serving_size }}<br>
