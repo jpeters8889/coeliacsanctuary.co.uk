@@ -9,17 +9,19 @@
 
             <div class="flex flex-col lg:flex-row lg:space-x-2">
                 <div class="w-full lg:w-1/2">
-                    <h3 class="font-semibold text-base text-grey-darkest">This recipe is...</h3>
-                    <ul class="flex flex-row flex-wrap text-sm leading-tight">
-                        @foreach($recipe->features as $feature)
-                            <li>
-                                <a class="font-semibold text-blue-dark hover:text-grey-darker"
-                                   href="{{ '/recipe?o='.base64_encode('filter[feature]='.$feature->feature) }}"
-                                >
-                                    {{ $feature->feature  }}</a>@if(!$loop->last),&nbsp;@endif
-                            </li>
-                        @endforeach
-                    </ul>
+                    @if(count($recipe->features) > 0)
+                        <h3 class="font-semibold text-base text-grey-darkest">This recipe is...</h3>
+                        <ul class="flex flex-row flex-wrap text-sm leading-tight">
+                            @foreach($recipe->features as $feature)
+                                <li>
+                                    <a class="font-semibold text-blue-dark hover:text-grey-darker"
+                                       href="{{ '/recipe?o='.base64_encode('filter[feature]='.$feature->feature) }}"
+                                    >
+                                        {{ $feature->feature  }}</a>@if(!$loop->last),&nbsp;@endif
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
 
                 <div class="w-full lg:w-1/2 bg-red-light bg-opacity-15 rounded p-3">
