@@ -58,14 +58,19 @@
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53299243-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5PWV6VHY13"></script>
+
     <script>
         window.dataLayer = window.dataLayer || [];
+
         function gtag(){
             dataLayer.push(arguments);
         }
+
         gtag('js', new Date());
 
         gtag('config', 'UA-53299243-1');
+        gtag('config', 'G-5PWV6VHY13'); // GA-4
     </script>
 
     @yield('headerJavaScript', '')
