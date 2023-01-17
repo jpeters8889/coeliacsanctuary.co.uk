@@ -63,6 +63,25 @@ class PrepareInvitationsJobTest extends TestCase
     }
 
     /** @test */
+    public function itDoesntQueueCancelledOrders(): void
+    {
+        $this->build(ShopOrder::class)
+            ->asCancelled()
+            ->create();
+
+        TestTime::addDays(10)->subMinute();
+
+        Bus::assertNothingDispatched();
+
+        TestTime::addMinutes(2);
+
+        $this->artisan('coeliac:send-shop-review-invitations')
+            ->expectsOutput('0 Invitations Sent');
+
+        Bus::assertNothingDispatched();
+    }
+
+    /** @test */
     public function itItDoesntQueueInvitationsIfTheTestFlagIsSet(): void
     {
         TestTime::freeze();

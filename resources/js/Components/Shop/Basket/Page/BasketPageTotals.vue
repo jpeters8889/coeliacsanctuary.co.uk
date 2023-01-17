@@ -29,6 +29,7 @@
         Postage to
         <form-select
           v-if="!disabledChange"
+          disabled
           required
           name="country"
           :options="countries"
@@ -64,6 +65,15 @@
         class="text-right"
         v-html="formatPrice(total)"
       />
+    </tr>
+    <tr>
+      <td
+        colspan="2"
+        class="py-2 font-semibold text-red text-base"
+      >
+        Sorry, due issues with international postage at Royal Mail, we are currently unable to send orders overseas,
+        this includes orders to the Republic of Ireland.
+      </td>
     </tr>
   </table>
 </template>
@@ -147,26 +157,30 @@ export default {
 
   methods: {
     getCountries() {
-      coeliac().request().get('/api/shop/countries')
-        .then((response) => {
-          if (response.status === 200) {
-            this.$set(this, 'countries', response.data);
-          }
-        });
+      this.$set(this, 'countries', [{
+        value: 1,
+        label: 'United Kingdom',
+      }]);
+
+      // coeliac().request().get('/api/shop/countries')
+      //   .then((response) => {
+      //     if (response.status === 200) {
+      //       this.$set(this, 'countries', response.data);
+      //     }
+      //   });
     },
 
     selectCountry(country) {
-      coeliac().request().post('/api/shop/countries', {
-        country,
-      }).then((response) => {
-        if (response.status === 200) {
-          this.$root.$emit('basket-updated');
+      coeliac().request().post('/api/shop/countries', { country })
+        .then((response) => {
+          if (response.status === 200) {
+            this.$root.$emit('basket-updated');
 
-          return;
-        }
+            return;
+          }
 
-        coeliac().error('Sorry, there was an error selecting the country');
-      })
+          coeliac().error('Sorry, there was an error selecting the country');
+        })
         .catch(() => {
           coeliac().error('Sorry, there was an error selecting the country');
         });

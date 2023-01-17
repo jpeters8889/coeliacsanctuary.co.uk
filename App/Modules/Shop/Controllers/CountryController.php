@@ -27,6 +27,8 @@ class CountryController extends BaseController
 
     public function update(CountrySelectRequest $request, Basket $basket): array
     {
+        abort(400); // temporary due to royal mail not accepting internation orders.
+
         abort_if(! $basket->resolve(), 400);
 
         $basket->model()->update(['postage_country_id' => $request->input('country')]);

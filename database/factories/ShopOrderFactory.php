@@ -50,6 +50,14 @@ class ShopOrderFactory extends Factory
         ]);
     }
 
+    public function asCancelled()
+    {
+        return $this->state(fn () => [
+            'state_id' => ShopOrderState::STATE_CANCELLED,
+            'order_key' => random_int(10000000, 99999999),
+        ]);
+    }
+
     public function asCompleted()
     {
         return $this->state(fn () => [
