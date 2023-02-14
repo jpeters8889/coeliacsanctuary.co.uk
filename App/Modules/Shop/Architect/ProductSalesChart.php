@@ -22,9 +22,9 @@ class ProductSalesChart extends Chartable
         6 => '#FFB6C1', // pens
         7 => '#f5f5f5', // bags
         8 => '#ecd14a', // coeliac other cards
-        9 => '#cccccc', // lanyard
         10 => '#186ba3', // keyrings
         11 => '#ecd14a', // coeliac plus
+        12 => '#cccccc', // lanyard
     ];
 
     protected array $backgroundColours = [];
