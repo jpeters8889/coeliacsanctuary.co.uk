@@ -71,10 +71,7 @@ class ProductSalesChart extends Chartable
         $start = $this->dateRange['start']->clone()->startOf($this->dateRange['unit']);
         $end = $this->dateRange['end']->clone()->endOf($this->dateRange['unit']);
 
-        return $this->getData(
-            $start,
-            $end
-        );
+        return $this->getData($start, $end);
     }
 
     protected function getData(Carbon $start, Carbon $end): int|float|array
@@ -82,14 +79,20 @@ class ProductSalesChart extends Chartable
         $products = [];
 
         $this->products()->each(function (array $product) use (&$products, $start, $end) {
-            $count = ShopOrderItem::query()
+            $count = 0;
+
+            $item = ShopOrderItem::query()
                 ->where('product_id', $product['id'])
                 ->whereHas('order', fn (Builder $query) => $query->whereHas('payment'))
                 ->where('created_at', '>=', $start)
                 ->where('created_at', '<=', $end)
-                ->count();
+                ->get(['quantity']);
 
-            if ($count) {
+            if ($item) {
+                $item->each(function (ShopOrderItem $item) use (&$count) {
+                    $count += $item->quantity;
+                });
+
                 $products[] = $count;
                 $this->backgroundColours[] = $this->colours[$product['category_id']];
             }
