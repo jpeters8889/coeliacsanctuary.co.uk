@@ -94,7 +94,7 @@ class ProductSalesChart extends Chartable
                 });
 
                 $products[] = $count;
-                $this->backgroundColours[] = $this->colours[$product['category_id']];
+                $this->backgroundColours[] = data_get($this->colours, [$product['category_id'], '#cccccc');
             }
         });
 
