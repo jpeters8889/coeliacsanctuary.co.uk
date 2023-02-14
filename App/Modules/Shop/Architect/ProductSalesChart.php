@@ -79,8 +79,6 @@ class ProductSalesChart extends Chartable
         $products = [];
 
         $this->products()->each(function (array $product) use (&$products, $start, $end) {
-            dump($product['title']);
-
             $item = ShopOrderItem::query()
                 ->where('product_id', $product['id'])
                 ->whereHas('order', fn (Builder $query) => $query->whereHas('payment'))
@@ -88,10 +86,8 @@ class ProductSalesChart extends Chartable
                 ->where('created_at', '<=', $end)
                 ->get(['quantity']);
 
-            if ($item) {
+            if ($item->count() > 0) {
                 $count = $item->map(fn (ShopOrderItem $item) => $item->quantity)->toArray();
-
-                dump(array_sum($count));
 
                 $products[] = array_sum($count);
                 $this->backgroundColours[] = data_get($this->colours, $product['category_id'], '#cccccc');
