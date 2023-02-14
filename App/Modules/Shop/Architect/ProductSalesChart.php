@@ -78,9 +78,9 @@ class ProductSalesChart extends Chartable
     {
         $products = [];
 
-        dump($product['title']);
-
         $this->products()->each(function (array $product) use (&$products, $start, $end) {
+            dump($product['title']);
+
             $item = ShopOrderItem::query()
                 ->where('product_id', $product['id'])
                 ->whereHas('order', fn (Builder $query) => $query->whereHas('payment'))
