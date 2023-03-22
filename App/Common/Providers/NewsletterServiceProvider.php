@@ -32,6 +32,8 @@ use Coeliac\Common\Mailcoach\Components\Editable\ImageWithButton as EditorImageW
 use Coeliac\Common\Mailcoach\Components\Compiled\ImageWithButton as CompiledImageWithButton;
 use Coeliac\Common\Mailcoach\Components\MainEditor;
 use Coeliac\Common\Mailcoach\Editor;
+use Coeliac\Common\Mailcoach\Policies\AutomationPolicy;
+use Coeliac\Common\Mailcoach\Policies\UserPolicy;
 use Coeliac\Common\Newsletter\NewsletterService;
 use Coeliac\Common\Newsletter\Services\Mailcoach;
 use Coeliac\Modules\Member\Models\User;
@@ -41,9 +43,17 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
+use Spatie\Mailcoach\Domain\Automation\Policies\AutomationPolicy as SpatieAutomationPolicy;
+use Spatie\Mailcoach\Domain\Settings\Policies\UserPolicy as SpatieUserPolicy;
 
 class NewsletterServiceProvider extends ServiceProvider
 {
+    public function register()
+    {
+        $this->app->bind(SpatieAutomationPolicy::class, AutomationPolicy::class);
+        $this->app->bind(SpatieUserPolicy::class, UserPolicy::class);
+    }
+
     public function boot(): void
     {
         /** @phpstan-ignore-next-line  */
