@@ -21,7 +21,6 @@ class NewsletterCompiler
 
     protected function getBlocks(): array
     {
-
         $data = json_decode($this->campaign->getStructuredHtml(), true);
 
         if (!isset($data['blocks'])) {

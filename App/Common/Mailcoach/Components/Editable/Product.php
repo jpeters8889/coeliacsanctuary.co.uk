@@ -28,7 +28,7 @@ class Product extends Component
         $this->productId = $this->properties['content'] ?? null;
         $this->results = new Collection();
 
-        if($this->productId) {
+        if ($this->productId) {
             $this->product = ShopProduct::withLiveProducts()->find($this->productId);
         }
     }
@@ -38,7 +38,7 @@ class Product extends Component
         $this->productId = $this->properties['content'] ?? null;
         $this->results = new Collection();
 
-        if($this->productId) {
+        if ($this->productId) {
             $this->product = ShopProduct::withLiveProducts()->find($this->productId);
         }
     }
@@ -59,7 +59,8 @@ class Product extends Component
     {
         $this->results = ShopProduct::withLiveProducts()
             ->with(['images', 'variants', 'prices'])
-            ->where(fn(Builder $builder) => $builder
+            ->where(
+                fn (Builder $builder) => $builder
                 ->where('id', $this->search)
                 ->orWhere('title', 'LIKE', "%{$this->search}%")
             )

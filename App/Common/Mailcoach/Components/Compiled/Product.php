@@ -19,7 +19,7 @@ class Product extends Component
     {
         $this->productId = $this->properties['content'] ?? null;
 
-        if($this->productId) {
+        if ($this->productId) {
             $this->product = ShopProduct::withLiveProducts()->find($this->productId);
         }
     }
@@ -28,7 +28,7 @@ class Product extends Component
     {
         $this->productId = $this->properties['content'] ?? null;
 
-        if($this->productId) {
+        if ($this->productId) {
             $this->product = ShopProduct::withLiveProducts()->find($this->productId);
         }
     }

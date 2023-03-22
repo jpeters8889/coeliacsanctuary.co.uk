@@ -19,7 +19,7 @@ class Recipe extends Component
     {
         $this->recipeId = $this->properties['content'] ?? null;
 
-        if($this->recipeId) {
+        if ($this->recipeId) {
             $this->recipe = RecipeModel::query()->where('live', true)->find($this->recipeId);
         }
     }
@@ -28,7 +28,7 @@ class Recipe extends Component
     {
         $this->recipeId = $this->properties['content'] ?? null;
 
-        if($this->recipeId) {
+        if ($this->recipeId) {
             $this->recipe = RecipeModel::query()->where('live', true)->find($this->recipeId);
         }
     }

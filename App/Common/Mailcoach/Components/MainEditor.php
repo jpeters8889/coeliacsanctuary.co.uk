@@ -142,7 +142,7 @@ class MainEditor extends Component
         $data = json_decode($this->campaign->getStructuredHtml(), true);
 
         $blocks = collect($data['blocks'])
-            ->reject(fn($block) => $block['id'] === $blockId)
+            ->reject(fn ($block) => $block['id'] === $blockId)
             ->values();
 
         $this->campaign->update(['structured_html' => ['blocks' => $blocks]]);
@@ -156,7 +156,7 @@ class MainEditor extends Component
     {
         $blocks = json_decode($this->campaign->getStructuredHtml(), true)['blocks'];
 
-        $ids = array_map(fn($block) => $block['id'], $blocks);
+        $ids = array_map(fn ($block) => $block['id'], $blocks);
 
         $index = array_search($blockId, $ids);
 

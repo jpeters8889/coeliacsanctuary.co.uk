@@ -29,7 +29,7 @@ class Eatery extends Component
         $this->eateryId = $this->properties['content'] ?? null;
         $this->results = new Collection();
 
-        if($this->eateryId) {
+        if ($this->eateryId) {
             $this->eatery = WhereToEat::query()
                 ->where('live', true)
                 ->with(['town', 'county', 'country'])
@@ -42,7 +42,7 @@ class Eatery extends Component
         $this->eateryId = $this->properties['content'] ?? null;
         $this->results = new Collection();
 
-        if($this->eateryId) {
+        if ($this->eateryId) {
             $this->eatery = WhereToEat::query()
                 ->where('live', true)
                 ->with(['town', 'county', 'country'])
@@ -67,10 +67,11 @@ class Eatery extends Component
         $this->results = WhereToEat::query()
             ->with(['town', 'county', 'country'])
             ->where('live', true)
-            ->where(fn(Builder $builder) => $builder
+            ->where(
+                fn (Builder $builder) => $builder
                 ->where('wheretoeat.id', $this->search)
                 ->orWhere('name', 'LIKE', "%{$this->search}%")
-                ->orWhereRaw('(select wt.town as wheretoeat_town from wheretoeat_towns wt where wt.id = wheretoeat.town_id) LIKE ?',  ["%{$this->search}%"])
+                ->orWhereRaw('(select wt.town as wheretoeat_town from wheretoeat_towns wt where wt.id = wheretoeat.town_id) LIKE ?', ["%{$this->search}%"])
             )
             ->where('type_id', 1)
             ->latest('wheretoeat.created_at')

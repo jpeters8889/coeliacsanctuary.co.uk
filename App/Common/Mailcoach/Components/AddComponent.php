@@ -24,7 +24,7 @@ class AddComponent extends Component
 
     public function addComponent($blockId, $component, $index)
     {
-        if($blockId !== $this->blockId && $index !== $this->index) {
+        if ($blockId !== $this->blockId && $index !== $this->index) {
             return;
         }
 

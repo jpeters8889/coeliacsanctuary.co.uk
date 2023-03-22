@@ -19,7 +19,7 @@ class Blog extends Component
     {
         $this->blogId = $this->properties['content'] ?? null;
 
-        if($this->blogId) {
+        if ($this->blogId) {
             $this->blog = BlogModel::query()->where('live', true)->find($this->blogId);
         }
     }
@@ -28,7 +28,7 @@ class Blog extends Component
     {
         $this->blogId = $this->properties['content'] ?? null;
 
-        if($this->blogId) {
+        if ($this->blogId) {
             $this->blog = BlogModel::query()->where('live', true)->find($this->blogId);
         }
     }

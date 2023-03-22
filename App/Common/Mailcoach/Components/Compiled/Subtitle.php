@@ -16,7 +16,7 @@ class Subtitle extends Component
     {
         $this->title = $this->properties['content'] ?? '';
 
-        if(isset($this->properties['link'])) {
+        if (isset($this->properties['link'])) {
             $this->link = $this->properties['link'];
         }
     }
@@ -25,7 +25,7 @@ class Subtitle extends Component
     {
         $this->title = $this->properties['content'] ?? '';
 
-        if(isset($this->properties['link'])) {
+        if (isset($this->properties['link'])) {
             $this->link = $this->properties['link'];
         }
     }

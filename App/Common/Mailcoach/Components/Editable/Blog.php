@@ -28,7 +28,7 @@ class Blog extends Component
         $this->blogId = $this->properties['content'] ?? null;
         $this->results = new Collection();
 
-        if($this->blogId) {
+        if ($this->blogId) {
             $this->blog = BlogModel::query()->where('live', true)->find($this->blogId);
         }
     }
@@ -38,7 +38,7 @@ class Blog extends Component
         $this->blogId = $this->properties['content'] ?? null;
         $this->results = new Collection();
 
-        if($this->blogId) {
+        if ($this->blogId) {
             $this->blog = BlogModel::query()->where('live', true)->find($this->blogId);
         }
     }
@@ -60,7 +60,8 @@ class Blog extends Component
         $this->results = BlogModel::query()
             ->with(['images'])
             ->where('live', true)
-            ->where(fn(Builder $builder) => $builder
+            ->where(
+                fn (Builder $builder) => $builder
                 ->where('id', $this->search)
                 ->orWhere('title', 'LIKE', "%{$this->search}%")
             )

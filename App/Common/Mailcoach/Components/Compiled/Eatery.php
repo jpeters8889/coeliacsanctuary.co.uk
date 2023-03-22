@@ -19,7 +19,7 @@ class Eatery extends Component
     {
         $this->eateryId = $this->properties['content'] ?? null;
 
-        if($this->eateryId) {
+        if ($this->eateryId) {
             $this->eatery = WhereToEat::query()
                 ->with(['town', 'county', 'country', 'userReviews'])
                 ->where('live', true)
@@ -31,7 +31,7 @@ class Eatery extends Component
     {
         $this->eateryId = $this->properties['content'] ?? null;
 
-        if($this->eateryId) {
+        if ($this->eateryId) {
             $this->eatery = WhereToEat::query()
                 ->with(['town', 'county', 'country', 'userReviews'])
                 ->where('live', true)

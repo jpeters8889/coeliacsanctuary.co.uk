@@ -28,7 +28,7 @@ class Image extends Component
 
     public function mount()
     {
-        if(isset($this->properties['content'])) {
+        if (isset($this->properties['content'])) {
             $this->image = $this->properties['content'];
             $this->link = $this->properties['link'] ?? '';
         }
@@ -36,7 +36,7 @@ class Image extends Component
 
     public function hydrate()
     {
-        if(isset($this->properties['content'])) {
+        if (isset($this->properties['content'])) {
             $this->image = $this->properties['content'];
             $this->link = $this->properties['link'] ?? '';
         }

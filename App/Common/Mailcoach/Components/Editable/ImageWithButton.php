@@ -30,7 +30,7 @@ class ImageWithButton extends Component
 
     public function mount()
     {
-        if(isset($this->properties['content'])) {
+        if (isset($this->properties['content'])) {
             $this->image = $this->properties['content'];
             $this->label = $this->properties['label'] ?? '';
             $this->link = $this->properties['link'] ?? '';
@@ -39,7 +39,7 @@ class ImageWithButton extends Component
 
     public function hydrate()
     {
-        if(isset($this->properties['content'])) {
+        if (isset($this->properties['content'])) {
             $this->image = $this->properties['content'];
             $this->label = $this->properties['label'] ?? '';
             $this->link = $this->properties['link'] ?? '';

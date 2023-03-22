@@ -28,7 +28,7 @@ class Recipe extends Component
         $this->recipeId = $this->properties['content'] ?? null;
         $this->results = new Collection();
 
-        if($this->recipeId) {
+        if ($this->recipeId) {
             $this->recipe = RecipeModel::query()->where('live', true)->find($this->recipeId);
         }
     }
@@ -38,7 +38,7 @@ class Recipe extends Component
         $this->recipeId = $this->properties['content'] ?? null;
         $this->results = new Collection();
 
-        if($this->recipeId) {
+        if ($this->recipeId) {
             $this->recipe = RecipeModel::query()->where('live', true)->find($this->recipeId);
         }
     }
@@ -60,7 +60,8 @@ class Recipe extends Component
         $this->results = RecipeModel::query()
             ->with(['images'])
             ->where('live', true)
-            ->where(fn(Builder $builder) => $builder
+            ->where(
+                fn (Builder $builder) => $builder
                 ->where('id', $this->search)
                 ->orWhere('title', 'LIKE', "%{$this->search}%")
             )
