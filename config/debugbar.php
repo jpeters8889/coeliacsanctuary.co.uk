@@ -17,8 +17,9 @@ return [
 
     'enabled' => env('DEBUGBAR_ENABLED', null),
     'except' => [
-        'telescope*',
-        'horizon*',
+        'telescope/*',
+        'horizon/*',
+        'mailcoach/*',
         'cs-adm/*',
     ],
 

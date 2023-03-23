@@ -1,0 +1,40 @@
+<?php
+
+namespace Coeliac\Common\Mailcoach\Components\Compiled;
+
+use Coeliac\Modules\Shop\Models\ShopProduct;
+use Livewire\Component;
+
+class Product extends Component
+{
+    public array $properties;
+
+    public ?int $productId = null;
+
+    public ShopProduct $product;
+
+    public string $block;
+
+    public function mount()
+    {
+        $this->productId = $this->properties['content'] ?? null;
+
+        if ($this->productId) {
+            $this->product = ShopProduct::withLiveProducts()->find($this->productId);
+        }
+    }
+
+    public function hydrate()
+    {
+        $this->productId = $this->properties['content'] ?? null;
+
+        if ($this->productId) {
+            $this->product = ShopProduct::withLiveProducts()->find($this->productId);
+        }
+    }
+
+    public function render()
+    {
+        return view('mailables.mjml.newsletter.components.compiled.components.product');
+    }
+}

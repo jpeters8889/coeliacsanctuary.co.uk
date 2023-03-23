@@ -1,0 +1,10 @@
+<mj-image @if(!empty($link)) href="{{ $link }}" @endif src="{{ $image }}"></mj-image>
+</mj-column>
+</mj-section>
+</mj-wrapper>
+<mj-wrapper>
+    <mj-section class="no-padding">
+        <mj-column>
+            <mj-button href="{{ $link }}" @if($block === 'single') border-radius="6px" font-size="20px" @endif>
+                {{ $label }}
+            </mj-button>
