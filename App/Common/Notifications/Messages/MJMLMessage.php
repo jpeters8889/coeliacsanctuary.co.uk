@@ -22,6 +22,8 @@ class MJMLMessage extends MailMessage
 
         $this->viewData = (array) $data;
 
+        $this->store();
+
         return $this;
     }
 }
