@@ -45,6 +45,7 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Spatie\Mailcoach\Domain\Automation\Policies\AutomationPolicy as SpatieAutomationPolicy;
 use Spatie\Mailcoach\Domain\Settings\Policies\UserPolicy as SpatieUserPolicy;
+use Spatie\MailcoachSesFeedback\MailcoachSesFeedbackServiceProvider;
 
 class NewsletterServiceProvider extends ServiceProvider
 {
@@ -52,14 +53,14 @@ class NewsletterServiceProvider extends ServiceProvider
     {
         $this->app->bind(SpatieAutomationPolicy::class, AutomationPolicy::class);
         $this->app->bind(SpatieUserPolicy::class, UserPolicy::class);
+
+        $this->app->register(MailcoachSesFeedbackServiceProvider::class);
     }
 
     public function boot(): void
     {
         /** @phpstan-ignore-next-line  */
         Route::mailcoach('mailcoach');
-        /** @phpstan-ignore-next-line  */
-        Route::sesFeedback('ses-feedback');
 
         Gate::define('viewMailcoach', fn (User $user) => in_array($user->email, [
             'jamie@jamie-peters.co.uk', 'contact@coeliacsanctuary.co.uk',
