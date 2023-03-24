@@ -12,12 +12,12 @@ class Text extends Component
 
     public function mount()
     {
-//        $this->content = $this->properties['content'] ?? [];
+        $this->content = $this->properties['content'] ?? [];
     }
 
     public function hydrate()
     {
-//        $this->content = $this->properties['content'] ?? [];
+        $this->content = $this->properties['content'] ?? [];
     }
 
     public function render()

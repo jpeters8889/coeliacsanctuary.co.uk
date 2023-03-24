@@ -1,7 +1,28 @@
 <mj-head>
     <mj-font name="Raleway" href="https://fonts.googleapis.com/css?family=Raleway"></mj-font>
     <mj-style>a {color:black;font-weight:bold;text-decoration:none} a:hover {text-decoration:underline;} h1 {font-size:30px;text-align:center;margin:10px 0 0; padding:0;color:#000} h2,h3 {margin:0;padding:0;}</mj-style>
-    <mj-style inline="inline">.blue-links a { color: #29719f !important; }</mj-style>
+    <mj-style>.blue-links a { color: #29719f !important; }</mj-style>
+    <mj-style>.blue-links * a { color: #29719f !important; }</mj-style>
+    <mj-style>
+        @media (min-width:600px) {
+            .multi-block.double table td div.mj-column-per-50 {
+                width: 49.5%!important;
+            }
+
+            .multi-block.double table td div.mj-column-per-50:first-of-type {
+                margin-right: 1%;
+            }
+
+            .multi-block.triple table td div.mj-column-per-33 {
+                width: 32.66%!important;
+                margin-right: 1%;
+            }
+
+            .multi-block.triple table td div.mj-column-per-33:last-of-type {
+                margin-right: 0%;
+            }
+        }
+    </mj-style>
     <mj-attributes>
         <mj-all font-family="Raleway, Arial" text-align="left" padding="0px"></mj-all>
         <mj-text align="left" color="#555" font-size="16px" padding="0px"></mj-text>
