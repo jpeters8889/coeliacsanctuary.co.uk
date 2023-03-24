@@ -36,4 +36,9 @@ abstract class BaseRouteProvider extends BaseRouteServiceProvider
             $router->middleware('web')->group(fn ($router) => require base_path($this->path.$map.'.php'));
         }
     }
+
+    protected function setRootControllerNamespace()
+    {
+        //
+    }
 }
