@@ -19,17 +19,17 @@
         <mj-image href="{{ $product->absolute_link }}" src="{{ $product->main_image }}" fluid-on-mobile="true"
         ></mj-image>
 
-        <mj-text class="blue-links" padding="10px 0">
+        <mj-text css-class="blue-links" padding="10px 0">
             <h3>
                 <a href="{{ $product->absolute_link }}">{{ $product->title }}</a>
             </h3>
         </mj-text>
 
-        <mj-text class="blue-links" padding-bottom="10px">
+        <mj-text css-class="blue-links" padding-bottom="10px">
             {!! $description !!}
         </mj-text>
 
-        <mj-text class="blue-links" padding-bottom="10px">
+        <mj-text css-class="blue-links" padding-bottom="10px">
             <h1>
                 &pound;{{ $product->currentPrice / 100 }}
             </h1>
