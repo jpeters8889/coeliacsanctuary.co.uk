@@ -11,6 +11,8 @@ class Recipe extends Component
 {
     public string $blockId;
 
+    public string $block;
+
     public int $index;
 
     public array $properties;
@@ -18,6 +20,8 @@ class Recipe extends Component
     public ?int $recipeId = null;
 
     public string $search = '';
+
+    public string $description = '';
 
     public Collection $results;
 
@@ -30,6 +34,11 @@ class Recipe extends Component
 
         if ($this->recipeId) {
             $this->recipe = RecipeModel::query()->where('live', true)->find($this->recipeId);
+            $this->description = $this->block === 'single' ? $this->recipe->description : $this->recipe->meta_description;
+        }
+
+        if (isset($this->properties['description'])) {
+            $this->description = $this->properties['description'];
         }
     }
 
@@ -40,6 +49,11 @@ class Recipe extends Component
 
         if ($this->recipeId) {
             $this->recipe = RecipeModel::query()->where('live', true)->find($this->recipeId);
+            $this->description = $this->block === 'single' ? $this->recipe->description : $this->recipe->meta_description;
+        }
+
+        if (isset($this->properties['description'])) {
+            $this->description = $this->properties['description'];
         }
     }
 
@@ -51,6 +65,13 @@ class Recipe extends Component
     public function updatedRecipe()
     {
         $this->properties['content'] = $this->recipeId;
+
+        $this->emit('componentUpdated', $this->blockId, $this->index, $this->properties);
+    }
+
+    public function updatedDescription()
+    {
+        $this->properties['description'] = $this->description;
 
         $this->emit('componentUpdated', $this->blockId, $this->index, $this->properties);
     }
@@ -74,6 +95,7 @@ class Recipe extends Component
     {
         $this->recipeId = $id;
         $this->recipe = RecipeModel::query()->where('live', true)->find($this->recipeId);
+        $this->description = $this->block === 'single' ? $this->recipe->description : $this->recipe->meta_description;
         $this->results = new Collection();
         $this->search = '';
         $this->updatedRecipe();

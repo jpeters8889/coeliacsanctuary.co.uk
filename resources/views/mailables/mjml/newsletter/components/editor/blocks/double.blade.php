@@ -11,11 +11,13 @@
                         <livewire:is :component="'coeliac-newsletter-editor-component-'.$block['properties'][0]['component']['name']"
                                      :properties="$block['properties'][0]['component']['properties']"
                                      :block-id="$block['id']"
+                                     block="double"
                                      index="0"
                         ></livewire:is>
                     @else
                         <livewire:coeliac-newsletter-add-component
                                 :block-id="$block['id']"
+                                block="double"
                                 :index="0"
                         ></livewire:coeliac-newsletter-add-component>
                     @endif
@@ -32,11 +34,13 @@
                         <livewire:is :component="'coeliac-newsletter-editor-component-'.$block['properties'][1]['component']['name']"
                                      :properties="$block['properties'][1]['component']['properties']"
                                      :block-id="$block['id']"
+                                     block="double"
                                      index="1"
                         ></livewire:is>
                     @else
                         <livewire:coeliac-newsletter-add-component
                                 :block-id="$block['id']"
+                                block="double"
                                 :index="1"
                         ></livewire:coeliac-newsletter-add-component>
                     @endif

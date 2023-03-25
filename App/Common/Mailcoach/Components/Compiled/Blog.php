@@ -13,7 +13,11 @@ class Blog extends Component
 
     public BlogModel $blog;
 
+    public string $description;
+
     public string $block;
+
+    public int $position;
 
     public function mount()
     {
@@ -21,6 +25,11 @@ class Blog extends Component
 
         if ($this->blogId) {
             $this->blog = BlogModel::query()->where('live', true)->find($this->blogId);
+            $this->description = $this->block === 'single' ? $this->blog->description : $this->blog->meta_description;
+        }
+
+        if (isset($this->properties['description'])) {
+            $this->description = $this->properties['description'];
         }
     }
 
@@ -30,6 +39,11 @@ class Blog extends Component
 
         if ($this->blogId) {
             $this->blog = BlogModel::query()->where('live', true)->find($this->blogId);
+            $this->description = $this->block === 'single' ? $this->blog->description : $this->blog->meta_description;
+        }
+
+        if (isset($this->properties['description'])) {
+            $this->description = $this->properties['description'];
         }
     }
 

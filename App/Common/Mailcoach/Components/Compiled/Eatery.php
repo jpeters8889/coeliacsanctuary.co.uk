@@ -15,6 +15,8 @@ class Eatery extends Component
 
     public string $block;
 
+    public int $position;
+
     public function mount()
     {
         $this->eateryId = $this->properties['content'] ?? null;

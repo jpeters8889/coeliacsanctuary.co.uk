@@ -1,4 +1,12 @@
-<mj-column>
+<mj-column
+    @if(($block === 'double' || $block === 'triple') && $position === 0)
+        padding-right="10px"
+    @endif
+
+    @if($block === 'triple' && $position === 1)
+        padding-right="10px"
+    @endif
+>
     @if($recipe)
         @if($block === 'single')
             <mj-text mj-class="inner">
@@ -17,7 +25,7 @@
         </mj-text>
 
         <mj-text class="blue-links">
-            {!! $block === 'single' ? $recipe->description : $recipe->meta_description !!}
+            {!! $description !!}
         </mj-text>
 
         <mj-button href="{{ $recipe->absolute_link }}" padding="10px 0" @if($block === 'single') border-radius="6px"

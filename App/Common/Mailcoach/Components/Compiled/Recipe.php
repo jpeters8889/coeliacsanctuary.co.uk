@@ -13,7 +13,11 @@ class Recipe extends Component
 
     public ?RecipeModel $recipe = null;
 
+    public $description = '';
+
     public string $block;
+
+    public int $position;
 
     public function mount()
     {
@@ -21,6 +25,11 @@ class Recipe extends Component
 
         if ($this->recipeId) {
             $this->recipe = RecipeModel::query()->where('live', true)->find($this->recipeId);
+            $this->description = $this->block === 'single' ? $this->recipe->description : $this->recipe->meta_description;
+        }
+
+        if (isset($this->properties['description'])) {
+            $this->description = $this->properties['description'];
         }
     }
 
@@ -30,6 +39,11 @@ class Recipe extends Component
 
         if ($this->recipeId) {
             $this->recipe = RecipeModel::query()->where('live', true)->find($this->recipeId);
+            $this->description = $this->block === 'single' ? $this->recipe->description : $this->recipe->meta_description;
+        }
+
+        if (isset($this->properties['description'])) {
+            $this->description = $this->properties['description'];
         }
     }
 

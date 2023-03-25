@@ -1,4 +1,12 @@
-<mj-column>
+<mj-column
+        @if(($block === 'double' || $block === 'triple') && $position === 0)
+            padding-right="10px"
+        @endif
+
+        @if($block === 'triple' && $position === 1)
+            padding-right="10px"
+        @endif
+>
     @if($eatery)
         <mj-text class="blue-links">
             <h3 style="font-size:1.5rem" class="blue-links">
