@@ -1,7 +1,7 @@
 <mj-column>
-    <mj-text mj-class="inner">
+    <mj-text mj-class="inner" css-class="blue-links">
         <h3>
-            @if($link)<a href="{{ trim($link) }}" css-class="blue-links"> @endif
+            @if($link)<a href="{{ trim($link) }}"> @endif
                     {{ $title }}
             @if($link) </a>@endif
         </h3>
