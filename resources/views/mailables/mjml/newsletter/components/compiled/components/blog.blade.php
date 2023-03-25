@@ -18,13 +18,13 @@
 
         <mj-image href="{{ $blog->absolute_link }}" src="{{ $blog->main_image }}" fluid-on-mobile="true"></mj-image>
 
-        <mj-text class="blue-links" padding="10px 0">
+        <mj-text css-class="blue-links" padding="10px 0">
             <h3>
                 <a href="{{ $blog->absolute_link }}">{{ $blog->title }}</a>
             </h3>
         </mj-text>
 
-        <mj-text class="blue-links">
+        <mj-text css-class="blue-links">
             {!! $description !!}
         </mj-text>
 
