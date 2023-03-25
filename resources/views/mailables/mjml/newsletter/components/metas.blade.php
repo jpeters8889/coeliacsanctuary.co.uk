@@ -1,6 +1,11 @@
 <mj-head>
     <mj-font name="Raleway" href="https://fonts.googleapis.com/css?family=Raleway"></mj-font>
-    <mj-style>a {color:black;font-weight:bold;text-decoration:none} a:hover {text-decoration:underline;} h1 {font-size:30px;text-align:center;margin:10px 0 0; padding:0;color:#000} h2,h3 {margin:0;padding:0;}</mj-style>
+    <mj-style>a { color:black; font-weight:bold; text-decoration:none; }</mj-style>
+    <mj-style>* a { color:black!important; font-weight:bold; text-decoration:none; }</mj-style>
+    <mj-style>a:hover { text-decoration:underline; }</mj-style>
+    <mj-style>* a:hover { text-decoration:underline; }</mj-style>
+    <mj-style>h1 { font-size:30px; text-align:center; margin:10px 0 0; padding:0; color:#000 }</mj-style>
+    <mj-style>h2, h3 { margin:0; padding:0; }</mj-style>
     <mj-style>.blue-links a { color: #29719f !important; }</mj-style>
     <mj-style>.blue-links * a { color: #29719f !important; }</mj-style>
     <mj-attributes>
