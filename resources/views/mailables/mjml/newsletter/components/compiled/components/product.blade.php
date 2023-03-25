@@ -1,4 +1,12 @@
-<mj-column>
+<mj-column
+        @if(($block === 'double' || $block === 'triple') && $position === 0)
+            padding-right="10px"
+        @endif
+
+        @if($block === 'triple' && $position === 1)
+            padding-right="10px"
+        @endif
+>
     @if($product)
         @if($block === 'single')
             <mj-text mj-class="inner">
@@ -18,7 +26,7 @@
         </mj-text>
 
         <mj-text class="blue-links" padding-bottom="10px">
-            {!! $block === 'single' ? $product->description : $product->meta_description !!}
+            {!! $description !!}
         </mj-text>
 
         <mj-text class="blue-links" padding-bottom="10px">

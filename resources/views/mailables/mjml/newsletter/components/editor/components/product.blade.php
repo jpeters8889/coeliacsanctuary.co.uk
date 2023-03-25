@@ -2,14 +2,21 @@
     <input type="hidden" wire.model="productId"/>
 
     @if($productId)
-        <div class="flex space-x-2">
-            <div style="width: 20%">
+        <div class="flex space-x-2 @unless($block === 'single') flex-col space-y-2 items-center justify-center @endif">
+            <div style="@if($block === 'single') width: 20% @else width: 90% @endif">
                 <img src="{{ $product->main_image }}"/>
             </div>
-            <div style="width: 80%">
+            <div style="@if($block === 'single') width: 80% @else width: 90% @endif">
                 <h2 class="text-xl">{{ $product->title }}</h2>
-                <p class="text-base">{{ $product->meta_description }}</p>
                 <p class="text-base">&pound;{{ $product->currentPrice / 100 }}</p>
+
+                <textarea
+                        wire:model.lazy="description"
+                        class="text-base w-full border m-1 p-1"
+                        x-data="{ resize: () => { $el.style.height = '5px'; $el.style.height = $el.scrollHeight + 'px' } }"
+                        x-init="resize()"
+                        @input="resize()"
+                ></textarea>
             </div>
         </div>
     @else

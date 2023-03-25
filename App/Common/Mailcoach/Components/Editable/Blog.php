@@ -11,9 +11,13 @@ class Blog extends Component
 {
     public string $blockId;
 
+    public string $block;
+
     public int $index;
 
     public array $properties;
+
+    public string $description = '';
 
     public ?int $blogId = null;
 
@@ -30,6 +34,11 @@ class Blog extends Component
 
         if ($this->blogId) {
             $this->blog = BlogModel::query()->where('live', true)->find($this->blogId);
+            $this->description = $this->block === 'single' ? $this->blog->description : $this->blog->meta_description;
+        }
+
+        if (isset($this->properties['description'])) {
+            $this->description = $this->properties['description'];
         }
     }
 
@@ -40,6 +49,11 @@ class Blog extends Component
 
         if ($this->blogId) {
             $this->blog = BlogModel::query()->where('live', true)->find($this->blogId);
+            $this->description = $this->block === 'single' ? $this->blog->description : $this->blog->meta_description;
+        }
+
+        if (isset($this->properties['description'])) {
+            $this->description = $this->properties['description'];
         }
     }
 
@@ -51,6 +65,13 @@ class Blog extends Component
     public function updatedBlog()
     {
         $this->properties['content'] = $this->blogId;
+
+        $this->emit('componentUpdated', $this->blockId, $this->index, $this->properties);
+    }
+
+    public function updatedDescription()
+    {
+        $this->properties['description'] = $this->description;
 
         $this->emit('componentUpdated', $this->blockId, $this->index, $this->properties);
     }
@@ -74,6 +95,7 @@ class Blog extends Component
     {
         $this->blogId = $id;
         $this->blog = BlogModel::query()->where('live', true)->find($this->blogId);
+        $this->description = $this->block === 'single' ? $this->blog->description : $this->blog->meta_description;
         $this->results = new Collection();
         $this->search = '';
         $this->updatedBlog();

@@ -11,9 +11,13 @@ class Product extends Component
 
     public ?int $productId = null;
 
+    public string $description;
+
     public ShopProduct $product;
 
     public string $block;
+
+    public int $position;
 
     public function mount()
     {
@@ -21,6 +25,11 @@ class Product extends Component
 
         if ($this->productId) {
             $this->product = ShopProduct::withLiveProducts()->find($this->productId);
+            $this->description = $this->block === 'single' ? $this->product->description : $this->product->meta_description;
+        }
+
+        if (isset($this->properties['description'])) {
+            $this->description = $this->properties['description'];
         }
     }
 
@@ -30,6 +39,11 @@ class Product extends Component
 
         if ($this->productId) {
             $this->product = ShopProduct::withLiveProducts()->find($this->productId);
+            $this->description = $this->block === 'single' ? $this->product->description : $this->product->meta_description;
+        }
+
+        if (isset($this->properties['description'])) {
+            $this->description = $this->properties['description'];
         }
     }
 

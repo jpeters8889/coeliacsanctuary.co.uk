@@ -4,6 +4,8 @@
             <livewire:is
                     :component="'coeliac-newsletter-compiled-component-'.$block['properties'][0]['component']['name']"
                     :properties="$block['properties'][0]['component']['properties']"
+                    block="double"
+                    :position="0"
             ></livewire:is>
         @endisset
 
@@ -11,6 +13,8 @@
             <livewire:is
                     :component="'coeliac-newsletter-compiled-component-'.$block['properties'][1]['component']['name']"
                     :properties="$block['properties'][1]['component']['properties']"
+                    block="double"
+                    :position="1"
             ></livewire:is>
         @endisset
     </mj-section>

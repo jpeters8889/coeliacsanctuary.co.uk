@@ -11,9 +11,13 @@ class Product extends Component
 {
     public string $blockId;
 
+    public string $block;
+
     public int $index;
 
     public array $properties;
+
+    public string $description = '';
 
     public ?int $productId = null;
 
@@ -30,6 +34,11 @@ class Product extends Component
 
         if ($this->productId) {
             $this->product = ShopProduct::withLiveProducts()->find($this->productId);
+            $this->description = $this->block === 'single' ? $this->product->description : $this->product->meta_description;
+        }
+
+        if (isset($this->properties['description'])) {
+            $this->description = $this->properties['description'];
         }
     }
 
@@ -40,6 +49,11 @@ class Product extends Component
 
         if ($this->productId) {
             $this->product = ShopProduct::withLiveProducts()->find($this->productId);
+            $this->description = $this->block === 'single' ? $this->product->description : $this->product->meta_description;
+        }
+
+        if (isset($this->properties['description'])) {
+            $this->description = $this->properties['description'];
         }
     }
 
@@ -51,6 +65,13 @@ class Product extends Component
     public function updatedProduct()
     {
         $this->properties['content'] = $this->productId;
+
+        $this->emit('componentUpdated', $this->blockId, $this->index, $this->properties);
+    }
+
+    public function updatedDescription()
+    {
+        $this->properties['description'] = $this->description;
 
         $this->emit('componentUpdated', $this->blockId, $this->index, $this->properties);
     }
@@ -73,6 +94,7 @@ class Product extends Component
     {
         $this->productId = $id;
         $this->product = ShopProduct::withLiveProducts()->find($this->productId);
+        $this->description = $this->block === 'single' ? $this->product->description : $this->product->meta_description;
         $this->results = new Collection();
         $this->search = '';
         $this->updatedProduct();
