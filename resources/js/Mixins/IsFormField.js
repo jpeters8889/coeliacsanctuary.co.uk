@@ -76,6 +76,10 @@ export default {
       type: String,
       default: 'border-grey-off',
     },
+    displayErrorMessage: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   mounted() {

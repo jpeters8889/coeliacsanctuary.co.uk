@@ -36,12 +36,19 @@
 
       <div
         v-if="hasError && showError"
-        v-tooltip.left="{content: errorText, classes: ['bg-red', 'border-red', 'text-white'], boundariesElement: 'body'}"
+        v-tooltip.left="{content: errorText, classes: ['bg-red', 'border-red', 'text-white', (displayErrorMessage ? 'hidden' : '')], boundariesElement: 'body'}"
         class="bg-red flex justify-center items-center p-2 text-white"
         :class="small ? 'text-xs' : ''"
       >
         <font-awesome-icon :icon="['fas', 'exclamation-circle']" />
       </div>
+    </div>
+
+    <div
+      v-if="displayErrorMessage && hasError && showError"
+      class="text-red text-sm font-semibold"
+    >
+      {{ errorText }}
     </div>
   </div>
 </template>

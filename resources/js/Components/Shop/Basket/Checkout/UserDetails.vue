@@ -15,6 +15,9 @@
       name="name"
       :value="formData.name"
       border-class="border-grey-off"
+      :pattern="/^[a-zA-Z ]{2,30}$/"
+      pattern-error="Your name contains invalid characters, please enter letters and numbers only."
+      display-error-message
     />
 
     <form-input
@@ -24,6 +27,7 @@
       name="email"
       border-class="border-grey-off"
       :value="formData.email"
+      display-error-message
     />
 
     <form-input
@@ -34,6 +38,7 @@
       border-class="border-grey-off"
       :value="formData.emailConfirmation"
       :match="formData.email"
+      display-error-message
     />
 
     <form-input
