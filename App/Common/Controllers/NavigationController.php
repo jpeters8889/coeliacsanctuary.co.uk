@@ -74,7 +74,7 @@ class NavigationController extends BaseController
                     ],
                     [
                         'label' => 'Contact Us',
-                        'component' => 'contact-trigger',
+                        'link' => '/contact',
                     ],
                     [
                         'label' => 'Coeliac Disease Information',
