@@ -15,6 +15,14 @@
 
             <div class="flex flex-col mt-4">
                 <p>{{ $category->description }}</p>
+
+                @if($category->id === 11)
+                    <div class="mt-4 border-red border p-2 rounded-sm bg-red bg-opacity-20 text-red font-semibold">
+                        Have you just got Coeliac/Gluten intolerance and no other allergens? You might be looking for our blue
+                        <a href="/shop/standard-coeliac-travel-cards" class="text-blue-dark hover:text-black">Standard Coeliac Travel Cards</a>,
+                        rather than our yellow Coeliac+ Other Allergen cards.
+                    </div>
+                @endif
             </div>
         </div>
 
@@ -36,17 +44,17 @@
                             <div class="flex overflow-hidden border rounded border-grey-off rounded-none rounded-t">
                                 <div class="bg-grey-lightest p-0 flex-1">
                                     <input
-                                        name="term"
-                                        placeholder="Search for a country or a language..."
-                                        type="text"
-                                        class="w-full bg-transparent border-0 m-0 text-grey-darkest p-3 text-base"
+                                            name="term"
+                                            placeholder="Search for a country or a language..."
+                                            type="text"
+                                            class="w-full bg-transparent border-0 m-0 text-grey-darkest p-3 text-base"
                                     />
                                 </div>
                             </div>
 
                             <div class="mx-auto">
                                 <button
-                                    class="xs:ml-1 font-semibold border border-blue rounded py-2 px-6 bg-blue-light text-black hover:bg-opacity-20 transition-all mb-2"
+                                        class="xs:ml-1 font-semibold border border-blue rounded py-2 px-6 bg-blue-light text-black hover:bg-opacity-20 transition-all mb-2"
                                 >
                                     Search
                                 </button>
@@ -77,10 +85,10 @@
                         @if($product->reviews->count() > 0)
                             <div class="text-sm flex space-x-1 flex-shrink-0 items-center">
                                 <global-ui-stars
-                                    stars="{{ round($product->reviews->average('rating') * 2) / 2 }}"
-                                    size="text-base"
-                                    half-star="star-half-alt"
-                                    show-all
+                                        stars="{{ round($product->reviews->average('rating') * 2) / 2 }}"
+                                        size="text-base"
+                                        half-star="star-half-alt"
+                                        show-all
                                 ></global-ui-stars>
                                 <span>{{ $product->reviews->count() }} Ratings</span>
                             </div>
@@ -106,7 +114,7 @@
                                                             :variant-id="{{ $product->variants[0]->id }}"
                                 >
                                     <button
-                                        class="xs:ml-1 w-full font-semibold border border-blue rounded p-2 bg-blue-light bg-opacity50 text-black hover:bg-opacity-20 transition-all mb-2"
+                                            class="xs:ml-1 w-full font-semibold border border-blue rounded p-2 bg-blue-light bg-opacity50 text-black hover:bg-opacity-20 transition-all mb-2"
                                     >
                                         Add to Basket
                                     </button>

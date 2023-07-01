@@ -53,7 +53,7 @@
         colspan="2"
         class="pb-2 text-sm"
       >
-        Usually dispatched in {{ dispatch }} days
+        Dispatched by Royal Mail First Class Post within in 1 - 2 working days.
       </td>
     </tr>
     <tr class="text-xl font-semibold">

@@ -44,6 +44,8 @@ class OrderBlueprint extends Blueprint
 
             Label::generate('address'),
 
+            Label::generate('country'),
+
             Textfield::generate('payment_method'),
 
             Shipped::generate('shipped', 'Shipped?'),
@@ -69,12 +71,15 @@ class OrderBlueprint extends Blueprint
                     'if(ifnull(line_3, "") != "", concat(line_3, "<br>"), "")',
                     'concat(town, "<br>")',
                     'concat(postcode, "<br>")',
+                    'concat("<strong>", shop_postage_countries.country, "</strong><br>")',
                 ]).') address',
+                'concat("<img src=\"https://flagcdn.com/32x24/", lower(shop_postage_countries.iso_code), ".png\" width=\"32\" height=\"24\">") country',
                 'shop_payment_types.type payment_method',
                 'json_object("state_id", state_id, "shipped_at", shipped_at) shipped',
             ]))
             ->leftJoin('shop_payments', 'shop_payments.order_id', '=', 'shop_orders.id')
             ->leftJoin('shop_payment_types', 'shop_payments.payment_type_id', '=', 'shop_payment_types.id')
+            ->leftJoin('shop_postage_countries', 'shop_postage_countries.id', '=', 'shop_orders.postage_country_id')
             ->leftJoin('user_addresses', function (JoinClause $join) {
                 return $join->on('user_addresses.id', '=', 'shop_orders.user_address_id')
                     ->where('user_addresses.type', 'Shipping');
