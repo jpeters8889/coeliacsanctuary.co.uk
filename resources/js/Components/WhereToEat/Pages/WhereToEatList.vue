@@ -20,20 +20,20 @@
         </div>
         <div class="px-4 overflow-y-scroll h-full pb-12 mb-1">
           <div
-            v-if="places.length > 0 && places[0].country_id > 1"
+            v-if="places.length > 0 && currentTown"
             class="border-b border-grey-off-dark pb-2"
           >
             <a
               class="bg-yellow bg-opacity-50 p-2 border-yellow border flex flex-col items-center justify-center text-center space-y-3"
-              :href="`/wheretoeat/browse/${places[0].lat},${places[0].lng}/13`"
+              :href="mapHref"
             >
               <img
                 :src="mapUrl"
                 alt=""
               >
-              <h3 class="text-lg font-semibold">View map of {{ places[0].town.town }}</h3>
+              <h3 class="text-lg font-semibold">View map of {{ currentTown }}</h3>
               <p class="text-xs">
-                Check out our interactive map of places to eat in and around {{ places[0].town.town }}!
+                Check out our interactive map of places to eat in and around {{ currentTown }}!
               </p>
             </a>
           </div>
@@ -167,15 +167,18 @@
         >
           <template v-for="(place, index) in places">
             <div
-              :key="place.id"
+              :key="place.unique_key"
               v-observe-visibility="hasMore && index === places.length - 1 ? {callback: visibilityChanged, once:true} : false"
               class="flex flex-col p-3 bg-white m-2"
             >
-              <wheretoeat-ui-place-details :place="place" />
+              <wheretoeat-ui-place-details
+                :place="place"
+                :current-town="currentTown"
+              />
             </div>
 
             <div
-              v-if="index === 0"
+              v-if="index === 0 && currentTown"
               key="nationwide"
               class="text-center m-2 bg-blue-lightest hover:bg-blue-light transition rounded-lg p-2 border border-blue group font-semibold"
             >
@@ -184,7 +187,7 @@
                 href="/wheretoeat/nationwide"
                 target="_blank"
               >
-                Did you know, there might be more places to eat in {{ places[0].town.town }} listed in
+                Did you know, there might be more places to eat in {{ currentTown }} listed in
                 our Nationwide eating out guide!
               </a>
             </div>
@@ -320,6 +323,26 @@ export default {
     mapUrl() {
       return `${window.config.baseUrl}/assets/images/shares/wheretoeat-map.jpg`;
     },
+
+    mapHref() {
+      let place = this.places[0];
+
+      if (place.branch) {
+        place = place.branch;
+      }
+
+      return `/wheretoeat/browse/${place.lat},${place.lng}/13`;
+    },
+
+    currentTown() {
+      const firstPlace = this.places[0];
+
+      if (firstPlace.branch) {
+        return firstPlace.branch.town.town;
+      }
+
+      return firstPlace.town.town;
+    },
   },
 
   watch: {
@@ -381,8 +404,6 @@ export default {
     Object.keys(savedState).forEach((key) => {
       this.$data[key] = savedState[key];
     });
-
-    console.log('loaded from cache');
   },
 
   mounted() {

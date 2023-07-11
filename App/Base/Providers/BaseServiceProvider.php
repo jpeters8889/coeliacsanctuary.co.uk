@@ -13,7 +13,7 @@ class BaseServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        BaseModel::preventLazyLoading(! $this->app->isProduction());
+        BaseModel::preventLazyLoading(! $this->app->isProduction() && !$this->app->runningInConsole());
     }
 
     /**

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col space-y-3">
-    <eatery-header :eatery="eatery" />
+    <eatery-header :eatery="eatery" :branch="branch" />
 
     <eatery-features
       v-if="eatery.features"
@@ -16,6 +16,7 @@
 
     <eatery-map
       :eatery="eatery"
+      :branch="branch"
       :has-images="eatery.userImages.length > 0"
     />
 
@@ -33,6 +34,7 @@
       :reviews="eatery.formattedReviews.guest || []"
       :has-been-rated="hasBeenRated"
       :is-nationwide="eatery.county.county === 'Nationwide'"
+      :branch="branch"
     />
   </div>
 </template>
@@ -63,6 +65,10 @@ export default {
     eatery: {
       type: Object,
       required: true,
+    },
+    branch: {
+      type: Object,
+      required: false,
     },
   },
 

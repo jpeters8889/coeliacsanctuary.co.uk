@@ -63,7 +63,7 @@ class CleanUpAddresses extends Command
                 ->get();
 
             if ($duplicateAddresses->count() > 0) {
-//                $this->info("{$address->id} has {$duplicateAddresses->count()} duplicates");
+                //                $this->info("{$address->id} has {$duplicateAddresses->count()} duplicates");
                 $duplicateAddresses->each(function (UserAddress $duplicate) use ($address) {
                     if ($duplicate->type === 'Billing') {
                         $duplicate->forceDelete();

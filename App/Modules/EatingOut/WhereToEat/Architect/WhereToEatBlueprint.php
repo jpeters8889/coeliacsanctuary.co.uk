@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Architect;
 
-use Coeliac\Architect\Plans\AddressLookup\Plan;
+use Coeliac\Architect\Plans\AddressLookup\Plan as Address;
 use Coeliac\Architect\Plans\WteAttractions\Plan as WteAttractions;
 use Coeliac\Architect\Plans\WteOpeningTimes\Plan as OpeningTimesPlan;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
@@ -39,6 +39,7 @@ class WhereToEatBlueprint extends Blueprint
     public function getData(): Builder
     {
         return parent::getData()
+            ->where('wheretoeat.county_id', '>', 1)
             ->join('wheretoeat_countries', 'wheretoeat.country_id', '=', 'wheretoeat_countries.id')
             ->join('wheretoeat_counties', 'wheretoeat.county_id', '=', 'wheretoeat_counties.id')
             ->join('wheretoeat_towns', 'wheretoeat.town_id', '=', 'wheretoeat_towns.id')
@@ -115,7 +116,7 @@ class WhereToEatBlueprint extends Blueprint
                             return WhereToEatCounty::query()->find($value['county_id'])->country_id;
                         }),
 
-                    Plan::generate('address'),
+                    Address::generate('address'),
 
                     Textfield::generate('phone'),
                 ]),

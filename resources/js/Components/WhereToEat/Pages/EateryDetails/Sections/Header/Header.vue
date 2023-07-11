@@ -1,12 +1,16 @@
 <template>
   <div class="page-box page-box-no-padding flex flex-col space-y-3">
-    <header-breadcrumbs :eatery="eatery" />
+    <header-breadcrumbs
+      :eatery="eatery"
+      :branch="branch"
+    />
 
     <div>
       <div class="flex justify-between px-3">
-        <h1 class="text-3xl font-coeliac font-semibold leading-tight">
-          {{ eatery.name }}
-        </h1>
+        <h1
+          class="text-3xl font-coeliac font-semibold leading-tight"
+          v-text="placeName"
+        />
 
         <div class="w-6 pt-2 xs:w-7">
           <img
@@ -34,7 +38,14 @@
         />
       </div>
 
-      <div class="flex space-x-3 text-sm font-semibold px-3 text-grey-darker mt-1">
+      <div class="text-sm font-semibold px-3 text-grey-darker mt-1">
+        <a
+          v-if="eatery.county.id === 1 && branch"
+          class="hover:text-black"
+          href="/wheretoeat/nationwide"
+        >
+          Nationwide Chain<br />
+        </a>
         {{ eatery.venueType.venue_type }}{{ eatery.cuisine.cuisine ? ', ' + eatery.cuisine.cuisine : '' }}
       </div>
 
@@ -43,6 +54,13 @@
         class="flex space-x-3 text-xs font-semibold px-3 text-grey-darker mt-1"
       >
         {{ eatery.town.town }}, {{ eatery.county.county }}
+      </div>
+
+      <div
+        v-if="branch"
+        class="flex space-x-3 text-xs font-semibold px-3 text-grey-darker mt-1"
+      >
+        {{ branch.town.town }}, {{ branch.county.county }}
       </div>
     </div>
 
@@ -89,6 +107,20 @@ export default {
     eatery: {
       type: Object,
       required: true,
+    },
+    branch: {
+      type: Object,
+      required: false,
+    },
+  },
+
+  computed: {
+    placeName() {
+      if (this.branch && this.branch.name) {
+        return `${this.branch.name} - ${this.eatery.name}`;
+      }
+
+      return this.eatery.name;
     },
   },
 
