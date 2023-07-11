@@ -16,6 +16,7 @@ use Coeliac\Modules\Collection\Architect\Blueprint as CollectionsBlueprint;
 use Coeliac\Modules\Competition\Architect\Blueprint as CompetitionsBlueprint;
 use Coeliac\Modules\EatingOut\Reviews\Architect\Blueprint as ReviewBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\MyPlacesBlueprint;
+use Coeliac\Modules\EatingOut\WhereToEat\Architect\NationwideWhereToEatLocationBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\PlaceRecommendationsBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\PlaceReportsBlueprint;
 use Coeliac\Modules\EatingOut\WhereToEat\Architect\SuggestedEditBlueprint;
@@ -54,6 +55,7 @@ class ArchitectServiceProvider extends ArchitectApplicationServiceProvider
             UserBlueprint::class,
 
             WhereToEatBlueprint::class,
+            NationwideWhereToEatLocationBlueprint::class,
             WteRatingsBlueprint::class,
             PlaceRecommendationsBlueprint::class,
             MyPlacesBlueprint::class,

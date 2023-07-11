@@ -15,7 +15,7 @@ class PlanServiceProvider extends ServiceProvider
             /** @var Architect $architect */
             $architect = resolve(Architect::class);
 
-//            $architect->apiManager->registerEndpoint('post', 'Coeliac-OrderDispatchSlip', ApiHandler::class);
+            //            $architect->apiManager->registerEndpoint('post', 'Coeliac-OrderDispatchSlip', ApiHandler::class);
             $architect->assetManager->registerScript('OrderDispatchSlip', __DIR__.'/../dist/plan.js');
             $architect->assetManager->registerStyle('OrderDispatchSlip', __DIR__.'/../dist/plan.css');
         });

@@ -95,15 +95,19 @@
           >
             <div class="flex justify-between">
               <div class="flex-1 mb-4">
-                <h2 class="text-2xl font-semibold">
-                  {{ placeDetails.name }}
-                </h2>
+                <h2
+                  class="text-2xl font-semibold"
+                  v-text="placeName"
+                />
+
                 <h3 class="text-sm font-semibold text-grey-darker">
-                  <span class="text-base">{{ placeDetails.full_location }}</span><br>
-                  <span>{{ placeDetails.venue_type.venue_type }}</span>
+                  <span v-if="placeDetails.branch">Nationwide Chain<br></span>
                   <span
-                    v-if="placeDetails.cuisine && placeDetails.cuisine.cuisine !== 'English'"
-                  >
+                    class="text-base"
+                    v-text="placeLocation"
+                  /><br>
+                  <span>{{ placeDetails.venue_type.venue_type }}</span>
+                  <span v-if="placeDetails.cuisine && placeDetails.cuisine.cuisine !== 'English'">
                     - {{ placeDetails.cuisine.cuisine }}
                   </span>
                 </h3>
@@ -123,7 +127,7 @@
               </div>
 
               <div
-                v-if="placeDetails.county.county !== 'Nationwide'"
+                v-if="placeDetails.county.county !== 'Nationwide' || placeDetails.branch"
                 class="w-6 pt-2 xs:w-7"
               >
                 <img
@@ -158,7 +162,7 @@
             <div class="flex flex-col mt-2 font-semibold text-grey-darkest">
               <span
                 class="block"
-                v-html="placeDetails.address.replaceAll('<br />', ', ')"
+                v-html="placeAddress"
               />
               <span>{{ placeDetails.phone }}</span>
             </div>
@@ -182,7 +186,7 @@
 
               <div class="bg-gradient-to-br from-blue/30 to-blue-light/30 rounded text-center transition duration-500 hover:from-blue/50 hover:to-blue-light/50">
                 <a
-                  :href="`/wheretoeat/${placeDetails.county.slug}/${placeDetails.town.slug}/${placeDetails.slug}`"
+                  :href="placeLink"
                   class="p-2 block"
                 >
                   Read more about <strong>{{ placeDetails.name }}</strong>, {{ placeDetails.user_reviews.length > 0 ? ' read experiences from other people' : '' }}
@@ -225,6 +229,42 @@ export default {
     placeDetails: {
       required: true,
       type: Object,
+    },
+  },
+
+  computed: {
+    placeName() {
+      if (this.placeDetails.branch && this.placeDetails.branch.name) {
+        return `${this.placeDetails.branch.name} - ${this.placeDetails.name}`;
+      }
+
+      return this.placeDetails.name;
+    },
+
+    placeLocation() {
+      if (this.placeDetails.branch) {
+        return this.placeDetails.branch.full_location;
+      }
+
+      return this.placeDetails.full_location;
+    },
+
+    placeAddress() {
+      let placeAddress = this.placeDetails.address;
+
+      if (this.placeDetails.branch) {
+        placeAddress = this.placeDetails.branch.address;
+      }
+
+      return placeAddress.replaceAll('<br />', ', ');
+    },
+
+    placeLink() {
+      if (this.placeDetails.branch) {
+        return `/wheretoeat/nationwide/${this.placeDetails.slug}/${this.placeDetails.branch.slug}`;
+      }
+
+      return `/wheretoeat/${this.placeDetails.county.slug}/${this.placeDetails.town.slug}/${this.placeDetails.slug}`;
     },
   },
 };

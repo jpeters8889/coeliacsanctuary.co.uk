@@ -6,12 +6,10 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Modules\EatingOut\WhereToEat\Events\PrepareWhereToEatReviewImages;
-use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
-use Coeliac\Modules\EatingOut\WhereToEat\Repository;
 use Coeliac\Modules\EatingOut\WhereToEat\Requests\WhereToEatSubmitReviewRequest;
+use Coeliac\Modules\EatingOut\WhereToEat\Support\EateryProcessors\EateryRatingsProcessor;
 use Coeliac\Modules\EatingOut\WhereToEat\Support\LatestRatings;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class WhereToEatReviewsController extends BaseController
@@ -38,35 +36,9 @@ class WhereToEatReviewsController extends BaseController
         }
     }
 
-    public function get(Repository $repository): array
+    public function get(EateryRatingsProcessor $ratingsProcessor): array
     {
-        $summary = (new Collection([0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]))
-            ->mapWithKeys(function ($rating, $index) {
-                return [
-                    $index => [
-                        'id' => $index,
-                        'rating' => $rating,
-                        'label' => $rating > 0 ? $rating . ' Stars' : 'No Rating',
-                        'count' => 0,
-                    ],
-                ];
-            })
-            ->reverse()
-            ->toArray();
-
-        $repository
-            ->filter()
-            ->search()
-            ->setWiths(['userReviews'])
-            ->all()
-            ->each(function (WhereToEat $eatery) use (&$summary) {
-                $rating = round((float)$eatery->average_rating * 2) / 2;
-                $key = $rating * 2;
-
-                $summary[$key]['count']++;
-            });
-
-        return array_values($summary);
+        return $ratingsProcessor->getEateries();
     }
 
     public function index(LatestRatings $latestRatings)

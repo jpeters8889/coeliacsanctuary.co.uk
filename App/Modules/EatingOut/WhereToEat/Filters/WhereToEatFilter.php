@@ -26,12 +26,12 @@ class WhereToEatFilter extends AbstractFilter
 
     protected function filterCounty(Builder $builder, mixed $value): Builder
     {
-        return $builder->where('county_id', $value);
+        return $builder->where('wheretoeat.county_id', $value);
     }
 
     protected function filterTown(Builder $builder, mixed $value): Builder
     {
-        return $builder->where('town_id', $value);
+        return $builder->where('wheretoeat.town_id', $value);
     }
 
     protected function filterType(Builder $builder, mixed $value): Builder

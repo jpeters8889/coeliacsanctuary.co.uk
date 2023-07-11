@@ -9,6 +9,7 @@ use Coeliac\Base\Models\BaseModel;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 /**
  * @template TModel of \Coeliac\Base\Models\BaseModel
@@ -146,13 +147,17 @@ abstract class AbstractRepository
         $builder = $this->modifyQuery($baseQuery);
 
         if ($this->shouldSearch() && $searchIds = $this->performSearch($model)) {
-            $order = 'field(id, ' . implode(',', $searchIds) . ')';
+            $table = app($model)->getTable();
+
+            $key = "{$table}.id";
+
+            $order = 'field('.$key.', ' . implode(',', $searchIds) . ')';
 
             if (app()->runningUnitTests()) {
-                $order = 'id';
+                $order = $key;
             }
 
-            $builder->whereIn('id', $searchIds)->orderByRaw($order);
+            $builder->whereIn($key, $searchIds)->orderByRaw($order);
         } elseif (! $this->isRaw && ! $this->random) {
             $this->order($builder);
         }
@@ -253,5 +258,10 @@ abstract class AbstractRepository
         $this->whens[] = [$condition, $action];
 
         return $this;
+    }
+
+    public function toBase(): QueryBuilder
+    {
+        return $this->query()->toBase();
     }
 }

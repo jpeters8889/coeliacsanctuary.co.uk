@@ -13,6 +13,18 @@
     </a>
 
     <a
+      v-else-if="branch"
+      class="flex-1 text-xs font-semibold font-sans hover:text-blue-dark transition-all"
+      :href="'/wheretoeat/'+branch.county.slug+'/'+branch.town.slug"
+    >
+      <font-awesome-icon
+        :icon="['fas', 'arrow-left']"
+        class="mr-2"
+      />
+      Back to all locations in {{ branch.town.town }}
+    </a>
+
+    <a
       v-else
       class="flex-1 text-xs font-semibold font-sans hover:text-blue-dark transition-all"
       href="/wheretoeat/nationwide"
@@ -67,6 +79,10 @@ export default {
     eatery: {
       type: Object,
       required: true,
+    },
+    branch: {
+      type: Object,
+      required: false,
     },
   },
 };

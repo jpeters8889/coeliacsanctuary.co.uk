@@ -93,7 +93,7 @@
           />
         </div>
         <div
-          v-if="isNationwide"
+          v-if="isNationwide && !branch"
           class="flex-1"
         >
           <form-input
@@ -199,6 +199,10 @@ export default {
       type: Boolean,
       required: true,
     },
+    branch: {
+      type: Object,
+      required: false,
+    },
   },
 
   data: () => ({
@@ -292,7 +296,13 @@ export default {
     }
 
     if (this.isNationwide) {
-      this.$set(this.form, 'branchName', null);
+      let branchName = null;
+
+      if (this.branch) {
+        branchName = this.branch.name ? this.branch.name : this.branch.town.town;
+      }
+
+      this.$set(this.form, 'branchName', branchName);
     }
 
     this.formKeys.forEach((key) => {

@@ -48,12 +48,12 @@ class Page extends PageBuilder
         return $this;
     }
 
-        public function setMetaDescription($description): static
-        {
-            $this->metaDescription = $description;
+    public function setMetaDescription($description): static
+    {
+        $this->metaDescription = $description;
 
-            return $this;
-        }
+        return $this;
+    }
 
     public function setMetaKeywords(array $keywords): static
     {
@@ -62,19 +62,19 @@ class Page extends PageBuilder
         return $this;
     }
 
-        public function setSocialImage($image): static
-        {
-            $this->metaImage = $image;
+    public function setSocialImage($image): static
+    {
+        $this->metaImage = $image;
 
-            return $this;
-        }
+        return $this;
+    }
 
-        public function setPageTitle($title): static
-        {
-            $this->title = $title;
+    public function setPageTitle($title): static
+    {
+        $this->title = $title;
 
-            return $this;
-        }
+        return $this;
+    }
 
     public function showFacebook(): static
     {

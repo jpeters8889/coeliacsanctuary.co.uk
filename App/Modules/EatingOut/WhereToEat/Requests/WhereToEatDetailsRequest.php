@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Coeliac\Modules\EatingOut\WhereToEat\Requests;
 
+use Coeliac\Modules\EatingOut\WhereToEat\Models\NationwideBranch;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEatReview;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository;
@@ -33,10 +34,21 @@ class WhereToEatDetailsRequest extends WhereToEatTownRequest
             ])
             ->firstOrFail();
 
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         $eatery->formattedReviews = $eatery->userReviews
             ->groupBy(fn (WhereToEatReview $review) => $review->admin_review ? 'admin' : 'guest');
 
         return $eatery;
+    }
+
+    public function resolveBranch(WhereToEat $eatery): null|NationwideBranch
+    {
+        if (!$this->route('branch')) {
+            return null;
+        }
+
+        return $eatery->branches()
+            ->with(['county', 'town'])
+            ->firstWhere('slug', $this->route('branch')) ?? null;
     }
 }
