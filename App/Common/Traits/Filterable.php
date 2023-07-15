@@ -13,19 +13,22 @@ trait Filterable
     /** @var AbstractFilter */
     protected $filterable;
 
-    public function filter(): static
+    /** @param class-string<AbstractFilter> $filterClass */
+    public function filter(string $filterClass = null): static
     {
-        $thisNamespace = explode('\\', self::class);
-        array_pop($thisNamespace);
-        $module = array_pop($thisNamespace);
+        if (!$filterClass) {
+            $thisNamespace = explode('\\', self::class);
+            array_pop($thisNamespace);
+            $module = array_pop($thisNamespace);
 
-        $filterNamespace = array_merge($thisNamespace, [
-            $module,
-            'Filters',
-            $module.'Filter',
-        ]);
+            $filterNamespace = array_merge($thisNamespace, [
+                $module,
+                'Filters',
+                $module . 'Filter',
+            ]);
 
-        $filterClass = implode('\\', $filterNamespace);
+            $filterClass = implode('\\', $filterNamespace);
+        }
 
         $this->filterable = new $filterClass(Container::getInstance()->make(Request::class));
 

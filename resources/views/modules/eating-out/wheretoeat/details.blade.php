@@ -2,7 +2,7 @@
 
 @section('primary-column')
     <div class="min-h-[400px]">
-        <wheretoeat-page-eatery-details :eatery='@JSON($eatery)'>
+        <wheretoeat-page-eatery-details :eatery='@JSON($eatery)' :branch='@JSON($branch)'>
             <div class="flex flex-col space-y-3">
                 <div class="page-box page-box-no-padding flex flex-col space-y-3">
                     <div class="flex justify-between items-center bg-grey-light p-3">

@@ -50,6 +50,7 @@ use Laravel\Scout\Searchable;
  * @property string $gf_menu_link
  * @property WhereToEatOpeningTimes | null $openingTimes
  * @property int $county_id
+ * @property Collection<NationwideBranch> $branches
  *
  * @method transform(array $array)
  */
@@ -248,6 +249,11 @@ class WhereToEat extends BaseModel
     public function restaurants(): HasMany
     {
         return $this->hasMany(AttractionRestaurant::class, 'wheretoeat_id', 'id');
+    }
+
+    public function branches(): HasMany
+    {
+        return $this->hasMany(NationwideBranch::class, 'wheretoeat_id', 'id');
     }
 
     public function openingTimes(): HasOne

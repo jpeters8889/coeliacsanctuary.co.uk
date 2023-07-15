@@ -17,6 +17,7 @@
       :id="id"
       :name="name"
       :is-nationwide="isNationwide"
+      :branch="branch"
     />
 
     <div
@@ -67,6 +68,10 @@ export default {
     isNationwide: {
       type: Boolean,
       required: true,
+    },
+    branch: {
+      type: Object,
+      required: false,
     },
   },
 

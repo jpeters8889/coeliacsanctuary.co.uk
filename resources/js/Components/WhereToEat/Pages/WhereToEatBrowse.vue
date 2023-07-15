@@ -487,10 +487,16 @@ export default {
       return rtr;
     },
 
-    getPlaceDetails(id) {
+    getPlaceDetails(id, branchId = null) {
       this.isLoadingPlace = true;
 
-      coeliac().request().get(`/api/wheretoeat/${id}`).then((response) => {
+      let url = `/api/wheretoeat/${id}`;
+
+      if (branchId) {
+        url += `?branch=${branchId}`;
+      }
+
+      coeliac().request().get(url).then((response) => {
         if (response.status !== 200) {
           coeliac().error('There was an error loading this place details...');
 
@@ -586,7 +592,7 @@ export default {
           feature = feature[0];
 
           this.placeDetails = {};
-          this.getPlaceDetails(feature.get('id'));
+          this.getPlaceDetails(feature.get('id'), feature.get('branchId'));
 
           if (this.placeDetails === {}) {
             return;
@@ -657,6 +663,7 @@ export default {
 
         const markers = response.data.data.map((item) => new Feature({
           id: item.id,
+          branchId: item.branch_id,
           geometry: new Point(fromLonLat([item.lng, item.lat])),
         })).map((marker) => {
           marker.setStyle(this.markerStyle);

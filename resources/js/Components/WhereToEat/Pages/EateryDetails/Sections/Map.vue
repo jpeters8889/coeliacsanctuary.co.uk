@@ -1,13 +1,10 @@
 <template>
   <div
-    v-if="eatery.county.id !== 1"
+    v-if="eatery.county.id !== 1 || branch"
     class="page-box flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-3"
   >
     <div class="w-full h-map-small sm:w-1/2 lg:w-2/3 max-w-[600px]">
-      <map-static
-        :lat="eatery.lat"
-        :lng="eatery.lng"
-      />
+      <map-static v-bind="latLng"/>
     </div>
 
     <ul class="flex flex-col space-y-3 sm:w-1/2 lg:flex-1">
@@ -17,7 +14,7 @@
           fixed-width
           class="text-xl"
         />
-        <span class="text-sm font-semibold">{{ eatery.formatted_address }}</span>
+        <span class="text-sm font-semibold" v-html="address" />
       </li>
 
       <li v-if="eatery.website">
@@ -67,6 +64,30 @@ export default {
       type: Boolean,
       required: true,
     },
+    branch: {
+      type: Object,
+      required: false,
+    },
+  },
+
+  computed: {
+    latLng() {
+      if (this.branch) {
+        return {
+          lat: this.branch.lat,
+          lng: this.branch.lng,
+        };
+      }
+
+      return {
+        lat: this.eatery.lat,
+        lng: this.eatery.lng,
+      };
+    },
+
+    address() {
+      return this.branch ? this.branch.formatted_address : this.eatery.formatted_address;
+    }
   },
 };
 </script>

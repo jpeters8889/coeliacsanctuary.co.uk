@@ -25,6 +25,7 @@ $router->group(['prefix' => '/wheretoeat'], function () use ($router) {
     $router->get('/', [WhereToEatController::class, 'index']);
     $router->get('/nationwide', [WhereToEatNationwideController::class, 'get']);
     $router->get('/nationwide/{slug}', WhereToEatDetailsController::class);
+    $router->get('/nationwide/{slug}/{branch}', WhereToEatDetailsController::class);
     $router->get('/browse', [WhereToEatBrowseController::class, 'index']);
     $router->get('/browse/{any}', [WhereToEatBrowseController::class, 'index'])->where('any', '.*');
 

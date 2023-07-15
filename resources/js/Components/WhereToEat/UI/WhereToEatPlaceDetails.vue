@@ -3,7 +3,7 @@
     <div class="w-full flex">
       <div
         class="w-full flex flex-col"
-        :class="place.country_id > 1 ? 'sm:w-3/5 lg:w-2/3' : ''"
+        :class="currentTown !== 'Nationwide' && currentTown !== ''? 'sm:w-3/5 lg:w-2/3' : ''"
       >
         <div class="flex justify-between">
           <div class="flex-1 mb-4">
@@ -12,13 +12,18 @@
                 :href="eateryLink(place)"
                 class=" hover:text-blue-dark hover:underline"
               >
-                {{ place.name }}
+                {{ placeName }}
               </a>
             </h2>
             <h3
-              v-if="place.county.county !== 'Nationwide'"
+              v-if="currentTown !== 'Nationwide' && currentTown !== ''"
               class="text-sm font-semibold text-grey-darker"
             >
+              <a
+                v-if="isNationwide"
+                href="/wheretoeat/nationwide"
+                class="hover:text-black"
+              >Nationwide Chain<br></a>
               <span>{{ place.venue_type.venue_type }}</span>
               <span v-if="place.cuisine && place.cuisine.cuisine !== 'English'">
                 - {{ place.cuisine.cuisine }}
@@ -40,7 +45,7 @@
           </div>
 
           <div
-            v-if="place.county.county !== 'Nationwide'"
+            v-if="currentTown !== 'Nationwide' && currentTown !== ''"
             class="w-6 pt-2 xs:w-7"
           >
             <img
@@ -77,14 +82,14 @@
             </p>
 
             <div
-              v-if="place.county.county !== 'Nationwide'"
+              v-if="currentTown !== 'Nationwide' && currentTown !== ''"
               class="flex flex-col mt-2 font-semibold text-grey-darkest"
             >
               <span v-if="place.distance">Around {{ place.distance }} miles away...<br>&nbsp;</span>
 
               <span
                 class="block"
-                v-html="place.address.replaceAll('<br />', ', ')"
+                v-html="placeAddress.replaceAll('<br />', ', ')"
               />
               <span>{{ place.phone }}</span>
             </div>
@@ -93,13 +98,10 @@
       </div>
 
       <div
-        v-if="place.county.county !== 'Nationwide'"
+        v-if="currentTown !== 'Nationwide' && currentTown !== ''"
         class="hidden sm:block pl-4 sm:w-2/5 lg:w-1/3"
       >
-        <map-static
-          :lat="place.lat"
-          :lng="place.lng"
-        />
+        <map-static v-bind="latLng" />
       </div>
     </div>
 
@@ -120,12 +122,15 @@
         />
       </div>
 
-      <div class="bg-gradient-to-br from-blue/30 to-blue-light/30 rounded text-center transition duration-500 hover:from-blue/50 hover:to-blue-light/50">
+      <div
+        class="bg-gradient-to-br from-blue/30 to-blue-light/30 rounded text-center transition duration-500 hover:from-blue/50 hover:to-blue-light/50"
+      >
         <a
           :href="eateryLink(place)"
           class="p-2 block"
         >
-          Read more about <strong>{{ place.name }}</strong>, {{ place.user_reviews.length > 0 ? ' read experiences from other people' : '' }}
+          Read more about <strong>{{ place.name }}</strong>,
+          {{ place.user_reviews.length > 0 ? ' read experiences from other people' : '' }}
           and leave your review.
         </a>
       </div>
@@ -144,6 +149,11 @@ export default {
       type: Object,
       required: true,
     },
+    currentTown: {
+      type: String,
+      required: false,
+      default: '',
+    },
   },
 
   data: () => ({
@@ -151,8 +161,48 @@ export default {
     showModal: false,
   }),
 
+  computed: {
+    isNationwide() {
+      return this.place.is_nationwide;
+    },
+
+    placeName() {
+      if (this.isNationwide && this.place.branch && this.place.branch.name) {
+        return `${this.place.branch.name} - (${this.place.name})`;
+      }
+
+      return this.place.name;
+    },
+
+    placeAddress() {
+      if (this.isNationwide && this.currentTown !== 'Nationwide' && this.currentTown !== '') {
+        return this.place.branch.address;
+      }
+
+      return this.place.address;
+    },
+
+    latLng() {
+      if (this.isNationwide && this.currentTown !== 'Nationwide' && this.currentTown !== '') {
+        return {
+          lat: this.place.branch.lat,
+          lng: this.place.branch.lng,
+        };
+      }
+
+      return {
+        lat: this.place.lat,
+        lng: this.place.lng,
+      };
+    },
+  },
+
   methods: {
     eateryLink(place) {
+      if (this.isNationwide && this.currentTown !== 'Nationwide' && this.currentTown !== '') {
+        return `/wheretoeat/nationwide/${place.slug}/${place.branch.slug}`;
+      }
+
       if (place.county.slug === 'nationwide') {
         return `/wheretoeat/nationwide/${place.slug}`;
       }

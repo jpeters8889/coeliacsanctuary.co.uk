@@ -6,9 +6,7 @@ namespace Coeliac\Modules\EatingOut\WhereToEat\Controllers;
 
 use Coeliac\Base\Controllers\BaseController;
 use Coeliac\Common\Response\Page;
-use Coeliac\Modules\EatingOut\WhereToEat\Repository;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
+use Coeliac\Modules\EatingOut\WhereToEat\Support\EateryProcessors\EateryBrowseProcessor;
 use Illuminate\Http\Response;
 
 class WhereToEatBrowseController extends BaseController
@@ -31,31 +29,10 @@ class WhereToEatBrowseController extends BaseController
             ->render('modules.eating-out.wheretoeat.browse');
     }
 
-    public function list(Repository $repository, Request $request): array
+    public function list(EateryBrowseProcessor $eateryBrowseProcessor): array
     {
         return [
-            'data' => $repository
-                ->selectRaw('(
-                        3959 * acos (
-                          cos ( radians(?) )
-                          * cos( radians( lat ) )
-                          * cos( radians( lng ) - radians(?) )
-                          + sin ( radians(?) )
-                          * sin( radians( lat ) )
-                        )
-                      ) AS distance', [
-                    $request->get('lat'),
-                    $request->get('lng'),
-                    $request->get('lat'),
-                ])
-                ->setColumns(['id', 'lat', 'lng', 'name'])
-                ->when(
-                    ! app()->runningUnitTests(),
-                    fn (Builder $builder) => $builder->having('distance', '<=', $request->get('range'))
-                )
-                ->where('county_id', '!=', 1)
-                ->filter()
-                ->all(),
+            'data' => $eateryBrowseProcessor->getEateries()
         ];
     }
 }

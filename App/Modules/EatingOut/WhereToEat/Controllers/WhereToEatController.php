@@ -9,11 +9,11 @@ use Coeliac\Base\Models\BaseModel;
 use Coeliac\Common\Response\Page;
 use Coeliac\Modules\EatingOut\WhereToEat\Models\WhereToEat;
 use Coeliac\Modules\EatingOut\WhereToEat\Repository;
+use Coeliac\Modules\EatingOut\WhereToEat\Support\EateryProcessors\EateryListProcessor;
 use Coeliac\Modules\EatingOut\WhereToEat\Support\IndexCountyList;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Collection;
 
 class WhereToEatController extends BaseController
 {
@@ -45,47 +45,18 @@ class WhereToEatController extends BaseController
             ]);
     }
 
-    public function list(Request $request): array
+    public function list(Request $request, EateryListProcessor $listProcessor): array
     {
         $this->validate($request, [
             'limit' => 'integer|max:50',
         ]);
 
-        $eateries = new Collection($this->repository
-            ->setWiths([
-                'country', 'county', 'town', 'type', 'venueType', 'cuisine', 'features', 'restaurants',
-                'reviews' => function (HasMany $builder) {
-                    return $builder
-                        ->with(['eatery', 'eatery.town', 'eatery.county', 'eatery.country', 'images'])
-                        ->select(['id', 'wheretoeat_id', 'title', 'slug', 'created_at'])
-                        ->where('live', 1)
-                        ->latest();
-                },
-                'userReviews' => function (HasMany $builder) {
-                    return $builder
-                        ->select(['id', 'wheretoeat_id', 'rating', 'name', 'body', 'created_at'])
-                        ->where('approved', 1)
-                        ->latest();
-                },
-            ])
-            ->filter()
-            ->search()
-            ->setColumns(['wheretoeat.*'])
-            ->paginated((int)$request->get('limit', 10))
-            ->through(function (WhereToEat $eatery) {
-                /** @phpstan-ignore-next-line  */
-                $eatery->ratings = $eatery->userReviews;
-
-                return $eatery;
-            }));
-
         return [
-            'data' => $eateries
-                ->merge(['appends' => $this->repository->getAppends()]),
+            'data' => collect($listProcessor->getEateries())->merge(['appends' => $listProcessor->getAppends()]),
         ];
     }
 
-    public function get(mixed $id): WhereToEat|BaseModel|null
+    public function get(Request $request, mixed $id): WhereToEat|BaseModel|null
     {
         $eatery = $this->repository
             ->setWiths([
@@ -103,8 +74,15 @@ class WhereToEatController extends BaseController
             ])
             ->get($id);
 
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         $eatery->ratings = $eatery->userReviews;
+
+        if ($request->get('branch')) {
+            $eatery->branch = $eatery->branches()
+                ->with(['town', 'county', 'country'])
+                ->find($request->get('branch'));
+            $eatery->is_nationwide = true;
+        }
 
         return $eatery;
     }

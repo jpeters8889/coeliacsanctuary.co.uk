@@ -14,10 +14,11 @@ class WhereToEatDetailsController extends BaseController
     public function __invoke(WhereToEatDetailsRequest $request, Page $page): Response
     {
         $eatery = $request->resolveEatery();
+        $branch = $request->resolveBranch($eatery);
 
         return $page
             ->noBreadcrumbs()
-            ->setPageTitle($eatery->full_name)
+            ->setPageTitle($branch && $branch->name ? "{$branch->name} - {$eatery->name}" : $eatery->full_name)
             ->setMetaDescription("Eat gluten free at {$eatery->full_name}")
             ->setMetaKeywords([
                 "gluten free {$eatery->town->town}", "coeliac {$eatery->town->town} eateries",
@@ -34,6 +35,7 @@ class WhereToEatDetailsController extends BaseController
                     'gf_menu_link', 'has_been_rated', 'icon', 'id', 'info', 'lat', 'lng', 'openingTimes', 'name', 'phone',
                     'restaurants', 'town', 'type', 'userImages', 'userReviews', 'venueType', 'website', 'formattedReviews',
                 ]),
+                'branch' => $branch,
             ]);
     }
 }
