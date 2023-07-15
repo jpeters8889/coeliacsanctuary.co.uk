@@ -20,6 +20,7 @@ use Illuminate\Support\Str;
  * @property WhereToEatCounty $county
  * @property string $slug
  * @property Collection $liveEateries
+ * @property Collection $liveBranches
  */
 class WhereToEatTown extends BaseModel implements Updatable
 {
@@ -49,6 +50,11 @@ class WhereToEatTown extends BaseModel implements Updatable
         return $this->hasMany(WhereToEat::class, 'town_id')->where('live', true);
     }
 
+    public function liveBranches(): HasMany
+    {
+        return $this->hasMany(NationwideBranch::class, 'town_id')->where('live', true);
+    }
+
     public function county(): BelongsTo
     {
         return $this->belongsTo(WhereToEatCounty::class, 'county_id');
@@ -56,7 +62,7 @@ class WhereToEatTown extends BaseModel implements Updatable
 
     public function getSnippetAttribute(): string
     {
-        $eateries = $this->liveEateries->where('type_id', 1)->count();
+        $eateries = $this->liveEateries->where('type_id', 1)->count() + $this->liveBranches->count();
         $attractions = $this->liveEateries->where('type_id', 2)->count();
         $hotels = $this->liveEateries->where('type_id', 3)->count();
 

@@ -30,7 +30,10 @@ class WhereToEatCounty extends BaseModel implements Updatable
 
     public function activeTowns(): HasMany
     {
-        return $this->hasMany(WhereToEatTown::class, 'county_id')->whereHas('liveEateries')->orderBy('town');
+        return $this->hasMany(WhereToEatTown::class, 'county_id')
+            ->whereHas('liveEateries')
+            ->orWhereHas('liveBranches')
+            ->orderBy('town');
     }
 
     public function eateries(): HasMany
