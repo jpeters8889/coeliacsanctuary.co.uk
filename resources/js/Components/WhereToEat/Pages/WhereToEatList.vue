@@ -525,7 +525,7 @@ export default {
       const uniquePlaces = [];
 
       places.forEach((place) => {
-        const check = this.places.filter((existingPlace) => existingPlace.id === place.id);
+        const check = this.places.filter((existingPlace) => existingPlace.unique_key === place.unique_key);
 
         if (check.length === 0) {
           uniquePlaces.push(place);
