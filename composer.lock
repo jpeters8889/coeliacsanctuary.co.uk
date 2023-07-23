@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e5f05f5e08868d6546a79a6a3c375470",
+    "content-hash": "4507bea91fd8b112e7ce500128228e95",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -842,7 +842,7 @@
         },
         {
             "name": "coeliac/address-lookup",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/address-lookup",
@@ -870,7 +870,7 @@
         },
         {
             "name": "coeliac/collection-items",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/collection-items",
@@ -898,7 +898,7 @@
         },
         {
             "name": "coeliac/comments",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/comments",
@@ -926,7 +926,7 @@
         },
         {
             "name": "coeliac/competition-entries",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/competition-entries",
@@ -954,7 +954,7 @@
         },
         {
             "name": "coeliac/dispatch-slips",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/pages/dispatch-slips",
@@ -982,7 +982,7 @@
         },
         {
             "name": "coeliac/image-manager",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/image-manager",
@@ -1010,7 +1010,7 @@
         },
         {
             "name": "coeliac/order-dispatch-slip",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/order-dispatch-slip",
@@ -1038,7 +1038,7 @@
         },
         {
             "name": "coeliac/order-info",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/order-info",
@@ -1066,7 +1066,7 @@
         },
         {
             "name": "coeliac/order-shipped",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/order-shipped",
@@ -1094,7 +1094,7 @@
         },
         {
             "name": "coeliac/place-recommendations-card",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/place-recommendations-card",
@@ -1122,7 +1122,7 @@
         },
         {
             "name": "coeliac/place-reports-card",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/place-reports-card",
@@ -1150,7 +1150,7 @@
         },
         {
             "name": "coeliac/place-request-card",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/place-request-card",
@@ -1178,7 +1178,7 @@
         },
         {
             "name": "coeliac/shop-daily-stock",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/shop-daily-stock",
@@ -1206,7 +1206,7 @@
         },
         {
             "name": "coeliac/shop-order-items",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/coeliac-shop-order-items",
@@ -1234,7 +1234,7 @@
         },
         {
             "name": "coeliac/shop-product-prices",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/shop-product-prices",
@@ -1262,7 +1262,7 @@
         },
         {
             "name": "coeliac/shop-product-sold-count",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/shop-product-sold-count",
@@ -1290,7 +1290,7 @@
         },
         {
             "name": "coeliac/shop-product-variants",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/shop-product-variants",
@@ -1318,7 +1318,7 @@
         },
         {
             "name": "coeliac/shop-review-products",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/shop-review-products",
@@ -1346,7 +1346,7 @@
         },
         {
             "name": "coeliac/shop-travel-card-search-terms",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/shop-travel-card-search-terms",
@@ -1374,7 +1374,7 @@
         },
         {
             "name": "coeliac/tag-manager",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/tag-manager",
@@ -1402,7 +1402,7 @@
         },
         {
             "name": "coeliac/wte-attractions",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/wte-attractions",
@@ -1458,7 +1458,7 @@
         },
         {
             "name": "coeliac/wte-opening-times",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/plans/wte-opening-times",
@@ -1486,7 +1486,7 @@
         },
         {
             "name": "coeliac/wte-ratings-card",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/wte-ratings-card",
@@ -1514,7 +1514,7 @@
         },
         {
             "name": "coeliac/wte-suggested-edits",
-            "version": "dev-master",
+            "version": "dev-feature/nationwide-branches",
             "dist": {
                 "type": "path",
                 "url": "./architect/cards/wte-suggested-edits",
@@ -3077,16 +3077,16 @@
         },
         {
             "name": "jpeters/architect",
-            "version": "0.9.5",
+            "version": "0.9.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jpeters8889/architect.git",
-                "reference": "354e9d9b905b2201368e4978da32cbcd7d2c05ee"
+                "reference": "722fe4f252fed837d261435c8587d03e887189d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jpeters8889/architect/zipball/354e9d9b905b2201368e4978da32cbcd7d2c05ee",
-                "reference": "354e9d9b905b2201368e4978da32cbcd7d2c05ee",
+                "url": "https://api.github.com/repos/jpeters8889/architect/zipball/722fe4f252fed837d261435c8587d03e887189d1",
+                "reference": "722fe4f252fed837d261435c8587d03e887189d1",
                 "shasum": ""
             },
             "require": {
@@ -3134,10 +3134,10 @@
             ],
             "description": "Architect",
             "support": {
-                "source": "https://github.com/jpeters8889/architect/tree/0.9.5",
+                "source": "https://github.com/jpeters8889/architect/tree/0.9.6",
                 "issues": "https://github.com/jpeters8889/architect/issues"
             },
-            "time": "2023-07-11T17:43:47+00:00"
+            "time": "2023-07-23T14:15:12+00:00"
         },
         {
             "name": "jpeters/laravel-page-view",
