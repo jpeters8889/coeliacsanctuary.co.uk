@@ -84,7 +84,7 @@ abstract class EateryProcessor
                     )
                     ->where('wheretoeat_nationwide_branches.live', true)
                     ->addSelect([
-                        !app()->runningUnitTests() ? DB::raw('if(wheretoeat_nationwide_branches.name, concat(wheretoeat_nationwide_branches.name, " ", wheretoeat.name), concat(wheretoeat.name, " ", wheretoeat_nationwide_branches.id)) as ordering') : 'wheretoeat_nationwide_branches.name',
+                        !app()->runningUnitTests() ? DB::raw('if(wheretoeat_nationwide_branches.name <> "", concat(wheretoeat_nationwide_branches.name, " ", wheretoeat.name), concat(wheretoeat.name, " ", wheretoeat_nationwide_branches.id)) as ordering') : 'wheretoeat_nationwide_branches.name',
                         'type_id',
                         'wheretoeat_nationwide_branches.id as branch_id',
                     ])
