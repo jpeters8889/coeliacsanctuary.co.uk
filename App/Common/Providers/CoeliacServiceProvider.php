@@ -13,6 +13,7 @@ use DirectoryIterator;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Notifications\Channels\MailChannel as IlluminateMailChannel;
 use Illuminate\Support\Collection;
+use Maatwebsite\Excel\ExcelServiceProvider;
 
 class CoeliacServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,7 @@ class CoeliacServiceProvider extends ServiceProvider
             $this->app->make(Repository::class)->set('filesystems.disks.images.root', storage_path('testing'));
         }
 
+        $this->app->register(ExcelServiceProvider::class);
         $this->app->register(EventServiceProvider::class);
         $this->app->register(NewsletterServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
