@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection as BaseCollection;
+use Illuminate\Support\Str;
 use RuntimeException;
 use Spatie\Geocoder\Geocoder;
 
@@ -51,18 +52,28 @@ class Repository extends AbstractRepository
             ];
         }
 
-        if (array_key_exists('term', $parameters)) {
-            $geocoder = Container::getInstance()
-                ->make(Geocoder::class)
-                ?->getCoordinatesForAddress($parameters['term']);
-
-            return [
-                'lat' => $geocoder['lat'],
-                'lng' => $geocoder['lng'],
-            ];
+        if (!array_key_exists('term', $parameters)) {
+            throw new RuntimeException('No search parameters');
         }
 
-        throw new RuntimeException('No search parameters');
+        $searchTerm = $parameters['term'];
+
+        $geocoder = Container::getInstance()
+            ->make(Geocoder::class)
+            ?->getCoordinatesForAddress($searchTerm);
+
+        if($geocoder['lat'] === 0 && $geocoder['lng'] === 0) {
+            if(!Str::contains($searchTerm, ', uk', true)) {
+                return $this->resolveLatLng(['term' => "{$searchTerm}, uk"]);
+            }
+
+            throw new RuntimeException('No search parameters');
+        }
+
+        return [
+            'lat' => $geocoder['lat'],
+            'lng' => $geocoder['lng'],
+        ];
     }
 
     /** @param class-string<WhereToEat> $model */
@@ -78,8 +89,10 @@ class Repository extends AbstractRepository
         if ($request->has('search')) {
             $parameters = json_decode($request->get('search'), true);
 
+            $latlng = $this->resolveLatLng((array)array_filter($parameters));
+
             $params = [ //@phpstan-ignore-line
-                'aroundLatLng' => implode(', ', $latlng = $this->resolveLatLng((array)array_filter($parameters))),
+                'aroundLatLng' => implode(', ', $latlng),
                 'aroundRadius' => (int)round(((int)$parameters['range']) * 1609.344),
                 'getRankingInfo' => true,
             ];
@@ -100,7 +113,7 @@ class Repository extends AbstractRepository
 
             $results = collect([...$eateryResults, ...$branchResults]);
 
-            $results = $results->reject(fn (WhereToEat $whereToEat) => $whereToEat->county_id === 1 && $whereToEat->branches_count === 0)
+            $results = $results->reject(fn(WhereToEat $whereToEat) => $whereToEat->county_id === 1 && $whereToEat->branches_count === 0)
                 ->each(function ($result) {
                     if (isset($result->scoutMetadata()['_rankingInfo']['geoDistance'])) {
                         $distance = round($result->scoutMetadata()['_rankingInfo']['geoDistance'] / 1609, 1);
