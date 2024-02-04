@@ -33,11 +33,11 @@
                 </p>
             @else
                 <page-competition uuid="{{ $competition->uuid }}"
-                    :facebook-like="{{ $competition->enable_facebook_like }}"
-                    :facebook-share="{{ $competition->enable_facebook_share }}"
-                    :twitter-follow="{{ $competition->enable_twitter_follow }}"
-                    :twitter-tweet="{{ $competition->enable_twitter_tweet }}"
-                    :shop-purchase="{{ $competition->enable_shop_purchase }}"
+                    :facebook-like="{{ $competition->enable_facebook_like ? 'true' : 'false' }}"
+                    :facebook-share="{{ $competition->enable_facebook_share ? 'true' : 'false' }}"
+                    :twitter-follow="{{ $competition->enable_twitter_follow ? 'true' : 'false' }}"
+                    :twitter-tweet="{{ $competition->enable_twitter_tweet ? 'true' : 'false' }}"
+                    :shop-purchase="{{ $competition->enable_shop_purchase ? 'true' : 'false' }}"
                 ></page-competition>
             @endif
         </div>
