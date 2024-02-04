@@ -74,6 +74,13 @@
                 <span>{{ twitterFollow }}</span>
               </div>
 
+              <div class="bg-white rounded-lg p-2 flex flex-col justify-center items-center">
+                <h2 class="text-lg text-blue-700 font-semibold">
+                  Facebook Pho Like
+                </h2>
+                <span>{{ facebookPhoLike }}</span>
+              </div>
+
               <div
                 v-if="shopPurchase"
                 class="bg-white rounded-lg p-2 flex flex-col justify-center items-center"
@@ -161,6 +168,7 @@ export default {
     facebookShare: null,
     twitterFollow: null,
     twitterTweet: null,
+    facebookPhoLike: null,
     shopPurchase: null,
 
     currentPage: 1,
@@ -197,6 +205,7 @@ export default {
           this.facebookShare = response.data.facebook_share;
           this.twitterFollow = response.data.twitter_follow;
           this.twitterTweet = response.data.twitter_tweet;
+          this.facebookPhoLike = response.data.facebook_pho_like;
           this.shopPurchase = response.data.shop_purchase;
           this.numberOfPages = response.data.entrants.last_page;
           this.entries = response.data.entrants.data;

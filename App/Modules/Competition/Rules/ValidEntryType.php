@@ -18,6 +18,10 @@ class ValidEntryType implements Rule
 
     public function passes($attribute, $value)
     {
+        if ($value === 'facebook_pho') {
+            return true;
+        }
+
         $map = [
           'facebook_like' => 'enable_facebook_like',
           'facebook_share' => 'enable_facebook_share',

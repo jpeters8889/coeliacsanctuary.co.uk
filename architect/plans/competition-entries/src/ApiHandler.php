@@ -32,6 +32,7 @@ class ApiHandler
             'facebook_share' => $competition->entries()->where('entry_type', 'facebook_share')->count(),
             'twitter_follow' => $competition->entries()->where('entry_type', 'twitter_follow')->count(),
             'twitter_tweet' => $competition->entries()->where('entry_type', 'twitter_tweet')->count(),
+            'facebook_pho_like' => $competition->entries()->where('entry_type', 'facebook_pho')->count(),
             'shop_purchase' => $competition->entries()->where('entry_type', 'shop_purchase')->count(),
             'entrants' => $competition->entries()->latest()->paginate(25, '*', 'page', $request->get('page', 1)),
         ];
