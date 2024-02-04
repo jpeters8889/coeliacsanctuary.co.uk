@@ -143,23 +143,23 @@ export default {
     },
     facebookLike: {
       required: true,
-      type: [Boolean, Number],
+      type: Boolean,
     },
     facebookShare: {
       required: true,
-      type: [Boolean, Number],
+      type: Boolean,
     },
     twitterFollow: {
       required: true,
-      type: [Boolean, Number],
+      type: Boolean,
     },
     twitterTweet: {
       required: true,
-      type: [Boolean, Number],
+      type: Boolean,
     },
     shopPurchase: {
       required: true,
-      type: [Boolean, Number],
+      type: Boolean,
     },
   },
 
@@ -194,7 +194,7 @@ export default {
         this.shopPurchase,
       ];
 
-      return checks.includes(1);
+      return checks.includes(true);
     },
   },
 
@@ -360,6 +360,18 @@ export default {
         });
       }
 
+      // special for pho
+      options.push({
+        id: 'facebook_pho',
+        label: 'Visit and like Pho\'s Facebook Page',
+        icon: ['fab', 'facebook-square'],
+        classes: ['text-grey-off-light hover:text-white bg-social-facebook-light hover:bg-social-facebook transition-all'],
+        click: () => {
+          window.open('https://www.facebook.com/PhoRestaurant');
+          this.addAdditionalEntry('facebook_pho');
+        },
+      });
+
       if (this.shopPurchase) {
         options.push({
           id: 'shop_purchase',
@@ -382,11 +394,12 @@ export default {
         { key: 'facebook_share', value: this.facebookShare },
         { key: 'twitter_tweet', value: this.twitterTweet },
         { key: 'twitter_follow', value: this.twitterFollow },
+        { key: 'facebook_pho', value: true },
         { key: 'shop_purchase', value: this.shopPurchase },
       ];
 
       return checks
-        .filter((item) => item.value === 1)
+        .filter((item) => item.value === true)
         .filter((item) => !this.additionalEntries.includes(item.key))
         .length;
     },

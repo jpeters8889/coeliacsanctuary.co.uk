@@ -50,7 +50,7 @@ class CompetitionAdditionalEntryRequest extends ApiFormRequest
             ],
             'type' => [
                 'required',
-                Rule::in(['facebook_like', 'facebook_share', 'twitter_follow', 'twitter_tweet', 'shop_purchase']),
+                Rule::in(['facebook_like', 'facebook_share', 'facebook_pho', 'twitter_follow', 'twitter_tweet', 'shop_purchase']),
                 new ValidEntryType($competition),
             ],
         ];
