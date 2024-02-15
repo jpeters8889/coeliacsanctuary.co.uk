@@ -109,7 +109,12 @@ class ShopDiscountTest extends TestCase
     {
         $this->createBasket();
 
-        $this->makeRequest(['code' => 'foo'])->assertStatus(422);
+        $this->create(ShopDiscountCode::class, [
+            'code' => 'foobar',
+            'min_spend' => 1000,
+        ]);
+
+        $this->makeRequest('foobar')->assertStatus(422);
     }
 
     /** @test */
