@@ -8,6 +8,7 @@ use Coeliac\Base\Requests\ApiFormRequest;
 use Coeliac\Modules\Shop\Models\ShopDiscountCode;
 use Coeliac\Modules\Shop\Rules\DiscountHasAvailableClaims;
 use Coeliac\Modules\Shop\Rules\DiscountIsActive;
+use Coeliac\Modules\Shop\Rules\DiscountQualifies;
 
 class ApplyDiscountRequest extends ApiFormRequest
 {
@@ -17,10 +18,11 @@ class ApplyDiscountRequest extends ApiFormRequest
             'code' => [
                 'bail',
                 'required',
-                'alpha_num',
+                'string',
                 'exists:shop_discount_codes,code',
                 new DiscountIsActive(),
                 new DiscountHasAvailableClaims(),
+                new DiscountQualifies(),
             ],
         ];
     }
