@@ -14,6 +14,7 @@ use Coeliac\Common\Controllers\SiteMapController;
 use Coeliac\Common\Controllers\TermsOfUseController;
 use Coeliac\Common\Controllers\WorkWithUsController;
 use Coeliac\Common\Controllers\WteImportController;
+use Coeliac\Common\Controllers\WteSearchController;
 use Illuminate\Routing\Router;
 use JPeters\Architect\Http\Middleware\Authenticate;
 use JPeters\Architect\Http\Middleware\CanAccessArchitect;
@@ -42,3 +43,7 @@ $router->get('sitemap.xml', [SiteMapController::class, 'get']);
 $router->get('wte-csv-import', [WteImportController::class, 'get'])->middleware([Authenticate::class, CanAccessArchitect::class]);
 $router->post('wte-csv-import/process', [WteImportController::class, 'process'])->middleware([Authenticate::class, CanAccessArchitect::class]);
 $router->post('wte-csv-import/process/add', [WteImportController::class, 'add'])->middleware([Authenticate::class, CanAccessArchitect::class]);
+
+$router->get('wte-csv-search', [WteSearchController::class, 'get'])->middleware([Authenticate::class, CanAccessArchitect::class]);
+$router->post('wte-csv-search/process', [WteSearchController::class, 'process'])->middleware([Authenticate::class, CanAccessArchitect::class]);
+$router->post('wte-csv-search/process/download', [WteSearchController::class, 'download'])->middleware([Authenticate::class, CanAccessArchitect::class]);
