@@ -6,9 +6,10 @@
     <ins
       class="adsbygoogle"
       style="display: block; width: 100%;"
+      :style="additionalStyles"
       data-ad-client="ca-pub-1063051842575021"
       :data-ad-slot="code"
-      data-ad-format="auto"
+      :data-ad-format="adFormat"
       data-full-width-responsive="true"
     />
   </div>
@@ -21,6 +22,14 @@ export default {
       type: String,
       required: true,
     },
+    adFormat: {
+      type: String,
+      default: 'auto',
+    },
+    additionalStyles: {
+      type: String,
+      default: '',
+    }
   },
 
   computed: {

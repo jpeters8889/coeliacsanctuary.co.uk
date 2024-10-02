@@ -6,7 +6,13 @@
             <global-layout-footer-newsletter></global-layout-footer-newsletter>
         </div>
 
-        <global-ui-google-ad code="3102132022"></global-ui-google-ad>
+        @unless(\Illuminate\Support\Facades\Route::is('shop.basket'))
+            <global-ui-google-ad
+                    code="3102132022"
+                    ad-format="horizontal"
+                    additional-styles="max-height:400px;"
+            ></global-ui-google-ad>
+        @endunless
 
         <div class="mt-6 flex flex-col justify-center items-center sm:flex-row sm:items-start lg:mt-10">
             <div class="flex flex-col sm:w-1/2 sm:mr-3 lg:w-3/5">

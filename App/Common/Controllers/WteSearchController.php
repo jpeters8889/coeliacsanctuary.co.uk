@@ -48,7 +48,7 @@ class WteSearchController extends BaseController
         $this->validate($request, ['collection' => 'required', 'json']);
 
         $items = collect(json_decode($request->input('collection'), true))->map(fn(array $item) => [
-            'Place Name' => Arr::get($item, 'name'),
+            'Chip Shop' => Arr::get($item, 'name'),
             'Town' => Arr::get($item, 'town.name'),
             'County' => Arr::get($item, 'county.name'),
             'Country' => Arr::get($item, 'country.name'),
