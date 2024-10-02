@@ -20,7 +20,7 @@ $router->get('gluten-free-travel-translation-cards', TravelCardsLandingPageContr
 
 $router->group(['prefix' => 'shop'], static function () use ($router) {
     $router->get('/', [CategoryController::class, 'index']);
-    $router->get('basket', [BasketController::class, 'show']);
+    $router->get('basket', [BasketController::class, 'show'])->name('shop.basket');
 
     $router->group(['middleware' => 'shopOrderComplete'], static function () use ($router) {
         $router->get('/basket/done', [BasketDoneController::class, 'show']);
